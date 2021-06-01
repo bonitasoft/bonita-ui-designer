@@ -15,9 +15,6 @@
 
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
-
 import java.time.LocalDate;
 import java.util.Collections;
 
@@ -29,6 +26,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 
 public class ParametrizedDataManagementWidgetFactoryTest implements ParameterConstants {
     @Rule

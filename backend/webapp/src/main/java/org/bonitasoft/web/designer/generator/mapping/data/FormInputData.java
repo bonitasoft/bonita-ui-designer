@@ -14,34 +14,35 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import java.io.IOException;
-
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.PageData;
+
+import java.io.IOException;
 
 import static org.bonitasoft.web.designer.model.data.DataType.JSON;
 
 public class FormInputData implements PageData {
 
-    public static final String NAME = "formInput";
+    public static final String INPUT_NAME = "formInput";
 
-    private JacksonObjectMapper mapper;
-    private Contract contract;
+    private final JsonHandler jsonHandler;
+    private final Contract contract;
 
-    public FormInputData(JacksonObjectMapper mapper, Contract contract) {
-        this.mapper = mapper;
+    public FormInputData(JsonHandler jsonHandler, Contract contract) {
+        this.jsonHandler = jsonHandler;
         this.contract = contract;
     }
 
     @Override
     public String name() {
-        return NAME;
+        return INPUT_NAME;
     }
 
     @Override
     public Data create() {
-        FormInputVisitor formInputVisitor = new FormInputVisitor(mapper);
+        var formInputVisitor = new FormInputVisitor(jsonHandler);
         contract.accept(formInputVisitor);
         try {
             return new Data(JSON, formInputVisitor.toJson());

@@ -15,20 +15,21 @@
 package org.bonitasoft.web.designer.generator.mapping.data;
 
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.PageData;
 
 import static java.lang.String.format;
 import static org.bonitasoft.web.designer.model.data.DataType.URL;
 
 public class BusinessDataLazyRef implements PageData {
 
-    private String relationName;
-    private String name;
-    private String path;
+    private final String relationName;
+    private final String name;
+    private final String path;
 
-    public BusinessDataLazyRef(String name,String path, String relationName) {
+    public BusinessDataLazyRef(String name, String path, String relationName) {
         this.relationName = relationName;
         this.name = name;
-        this.path = path ;
+        this.path = path;
     }
 
     @Override
@@ -38,6 +39,6 @@ public class BusinessDataLazyRef implements PageData {
 
     @Override
     public Data create() {
-        return new Data(URL, format("{{%s|lazyRef:'%s'}}", path,relationName));
+        return new Data(URL, format("{{%s|lazyRef:'%s'}}", path, relationName));
     }
 }

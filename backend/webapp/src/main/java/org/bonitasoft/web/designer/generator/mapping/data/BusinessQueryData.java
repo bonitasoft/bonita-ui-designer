@@ -14,10 +14,11 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import java.util.Objects;
-
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.PageData;
+
+import java.util.Objects;
 
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.substringAfterLast;
@@ -27,7 +28,7 @@ import static org.bonitasoft.web.designer.model.data.DataType.URL;
 
 public class BusinessQueryData implements PageData {
 
-    private BusinessDataReference businessDataReference;
+    private final BusinessDataReference businessDataReference;
 
     public BusinessQueryData(BusinessDataReference businessDataReference) {
         this.businessDataReference = businessDataReference;
@@ -54,6 +55,6 @@ public class BusinessQueryData implements PageData {
         if (getClass() != obj.getClass())
             return false;
         BusinessQueryData other = (BusinessQueryData) obj;
-        return Objects.equals(name(),other.name());
+        return Objects.equals(name(), other.name());
     }
 }

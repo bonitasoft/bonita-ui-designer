@@ -21,6 +21,7 @@
     </properties>
 
     <modules>
+        <module>artifact-builder</module>
         <module>contract</module>
         <module>webapp</module>
         <module>migrationReport</module>
@@ -125,8 +126,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-
 
         </dependencies>
     </dependencyManagement>

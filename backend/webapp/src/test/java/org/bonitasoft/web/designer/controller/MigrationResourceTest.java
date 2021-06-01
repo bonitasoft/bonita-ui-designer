@@ -14,21 +14,15 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
-import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.net.URISyntaxException;
 import java.util.Collections;
 
+import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
@@ -37,8 +31,8 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.service.DefaultWidgetService;
 import org.bonitasoft.web.designer.service.PageService;
-import org.bonitasoft.web.designer.service.WidgetService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,13 +40,27 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(MockitoJUnitRunner.class)
 public class MigrationResourceTest {
+
+    private JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
     private MockMvc mockMvc;
 
@@ -69,7 +77,7 @@ public class MigrationResourceTest {
     private UiDesignerProperties uiDesignerProperties;
 
     @Mock
-    private WidgetService widgetService;
+    private DefaultWidgetService widgetService;
 
     @InjectMocks
     private MigrationResource MigrationResource;
@@ -83,7 +91,7 @@ public class MigrationResourceTest {
     @Test
     public void should_return_artifact_status_when_migration_required() throws Exception {
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.10.0").withPreviousDesignerVersion("1.9.0").build();
-        Widget widget = WidgetBuilder.aWidget().id("myWidget").designerVersion("1.10.0").previousDesignerVersion("1.9.0").build();
+        Widget widget = WidgetBuilder.aWidget().withId("myWidget").designerVersion("1.10.0").previousDesignerVersion("1.9.0").build();
 
         // with json
         ResultActions result = postStatusRequest(page);
@@ -103,7 +111,7 @@ public class MigrationResourceTest {
         result = getStatusRequestById("page", "myPage");
         Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
 
-        Widget widget2 = aWidget().id("myWidget").name("myWidget").designerVersion("1.10.0").build();
+        Widget widget2 = aWidget().withId("myWidget").withName("myWidget").designerVersion("1.10.0").build();
         when(widgetRepository.get("myWidget"))
                 .thenReturn(widget2);
         when(widgetService.getStatus(widget2)).thenReturn(new MigrationStatusReport(true, true));
@@ -114,7 +122,7 @@ public class MigrationResourceTest {
     @Test
     public void should_return_artifact_status_when_no_migration_required() throws Exception {
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
-        Widget widget = WidgetBuilder.aWidget().id("myWidget").modelVersion("2.0").build();
+        Widget widget = WidgetBuilder.aWidget().withId("myWidget").modelVersion("2.0").build();
 
         // with json
         ResultActions result = postStatusRequest(page);
@@ -131,7 +139,7 @@ public class MigrationResourceTest {
         result = getStatusRequestById("page", "myPage");
         Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
 
-        Widget widget2 = aWidget().id("myWidget").name("myWidget").isMigration(false).designerVersion("2.0").build();
+        Widget widget2 = aWidget().withId("myWidget").withName("myWidget").isMigration(false).designerVersion("2.0").build();
         when(widgetRepository.get("myWidget")).thenReturn(widget2);
         when(widgetService.getStatus(widget2)).thenReturn(new MigrationStatusReport(true, false));
         result = getStatusRequestById("widget", "myWidget");
@@ -141,7 +149,7 @@ public class MigrationResourceTest {
     @Test
     public void should_return_artifact_status_when_not_compatible_required() throws Exception {
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.1").build();
-        Widget widget = WidgetBuilder.aWidget().id("myWidget").modelVersion("2.1").build();
+        Widget widget = WidgetBuilder.aWidget().withId("myWidget").modelVersion("2.1").build();
 
         // with json
         ResultActions result = postStatusRequest(page);
@@ -160,7 +168,7 @@ public class MigrationResourceTest {
         Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
 
         when(widgetRepository.get("myWidget"))
-                .thenReturn(aWidget().id("myWidget").name("myWidget").isCompatible(false).isMigration(false).designerVersion("2.1").build());
+                .thenReturn(aWidget().withId("myWidget").withName("myWidget").isCompatible(false).isMigration(false).designerVersion("2.1").build());
         when(widgetRepository.get("myWidget")).thenReturn(widget);
         when(widgetService.getStatus(widget)).thenReturn(new MigrationStatusReport(false, false));
         result = getStatusRequestById("widget", "myWidget");
@@ -220,7 +228,7 @@ public class MigrationResourceTest {
         return mockMvc
                 .perform(post("/rest/migration/status")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(convertObjectToJsonBytes(artifact)))
+                        .content(jsonHandler.toJson(artifact)))
                 .andExpect(status().isOk());
     }
 
@@ -303,7 +311,7 @@ public class MigrationResourceTest {
 
     @Test
     public void should_return_200_when_widget_migration_is_done_on_success() throws Exception {
-        Widget widget = aWidget().id("my-widget").custom().build();
+        Widget widget = aWidget().withId("my-widget").custom().build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
         when(widgetService.migrateWithReport(widget)).thenReturn(new MigrationResult<>(widget,
                 Collections.singletonList(new MigrationStepReport(MigrationStatus.SUCCESS, "my-widget"))));
@@ -318,7 +326,7 @@ public class MigrationResourceTest {
 
     @Test
     public void should_return_200_when_widget_migration_is_finish_with_warning() throws Exception {
-        Widget widget = aWidget().id("my-widget").custom().build();
+        Widget widget = aWidget().withId("my-widget").custom().build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
         when(widgetService.migrateWithReport(widget)).thenReturn(new MigrationResult<>(widget,
                 Collections.singletonList(new MigrationStepReport(MigrationStatus.WARNING, "my-widget"))));
@@ -333,7 +341,7 @@ public class MigrationResourceTest {
 
     @Test
     public void should_return_500_when_an_error_occurs_during_widget_migration() throws Exception {
-        Widget widget = aWidget().id("my-widget").custom().build();
+        Widget widget = aWidget().withId("my-widget").custom().build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
         when(widgetService.migrateWithReport(widget)).thenReturn(new MigrationResult<>(widget,
                 Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-widget"))));
@@ -399,7 +407,7 @@ public class MigrationResourceTest {
 
     @Test
     public void should_not_process_migration_and_return_none_status_when_widget_version_is_incompatible() throws Exception {
-        Widget widget = aWidget().id("my-widget").modelVersion("3.0").custom().isCompatible(false).build();
+        Widget widget = aWidget().withId("my-widget").modelVersion("3.0").custom().isCompatible(false).build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
         when(widgetService.getStatus(widget)).thenReturn(new MigrationStatusReport(false, true));
 
@@ -414,7 +422,7 @@ public class MigrationResourceTest {
 
     @Test
         public void should_not_process_migration_and_return_none_status_when_widget_not_needed_migration() throws Exception {
-            Widget widget = aWidget().id("my-widget").modelVersion("2.0").custom().isMigration(false).build();
+            Widget widget = aWidget().withId("my-widget").modelVersion("2.0").custom().isMigration(false).build();
             when(widgetRepository.get("my-widget")).thenReturn(widget);
             when(widgetService.getStatus(widget)).thenReturn(new MigrationStatusReport(true, false));
 

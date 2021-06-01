@@ -25,14 +25,10 @@ public enum ButtonAction {
     ADD_TO_COLLECTION("Add to collection"),
     REMOVE_FROM_COLLECTION("Remove from collection");
 
-    private String value;
+    private final String value;
 
     ButtonAction(String value) {
         this.value = value;
-    }
-
-    public String getValue() {
-        return value;
     }
 
     public static ButtonAction fromScope(FormScope scope) {
@@ -44,5 +40,9 @@ public enum ButtonAction {
             default:
                 throw new IllegalArgumentException("Unsupported form scope: " + scope);
         }
+    }
+
+    public String getValue() {
+        return value;
     }
 }

@@ -14,24 +14,21 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.bonitasoft.web.designer.model.ElementContainer;
-import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
+
+import java.util.Collections;
 
 import static org.bonitasoft.web.designer.generator.mapping.dataManagement.WidgetDescription.BUSINESS_OBJECT_CONTAINER;
 
 public class BusinessObjectVisitorImpl implements ContractInputVisitor {
 
-    private ElementContainer container;
+    private final ElementContainer container;
 
-    private BusinessDataToWidgetMapper businessDataToWidgetMapper;
+    private final BusinessDataToWidgetMapper businessDataToWidgetMapper;
 
     public BusinessObjectVisitorImpl(ElementContainer container,
                                      BusinessDataToWidgetMapper businessDataToWidgetMapper) {
@@ -41,31 +38,29 @@ public class BusinessObjectVisitorImpl implements ContractInputVisitor {
 
     @Override
     public void visit(NodeContractInput contractInput) {
-        NodeBusinessObjectInput node = (NodeBusinessObjectInput) contractInput;
+        var node = (NodeBusinessObjectInput) contractInput;
 
         // In some case, node don't have children: for example, if node has exceeded limit relation
         // So we dont want get empty container
-        if(!node.hasChildren()){
-          return;
+        if (!node.hasChildren()) {
+            return;
         }
 
-        Container c = new Container();
-        String description = node.getParent() == null ?  node.getPageDataName(): node.getPageDataNameSelected().concat(".").concat(node.getBusinessObjectAttributeName());
+        var c = new Container();
+        var description = node.getParent() == null ? node.getPageDataName() : node.getPageDataNameSelected().concat(".").concat(node.getBusinessObjectAttributeName());
         c.setDescription(BUSINESS_OBJECT_CONTAINER.displayValue(node.getName(), description));
         container.getRows().add(Collections.singletonList(c));
 
-        Container newContainer = businessDataToWidgetMapper.generateMasterDetailsPattern(node, c.getRows());
+        var newContainer = businessDataToWidgetMapper.generateMasterDetailsPattern(node, c.getRows());
+        var containerContractInputVisitor = new BusinessObjectVisitorImpl(newContainer, businessDataToWidgetMapper);
 
-        BusinessObjectVisitorImpl containerContractInputVisitor = new BusinessObjectVisitorImpl(newContainer,
-                businessDataToWidgetMapper);
-
-        for (ContractInput childInput : node.getInput()) {
+        for (var childInput : node.getInput()) {
             childInput.accept(containerContractInputVisitor);
         }
     }
 
     public void visit(LeafContractInput contractInput) {
-        List<Element> element = businessDataToWidgetMapper.toElement(contractInput);
+        var element = businessDataToWidgetMapper.toElement(contractInput);
         container.getRows().add(element);
     }
 }

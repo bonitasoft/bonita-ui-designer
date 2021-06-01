@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import static org.mockito.Mockito.*;
-
 import java.net.URI;
 
 import org.junit.Before;
@@ -23,9 +21,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class StudioHealthCheckTest {

@@ -14,10 +14,9 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
+import javax.inject.Named;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.inject.Named;
 
 @Named
 public class DimensionFactory {

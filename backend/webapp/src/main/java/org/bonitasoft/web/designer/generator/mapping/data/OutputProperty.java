@@ -21,7 +21,7 @@ import static org.bonitasoft.web.designer.generator.mapping.data.StringUtil.inde
 
 public class OutputProperty {
 
-    private ContractInputDataHandler dataHandler;
+    private final ContractInputDataHandler dataHandler;
 
     public OutputProperty(ContractInputDataHandler dataHandler) {
         this.dataHandler = dataHandler;
@@ -63,32 +63,32 @@ public class OutputProperty {
     }
 
     private String mapDataToContractExpression(ContractInputDataHandler handler) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(String.format("\t//map %s variable to expected task contract input\n", handler.getRefName()));
-        sb.append(String.format("\t%s: ", handler.getInputName()));
+        var sb = new StringBuilder();
+        sb.append(format("\t//map %s variable to expected task contract input\n", handler.getRefName()));
+        sb.append(format("\t%s: ", handler.getInputName()));
         mapDataToContract(handler, sb, 2);
         return sb.toString();
     }
 
-    private void mapDataToContract(ContractInputDataHandler handler, StringBuffer sb, int indentSize) {
+    private void mapDataToContract(ContractInputDataHandler handler, StringBuilder sb, int indentSize) {
         if (handler.isMultiple()) {
-            sb.append(String.format("%s.map( %s => ({\n", handler.getDataPath(),ContractInputDataHandler.ITERATOR_NAME));
-            for (int i = 0; i < handler.getNonReadOnlyChildren().size(); i++) {
+            sb.append(format("%s.map( %s => ({\n", handler.getDataPath(), ContractInputDataHandler.ITERATOR_NAME));
+            for (var i = 0; i < handler.getNonReadOnlyChildren().size(); i++) {
                 sb.append(indent(dataToContractInput(handler.getNonReadOnlyChildren().get(i)), indentSize));
                 if (i != handler.getNonReadOnlyChildren().size() - 1) {
                     sb.append(",");
                 }
                 sb.append("\n");
             }
-            sb.append(indent("}))",indentSize - 1));
+            sb.append(indent("}))", indentSize - 1));
         } else {
             toSimpleObjectMapping(handler, sb, indentSize);
         }
     }
 
-    private void toSimpleObjectMapping(ContractInputDataHandler handler, StringBuffer sb, int indentSize) {
+    private void toSimpleObjectMapping(ContractInputDataHandler handler, StringBuilder sb, int indentSize) {
         sb.append("{\n");
-        for (int i = 0; i < handler.getNonReadOnlyChildren().size(); i++) {
+        for (var i = 0; i < handler.getNonReadOnlyChildren().size(); i++) {
             sb.append(indent(dataToContractInput(handler.getNonReadOnlyChildren().get(i)), indentSize));
             if (i != handler.getNonReadOnlyChildren().size() - 1) {
                 sb.append(",");
@@ -100,15 +100,15 @@ public class OutputProperty {
 
     private String dataToContractInput(ContractInputDataHandler dataHandler) {
         if (!dataHandler.hasDataReference()) {
-            return String.format("%s: %s !== undefined ? %s : null", dataHandler.getInputName(), dataHandler.getDataPath(), dataHandler.getDataPath());
+            return format("%s: %s !== undefined ? %s : null", dataHandler.getInputName(), dataHandler.getDataPath(), dataHandler.getDataPath());
         }
-        StringBuffer sb = new StringBuffer();
+        var sb = new StringBuilder();
         if (dataHandler.isMultiple()) {
-            sb.append(String.format("%s: %s.map( %s => (", dataHandler.getInputName(), dataHandler.getDataPath(), ContractInputDataHandler.ITERATOR_NAME));
+            sb.append(format("%s: %s.map( %s => (", dataHandler.getInputName(), dataHandler.getDataPath(), ContractInputDataHandler.ITERATOR_NAME));
             toSimpleObjectMapping(dataHandler, sb, 1);
             sb.append("))");
         } else {
-            sb.append(String.format("%s: %s ? ", dataHandler.getInputName(), dataHandler.getDataPath()));
+            sb.append(format("%s: %s ? ", dataHandler.getInputName(), dataHandler.getDataPath()));
             mapDataToContract(dataHandler, sb, 1);
             sb.append(" : null");
         }
@@ -116,8 +116,8 @@ public class OutputProperty {
     }
 
     private String mapToFileInputValues(ContractInputDataHandler handler) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(String.format("\t%s: $data.context.%s_ref.map( doc => ({\n", handler.getInputName(),
+        var sb = new StringBuilder();
+        sb.append(format("\t%s: $data.context.%s_ref.map( doc => ({\n", handler.getInputName(),
                 handler.getRefName()));
         sb.append("\t\tid : doc.id ? doc.id.toString() : null,\n");
         sb.append("\t\tfilename : doc.newValue && doc.newValue.filename ? doc.newValue.filename : null,\n");
@@ -128,20 +128,16 @@ public class OutputProperty {
     }
 
     private String mapToFileInputValue(ContractInputDataHandler handler) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(String.format("\t%s: {\n", handler.getInputName()));
-        sb.append(
-                "\t\tid: $data.context.%s_ref && $data.context.%s_ref.id ? $data.context.%s_ref.id.toString() : null,\n"
-                        .replaceAll("%s", handler.getRefName()));
-        sb.append(
-                "\t\tfilename: $data.context.%s_ref.newValue && $data.context.%s_ref.newValue.filename ? $data.context.%s_ref.newValue.filename : null,\n"
-                        .replaceAll("%s", handler.getRefName()));
-        sb.append(
-                "\t\ttempPath: $data.context.%s_ref.newValue && $data.context.%s_ref.newValue.tempPath ? $data.context.%s_ref.newValue.tempPath : null,\n"
-                        .replaceAll("%s", handler.getRefName()));
-        sb.append(
-                "\t\tcontentType: $data.context.%s_ref.newValue && $data.context.%s_ref.newValue.contentType ? $data.context.%s_ref.newValue.contentType : null\n"
-                        .replaceAll("%s", handler.getRefName()));
+        var sb = new StringBuilder();
+        sb.append(format("\t%s: {\n", handler.getInputName()));
+        sb.append(format("\t\tid: $data.context.%s_ref && $data.context.%s_ref.id ? $data.context.%s_ref.id.toString() : null,\n"
+                , handler.getRefName(), handler.getRefName(), handler.getRefName()));
+        sb.append(format("\t\tfilename: $data.context.%s_ref.newValue && $data.context.%s_ref.newValue.filename ? $data.context.%s_ref.newValue.filename : null,\n"
+                , handler.getRefName(), handler.getRefName(), handler.getRefName()));
+        sb.append(format("\t\ttempPath: $data.context.%s_ref.newValue && $data.context.%s_ref.newValue.tempPath ? $data.context.%s_ref.newValue.tempPath : null,\n"
+                , handler.getRefName(), handler.getRefName(), handler.getRefName()));
+        sb.append(format("\t\tcontentType: $data.context.%s_ref.newValue && $data.context.%s_ref.newValue.contentType ? $data.context.%s_ref.newValue.contentType : null\n"
+                , handler.getRefName(), handler.getRefName(), handler.getRefName()));
         sb.append("\t}");
         return sb.toString();
     }

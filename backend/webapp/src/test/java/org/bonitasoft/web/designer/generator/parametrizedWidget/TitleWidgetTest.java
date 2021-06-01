@@ -14,11 +14,11 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType.INTERPOLATION;
-
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.model.ParameterType.INTERPOLATION;
 
 public class TitleWidgetTest {
 

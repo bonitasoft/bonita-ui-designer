@@ -89,8 +89,8 @@ unzip $BUILD_DIR/all.zip -d $BUILD_DIR
 
 git checkout -B feat/$BRANCH_NAME/update-translations
 
-cp $BUILD_DIR/$BRANCH_NAME/ui-designer/community/*.po $BASE_DIR/backend/webapp/src/main/resources/i18n
-remove_comments $BASE_DIR/backend/webapp/src/main/resources/i18n
+cp $BUILD_DIR/$BRANCH_NAME/ui-designer/community/*.po $BASE_DIR/backend/artifact-builder/src/main/resources/i18n
+remove_comments $BASE_DIR/backend/artifact-builder/src/main/resources/i18n
 
 # Count modified lines except those containing "PO-Revision-Date"
 # When only "PO-Revision-Date" has been changed in each files, we do not create PR since no translations has been updated

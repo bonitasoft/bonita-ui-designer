@@ -15,21 +15,22 @@
 package org.bonitasoft.web.designer.generator.mapping.data;
 
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.PageData;
 
 import static java.lang.String.format;
 import static org.bonitasoft.web.designer.model.data.DataType.URL;
 
 public class TaskData implements PageData {
 
-    public static final String NAME = "task";
+    public static final String DATA_NAME = "task";
 
     @Override
     public String name() {
-        return NAME;
+        return DATA_NAME;
     }
 
     @Override
     public Data create() {
-        return new Data(URL, format("../API/bpm/userTask/{{%s}}", TaskIdData.NAME));
+        return new Data(URL, format("../API/bpm/userTask/{{%s}}", TaskIdData.DATA_NAME));
     }
 }

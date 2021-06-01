@@ -24,6 +24,8 @@ frontend/ui-designer-frontend-yarn-dependencies.json
 frontend/ui-designer-frontend-dependencies.json
 tests/build/
 
+*-dependencies.json
+
 tests/build/
 tests/node/
 *.swp

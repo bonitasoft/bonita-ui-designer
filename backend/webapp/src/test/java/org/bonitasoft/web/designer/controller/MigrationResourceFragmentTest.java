@@ -14,18 +14,13 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
-import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.util.Collections;
 
+import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.FragmentBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
@@ -40,13 +35,27 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(MockitoJUnitRunner.class)
 public class MigrationResourceFragmentTest {
+
+    private JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
     private MockMvc mockMvc;
 
@@ -70,7 +79,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_200_when_fragment_migration_is_done_on_success() throws Exception {
-        Fragment fragment = FragmentBuilder.aFragment().id("my-fragment").withName("my-fragment").build();
+        Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withName("my-fragment").build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
         when(fragmentService.migrateWithReport(fragment)).thenReturn(new MigrationResult<>(fragment, Collections.singletonList(new MigrationStepReport(MigrationStatus.SUCCESS, "my-fragment"))));
 
@@ -84,7 +93,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_200_when_fragment_migration_is_finished_with_warning() throws Exception {
-        Fragment fragment = FragmentBuilder.aFragment().id("my-fragment").withName("my-fragment").build();
+        Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withName("my-fragment").build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
         when(fragmentService.migrateWithReport(fragment)).thenReturn(new MigrationResult<>(fragment, Collections.singletonList(new MigrationStepReport(MigrationStatus.WARNING, "my-fragment"))));
 
@@ -98,7 +107,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_500_when_an_error_occurs_during_fragment_migration() throws Exception {
-        Fragment fragment = FragmentBuilder.aFragment().id("my-fragment").withName("my-fragment").build();
+        Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withName("my-fragment").build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
         when(fragmentService.migrateWithReport(fragment)).thenReturn(new MigrationResult<>(fragment, Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-fragment"))));
 
@@ -122,7 +131,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_not_process_migration_and_return_none_status_when_fragment_version_is_incompatible() throws Exception {
-        Fragment fragment = FragmentBuilder.aFragment().id("my-fragment").withModelVersion("3.0").withName("my-fragment").withMigrationStatusReport(new MigrationStatusReport(false, true)).build();
+        Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withModelVersion("3.0").withName("my-fragment").withMigrationStatusReport(new MigrationStatusReport(false, true)).build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
         when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(false, false));
 
@@ -136,7 +145,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_not_process_migration_and_return_none_status_when_fragment_not_needed_migration() throws Exception {
-        Fragment fragment = FragmentBuilder.aFragment().id("my-fragment").withModelVersion("2.0").withName("my-fragment").isMigration(false).build();
+        Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withModelVersion("2.0").withName("my-fragment").isMigration(false).build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
         lenient().when(fragmentService.migrateWithReport(fragment)).thenReturn(new MigrationResult<>(fragment, Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-fragment"))));
         when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(true, false));
@@ -152,7 +161,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_artifact_status_when_migration_required() throws Exception {
-        Fragment fragment = aFragment().id("myFragment").withDesignerVersion("1.10.0").withPreviousDesignerVersion("1.9.0").withMigrationStatusReport(new MigrationStatusReport(true, true)).build();
+        Fragment fragment = aFragment().withId("myFragment").withDesignerVersion("1.10.0").withPreviousDesignerVersion("1.9.0").withMigrationStatusReport(new MigrationStatusReport(true, true)).build();
 
         // with json
         mockMvc = mockServer(migrationResource).build();
@@ -161,7 +170,7 @@ public class MigrationResourceFragmentTest {
 
         // by id
         mockMvc = mockServer(migrationResource).build();
-        Fragment fragment2 = aFragment().id("myFragment").withName("myFragment").withDesignerVersion("1.10.0").build();
+        Fragment fragment2 = aFragment().withId("myFragment").withName("myFragment").withDesignerVersion("1.10.0").build();
         when(fragmentRepository.get("myFragment"))
                 .thenReturn(fragment2);
         when(fragmentService.getStatus(fragment2)).thenReturn(new MigrationStatusReport(true, true));
@@ -171,7 +180,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_artifact_status_when_no_migration_required() throws Exception {
-        Fragment fragment = aFragment().id("myFragment").withModelVersion("2.0").withMigrationStatusReport(new MigrationStatusReport(true, false)).build();
+        Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.0").withMigrationStatusReport(new MigrationStatusReport(true, false)).build();
 
         // with json
         mockMvc = mockServer(migrationResource).build();
@@ -180,7 +189,7 @@ public class MigrationResourceFragmentTest {
 
         // by id
         mockMvc = mockServer(migrationResource).build();
-        Fragment fragment2 = aFragment().id("myFragment").withName("myFragment").withDesignerVersion("2.0").withMigrationStatusReport(new MigrationStatusReport(true, false)).build();
+        Fragment fragment2 = aFragment().withId("myFragment").withName("myFragment").withDesignerVersion("2.0").withMigrationStatusReport(new MigrationStatusReport(true, false)).build();
         when(fragmentRepository.get("myFragment"))
                 .thenReturn(fragment2);
         when(fragmentService.getStatus(fragment2)).thenReturn(new MigrationStatusReport(true, false));
@@ -190,7 +199,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_artifact_status_when_not_compatible_required() throws Exception {
-        Fragment fragment = aFragment().id("myFragment").withModelVersion("2.1").isMigration(false).isCompatible(false).build();
+        Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.1").isMigration(false).isCompatible(false).build();
 
         // with json
         mockMvc = mockServer(migrationResource).build();
@@ -199,7 +208,7 @@ public class MigrationResourceFragmentTest {
 
         // by id
         mockMvc = mockServer(migrationResource).build();
-        Fragment fragment2 = aFragment().id("myFragment").withName("myFragment").withDesignerVersion("2.1").isMigration(false).isCompatible(false).build();
+        Fragment fragment2 = aFragment().withId("myFragment").withName("myFragment").withDesignerVersion("2.1").isMigration(false).isCompatible(false).build();
         when(fragmentRepository.get("myFragment"))
                 .thenReturn(fragment2);
         when(fragmentService.getStatus(fragment2)).thenReturn(new MigrationStatusReport(false, false));
@@ -209,7 +218,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_correct_migration_status_when_embedded_artifact_to_migrate() throws Exception {
-        Fragment fragment = aFragment().id("myFragment").withModelVersion("2.0").build();
+        Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.0").build();
         when(fragmentRepository.get("myFragment")).thenReturn(fragment);
         // Get dependencies status
         when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(true, true));
@@ -220,7 +229,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_correct_migration_status_when_embedded_artifact_not_compatible() throws Exception {
-        Fragment fragment = aFragment().id("myFragment").withModelVersion("2.0").build();
+        Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.0").build();
         when(fragmentRepository.get("myFragment")).thenReturn(fragment);
         // Get dependencies status
         when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(false, false));
@@ -231,7 +240,7 @@ public class MigrationResourceFragmentTest {
 
     @Test
     public void should_return_correct_migration_status_when_embedded_artifact_not_to_migrate() throws Exception {
-        Fragment fragment = aFragment().id("myFragment").withModelVersion("2.0").build();
+        Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.0").build();
         when(fragmentRepository.get("myFragment")).thenReturn(fragment);
         // Get dependencies status
         when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(true, false));
@@ -252,7 +261,7 @@ public class MigrationResourceFragmentTest {
         return mockMvc
                 .perform(post("/rest/migration/status")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(convertObjectToJsonBytes(artifact)))
+                        .content(jsonHandler.toJson(artifact)))
                 .andExpect(status().isOk());
     }
 

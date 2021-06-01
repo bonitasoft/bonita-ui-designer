@@ -14,14 +14,15 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.data.DataType;
+import org.bonitasoft.web.designer.model.page.PageData;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BusinessQueryDataTest {
 

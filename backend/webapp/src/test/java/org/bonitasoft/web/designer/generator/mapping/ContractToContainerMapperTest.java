@@ -14,14 +14,10 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithDataRefAndAggregation;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContractWithDataRef;
-
 import java.util.List;
 
-import org.bonitasoft.web.designer.config.DesignerConfig;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.JsonHandlerFactory;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
@@ -29,9 +25,13 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithDataRefAndAggregation;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContractWithDataRef;
+
 public class ContractToContainerMapperTest {
 
-    private JacksonObjectMapper objectMapper = new DesignerConfig().objectMapperWrapper();
+    private JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
     @Test
     public void should_set_value_relative_to_business_data_in_edit_mode() throws Exception {
@@ -117,6 +117,6 @@ public class ContractToContainerMapperTest {
     }
 
     private ContractToContainerMapper makeContractToContainerMapper() {
-        return new ContractToContainerMapper(new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper));
+        return new ContractToContainerMapper(new ContractInputToWidgetMapper(new DimensionFactory(), jsonHandler));
     }
 }

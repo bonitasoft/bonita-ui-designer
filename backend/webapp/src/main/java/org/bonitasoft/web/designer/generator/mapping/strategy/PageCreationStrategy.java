@@ -19,5 +19,5 @@ import org.bonitasoft.web.designer.model.page.Page;
 
 public interface PageCreationStrategy {
 
-    public Page create(String name, Contract contract);
+    Page create(String name, Contract contract);
 }

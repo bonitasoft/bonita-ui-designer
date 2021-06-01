@@ -14,20 +14,22 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
-import java.util.List;
-import java.util.Objects;
-
 import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 
-import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.reverse;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+
+import static java.lang.String.join;
+
 
 public class BusinessObjectDataHandler extends ContractInputDataHandler {
 
-    private ContractInput input;
+    private final ContractInput input;
 
     public BusinessObjectDataHandler(ContractInput input) {
         super(input);
@@ -39,18 +41,18 @@ public class BusinessObjectDataHandler extends ContractInputDataHandler {
             return null;
         }
 
-        List<String> pathNames = newArrayList();
+        List<String> pathNames = new ArrayList<>();
         pathNames.add(inputName());
 
         //multiple
-        NodeBusinessObjectInput inputParent = ((NodeBusinessObjectInput) this.input.getParent());
+        var inputParent = ((NodeBusinessObjectInput) this.input.getParent());
         BusinessObjectDataHandler pInput = getParent();
-        String prefix = inputParent.isMultiple() ? inputParent.getPageDataNameSelected() : inputParent.getPageDataName();
+        var prefix = inputParent.isMultiple() ? inputParent.getPageDataNameSelected() : inputParent.getPageDataName();
 
         //Eager
-        boolean hasEagerRef = hasEagerRef(inputParent);
+        var hasEagerRef = hasEagerRef(inputParent);
         while (pInput != null && hasEagerRef) {
-            NodeBusinessObjectInput nodeInput = (NodeBusinessObjectInput) pInput.input;
+            var nodeInput = (NodeBusinessObjectInput) pInput.input;
             if (nodeInput.isMultiple()) {
                 prefix = nodeInput.getPageDataNameSelected();
                 break;
@@ -62,7 +64,10 @@ public class BusinessObjectDataHandler extends ContractInputDataHandler {
         }
 
         pathNames.add(prefix);
-        return on(".").join(reverse(pathNames));
+
+        var reversed = new LinkedList<>(pathNames);
+        Collections.reverse(reversed);
+        return join(".", reversed);
     }
 
     private boolean hasEagerRef(NodeBusinessObjectInput inputParent) {
@@ -71,8 +76,8 @@ public class BusinessObjectDataHandler extends ContractInputDataHandler {
 
     @Override
     public String inputValue() {
-        if (Objects.equals(PERSISTENCEID_INPUT_NAME, input.getName()) && hasAggregatedParentRef(input)) {
-            BusinessObjectDataHandler parentInput = getParent();
+        if (Objects.equals(PERSISTENCE_ID_INPUT_NAME, input.getName()) && hasAggregatedParentRef(input)) {
+            var parentInput = getParent();
             return parentInput.hasLazyDataRef() ? parentInput.inputName()
                     : parentInput.getParentValue();
         }

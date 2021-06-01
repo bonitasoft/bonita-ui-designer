@@ -14,16 +14,12 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.entry;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aDataPropertyValue;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aInterpolationPropertyValue;
-
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JacksonJsonHandler;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
@@ -36,14 +32,19 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aDataPropertyValue;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aInterpolationPropertyValue;
+
 public class ContractInputVisitorImplTest {
 
-    private JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
+    private JsonHandler jsonHandler = new JacksonJsonHandler(new ObjectMapper());
     private ContractInputToWidgetMapper contractInputToWidgetMapper;
 
     @Before
     public void setUp() throws Exception {
-        contractInputToWidgetMapper = new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper);
+        contractInputToWidgetMapper = new ContractInputToWidgetMapper(new DimensionFactory(), jsonHandler);
     }
 
     @Test

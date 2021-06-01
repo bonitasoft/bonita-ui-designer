@@ -27,7 +27,6 @@ public class LabelParametrizedWidget extends AbstractParametrizedWidget {
         super(widgetId);
     }
 
-
     public String getLabel() {
         return label;
     }

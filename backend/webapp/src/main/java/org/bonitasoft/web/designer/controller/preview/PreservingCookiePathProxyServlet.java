@@ -14,23 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.preview;
 
-import java.io.IOException;
-import java.net.HttpCookie;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
@@ -43,6 +26,22 @@ import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
 import org.mitre.dsmiley.httpproxy.ProxyServlet;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.HttpCookie;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -74,7 +73,7 @@ public class PreservingCookiePathProxyServlet extends ProxyServlet {
         for (HttpCookie cookie : cookies) {
             //set cookie name prefixed w/ a proxy value so it won't collide w/ other cookies
             String cookieName = doPreserveCookies ? cookie.getName() : getCookieNamePrefix(cookie.getName()) + cookie.getName();
-            Cookie servletCookie = new Cookie(cookieName, cookie.getValue());
+            var servletCookie = new Cookie(cookieName, cookie.getValue());
             servletCookie.setComment(cookie.getComment());
             servletCookie.setMaxAge((int) cookie.getMaxAge());
             //fix: preserve path when preserving cookies
@@ -109,12 +108,12 @@ public class PreservingCookiePathProxyServlet extends ProxyServlet {
         if (credentials.jsessionID != null) {
             setJSessionID(proxyRequest, credentials.jsessionID);
         }
-        HttpResponse httpResponse = super.doExecute(servletRequest, servletResponse, proxyRequest);
+        var httpResponse = super.doExecute(servletRequest, servletResponse, proxyRequest);
         //when a login is required, we try to login on bonita platform
         if (httpResponse.getStatusLine().getStatusCode() == 401 && credentials.isSet()) {
             log.info("response 401, will try to login");
             HttpResponse loginResponse = login(credentials);
-            String responseContent = IOUtils.toString(httpResponse.getEntity().getContent());
+            var responseContent = IOUtils.toString(httpResponse.getEntity().getContent());
             int statusCode = loginResponse.getStatusLine().getStatusCode();
             if (statusCode != 200) {
                 log.error("Unable to log in bonita platform, code {}, response: {}", statusCode, responseContent);
@@ -133,15 +132,15 @@ public class PreservingCookiePathProxyServlet extends ProxyServlet {
     }
 
     private HttpResponse login(BonitaCredentials credentials) throws IOException {
-        BasicHttpContext httpContext = new BasicHttpContext();
-        BasicCookieStore cookieStore = new BasicCookieStore();
+        var httpContext = new BasicHttpContext();
+        var cookieStore = new BasicCookieStore();
         httpContext.setAttribute("http.cookie-store", cookieStore);
-        List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
+        List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("username", credentials.username));
         urlParameters.add(new BasicNameValuePair("password", credentials.password));
         urlParameters.add(new BasicNameValuePair("redirect", "false"));
-        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(urlParameters, "utf-8");
-        HttpPost postRequest = new HttpPost(credentials.loginServletURI);
+        var entity = new UrlEncodedFormEntity(urlParameters, "utf-8");
+        var postRequest = new HttpPost(credentials.loginServletURI);
         postRequest.setEntity(entity);
         return getProxyClient().execute(postRequest, httpContext);
     }
@@ -149,7 +148,7 @@ public class PreservingCookiePathProxyServlet extends ProxyServlet {
 
     private String getJSessionId(HttpResponse response) {
         List<Header> headers = Arrays.asList(response.getHeaders("Set-Cookie"));
-        String prefix = "JSESSIONID=";
+        var prefix = "JSESSIONID=";
         Optional<String> any = headers.stream()
                 .filter(h -> h.getValue().contains(prefix))
                 .map(Header::getValue)

@@ -16,53 +16,49 @@ package org.bonitasoft.web.designer.generator.mapping.strategy;
 
 import org.bonitasoft.web.designer.generator.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.generator.mapping.ContractToContainerMapper;
-import org.bonitasoft.web.designer.generator.mapping.Form;
 import org.bonitasoft.web.designer.generator.mapping.FormScope;
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessQueryDataFactory;
 import org.bonitasoft.web.designer.generator.mapping.data.FormInputData;
 import org.bonitasoft.web.designer.generator.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.generator.mapping.data.SubmitErrorsListData;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonAction;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Container;
+import org.bonitasoft.web.designer.model.page.Form;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
 
 public class ProcessInstantiationFormCreationStrategy implements PageCreationStrategy {
 
-    private ContractInputToWidgetMapper contractToWidgetMapper;
-    private ContractToContainerMapper contractToContainerMapper;
-    private JacksonObjectMapper mapper;
-    private BusinessQueryDataFactory businessQueryDataFactory;
+    private final ContractInputToWidgetMapper contractToWidgetMapper;
+    private final ContractToContainerMapper contractToContainerMapper;
+    private final JsonHandler jsonHandler;
+    private final BusinessQueryDataFactory businessQueryDataFactory;
 
     public ProcessInstantiationFormCreationStrategy(ContractInputToWidgetMapper contractToWidgetMapper,
-            ContractToContainerMapper contractToContainerMapper,
-            JacksonObjectMapper mapper,
-            BusinessQueryDataFactory businessQueryDataFactory) {
+                                                    ContractToContainerMapper contractToContainerMapper, JsonHandler jsonHandler,
+                                                    BusinessQueryDataFactory businessQueryDataFactory) {
         this.contractToWidgetMapper = contractToWidgetMapper;
         this.contractToContainerMapper = contractToContainerMapper;
-        this.mapper = mapper;
+        this.jsonHandler = jsonHandler;
         this.businessQueryDataFactory = businessQueryDataFactory;
     }
 
     @Override
     public Page create(String name, Contract contract) {
-        Form form = new Form(name)
-                .addData(new FormInputData(mapper, contract))
+        var form = new Form(name)
+                .addData(new FormInputData(jsonHandler, contract))
                 .addData(new FormOutputData(contract))
                 .addData(new SubmitErrorsListData())
                 .addNewRow(createFormContainer(contract));
         businessQueryDataFactory.create(contract)
-                .stream()
                 .forEach(form::addData);
         return form;
     }
 
     private FormContainer createFormContainer(Contract contract) {
-        Component submitButton = contractToWidgetMapper.createSubmitButton(ButtonAction.fromScope(FormScope.PROCESS));
-        Container container = contractToContainerMapper.create(contract)
+        var submitButton = contractToWidgetMapper.createSubmitButton(ButtonAction.fromScope(FormScope.PROCESS));
+        var container = contractToContainerMapper.create(contract)
                 .addNewRow(submitButton)
                 .addNewRow(contractToWidgetMapper.createSubmitErrorAlert());
         return new FormContainer().setContainer(container);

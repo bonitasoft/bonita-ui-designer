@@ -14,11 +14,11 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.Map;
 
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class DimensionFactoryTest {
 

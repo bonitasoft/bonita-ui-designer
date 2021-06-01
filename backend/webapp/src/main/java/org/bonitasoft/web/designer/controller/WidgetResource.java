@@ -14,241 +14,122 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
-import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewLight;
-import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.WidgetService;
-import org.bonitasoft.web.designer.visitor.AssetVisitor;
-
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+
+import static org.springframework.util.StringUtils.hasText;
 
 @RestController
 @RequestMapping("/rest/widgets")
-public class WidgetResource extends AssetResource<Widget>{
-
-    private JacksonObjectMapper objectMapper;
-    private WidgetRepository widgetRepository;
-    private WidgetService widgetService;
+public class WidgetResource extends AssetResource<Widget, WidgetService> {
     private Path widgetPath;
-    private List<WidgetContainerRepository> widgetContainerRepositories;
-    private Map<String, Set<String>> widgetDependencies; // Map of widget -> dependencies (pages/fragments)
 
     @Inject
-    public WidgetResource(JacksonObjectMapper objectMapper,
-                          WidgetRepository widgetRepository,
-                          WidgetService widgetService,
-                          AssetService<Widget> widgetAssetService,
-                          WorkspaceProperties workspaceProperties,
-                          List<WidgetContainerRepository> widgetContainerRepositories,
-                          AssetVisitor assetVisitor) {
-        super(widgetAssetService, widgetRepository, assetVisitor, com.google.common.base.Optional.<SimpMessagingTemplate>absent());
-        this.widgetRepository = widgetRepository;
-        this.objectMapper = objectMapper;
-        this.widgetService = widgetService;
+    public WidgetResource(JsonHandler jsonHandler, WidgetService widgetService, SimpMessagingTemplate messagingTemplate, WorkspaceProperties workspaceProperties) {
+        super(jsonHandler, widgetService, messagingTemplate);
         this.widgetPath = workspaceProperties.getWidgets().getDir();
-        this.widgetContainerRepositories = widgetContainerRepositories;
     }
 
-    @Override
-    protected void checkArtifactId(String artifactId) {
-        checkWidgetIdIsNotAPbWidget(artifactId);
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<String> getAll(@RequestParam(value = "view", defaultValue = "full") String view,
                                          @RequestParam(value = "widgetsWc", defaultValue = "false") Boolean widgetsWc) throws RepositoryException, IOException {
+
         byte[] json;
-        List<Widget> widgets = widgetRepository.getAll(widgetsWc).stream().map(w -> {
-            w.setStatus(widgetService.getStatus(w));
-            return w;
-        }).collect(Collectors.toList());
-
         if ("light".equals(view)) {
-            fillWithUsedBy(widgets);
-            json = objectMapper.toJson(widgets, JsonViewLight.class);
+            var widgets = service.getAllWithUsedBy(widgetsWc);
+            json = jsonHandler.toJson(widgets, JsonViewLight.class);
         } else {
-            json = objectMapper.toJson(widgets);
+            var widgets = service.getAll(widgetsWc);
+            json = jsonHandler.toJson(widgets);
         }
-        //In our case we don't know the view asked outside this method. So like we can't know which JsonView used, I
-        //build the json manually but in the return I must specify the mime-type in the header
-        //{@link ResourceControllerAdvice#getHttpHeaders()}
-        return new ResponseEntity<>(new String(json), ResourceControllerAdvice.getHttpHeaders(), HttpStatus.OK);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(new String(json));
     }
 
-
-    @SuppressWarnings("unchecked")
-    private void fillWithUsedBy(Widget widget) {
-        for (WidgetContainerRepository<Identifiable> repository : widgetContainerRepositories) {
-            widget.addUsedBy(repository.getComponentName(), repository.getArtifactsUsingWidget(widget.getId()));
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private void fillWithUsedBy(List<Widget> widgets) {
-        List<String> widgetIds = new ArrayList<>();
-        for (Widget widget : widgets) {
-            widgetIds.add(widget.getId());
-        }
-        Map<String, List<Identifiable>> map = new HashMap<>();
-        for (WidgetContainerRepository<Identifiable> repository : widgetContainerRepositories) {
-            map = repository.getArtifactsUsingWidgets(widgetIds);
-            for (Widget widget : widgets) {
-                widget.addUsedBy(repository.getComponentName(), map.get(widget.getId()));
-            }
-        }
-    }
-
-    @RequestMapping(value = "/{widgetId}", method = RequestMethod.GET)
+    @GetMapping(value = "/{widgetId}")
     public ResponseEntity<Object> get(@PathVariable("widgetId") String widgetId) throws RepositoryException, NotAllowedException {
-        Widget widget = widgetService.get(widgetId);
-        Optional<ResponseEntity<Object>> objectResponseEntity = checkIfWidgetCompatible(widget);
-        if (objectResponseEntity.isPresent()) {
-            ResponseEntity response = objectResponseEntity.get();
-            return response;
+        var widget = service.getWithAsset(widgetId);
+
+        if (!widget.isCompatible()) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("Widget " + widgetId + " is in an incompatible version. Newer UI Designer version is required.");
         }
-        widget.setAssets(assetVisitor.visit(widget));
-        return new ResponseEntity(widget,HttpStatus.OK);
+
+        return ResponseEntity.ok(widget);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public Widget create(@RequestBody Widget widget, @RequestParam(value = "duplicata", required = false) String sourceWidgetId) throws IllegalArgumentException {
-        Widget newWidget = widgetRepository.create(widget);
-        if(isNotEmpty(sourceWidgetId)) {
-            assetService.duplicateAsset(widgetPath, widgetRepository.resolvePath(sourceWidgetId), sourceWidgetId, newWidget.getId());
-        }
-        return newWidget;
-    }
-
-    @RequestMapping(value = "/{widgetId}", method = RequestMethod.PUT)
-    public void save(@PathVariable("widgetId") String widgetId, @RequestBody Widget widget) throws RepositoryException, NotAllowedException {
-        checkWidgetIdIsNotAPbWidget(widgetId);
-        if (!widget.isCustom()) {
-            throw new NotAllowedException("We can only save a custom widget");
-        }
-        widget.setId(widgetId);
-        widgetRepository.updateLastUpdateAndSave(widget);
-    }
-
-    @RequestMapping(value = "/{widgetId}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("widgetId") String widgetId) throws RepositoryException, NotFoundException, NotAllowedException {
-        Widget widget = widgetRepository.get(widgetId);
-        if (!widget.isCustom()) {
-            throw new NotAllowedException("We can only delete a custom widget");
-        }
-
-        fillWithUsedBy(widget);
-        //if this widget is used elsewhere we prevent the deletion.
-        if (widget.isUsed()) {
-            throw new InUseException(buildErrorMessage(widget));
-        }
-
-        widgetRepository.delete(widgetId);
-    }
-
-    private String buildErrorMessage(Widget widget) {
-        //if an error occurred it's useful for user to know which components use this widget
-        StringBuilder msg = new StringBuilder("The widget cannot be deleted because it is used in");
-
-        for (Entry<String, List<Identifiable>> entry : widget.getUsedBy().entrySet()) {
-            List<? extends Identifiable> elements = entry.getValue();
-            if (!elements.isEmpty()) {
-                msg.append(" ").append(elements.size()).append(" " + entry.getKey()).append(elements.size() > 1 ? "s" : "");
-                for (Identifiable element : elements) {
-                    msg.append(", <").append(element.getName()).append(">");
-                }
-            }
-        }
-        return msg.toString();
-    }
-
-    @RequestMapping(value = "/{widgetId}/properties", method = RequestMethod.POST)
-    public List<Property> addProperty(@PathVariable("widgetId") String widgetId, @RequestBody Property property) throws RepositoryException, NotFoundException, NotAllowedException {
-        checkWidgetIdIsNotAPbWidget(widgetId);
-        return widgetRepository.addProperty(widgetId, property);
-    }
-
-    @RequestMapping(value = "/{widgetId}/properties/{propertyName}", method = RequestMethod.PUT)
-    public List<Property> updateProperty(@PathVariable("widgetId") String widgetId, @PathVariable("propertyName") String propertyName, @RequestBody Property property) throws RepositoryException, NotFoundException, NotAllowedException {
-        checkWidgetIdIsNotAPbWidget(widgetId);
-        return widgetService.updateProperty(widgetId, propertyName, property);
-    }
-
-    @RequestMapping(value = "/{widgetId}/properties/{propertyName}", method = RequestMethod.DELETE)
-    public List<Property> deleteProperty(@PathVariable("widgetId") String widgetId, @PathVariable("propertyName") String propertyName) throws RepositoryException, NotFoundException, NotAllowedException {
-        checkWidgetIdIsNotAPbWidget(widgetId);
-        return widgetRepository.deleteProperty(widgetId, propertyName);
-    }
-
-    @RequestMapping(value = "/{widgetId}/favorite", method = RequestMethod.PUT)
-    public void favorite(@PathVariable("widgetId") String pageId, @RequestBody Boolean favorite) throws RepositoryException {
-        if (favorite) {
-            widgetRepository.markAsFavorite(pageId);
+        Widget savedWidget;
+        if (hasText(sourceWidgetId)) {
+            savedWidget = service.createFrom(sourceWidgetId, widget);
         } else {
-            widgetRepository.unmarkAsFavorite(pageId);
+            savedWidget = service.create(widget);
         }
+        return savedWidget;
     }
 
-    @RequestMapping(value = "/{widgetId}/help", method = RequestMethod.GET,  produces = "text/html; charset=UTF-8")
+    @PutMapping(value = "/{widgetId}")
+    public void save(@PathVariable("widgetId") String widgetId, @RequestBody Widget widget) throws RepositoryException, NotAllowedException {
+        service.save(widgetId, widget);
+    }
+
+    @DeleteMapping(value = "/{widgetId}")
+    public void delete(@PathVariable("widgetId") String widgetId) throws RepositoryException, NotFoundException, NotAllowedException {
+        service.delete(widgetId);
+    }
+
+    @PostMapping(value = "/{widgetId}/properties")
+    public List<Property> addProperty(@PathVariable("widgetId") String widgetId, @RequestBody Property property) throws RepositoryException, NotFoundException, NotAllowedException {
+        return service.addProperty(widgetId, property);
+    }
+
+    @PutMapping(value = "/{widgetId}/properties/{propertyName}")
+    public List<Property> updateProperty(@PathVariable("widgetId") String widgetId, @PathVariable("propertyName") String propertyName, @RequestBody Property property) throws RepositoryException, NotFoundException, NotAllowedException {
+        return service.updateProperty(widgetId, propertyName, property);
+    }
+
+    @DeleteMapping(value = "/{widgetId}/properties/{propertyName}")
+    public List<Property> deleteProperty(@PathVariable("widgetId") String widgetId, @PathVariable("propertyName") String propertyName) throws RepositoryException, NotFoundException, NotAllowedException {
+        return service.deleteProperty(widgetId, propertyName);
+    }
+
+    @PutMapping(value = "/{widgetId}/favorite")
+    public void favorite(@PathVariable("widgetId") String widgetId, @RequestBody Boolean favorite) throws RepositoryException {
+        service.markAsFavorite(widgetId, favorite);
+    }
+
+    @GetMapping(value = "/{widgetId}/help", produces = "text/html; charset=UTF-8")
     public void serveWidgetFiles(HttpServletRequest request, HttpServletResponse response, @PathVariable("widgetId") String widgetId) throws IOException {
-        HttpFile.writeFileInResponse(request, response, widgetPath.resolve(widgetId+"/help.html"));
+        HttpFile.writeFileInResponse(request, response, widgetPath.resolve(widgetId + "/help.html"));
     }
 
-    private void checkWidgetIdIsNotAPbWidget(String widgetId) {
-        if (isPbWidgetId(widgetId)) {
-            throw new NotAllowedException("Not allowed to modify a non custom widgets");
-        }
-    }
-
-    private boolean isPbWidgetId(String widgetId) {
-        return widgetId.startsWith("pb");
-    }
-
-    private Optional<ResponseEntity<Object>> checkIfWidgetCompatible(Widget widget) {
-        if (widget.isCustom() && (widget.getStatus() != null && !widget.getStatus().isCompatible())) {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.TEXT_PLAIN);
-            return Optional.of(
-                    new ResponseEntity(String.format("Widget %s is in an incompatible version. Newer UI Designer version is required.", widget.getId()),
-                            headers, HttpStatus.UNPROCESSABLE_ENTITY));
-        }
-        return java.util.Optional.empty();
-    }
 }

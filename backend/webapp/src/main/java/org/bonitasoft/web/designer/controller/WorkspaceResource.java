@@ -14,36 +14,31 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import javax.inject.Inject;
-
 import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.workspace.WorkspaceInitializer;
-
+import org.bonitasoft.web.designer.workspace.Workspace;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.inject.Inject;
 
 @RestController
 @RequestMapping("/rest/indexing")
 public class WorkspaceResource {
 
-    private final WorkspaceInitializer workspaceInitializer;
-    private PageRepository pageRepository;
+    private final Workspace workspace;
+    private final PageRepository pageRepository;
 
     @Inject
-    public WorkspaceResource(
-            WorkspaceInitializer workspaceInitializer, PageRepository pageRepository) {
-        this.workspaceInitializer = workspaceInitializer;
+    public WorkspaceResource(PageRepository pageRepository, Workspace workspace) {
         this.pageRepository = pageRepository;
+        this.workspace = workspace;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
+    @PostMapping
     public String indexing() {
-
-        workspaceInitializer.indexingArtifacts(pageRepository.getAll(), pageRepository);
-
+        var pages = pageRepository.getAll();
+        workspace.indexingArtifacts(pages);
         return "Workspace Indexing has been triggered.";
     }
 }

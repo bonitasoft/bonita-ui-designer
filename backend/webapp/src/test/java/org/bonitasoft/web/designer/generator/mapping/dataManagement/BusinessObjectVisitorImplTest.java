@@ -15,16 +15,12 @@
 
 package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants.*;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
-
 import java.util.Arrays;
 import java.util.List;
 
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.model.ElementContainer;
+import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -32,6 +28,15 @@ import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants.CONTENT_PARAMETER;
+import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants.HEADERS_PARAMETER;
+import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants.HIDDEN_PARAMETER;
+import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants.LABEL_PARAMETER;
+import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants.SELECTED_ROW_PARAMETER;
+import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants.TEXT_PARAMETER;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
 
 public class BusinessObjectVisitorImplTest {
 

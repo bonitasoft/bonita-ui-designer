@@ -14,18 +14,17 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.strategy;
 
-import java.util.ArrayList;
-
 import org.bonitasoft.web.designer.generator.mapping.ContractToContainerMapper;
-import org.bonitasoft.web.designer.generator.mapping.Form;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
+import org.bonitasoft.web.designer.model.page.Form;
 import org.bonitasoft.web.designer.model.page.Page;
+
+import java.util.ArrayList;
 
 public class CaseOverviewPageCreationStrategy implements PageCreationStrategy {
 
-    private ContractToContainerMapper contractToContainerMapper;
+    private final ContractToContainerMapper contractToContainerMapper;
 
     public CaseOverviewPageCreationStrategy(ContractToContainerMapper contractToContainerMapper) {
         this.contractToContainerMapper = contractToContainerMapper;
@@ -34,13 +33,13 @@ public class CaseOverviewPageCreationStrategy implements PageCreationStrategy {
     @Override
     public Page create(String name, Contract contract) {
         return new Form(name)
-            .addNewRow(createContainer(contract));
+                .addNewRow(createContainer(contract));
     }
 
     private Container createContainer(Contract contract) {
-        Container container = contractToContainerMapper.create(contract);
+        var container = contractToContainerMapper.create(contract);
         if (container.getRows().isEmpty()) {
-            container.getRows().add(new ArrayList<Element>());
+            container.getRows().add(new ArrayList<>());
         }
         return container;
     }

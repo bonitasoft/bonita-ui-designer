@@ -76,12 +76,12 @@ public class SelectWidget extends LabelParametrizedWidget implements Labeled, Va
         this.required = required;
     }
 
-    public void setAvailableValues(String availableValues) {
-        this.availableValues = availableValues;
-    }
-
     public String getAvailableValues() {
         return availableValues;
+    }
+
+    public void setAvailableValues(String availableValues) {
+        this.availableValues = availableValues;
     }
 
 }

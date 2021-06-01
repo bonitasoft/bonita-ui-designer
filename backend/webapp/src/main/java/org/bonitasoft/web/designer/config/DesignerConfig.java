@@ -14,105 +14,144 @@
  */
 package org.bonitasoft.web.designer.config;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Validation;
-import javax.validation.Validator;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
+import org.bonitasoft.web.designer.ArtifactBuilder;
+import org.bonitasoft.web.designer.ArtifactBuilderFactory;
+import org.bonitasoft.web.designer.JsonHandlerFactory;
+import org.bonitasoft.web.designer.UiDesignerCore;
+import org.bonitasoft.web.designer.UiDesignerCoreFactory;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
-import org.bonitasoft.web.designer.controller.export.Exporter;
-import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.FragmentPropertiesExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.FragmentsExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.WidgetByIdExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
-import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
-import org.bonitasoft.web.designer.controller.importer.dependencies.AssetImporter;
-import org.bonitasoft.web.designer.controller.importer.dependencies.FragmentImporter;
-import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetImporter;
-import org.bonitasoft.web.designer.migration.JacksonDeserializationProblemHandler;
-import org.bonitasoft.web.designer.model.DesignerArtifact;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.model.JacksonJsonHandler;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.FormContainer;
-import org.bonitasoft.web.designer.model.page.FragmentElement;
-import org.bonitasoft.web.designer.model.page.ModalContainer;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.TabContainer;
-import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.repository.AssetRepository;
-import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.repository.JsonFileBasedLoader;
-import org.bonitasoft.web.designer.repository.JsonFileBasedPersister;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.Repository;
-import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
-import org.bonitasoft.web.designer.repository.WidgetFileBasedPersister;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.service.BondsTypesFixer;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
-import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
-import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
+import org.bonitasoft.web.designer.workspace.ResourcesCopier;
+import org.bonitasoft.web.designer.workspace.Workspace;
 import org.fedorahosted.tennera.jgettext.PoParser;
-
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 /**
  * @author Guillaume EHRET
  */
 @Configuration
 @EnableScheduling
+@RequiredArgsConstructor
+@ConfigurationPropertiesScan(basePackageClasses = UiDesignerProperties.class)
 public class DesignerConfig {
 
+    private final UiDesignerProperties designerProperties;
+
+    private JsonHandler jsonHandler;
+
+    private UiDesignerCoreFactory coreFactory;
+
+    @PostConstruct
+    public void initialize() {
+        jsonHandler = new JsonHandlerFactory().create();
+        coreFactory = new UiDesignerCoreFactory(designerProperties, jsonHandler);
+    }
+
     @Bean
-    public ObjectMapper objectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        //By default all properties without explicit view definition are included in serialization.
-        //To use JsonView we have to change this parameter
-        objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);
+    public UiDesignerCore uidCore(
+            WidgetRepository widgetRepository,
+            AssetRepository<Widget> widgetAssetRepository,
+            FragmentRepository fragmentRepository,
+            PageRepository pageRepository,
+            AssetRepository<Page> pageAssetRepository
+    ) {
+        return coreFactory.create(widgetRepository, widgetAssetRepository, fragmentRepository, pageRepository, pageAssetRepository);
+    }
 
-        //We don't have to serialize null values
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.registerModule(new JodaModule());
-        objectMapper.registerSubtypes(
-                FragmentElement.class, Component.class, Container.class, FormContainer.class, TabsContainer.class, TabContainer.class, ModalContainer.class
-        );
+    @Bean
+    public Watcher watcher(UiDesignerCore uiDesignerCore) {
+        return uiDesignerCore.getWatcher();
+    }
 
-        //add Handler to migrate old json
-        objectMapper.addHandler(new JacksonDeserializationProblemHandler());
-
-        //disable filter name check so that filtering is optional
-        SimpleFilterProvider simpleFilterProvider = new SimpleFilterProvider();
-        simpleFilterProvider.setFailOnUnknownId(false);
-        objectMapper.setFilterProvider(simpleFilterProvider);
-
-        return objectMapper;
+    @Bean
+    public ResourcesCopier resourcesCopier() {
+        return new ResourcesCopier();
     }
 
     /**
      * We use our own jackson object Mapper
      */
     @Bean
-    public JacksonObjectMapper objectMapperWrapper() {
-        return new JacksonObjectMapper(objectMapper());
+    public JsonHandler jsonHandler() {
+        return new JsonHandlerFactory().create();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper(JsonHandler jsonHandler) {
+        return ((JacksonJsonHandler) jsonHandler).getObjectMapper();
+    }
+
+    @Bean
+    public WidgetRepository widgetRepository() {
+        return coreFactory.createWidgetRepository();
+    }
+
+    @Bean
+    public PageService pageService(UiDesignerCore uiDesignerCore) {
+        return uiDesignerCore.getPageService();
+    }
+
+    @Bean
+    public FragmentService fragmentService(UiDesignerCore uiDesignerCore) {
+        return uiDesignerCore.getFragmentService();
+    }
+
+    @Bean
+    public WidgetService widgetService(UiDesignerCore uiDesignerCore) {
+        return uiDesignerCore.getWidgetService();
+    }
+
+    @Bean
+    public AssetRepository<Widget> widgetAssetRepository(WidgetRepository widgetRepository) {
+        return coreFactory.createWidgetAssetRepository(widgetRepository);
+    }
+
+    @Bean
+    public FragmentRepository fragmentRepository() {
+        return coreFactory.createFragmentRepository();
+    }
+
+    @Bean
+    public PageRepository pageRepository() {
+        return coreFactory.createPageRepository();
+    }
+
+    @Bean
+    public AssetRepository<Page> pageAssetRepository(PageRepository pageRepository) {
+        return coreFactory.createPageAssetRepository(pageRepository);
+    }
+
+    @Bean
+    public ArtifactBuilder artifactBuilder(UiDesignerCore uidCore) {
+        return new ArtifactBuilderFactory(designerProperties, jsonHandler, uidCore).create();
+    }
+
+    @Bean
+    public Workspace workspace(ArtifactBuilder artifactBuilder) {
+        return artifactBuilder.getWorkspace();
     }
 
     /**
@@ -124,114 +163,18 @@ public class DesignerConfig {
     }
 
     @Bean
-    public BeanValidator beanValidator() {
-        //For the bean Widget the
-        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        return new BeanValidator(validator);
-    }
-
-    @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
     @Bean
-    public JsonFileBasedPersister<Page> pageFileBasedPersister(UiDesignerProperties uiDesignerProperties) {
-        return new JsonFileBasedPersister<>(objectMapperWrapper(), beanValidator(),uiDesignerProperties);
+    public AssetService<Page> pageAssetService(UiDesignerCore uidCore) {
+        return uidCore.getPageAssetService();
     }
 
     @Bean
-    public JsonFileBasedPersister<Widget> widgetFileBasedPersister(UiDesignerProperties uiDesignerProperties) {
-        return new WidgetFileBasedPersister(objectMapperWrapper(), beanValidator(),uiDesignerProperties);
-    }
-
-    @Bean
-    public JsonFileBasedPersister<Fragment> fragmentFileBasedPersister(UiDesignerProperties uiDesignerProperties) {
-        return new JsonFileBasedPersister<>(objectMapperWrapper(), beanValidator(),uiDesignerProperties);
-    }
-
-    @Bean
-    public JsonFileBasedLoader<Page> pageFileBasedLoader() {
-        return new JsonFileBasedLoader<>(objectMapperWrapper(), Page.class);
-    }
-
-    @Bean
-    public JsonFileBasedLoader<Fragment> fragmentFileBasedLoader() {
-        return new JsonFileBasedLoader<>(objectMapperWrapper(), Fragment.class);
-    }
-
-    @Bean
-    public AssetImporter<Page> pageAssetImporter(AssetRepository<Page> pageAssetRepository) {
-        return new AssetImporter<>(pageAssetRepository);
-    }
-
-    @Bean
-    public AssetImporter<Widget> widgetAssetImporter(AssetRepository<Widget> widgetAssetRepository) {
-        return new AssetImporter<>(widgetAssetRepository);
-    }
-
-    @Bean
-    public ArtifactImporter<Page> pageArtifactImporter(PageRepository pageRepository, PageService pageService, FragmentImporter fragmentImporter,
-            WidgetImporter widgetImporter, AssetImporter<Page> pageAssetImporter) {
-        return new ArtifactImporter<>(pageRepository, pageService, pageFileBasedLoader(), fragmentImporter, widgetImporter, pageAssetImporter);
-    }
-
-    @Bean
-    public ArtifactImporter<Widget> widgetArtifactImporter(WidgetFileBasedLoader widgetLoader, WidgetRepository widgetRepository,
-            WidgetService widgetService,
-            AssetImporter<Widget> widgetAssetImporter) {
-        return new ArtifactImporter<>(widgetRepository, widgetService, widgetLoader, widgetAssetImporter);
-    }
-
-    @Bean
-    public Map<String, ArtifactImporter<? extends DesignerArtifact>> artifactImporters(
-            ArtifactImporter<Page> pageArtifactImporter,
-            ArtifactImporter<Widget> widgetArtifactImporter,
-            ArtifactImporter<Fragment> fragmentArtifactImporter) {
-        return ImmutableMap.<String, ArtifactImporter<? extends DesignerArtifact>>builder()
-                .put("page", pageArtifactImporter)
-                .put("widget", widgetArtifactImporter)
-                .put("fragment", fragmentArtifactImporter)
-                .build();
-    }
-
-    @Bean
-    public WidgetsExportStep<Page> widgetsExportStep(WorkspaceProperties workspaceProperties, WidgetIdVisitor widgetIdVisitor, DirectiveFileGenerator directiveFileGenerator) {
-        return new WidgetsExportStep<>(workspaceProperties.getWidgets().getDir(), widgetIdVisitor, directiveFileGenerator);
-    }
-
-    @Bean
-    public Exporter<Page> pageExporter(PageRepository pageRepository, PageService pageService, ExportStep<Page>[] pageExportSteps) {
-        return new Exporter<>(pageRepository, pageService, pageExportSteps);
-    }
-
-    @Bean
-    public Exporter<Widget> widgetExporter(WidgetRepository widgetRepository, WidgetService widgetService, WidgetByIdExportStep widgetByIdExportStep) {
-        return new Exporter<>(widgetRepository, widgetService, widgetByIdExportStep);
-    }
-
-    @Bean
-    public AssetRepository<Page> pageAssetRepository(PageRepository pageRepository) {
-        return new AssetRepository<>(pageRepository, beanValidator());
-    }
-
-    @Bean
-    public AssetRepository<Widget> widgetAssetRepository(WidgetRepository widgetRepository) {
-        return new AssetRepository<>(widgetRepository, beanValidator());
-    }
-
-    @Bean
-    public AssetService<Page> pageAssetService(PageRepository pageRepository) {
-        return new AssetService<>(pageRepository, pageAssetRepository(pageRepository),
-                pageAssetImporter(pageAssetRepository(pageRepository)),
-                objectMapperWrapper());
-    }
-
-    @Bean
-    public AssetService<Widget> widgetAssetService(WidgetRepository widgetRepository) {
-        return new AssetService<>(widgetRepository, widgetAssetRepository(widgetRepository),
-                widgetAssetImporter(widgetAssetRepository(widgetRepository)),
-                objectMapperWrapper());
+    public AssetService<Widget> widgetAssetService(UiDesignerCore uidCore) {
+        return uidCore.getWidgetAssetService();
     }
 
     @Bean
@@ -240,33 +183,8 @@ public class DesignerConfig {
     }
 
     @Bean
-    public ArtifactImporter<Fragment> fragmentArtifactImporter(FragmentRepository fragmentRepository, FragmentService fragmentService, FragmentImporter fragmentImporter, WidgetImporter widgetImporter) {
-        return new ArtifactImporter<Fragment>(fragmentRepository, fragmentService, fragmentFileBasedLoader(), fragmentImporter, widgetImporter);
-    }
-
-    @Bean
-    public FragmentsExportStep<Page> fragmentsExportStep(FragmentIdVisitor fragmentIdVisitor, WorkspaceProperties workspaceProperties, FragmentPropertiesExportStep fragmentPropertiesExportStep) {
-        return new FragmentsExportStep<>(fragmentIdVisitor, workspaceProperties.getFragments().getDir(), fragmentPropertiesExportStep);
-    }
-
-    @Bean
-    public WidgetsExportStep<Fragment> widgetsExportStepFragment(WorkspaceProperties workspaceProperties, WidgetIdVisitor widgetIdVisitor, DirectiveFileGenerator directiveFileGenerator) {
-        return new WidgetsExportStep<>(workspaceProperties.getWidgets().getDir(), widgetIdVisitor, directiveFileGenerator);
-    }
-
-    @Bean
-    public FragmentsExportStep<Fragment> fragmentsExportStepFragment(FragmentIdVisitor fragmentIdVisitor, WorkspaceProperties workspaceProperties, FragmentPropertiesExportStep fragmentPropertiesExportStep) {
-        return new FragmentsExportStep<>(fragmentIdVisitor, workspaceProperties.getFragments().getDir(), fragmentPropertiesExportStep);
-    }
-
-    @Bean
-    public Exporter<Fragment> fragmentExporter(FragmentRepository fragmentRepository, FragmentService fragmentService, JacksonObjectMapper objectMapper, WidgetsExportStep<Fragment> widgetsExportStepFragment, FragmentsExportStep<Fragment> fragmentsExportStepFragment) {
-        return new Exporter(fragmentRepository, fragmentService, widgetsExportStepFragment, fragmentsExportStepFragment);
-    }
-
-    @Bean
     public List<Repository> fragmentsUsedByRepositories(PageRepository pageRepository, FragmentRepository fragmentRepository) {
-        return Lists.newArrayList(pageRepository, fragmentRepository);
+        return List.of(pageRepository, fragmentRepository);
     }
 
     @Bean

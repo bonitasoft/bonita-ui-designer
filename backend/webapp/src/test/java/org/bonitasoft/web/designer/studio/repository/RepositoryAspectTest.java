@@ -14,15 +14,6 @@
  */
 package org.bonitasoft.web.designer.studio.repository;
 
-import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
-
-import java.nio.file.Path;
-import java.util.Arrays;
-import javax.inject.Inject;
-
 import org.bonitasoft.web.designer.Main;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
@@ -37,14 +28,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import javax.inject.Inject;
+import java.nio.file.Path;
+import java.util.Arrays;
+
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Romain Bioteau
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Main.class,properties = "designer.workspace.apiUrl=http://dummy.con")
+@SpringBootTest(classes = Main.class, properties = "designer.workspace.apiUrl=http://dummy.con")
+@WebAppConfiguration("classpath:/")
 public class RepositoryAspectTest {
 
     @Inject
@@ -53,7 +54,7 @@ public class RepositoryAspectTest {
     @Inject
     private WidgetRepository widgetRepository;
 
-    @MockBean(name = "handler")
+    @MockBean//(name = "handler")
     private WorkspaceResourceHandler workspaceResourceHandler;
 
     // We need avoid jvm suicide because of dummy studio url check
@@ -77,8 +78,8 @@ public class RepositoryAspectTest {
     @Test
     public void should_not_trigger_postSave_on_workspaceResourceHandler_when_saving_several_widgets_in_widgetRepository() throws Exception {
         widgetRepository.saveAll(Arrays.asList(
-                aWidget().id("widgetId1").build(),
-                aWidget().id("widgetId2").build())
+                aWidget().withId("widgetId1").build(),
+                aWidget().withId("widgetId2").build())
         );
 
         verify(workspaceResourceHandler, never()).postSave(any(Path.class));
@@ -86,7 +87,7 @@ public class RepositoryAspectTest {
 
     @Test
     public void should_trigger_delete_on_workspaceResourceHandler_when_deleting_a_widget() throws Exception {
-        widgetRepository.save(aWidget().id("widgetId1").custom().build());
+        widgetRepository.save(aWidget().withId("widgetId1").custom().build());
 
         widgetRepository.delete("widgetId1");
 
@@ -96,7 +97,7 @@ public class RepositoryAspectTest {
     @Test
     public void should_trigger_postSave_on_workspaceResourceHandler_when_saving_widget_on_widgetRepository() throws Exception {
         widgetRepository.updateLastUpdateAndSave(
-                aWidget().id("widgetId1").build()
+                aWidget().withId("widgetId1").build()
         );
 
         verify(workspaceResourceHandler).postSave(any(Path.class));
@@ -127,7 +128,7 @@ public class RepositoryAspectTest {
     @Test(expected = IllegalArgumentException.class)
     @Ignore("Test ignored until we find a solution for BS-14120")
     public void should_throw_an_IllegalArgumentException_when_getting_a_form_with_a_null_id() throws Exception {
-        formRepository.get(null);
+        formRepository.get((String) null);
     }
 
     @Test(expected = RepositoryException.class)

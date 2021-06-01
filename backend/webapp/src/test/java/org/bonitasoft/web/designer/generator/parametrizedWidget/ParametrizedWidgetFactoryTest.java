@@ -14,11 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.time.LocalDate;
 
 import org.bonitasoft.web.designer.generator.assertions.AbstractParametrizedWidgetAssert;
@@ -40,6 +35,18 @@ import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aFileContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateTimeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aOffsetDateTimeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
@@ -478,7 +485,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         NodeContractInput parent = new NodeContractInput("aggregatedObject");
         parent.setDataReference(dataReference);
         parent.setMode(EditMode.EDIT);
-        LeafContractInput input = new LeafContractInput(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, String.class);
+        LeafContractInput input = new LeafContractInput(ContractInputDataHandler.PERSISTENCE_ID_INPUT_NAME, String.class);
         input.setReadonly(true);
         input.setMode(EditMode.EDIT);
         parent.addInput(input);
@@ -508,7 +515,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         parent.setDataReference(parentReference);
         root.addInput(parent);
 
-        LeafContractInput input = new LeafContractInput(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, String.class);
+        LeafContractInput input = new LeafContractInput(ContractInputDataHandler.PERSISTENCE_ID_INPUT_NAME, String.class);
         input.setMode(EditMode.EDIT);
         parent.addInput(input);
 

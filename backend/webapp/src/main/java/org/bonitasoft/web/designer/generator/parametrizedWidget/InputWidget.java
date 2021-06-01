@@ -109,10 +109,12 @@ public class InputWidget extends LabelParametrizedWidget implements Labeled, Val
     }
 
 
+    @Override
     public boolean isLabelHidden() {
         return labelHidden;
     }
 
+    @Override
     public void setLabelHidden(boolean labelHidden) {
         this.labelHidden = labelHidden;
     }

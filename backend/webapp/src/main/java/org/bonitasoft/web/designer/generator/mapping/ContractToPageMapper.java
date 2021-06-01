@@ -14,32 +14,32 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessQueryDataFactory;
 import org.bonitasoft.web.designer.generator.mapping.strategy.CaseOverviewPageCreationStrategy;
 import org.bonitasoft.web.designer.generator.mapping.strategy.ProcessInstantiationFormCreationStrategy;
 import org.bonitasoft.web.designer.generator.mapping.strategy.TaskFormCreationStrategy;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Page;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 @Named
 public class ContractToPageMapper {
 
-    private ContractInputToWidgetMapper contractToWidgetMapper;
-    private ContractToContainerMapper contractToContainerMapper;
-    private JacksonObjectMapper mapper;
-    private DimensionFactory dimensionFactory;
-    private BusinessQueryDataFactory businessQueryDataFactory;
+    private final ContractInputToWidgetMapper contractToWidgetMapper;
+    private final ContractToContainerMapper contractToContainerMapper;
+    private final JsonHandler jsonHandler;
+    private final DimensionFactory dimensionFactory;
+    private final BusinessQueryDataFactory businessQueryDataFactory;
 
     @Inject
     public ContractToPageMapper(ContractInputToWidgetMapper contractToWidgetMapper, ContractToContainerMapper contractToContainerMapper,
-            JacksonObjectMapper mapper, DimensionFactory dimensionFactory,BusinessQueryDataFactory businessQueryDataFactory) {
+                                JsonHandler jsonHandler, DimensionFactory dimensionFactory, BusinessQueryDataFactory businessQueryDataFactory) {
         this.contractToWidgetMapper = contractToWidgetMapper;
         this.contractToContainerMapper = contractToContainerMapper;
-        this.mapper = mapper;
+        this.jsonHandler = jsonHandler;
         this.dimensionFactory = dimensionFactory;
         this.businessQueryDataFactory = businessQueryDataFactory;
     }
@@ -50,11 +50,11 @@ public class ContractToPageMapper {
                 return new CaseOverviewPageCreationStrategy(contractToContainerMapper).create(name, contract);
 
             case PROCESS:
-                return new ProcessInstantiationFormCreationStrategy(contractToWidgetMapper, contractToContainerMapper, mapper, businessQueryDataFactory).create(name, contract);
+                return new ProcessInstantiationFormCreationStrategy(contractToWidgetMapper, contractToContainerMapper, jsonHandler, businessQueryDataFactory).create(name, contract);
 
             case TASK:
             default:
-                return new TaskFormCreationStrategy(contractToWidgetMapper, contractToContainerMapper, mapper, dimensionFactory, businessQueryDataFactory).create(name, contract);
+                return new TaskFormCreationStrategy(contractToWidgetMapper, contractToContainerMapper, jsonHandler, dimensionFactory, businessQueryDataFactory).create(name, contract);
         }
     }
 }

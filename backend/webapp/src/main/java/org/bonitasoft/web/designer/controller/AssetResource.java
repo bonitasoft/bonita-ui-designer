@@ -14,71 +14,79 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.fasterxml.jackson.annotation.JsonView;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.controller.asset.AssetService.OrderType;
+import org.bonitasoft.web.designer.controller.importer.ServerImportException;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.repository.Repository;
+import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.visitor.AssetVisitor;
+import org.bonitasoft.web.designer.service.AssetableArtifactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Optional;
+
+import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.Boolean.TRUE;
+import static java.util.Optional.ofNullable;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
+import static org.bonitasoft.web.designer.controller.utils.HttpFile.getOriginalFilename;
 
-public abstract class AssetResource<T extends Assetable> {
+public abstract class AssetResource<T extends Identifiable & Assetable, S extends AssetableArtifactService<T>> {
 
     protected static final Logger logger = LoggerFactory.getLogger(AssetResource.class);
 
-    protected AssetService<T> assetService;
-    protected AssetVisitor assetVisitor;
-    protected Repository<T> repository;
-    private Optional<SimpMessagingTemplate> messagingTemplate;
+    protected final JsonHandler jsonHandler;
 
-    public AssetResource(AssetService<T> assetService, Repository<T> repository, AssetVisitor assetVisitor, Optional<SimpMessagingTemplate> messagingTemplate) {
-        this.assetService = assetService;
-        this.assetVisitor = assetVisitor;
-        this.repository = repository;
-        this.messagingTemplate = messagingTemplate;
+    protected final S service;
+
+    protected final Optional<SimpMessagingTemplate> messagingTemplate;
+
+    protected AssetResource(JsonHandler jsonHandler, S service, SimpMessagingTemplate messagingTemplate) {
+        this.jsonHandler = jsonHandler;
+        this.service = service;
+        this.messagingTemplate = ofNullable(messagingTemplate);
     }
 
-    protected abstract void checkArtifactId(String artifactId);
-
     // produces = MediaType.TEXT_PLAIN_VALUE to avoid some internet explorer issues
-    @RequestMapping(value = "/{artifactId}/assets/{type}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @PostMapping(value = "/{artifactId}/assets/{type}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<Asset> saveOrUpdate(@RequestParam("file") MultipartFile file, @PathVariable("artifactId") String id, @PathVariable("type") String type) {
-        checkArtifactId(id);
-        Asset asset = assetService.upload(file, repository.get(id), type);
-        if (messagingTemplate.isPresent()) {
-            messagingTemplate.get().convertAndSend(PREVIEWABLE_UPDATE, id);
+        checkArgument(file != null && !file.isEmpty(), "Part named [file] is needed to successfully import a component");
+        var assetType = AssetType.getAsset(type);
+        checkArgument(assetType != null, AssetService.ASSET_TYPE_IS_REQUIRED);
+        try {
+            if (AssetType.JSON.equals(assetType)) {
+                jsonHandler.checkValidJson(file.getBytes());
+            }
+
+            var asset = service.saveOrUpdateAsset(id, assetType, getOriginalFilename(file.getOriginalFilename()), file.getBytes());
+
+            messagingTemplate.ifPresent(template -> template.convertAndSend(PREVIEWABLE_UPDATE, id));
+            return ResponseEntity.status(HttpStatus.CREATED).body(asset);
+        } catch (IOException e) {
+            throw new ServerImportException("Error while uploading asset " + file.getOriginalFilename(), e);
         }
-        return new ResponseEntity<>(asset, HttpStatus.CREATED);
     }
 
     @RequestMapping("/{artifactId}/assets/{type}/{filename:.*}")
@@ -90,48 +98,41 @@ public abstract class AssetResource<T extends Assetable> {
             @PathVariable("filename") String filename,
             @RequestParam(value = "format", required = false) String format) throws IOException {
 
-            Path filePath = assetService.findAssetPath(id, filename, type);
+        var filePath = service.findAssetPath(id, filename, type);
 
-            if("text".equals(format)){
-                HttpFile.writeFileInResponseForVisualization(request, response, filePath);
-            }else {
-                HttpFile.writeFileInResponseForDownload(response, filePath);
-            }
-
+        if ("text".equals(format)) {
+            HttpFile.writeFileInResponseForVisualization(request, response, filePath);
+        } else {
+            HttpFile.writeFileInResponseForDownload(response, filePath);
+        }
     }
 
-    @RequestMapping(value = "/{artifactId}/assets", method = RequestMethod.POST)
+    @PostMapping(value = "/{artifactId}/assets")
     public Asset saveAsset(@RequestBody Asset asset, @PathVariable("artifactId") String id) {
-        checkArtifactId(id);
-        return assetService.save(repository.get(id), asset);
+        return service.saveAsset(id, asset);
     }
 
-    @RequestMapping(value = "/{artifactId}/assets/{assetId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{artifactId}/assets/{assetId}")
     public void deleteAsset(@PathVariable("artifactId") String id, @PathVariable("assetId") String assetId) throws RepositoryException {
-        checkArtifactId(id);
-        assetService.delete(repository.get(id), assetId);
+        service.deleteAsset(id, assetId);
     }
 
-    @RequestMapping(value = "/{artifactId}/assets")
-    @JsonView(Asset.JsonViewAsset.class)
-    public <U extends Previewable & Identifiable> Set<Asset> assets(@PathVariable("artifactId") String id) {
-        Preconditions.checkNotNull(assetVisitor, "Not available for widgets");
-        return assetVisitor.visit((U) repository.get(id));
-    }
-
-    @RequestMapping(value = "/{artifactId}/assets/{assetId}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{artifactId}/assets/{assetId}")
     public void updateAsset(
             @PathVariable("artifactId") String id,
             @PathVariable("assetId") String assetId,
             @RequestParam(value = "increment", required = false) Boolean increment,
             @RequestParam(value = "decrement", required = false) Boolean decrement,
             @RequestParam(value = "active", required = false) Boolean active) {
-        checkArtifactId(id);
+
+        // not always: update order
         if (increment != null || decrement != null) {
-            assetService.changeAssetOrderInComponent(repository.get(id), assetId, TRUE.equals(increment) ? INCREMENT : DECREMENT);
+            final OrderType orderType = TRUE.equals(increment) ? INCREMENT : DECREMENT;
+            service.changeAssetOrder(id, assetId, orderType);
         }
+        // not always: update active state
         if (active != null) {
-            assetService.changeAssetStateInPreviewable(repository.get(id), assetId, active);
+            service.changeAssetStateInPreviewable(id, assetId, active);
         }
     }
 }

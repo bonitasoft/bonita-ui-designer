@@ -109,20 +109,20 @@ public class ButtonWidget extends LabelParametrizedWidget {
         this.targetUrlOnSuccess = targetUrlOnSuccess;
     }
 
-    public void setCollectionPosition(String collectionPosition) {
-        this.collectionPosition = collectionPosition;
-    }
-
     public String getCollectionPosition() {
         return collectionPosition;
     }
 
-    public void setRemoveItem(String removeItem) {
-        this.removeItem = removeItem;
+    public void setCollectionPosition(String collectionPosition) {
+        this.collectionPosition = collectionPosition;
     }
 
     public String getRemoveItem() {
         return removeItem;
+    }
+
+    public void setRemoveItem(String removeItem) {
+        this.removeItem = removeItem;
     }
 
     public String getValueToAdd() {

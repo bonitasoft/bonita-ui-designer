@@ -1,25 +1,23 @@
 package org.bonitasoft.web.designer;
 
-import java.io.IOException;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 import lombok.extern.slf4j.Slf4j;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import java.io.IOException;
+
 import static org.springframework.util.StringUtils.hasText;
 
 @Slf4j
 @SpringBootApplication
-@EnableConfigurationProperties({ UiDesignerProperties.class, WorkspaceUidProperties.class, WorkspaceProperties.class })
+@EnableConfigurationProperties({UiDesignerProperties.class, WorkspaceUidProperties.class, WorkspaceProperties.class})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Main {
 

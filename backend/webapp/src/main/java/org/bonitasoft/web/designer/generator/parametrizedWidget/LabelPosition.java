@@ -18,7 +18,7 @@ public enum LabelPosition {
     TOP("top"),
     LEFT("left");
 
-    private String value;
+    private final String value;
 
     LabelPosition(String value) {
         this.value = value;

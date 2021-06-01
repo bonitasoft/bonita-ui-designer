@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.generator.mapping.data;
 
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.PageData;
 
 import static java.lang.String.format;
 import static org.bonitasoft.web.designer.model.data.DataType.URL;
@@ -28,6 +29,6 @@ public class ContextData implements PageData {
 
     @Override
     public Data create() {
-        return new Data(URL, format("../API/bpm/userTask/{{%s}}/context", TaskIdData.NAME));
+        return new Data(URL, format("../API/bpm/userTask/{{%s}}/context", TaskIdData.DATA_NAME));
     }
 }

@@ -14,20 +14,16 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import java.net.URI;
-
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
+
+import javax.inject.Inject;
+import java.net.URI;
 
 @ConditionalOnProperty("designer.workspace.apiUrl")
 @Component
@@ -35,7 +31,7 @@ public class StudioHealthCheck {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StudioHealthCheck.class);
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
     @Inject
     public StudioHealthCheck(RestClient restClient) {
@@ -44,15 +40,14 @@ public class StudioHealthCheck {
 
     @Scheduled(fixedRate = 20000)
     public void run() {
-        String statusURI = restClient.createURI("status/");
-        RestTemplate restTemplate = restClient.getRestTemplate();
+        var statusURI = restClient.createURI("status/");
+        var restTemplate = restClient.getRestTemplate();
         try {
-            ResponseEntity<String> result = restTemplate.getForEntity(URI.create(statusURI), String.class);
+            var result = restTemplate.getForEntity(URI.create(statusURI), String.class);
             if (result.getStatusCode() != HttpStatus.OK) {
                 shutdown();
             }
-        }
-        catch (RestClientException e) {
+        } catch (RestClientException e) {
             shutdown();
         }
     }

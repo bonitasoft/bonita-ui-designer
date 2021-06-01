@@ -15,14 +15,18 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.util.AntPathMatcher;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.web.servlet.HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE;
 import static org.springframework.web.servlet.HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE;
 
-public abstract class RequestMappingUtils {
+public final class RequestMappingUtils {
+
+    private RequestMappingUtils() {
+        // Utility class
+    }
 
     public static String extractPathWithinPattern(HttpServletRequest request) {
         return new AntPathMatcher().extractPathWithinPattern(

@@ -14,14 +14,11 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import javax.inject.Named;
-
 import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
-
 import org.springframework.web.client.RestTemplate;
 
-import static org.springframework.util.StringUtils.hasText;
+import javax.inject.Named;
 
 /**
  * @author Romain Bioteau
@@ -45,7 +42,7 @@ public class RestClient {
      * Creates URL based on the URI passed in.
      */
     public String createURI(String uri) {
-        StringBuilder sb = new StringBuilder(workspaceProperties.getApiUrl());
+        var sb = new StringBuilder(workspaceProperties.getApiUrl());
         if (sb.charAt(sb.length() - 1) != '/') {
             sb.append("/");
         }

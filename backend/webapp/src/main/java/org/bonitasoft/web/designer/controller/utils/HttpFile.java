@@ -14,23 +14,27 @@
  */
 package org.bonitasoft.web.designer.controller.utils;
 
+import com.google.common.base.Preconditions;
+import org.springframework.http.MediaType;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import static java.nio.file.Files.exists;
 
-import com.google.common.base.Preconditions;
+public final class HttpFile {
 
-import org.springframework.http.MediaType;
-
-public class HttpFile {
+    private HttpFile() {
+        // Utility class
+    }
 
     public static void writeFileInResponseForVisualization(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
-        if (!isExistingFilePath(response, filePath)) {
+        if (!isExistingFilePath(filePath)) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
@@ -42,7 +46,7 @@ public class HttpFile {
     }
 
     public static void writeFileInResponseForDownload(HttpServletResponse response, Path filePath) throws IOException {
-        if (!isExistingFilePath(response, filePath)) {
+        if (!isExistingFilePath(filePath)) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
@@ -50,7 +54,7 @@ public class HttpFile {
     }
 
     public static void writeFileInResponse(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
-        if (!isExistingFilePath(response, filePath)){
+        if (!isExistingFilePath(filePath)) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
@@ -61,13 +65,13 @@ public class HttpFile {
      * Write headers and content in the response
      */
     private static void writeFileInResponse(HttpServletResponse response, Path filePath, String mimeType,
-            String contentDispositionType) throws IOException {
+                                            String contentDispositionType) throws IOException {
         response.setHeader("Content-Type", mimeType);
         response.setHeader("Content-Length", String.valueOf(filePath.toFile().length()));
-        response.setHeader("Content-Disposition", new StringBuilder().append(contentDispositionType)
-                .append("; filename=\"")
-                .append(filePath.getFileName())
-                .append("\"").toString());
+        response.setHeader("Content-Disposition", contentDispositionType +
+                "; filename=\"" +
+                filePath.getFileName() +
+                "\"");
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
         try (OutputStream out = response.getOutputStream()) {
             Files.copy(filePath, out);
@@ -88,18 +92,14 @@ public class HttpFile {
         if (pos != -1) {
             // any sort of path separator found
             return filename.substring(pos + 1);
-        }
-        else {
+        } else {
             // plain name
             return filename;
         }
     }
 
-    private static boolean isExistingFilePath(HttpServletResponse response, Path filePath) throws IOException {
-        if (filePath == null || Files.notExists(filePath)) {
-            return false;
-        }
-        return true;
+    private static boolean isExistingFilePath(Path filePath) {
+        return filePath != null && exists(filePath);
     }
 
 }

@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import java.io.IOException;
-
 import org.bonitasoft.web.designer.controller.asset.MalformedJsonException;
 import org.bonitasoft.web.designer.controller.importer.ImportException;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
@@ -25,100 +23,91 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.io.IOException;
+
+import static org.springframework.http.HttpStatus.*;
+
 /**
  * Definition of the exception handlers
  */
-@Order(Ordered.LOWEST_PRECEDENCE)
+@Order
 @ControllerAdvice
 public class ResourceControllerAdvice implements BonitaExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ResourceControllerAdvice.class);
 
-    /**
-     * Construct Header to specify content-type
-     */
-    public static HttpHeaders getHttpHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
-        return headers;
-    }
-
     @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = BAD_REQUEST)
     public ResponseEntity<ErrorMessage> handleIllegalArgumentException(IllegalArgumentException exception) {
         logger.error("Illegal Argument Exception", exception);
-        return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(BAD_REQUEST).body(new ErrorMessage(exception));
     }
 
     @ExceptionHandler(ConstraintValidationException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = BAD_REQUEST)
     public ResponseEntity<ErrorMessage> handleConstraintValidationException(ConstraintValidationException exception) {
         logger.error("Constraint Validation Exception", exception);
-        return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(BAD_REQUEST).body(new ErrorMessage(exception));
     }
 
     @ExceptionHandler(NotAllowedException.class)
     public ResponseEntity<ErrorMessage> handleNotAllowedException(NotAllowedException exception) {
         logger.error("Not Allowed Exception", exception);
-        return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.FORBIDDEN);
+        return ResponseEntity.status(FORBIDDEN).body(new ErrorMessage(exception));
     }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorMessage> handleNotFoundException(NotFoundException exception) {
         logger.error("Element Not Found Exception", exception);
-        return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(NOT_FOUND).body(new ErrorMessage(exception));
     }
 
     @ExceptionHandler(IOException.class)
     public ResponseEntity<ErrorMessage> handleIOException(IOException exception) {
         logger.error("Internal Server Error Exception", exception);
-        return new ResponseEntity<>(new ErrorMessage(exception),getHttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON_UTF8).body(new ErrorMessage(exception));
     }
 
     @ExceptionHandler(RepositoryException.class)
     public ResponseEntity<ErrorMessage> handleRepositoryException(RepositoryException exception) {
         logger.error("Internal Exception", exception);
-        return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ErrorMessage(exception));
     }
 
     @ExceptionHandler(InUseException.class)
     public ResponseEntity<ErrorMessage> handleInUseException(InUseException exception) {
         logger.error("Element In Use Exception", exception);
-        return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.CONFLICT);
+        return ResponseEntity.status(CONFLICT).body(new ErrorMessage(exception));
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorMessage> handleRepositoryException(RuntimeException exception) {
         logger.error("Internal Exception", exception);
-        return new ResponseEntity<>(new ErrorMessage(exception), HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ErrorMessage(exception));
     }
 
     @ExceptionHandler(ImportException.class)
     public ResponseEntity<ErrorMessage> handleImportException(ImportException exception) {
         logger.error("Technical error when importing a component", exception);
         // BS-14113: HttpStatus.ACCEPTED internet explorer don't recognize response if sent with http error code
-        ErrorMessage errorMessage = new ErrorMessage(exception.getType().toString(), exception.getMessage());
+        var errorMessage = new ErrorMessage(exception.getType().toString(), exception.getMessage());
         errorMessage.addInfos(exception.getInfos());
-        return new ResponseEntity<>(errorMessage, HttpStatus.ACCEPTED);
+        return ResponseEntity.status(ACCEPTED).body(errorMessage);
     }
 
     @ExceptionHandler(MalformedJsonException.class)
     public ResponseEntity<ErrorMessage> handleJsonProcessingException(MalformedJsonException exception) {
-        logger.error("Error while uploading a json file "  + exception.getMessage());
+        logger.error("Error while uploading a json file {}", exception.getMessage());
         // BS-14113: HttpStatus.ACCEPTED internet explorer don't recognize response if sent with http error code
-        ErrorMessage message = new ErrorMessage(exception);
+        var message = new ErrorMessage(exception);
         message.addInfo("location", exception.getLocationInfos());
-        return new ResponseEntity<>(message, HttpStatus.ACCEPTED);
+        return ResponseEntity.status(ACCEPTED).body(message);
     }
 }

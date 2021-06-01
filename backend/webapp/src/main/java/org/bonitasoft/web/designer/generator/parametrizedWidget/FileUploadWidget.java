@@ -14,11 +14,12 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
+import org.bonitasoft.web.designer.model.ParameterType;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
+
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
-
-import org.bonitasoft.web.designer.model.page.PropertyValue;
 
 @Widget
 public class FileUploadWidget extends LabelParametrizedWidget implements Valuable, Labeled, Requirable {
@@ -102,17 +103,17 @@ public class FileUploadWidget extends LabelParametrizedWidget implements Valuabl
     }
 
     /**
-     * Dynamic read only state for the generated widget
-     */
-    public void setRequiredExpression(String requiredExpression) {
-        this.requiredExpression = Optional.ofNullable(requiredExpression);
-    }
-
-    /**
      * For test purpose
      */
     protected Optional<String> getRequiredExpression() {
         return requiredExpression;
+    }
+
+    /**
+     * Dynamic read only state for the generated widget
+     */
+    public void setRequiredExpression(String requiredExpression) {
+        this.requiredExpression = Optional.ofNullable(requiredExpression);
     }
 
     @Override

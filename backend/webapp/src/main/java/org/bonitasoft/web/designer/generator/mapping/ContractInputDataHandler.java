@@ -14,12 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 import org.bonitasoft.web.designer.generator.mapping.data.FormInputData;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParametrizedWidgetFactory;
 import org.bonitasoft.web.designer.model.contract.AbstractContractInput;
@@ -29,18 +23,44 @@ import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
-import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.reverse;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+
+import static java.lang.String.join;
+import static java.util.stream.Collectors.toList;
+
 
 public class ContractInputDataHandler {
 
-    public static final String PERSISTENCEID_INPUT_NAME = "persistenceId_string";
+    public static final String PERSISTENCE_ID_INPUT_NAME = "persistenceId_string";
     public static final String ITERATOR_NAME = "it";
-    private ContractInput input;
+    private final ContractInput input;
 
     public ContractInputDataHandler(ContractInput input) {
         this.input = input;
+    }
+
+    public static boolean hasAggregatedParentRef(ContractInput input) {
+        return input.getParent() instanceof NodeContractInput
+                && ((NodeContractInput) input.getParent()).getDataReference() != null
+                && ((NodeContractInput) input.getParent()).getDataReference()
+                .getRelationType() == RelationType.AGGREGATION;
+    }
+
+    public static boolean hasMultipleComposedParentRef(ContractInput input) {
+        return input.getParent() instanceof NodeContractInput
+                && ((NodeContractInput) input.getParent()).getDataReference() != null
+                && input.getParent().isMultiple()
+                && ((NodeContractInput) input.getParent()).getDataReference()
+                .getRelationType() == RelationType.COMPOSITION;
+    }
+
+    public static boolean shouldGenerateWidgetForInput(ContractInput input) {
+        return Objects.equals(input.getName(), PERSISTENCE_ID_INPUT_NAME) && hasMultipleComposedParentRef(input);
     }
 
     public boolean hasLazyDataRef() {
@@ -57,7 +77,7 @@ public class ContractInputDataHandler {
     }
 
     public String inputValue() {
-        if (Objects.equals(PERSISTENCEID_INPUT_NAME, input.getName()) && hasAggregatedParentRef(input)) {
+        if (Objects.equals(PERSISTENCE_ID_INPUT_NAME, input.getName()) && hasAggregatedParentRef(input)) {
             ContractInputDataHandler parentInput = getParent();
             return parentInput.hasLazyDataRef() ? parentInput.inputName()
                     : parentInput.buildPathForInputValue();
@@ -66,28 +86,13 @@ public class ContractInputDataHandler {
                 : buildPathForInputValue();
     }
 
-    public static boolean hasAggregatedParentRef(ContractInput input) {
-        return input.getParent() instanceof NodeContractInput
-                && ((NodeContractInput) input.getParent()).getDataReference() != null
-                && ((NodeContractInput) input.getParent()).getDataReference()
-                        .getRelationType() == RelationType.AGGREGATION;
-    }
-
-    public static boolean hasMultipleComposedParentRef(ContractInput input) {
-        return input.getParent() instanceof NodeContractInput
-                && ((NodeContractInput) input.getParent()).getDataReference() != null
-                && ((NodeContractInput) input.getParent()).isMultiple()
-                && ((NodeContractInput) input.getParent()).getDataReference()
-                        .getRelationType() == RelationType.COMPOSITION;
-    }
-
     public String inputName() {
         return hasDataReference() && EditMode.EDIT == getMode() ? nameFromDataRef()
                 : input.getName();
     }
 
     private boolean doesNotHaveAMultipleParent(ContractInput contractInput) {
-        ContractInput current = contractInput.getParent();
+        var current = contractInput.getParent();
         while (current != null && !current.isMultiple()) {
             current = current.getParent();
         }
@@ -101,7 +106,10 @@ public class ContractInputDataHandler {
             dataNames.add(current.getDataReference().getName());
             current = (NodeContractInput) current.getParent();
         }
-        return on("_").join(reverse(dataNames));
+
+        var reversed = new LinkedList<>(dataNames);
+        Collections.reverse(reversed);
+        return join("_", reversed);
     }
 
     private String nameFromDataRef() {
@@ -109,14 +117,14 @@ public class ContractInputDataHandler {
     }
 
     private String buildPathForInputValue() {
-        List<String> pathNames = newArrayList();
+        List<String> pathNames = new ArrayList<>();
         pathNames.add(inputName());
-        boolean parentHasDataRef = hasDataReference();
-        boolean parentHasLazyDataRef = false;
+        var parentHasDataRef = hasDataReference();
+        var parentHasLazyDataRef = false;
         if (parentHasDataRef) {
             parentHasLazyDataRef = hasLazyDataRef();
         }
-        ContractInputDataHandler pInput = getParent();
+        var pInput = getParent();
         while (!parentHasLazyDataRef && pInput != null) {
             parentHasDataRef = pInput.hasDataReference();
             if (pInput.isMultiple()) {
@@ -129,12 +137,13 @@ public class ContractInputDataHandler {
         }
         if (pathNames.isEmpty()) {
             return null;
-        } else if (pInput == null) {
-            if (!parentHasDataRef) {
-                pathNames.add(FormInputData.NAME);
-            }
+        } else if (pInput == null && !parentHasDataRef) {
+            pathNames.add(FormInputData.INPUT_NAME);
         }
-        return on(".").join(reverse(pathNames));
+
+        var reversed = new LinkedList<>(pathNames);
+        Collections.reverse(reversed);
+        return join(".", reversed);
     }
 
     public ContractInputDataHandler getParent() {
@@ -152,23 +161,23 @@ public class ContractInputDataHandler {
     public String getRefName() {
         return input instanceof AbstractContractInput
                 && ((AbstractContractInput) input).getDataReference() != null
-                        ? ((AbstractContractInput) input).getDataReference().getName()
-                        : null;
+                ? ((AbstractContractInput) input).getDataReference().getName()
+                : null;
     }
 
     public String getRefType() {
         return input instanceof AbstractContractInput
                 && ((AbstractContractInput) input).getDataReference() != null
-                        ? ((AbstractContractInput) input).getDataReference().getType()
-                        : null;
+                ? ((AbstractContractInput) input).getDataReference().getType()
+                : null;
     }
 
     public String getDataPath() {
-        List<String> pathNames = newArrayList();
-        pathNames.add(getRefName() == null ? getInputName() : getRefName() );
-        ContractInputDataHandler parent = getParent();
+        List<String> pathNames = new ArrayList<>();
+        pathNames.add(getRefName() == null ? getInputName() : getRefName());
+        var parent = getParent();
         while (parent != null) {
-            if(parent.isMultiple()) {
+            if (parent.isMultiple()) {
                 pathNames.add(ITERATOR_NAME);
                 break;
             }
@@ -178,14 +187,13 @@ public class ContractInputDataHandler {
         if (pathNames.isEmpty()) {
             return null;
         }
-        if(parent == null) {
+        if (parent == null) {
             pathNames.add("$data");
         }
-        return on(".").join(reverse(pathNames));
-    }
 
-    public static boolean shouldGenerateWidgetForInput(ContractInput input) {
-        return Objects.equals(input.getName(), PERSISTENCEID_INPUT_NAME) && hasMultipleComposedParentRef(input);
+        var reversed = new LinkedList<>(pathNames);
+        Collections.reverse(reversed);
+        return join(".", reversed);
     }
 
     public EditMode getMode() {
@@ -201,9 +209,9 @@ public class ContractInputDataHandler {
     }
 
     public List<ContractInputDataHandler> getNonReadOnlyChildren() {
-       return input.getInput().stream()
-               .filter(input -> !input.isReadOnly())
-               .map(ContractInputDataHandler::new)
-               .collect(Collectors.toList());
+        return input.getInput().stream()
+                .filter(i -> !i.isReadOnly())
+                .map(ContractInputDataHandler::new)
+                .collect(toList());
     }
 }

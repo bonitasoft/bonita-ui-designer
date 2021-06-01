@@ -90,9 +90,13 @@ public class DateTimePickerWidget extends InputWidget {
         this.showToday = showToday;
     }
 
-    public String getTimePlaceholder() {return timePlaceholder; }
+    public String getTimePlaceholder() {
+        return timePlaceholder;
+    }
 
-    public void setTimePlaceholder(String timePlaceholder) { this.timePlaceholder = timePlaceholder; }
+    public void setTimePlaceholder(String timePlaceholder) {
+        this.timePlaceholder = timePlaceholder;
+    }
 
     public String getNowLabel() {
         return nowLabel;

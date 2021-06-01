@@ -15,33 +15,24 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import javax.inject.Inject;
-
+import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObjectContainer;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.DataManagementGenerator;
-import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/generation")
+@RequiredArgsConstructor
 public class UiGenerationResource {
 
-    private DataManagementGenerator dataManagementGenerator;
+    private final DataManagementGenerator dataManagementGenerator;
 
-    @Inject
-    public UiGenerationResource(DataManagementGenerator dataManagementGenerator, PageRepository pageRepository) {
-        this.dataManagementGenerator = dataManagementGenerator;
-    }
-
-    @RequestMapping(value = "/businessobject", method = RequestMethod.POST)
-    @ResponseBody
+    @PostMapping(value = "/businessobject")
     public BusinessObjectContainer dataManagementGenerator(@RequestBody BusinessObject businessObject)
             throws RepositoryException {
         return dataManagementGenerator.generate(businessObject);

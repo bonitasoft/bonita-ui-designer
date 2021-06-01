@@ -14,14 +14,14 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.Container;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonTypeName("businessObjectContainer")
 public class BusinessObjectContainer {

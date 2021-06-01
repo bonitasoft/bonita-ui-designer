@@ -15,6 +15,11 @@
     <dependencies>
         <dependency>
             <groupId>org.bonitasoft.web</groupId>
+            <artifactId>ui-designer-artifact-builder</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bonitasoft.web</groupId>
             <artifactId>ui-designer-backend-contract</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -42,6 +47,11 @@
         </dependency>
 
         <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
@@ -61,10 +71,7 @@
             <groupId>com.github.jknack</groupId>
             <artifactId>handlebars-jackson2</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.fedorahosted.tennera</groupId>
-            <artifactId>jgettext</artifactId>
-        </dependency>
+
 
         <!-- Spring -->
         <dependency>
@@ -151,6 +158,13 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.bonitasoft.web</groupId>
+            <artifactId>ui-designer-artifact-builder</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path-assert</artifactId>
             <version>2.2.0</version>
@@ -173,11 +187,7 @@
             <version>3.1.6</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
-        </dependency>
+
     </dependencies>
 
     <build>
@@ -200,16 +210,6 @@
                     <exclude>*.yaml</exclude>
                     <exclude>*.properties</exclude>
                 </excludes>
-            </resource>
-            <resource>
-                <directory>node_modules/widget-builder/src</directory>
-                <includes>
-                    <include>widgetDirectiveTemplate.hbs.js</include>
-                </includes>
-                <targetPath>templates</targetPath>
-            </resource>
-            <resource>
-                <directory>target/generated-sources</directory>
             </resource>
         </resources>
 
@@ -272,51 +272,9 @@
                                     <version>${project.version}</version>
                                     <type>zip</type>
                                     <classifier>dist</classifier>
-                                    <outputDirectory>
-                                        ${project.build.directory}/classes/static
-                                    </outputDirectory>
+                                    <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
                                 </artifactItem>
                             </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>install node and yarn</id>
-                        <goals>
-                            <goal>install-node-and-yarn</goal>
-                        </goals>
-                        <phase>initialize</phase>
-                    </execution>
-                    <execution>
-                        <id>yarn install</id>
-                        <goals>
-                            <goal>yarn</goal>
-                        </goals>
-                        <phase>initialize</phase>
-                    </execution>
-                    <execution>
-                        <id>yarn build</id>
-                        <goals>
-                            <goal>yarn</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <arguments>run build</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>yarn test</id>
-                        <goals>
-                            <goal>yarn</goal>
-                        </goals>
-                        <phase>test</phase>
-                        <configuration>
-                            <arguments>test</arguments>
                         </configuration>
                     </execution>
                 </executions>
@@ -332,30 +290,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.jsonschema2pojo</groupId>
-                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
-                <version>1.0.2</version>
-                <configuration>
-                    <sourceDirectory>${project.build.directory}/widget-schema/
-                    </sourceDirectory>
-                    <outputDirectory>${project.build.directory}/generated-sources
-                    </outputDirectory>
-                    <targetPackage>org.bonitasoft.web.designer.generator.widgets
-                    </targetPackage>
-                    <annotationStyle>none</annotationStyle>
-                    <includeAdditionalProperties>false</includeAdditionalProperties>
-                    <includeHashcodeAndEquals>false</includeHashcodeAndEquals>
-                    <includeToString>false</includeToString>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -363,12 +297,14 @@
             <id>dependencies</id>
             <properties>
                 <bonitaMinorVersion></bonitaMinorVersion>
+                <groovy.version>3.0.8</groovy.version>
             </properties>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>license-maven-plugin</artifactId>
+                        <version>2.0.0</version>
                         <executions>
                             <execution>
                                 <id>generate-licenses-data</id>
@@ -376,22 +312,6 @@
                                 <goals>
                                     <goal>download-licenses</goal>
                                 </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>com.github.eirslett</groupId>
-                        <artifactId>frontend-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>list dependencies</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>yarn</goal>
-                                </goals>
-                                <configuration>
-                                    <arguments>listDependencies</arguments>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
@@ -412,9 +332,8 @@
                                         <templateDir>${project.basedir}/src/main/groovy/templates</templateDir>
                                         <outputFileName>${project.build.directory}/bonita-ui-designer-dependencies.adoc</outputFileName>
                                         <mavenLicensesFile>${project.build.directory}/generated-resources/licenses.xml</mavenLicensesFile>
-                                        <pageNodeJsDepFile>${project.build.directory}/ui-designer-backend-webapp.json</pageNodeJsDepFile>
-                                        <editorNodeJsDepFile>${project.basedir}/../../frontend/ui-designer-frontend-yarn-dependencies.json</editorNodeJsDepFile>
-                                        <editorBowerDepFile>${project.basedir}/../../frontend/ui-designer-frontend-bower-dependencies.json</editorBowerDepFile>
+                                        <pageNodeJsDepFile>${project.basedir}/../artifact-builder/target/ui-designer-artifact-builder.json</pageNodeJsDepFile>
+                                        <editorNodeJsDepFile>${project.basedir}/../../frontend/ui-designer-frontend-dependencies.json</editorNodeJsDepFile>
                                     </properties>
                                     <source>${project.basedir}/src/main/groovy/dependencies-adoc.groovy</source>
                                 </configuration>
@@ -424,12 +343,16 @@
                             <dependency>
                                 <groupId>org.codehaus.groovy</groupId>
                                 <artifactId>groovy-json</artifactId>
-                                <version>3.0.7</version>
+                                <version>${groovy.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>org.codehaus.groovy</groupId>
                                 <artifactId>groovy-xml</artifactId>
-                                <version>3.0.7</version>
+                                <version>${groovy.version}</version>
+                            </dependency><dependency>
+                                <groupId>org.codehaus.groovy</groupId>
+                                <artifactId>groovy-jaxb</artifactId>
+                                <version>${groovy.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>com.github.jknack</groupId>

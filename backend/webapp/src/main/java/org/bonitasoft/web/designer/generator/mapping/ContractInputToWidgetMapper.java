@@ -14,18 +14,9 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.bonitasoft.web.designer.generator.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.generator.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.generator.mapping.data.SubmitErrorsListData;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.AbstractParametrizedWidget;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.Alignment;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonWidget;
@@ -33,13 +24,11 @@ import org.bonitasoft.web.designer.generator.parametrizedWidget.FileUploadWidget
 import org.bonitasoft.web.designer.generator.parametrizedWidget.FileViewerWidget;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.Labeled;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParametrizedWidgetFactory;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.TextWidget;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.TitleWidget;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.Valuable;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.WidgetContainer;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
@@ -50,19 +39,26 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @Named
 public class ContractInputToWidgetMapper {
 
-    private static final Logger logger = LoggerFactory.getLogger(ParametrizedWidgetFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(ContractInputToWidgetMapper.class);
 
     protected ParametrizedWidgetFactory parametrizedWidgetFactory;
     protected DimensionFactory dimensionFactory;
-    private JacksonObjectMapper objectMapperWrapper;
+    private JsonHandler jsonHandler;
 
     @Inject
-    public ContractInputToWidgetMapper(DimensionFactory dimensionFactory, JacksonObjectMapper objectMapperWrapper) {
+    public ContractInputToWidgetMapper(DimensionFactory dimensionFactory, JsonHandler jsonHandler) {
         this.dimensionFactory = dimensionFactory;
-        this.objectMapperWrapper = objectMapperWrapper;
+        this.jsonHandler = jsonHandler;
         parametrizedWidgetFactory = new ParametrizedWidgetFactory();
     }
 
@@ -77,50 +73,50 @@ public class ContractInputToWidgetMapper {
     }
 
     private Element toSingleDocument(LeafContractInput contractInput) {
-        WidgetContainer documentContainer = parametrizedWidgetFactory.createWidgetContainer(contractInput);
-        Container container = documentContainer.toContainer(dimensionFactory);
-        TitleWidget docuementNameTitle = parametrizedWidgetFactory.createTitle(contractInput);
-        docuementNameTitle.setLevel("Level 4");
+        var documentContainer = parametrizedWidgetFactory.createWidgetContainer(contractInput);
+        var container = documentContainer.toContainer(dimensionFactory);
+        var documentNameTitle = parametrizedWidgetFactory.createTitle(contractInput);
+        documentNameTitle.setLevel("Level 4");
 
         if (contractInput.getMode() == EditMode.EDIT) {
-            container.addNewRow(docuementNameTitle.toComponent(dimensionFactory));
-            FileViewerWidget fileViewerWidget = new FileViewerWidget();
+            container.addNewRow(documentNameTitle.toComponent(dimensionFactory));
+            var fileViewerWidget = new FileViewerWidget();
             fileViewerWidget.setShowPreview(false);
             fileViewerWidget.setDocument(String.format("context.%s_ref", contractInput.getDataReference().getName()));
             container.addNewRow(fileViewerWidget.toComponent(dimensionFactory));
         }
-        FileUploadWidget fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory
+        var fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory
                 .createParametrizedWidget(contractInput);
-        fileUploadWidget.setLabel(docuementNameTitle.getText());
+        fileUploadWidget.setLabel(documentNameTitle.getText());
         container.addNewRow(fileUploadWidget.toComponent(dimensionFactory));
 
         return container;
     }
 
     private Element toMultipleDocument(LeafContractInput contractInput) {
-        WidgetContainer rootWidgetContainer = parametrizedWidgetFactory.createWidgetContainer();
-        Container rootContainer = rootWidgetContainer.toContainer(dimensionFactory);
-        TitleWidget documentNameTitle = parametrizedWidgetFactory.createTitle(contractInput);
+        var rootWidgetContainer = parametrizedWidgetFactory.createWidgetContainer();
+        var rootContainer = rootWidgetContainer.toContainer(dimensionFactory);
+        var documentNameTitle = parametrizedWidgetFactory.createTitle(contractInput);
         documentNameTitle.setLevel("Level 4");
         rootContainer.addNewRow(documentNameTitle.toComponent(dimensionFactory));
 
-        Container container = toMultipleContainer(contractInput);
+        var container = toMultipleContainer(contractInput);
 
         if (contractInput.getMode() == EditMode.EDIT) {
-            FileViewerWidget fileViewerWidget = new FileViewerWidget();
+            var fileViewerWidget = new FileViewerWidget();
             fileViewerWidget.setShowPreview(false);
             fileViewerWidget.setDocument("$item");
             container.addNewRow(fileViewerWidget.toComponent(dimensionFactory));
         }
 
-        FileUploadWidget fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory
+        var fileUploadWidget = (FileUploadWidget) parametrizedWidgetFactory
                 .createParametrizedWidget(contractInput);
         fileUploadWidget.setDimension(11);
 
         List<Element> row = new ArrayList<>();
         row.add(fileUploadWidget.toComponent(dimensionFactory));
 
-        ButtonWidget removeButton = parametrizedWidgetFactory.createRemoveButton();
+        var removeButton = parametrizedWidgetFactory.createRemoveButton();
         removeButton.setDimension(1);
         removeButton.setAlignment(Alignment.LEFT);
 
@@ -131,14 +127,14 @@ public class ContractInputToWidgetMapper {
     }
 
     private Container toMultipleComponent(ContractInput contractInput, List<List<Element>> rows) {
-        rows.add(Collections.<Element> singletonList(
+        rows.add(Collections.<Element>singletonList(
                 parametrizedWidgetFactory.createTitle(contractInput).toComponent(dimensionFactory)));
         return toMultipleComponent(contractInput);
     }
 
     private Container toMultipleComponent(ContractInput contractInput) {
-        Container container = toMultipleContainer(contractInput);
-        AbstractParametrizedWidget component = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
+        var container = toMultipleContainer(contractInput);
+        var component = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         if (component instanceof Labeled) {
             ((Labeled) component).setLabel("");
             ((Labeled) component).setLabelWidth(0);
@@ -156,7 +152,7 @@ public class ContractInputToWidgetMapper {
     }
 
     private Container toMultipleContainer(ContractInput contractInput) {
-        WidgetContainer multipleContainer = parametrizedWidgetFactory.createWidgetContainer(contractInput);
+        var multipleContainer = parametrizedWidgetFactory.createWidgetContainer(contractInput);
         return multipleContainer.toContainer(dimensionFactory);
     }
 
@@ -165,20 +161,20 @@ public class ContractInputToWidgetMapper {
     }
 
     private Component toSimpleComponent(ContractInput contractInput) {
-        AbstractParametrizedWidget widget = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
+        var widget = parametrizedWidgetFactory.createParametrizedWidget(contractInput);
         return widget.toComponent(dimensionFactory);
     }
 
     public Container toContainer(NodeContractInput nodeContractInput, List<List<Element>> rows) {
-        rows.add(Collections.<Element> singletonList(
+        rows.add(Collections.<Element>singletonList(
                 parametrizedWidgetFactory.createTitle(nodeContractInput).toComponent(dimensionFactory)));
         return nodeContractInput.isMultiple() ? toMultipleContainer(nodeContractInput)
                 : toSimpleContainer(nodeContractInput);
     }
 
     public Component createSubmitButton(ButtonAction actionType) {
-        ButtonWidget submitButton = parametrizedWidgetFactory.createSubmitButton(actionType);
-        submitButton.setDataToSend(FormOutputData.NAME);
+        var submitButton = parametrizedWidgetFactory.createSubmitButton(actionType);
+        submitButton.setDataToSend(FormOutputData.INPUT_NAME);
         submitButton.setPropertyValue("dataFromError", ParameterType.VARIABLE, SubmitErrorsListData.SUBMIT_ERROR_DATA);
         submitButton.setTargetUrlOnSuccess("/bonita");
         submitButton.setPropertyValue("disabled", ParameterType.EXPRESSION, "$form.$invalid");
@@ -186,19 +182,19 @@ public class ContractInputToWidgetMapper {
     }
 
     public Component createSubmitErrorAlert() {
-        TextWidget widget = new TextWidget();
+        var widget = new TextWidget();
         widget.setCssClasses("alert alert-danger col-lg-6 col-lg-offset-3");
         widget.setPropertyValue(ParameterConstants.HIDDEN_PARAMETER, ParameterType.EXPRESSION,
                 String.format("!%s.message", SubmitErrorsListData.SUBMIT_ERROR_DATA));
         widget.setPropertyValue("allowHTML", ParameterType.CONSTANT, true);
-        StringBuffer sb = new StringBuffer();
+        var sb = new StringBuilder();
         sb.append("<strong>Debug message</strong>");
         sb.append("\n");
         sb.append("<br/>");
         sb.append("\n");
         sb.append(String.format("{{%s.message}}", SubmitErrorsListData.SUBMIT_ERROR_DATA));
         sb.append("\n");
-        sb.append(String.format("{{%s}}", SubmitErrorsListData.NAME));
+        sb.append(String.format("{{%s}}", SubmitErrorsListData.DATA_NAME));
         widget.setPropertyValue("text", ParameterType.INTERPOLATION, sb.toString());
         return widget.toComponent(dimensionFactory);
     }
@@ -227,7 +223,7 @@ public class ContractInputToWidgetMapper {
 
     private String getValueToAddFromContract(ContractInput contractInput) {
         try {
-            FormInputVisitor visitor = new FormInputVisitor(objectMapperWrapper);
+            var visitor = new FormInputVisitor(jsonHandler);
             for (ContractInput input : contractInput.getInput()) {
                 input.accept(visitor);
             }

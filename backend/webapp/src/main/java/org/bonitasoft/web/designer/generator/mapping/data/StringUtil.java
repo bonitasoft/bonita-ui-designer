@@ -18,19 +18,25 @@ import java.util.stream.Stream;
 
 public class StringUtil {
 
+    private StringUtil() {
+        // Utility class
+    }
+
     public static String indent(String value, int size) {
-        StringBuffer sb = new StringBuffer();
+        var sb = new StringBuilder();
         boolean appendNewLine = value.endsWith("\n");
         String[] lines = value.split("\n");
         Stream.of(lines).forEach(line -> {
-            for (int i = 0; i < size; i++) {
-                line = "\t" + line;
+            var lineBuilder = new StringBuilder(line);
+            for (var i = 0; i < size; i++) {
+                lineBuilder.insert(0, "\t");
             }
+            line = lineBuilder.toString();
             sb.append(line);
             sb.append("\n");
         });
-        String indentedValue = sb.toString();
-        return !appendNewLine ? indentedValue.substring(0,indentedValue.length()-1) : indentedValue;
+        var indentedValue = sb.toString();
+        return !appendNewLine ? indentedValue.substring(0, indentedValue.length() - 1) : indentedValue;
     }
 
 }

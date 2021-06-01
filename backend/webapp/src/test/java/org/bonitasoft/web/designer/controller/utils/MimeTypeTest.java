@@ -14,13 +14,13 @@
  */
 package org.bonitasoft.web.designer.controller.utils;
 
-import static junitparams.JUnitParamsRunner.$;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static junitparams.JUnitParamsRunner.$;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(JUnitParamsRunner.class)
 public class MimeTypeTest {

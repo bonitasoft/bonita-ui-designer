@@ -14,9 +14,9 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SubmitErrorsListDataTest {
 

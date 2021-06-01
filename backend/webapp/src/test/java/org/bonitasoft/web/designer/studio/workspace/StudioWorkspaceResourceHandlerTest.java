@@ -38,7 +38,6 @@ import static com.github.dreamhead.moco.Moco.uri;
 import static com.github.dreamhead.moco.MocoRest.restServer;
 import static java.net.URLEncoder.encode;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 /**

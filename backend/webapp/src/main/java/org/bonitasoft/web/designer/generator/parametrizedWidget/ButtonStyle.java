@@ -23,7 +23,7 @@ public enum ButtonStyle {
     DANGER("danger"),
     LINK("link");
 
-    private String value;
+    private final String value;
 
     ButtonStyle(String value) {
         this.value = value;

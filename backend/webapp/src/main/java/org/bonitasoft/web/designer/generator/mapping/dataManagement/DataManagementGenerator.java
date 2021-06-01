@@ -15,17 +15,16 @@
 
 package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.WidgetContainer;
-import org.bonitasoft.web.designer.model.page.Container;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 @Named
 public class DataManagementGenerator {
 
-    private DimensionFactory dimensionFactory;
+    private final DimensionFactory dimensionFactory;
 
     @Inject
     public DataManagementGenerator(DimensionFactory dimensionFactory) {
@@ -38,11 +37,10 @@ public class DataManagementGenerator {
      * @param nodeBusinessObjectInput
      */
     public BusinessObjectContainer generate(BusinessObject nodeBusinessObjectInput) {
-        BusinessObjectContainer boc = createBusinessObjectContainer(nodeBusinessObjectInput);
+        var boc = createBusinessObjectContainer(nodeBusinessObjectInput);
 
-        BusinessDataToWidgetMapper businessDataToWidgetMapper = new BusinessDataToWidgetMapper(dimensionFactory, boc);
-        BusinessObjectVisitorImpl businessObjectVisitor = new BusinessObjectVisitorImpl(boc.getContainer(),
-                businessDataToWidgetMapper);
+        var businessDataToWidgetMapper = new BusinessDataToWidgetMapper(dimensionFactory, boc);
+        var businessObjectVisitor = new BusinessObjectVisitorImpl(boc.getContainer(), businessDataToWidgetMapper);
 
         nodeBusinessObjectInput.accept(businessObjectVisitor);
 
@@ -50,10 +48,10 @@ public class DataManagementGenerator {
     }
 
     private BusinessObjectContainer createBusinessObjectContainer(BusinessObject nodeBusinessObjectInput) {
-        WidgetContainer wc = new WidgetContainer();
+        var wc = new WidgetContainer();
         wc.setDimension(12);
-        Container container = wc.toContainer(dimensionFactory);
-        BusinessObjectContainer boc = new BusinessObjectContainer(container);
+        var container = wc.toContainer(dimensionFactory);
+        var boc = new BusinessObjectContainer(container);
         boc.getContainer().setDescription(WidgetDescription.ROOT_AUTOGENERATE_CONTAINER.displayValue(nodeBusinessObjectInput.getInput().get(0).getName()));
         return boc;
     }

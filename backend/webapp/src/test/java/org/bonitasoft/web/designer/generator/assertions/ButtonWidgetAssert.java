@@ -14,10 +14,10 @@
  */
 package org.bonitasoft.web.designer.generator.assertions;
 
-import static java.lang.String.format;
-
 import org.assertj.core.api.AbstractAssert;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonWidget;
+
+import static java.lang.String.format;
 
 /**
  * ****************************************************************************

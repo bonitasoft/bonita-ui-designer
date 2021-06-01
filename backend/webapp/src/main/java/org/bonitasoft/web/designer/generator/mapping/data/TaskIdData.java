@@ -15,16 +15,17 @@
 package org.bonitasoft.web.designer.generator.mapping.data;
 
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.PageData;
 
 import static org.bonitasoft.web.designer.model.data.DataType.URLPARAMETER;
 
 public class TaskIdData implements PageData {
 
-    public static final String NAME = "taskId";
+    public static final String DATA_NAME = "taskId";
 
     @Override
     public String name() {
-        return NAME;
+        return DATA_NAME;
     }
 
     @Override

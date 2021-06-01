@@ -14,6 +14,9 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
+import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
+import org.bonitasoft.web.designer.model.contract.ContractInput;
+
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,14 +24,7 @@ import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.Locale;
 
-import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
-import org.bonitasoft.web.designer.model.contract.ContractInput;
-
 public class InputTypeResolver {
-
-    public static enum InputType {
-        TEXT, NUMERIC, LOCAL_DATE, LOCAL_DATE_TIME, OFFSET_DATE_TIME, BOOLEAN, FILE;
-    }
 
     public InputType getContractInputType(ContractInput input) {
         if (aTextInput(input)) {
@@ -52,13 +48,13 @@ public class InputTypeResolver {
     public boolean isSupported(ContractInput input) {
         return !ContractInputDataHandler.shouldGenerateWidgetForInput(input)
                 && (aTextInput(input)
-                        || aNumericInput(input)
-                        || aDateInput(input)
-                        || aLocalDateInput(input)
-                        || aLocalDateTimeInput(input)
-                        || aOffsetDateTimeInput(input)
-                        || aBooleanInput(input)
-                        || aFileInput(input));
+                || aNumericInput(input)
+                || aDateInput(input)
+                || aLocalDateInput(input)
+                || aLocalDateTimeInput(input)
+                || aOffsetDateTimeInput(input)
+                || aBooleanInput(input)
+                || aFileInput(input));
     }
 
     public boolean isDateInput(ContractInput input) {
@@ -104,6 +100,10 @@ public class InputTypeResolver {
 
     private boolean aFileInput(ContractInput input) {
         return input.getType() != null && input.getType().equals(File.class.getName());
+    }
+
+    public enum InputType {
+        TEXT, NUMERIC, LOCAL_DATE, LOCAL_DATE_TIME, OFFSET_DATE_TIME, BOOLEAN, FILE;
     }
 
 }

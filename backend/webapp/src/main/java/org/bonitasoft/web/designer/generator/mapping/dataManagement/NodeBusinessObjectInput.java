@@ -45,12 +45,12 @@ public class NodeBusinessObjectInput extends NodeContractInput {
         return pageDataName;
     }
 
-    public String getPageDataNameSelected() {
-        return new StringBuilder(pageDataName).append(BUSINESS_OBJECT_SELECTED).toString();
-    }
-
     public void setPageDataName(String pageDataName) {
         this.pageDataName = pageDataName;
+    }
+
+    public String getPageDataNameSelected() {
+        return pageDataName + BUSINESS_OBJECT_SELECTED;
     }
 
     public String getBusinessObjectAttributeName() {
@@ -62,7 +62,7 @@ public class NodeBusinessObjectInput extends NodeContractInput {
     }
 
     public String formatName() {
-        String name = this.getName().substring(this.getName().lastIndexOf(".") + 1);
+        var name = this.getName().substring(this.getName().lastIndexOf(".") + 1);
         return name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 
@@ -75,7 +75,7 @@ public class NodeBusinessObjectInput extends NodeContractInput {
         return node.isRootOrMultipleInput() ? node.getPageDataNameSelected() : node.getPageDataName();
     }
 
-    public boolean hasChildren(){
-        return this.getInput().size() > 0;
+    public boolean hasChildren() {
+        return !this.getInput().isEmpty();
     }
 }

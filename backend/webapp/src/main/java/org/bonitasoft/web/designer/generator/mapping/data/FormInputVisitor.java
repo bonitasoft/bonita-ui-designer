@@ -15,6 +15,13 @@
 
 package org.bonitasoft.web.designer.generator.mapping.data;
 
+import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.contract.ContractInput;
+import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
+import org.bonitasoft.web.designer.model.contract.EditMode;
+import org.bonitasoft.web.designer.model.contract.LeafContractInput;
+import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -24,20 +31,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
-import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
-import org.bonitasoft.web.designer.model.contract.ContractInput;
-import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
-import org.bonitasoft.web.designer.model.contract.EditMode;
-import org.bonitasoft.web.designer.model.contract.LeafContractInput;
-import org.bonitasoft.web.designer.model.contract.NodeContractInput;
-
 import static com.google.common.collect.Maps.newLinkedHashMap;
 import static java.util.Collections.EMPTY_LIST;
 
 public class FormInputVisitor implements ContractInputVisitor {
 
-    private static Map<String, Object> defaultValues = new HashMap<>();
+    private static final Map<String, Object> defaultValues = new HashMap<>();
 
     static {
         defaultValues.put(String.class.getName(), "");
@@ -53,22 +52,22 @@ public class FormInputVisitor implements ContractInputVisitor {
         defaultValues.put(File.class.getName(), null);
     }
 
-    private Map<String, Object> properties = newLinkedHashMap();
-    private JacksonObjectMapper objectMapperWrapper;
+    private final Map<String, Object> properties = newLinkedHashMap();
+    private final JsonHandler jsonHandler;
 
-    public FormInputVisitor(JacksonObjectMapper objectMapperWrapper) {
-        this.objectMapperWrapper = objectMapperWrapper;
+    public FormInputVisitor(JsonHandler jsonHandler) {
+        this.jsonHandler = jsonHandler;
     }
 
     @Override
     public void visit(NodeContractInput contractInput) {
-        if (contractInput.getMode() == EditMode.CREATE || contractInput.getDataReference() == null
-                || !(contractInput.getDataReference() instanceof BusinessDataReference)) {
+        if (contractInput.getMode() == EditMode.CREATE
+                || contractInput.getDataReference() == null) {
             if (contractInput.isMultiple()) {
                 properties.put(contractInput.getName(), EMPTY_LIST);
                 return;
             }
-            FormInputVisitor visitor = new FormInputVisitor(objectMapperWrapper);
+            var visitor = new FormInputVisitor(jsonHandler);
             for (ContractInput input : contractInput.getInput()) {
                 input.accept(visitor);
             }
@@ -89,7 +88,7 @@ public class FormInputVisitor implements ContractInputVisitor {
     }
 
     public String toJson() throws IOException {
-        return objectMapperWrapper.prettyPrint(properties);
+        return jsonHandler.prettyPrint(properties);
     }
 
     public boolean isEmpty() {

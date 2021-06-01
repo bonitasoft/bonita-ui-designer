@@ -20,7 +20,7 @@ public enum WidgetDescription {
     BUSINESS_OBJECT_CONTAINER("\"%s\" object from \"%s\" variable"),
     ATTRIBUTE_MULTIPLE("List all attributes \"%s\" for Business Object \"%s\"");
 
-    private String value;
+    private final String value;
 
     WidgetDescription(String value) {
         this.value = value;
@@ -30,8 +30,8 @@ public enum WidgetDescription {
         return value;
     }
 
-    public String displayValue(String... values){
-        return String.format(value,values);
+    public String displayValue(String... values) {
+        return String.format(value, values);
     }
 
 }

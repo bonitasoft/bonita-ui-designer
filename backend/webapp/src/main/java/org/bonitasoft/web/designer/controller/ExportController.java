@@ -14,64 +14,90 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletResponse;
-
-import org.bonitasoft.web.designer.controller.export.Exporter;
+import org.bonitasoft.web.designer.ArtifactBuilder;
+import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.ModelException;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-
-import org.springframework.http.HttpStatus;
+import org.bonitasoft.web.designer.service.FragmentService;
+import org.bonitasoft.web.designer.service.PageService;
+import org.bonitasoft.web.designer.service.WidgetService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.inject.Inject;
+import java.io.IOException;
+import java.util.Optional;
+
+import static java.lang.String.format;
+import static org.springframework.http.ContentDisposition.inline;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+
 @Controller
 public class ExportController {
 
-    private Exporter<Page> pageExporter;
-    private Exporter<Widget> widgetExporter;
-    private Exporter<Fragment> fragmentExporter;
+    private final PageService pageService;
+
+    private final FragmentService fragmentService;
+
+    private final WidgetService widgetService;
+
+    private final ArtifactBuilder artifactBuilder;
 
     @Inject
-    public ExportController(@Named("pageExporter") Exporter<Page> pageExporter, @Named("widgetExporter") Exporter<Widget> widgetExporter,
-                            @Named("fragmentExporter") Exporter<Fragment> fragmentExporter) {
-        this.pageExporter = pageExporter;
-        this.widgetExporter = widgetExporter;
-        this.fragmentExporter = fragmentExporter;
+    public ExportController(PageService pageService, FragmentService fragmentService, WidgetService widgetService, ArtifactBuilder artifactBuilder) {
+        this.pageService = pageService;
+        this.fragmentService = fragmentService;
+        this.widgetService = widgetService;
+        this.artifactBuilder = artifactBuilder;
     }
 
     @RequestMapping(value = "/export/page/{id}")
-    public ResponseEntity<String> handleFileExportPage(@PathVariable("id") String id, HttpServletResponse resp) throws Exception {
-        return handleExport(pageExporter, id, resp);
+    public ResponseEntity<?> handleFileExportPage(@PathVariable("id") String id) throws ModelException, IOException {
+        var artifact = pageService.get(id);
+        var zipContent = artifactBuilder.build(artifact);
+        var zipFileName = getZipFileName(artifact);
+        return sendFile(zipFileName, zipContent);
     }
 
 
     @RequestMapping(value = "/export/widget/{id}")
-    public ResponseEntity<String> handleFileExportWidget(@PathVariable("id") String id, HttpServletResponse resp) throws Exception {
-        return handleExport(widgetExporter, id, resp);
+    public ResponseEntity<?> handleFileExportWidget(@PathVariable("id") String id) throws ModelException, IOException {
+        var artifact = widgetService.get(id);
+        var zipContent = artifactBuilder.build(artifact);
+        var zipFileName = getZipFileName(artifact);
+        return sendFile(zipFileName, zipContent);
     }
 
     @RequestMapping(value = "/export/fragment/{id}")
-    public ResponseEntity<String> handleFileExportFragment(@PathVariable("id") String id, HttpServletResponse resp) throws Exception {
-        return handleExport(fragmentExporter, id, resp);
+    public ResponseEntity<?> handleFileExportFragment(@PathVariable("id") String id) throws ModelException, IOException {
+        var artifact = fragmentService.get(id);
+        var zipContent = artifactBuilder.build(artifact);
+        var zipFileName = getZipFileName(artifact);
+        return sendFile(zipFileName, zipContent);
     }
 
-    protected ResponseEntity<String> handleExport(Exporter exporter, String id, HttpServletResponse resp) {
+    private ResponseEntity<?> sendFile(String fileName, byte[] content) {
         try {
-            exporter.handleFileExport(id, resp);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (ModelException e) {
-            return new ResponseEntity(e.getMessage(), ResourceControllerAdvice.getHttpHeaders(), HttpStatus.OK);
-        } catch (NotFoundException e) {
-            return new ResponseEntity(String.format("Export failed, %s doesn't exist.", id), ResourceControllerAdvice.getHttpHeaders(), HttpStatus.NOT_FOUND);
+            var headers = new HttpHeaders();
+            headers.setContentDisposition(inline().filename(fileName).build());
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            return ResponseEntity.ok().headers(headers).body(content);
         } catch (Exception e) {
-            return new ResponseEntity("Export failed. Check logs for more details", ResourceControllerAdvice.getHttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).contentType(MediaType.APPLICATION_JSON_UTF8).body("Export failed. Check logs for more details");
         }
+    }
+
+    protected String getZipFileName(Identifiable identifiable) {
+        var maybeName = Optional.ofNullable(identifiable.getName());
+        var name = maybeName
+                // Clean unwanted chars
+                .map(s -> s.replace(' ', '-').replaceAll("[^a-zA-Z0-9-]", ""))
+                // FIXME: null as default ??
+                .orElse(null);
+        var type = identifiable.getType();
+        return format("%s-%s.zip", type, name);
     }
 }

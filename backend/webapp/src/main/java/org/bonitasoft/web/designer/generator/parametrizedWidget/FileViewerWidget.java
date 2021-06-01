@@ -14,14 +14,15 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import java.util.Map;
-
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
+import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 
+import java.util.Map;
+
 @Widget
-public class FileViewerWidget extends AbstractParametrizedWidget{
+public class FileViewerWidget extends AbstractParametrizedWidget {
 
     static final String FILE_VIEWER_WIDGET_ID = "pbFileViewer";
 
@@ -57,10 +58,10 @@ public class FileViewerWidget extends AbstractParametrizedWidget{
     public Component toComponent(DimensionFactory dimensionFactory) {
         Component component = super.toComponent(dimensionFactory);
         Map<String, PropertyValue> values = component.getPropertyValues();
-        values.put("type", createPropertyValue(ParameterType.CONSTANT,DOCUMENT_TYPE));
+        values.put("type", createPropertyValue(ParameterType.CONSTANT, DOCUMENT_TYPE));
         values.put("showPreview", createPropertyValue(ParameterType.CONSTANT, isShowPreview()));
         values.put("document", createPropertyValue(ParameterType.VARIABLE, getDocument()));
-        values.put("url", createPropertyValue(ParameterType.CONSTANT,null));
+        values.put("url", createPropertyValue(ParameterType.CONSTANT, null));
         return component;
     }
 

@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import java.util.Collections;
-
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObjectDataHandler;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.NodeBusinessObjectInput;
@@ -23,10 +21,12 @@ import org.bonitasoft.web.designer.generator.mapping.dataManagement.WidgetDescri
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.page.Container;
 
+import java.util.Collections;
+
 
 public class ParametrizedDataManagementWidgetFactory extends ParametrizedWidgetFactory {
 
-    private InputTypeResolver inputTypeResolver;
+    private final InputTypeResolver inputTypeResolver;
 
 
     public ParametrizedDataManagementWidgetFactory() {
@@ -56,20 +56,20 @@ public class ParametrizedDataManagementWidgetFactory extends ParametrizedWidgetF
     }
 
     public Container createDetailsWidgetContainer(DimensionFactory dimensionFactory, NodeBusinessObjectInput businessObjectInput) {
-        WidgetContainer container = new WidgetContainer();
+        var container = new WidgetContainer();
 
-        if(businessObjectInput.isRootOrMultipleInput()){
-            container.setHidden(new StringBuilder("!").append(businessObjectInput.getPageDataNameSelected()).toString());
+        if (businessObjectInput.isRootOrMultipleInput()) {
+            container.setHidden("!" + businessObjectInput.getPageDataNameSelected());
         }
         container.setDimension(11);
-        Container detailsContainer = container.toContainer(dimensionFactory);
+        var detailsContainer = container.toContainer(dimensionFactory);
         detailsContainer.setDescription(WidgetDescription.DETAILS_CONTAINER.displayValue(businessObjectInput.formatName()));
         return detailsContainer;
     }
 
     @Override
     public TitleWidget createTitle(String title) {
-        TitleWidget widget = super.createTitle(title);
+        var widget = super.createTitle(title);
         widget.setText(title);
         widget.setLevel("Level 4");
         return widget;
@@ -82,16 +82,16 @@ public class ParametrizedDataManagementWidgetFactory extends ParametrizedWidgetF
      * @return
      */
     public Container createSpacingContainer(DimensionFactory dimensionFactory, NodeBusinessObjectInput businessObjectInput) {
-        WidgetContainer container = new WidgetContainer();
-        if(businessObjectInput.isRootOrMultipleInput()) {
-            container.setHidden(new StringBuilder("!").append(businessObjectInput.getPageDataNameSelected()).toString());
+        var container = new WidgetContainer();
+        if (businessObjectInput.isRootOrMultipleInput()) {
+            container.setHidden("!" + businessObjectInput.getPageDataNameSelected());
         }
 
         container.setDimension(1);
         return container.toContainer(dimensionFactory).addNewRow(Collections.emptyList());
     }
 
-   @Override
+    @Override
     protected String getValue(ContractInput contractInput) {
         return contractInput.isMultiple()
                 ? multipleInputValue(contractInput)

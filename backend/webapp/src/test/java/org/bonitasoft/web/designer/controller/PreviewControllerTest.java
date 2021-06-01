@@ -14,36 +14,41 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import static java.nio.file.Files.readAllBytes;
-import static javax.servlet.http.HttpServletResponse.SC_TEMPORARY_REDIRECT;
-import static junit.framework.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javax.servlet.http.HttpServletRequest;
 
+import org.bonitasoft.web.designer.ArtifactBuilder;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
-import org.bonitasoft.web.designer.controller.preview.Previewer;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultMatcher;
+
+import static java.nio.file.Files.readAllBytes;
+import static javax.servlet.http.HttpServletResponse.SC_TEMPORARY_REDIRECT;
+import static junit.framework.Assert.assertEquals;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PreviewControllerTest {
@@ -51,7 +56,7 @@ public class PreviewControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private Previewer previewer;
+    private ArtifactBuilder artifactBuilder;
 
     @Mock
     private PageRepository pageRepository;
@@ -59,9 +64,10 @@ public class PreviewControllerTest {
     @Mock
     private FragmentRepository fragmentRepository;
 
-   private Path tmpWorkspacePath;
+    private Path tmpWorkspacePath;
 
     private WorkspaceProperties workspaceProperties;
+
     private WorkspaceUidProperties workspaceUidProperties;
 
     @Before
@@ -75,13 +81,14 @@ public class PreviewControllerTest {
         workspaceProperties.getWidgets().setDir(Paths.get(getClass().getResource("/workspace/widgets").toURI()));
         workspaceProperties.getFragments().setDir(Paths.get(getClass().getResource("/workspace/fragments").toURI()));
 
-        mockMvc = standaloneSetup(new PreviewController(pageRepository, fragmentRepository, previewer, workspaceProperties, workspaceUidProperties)).build();
+        mockMvc = standaloneSetup(new PreviewController(pageRepository, fragmentRepository, artifactBuilder, workspaceProperties, workspaceUidProperties)).build();
     }
 
     @Test
     public void should_call_the_previewer() throws Exception {
-        ResponseEntity<String> response = new ResponseEntity<>("Everything ok", HttpStatus.OK);
-        when(previewer.render(eq("my-page"), eq(pageRepository), any(HttpServletRequest.class))).thenReturn(response);
+        final Page page = aPage().withId("my-page").withName("my-page").build();
+        when(pageRepository.get("my-page")).thenReturn(page);
+        when(artifactBuilder.buildHtml(eq(page), anyString())).thenReturn("Everything ok");
 
         mockMvc
                 .perform(get("/preview/page/no-app-selected/my-page"))
@@ -89,6 +96,32 @@ public class PreviewControllerTest {
                 .andExpect(content().string("Everything ok"))
                 .andExpect(content().encoding("UTF-8"));
 
+    }
+
+    @Test
+    public void should_return_error_response_when_error_occur_on_generation() throws Exception {
+        final Page page = aPage().withId("my-page").withName("my-page").build();
+        when(pageRepository.get("my-page")).thenReturn(page);
+        when(artifactBuilder.buildHtml(eq(page), eq("/runtime/"))).thenThrow(new GenerationException("error", new Exception()));
+
+        mockMvc
+                .perform(get("/preview/page/no-app-selected/my-page"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string("Error during page generation"))
+        ;
+    }
+
+
+    @Test
+    public void should_return_error_response_when_page_is_not_found() throws Exception {
+
+        when(pageRepository.get("unexisting-page")).thenThrow(new NotFoundException("page not found"));
+
+        mockMvc
+                .perform(get("/preview/page/no-app-selected/unexisting-page"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Page <unexisting-page> not found"))
+        ;
     }
 
     @Test
@@ -223,13 +256,9 @@ public class PreviewControllerTest {
     public void should_temporarily_redirect_API_post_to_the_real_API() throws Exception {
         mockMvc
                 .perform(post("/preview/page/no-app-selected/API/portal/page?id=123"))
-                .andExpect(new ResultMatcher() {
-
-                    @Override
-                    public void match(MvcResult result) throws Exception {
-                        assertEquals(result.getResponse().getStatus(), SC_TEMPORARY_REDIRECT);
-                        assertEquals(result.getResponse().getRedirectedUrl(), "/API/portal/page?id=123");
-                    }
+                .andExpect(result -> {
+                    assertEquals(result.getResponse().getStatus(), SC_TEMPORARY_REDIRECT);
+                    assertEquals(result.getResponse().getRedirectedUrl(), "/API/portal/page?id=123");
                 });
     }
 
@@ -248,8 +277,9 @@ public class PreviewControllerTest {
 
     @Test
     public void should_call_the_previewer_for_fragments() throws Exception {
-        ResponseEntity<String> response = new ResponseEntity<String>("Everything ok", HttpStatus.OK);
-        when(previewer.render(eq("my-fragment"), eq(fragmentRepository), any(HttpServletRequest.class))).thenReturn(response);
+        final Fragment fragment = aFragment().withId("my-fragment").withName("my-fragment").build();
+        when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
+        when(artifactBuilder.buildHtml(eq(fragment), anyString())).thenReturn("Everything ok");
 
         mockMvc
                 .perform(get("/preview/fragment/no-app-selected/my-fragment"))
@@ -275,4 +305,5 @@ public class PreviewControllerTest {
         mockMvc.perform(get("/preview/page/no-app-selected/a-page/fragments/unknown/unkwnon.js"))
                 .andExpect(status().isNotFound());
     }
+
 }

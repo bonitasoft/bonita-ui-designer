@@ -1,0 +1,328 @@
+/**
+ * Copyright (C) 2015 Bonitasoft S.A.
+ * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2.0 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+package org.bonitasoft.web.designer.workspace;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
+import org.bonitasoft.web.designer.config.DesignerInitializerException;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
+import org.bonitasoft.web.designer.controller.importer.dependencies.AssetDependencyImporter;
+import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
+import org.bonitasoft.web.designer.migration.Version;
+import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.rendering.WidgetFileHelper;
+import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import static java.nio.file.Files.createDirectories;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
+@Slf4j
+public class Workspace {
+
+    public static final String EXTRACT_BACKEND_RESOURCES = "META-INF/resources";
+
+    public static final String WIDGETS_RESOURCES = "widgets";
+
+    public static final String WIDGETS_WC_RESOURCES = "widgetsWc";
+
+    protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
+
+    private final UiDesignerProperties uiDesignerProperties;
+
+    private final WidgetRepository widgetRepository;
+
+    private final PageRepository pageRepository;
+
+    private final ResourcesCopier resourcesCopier;
+
+    private final WidgetDirectiveBuilder widgetDirectiveBuilder;
+
+    private final FragmentDirectiveBuilder fragmentDirectiveBuilder;
+
+    private final AssetDependencyImporter<Widget> widgetAssetDependencyImporter;
+
+    private final Path extractPath;
+
+    private final List<LiveRepositoryUpdate> migrations;
+
+    private final JsonHandler jsonHandler;
+
+    protected boolean initialized = false;
+
+    public Workspace(UiDesignerProperties uiDesignerProperties, WidgetRepository widgetRepository, PageRepository pageRepository,
+                     WidgetDirectiveBuilder widgetDirectiveBuilder, FragmentDirectiveBuilder fragmentDirectiveBuilder,
+                     AssetDependencyImporter<Widget> widgetAssetDependencyImporter, ResourcesCopier resourcesCopier,
+                     List<LiveRepositoryUpdate> migrations,
+                     JsonHandler jsonHandler
+    ) {
+        this.widgetRepository = widgetRepository;
+        this.pageRepository = pageRepository;
+        this.resourcesCopier = resourcesCopier;
+        this.widgetDirectiveBuilder = widgetDirectiveBuilder;
+        this.fragmentDirectiveBuilder = fragmentDirectiveBuilder;
+        this.widgetAssetDependencyImporter = widgetAssetDependencyImporter;
+        this.uiDesignerProperties = uiDesignerProperties;
+        this.extractPath = uiDesignerProperties.getWorkspaceUid().getExtractPath();
+        this.migrations = migrations;
+        this.jsonHandler = jsonHandler;
+    }
+
+    protected void doInitialize() throws IOException {
+        ensureTemplateRepositoryPresent();
+        ensureTemplateRepositoryFilled();
+        ensurePageRepositoryPresent();
+        ensureWidgetRepositoryPresent();
+        ensureWidgetRepositoryFilled();
+        if (this.uiDesignerProperties.isExperimental()) {
+            ensureWidgetWcRepositoryPresent();
+            ensureWidgetRepositoryFilledWc();
+        }
+        ensureFragmentRepositoryPresent();
+        cleanFragmentWorkspace();
+        extractResourcesForExport();
+    }
+
+    public synchronized void initialize() {
+        if (!initialized) {
+            try {
+                doInitialize();
+                for (LiveRepositoryUpdate<?> migration : migrations) {
+                    migration.start();
+                }
+                cleanPageWorkspace();
+                initialized = true;
+            } catch (IOException e) {
+                throw new DesignerInitializerException("Unable to initialize workspace", e);
+            }
+        }
+    }
+
+    public synchronized void migrateWorkspace() {
+        initialize(); //Ensure that the workspace initialization is ended
+        migrations.stream().forEachOrdered(migration -> {
+            try {
+                migration.migrate();
+            } catch (IOException e) {
+                throw new DesignerInitializerException("Unable to migrate workspace", e);
+            }
+        });
+    }
+
+    public synchronized void indexingArtifacts(List<Page> pages) {
+        initialize(); //Ensure that the workspace initialization is ended
+        pageRepository.refreshIndexing(pages);
+    }
+
+    /**
+     * Clean page Workspace:
+     * * generated files
+     * * Folder which don't have page descriptor
+     * Theses file could be stay here when user make any action directly on filesystem
+     */
+    public void cleanPageWorkspace() {
+        var pageWorkspace = uiDesignerProperties.getWorkspace().getPages().getDir();
+        var file = new File(pageWorkspace.toString());
+        Arrays.stream(Objects.requireNonNull(file.list())).forEach(pageFolder -> {
+            if (".metadata".equals(pageFolder)) {
+                cleanMetadataFolder(pageWorkspace, pageFolder);
+                return;
+            }
+            try {
+                if (isPageExist(pageWorkspace, pageFolder)) {
+                    // Clean Js folder, this folder can be exist in version before this fix
+                    FileUtils.deleteDirectory(pageWorkspace.resolve(pageFolder).resolve("js").toFile());
+                } else {
+                    var f = pageWorkspace.resolve(pageFolder).toFile();
+                    if (f.isDirectory()) {
+                        FileUtils.deleteDirectory(pageWorkspace.resolve(pageFolder).toFile());
+                        logger.debug(String.format("Deleting folder [%s] with success", pageWorkspace.resolve(pageFolder)));
+                    }
+                }
+            } catch (IOException e) {
+                var error = String.format("Technical error when deleting file [%s]", pageWorkspace.resolve(pageFolder).resolve("js"));
+                logger.error(error, e);
+            }
+        });
+    }
+
+    /**
+     * remove  metadata file without a artifact in workspace
+     *
+     * @param workspace
+     * @param folder
+     */
+    protected void cleanMetadataFolder(Path workspace, String folder) {
+        var metadataFolder = new File(workspace.resolve(folder).toString());
+        Arrays.stream(Objects.requireNonNull(metadataFolder.listFiles())).forEach(file -> {
+            if (!workspace.resolve(removeExtension(file.getName())).resolve(file.getName()).toFile().exists()
+                    && !workspace.resolve(folder).resolve(file.getName()).toFile().delete()) {
+                var error = String.format("Technical error when deleting file [%s]", workspace.resolve(folder).resolve("js").toString());
+                logger.error(error);
+            }
+        });
+    }
+
+    private String removeExtension(String fileName) {
+        if (fileName.indexOf(".") > 0) {
+            return fileName.substring(0, fileName.lastIndexOf("."));
+        } else {
+            return fileName;
+        }
+
+    }
+
+    private boolean isPageExist(Path pageWorkspace, String pageFolder) {
+        return pageWorkspace.resolve(pageFolder).resolve(pageFolder + ".json").toFile().exists();
+    }
+
+    private void ensureTemplateRepositoryPresent() throws IOException {
+        createDirectories(extractPath.resolve(WorkspaceUidProperties.TEMPLATES_RESOURCES));
+    }
+
+    private void ensureTemplateRepositoryFilled() throws IOException {
+        resourcesCopier.copy(extractPath, WorkspaceUidProperties.TEMPLATES_RESOURCES);
+    }
+
+    private void ensurePageRepositoryPresent() throws IOException {
+        createDirectories(uiDesignerProperties.getWorkspace().getPages().getDir());
+    }
+
+    private void ensureWidgetRepositoryPresent() throws IOException {
+        createDirectories(uiDesignerProperties.getWorkspace().getWidgets().getDir());
+    }
+
+    private void ensureWidgetWcRepositoryPresent() throws IOException {
+        createDirectories(uiDesignerProperties.getWorkspace().getWidgetsWc().getDir());
+    }
+
+    private void ensureWidgetRepositoryFilledWc() throws IOException {
+
+        resourcesCopier.copy(extractPath, WIDGETS_WC_RESOURCES);
+
+        var widgetRepositorySourcePath = extractPath.resolve(WIDGETS_WC_RESOURCES);
+        FileUtils.copyDirectory(
+                FileUtils.getFile(widgetRepositorySourcePath.toString()),
+                uiDesignerProperties.getWorkspace().getWidgetsWc().getDir().toFile()
+        );
+    }
+
+    private void ensureWidgetRepositoryFilled() throws IOException {
+
+        // Extract/Unzip widgets from UID jar file to a uid working dir (not the bonita project dir)
+        resourcesCopier.copy(extractPath, WIDGETS_RESOURCES);
+        var widgetRepositorySourcePath = extractPath.resolve(WIDGETS_RESOURCES);
+
+        // loop on widgets from UID and ensure that they exist in the bonita project dir // == import
+        var widgetLoader = new WidgetFileBasedLoader(jsonHandler);
+        var widgets = widgetLoader.getAll(widgetRepositorySourcePath);
+        for (var widget : widgets) {
+            if (!widgetRepository.exists(widget.getId())) {
+                createWidget(widgetRepositorySourcePath, widget);
+            } else {
+                var repoWidget = widgetRepository.get(widget.getId());
+                if (isBlank(repoWidget.getArtifactVersion()) || new Version(uiDesignerProperties.getModelVersion()).isGreaterThan(repoWidget.getArtifactVersion())) {
+                    FileUtils.deleteDirectory(widgetRepository.resolvePath(widget.getId()).toFile());
+                    createWidget(widgetRepositorySourcePath, widget);
+                }
+            }
+        }
+
+        widgetDirectiveBuilder.start(uiDesignerProperties.getWorkspace().getWidgets().getDir());
+    }
+
+
+    private void createWidget(Path widgetRepositorySourcePath, Widget widget) throws IOException {
+        var targetWidgetPath = widgetRepository.resolvePath(widget.getId());
+        var widgetRepositoryPath = createDirectories(targetWidgetPath);
+        widgetRepository.updateLastUpdateAndSave(widget);
+
+        //Widget help is copied
+        var sourceHelpFile = new File(widgetRepositorySourcePath.toString() + File.separator + widget.getId() + File.separator + "help.html");
+        if (widget.hasHelp() && sourceHelpFile.exists()) {
+            FileUtils.copyFile(sourceHelpFile, new File(widgetRepositoryPath.toString() + File.separator + "help.html"));
+        }
+
+        //Widget assets are copied if they exist
+        try {
+            var assets = widgetAssetDependencyImporter.load(widget, widgetRepositorySourcePath);
+            widgetAssetDependencyImporter.save(assets, widgetRepositorySourcePath);
+        } catch (IOException e) {
+            var error = String.format("Technical error when importing widget asset [%s]", widget.getId());
+            logger.error(error, e);
+            throw new RuntimeException(error, e);
+        }
+    }
+
+    /**
+     * Clean fragment Workspace:
+     * * generated files
+     * * Folder which don't have fragment descriptor
+     * Theses file could be stay here when user make any action directly on filesystem
+     */
+    private void cleanFragmentWorkspace() {
+        var fragWorkspace = uiDesignerProperties.getWorkspace().getFragments().getDir();
+        Arrays.stream(Objects.requireNonNull(new File(fragWorkspace.toString()).list())).forEach(fragment -> {
+            if (".metadata".equals(fragment)) {
+                cleanMetadataFolder(fragWorkspace, fragment);
+                return;
+            }
+            try {
+                if (isFragmentDescriptorExist(fragWorkspace, fragment)) {
+                    //Remove min.js file, this file can be here for oldest fragment than this fix
+                    WidgetFileHelper.deleteConcatenateFile(fragWorkspace.resolve(fragment));
+                } else {
+                    var f = fragWorkspace.resolve(fragment).toFile();
+                    if (f.isDirectory()) {
+                        FileUtils.deleteDirectory(fragWorkspace.resolve(fragment).toFile());
+                    }
+                    logger.debug(String.format("Deleted fragment folder [%s] with success", fragWorkspace.resolve(fragment).toString()));
+                }
+            } catch (IOException e) {
+                var error = String.format("Error while filter file in folder " + fragWorkspace.resolve(fragment).resolve(fragment).toString());
+                logger.error(error, e);
+            }
+        });
+    }
+
+    private void ensureFragmentRepositoryPresent() throws IOException {
+        var fragmentsPath = uiDesignerProperties.getWorkspace().getFragments().getDir();
+        createDirectories(fragmentsPath);
+        fragmentDirectiveBuilder.start(fragmentsPath);
+    }
+
+    private boolean isFragmentDescriptorExist(Path fragWorkspace, String fragment) {
+        return fragWorkspace.resolve(fragment).resolve(fragment + ".json").toFile().exists();
+    }
+
+    private void extractResourcesForExport() throws IOException {
+        resourcesCopier.copy(extractPath, EXTRACT_BACKEND_RESOURCES);
+    }
+
+}
+

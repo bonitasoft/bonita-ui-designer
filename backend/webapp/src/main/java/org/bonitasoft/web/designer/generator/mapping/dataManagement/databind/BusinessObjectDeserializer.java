@@ -14,12 +14,7 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.dataManagement.databind;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -34,6 +29,10 @@ import org.bonitasoft.web.designer.model.contract.BusinessDataReference.Relation
 import org.bonitasoft.web.designer.model.contract.DataReference;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class BusinessObjectDeserializer extends JsonDeserializer<BusinessObject> {
 
     private static final String REFERENCE = "reference";
@@ -45,12 +44,12 @@ public class BusinessObjectDeserializer extends JsonDeserializer<BusinessObject>
     @Override
     public BusinessObject deserialize(JsonParser parser, DeserializationContext ctxt)
             throws IOException {
-        ObjectCodec oc = parser.getCodec();
+        var oc = parser.getCodec();
         ObjectNode treeNode = oc.readTree(parser);
 
-        BusinessObject businessObject = new BusinessObject();
+        var businessObject = new BusinessObject();
         //Create first node
-        NodeBusinessObjectInput node = new NodeBusinessObjectInput(getValueIfExist(treeNode, NAME));
+        var node = new NodeBusinessObjectInput(getValueIfExist(treeNode, NAME));
         node.setMultiple(true);
         node.setPageDataName(getValueIfExist(treeNode, VARIABLE_NAME));
         parseNodeContractInput(childInput(treeNode), node);
@@ -60,15 +59,15 @@ public class BusinessObjectDeserializer extends JsonDeserializer<BusinessObject>
 
     private String getValueIfExist(ObjectNode treeNode, String value) {
         if (treeNode.has(value)) {
-            JsonNode jsonNode = treeNode.get(value);
+            var jsonNode = treeNode.get(value);
             return jsonNode.asText("");
         }
         return "";
     }
 
     private void parseNodeContractInput(ArrayNode inputArray, NodeBusinessObjectInput rootNodeInput) {
-        for (int i = 0; i < inputArray.size(); i++) {
-            JsonNode childNode = inputArray.get(i);
+        for (var i = 0; i < inputArray.size(); i++) {
+            var childNode = inputArray.get(i);
             if (childNode.has(REFERENCE)) {
                 NodeBusinessObjectInput nodeContractInput = newNodeContractInput(childNode, rootNodeInput);
                 rootNodeInput.addInput(nodeContractInput);
@@ -79,8 +78,8 @@ public class BusinessObjectDeserializer extends JsonDeserializer<BusinessObject>
         }
     }
 
-    private Class inputType(JsonNode childNode) {
-        JsonNode jsonNode = childNode.get("type");
+    private Class<?> inputType(JsonNode childNode) {
+        var jsonNode = childNode.get("type");
         switch (jsonNode.asText().toLowerCase()) {
             case "string":
             case "text":
@@ -107,7 +106,7 @@ public class BusinessObjectDeserializer extends JsonDeserializer<BusinessObject>
     }
 
     private NodeBusinessObjectInput newNodeContractInput(JsonNode childNode, NodeBusinessObjectInput parentNode) {
-        NodeBusinessObjectInput nodeContractInput = new NodeBusinessObjectInput(inputReference(childNode));
+        var nodeContractInput = new NodeBusinessObjectInput(inputReference(childNode));
         nodeContractInput.setBusinessObjectAttributeName(inputName(childNode));
         nodeContractInput.setMandatory(mandatoryValue(childNode));
         nodeContractInput.setMultiple(multipleValue(childNode));
@@ -129,7 +128,7 @@ public class BusinessObjectDeserializer extends JsonDeserializer<BusinessObject>
     }
 
     private LeafContractInput newLeafContractInput(JsonNode childNode, Class<?> inputType) {
-        LeafContractInput leafContractInput = new LeafContractInput(inputName(childNode), inputType);
+        var leafContractInput = new LeafContractInput(inputName(childNode), inputType);
         leafContractInput.setMandatory(mandatoryValue(childNode));
         leafContractInput.setMultiple(multipleValue(childNode));
         leafContractInput.setDescription(descriptionValue(childNode));
@@ -143,34 +142,34 @@ public class BusinessObjectDeserializer extends JsonDeserializer<BusinessObject>
     }
 
     private String descriptionValue(JsonNode contractInput) {
-        JsonNode descriptionNode = contractInput.get("description");
+        var descriptionNode = contractInput.get("description");
         return descriptionNode != null ? descriptionNode.asText(null) : null;
     }
 
     private boolean multipleValue(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get(BUSINESS_OBJECT_COLLECTION);
+        var jsonNode = contractInput.get(BUSINESS_OBJECT_COLLECTION);
         return jsonNode != null && jsonNode.asBoolean(false);
     }
 
     private boolean mandatoryValue(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get(BUSINESS_OBJECT_NULLABLE);
+        var jsonNode = contractInput.get(BUSINESS_OBJECT_NULLABLE);
         return jsonNode != null && !jsonNode.asBoolean(true);
     }
 
     private String inputName(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get(NAME);
+        var jsonNode = contractInput.get(NAME);
         return jsonNode != null ? jsonNode.asText("") : "";
     }
 
     private String inputReference(JsonNode jsonInput) {
-        JsonNode jsonNode = jsonInput.get(REFERENCE);
+        var jsonNode = jsonInput.get(REFERENCE);
         return jsonNode != null ? jsonNode.asText("") : "";
     }
 
     private DataReference dataReference(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get(REFERENCE);
+        var jsonNode = contractInput.get(REFERENCE);
         if (jsonNode != null && !jsonNode.isNull()) {
-            boolean isBusinessDataRef = contractInput.get("type") != null && !contractInput.get("type").isNull();
+            var isBusinessDataRef = contractInput.get("type") != null && !contractInput.get("type").isNull();
             if (isBusinessDataRef) {
                 return new BusinessDataReference(contractInput.get(NAME).asText(),
                         contractInput.get("type").asText(),
@@ -185,7 +184,7 @@ public class BusinessObjectDeserializer extends JsonDeserializer<BusinessObject>
     }
 
     private boolean readOnlyValue(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get("readOnly");
+        var jsonNode = contractInput.get("readOnly");
         return jsonNode == null || jsonNode.asBoolean(true);
     }
 

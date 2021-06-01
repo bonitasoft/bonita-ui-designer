@@ -14,40 +14,37 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import java.io.IOException;
-
-import javax.inject.Inject;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationReport;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.service.AbstractArtifactService;
+import org.bonitasoft.web.designer.service.ArtifactService;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
-import org.bonitasoft.web.designer.workspace.WorkspaceInitializer;
-
+import org.bonitasoft.web.designer.workspace.Workspace;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.inject.Inject;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/rest/migration")
@@ -55,7 +52,7 @@ public class MigrationResource {
 
     private final PageRepository pageRepository;
     private final WidgetRepository widgetRepository;
-    private final WorkspaceInitializer workspaceInitializer;
+    private final Workspace workspace;
     private final FragmentRepository fragmentRepository;
     private final FragmentService fragmentService;
 
@@ -65,9 +62,9 @@ public class MigrationResource {
 
     @Inject
     public MigrationResource(
-            WorkspaceInitializer workspaceInitializer, PageRepository pageRepository, WidgetRepository widgetRepository,
+            Workspace workspace, PageRepository pageRepository, WidgetRepository widgetRepository,
             FragmentRepository fragmentRepository, PageService pageService, WidgetService widgetService, FragmentService fragmentService, UiDesignerProperties uiDesignerProperties) {
-        this.workspaceInitializer = workspaceInitializer;
+        this.workspace = workspace;
         this.pageRepository = pageRepository;
         this.widgetRepository = widgetRepository;
         this.fragmentRepository = fragmentRepository;
@@ -77,40 +74,27 @@ public class MigrationResource {
         this.uiDesignerProperties = uiDesignerProperties;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
-    public String migrate() {
-        migrateAllArtifacts();
-        return "Migration has been triggered.";
-    }
-
-    @RequestMapping(value = "/page/{pageId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MigrationReport> migratePage(@PathVariable("pageId") String pageId) throws RepositoryException {
-        Page page = pageRepository.get(pageId);
-        return migrateArtifact(pageId, page, pageService);
-    }
-
-    @RequestMapping(value = "/widget/{widgetId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MigrationReport> migrateWidget(@PathVariable("widgetId") String widgetId) throws RepositoryException {
-        Widget widget = widgetRepository.get(widgetId);
-        return migrateArtifact(widgetId, widget, widgetService);
-    }
-
-    public static ResponseEntity<MigrationReport> migrateArtifact(String artifactId, DesignerArtifact designerArtifact, AbstractArtifactService service) {
+    public static ResponseEntity<MigrationReport> migrateArtifact(String artifactId, DesignerArtifact designerArtifact, ArtifactService service) {
         designerArtifact.setStatus(service.getStatus(designerArtifact));
         MigrationReport mR;
+
         if (designerArtifact.getArtifactVersion() != null && designerArtifact.getStatus() != null) {
             if (!designerArtifact.getStatus().isCompatible()) {
                 mR = new MigrationReport(MigrationStatus.INCOMPATIBLE, designerArtifact.getId());
                 mR.setComments("Artifact is incompatible with actual version");
+
                 return new ResponseEntity<>(mR, HttpStatus.OK);
+
             } else if (!designerArtifact.getStatus().isMigration()) {
                 mR = new MigrationReport(MigrationStatus.NONE, designerArtifact.getId());
                 mR.setComments("No migration is needed");
+
                 return new ResponseEntity<>(mR, HttpStatus.OK);
             }
         }
+
         try {
+
             MigrationResult<DesignerArtifact> migrationResult = service.migrateWithReport(designerArtifact);
             DesignerArtifact newArtifact = migrationResult.getArtifact();
             mR = new MigrationReport(migrationResult.getFinalStatus(), newArtifact.getId());
@@ -119,63 +103,87 @@ public class MigrationResource {
             mR.setMigrationStepReport(migrationResult.getMigrationStepReportListFilterByFinalStatus());
             if (migrationResult.getFinalStatus() == MigrationStatus.ERROR) {
                 mR.setNewArtifactVersion(newArtifact.getPreviousArtifactVersion());
+
                 return new ResponseEntity<>(mR, HttpStatus.INTERNAL_SERVER_ERROR);
             }
             mR.setNewArtifactVersion(newArtifact.getArtifactVersion());
+
             return new ResponseEntity<>(mR, HttpStatus.OK);
+
         } catch (Exception e) {
             mR = new MigrationReport(MigrationStatus.ERROR, artifactId);
+
             return new ResponseEntity<>(mR, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @RequestMapping(value = "/status/page/{pageId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
+    @ResponseBody
+    public String migrate() {
+        workspace.migrateWorkspace();
+        return "Migration has been triggered.";
+    }
+
+    @PutMapping(value = "/page/{pageId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MigrationReport> migratePage(@PathVariable("pageId") String pageId) throws RepositoryException {
+        var page = pageRepository.get(pageId);
+        return migrateArtifact(pageId, page, pageService);
+    }
+
+    @PutMapping(value = "/widget/{widgetId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MigrationReport> migrateWidget(@PathVariable("widgetId") String widgetId) throws RepositoryException {
+        var widget = widgetRepository.get(widgetId);
+        return migrateArtifact(widgetId, widget, widgetService);
+    }
+
+    @GetMapping(value = "/status/page/{pageId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public MigrationStatusReport statusByPageId(@PathVariable("pageId") String pageId) {
         return pageService.getStatus(pageRepository.get(pageId));
     }
 
-    @RequestMapping(value = "/status/widget/{widgetId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/status/widget/{widgetId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public MigrationStatusReport statusByWidgetId(@PathVariable("widgetId") String widgetId) {
-        return  widgetService.getStatus(widgetRepository.get(widgetId));
+        return widgetService.getStatus(widgetRepository.get(widgetId));
     }
 
-    @RequestMapping(value = "/status", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/status", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MigrationStatusReport> statusByArtifactJson(
             @RequestBody String artifact) {
 
-        ObjectMapper mapper = new ObjectMapper();
+        var mapper = new ObjectMapper();
         JsonNode artifactNode;
         try {
             artifactNode = mapper.readTree(artifact);
         } catch (IOException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        JsonNode artifactVersionNode = artifactNode.get("modelVersion");
+        var artifactVersionNode = artifactNode.get("modelVersion");
         if (artifactVersionNode == null) {
             artifactVersionNode = artifactNode.get("designerVersion");
         }
-        Version currentVersion = new Version(this.uiDesignerProperties.getModelVersion());
-        Version artifactVersion = (artifactVersionNode != null) ? new Version(artifactVersionNode.asText()) : null;
-        return new ResponseEntity<>(compareVersions(artifactVersion, currentVersion), HttpStatus.OK);
+        var currentVersion = new Version(this.uiDesignerProperties.getModelVersion());
+        var artifactVersion = (artifactVersionNode != null) ? new Version(artifactVersionNode.asText()) : null;
+        var migrationStatusReport = compareVersions(artifactVersion, currentVersion);
+        return ResponseEntity.ok(migrationStatusReport);
     }
 
-    @RequestMapping(value = "/status/fragment/{fragmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/status/fragment/{fragmentId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public MigrationStatusReport statusByFragmentId(@PathVariable("fragmentId") String fragmentId) {
-        Fragment fragment = fragmentRepository.get(fragmentId);
+        var fragment = fragmentRepository.get(fragmentId);
         return fragmentService.getStatus(fragment);
     }
 
-    @RequestMapping(value = "/fragment/{fragmentId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/fragment/{fragmentId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MigrationReport> migrateFragments(@PathVariable("fragmentId") String fragmentId) throws RepositoryException {
-        Fragment fragment = fragmentRepository.get(fragmentId);
-        return MigrationResource.migrateArtifact(fragmentId, fragment, fragmentService);
+        var fragment = fragmentRepository.get(fragmentId);
+        return migrateArtifact(fragmentId, fragment, fragmentService);
 
     }
 
     private MigrationStatusReport compareVersions(Version artifactVersion, Version currentVersion) {
         // Check status of this artifact
-        boolean migration = false;
-        boolean compatible = true;
+        var migration = false;
+        var compatible = true;
         if (artifactVersion == null || currentVersion.isGreaterThan(artifactVersion.toString())) {
             migration = true;
         }
@@ -186,8 +194,4 @@ public class MigrationResource {
         return new MigrationStatusReport(compatible, migration);
     }
 
-
-    public void migrateAllArtifacts() {
-        workspaceInitializer.migrateWorkspace();
-    }
 }

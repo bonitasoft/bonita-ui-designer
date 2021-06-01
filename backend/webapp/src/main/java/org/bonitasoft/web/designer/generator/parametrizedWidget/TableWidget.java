@@ -14,15 +14,16 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
+import com.google.common.base.CaseFormat;
+import org.bonitasoft.web.designer.model.ParameterType;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.google.common.base.CaseFormat;
-import org.bonitasoft.web.designer.model.page.PropertyValue;
-
-import static org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterType.EXPRESSION;
+import static org.bonitasoft.web.designer.model.ParameterType.EXPRESSION;
 
 @Widget
 public class TableWidget extends AbstractParametrizedWidget {
@@ -56,7 +57,7 @@ public class TableWidget extends AbstractParametrizedWidget {
 
 
     public void setHeaders(List<String> headers) {
-        this.headers = headers.stream().map(header -> displayHeader(header)).collect(Collectors.toList());
+        this.headers = headers.stream().map(this::displayHeader).collect(Collectors.toList());
     }
 
     public List<String> getColumnsKey() {

@@ -14,16 +14,16 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Container;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 @Named
 public class ContractToContainerMapper {
 
-    private ContractInputToWidgetMapper contractToWidgetMapper;
+    private final ContractInputToWidgetMapper contractToWidgetMapper;
 
     @Inject
     public ContractToContainerMapper(ContractInputToWidgetMapper contractToWidgetMapper) {
@@ -31,7 +31,7 @@ public class ContractToContainerMapper {
     }
 
     public Container create(Contract contract) {
-        Container container = new Container();
+        var container = new Container();
         contract.accept(new ContractInputVisitorImpl(container, contractToWidgetMapper));
         return container;
     }

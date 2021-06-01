@@ -14,83 +14,84 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.util.zip.ZipException;
-
-import javax.inject.Inject;
-
-import org.bonitasoft.web.designer.controller.importer.ArtifactImporter;
-import org.bonitasoft.web.designer.controller.importer.Import;
+import lombok.RequiredArgsConstructor;
+import org.bonitasoft.web.designer.ArtifactBuilder;
 import org.bonitasoft.web.designer.controller.importer.ImportException;
-import org.bonitasoft.web.designer.controller.importer.ImportStore;
-import org.bonitasoft.web.designer.controller.importer.ImporterResolver;
-import org.bonitasoft.web.designer.controller.importer.PathImporter;
 import org.bonitasoft.web.designer.controller.importer.ServerImportException;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.MimeType;
-import org.bonitasoft.web.designer.controller.utils.Unzipper;
-
-import org.springframework.http.HttpStatus;
+import org.bonitasoft.web.designer.controller.utils.UnZipper;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.zip.ZipException;
+
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.CANNOT_OPEN_ZIP;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @Controller
+@RequiredArgsConstructor
 public class ImportController {
 
-    private PathImporter pathImporter;
-    private ImporterResolver importerResolver;
-    private ImportStore importStore;
-    private Unzipper unzip;
+    private final ArtifactBuilder artifactBuilder;
 
-    @Inject
-    public ImportController(
-            PathImporter pathImporter,
-            ImporterResolver importerResolver,
-            ImportStore importStore,
-            Unzipper unzip) {
-        this.pathImporter = pathImporter;
-        this.importerResolver = importerResolver;
-        this.importStore = importStore;
-        this.unzip = unzip;
-    }
+    private final UnZipper unzip;
 
     /*
      * BS-14106: In IE, json data is not handle properly by browser when content-type is set to application/json.
      * We need to force it to text/plain for browser not trying to save it and pass it correctly to application.
      * Using text/plain as content-type header in response doesn't affect other browsers.
      */
-    @RequestMapping(value = "/import/{artifactType}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value = "/import/{artifactType}", produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public ImportReport importArtifact(@RequestParam("file") MultipartFile file,
-            @RequestParam(value = "force", defaultValue = "false", required = false) boolean force,
-            @PathVariable(value = "artifactType") String artifactType) {
+    public ResponseEntity<ImportReport> importArtifact(@RequestParam("file") MultipartFile file,
+                                                       @RequestParam(value = "force", defaultValue = "false", required = false) boolean ignoreConflicts,
+                                                       @PathVariable(value = "artifactType") String artifactType) {
         checkFilePartIsPresent(file);
         checkFileIsZip(file);
-        Path extractDir = unzip(file);
-        ArtifactImporter importer = getArtifactImporter(artifactType, extractDir);
-        if (force) {
-            return pathImporter.forceImportFromPath(extractDir, importer);
+        var extractDir = unzip(file);
+
+        //FIXME: Could be removed and the artifactType path variable also since it can be guessed from zip content easily.
+        //(Require UI work if url is changed)
+        ImportReport importReport;
+        switch (artifactType) {
+            case "page":
+                importReport = artifactBuilder.importPage(extractDir, ignoreConflicts);
+                break;
+            case "fragment":
+                importReport = artifactBuilder.importFragment(extractDir, ignoreConflicts);
+                break;
+            case "widget":
+                importReport = artifactBuilder.importWidget(extractDir, ignoreConflicts);
+                break;
+            case "artifact":
+                importReport = artifactBuilder.importArtifact(extractDir, ignoreConflicts);
+                break;
+            default:
+                return ResponseEntity.notFound().build();
         }
-        return pathImporter.importFromPath(extractDir, importer);
+        return ResponseEntity.status(CREATED).body(importReport);
     }
 
-    private ArtifactImporter getArtifactImporter(String artifactType, Path extractDir) {
-        if ("artifact".equals(artifactType)) {
-            return importerResolver.getImporter(extractDir);
-        }
-        return importerResolver.getImporter(artifactType);
+    @PostMapping(value = "/import/{uuid}/force", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseStatus(CREATED)
+    @ResponseBody
+    public ImportReport importPage(@PathVariable("uuid") String uuid) {
+        return artifactBuilder.replayImportIgnoringConflicts(uuid);
+    }
+
+    @PostMapping(value = "/import/{uuid}/cancel")
+    public void cancelPageImport(@PathVariable("uuid") String uuid) {
+        artifactBuilder.cancelImport(uuid);
     }
 
     private void checkFilePartIsPresent(MultipartFile file) {
@@ -108,12 +109,17 @@ public class ImportController {
     // some browsers send application/octet-stream for zip files
     // so we check that mimeType is application/zip or application/octet-stream and filename ends with .zip
     private boolean isNotZipFile(MultipartFile file) {
-        return !MimeType.APPLICATION_ZIP.matches(file.getContentType())
-                && !(MimeType.APPLICATION_OCTETSTREAM.matches(file.getContentType()) && file.getOriginalFilename().endsWith(".zip"));
+        if (file == null) return false;
+        var contentType = file.getContentType();
+        var originalFilename = file.getOriginalFilename();
+        return !MimeType.APPLICATION_ZIP.matches(contentType)
+                && !(MimeType.APPLICATION_OCTETSTREAM.matches(contentType)
+                && originalFilename != null && originalFilename.endsWith(".zip")
+        );
     }
 
     private Path unzip(MultipartFile file) {
-        try (InputStream is = file.getInputStream()) {
+        try (var is = file.getInputStream()) {
             return unzip.unzipInTempDir(is, "pageDesignerImport");
         } catch (ZipException e) {
             throw new ImportException(CANNOT_OPEN_ZIP, "Cannot open zip file", e);
@@ -122,16 +128,4 @@ public class ImportController {
         }
     }
 
-    @RequestMapping(value = "/import/{uuid}/force", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public ImportReport importPage(@PathVariable("uuid") String uuid) {
-        Import anImport = importStore.get(uuid);
-        return anImport.getImporter().forceImport(anImport);
-    }
-
-    @RequestMapping(value = "/import/{uuid}/cancel", method = RequestMethod.POST)
-    public void cancelPageImport(@PathVariable("uuid") String uuid) {
-        importStore.remove(uuid);
-    }
 }

@@ -14,25 +14,25 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import static org.bonitasoft.web.designer.generator.mapping.data.StringUtil.indent;
 
 public class FormOutputVisitor implements ContractInputVisitor {
 
-    private List<OutputProperty> properties = new ArrayList<>();
+    private final List<OutputProperty> properties = new ArrayList<>();
 
     @Override
     public void visit(NodeContractInput contractInput) {
-        ContractInputDataHandler handler = new ContractInputDataHandler(contractInput);
+        var handler = new ContractInputDataHandler(contractInput);
         properties.add(new OutputProperty((handler)));
         if (handler.hasDataReference()) {
             contractInput.getInput().stream()
@@ -44,7 +44,7 @@ public class FormOutputVisitor implements ContractInputVisitor {
     }
 
     private void visitLazyRef(NodeContractInput contractInput) {
-        ContractInputDataHandler handler = new ContractInputDataHandler(contractInput);
+        var handler = new ContractInputDataHandler(contractInput);
         if (handler.hasLazyDataRef()) {
             properties.add(new OutputProperty(handler));
         }
@@ -58,19 +58,19 @@ public class FormOutputVisitor implements ContractInputVisitor {
 
     @Override
     public void visit(LeafContractInput contractInput) {
-        ContractInputDataHandler handler = new ContractInputDataHandler(contractInput);
+        var handler = new ContractInputDataHandler(contractInput);
         properties.add(new OutputProperty(handler));
     }
 
     public String toJavascriptExpression() {
-        StringBuilder outputExpressionBuffer = new StringBuilder();
+        var outputExpressionBuffer = new StringBuilder();
 
-        String expressionDependencies = properties.stream()
+        var expressionDependencies = properties.stream()
                 .map(OutputProperty::getDependency)
                 .filter(Objects::nonNull)
                 .distinct()
                 .collect(Collectors.joining(" && "));
-        boolean addCheckDependencies = !expressionDependencies.isEmpty();
+        var addCheckDependencies = !expressionDependencies.isEmpty();
         if (addCheckDependencies) {
             outputExpressionBuffer.append("if( ");
             outputExpressionBuffer.append(expressionDependencies);

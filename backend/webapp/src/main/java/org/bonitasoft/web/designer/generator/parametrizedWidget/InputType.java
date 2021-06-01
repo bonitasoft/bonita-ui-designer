@@ -19,9 +19,9 @@ public enum InputType {
     TEXT("text"),
     NUMBER("number");
 
-    private String value;
+    private final String value;
 
-    private InputType(String value) {
+    InputType(String value) {
         this.value = value;
     }
 

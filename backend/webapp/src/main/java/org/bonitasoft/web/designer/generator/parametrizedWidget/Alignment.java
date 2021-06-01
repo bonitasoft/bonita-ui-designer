@@ -19,7 +19,7 @@ public enum Alignment {
     CENTER("center"),
     RIGHT("right");
 
-    private String value;
+    private final String value;
 
     Alignment(String value) {
         this.value = value;

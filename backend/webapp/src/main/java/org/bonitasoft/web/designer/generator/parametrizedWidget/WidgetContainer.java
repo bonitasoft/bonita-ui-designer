@@ -32,7 +32,7 @@ public class WidgetContainer extends AbstractParametrizedWidget implements Param
     }
 
     public Container toContainer(DimensionFactory dimensionFactory) {
-        Container container = new Container();
+        var container = new Container();
         container.setDimension(dimensionFactory.create(getDimension()));
         container.setPropertyValues(toPropertyValues());
         return container;

@@ -14,17 +14,17 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Named;
-
 import com.google.common.base.Strings;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+import org.bonitasoft.web.designer.model.page.PageData;
+
+import javax.inject.Named;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Named
 public class BusinessQueryDataFactory {

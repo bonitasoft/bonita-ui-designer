@@ -15,25 +15,26 @@
 package org.bonitasoft.web.designer.generator.mapping.data;
 
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.PageData;
 
 import static org.bonitasoft.web.designer.model.data.DataType.EXPRESSION;
 
 public class SubmitErrorsListData implements PageData {
 
-    public static final String NAME = "submit_errors_list";
-    public static final String SUBMIT_ERROR_DATA = String.format("%s._submitError", FormOutputData.NAME);
+    public static final String DATA_NAME = "submit_errors_list";
+    public static final String SUBMIT_ERROR_DATA = String.format("%s._submitError", FormOutputData.INPUT_NAME);
 
     @Override
     public String name() {
-        return NAME;
+        return DATA_NAME;
     }
 
     @Override
     public Data create() {
-        StringBuffer sb = new StringBuffer();
-        sb.append(String.format("if($data.%s && $data.%s && $data.%s.explanations){",FormOutputData.NAME,SUBMIT_ERROR_DATA,SUBMIT_ERROR_DATA));
+        var sb = new StringBuilder();
+        sb.append(String.format("if($data.%s && $data.%s && $data.%s.explanations){", FormOutputData.INPUT_NAME, SUBMIT_ERROR_DATA, SUBMIT_ERROR_DATA));
         sb.append("\n\t");
-        sb.append(String.format("const liElements = $data.%s.explanations",SUBMIT_ERROR_DATA));
+        sb.append(String.format("const liElements = $data.%s.explanations", SUBMIT_ERROR_DATA));
         sb.append("\n\t\t");
         sb.append(".filter(cause => cause !== null)");
         sb.append("\n\t\t");
@@ -48,6 +49,6 @@ public class SubmitErrorsListData implements PageData {
         sb.append("}");
         sb.append("\n");
         sb.append("}");
-        return new Data(EXPRESSION,sb.toString());
+        return new Data(EXPRESSION, sb.toString());
     }
 }

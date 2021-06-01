@@ -14,14 +14,8 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessDataLazyRef;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.AbstractParametrizedWidget;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParametrizedDataManagementWidgetFactory;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.TableWidget;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.WidgetContainer;
@@ -33,11 +27,15 @@ import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class BusinessDataToWidgetMapper {
 
 
     private final DimensionFactory dimensionFactory;
-    private BusinessObjectContainer businessObjectContainer;
+    private final BusinessObjectContainer businessObjectContainer;
     private final ParametrizedDataManagementWidgetFactory parametrizedDataManagementWidgetFactory;
 
     public BusinessDataToWidgetMapper(DimensionFactory dimensionFactory, BusinessObjectContainer businessObjectContainer) {
@@ -58,16 +56,16 @@ public class BusinessDataToWidgetMapper {
         rows.add(Collections.<Element>singletonList(createTitle(nodeBusinessObjectInput.formatName())));
 
         if (isRootOrMultipleInput(nodeBusinessObjectInput)) {
-            TableWidget table = addTableWidget(nodeBusinessObjectInput, rows);
+            var table = addTableWidget(nodeBusinessObjectInput);
             rows.add(Collections.<Element>singletonList(table.toComponent(dimensionFactory)));
         } else {
             if (nodeBusinessObjectInput.getDataReference() != null && nodeBusinessObjectInput.getDataReference().getLoadingType().equals(BusinessDataReference.LoadingType.LAZY)) {
-                BusinessDataLazyRef content = generateVariable(nodeBusinessObjectInput);
+                var content = generateVariable(nodeBusinessObjectInput);
                 businessObjectContainer.addVariable(nodeBusinessObjectInput.getPageDataName(), new Variable(DataType.URL, content.create().getValue().toString()));
             }
         }
 
-        List<Element> row = createDetailsRow(nodeBusinessObjectInput);
+        var row = createDetailsRow(nodeBusinessObjectInput);
         rows.add(row);
 
         return (Container) row.get(1);
@@ -77,10 +75,10 @@ public class BusinessDataToWidgetMapper {
         return nodeBusinessObjectInput.isMultiple() || nodeBusinessObjectInput.getParent() == null;
     }
 
-    private TableWidget addTableWidget(NodeBusinessObjectInput nodeBusinessObjectInput, List<List<Element>> rows) {
-        TableWidget table = new TableWidget();
+    private TableWidget addTableWidget(NodeBusinessObjectInput nodeBusinessObjectInput) {
+        var table = new TableWidget();
 
-        List<String> columns = extractHeaders(nodeBusinessObjectInput);
+        var columns = extractHeaders(nodeBusinessObjectInput);
         table.setHeaders(columns);
         table.setColumnsKey(columns);
 
@@ -90,9 +88,9 @@ public class BusinessDataToWidgetMapper {
             table.setContent(nodeBusinessObjectInput.getPageDataName());
             selectedVariableName = nodeBusinessObjectInput.getPageDataNameSelected();
         } else {
-            NodeBusinessObjectInput parent = (NodeBusinessObjectInput) nodeBusinessObjectInput.getParent();
+            var parent = (NodeBusinessObjectInput) nodeBusinessObjectInput.getParent();
             if (nodeBusinessObjectInput.getDataReference() != null && nodeBusinessObjectInput.getDataReference().getLoadingType().equals(BusinessDataReference.LoadingType.LAZY)) {
-                BusinessDataLazyRef content = generateVariable(nodeBusinessObjectInput);
+                var content = generateVariable(nodeBusinessObjectInput);
                 businessObjectContainer.addVariable(nodeBusinessObjectInput.getPageDataName(), new Variable(DataType.URL, content.create().getValue().toString()));
                 table.setContent(nodeBusinessObjectInput.getPageDataName());
             } else if (nodeBusinessObjectInput.getDataReference() != null && nodeBusinessObjectInput.getDataReference().getLoadingType().equals(BusinessDataReference.LoadingType.EAGER)) {
@@ -110,7 +108,7 @@ public class BusinessDataToWidgetMapper {
     private List<String> extractHeaders(NodeBusinessObjectInput nodeBusinessObjectInput) {
         List<String> columns = new ArrayList<>();
         if (!nodeBusinessObjectInput.getInput().isEmpty()) {
-            for (ContractInput cInput : nodeBusinessObjectInput.getInput()) {
+            for (var cInput : nodeBusinessObjectInput.getInput()) {
                 if (isSimpleAttribute(cInput)) {
                     columns.add(cInput.getName());
                 }
@@ -134,30 +132,29 @@ public class BusinessDataToWidgetMapper {
     }
 
     private List<Element> toSimpleComponent(ContractInput contractInput) {
-        AbstractParametrizedWidget widget = parametrizedDataManagementWidgetFactory.createParametrizedWidget(contractInput);
-        return Collections.singletonList(widget.toComponent(dimensionFactory));
+        var widget = parametrizedDataManagementWidgetFactory.createParametrizedWidget(contractInput);
+        return List.of(widget.toComponent(dimensionFactory));
     }
 
     private List<Element> toMultipleComponent(ContractInput contractInput) {
-        WidgetContainer widgetContainer = new WidgetContainer();
+        var widgetContainer = new WidgetContainer();
 
         if (contractInput.isMultiple()) {
             widgetContainer.setRepeatedCollection(new BusinessObjectDataHandler(contractInput).inputValue());
         }
 
-        AbstractParametrizedWidget component = parametrizedDataManagementWidgetFactory.createParametrizedWidget(contractInput);
+        var component = parametrizedDataManagementWidgetFactory.createParametrizedWidget(contractInput);
         List<Element> row = new ArrayList<>();
 
         row.add(component.toComponent(dimensionFactory));
 
-        Container container = widgetContainer.toContainer(dimensionFactory);
+        var container = widgetContainer.toContainer(dimensionFactory);
         container.getRows().add(row);
 
-
         // UpperCase first Letter
-        String name = contractInput.getName().substring(0, 1).toUpperCase() + contractInput.getName().substring(1);
+        var name = contractInput.getName().substring(0, 1).toUpperCase() + contractInput.getName().substring(1);
         container.setDescription(WidgetDescription.ATTRIBUTE_MULTIPLE.displayValue(name, contractInput.getParent().getName()));
-        return Arrays.asList(createTitle(name), container);
+        return List.of(createTitle(name), container);
     }
 
     private Element createTitle(String title) {
@@ -165,8 +162,9 @@ public class BusinessDataToWidgetMapper {
     }
 
     private List<Element> createDetailsRow(NodeBusinessObjectInput nodeBusinessObjectInput) {
-        return Arrays.asList(
+        return List.of(
                 parametrizedDataManagementWidgetFactory.createSpacingContainer(dimensionFactory, nodeBusinessObjectInput),
-                parametrizedDataManagementWidgetFactory.createDetailsWidgetContainer(dimensionFactory, nodeBusinessObjectInput));
+                parametrizedDataManagementWidgetFactory.createDetailsWidgetContainer(dimensionFactory, nodeBusinessObjectInput)
+        );
     }
 }

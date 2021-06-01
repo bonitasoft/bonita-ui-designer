@@ -99,7 +99,7 @@ add_crowdin_directory() {
 upload_translations() {
   echo "Exporting $1 translation to $PROJECT crowdin project ..."
 
-   curl -F "files[ui-designer/lang-template.pot]=@backend/webapp/src/main/resources/i18n/lang-template-$2.po" \
+   curl -F "files[ui-designer/lang-template.pot]=@backend/artifact-builder/src/main/resources/i18n/lang-template-$2.po" \
        -F "language=$1" \
        -F "auto_approve_imported=1" \
        -F "import_duplicates=1" \
@@ -121,7 +121,7 @@ cd $BASE_DIR
 
 echo "Building pot files..."
 npm_pot frontend/
-npm_pot backend/webapp/
+npm_pot backend/artifact-builder/
 
 echo "Concatenating pot files..."
 cat_pot $BASE_DIR $BUILD_DIR/lang_template.pot

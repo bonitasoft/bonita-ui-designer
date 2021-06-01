@@ -14,41 +14,45 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class ResponseHeadersHelper {
+
+    public static final String SLASH = "/";
+
+    private ResponseHeadersHelper() {
+        // Utility class
+    }
+
     public static ResponseEntity<Void> getMovedResourceResponse(HttpServletRequest request, String newObjectId) throws RepositoryException {
         return getMovedResourceResponse(request, newObjectId, null);
     }
 
     public static ResponseEntity<Void> getMovedResourceResponse(HttpServletRequest request, String newObjectId, String currentURIAttributeSuffix) throws RepositoryException {
-        HttpHeaders responseHeaders = new HttpHeaders();
+        var responseHeaders = new HttpHeaders();
         try {
-            String currentURI = request.getRequestURI();
+            var currentURI = request.getRequestURI();
             String requestURI;
             if (currentURIAttributeSuffix != null && currentURI.lastIndexOf(currentURIAttributeSuffix) >= 0) {
-                int indexOfSuffix = currentURI.lastIndexOf(currentURIAttributeSuffix);
+                var indexOfSuffix = currentURI.lastIndexOf(currentURIAttributeSuffix);
                 requestURI = currentURI.substring(0, indexOfSuffix);
             } else {
                 requestURI = currentURI;
             }
-            int currentURILastSeparatorIndex = requestURI.lastIndexOf("/");
-            URI newLocation = new URI(requestURI.substring(0, currentURILastSeparatorIndex) + "/" + newObjectId);
+            var currentURILastSeparatorIndex = requestURI.lastIndexOf(SLASH);
+            var newLocation = new URI(requestURI.substring(0, currentURILastSeparatorIndex) + SLASH + newObjectId);
             responseHeaders.setLocation(newLocation);
             responseHeaders.setContentType(MediaType.APPLICATION_JSON);
         } catch (URISyntaxException e) {
             throw new RepositoryException("Failed to generate new object URI", e);
         }
-        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
+        return ResponseEntity.ok().headers(responseHeaders).build();
     }
 }

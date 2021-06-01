@@ -14,18 +14,15 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 
 import static java.net.URLEncoder.encode;
 
@@ -37,7 +34,7 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
 
     protected static final String GET_LOCK_STATUS = "lockStatus";
 
-    private RestClient restClient;
+    private final RestClient restClient;
 
     @Inject
     public StudioWorkspaceResourceHandler(RestClient restClient) {
@@ -52,12 +49,9 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     public void preOpen(final Path filePath) throws LockedResourceException, ResourceNotFoundException {
         try {
             doPost(filePath, WorkspaceResourceEvent.PRE_OPEN);
-        }
-        catch (Exception e) {
-            if (e instanceof HttpClientErrorException) {
-                if (HttpStatus.LOCKED.equals(((HttpClientErrorException) e).getStatusCode())) {
-                    throw new LockedResourceException(filePath.toString(), e);
-                }
+        } catch (Exception e) {
+            if (e instanceof HttpClientErrorException && HttpStatus.LOCKED.equals(((HttpClientErrorException) e).getStatusCode())) {
+                throw new LockedResourceException(filePath.toString(), e);
             }
             handleResourceException(filePath, e);
         }
@@ -71,8 +65,7 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     public void postClose(final Path filePath) throws ResourceNotFoundException {
         try {
             doPost(filePath, WorkspaceResourceEvent.POST_CLOSE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             handleResourceException(filePath, e);
         }
     }
@@ -86,8 +79,7 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     public void delete(Path filePath) throws ResourceNotFoundException {
         try {
             doPost(filePath, WorkspaceResourceEvent.DELETE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             handleResourceException(filePath, e);
         }
     }
@@ -101,8 +93,7 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     public void postDelete(final Path filePath) throws ResourceNotFoundException {
         try {
             doPost(filePath, WorkspaceResourceEvent.POST_DELETE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             handleResourceException(filePath, e);
         }
     }
@@ -115,8 +106,7 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     public void postSave(final Path filePath) throws ResourceNotFoundException {
         try {
             doPost(filePath, WorkspaceResourceEvent.POST_SAVE);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             handleResourceException(filePath, e);
         }
     }
@@ -146,12 +136,11 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     @Override
     public LockStatus getLockStatus(final Path filePath) throws ResourceNotFoundException {
         try {
-            ResponseEntity<String> lockStatusResponse = doGet(filePath, GET_LOCK_STATUS);
+            var lockStatusResponse = doGet(filePath, GET_LOCK_STATUS);
             if (lockStatusResponse.hasBody()) {
                 return LockStatus.valueOf(lockStatusResponse.getBody());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             handleResourceException(filePath, e);
         }
 
@@ -159,8 +148,8 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     }
 
     protected ResponseEntity<String> doGet(final Path filePath, String action) {
-        final String url = createGetURL(filePath, action);
-        RestTemplate restTemplate = restClient.getRestTemplate();
+        var url = createGetURL(filePath, action);
+        var restTemplate = restClient.getRestTemplate();
         return restTemplate.getForEntity(URI.create(url), String.class);
     }
 
@@ -168,13 +157,13 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
         if (actionEvent == null) {
             throw new IllegalArgumentException("actionEvent is null");
         }
-        final String url = createPostURL(actionEvent);
-        RestTemplate restTemplate = restClient.getRestTemplate();
+        var url = createPostURL(actionEvent);
+        var restTemplate = restClient.getRestTemplate();
         return restTemplate.postForEntity(URI.create(url), filePath != null ? filePath.toString() : null, String.class);
     }
 
     private String createGetURL(final Path filePath, final String action) {
-        String encodedURL = encode(filePath.toFile().toString(), StandardCharsets.UTF_8);
+        var encodedURL = encode(filePath.toFile().toString(), StandardCharsets.UTF_8);
         return restClient.createURI(encodedURL + "/" + action);
     }
 
@@ -183,10 +172,8 @@ public class StudioWorkspaceResourceHandler implements WorkspaceResourceHandler 
     }
 
     private void handleResourceException(Path filePath, Exception e) throws ResourceNotFoundException {
-        if (e instanceof HttpClientErrorException) {
-            if (HttpStatus.NOT_FOUND.equals(((HttpClientErrorException) e).getStatusCode())) {
-                throw new ResourceNotFoundException(filePath.toString(), e);
-            }
+        if (e instanceof HttpClientErrorException && HttpStatus.NOT_FOUND.equals(((HttpClientErrorException) e).getStatusCode())) {
+            throw new ResourceNotFoundException(filePath.toString(), e);
         }
         throw new RuntimeException("Unhandled exception", e);
     }

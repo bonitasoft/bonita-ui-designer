@@ -18,20 +18,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.bonitasoft.web.designer.config.DesignerConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.config.WebMvcConfiguration;
 import org.bonitasoft.web.designer.controller.ResourceControllerAdvice;
+import org.bonitasoft.web.designer.model.JacksonJsonHandler;
+
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+// FIXME: use spring test fwk for this ! (do not hack internal classes yourself ...)
 public class TestWebMvcConfigurationSupport extends WebMvcConfigurationSupport {
 
-    private DesignerConfig config;
-
-    public TestWebMvcConfigurationSupport(DesignerConfig config) {
-        this.config = config;
+    public TestWebMvcConfigurationSupport() {
         StaticApplicationContext applicationContext = new StaticApplicationContext();
         applicationContext.registerSingleton("resourceControllerAdvice", ResourceControllerAdvice.class);
         setApplicationContext(applicationContext);
@@ -44,7 +44,8 @@ public class TestWebMvcConfigurationSupport extends WebMvcConfigurationSupport {
 
     public HttpMessageConverter<?>[] createMessageConverters() {
         WebMvcConfiguration webMvcConfiguration = new WebMvcConfiguration();
-        ReflectionTestUtils.setField(webMvcConfiguration, "objectMapper", config.objectMapper());
+        ObjectMapper objectMapper = ((JacksonJsonHandler) new JsonHandlerFactory().create()).getObjectMapper();
+        webMvcConfiguration.setObjectMapper(objectMapper);
 
         List<HttpMessageConverter<?>> converters = new ArrayList<>();
         webMvcConfiguration.configureMessageConverters(converters);

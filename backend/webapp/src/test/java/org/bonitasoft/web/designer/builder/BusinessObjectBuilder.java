@@ -14,12 +14,19 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
-
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.NodeBusinessObjectInput;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder;
+
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aBooleanContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateTimeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aOffsetDateTimeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 
 public class BusinessObjectBuilder {
 

@@ -14,11 +14,6 @@
  */
 package org.bonitasoft.web.designer.studio.repository;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
-import javax.annotation.PostConstruct;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -33,9 +28,12 @@ import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.studio.workspace.ResourceNotFoundException;
 import org.bonitasoft.web.designer.studio.workspace.WorkspaceResourceHandler;
-
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.nio.file.Path;
 
 import static org.springframework.util.StringUtils.hasText;
 
@@ -66,8 +64,7 @@ public class RepositoryAspect {
     public void postSaveAndUpdateDate(JoinPoint joinPoint) {
         try {
             handler.postSave(filePath(joinPoint));
-        }
-        catch (ResourceNotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             throw new RepositoryException("An error occured while proceeding post save action.", e);
         }
     }
@@ -80,17 +77,15 @@ public class RepositoryAspect {
     @Around("execution(* org.bonitasoft.web.designer.repository.Repository+.delete(String))")
     public void delete(JoinPoint joinPoint) {
         try {
-            Object component = get(joinPoint);
+            Identifiable component = get(joinPoint);
             handler.delete(filePath(joinPoint));
-            getPersister(joinPoint).delete(resolvePathFolder(joinPoint), (Identifiable) component);
-        }
-        catch (ResourceNotFoundException | IOException e) {
+            getPersister(joinPoint).delete(resolvePathFolder(joinPoint), component);
+        } catch (ResourceNotFoundException | IOException e) {
             throw new RepositoryException("An error occured while proceeding delete action.", e);
         }
         try {
             handler.postDelete(filePath(joinPoint));
-        }
-        catch (ResourceNotFoundException e) {
+        } catch (ResourceNotFoundException e) {
             throw new RepositoryException("An error occured while proceeding post delete action.", e);
         }
     }

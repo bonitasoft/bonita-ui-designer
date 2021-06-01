@@ -14,18 +14,11 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.strategy;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Stream;
-
 import com.google.common.base.Strings;
 import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.generator.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.generator.mapping.ContractToContainerMapper;
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
-import org.bonitasoft.web.designer.generator.mapping.Form;
 import org.bonitasoft.web.designer.generator.mapping.FormScope;
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessData;
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessDataLazyRef;
@@ -41,42 +34,48 @@ import org.bonitasoft.web.designer.generator.parametrizedWidget.Alignment;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.TextWidget;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.TitleWidget;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
-import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
+import org.bonitasoft.web.designer.model.page.Form;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.Page;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import static java.lang.String.format;
 
 public class TaskFormCreationStrategy implements PageCreationStrategy {
 
-    private ContractInputToWidgetMapper contractToWidgetMapper;
-    private ContractToContainerMapper contractToContainerMapper;
-    private JacksonObjectMapper mapper;
-    private DimensionFactory dimensionFactory;
-    private BusinessQueryDataFactory businessQueryDataFactory;
+    private final ContractInputToWidgetMapper contractToWidgetMapper;
+    private final ContractToContainerMapper contractToContainerMapper;
+    private final JsonHandler jsonHandler;
+    private final DimensionFactory dimensionFactory;
+    private final BusinessQueryDataFactory businessQueryDataFactory;
 
     public TaskFormCreationStrategy(ContractInputToWidgetMapper contractToWidgetMapper,
-            ContractToContainerMapper contractToContainerMapper,
-            JacksonObjectMapper mapper,
-            DimensionFactory dimensionFactory,
-            BusinessQueryDataFactory businessQueryDataFactory) {
+                                    ContractToContainerMapper contractToContainerMapper,
+                                    JsonHandler jsonHandler,
+                                    DimensionFactory dimensionFactory,
+                                    BusinessQueryDataFactory businessQueryDataFactory) {
         this.contractToWidgetMapper = contractToWidgetMapper;
         this.contractToContainerMapper = contractToContainerMapper;
-        this.mapper = mapper;
+        this.jsonHandler = jsonHandler;
         this.dimensionFactory = dimensionFactory;
         this.businessQueryDataFactory = businessQueryDataFactory;
     }
 
     @Override
     public Page create(String name, Contract contract) {
-        Form form = new Form(name)
+        var form = new Form(name)
                 .addData(new TaskIdData())
                 .addData(new TaskData())
                 .addData(new ContextData())
@@ -85,7 +84,7 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
                 .addNewRow(createTaskInformation())
                 .addNewRow(createFormContainer(contract));
         if (shouldAddFormInputData(contract)) {
-            form.addData(new FormInputData(mapper, contract));
+            form.addData(new FormInputData(jsonHandler, contract));
         }
 
         findBusinessData(contract)
@@ -105,17 +104,16 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
                 .forEach(input -> findBusinessDataLazyReferences(
                         ((NodeContractInput) input.getParent()).getDataReference().getName(), input, lazyRefData));
 
-        lazyRefData.stream().forEach(form::addData);
+        lazyRefData.forEach(form::addData);
 
         businessQueryDataFactory.create(contract)
-                .stream()
                 .forEach(form::addData);
 
         return form;
     }
 
     private boolean shouldAddFormInputData(Contract contract) {
-        FormInputVisitor visitor = new FormInputVisitor(mapper);
+        var visitor = new FormInputVisitor(jsonHandler);
         contract.accept(visitor);
         return !visitor.isEmpty();
     }
@@ -133,8 +131,8 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
     }
 
     private void findBusinessDataLazyReferences(String path, NodeContractInput input,
-            List<BusinessDataLazyRef> lazyRefData) {
-        ContractInputDataHandler handler = new ContractInputDataHandler(input);
+                                                List<BusinessDataLazyRef> lazyRefData) {
+        var handler = new ContractInputDataHandler(input);
         if (handler.hasLazyDataRef()
                 && handler.getParent() != null
                 && !handler.getParent().isMultiple()) { //Cannot retrieve lazy references if parent is multiple
@@ -152,24 +150,24 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
     }
 
     private Container createTaskInformation() {
-        Container container = new Container();
+        var container = new Container();
 
-        TitleWidget title = new TitleWidget();
+        var title = new TitleWidget();
         title.setLevel("Level 1");
-        title.setText(format("{{ %s.displayName }}", TaskData.NAME));
+        title.setText(format("{{ %s.displayName }}", TaskData.DATA_NAME));
         title.setAlignment(Alignment.CENTER);
-        container.getRows().add(Collections.<Element> singletonList(title.toComponent(dimensionFactory)));
+        container.getRows().add(Collections.<Element>singletonList(title.toComponent(dimensionFactory)));
 
-        TextWidget description = new TextWidget();
-        description.setText(format("{{ %s.displayDescription }}", TaskData.NAME));
-        container.getRows().add(Collections.<Element> singletonList(description.toComponent(dimensionFactory)));
+        var description = new TextWidget();
+        description.setText(format("{{ %s.displayDescription }}", TaskData.DATA_NAME));
+        container.getRows().add(Collections.<Element>singletonList(description.toComponent(dimensionFactory)));
 
         return container;
     }
 
     private FormContainer createFormContainer(Contract contract) {
-        Component submitButton = contractToWidgetMapper.createSubmitButton(ButtonAction.fromScope(FormScope.TASK));
-        Container container = contractToContainerMapper.create(contract)
+        var submitButton = contractToWidgetMapper.createSubmitButton(ButtonAction.fromScope(FormScope.TASK));
+        var container = contractToContainerMapper.create(contract)
                 .addNewRow(submitButton)
                 .addNewRow(contractToWidgetMapper.createSubmitErrorAlert());
         return new FormContainer().setContainer(container);

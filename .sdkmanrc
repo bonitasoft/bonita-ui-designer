@@ -1,0 +1,5 @@
+# Enable auto-env through the sdkman_auto_env config
+# Add key=value pairs of SDKs to use below
+# activate this env via the command : sdk env
+#java=21.0.0.r11-grl
+java=11.0.11.hs-adpt

@@ -15,17 +15,14 @@
 
 package org.bonitasoft.web.designer.generator.mapping;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
-
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.generator.mapping.data.FormInputVisitor;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JacksonJsonHandler;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
@@ -34,15 +31,25 @@ import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aBooleanContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aFileContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aMultipleStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.anIntegerContractInput;
+
 public class FormInputVisitorTest {
 
-    JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
+    JsonHandler jsonHandler = new JacksonJsonHandler(new ObjectMapper());
 
     FormInputVisitor visitor;
 
     @Before
     public void setUp() throws Exception {
-        visitor = new FormInputVisitor(objectMapper);
+        visitor = new FormInputVisitor(jsonHandler);
     }
 
     @Test
@@ -54,7 +61,7 @@ public class FormInputVisitorTest {
 
         contract.accept(visitor);
 
-        assertThat(visitor.toJson()).isEqualTo(objectMapper.prettyPrint("{\"accepted\":false,\"age\":0,\"name\":\"\"}"));
+        assertThat(visitor.toJson()).isEqualTo(jsonHandler.prettyPrint("{\"accepted\":false,\"age\":0,\"name\":\"\"}"));
     }
 
     @Test
@@ -72,7 +79,7 @@ public class FormInputVisitorTest {
 
         assertThat(visitor.toJson())
                 .isEqualTo(
-                        objectMapper.prettyPrint("{\"person\":{\"name\":\"\",\"details\":{\"age\":0}},\"accepted\":false}"));
+                        jsonHandler.prettyPrint("{\"person\":{\"name\":\"\",\"details\":{\"age\":0}},\"accepted\":false}"));
     }
 
     @Test
@@ -92,7 +99,7 @@ public class FormInputVisitorTest {
         contract.accept(visitor);
 
         assertThat(visitor.toJson())
-                .isEqualTo(objectMapper.prettyPrint("{\"accepted\":false}"));
+                .isEqualTo(jsonHandler.prettyPrint("{\"accepted\":false}"));
     }
 
     @Test
@@ -104,7 +111,7 @@ public class FormInputVisitorTest {
         contract.accept(visitor);
 
         assertThat(visitor.toJson())
-                .isEqualTo(objectMapper.prettyPrint("{\"persons\":[],\"roles\":[]}"));
+                .isEqualTo(jsonHandler.prettyPrint("{\"persons\":[],\"roles\":[]}"));
     }
 
     @Test
@@ -113,7 +120,7 @@ public class FormInputVisitorTest {
 
         contract.accept(visitor);
 
-        assertThat(visitor.toJson()).isEqualTo(objectMapper.prettyPrint("{\"myFile\":null}"));
+        assertThat(visitor.toJson()).isEqualTo(jsonHandler.prettyPrint("{\"myFile\":null}"));
     }
 
     @Test

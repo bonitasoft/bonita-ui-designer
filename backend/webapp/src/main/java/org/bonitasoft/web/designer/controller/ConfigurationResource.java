@@ -15,18 +15,17 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 @Slf4j
 @RestController
@@ -36,13 +35,12 @@ public class ConfigurationResource {
 
     private final UiDesignerProperties uiDesignerProperties;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<ConfigurationReport> getConfig() {
         String bdrUrl = uiDesignerProperties.getBonita().getBdm().getUrl();
         try {
             new URL(bdrUrl);
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             log.warn("Bonita data repository url is not set, or not a valid URL.");
             bdrUrl = "";
         }

@@ -14,15 +14,15 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.databind.BusinessObjectDeserializer;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.ContractInputContainer;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonDeserialize(using = BusinessObjectDeserializer.class)
 public class BusinessObject implements ContractInputContainer {
@@ -33,10 +33,9 @@ public class BusinessObject implements ContractInputContainer {
         this.contractInput = contractInput;
     }
 
-
     @JsonIgnore
     public void accept(ContractInputVisitor contractInputVisitor) {
-        for (ContractInput input : contractInput) {
+        for (var input : contractInput) {
             input.accept(contractInputVisitor);
         }
     }

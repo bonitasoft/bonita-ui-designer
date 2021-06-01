@@ -15,30 +15,34 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import static org.bonitasoft.web.designer.builder.BusinessObjectBuilder.aBusinessObject;
-import static org.bonitasoft.web.designer.utils.RestControllerUtil.convertObjectToJsonBytes;
-import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.net.URISyntaxException;
 
+import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.DataManagementGenerator;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.NodeBusinessObjectInput;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.bonitasoft.web.designer.builder.BusinessObjectBuilder.aBusinessObject;
+import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @RunWith(MockitoJUnitRunner.class)
 public class UiGenerationResourceTest {
+
+    private JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
     private MockMvc mockMvc;
 
@@ -60,7 +64,7 @@ public class UiGenerationResourceTest {
         mockMvc
                 .perform(post("/rest/generation/businessobject")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(convertObjectToJsonBytes(bo)))
+                        .content(jsonHandler.toJson(bo)))
                 .andExpect(status().isOk());
         verify(dataManagementGenerator).generate(any(BusinessObject.class));
 

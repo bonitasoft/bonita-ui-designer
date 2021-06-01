@@ -16,14 +16,15 @@ package org.bonitasoft.web.designer.generator.mapping.data;
 
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.page.PageData;
 
 import static org.bonitasoft.web.designer.model.data.DataType.EXPRESSION;
 
 public class FormOutputData implements PageData {
 
-    public static final String NAME = "formOutput";
+    public static final String INPUT_NAME = "formOutput";
 
-    private Contract contract;
+    private final Contract contract;
 
     public FormOutputData(Contract contract) {
         this.contract = contract;
@@ -31,12 +32,12 @@ public class FormOutputData implements PageData {
 
     @Override
     public String name() {
-        return NAME;
+        return INPUT_NAME;
     }
 
     @Override
     public Data create() {
-        FormOutputVisitor formOutputVisitor = new FormOutputVisitor();
+        var formOutputVisitor = new FormOutputVisitor();
         contract.accept(formOutputVisitor);
         return new Data(EXPRESSION, formOutputVisitor.toJavascriptExpression());
     }

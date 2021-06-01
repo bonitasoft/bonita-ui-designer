@@ -14,12 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.entry;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.*;
-import static org.bonitasoft.web.designer.builder.VariableBuilder.*;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
-
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +23,8 @@ import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.TextWidget;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.TitleWidget;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JacksonJsonHandler;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -41,11 +36,26 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aInterpolationPropertyValue;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.anExpressionPropertyValue;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aJSONVariable;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.aUrlParameterVariable;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.anExpressionVariable;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.anURLVariable;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithDataRefAndAggregation;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithMultipleInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContractWithDataRef;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ContractToPageMapperTest {
 
-    JacksonObjectMapper objectMapper = new JacksonObjectMapper(new ObjectMapper());
-    private ContractInputToWidgetMapper contractToWidgetMapper = new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper);
+    JsonHandler jsonHandler = new JacksonJsonHandler(new ObjectMapper());
+    private ContractInputToWidgetMapper contractToWidgetMapper = new ContractInputToWidgetMapper(new DimensionFactory(), jsonHandler);
     ContractToContainerMapper contractToContainerMapper = new ContractToContainerMapper(contractToWidgetMapper);
 
     @Test
@@ -58,7 +68,7 @@ public class ContractToPageMapperTest {
     }
 
     private ContractToPageMapper makeContractToPageMapper() {
-        return new ContractToPageMapper(contractToWidgetMapper, contractToContainerMapper, objectMapper, new DimensionFactory(), new BusinessQueryDataFactory());
+        return new ContractToPageMapper(contractToWidgetMapper, contractToContainerMapper, jsonHandler, new DimensionFactory(), new BusinessQueryDataFactory());
     }
 
     @Test
@@ -86,7 +96,7 @@ public class ContractToPageMapperTest {
 
         Page page = contractToPageMapper.createFormPage("myPage", aContractWithMultipleInput(), FormScope.TASK);
 
-        assertThat(page.getVariables()).contains(entry("formInput", aJSONVariable().value(objectMapper.prettyPrint("{\"names\":[]}")).build()));
+        assertThat(page.getVariables()).contains(entry("formInput", aJSONVariable().value(jsonHandler.prettyPrint("{\"names\":[]}")).build()));
         assertThat(page.getVariables()).contains(entry("formOutput", anExpressionVariable().value("return {\n\tnames: $data.formInput.names\n}").build()));
     }
 

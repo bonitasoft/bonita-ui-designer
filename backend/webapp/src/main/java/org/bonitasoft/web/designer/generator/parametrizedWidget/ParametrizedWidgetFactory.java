@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import java.util.Objects;
-
 import com.google.common.base.CaseFormat;
 import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessQueryData;
@@ -29,13 +27,15 @@ import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 
+import java.util.Objects;
+
 import static com.google.common.base.Joiner.on;
 
 public class ParametrizedWidgetFactory {
 
     public static final String ITEM_ITERATOR = "$item";
 
-    private InputTypeResolver inputTypeResolver;
+    private final InputTypeResolver inputTypeResolver;
 
     public ParametrizedWidgetFactory() {
         inputTypeResolver = new InputTypeResolver();
@@ -72,7 +72,7 @@ public class ParametrizedWidgetFactory {
     }
 
     private AbstractParametrizedWidget createWidgetForTextInput(ContractInput input) {
-        if (Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, input.getName())
+        if (Objects.equals(ContractInputDataHandler.PERSISTENCE_ID_INPUT_NAME, input.getName())
                 && ContractInputDataHandler.hasAggregatedParentRef(input)) {
             return input.isReadOnly()
                     ? createTextWidget(input.getParent())
@@ -80,14 +80,14 @@ public class ParametrizedWidgetFactory {
         } else if (input.isReadOnly()) {
             return createTextWidget(input);
         } else {
-            InputWidget inputWidget = createInputWidget(input);
+            var inputWidget = createInputWidget(input);
             inputWidget.setType(InputType.TEXT);
             return inputWidget;
         }
     }
 
     private TextWidget createTextWidget(ContractInput input) {
-        TextWidget textWidget = new TextWidget();
+        var textWidget = new TextWidget();
         textWidget.setLabel(inputDisplayLabel(input));
         textWidget.setLabelHidden(false);
         addTextValue(input, textWidget);
@@ -95,7 +95,7 @@ public class ParametrizedWidgetFactory {
     }
 
     private FileUploadWidget createFileUploadWidget(ContractInput input) {
-        FileUploadWidget fileUploadWidget = new FileUploadWidget();
+        var fileUploadWidget = new FileUploadWidget();
         fileUploadWidget.setLabel(inputDisplayLabel(input));
         fileUploadWidget.setLabelPosition(LabelPosition.TOP);
         fileUploadWidget.setPlaceholder(new PbUpload().getPlaceholder());
@@ -109,8 +109,8 @@ public class ParametrizedWidgetFactory {
             value = input.getMode() == EditMode.EDIT
                     ? String.format("context.%s_ref.newValue", ((LeafContractInput) input).getDataReference().getName())
                     : isParentMultiple(input)
-                            ? multipleInputValue(input)
-                            : new ContractInputDataHandler(input).inputValue();
+                    ? multipleInputValue(input)
+                    : new ContractInputDataHandler(input).inputValue();
         }
         fileUploadWidget.setValue(value);
         fileUploadWidget.setLabelHidden(input.isMultiple() || input.getMode() == EditMode.EDIT);
@@ -131,7 +131,7 @@ public class ParametrizedWidgetFactory {
     }
 
     protected CheckboxWidget createCheckBox(ContractInput input) {
-        CheckboxWidget checkbox = new CheckboxWidget();
+        var checkbox = new CheckboxWidget();
         checkbox.setLabel(inputDisplayLabel(input));
         checkbox.setDisabled(input.isReadOnly());
         setValuableWidgetValue(input, checkbox);
@@ -139,8 +139,8 @@ public class ParametrizedWidgetFactory {
     }
 
     protected DatePickerWidget createDatePicker(ContractInput input) {
-        PbDatePicker reference = new PbDatePicker();
-        DatePickerWidget datePickerComponent = inputDefaultWidgetParameters(input, new DatePickerWidget());
+        var reference = new PbDatePicker();
+        var datePickerComponent = inputDefaultWidgetParameters(input, new DatePickerWidget());
 
         datePickerComponent.setDateFormat(reference.getDateFormat());
         datePickerComponent.setPlaceholder(reference.getPlaceholder());
@@ -155,8 +155,8 @@ public class ParametrizedWidgetFactory {
     }
 
     protected DateTimePickerWidget createDateTimePicker(ContractInput input, boolean withTimeZone) {
-        PbDateTimePicker reference = new PbDateTimePicker();
-        DateTimePickerWidget dateTimePickerComponent = inputDefaultWidgetParameters(input, new DateTimePickerWidget());
+        var reference = new PbDateTimePicker();
+        var dateTimePickerComponent = inputDefaultWidgetParameters(input, new DateTimePickerWidget());
 
         dateTimePickerComponent.setPlaceholder(reference.getPlaceholder());
         dateTimePickerComponent.setTimePlaceholder(reference.getTimePlaceholder());
@@ -177,7 +177,7 @@ public class ParametrizedWidgetFactory {
     }
 
     public WidgetContainer createWidgetContainer(ContractInput contractInput) {
-        WidgetContainer container = new WidgetContainer();
+        var container = new WidgetContainer();
         if (contractInput.isMultiple()) {
             container.setRepeatedCollection(isParentMultiple(contractInput)
                     ? multipleInputValue(contractInput)
@@ -185,7 +185,6 @@ public class ParametrizedWidgetFactory {
         }
         return container;
     }
-
 
 
     public WidgetContainer createWidgetContainer() {
@@ -257,8 +256,8 @@ public class ParametrizedWidgetFactory {
         String buttonText = dataHandler.isDocument()
                 ? "File"
                 : dataHandler.getRefType() != null
-                        ? toSimpleName(dataHandler.getRefType())
-                        : null;
+                ? toSimpleName(dataHandler.getRefType())
+                : null;
         ButtonWidget buttonComponent = new ButtonWidget();
         buttonComponent.setLabel(buttonText == null || buttonText.isEmpty()
                 ? "<span class=\"glyphicon glyphicon-plus\"></span>"
@@ -270,8 +269,8 @@ public class ParametrizedWidgetFactory {
         String collectionToModify = isParentMultiple(contractInput)
                 ? multipleInputValue(contractInput)
                 : dataHandler.isDocumentEdition()
-                        ? String.format("context.%s_ref", dataHandler.getRefName())
-                        : dataHandler.inputValue();
+                ? String.format("context.%s_ref", dataHandler.getRefName())
+                : dataHandler.inputValue();
         buttonComponent.setCollectionToModify(collectionToModify);
         return buttonComponent;
     }
@@ -323,7 +322,7 @@ public class ParametrizedWidgetFactory {
     }
 
     protected String getValue(ContractInput contractInput) {
-       return isParentMultiple(contractInput)
+        return isParentMultiple(contractInput)
                 ? multipleInputValue(contractInput)
                 : new ContractInputDataHandler(contractInput).inputValue();
     }
@@ -334,7 +333,7 @@ public class ParametrizedWidgetFactory {
 
     protected String multipleInputValue(ContractInput contractInput) {
         if (contractInput.getParent() != null
-                && !(Objects.equals(ContractInputDataHandler.PERSISTENCEID_INPUT_NAME, contractInput.getName())
+                && !(Objects.equals(ContractInputDataHandler.PERSISTENCE_ID_INPUT_NAME, contractInput.getName())
                 && ContractInputDataHandler.hasAggregatedParentRef(contractInput)))
             return on(".").join(ITEM_ITERATOR, contractInput.getName());
         return ITEM_ITERATOR;

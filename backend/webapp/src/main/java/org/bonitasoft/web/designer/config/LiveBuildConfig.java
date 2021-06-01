@@ -14,13 +14,12 @@
  */
 package org.bonitasoft.web.designer.config;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.apache.commons.io.monitor.FileAlterationMonitor;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Configuration
 public class LiveBuildConfig {

@@ -14,16 +14,15 @@
  */
 package org.bonitasoft.web.designer.utils;
 
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-
-import org.bonitasoft.web.designer.config.DesignerConfig;
 import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.web.accept.ContentNegotiationManager;
+
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class UIDesignerMockMvcBuilder {
 
     public static MockMvcBuilder mockServer(Object... controllers) {
-        TestWebMvcConfigurationSupport configuration = new TestWebMvcConfigurationSupport(new DesignerConfig());
+        TestWebMvcConfigurationSupport configuration = new TestWebMvcConfigurationSupport();
         return standaloneSetup(controllers)
                 .setMessageConverters(configuration.createMessageConverters())
                 .setHandlerExceptionResolvers(configuration.handlerExceptionResolver(new ContentNegotiationManager()))

@@ -14,13 +14,14 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithDataRefAndAggregation;
-
 import java.util.Set;
 
 import org.bonitasoft.web.designer.model.contract.EditMode;
+import org.bonitasoft.web.designer.model.page.PageData;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithDataRefAndAggregation;
 
 public class BusinessQueryDataFactoryTest {
 

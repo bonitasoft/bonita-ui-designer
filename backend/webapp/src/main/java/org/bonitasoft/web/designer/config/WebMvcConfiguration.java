@@ -15,19 +15,12 @@
 package org.bonitasoft.web.designer.config;
 
 
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import javax.inject.Inject;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet;
 import org.mitre.dsmiley.httpproxy.ProxyServlet;
-
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,6 +32,11 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.inject.Inject;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Optional;
+
 import static org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet.P_PORTAL_PASSWORD;
 import static org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet.P_PORTAL_USER;
 
@@ -47,25 +45,21 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     public static final String BACKEND_RESOURCES = "classpath:/META-INF/resources/";
 
-    public static final String EXTRACT_BACKEND_RESOURCES = "META-INF/resources";
-
     public static final String FRONTEND_RESOURCES = "classpath:/static/";
 
     public static final String WIDGETS_RESOURCES = "widgets";
 
     public static final String WIDGETS_WC_RESOURCES = "widgetsWc";
 
-    public static final String I18N_RESOURCES = "i18n";
-
-    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { BACKEND_RESOURCES, FRONTEND_RESOURCES };
+    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {BACKEND_RESOURCES, FRONTEND_RESOURCES};
 
     /**
      * Jackson object mapper used to serialize or deserialize Json objects
-     *
-     * @see DesignerConfig#objectMapper()
      */
     @Inject
-    public ObjectMapper objectMapper;
+    //Settable for testing purpose
+    @Setter
+    private ObjectMapper objectMapper;
 
     @Inject
     private WorkspaceUidProperties workspaceUidProperties;
@@ -74,7 +68,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     private UiDesignerProperties uiDesignerProperties;
 
     public static List<MediaType> supportedMediaTypes() {
-        return Arrays.asList(MediaType.APPLICATION_JSON_UTF8, new MediaType("text", "plain", StandardCharsets.UTF_8));
+        return List.of(MediaType.APPLICATION_JSON_UTF8, new MediaType("text", "plain", StandardCharsets.UTF_8));
     }
 
     /**
@@ -125,12 +119,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         //Add a converter for the String sent via HTTP
-        StringHttpMessageConverter stringConverter = new StringHttpMessageConverter(StandardCharsets.UTF_8);
+        var stringConverter = new StringHttpMessageConverter(StandardCharsets.UTF_8);
         stringConverter.setWriteAcceptCharset(false);  // see SPR-7316
         converters.add(stringConverter);
 
         //Use our custom Jackson serializer
-        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
+        var mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter(objectMapper);
         mappingJackson2HttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes());
         converters.add(mappingJackson2HttpMessageConverter);
 

@@ -19,16 +19,16 @@ public enum MimeType {
     APPLICATION_ZIP("application/zip", "application/x-zip-compressed", "application/x-zip"),
     APPLICATION_OCTETSTREAM("application/octet-stream");
 
-    private String[] alternatives;
-    private String mimeType;
+    private final String[] alternatives;
+    private final String value;
 
-    private MimeType(String mimeType, String... alternativeMimeTypes) {
-        this.mimeType = mimeType;
+    private MimeType(String value, String... alternativeMimeTypes) {
+        this.value = value;
         this.alternatives = alternativeMimeTypes;
     }
 
     public boolean matches(String mimeType) {
-        return matches(mimeType, this.mimeType) || matches(mimeType, alternatives);
+        return matches(mimeType, this.value) || matches(mimeType, alternatives);
     }
 
     private boolean matches(String mimeType, String... alternatives) {
@@ -42,6 +42,6 @@ public enum MimeType {
 
     @Override
     public String toString() {
-        return mimeType;
+        return value;
     }
 }

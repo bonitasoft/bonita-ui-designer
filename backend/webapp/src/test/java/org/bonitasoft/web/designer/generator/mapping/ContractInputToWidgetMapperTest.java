@@ -14,19 +14,16 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.bonitasoft.web.designer.config.DesignerConfig;
+import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.generator.widgets.PbInput;
-import org.bonitasoft.web.designer.model.JacksonObjectMapper;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
@@ -42,9 +39,15 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Test;
 
-public class ContractInputToWidgetMapperTest {
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aNodeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aReadOnlyStringContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 
-    JacksonObjectMapper objectMapper = new DesignerConfig().objectMapperWrapper();
+public class ContractInputToWidgetMapperTest {
+    private JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
     @Test
     public void should_string_contract_input_create_an_input_widget_id() throws Exception {
@@ -297,7 +300,7 @@ public class ContractInputToWidgetMapperTest {
     }
 
     private ContractInputToWidgetMapper makeContractInputToWidgetMapper() {
-        return new ContractInputToWidgetMapper(new DimensionFactory(), objectMapper);
+        return new ContractInputToWidgetMapper(new DimensionFactory(), jsonHandler);
     }
 
 }

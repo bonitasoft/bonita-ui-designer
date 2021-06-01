@@ -25,7 +25,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     public static final String PREVIEWABLE_UPDATE = "/previewableUpdates";
-    public static final String PREVIEWABLE_REMOVAL= "/previewableRemoval";
+    public static final String PREVIEWABLE_REMOVAL = "/previewableRemoval";
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {

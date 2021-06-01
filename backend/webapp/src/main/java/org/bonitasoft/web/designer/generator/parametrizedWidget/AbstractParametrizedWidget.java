@@ -14,13 +14,14 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import java.beans.BeanInfo;
+import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
+import org.bonitasoft.web.designer.model.ParameterType;
+import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
+
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,23 +31,8 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.PropertyValue;
-
 @Widget
 public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
-
-    private String widgetId;
-
-    @WidgetProperty
-    private String cssClasses = "";
-    @WidgetProperty
-    private String hidden = "";
-    @WidgetProperty
-    private Integer dimension = 12;
-    @WidgetProperty
-    private String description = "";
 
     protected static final Map<String, ParameterType> propertyParameters = new HashMap<>();
 
@@ -68,13 +54,22 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         propertyParameters.put(HIDDEN_PARAMETER, ParameterType.EXPRESSION);
     }
 
-    private Map<String, PropertyValue> propertyValues = new HashMap<>();
+    private final Map<String, PropertyValue> propertyValues = new HashMap<>();
+    private String widgetId;
+    @WidgetProperty
+    private String cssClasses = "";
+    @WidgetProperty
+    private String hidden = "";
+    @WidgetProperty
+    private Integer dimension = 12;
+    @WidgetProperty
+    private String description = "";
 
-    public AbstractParametrizedWidget(String widgetId) {
+    protected AbstractParametrizedWidget(String widgetId) {
         this.widgetId = widgetId;
     }
 
-    public AbstractParametrizedWidget() {
+    protected AbstractParametrizedWidget() {
     }
 
     @Override
@@ -82,13 +77,13 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         return widgetId;
     }
 
-    public void setDimension(Integer dimension) {
-        this.dimension = dimension;
-    }
-
     @Override
     public Integer getDimension() {
         return dimension;
+    }
+
+    public void setDimension(Integer dimension) {
+        this.dimension = dimension;
     }
 
     public String getCssClasses() {
@@ -108,7 +103,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     }
 
     public Component toComponent(DimensionFactory dimensionFactory) {
-        Component component = new Component();
+        var component = new Component();
         component.setId(getWidgetId());
         component.setDimension(dimensionFactory.create(dimension));
         component.setPropertyValues(toPropertyValues());
@@ -117,7 +112,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     }
 
     protected Map<String, PropertyValue> toPropertyValues() {
-        Map<String, PropertyValue> values = toMap().entrySet()
+        var values = toMap().entrySet()
                 .stream()
                 .collect(Collectors.toMap(this::getEntryKey, this::createPropertyValue));
         values.putAll(propertyValues);
@@ -131,12 +126,11 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     private Map<String, Object> toMap() {
         try {
             Map<String, Object> params = new HashMap<>();
-            ArrayList<String> availableProperties = new ArrayList<>();
-            availableProperties.addAll(classesIntrospection(this.getClass()));
+            var availableProperties = new ArrayList<>(classesIntrospection(this.getClass()));
 
-            BeanInfo info = Introspector.getBeanInfo(this.getClass());
-            for (PropertyDescriptor pd : info.getPropertyDescriptors()) {
-                Method reader = pd.getReadMethod();
+            var info = Introspector.getBeanInfo(this.getClass());
+            for (var pd : info.getPropertyDescriptors()) {
+                var reader = pd.getReadMethod();
                 if (reader != null && availableProperties.contains(pd.getName())) {
                     params.put(pd.getName(), reader.invoke(this));
                 }
@@ -148,8 +142,8 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     }
 
     private List<String> classesIntrospection(Class<?> aClass) {
-        ArrayList<String> list = new ArrayList<>();
-        for (Field field : aClass.getDeclaredFields()) {
+        List<String> list = new ArrayList<>();
+        for (var field : aClass.getDeclaredFields()) {
             if (field.isAnnotationPresent(WidgetProperty.class)) {
                 list.add(field.getName());
             }
@@ -161,20 +155,19 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
     }
 
     private ParameterType getParameterType(String paramName) {
-        return propertyParameters.containsKey(paramName) ? propertyParameters.get(paramName) : ParameterType.CONSTANT;
+        return propertyParameters.getOrDefault(paramName, ParameterType.CONSTANT);
     }
 
     protected PropertyValue createPropertyValue(Entry<String, Object> entry) {
-        if (Objects.equals(entry.getKey(), HIDDEN_PARAMETER)) {
-            if (hidden == null || hidden.isEmpty()) {
-                return createPropertyValue(ParameterType.CONSTANT, false);
-            }
+        if (Objects.equals(entry.getKey(), HIDDEN_PARAMETER)
+                && (hidden == null || hidden.isEmpty())) {
+            return createPropertyValue(ParameterType.CONSTANT, false);
         }
         return createPropertyValue(getParameterType(entry.getKey()), entry.getValue());
     }
 
     protected PropertyValue createPropertyValue(ParameterType type, Object value) {
-        PropertyValue propertyValue = new PropertyValue();
+        var propertyValue = new PropertyValue();
         propertyValue.setType(type.getValue());
         propertyValue.setValue(value);
         return propertyValue;
