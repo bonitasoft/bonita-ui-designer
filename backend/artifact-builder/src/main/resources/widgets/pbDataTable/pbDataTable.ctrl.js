@@ -114,7 +114,11 @@ function PbDataTableCtrl($scope, $http, $log, $filter) {
 
   this.getSorter = function (index) {
     if ($scope.properties.type === 'Variable') {
-      return $scope.properties.columnsKey[index];
+      var columnKey = $scope.properties.columnsKey[index];
+      if (columnKey.indexOf("|") > 0) {
+        columnKey = columnKey.substring(0, columnKey.indexOf("|")).trim();
+      }
+      return columnKey;
     }
     if (angular.isArray($scope.properties.sortColumns)) {
       var columnKey = $scope.properties.columnsKey[index];
