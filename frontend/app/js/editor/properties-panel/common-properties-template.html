@@ -1,6 +1,4 @@
-<div class="form-group"
-     ng-if="currentComponent.type !== 'fragment'"
-     ng-init="descriptionCollapsed=true;">
+<div class="form-group" ng-init="descriptionCollapsed=true;">
     <label for="description" ng-click="descriptionCollapsed = !descriptionCollapsed">
         <i class="property-collapsed glyphicon"
            ng-class="{'glyphicon-chevron-right': descriptionCollapsed, 'glyphicon-chevron-down': !descriptionCollapsed}"></i>
@@ -9,6 +7,7 @@
            uib-tooltip="{{ 'Put usage of this widget. This information is only visible on UI-Designer editor' | translate }}"
            tooltip-append-to-body="true"></i>
     </label>
+
     <div uib-collapse="descriptionCollapsed">
             <textarea ng-model="currentComponent.description" class="form-control PropertyPanel-PropertyInput"
                       id="description" rows="3" cols="50"></textarea>
