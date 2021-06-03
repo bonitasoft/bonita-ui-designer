@@ -82,7 +82,7 @@ public class ArtifactBuilderFactory {
     @Getter
     private final UiDesignerCore core;
 
-    public ArtifactBuilderFactory(UiDesignerProperties uiDesignerProperties) {
+    public ArtifactBuilderFactory(UiDesignerProperties uiDesignerProperties) throws Exception {
         this.uiDesignerProperties = uiDesignerProperties;
         this.jsonHandler = new JsonHandlerFactory().create();
         this.core = new UiDesignerCoreFactory(this.uiDesignerProperties, this.jsonHandler).create();

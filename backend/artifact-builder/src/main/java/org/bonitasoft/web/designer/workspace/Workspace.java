@@ -34,12 +34,14 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.nio.file.Files.createDirectories;
+import static java.util.Arrays.stream;
+import static java.util.Objects.requireNonNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Slf4j
@@ -50,9 +52,8 @@ public class Workspace {
     public static final String WIDGETS_RESOURCES = "widgets";
 
     public static final String WIDGETS_WC_RESOURCES = "widgetsWc";
-
+    public static final String METADATA_FOLDER_NAME = ".metadata";
     protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
-
     private final UiDesignerProperties uiDesignerProperties;
 
     private final WidgetRepository widgetRepository;
@@ -73,7 +74,7 @@ public class Workspace {
 
     private final JsonHandler jsonHandler;
 
-    protected boolean initialized = false;
+    protected AtomicBoolean initialized = new AtomicBoolean(false);
 
     public Workspace(UiDesignerProperties uiDesignerProperties, WidgetRepository widgetRepository, PageRepository pageRepository,
                      WidgetDirectiveBuilder widgetDirectiveBuilder, FragmentDirectiveBuilder fragmentDirectiveBuilder,
@@ -108,22 +109,22 @@ public class Workspace {
         extractResourcesForExport();
     }
 
-    public synchronized void initialize() {
-        if (!initialized) {
+    public void initialize() {
+        if (!initialized.get()) {
             try {
                 doInitialize();
                 for (LiveRepositoryUpdate<?> migration : migrations) {
                     migration.start();
                 }
                 cleanPageWorkspace();
-                initialized = true;
+                initialized.set(true);
             } catch (IOException e) {
                 throw new DesignerInitializerException("Unable to initialize workspace", e);
             }
         }
     }
 
-    public synchronized void migrateWorkspace() {
+    public void migrateWorkspace() {
         initialize(); //Ensure that the workspace initialization is ended
         migrations.stream().forEachOrdered(migration -> {
             try {
@@ -134,7 +135,7 @@ public class Workspace {
         });
     }
 
-    public synchronized void indexingArtifacts(List<Page> pages) {
+    public void indexingArtifacts(List<Page> pages) {
         initialize(); //Ensure that the workspace initialization is ended
         pageRepository.refreshIndexing(pages);
     }
@@ -147,12 +148,16 @@ public class Workspace {
      */
     public void cleanPageWorkspace() {
         var pageWorkspace = uiDesignerProperties.getWorkspace().getPages().getDir();
-        var file = new File(pageWorkspace.toString());
-        Arrays.stream(Objects.requireNonNull(file.list())).forEach(pageFolder -> {
-            if (".metadata".equals(pageFolder)) {
-                cleanMetadataFolder(pageWorkspace, pageFolder);
+        var files = requireNonNull(pageWorkspace.toFile().list());
+        stream(files).forEach(pageFolder -> {
+
+            // metadata folder is at the same level as page folders
+            if (METADATA_FOLDER_NAME.equals(pageFolder)) {
+                cleanMetadataFolder(pageWorkspace);
                 return;
             }
+
+            // pages
             try {
                 if (isPageExist(pageWorkspace, pageFolder)) {
                     // Clean Js folder, this folder can be exist in version before this fix
@@ -161,13 +166,13 @@ public class Workspace {
                     var f = pageWorkspace.resolve(pageFolder).toFile();
                     if (f.isDirectory()) {
                         FileUtils.deleteDirectory(pageWorkspace.resolve(pageFolder).toFile());
-                        logger.debug(String.format("Deleting folder [%s] with success", pageWorkspace.resolve(pageFolder)));
+                        logger.debug("Deleting folder [{}] with success", pageWorkspace.resolve(pageFolder));
                     }
                 }
             } catch (IOException e) {
-                var error = String.format("Technical error when deleting file [%s]", pageWorkspace.resolve(pageFolder).resolve("js"));
-                logger.error(error, e);
+                logger.error("Technical error when deleting files [{}]", pageWorkspace.resolve(pageFolder).resolve("js"), e);
             }
+
         });
     }
 
@@ -175,17 +180,27 @@ public class Workspace {
      * remove  metadata file without a artifact in workspace
      *
      * @param workspace
-     * @param folder
      */
-    protected void cleanMetadataFolder(Path workspace, String folder) {
-        var metadataFolder = new File(workspace.resolve(folder).toString());
-        Arrays.stream(Objects.requireNonNull(metadataFolder.listFiles())).forEach(file -> {
-            if (!workspace.resolve(removeExtension(file.getName())).resolve(file.getName()).toFile().exists()
-                    && !workspace.resolve(folder).resolve(file.getName()).toFile().delete()) {
-                var error = String.format("Technical error when deleting file [%s]", workspace.resolve(folder).resolve("js").toString());
-                logger.error(error);
+    protected void cleanMetadataFolder(Path workspace) {
+        var metadataFolder = new File(workspace.resolve(METADATA_FOLDER_NAME).toString());
+        stream(requireNonNull(metadataFolder.listFiles())).forEach(page -> {
+            var pageFileName = page.getName();
+            if (!pageExists(workspace, pageFileName)) {
+                deleteMissingPageMetadata(workspace, pageFileName);
             }
         });
+    }
+
+    private void deleteMissingPageMetadata(Path workspace, String pageFileName) {
+        try {
+            Files.delete(workspace.resolve(METADATA_FOLDER_NAME).resolve(pageFileName));
+        } catch (IOException e) {
+            logger.error("Technical error when deleting file [{}]", workspace.resolve(METADATA_FOLDER_NAME).resolve("js"));
+        }
+    }
+
+    private boolean pageExists(Path workspace, String fileName) {
+        return workspace.resolve(removeExtension(fileName)).resolve(fileName).toFile().exists();
     }
 
     private String removeExtension(String fileName) {
@@ -287,11 +302,13 @@ public class Workspace {
      */
     private void cleanFragmentWorkspace() {
         var fragWorkspace = uiDesignerProperties.getWorkspace().getFragments().getDir();
-        Arrays.stream(Objects.requireNonNull(new File(fragWorkspace.toString()).list())).forEach(fragment -> {
-            if (".metadata".equals(fragment)) {
-                cleanMetadataFolder(fragWorkspace, fragment);
+        stream(requireNonNull(fragWorkspace.toFile().list())).forEach(fragment -> {
+
+            if (METADATA_FOLDER_NAME.equals(fragment)) {
+                cleanMetadataFolder(fragWorkspace);
                 return;
             }
+
             try {
                 if (isFragmentDescriptorExist(fragWorkspace, fragment)) {
                     //Remove min.js file, this file can be here for oldest fragment than this fix
@@ -301,10 +318,10 @@ public class Workspace {
                     if (f.isDirectory()) {
                         FileUtils.deleteDirectory(fragWorkspace.resolve(fragment).toFile());
                     }
-                    logger.debug(String.format("Deleted fragment folder [%s] with success", fragWorkspace.resolve(fragment).toString()));
+                    logger.debug("Deleted fragment folder [{}] with success", fragWorkspace.resolve(fragment));
                 }
             } catch (IOException e) {
-                var error = String.format("Error while filter file in folder " + fragWorkspace.resolve(fragment).resolve(fragment).toString());
+                var error = "Error while filter file in folder " + fragWorkspace.resolve(fragment).resolve(fragment);
                 logger.error(error, e);
             }
         });

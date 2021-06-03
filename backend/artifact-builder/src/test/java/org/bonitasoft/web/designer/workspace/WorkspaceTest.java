@@ -75,10 +75,9 @@ public class WorkspaceTest {
         ArtifactBuilder artifactBuilder = new ArtifactBuilderFactory(uiDesignerProperties).create();
 
         workspace = spy(artifactBuilder.getWorkspace());
-        workspace.initialized = false;
+        workspace.initialized.set(false);
 
     }
-
 
     private void createWidget(String id, String content) throws IOException {
         final Path widgetPath = temporaryFolder.toPath().resolve("widgets/" + id);

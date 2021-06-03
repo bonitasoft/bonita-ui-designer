@@ -102,7 +102,7 @@ public class ArtifactImporterTest {
     private ArtifactBuilder artifactBuilder;
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         pageImportPath = Files.createTempDirectory(tempDir.toPath(), "pageImport");
         widgetImportPath = Files.createTempDirectory(tempDir.toPath(), "widgetImport");
 

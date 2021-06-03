@@ -1,59 +1,94 @@
 package org.bonitasoft.web.designer;
 
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
-import org.bonitasoft.web.designer.model.ModelException;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.TimeUnit;
 
-import static org.apache.commons.io.FileUtils.copyDirectory;
-import static org.apache.commons.io.FileUtils.deleteDirectory;
+import static java.util.concurrent.TimeUnit.*;
+import static org.apache.commons.io.FileUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 public class ArtifactBuilderIT {
 
+    private UiDesignerProperties properties;
+    private ArtifactBuilder artifactBuilder;
 
-    @Test
-    public void standalone_run() throws ModelException, IOException {
-
-        // Given
-        var properties = new UiDesignerPropertiesBuilder()
+    @Before
+    public void setUp() throws Exception {
+        properties = new UiDesignerPropertiesBuilder()
                 .workspacePath("./target/ArtifactBuilderIT/project")
                 .workspaceUidPath("./target/ArtifactBuilderIT/uid")
                 .build();
 
-        // prepare dummy page in workspace
+        await().atMost(1, SECONDS).until(() -> {
+            try {
+                deleteDirectory(properties.getWorkspace().getPages().getDir().toFile());
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        });
+    }
+
+    @Test
+    public void should_export_page() throws Exception {
+
+        // Given
         var pageId = "ma-page";
         var target = properties.getWorkspace().getPages().getDir().resolve(pageId);
-        deleteDirectory(target.toFile());
         var source = Path.of("./src/test/resources/workspace/pages/" + pageId);
         copyDirectory(source.toFile(), target.toFile());
 
         // When
-
-        // ====================
-
-        var factory = new ArtifactBuilderFactory(properties);
-        var artifactBuilder = factory.create();
-
+        artifactBuilder = new ArtifactBuilderFactory(properties).create();
         var page = artifactBuilder.buildPage(pageId);
-
-//        Files.write(Path.of("./target/ArtifactBuilderIT/page.zip"), page);
-
-        // ====================
-
-//        var jsonHandler = new JsonHandlerFactory().create();
-//        var core = new UiDesignerCoreFactory(properties, jsonHandler).create();
-//        var builder = new ArtifactBuilderFactory(properties,jsonHandler,core).create();
-//
-//        var myPage = core.getPageService().get(pageId);
-//        var zip = builder.build(myPage);
-
-        // ====================
 
         // Then
         assertThat(page).isNotEmpty();
+    }
+
+    @Test
+    public void should_index_pages() throws Exception {
+        // Given
+        var pageId = "ma-page";
+        var target = properties.getWorkspace().getPages().getDir().resolve(pageId);
+        var source = Path.of("./src/test/resources/workspace/pages/" + pageId);
+        copyDirectory(source.toFile(), target.toFile());
+        // When
+        artifactBuilder = new ArtifactBuilderFactory(properties).create();
+
+        // Then
+        await().atMost(1, SECONDS).untilAsserted(() ->
+                assertThat(properties.getWorkspace().getPages().getDir().resolve(".metadata/.index.json")).exists()
+        );
+    }
+
+    @Test
+    public void should_watch_pages() throws Exception {
+        // Given
+        var pageId = "ma-page";
+        var target = properties.getWorkspace().getPages().getDir().resolve(pageId);
+        var source = Path.of("./src/test/resources/workspace/pages/" + pageId);
+        copyDirectory(source.toFile(), target.toFile());
+        artifactBuilder = new ArtifactBuilderFactory(properties).create();
+
+        var jsonIndex = properties.getWorkspace().getPages().getDir().resolve(".metadata/.index.json");
+
+        // Delete page folder and index metadata (index should be recreated on the fly when copying back the page folder thanks to watcher)
+        deleteDirectory(target.toFile());
+        deleteQuietly(jsonIndex.toFile());
+
+        // When
+        copyDirectory(source.toFile(), target.toFile());
+
+        // Then
+        await().atMost(1, SECONDS).untilAsserted(() ->
+                assertThat(jsonIndex).exists()
+        );
     }
 }

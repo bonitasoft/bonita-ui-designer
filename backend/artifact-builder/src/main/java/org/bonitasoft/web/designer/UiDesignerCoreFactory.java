@@ -1,13 +1,11 @@
 package org.bonitasoft.web.designer;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetDependencyImporter;
-import org.bonitasoft.web.designer.i18n.I18nInitializer;
-import org.bonitasoft.web.designer.i18n.LanguagePackBuilder;
 import org.bonitasoft.web.designer.livebuild.ObserverFactory;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.migration.AddModelVersionMigrationStep;
@@ -64,16 +62,33 @@ import java.util.List;
 import static org.bonitasoft.web.designer.migration.Version.INITIAL_MODEL_VERSION;
 
 @Getter
-@RequiredArgsConstructor
+@Slf4j
 public class UiDesignerCoreFactory {
 
     private final UiDesignerProperties uiDesignerProperties;
-
     private final JsonHandler jsonHandler;
+    private final BeanValidator beanValidator;
+    private final Watcher watcher;
 
-    private final BeanValidator beanValidator = new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator());
+    public UiDesignerCoreFactory(UiDesignerProperties uiDesignerProperties, JsonHandler jsonHandler) throws Exception {
+        this.uiDesignerProperties = uiDesignerProperties;
+        this.jsonHandler = jsonHandler;
+        this.beanValidator = new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator());
+        this.watcher = new Watcher(new ObserverFactory(), getMonitor());
+    }
 
-    private final Watcher watcher = new Watcher(new ObserverFactory(), new FileAlterationMonitor());
+    private FileAlterationMonitor getMonitor() throws Exception {
+        var monitor = new FileAlterationMonitor(1000);
+        monitor.start();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                monitor.stop();
+            } catch (Exception e) {
+                log.warn("Failed to cleanly stop FileAlterationMonitor on shutdown", e);
+            }
+        }));
+        return monitor;
+    }
 
     public UiDesignerCore create() {
 

@@ -80,13 +80,10 @@ public class WatcherTest {
     }
 
     private Callable<Boolean> changedFilesContainsExactly(PathListenerStub listener, Path expectedFile) {
-        return new Callable<Boolean>() {
-
-            public Boolean call() throws Exception {
-                Set<Path> changed = listener.getChanged();
-                return changed.size() == 1
-                        && changed.contains(expectedFile);
-            }
+        return () -> {
+            Set<Path> changed = listener.getChanged();
+            return changed.size() == 1
+                    && changed.contains(expectedFile);
         };
     }
 

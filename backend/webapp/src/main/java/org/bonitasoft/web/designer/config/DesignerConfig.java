@@ -65,7 +65,7 @@ public class DesignerConfig {
     private UiDesignerCoreFactory coreFactory;
 
     @PostConstruct
-    public void initialize() {
+    public void initialize()  throws Exception{
         jsonHandler = new JsonHandlerFactory().create();
         coreFactory = new UiDesignerCoreFactory(designerProperties, jsonHandler);
     }
