@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import com.github.dreamhead.moco.RestServer;
 import com.github.dreamhead.moco.Runner;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
@@ -26,15 +23,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.util.SocketUtils;
 import org.springframework.web.client.RestTemplate;
 
-import static com.github.dreamhead.moco.Moco.by;
-import static com.github.dreamhead.moco.Moco.match;
-import static com.github.dreamhead.moco.Moco.status;
-import static com.github.dreamhead.moco.Moco.uri;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static com.github.dreamhead.moco.Moco.*;
 import static com.github.dreamhead.moco.MocoRest.restServer;
 import static java.net.URLEncoder.encode;
 import static org.assertj.core.api.Assertions.assertThat;

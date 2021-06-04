@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.i18n;
 
 import lombok.RequiredArgsConstructor;
+import org.bonitasoft.web.designer.ArtifactBuilderException;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.fedorahosted.tennera.jgettext.Message;
 import org.fedorahosted.tennera.jgettext.PoParser;
@@ -39,8 +40,8 @@ public class LanguagePack {
      * @throws IOException
      */
     public byte[] toJson() throws IOException {
-        HashMap<String, HashMap<String, Object>> language = new HashMap<>();
-        final HashMap<String, Object> translations = new HashMap<>();
+        var language = new HashMap<String, HashMap<String, Object>>();
+        var translations = new HashMap<String,Object>();
 
         var catalog = poParser.parseCatalog(poFile);
         language.put(extractLanguageFrom(catalog.locateHeader()), translations);
@@ -60,7 +61,7 @@ public class LanguagePack {
     private String extractLanguageFrom(Message header) {
         var matcher = Pattern.compile("Language:(.*?)$", Pattern.MULTILINE).matcher(header.getMsgstr());
         if (!matcher.find()) {
-            throw new RuntimeException("Couldn't find po file language.");
+            throw new ArtifactBuilderException("Couldn't find po file language.");
         }
         return matcher.group(1).trim();
     }

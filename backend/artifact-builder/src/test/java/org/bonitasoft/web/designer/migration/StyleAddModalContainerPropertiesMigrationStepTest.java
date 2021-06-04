@@ -59,7 +59,7 @@ public class StyleAddModalContainerPropertiesMigrationStepTest {
                 .withDesignerVersion("1.7.9").withAsset(style).build();
 
         when(pageAssetService.getAssetContent(page, style)).thenReturn(initContent);
-        InputStream is = this.getClass().getClassLoader().getResourceAsStream("templates/migration/assets/css/styleAddModalContainerProperties.css");
+        InputStream is = getClass().getResourceAsStream("/templates/migration/assets/css/styleAddModalContainerProperties.css");
         String content = initContent.concat(IOUtils.toString(is));
 
         step.migrate(page);

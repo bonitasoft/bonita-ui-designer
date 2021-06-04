@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.migration;
 
 import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
-import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
@@ -24,13 +23,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.SequenceInputStream;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-
-import static java.lang.String.format;
 
 public class StyleAddModalContainerPropertiesMigrationStep extends AbstractMigrationStep<Page> {
 
@@ -44,13 +38,12 @@ public class StyleAddModalContainerPropertiesMigrationStep extends AbstractMigra
 
     @Override
     public Optional<MigrationStepReport> migrate(Page artifact) throws IOException {
-        for (Asset asset : artifact.getAssets()) {
+        for (var asset : artifact.getAssets()) {
             if (asset.getName().equals("style.css")) {
-                String pageStyleCssContent = assetService.getAssetContent(artifact, asset);
+                var pageStyleCssContent = assetService.getAssetContent(artifact, asset);
                 assetService.save(artifact, asset, getMigratedAssetContent(pageStyleCssContent));
-                logger.info(format(
-                        "[MIGRATION] Adding modalContainer classes in asset [%s] to %s [%s] (introduced in 1.8.28)",
-                        asset.getName(), artifact.getType(), artifact.getName()));
+                logger.info("[MIGRATION] Adding modalContainer classes in asset [{}] to {} [{}] (introduced in 1.8.28)",
+                        asset.getName(), artifact.getType(), artifact.getName());
             }
         }
         return Optional.empty();
@@ -62,11 +55,12 @@ public class StyleAddModalContainerPropertiesMigrationStep extends AbstractMigra
     }
 
     private byte[] getMigratedAssetContent(String styleCssContent) throws IOException {
-        InputStream is = this.getClass().getClassLoader().getResourceAsStream("templates/migration/assets/css/styleAddModalContainerProperties.css");
-        List<InputStream> streams = List.of(
-                new ByteArrayInputStream(styleCssContent.getBytes()),
-                new ByteArrayInputStream(IOUtils.toByteArray(is)));
-        SequenceInputStream sis = new SequenceInputStream(Collections.enumeration(streams));
-        return IOUtils.toByteArray(sis);
+        try (var is = getClass().getResourceAsStream("/templates/migration/assets/css/styleAddModalContainerProperties.css");
+             var sis = new SequenceInputStream(
+                     new ByteArrayInputStream(styleCssContent.getBytes()),
+                     new ByteArrayInputStream(IOUtils.toByteArray(is))
+             )) {
+            return IOUtils.toByteArray(sis);
+        }
     }
 }

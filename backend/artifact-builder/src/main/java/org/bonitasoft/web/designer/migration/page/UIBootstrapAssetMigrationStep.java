@@ -16,13 +16,13 @@
 package org.bonitasoft.web.designer.migration.page;
 
 import org.apache.commons.io.IOUtils;
+import org.bonitasoft.web.designer.ArtifactBuilderException;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.slf4j.Logger;
@@ -41,11 +41,11 @@ public class UIBootstrapAssetMigrationStep extends AbstractMigrationStep<Page> {
 
     private static final Logger logger = LoggerFactory.getLogger(UIBootstrapAssetMigrationStep.class);
 
-    private AssetService<Page> pageAssetService;
+    private final AssetService<Page> pageAssetService;
 
-    private ComponentVisitor componentVisitor;
+    private final ComponentVisitor componentVisitor;
 
-    private WidgetRepository widgetRepository;
+    private final WidgetRepository widgetRepository;
 
     public UIBootstrapAssetMigrationStep(AssetService<Page> pageAssetService,
                                          ComponentVisitor componentVisitor, WidgetRepository widgetRepository) {
@@ -57,13 +57,13 @@ public class UIBootstrapAssetMigrationStep extends AbstractMigrationStep<Page> {
     @Override
     public Optional<MigrationStepReport> migrate(Page page) {
         if (!pageHasAsset(page, "ui-bootstrap") && !widgetHasAsset(page, "ui-bootstrap")) {
-            Asset uiBootstrap = new Asset()
+            var uiBootstrap = new Asset()
                     .setName(ASSET_FILE_NAME)
                     .setType(JAVASCRIPT);
 
             pageAssetService.save(page, uiBootstrap, getContent());
 
-            String msg = format("Adding %s asset [%s] to [%s] (as it was removed from vendor.min.js). You can remove it if you don't need it.",
+            var msg = format("Adding %s asset [%s] to [%s] (as it was removed from vendor.min.js). You can remove it if you don't need it.",
                     uiBootstrap.getType(), uiBootstrap.getName(), page.getName());
             logger.info(msg);
             return Optional.of(MigrationStepReport.warningMigrationReport(page.getName(), msg, this.getClass().getName()));
@@ -78,7 +78,7 @@ public class UIBootstrapAssetMigrationStep extends AbstractMigrationStep<Page> {
 
     private boolean widgetHasAsset(Page page, String assetNameFilter) {
         for (Component component : page.accept(componentVisitor)) {
-            Widget widget = widgetRepository.get(component.getId());
+            var widget = widgetRepository.get(component.getId());
             if (widget.isCustom()) {
                 for (Asset asset : widget.getAssets()) {
                     if (asset.getName().contains(assetNameFilter) && JAVASCRIPT.equals(asset.getType())) {
@@ -103,7 +103,7 @@ public class UIBootstrapAssetMigrationStep extends AbstractMigrationStep<Page> {
         try (InputStream is = this.getClass().getResourceAsStream(ASSET_FILE_NAME)) {
             return IOUtils.toByteArray(is);
         } catch (IOException e) {
-            throw new RuntimeException("Missing " + this.getClass().getPackage() + "/" + ASSET_FILE_NAME + " from classpath", e);
+            throw new ArtifactBuilderException("Missing " + this.getClass().getPackage() + "/" + ASSET_FILE_NAME + " from classpath", e);
         }
     }
 }

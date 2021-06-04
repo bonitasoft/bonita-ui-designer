@@ -15,8 +15,6 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import java.net.URISyntaxException;
-
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.DataManagementGenerator;
@@ -28,9 +26,10 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.net.URISyntaxException;
 
 import static org.bonitasoft.web.designer.builder.BusinessObjectBuilder.aBusinessObject;
 import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;

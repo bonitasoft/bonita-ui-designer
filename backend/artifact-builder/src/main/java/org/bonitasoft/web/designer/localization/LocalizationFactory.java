@@ -29,8 +29,6 @@ import org.slf4j.LoggerFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import static java.lang.String.format;
-
 public class LocalizationFactory implements PageFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(LocalizationFactory.class);
@@ -57,10 +55,10 @@ public class LocalizationFactory implements PageFactory {
                 var localizationPath = pageRepository.resolvePath(previewable.getId()).resolve("assets/json/localization.json");
                 return new ObjectMapper().readValue(localizationPath.toFile(), JsonNode.class);
             } catch (FileNotFoundException e) {
-                logger.warn(format("%s <%s> has no localization.json file.", previewable.getType(), previewable.getId()));
+                logger.warn("{} <{}> has no localization.json file.", previewable.getType(), previewable.getId());
                 return "{}";
             } catch (IOException e) {
-                logger.error(format("An error occurred while loading assets/json/localization.json for page <%s>", previewable.getId()), e);
+                logger.error("An error occurred while loading assets/json/localization.json for page <{}>", previewable.getId(), e);
                 return "{}";
             }
         } else {

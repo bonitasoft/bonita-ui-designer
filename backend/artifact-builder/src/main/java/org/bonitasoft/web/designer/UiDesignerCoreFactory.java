@@ -29,6 +29,7 @@ import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrati
 import org.bonitasoft.web.designer.migration.page.TextWidgetLabelMigrationStep;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -68,46 +69,50 @@ public class UiDesignerCoreFactory {
     private final UiDesignerProperties uiDesignerProperties;
     private final JsonHandler jsonHandler;
     private final BeanValidator beanValidator;
-    private final Watcher watcher;
 
-    public UiDesignerCoreFactory(UiDesignerProperties uiDesignerProperties, JsonHandler jsonHandler) throws Exception {
+
+    public UiDesignerCoreFactory(UiDesignerProperties uiDesignerProperties, JsonHandler jsonHandler) {
         this.uiDesignerProperties = uiDesignerProperties;
         this.jsonHandler = jsonHandler;
         this.beanValidator = new BeanValidator(Validation.buildDefaultValidatorFactory().getValidator());
-        this.watcher = new Watcher(new ObserverFactory(), getMonitor());
     }
 
-    private FileAlterationMonitor getMonitor() throws Exception {
-        var monitor = new FileAlterationMonitor(1000);
-        monitor.start();
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try {
-                monitor.stop();
-            } catch (Exception e) {
-                log.warn("Failed to cleanly stop FileAlterationMonitor on shutdown", e);
-            }
-        }));
-        return monitor;
-    }
-
+    /**
+     * Use this method to create a UID core object holding references to core services
+     * @return
+     */
     public UiDesignerCore create() {
 
+        var watcher = createWatcher(createFileMonitor(false));
+
         // == Widget
-        var widgetRepository = createWidgetRepository();
+        var widgetRepository = createWidgetRepository(watcher);
         var widgetAssetRepository = createWidgetAssetRepository(widgetRepository);
 
         // == Fragment
-        var fragmentRepository = createFragmentRepository();
+        var fragmentRepository = createFragmentRepository(watcher);
 
         // == Page
-        var pageRepository = createPageRepository();
+        var pageRepository = createPageRepository(watcher);
         var pageAssetRepository = createPageAssetRepository(pageRepository);
 
-        return create(widgetRepository, widgetAssetRepository, fragmentRepository, pageRepository, pageAssetRepository);
+        return create(watcher, widgetRepository, widgetAssetRepository, fragmentRepository, pageRepository, pageAssetRepository);
 
     }
 
+    /**
+     * Use this method to create a UID core object holding references to core services using externally managed beans (like in a spring context)
+     *
+     * @param watcher
+     * @param widgetRepository
+     * @param widgetAssetRepository
+     * @param fragmentRepository
+     * @param pageRepository
+     * @param pageAssetRepository
+     * @return
+     */
     public UiDesignerCore create(
+            Watcher watcher,
             WidgetRepository widgetRepository,
             AssetRepository<Widget> widgetAssetRepository,
             FragmentRepository fragmentRepository,
@@ -228,11 +233,59 @@ public class UiDesignerCoreFactory {
         );
     }
 
+    /**
+     * Factory method for a new instance of apache common file monitor
+     *
+     * @param managed, <p>Set to true if start/stop method are called externaly (ex: managed by a spring context).
+     *                 If set to false, the {@link FileAlterationMonitor#start()} method will be called now and {@link FileAlterationMonitor#stop()} method call
+     *                 will happen on jvm exit via a shutdown hook
+     *                 </p>
+     * @return a new instance of apache common file monitor
+     */
+    public FileAlterationMonitor createFileMonitor(boolean managed) {
+        var monitor = new FileAlterationMonitor(1000);
+
+        if (!managed) {
+            try {
+                monitor.start();
+            } catch (Exception e) {
+                throw new ArtifactBuilderException("Failed to start FileAlterationMonitor", e);
+            }
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    monitor.stop();
+                } catch (Exception e) {
+                    log.warn("Failed to cleanly stop FileAlterationMonitor on shutdown", e);
+                }
+            }));
+        }
+        return monitor;
+    }
+
+    /**
+     * Factory method for a Watcher
+     * @param monitor
+     * @return
+     */
+    public Watcher createWatcher(FileAlterationMonitor monitor) {
+        return new Watcher(new ObserverFactory(), monitor);
+    }
+
+    /**
+     * Factory method for a page Asset Repository
+     * @param pageRepository
+     * @return
+     */
     public AssetRepository<Page> createPageAssetRepository(PageRepository pageRepository) {
         return new AssetRepository<>(pageRepository, beanValidator);
     }
 
-    public PageRepository createPageRepository() {
+    /**
+     * Factory method for a Page Repository
+     * @param watcher
+     * @return
+     */
+    public PageRepository createPageRepository(Watcher watcher) {
         return new PageRepository(
                 uiDesignerProperties.getWorkspace(),
                 uiDesignerProperties.getWorkspaceUid(),
@@ -242,7 +295,12 @@ public class UiDesignerCoreFactory {
         );
     }
 
-    public FragmentRepository createFragmentRepository() {
+    /**
+     * Factory method for a Fragment Repository
+     * @param watcher
+     * @return
+     */
+    public FragmentRepository createFragmentRepository(Watcher watcher) {
         return new FragmentRepository(
                 uiDesignerProperties.getWorkspace(),
                 uiDesignerProperties.getWorkspaceUid(),
@@ -252,11 +310,21 @@ public class UiDesignerCoreFactory {
         );
     }
 
+    /**
+     * Factory method for a widget Asset Repository
+     * @param widgetRepository
+     * @return
+     */
     public AssetRepository<Widget> createWidgetAssetRepository(WidgetRepository widgetRepository) {
         return new AssetRepository<>(widgetRepository, beanValidator);
     }
 
-    public WidgetRepository createWidgetRepository() {
+    /**
+     * Factory method for a Widget Repository
+     * @param watcher
+     * @return
+     */
+    public WidgetRepository createWidgetRepository(Watcher watcher) {
         return new WidgetRepository(
                 uiDesignerProperties.getWorkspace(),
                 uiDesignerProperties.getWorkspaceUid(),

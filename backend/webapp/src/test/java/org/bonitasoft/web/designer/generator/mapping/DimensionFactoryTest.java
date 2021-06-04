@@ -14,9 +14,9 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import java.util.Map;
-
 import org.junit.Test;
+
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

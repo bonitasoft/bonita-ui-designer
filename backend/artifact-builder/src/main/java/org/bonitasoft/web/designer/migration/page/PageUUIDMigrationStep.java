@@ -25,35 +25,25 @@ import org.slf4j.LoggerFactory;
 import java.util.Optional;
 import java.util.UUID;
 
-import static java.lang.String.format;
-
 public class PageUUIDMigrationStep extends AbstractMigrationStep<Page> {
 
     private static final Logger logger = LoggerFactory.getLogger(PageUUIDMigrationStep.class);
 
     @Override
     public Optional<MigrationStepReport> migrate(Page page) throws Exception {
-        try {
-            if (StringUtils.isEmpty(page.getUUID())) {
-                String uuid;
-                try {
-                    UUID.fromString(page.getId());
-                    logger.info(format(
-                            "[MIGRATION] Adding UUID to page [%s] (using the same value as the page ID)",
-                            page.getName()));
-                    uuid = page.getId();
-                } catch (IllegalArgumentException e) {
-                    //The page ID is not a UUID - generating one
-                    logger.info(format(
-                            "[MIGRATION] Adding generated UUID to page [%s]",
-                            page.getName()));
-                    uuid = UUID.randomUUID().toString();
-                }
-                page.setUUID(uuid);
+        if (StringUtils.isEmpty(page.getUUID())) {
+            String uuid;
+            try {
+                UUID.fromString(page.getId());
+                logger.info("[MIGRATION] Adding UUID to page [{}] (using the same value as the page ID)", page.getName());
+                uuid = page.getId();
+            } catch (IllegalArgumentException e) {
+                //The page ID is not a UUID - generating one
+                logger.info("[MIGRATION] Adding generated UUID to page [{}]", page.getName());
+                uuid = UUID.randomUUID().toString();
             }
-            return Optional.empty();
-        } catch (Exception e) {
-            throw e;
+            page.setUUID(uuid);
         }
+        return Optional.empty();
     }
 }

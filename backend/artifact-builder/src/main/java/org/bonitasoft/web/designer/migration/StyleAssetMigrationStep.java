@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.migration;
 
 import org.apache.commons.io.IOUtils;
+import org.bonitasoft.web.designer.ArtifactBuilderException;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
@@ -23,9 +24,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Optional;
 
+import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
@@ -42,21 +43,20 @@ public class StyleAssetMigrationStep extends AbstractMigrationStep<Page> {
 
     @Override
     public Optional<MigrationStepReport> migrate(Page artifact) {
-        Asset style = new Asset()
+        var style = new Asset()
                 .setName(getAssetName(artifact))
                 .setType(CSS);
 
         assetService.save(artifact, style, getContent());
 
-        logger.info(format(
-                "[MIGRATION] Adding default CSS asset [%s] to %s [%s] (introduced in 1.4.8)",
-                style.getName(), artifact.getType(), artifact.getName()));
+        logger.info("[MIGRATION] Adding default CSS asset [{}] to {} [{}] (introduced in 1.4.8)",
+                style.getName(), artifact.getType(), artifact.getName());
         return Optional.empty();
     }
 
     private String getAssetName(Page artifact) {
-        String name = "style%s.css";
-        String suffix = "";
+        var name = "style%s.css";
+        var suffix = "";
         while (artifact.hasAsset(CSS, format(name, suffix))) {
             suffix = nextSuffix(suffix);
         }
@@ -64,14 +64,14 @@ public class StyleAssetMigrationStep extends AbstractMigrationStep<Page> {
     }
 
     private String nextSuffix(String suffix) {
-        return isBlank(suffix) ? "1" : String.valueOf(Integer.valueOf(suffix) + 1);
+        return isBlank(suffix) ? "1" : String.valueOf(parseInt(suffix) + 1);
     }
 
     public byte[] getContent() {
-        try (InputStream is = this.getClass().getClassLoader().getResourceAsStream("templates/page/assets/css/style.css")) {
+        try (var is = this.getClass().getClassLoader().getResourceAsStream("templates/page/assets/css/style.css")) {
             return IOUtils.toByteArray(is);
         } catch (IOException e) {
-            throw new RuntimeException("Missing templates/page/assets/css/style.css from classpath", e);
+            throw new ArtifactBuilderException("Missing templates/page/assets/css/style.css from classpath", e);
         }
     }
 }

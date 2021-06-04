@@ -22,8 +22,6 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.nio.file.Path;
 
-import static java.lang.String.format;
-
 public class ObserverFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(ObserverFactory.class);
@@ -53,7 +51,7 @@ public class ObserverFactory {
         try {
             listener.onChange(file.toPath());
         } catch (Exception e) {
-            logger.error(format("Unexpected exception while processing file %s", file.getPath()), e);
+            logger.error("Unexpected exception while processing file {}", file.getPath(), e);
         }
     }
 }

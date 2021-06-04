@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessQueryDataFactory;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.Alignment;
@@ -36,20 +34,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aConstantPropertyValue;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.aInterpolationPropertyValue;
-import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.anExpressionPropertyValue;
-import static org.bonitasoft.web.designer.builder.VariableBuilder.aJSONVariable;
-import static org.bonitasoft.web.designer.builder.VariableBuilder.aUrlParameterVariable;
-import static org.bonitasoft.web.designer.builder.VariableBuilder.anExpressionVariable;
-import static org.bonitasoft.web.designer.builder.VariableBuilder.anURLVariable;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithDataRefAndAggregation;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aContractWithMultipleInput;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContractWithDataRef;
+import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.*;
+import static org.bonitasoft.web.designer.builder.VariableBuilder.*;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContractToPageMapperTest {

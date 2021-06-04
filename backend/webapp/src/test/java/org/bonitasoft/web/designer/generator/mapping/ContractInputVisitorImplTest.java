@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants;
 import org.bonitasoft.web.designer.model.JacksonJsonHandler;
@@ -31,6 +29,8 @@ import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;

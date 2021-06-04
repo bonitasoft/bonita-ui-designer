@@ -76,19 +76,19 @@ import java.util.List;
 public class ArtifactBuilderFactory {
 
     private final UiDesignerProperties uiDesignerProperties;
-
     private final JsonHandler jsonHandler;
-
-    @Getter
     private final UiDesignerCore core;
 
-    public ArtifactBuilderFactory(UiDesignerProperties uiDesignerProperties) throws Exception {
+    public ArtifactBuilderFactory(UiDesignerProperties uiDesignerProperties) {
         this.uiDesignerProperties = uiDesignerProperties;
         this.jsonHandler = new JsonHandlerFactory().create();
         this.core = new UiDesignerCoreFactory(this.uiDesignerProperties, this.jsonHandler).create();
     }
 
-
+    /**
+     * Factory method for an instance of {@link ArtifactBuilder}
+     * @return
+     */
     public ArtifactBuilder create() {
 
         var fragmentIdVisitor = new FragmentIdVisitor(core.getFragmentRepository());

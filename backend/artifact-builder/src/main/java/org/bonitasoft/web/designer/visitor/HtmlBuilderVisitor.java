@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.visitor;
 import com.google.common.collect.Ordering;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.bonitasoft.web.designer.ArtifactBuilderException;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
@@ -101,7 +102,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     @Override
     public String visit(TabsContainer tabsContainer) {
 
-        List<TabContainerTemplate> tabTemplates = new ArrayList<>();
+        var tabTemplates = new ArrayList<TabContainerTemplate>();
         for (var tab : tabsContainer.getTabList()) {
             tabTemplates.add(new TabContainerTemplate(tab.accept(this)));
         }
@@ -137,7 +138,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
     @Override
     public String visit(Previewable previewable) {
-        throw new RuntimeException("Can't build previewable html by visiting it. Need to call " +
+        throw new ArtifactBuilderException("Can't build previewable html by visiting it. Need to call " +
                 "HtmlBuilderVisitor#build.");
     }
 
@@ -185,7 +186,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     }
 
     private List<String> getAssetHtmlSrcList(String previewableId, AssetType assetType, List<Asset> sortedAssets) {
-        List<String> assetsSrc = new ArrayList<>();
+        var assetsSrc = new ArrayList<String>();
         sortedAssets.stream()
                 .filter(asset -> assetType.equals(asset.getType()))
                 .forEach(asset -> {

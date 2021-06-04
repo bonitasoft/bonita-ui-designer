@@ -14,19 +14,18 @@
  */
 package org.bonitasoft.web.designer.utils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.config.WebMvcConfiguration;
 import org.bonitasoft.web.designer.controller.ResourceControllerAdvice;
 import org.bonitasoft.web.designer.model.JacksonJsonHandler;
-
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 // FIXME: use spring test fwk for this ! (do not hack internal classes yourself ...)
 public class TestWebMvcConfigurationSupport extends WebMvcConfigurationSupport {

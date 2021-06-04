@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.migration;
 
 import org.bonitasoft.web.designer.controller.asset.AssetService;
-import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
@@ -23,10 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static java.lang.String.format;
 
 public class StyleUpdateInputRequiredLabelMigrationStep extends AbstractMigrationStep<Page> {
 
@@ -40,15 +36,14 @@ public class StyleUpdateInputRequiredLabelMigrationStep extends AbstractMigratio
 
     @Override
     public Optional<MigrationStepReport> migrate(Page artifact) throws IOException {
-        for (Asset asset : artifact.getAssets()) {
+        for (var asset : artifact.getAssets()) {
             if (asset.getName().equals("style.css")) {
                 String pageStyleCssContent = assetService.getAssetContent(artifact, asset);
 
                 assetService.save(artifact, asset, getMigratedAssetContent(pageStyleCssContent));
 
-                logger.info(format(
-                        "[MIGRATION] Update content property in control-required css class in asset [%s] to %s [%s]",
-                        asset.getName(), artifact.getType(), artifact.getName()));
+                logger.info("[MIGRATION] Update content property in control-required css class in asset [{}] to {} [{}]",
+                        asset.getName(), artifact.getType(), artifact.getName());
             }
         }
         return Optional.empty();
@@ -56,10 +51,10 @@ public class StyleUpdateInputRequiredLabelMigrationStep extends AbstractMigratio
 
     private byte[] getMigratedAssetContent(String styleCssContent) {
         //Regex to catch control-label-required
-        final String EXTENSION_RESOURCE_REGEX = "((\\.control-label--required:after\\s+\\{)\\s+(content: \"\\*\";))";
-        Pattern p = Pattern.compile(EXTENSION_RESOURCE_REGEX);
-        Matcher m = p.matcher(styleCssContent);
-        StringBuffer buffer = new StringBuffer();
+        var EXTENSION_RESOURCE_REGEX = "((\\.control-label--required:after\\s+\\{)\\s+(content: \"\\*\";))";
+        var p = Pattern.compile(EXTENSION_RESOURCE_REGEX);
+        var m = p.matcher(styleCssContent);
+        var buffer = new StringBuilder();
         while (m.find()) {
             if (m.group(2) != null) {
                 //Replace content: "*" by content: " *"

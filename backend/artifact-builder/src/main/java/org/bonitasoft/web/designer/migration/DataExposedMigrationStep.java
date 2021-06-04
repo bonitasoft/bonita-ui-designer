@@ -16,14 +16,13 @@
 package org.bonitasoft.web.designer.migration;
 
 import org.bonitasoft.web.designer.model.data.DataType;
+import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
-
-import static java.lang.String.format;
 
 public class DataExposedMigrationStep<T extends Fragment> extends AbstractMigrationStep<T> {
 
@@ -32,15 +31,13 @@ public class DataExposedMigrationStep<T extends Fragment> extends AbstractMigrat
     @Override
     public Optional<MigrationStepReport> migrate(T artifact) {
         artifact.getVariables().values().stream()
-                .filter(variable -> variable.isExposed())
-                .forEach(var -> {
-                    var.setType(DataType.CONSTANT);
-                    var.setDisplayValue("");
+                .filter(Variable::isExposed)
+                .forEach(variable -> {
+                    variable.setType(DataType.CONSTANT);
+                    variable.setDisplayValue("");
                 });
 
-        logger.info(format(
-                "[MIGRATION] Set type to constant for each exposed data into fragments [%s]",
-                artifact.getName())
+        logger.info("[MIGRATION] Set type to constant for each exposed data into fragments [{}]", artifact.getName()
         );
         return Optional.empty();
     }

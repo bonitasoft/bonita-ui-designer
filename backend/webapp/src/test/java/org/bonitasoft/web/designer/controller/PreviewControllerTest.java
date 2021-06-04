@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import org.bonitasoft.web.designer.ArtifactBuilder;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
@@ -31,8 +28,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static java.nio.file.Files.readAllBytes;
 import static javax.servlet.http.HttpServletResponse.SC_TEMPORARY_REDIRECT;
@@ -44,10 +43,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(MockitoJUnitRunner.class)

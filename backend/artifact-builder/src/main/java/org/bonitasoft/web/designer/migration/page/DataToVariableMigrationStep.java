@@ -23,8 +23,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
-import static java.lang.String.format;
-
 public class DataToVariableMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(DataToVariableMigrationStep.class);
@@ -34,10 +32,7 @@ public class DataToVariableMigrationStep<T extends AbstractPage> extends Abstrac
 
         // This migration step is only needed to update the UID version so that the save is performed
         // The conversion from data to variables is done in AbstractPage.setData
-        logger.info(format(
-                "[MIGRATION] Convert all data to variables in page [%s]",
-                artifact.getName())
-        );
+        logger.info("[MIGRATION] Convert all data to variables in page [{}]", artifact.getName());
         return Optional.empty();
     }
 }

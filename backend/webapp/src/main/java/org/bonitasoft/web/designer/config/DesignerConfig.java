@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.bonitasoft.web.designer.ArtifactBuilder;
 import org.bonitasoft.web.designer.ArtifactBuilderFactory;
 import org.bonitasoft.web.designer.JsonHandlerFactory;
@@ -65,25 +66,32 @@ public class DesignerConfig {
     private UiDesignerCoreFactory coreFactory;
 
     @PostConstruct
-    public void initialize()  throws Exception{
+    public void initialize() {
         jsonHandler = new JsonHandlerFactory().create();
         coreFactory = new UiDesignerCoreFactory(designerProperties, jsonHandler);
     }
 
     @Bean
     public UiDesignerCore uidCore(
+            Watcher watcher,
             WidgetRepository widgetRepository,
             AssetRepository<Widget> widgetAssetRepository,
             FragmentRepository fragmentRepository,
             PageRepository pageRepository,
             AssetRepository<Page> pageAssetRepository
     ) {
-        return coreFactory.create(widgetRepository, widgetAssetRepository, fragmentRepository, pageRepository, pageAssetRepository);
+        return coreFactory.create(watcher, widgetRepository, widgetAssetRepository, fragmentRepository, pageRepository, pageAssetRepository);
+    }
+
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public FileAlterationMonitor fileMonitor() {
+        // Set managed to true since start and stop method are handled by spring context
+        return coreFactory.createFileMonitor(true);
     }
 
     @Bean
-    public Watcher watcher(UiDesignerCore uiDesignerCore) {
-        return uiDesignerCore.getWatcher();
+    public Watcher watcher(FileAlterationMonitor fileMonitor) {
+        return coreFactory.createWatcher(fileMonitor);
     }
 
     @Bean
@@ -105,8 +113,8 @@ public class DesignerConfig {
     }
 
     @Bean
-    public WidgetRepository widgetRepository() {
-        return coreFactory.createWidgetRepository();
+    public WidgetRepository widgetRepository(Watcher watcher) {
+        return coreFactory.createWidgetRepository(watcher);
     }
 
     @Bean
@@ -130,13 +138,13 @@ public class DesignerConfig {
     }
 
     @Bean
-    public FragmentRepository fragmentRepository() {
-        return coreFactory.createFragmentRepository();
+    public FragmentRepository fragmentRepository(Watcher watcher) {
+        return coreFactory.createFragmentRepository(watcher);
     }
 
     @Bean
-    public PageRepository pageRepository() {
-        return coreFactory.createPageRepository();
+    public PageRepository pageRepository(Watcher watcher) {
+        return coreFactory.createPageRepository(watcher);
     }
 
     @Bean

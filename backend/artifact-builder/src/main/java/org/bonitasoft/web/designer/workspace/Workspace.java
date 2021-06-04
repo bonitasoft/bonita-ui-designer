@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.workspace;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.bonitasoft.web.designer.ArtifactBuilderException;
 import org.bonitasoft.web.designer.config.DesignerInitializerException;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
@@ -290,7 +291,7 @@ public class Workspace {
         } catch (IOException e) {
             var error = String.format("Technical error when importing widget asset [%s]", widget.getId());
             logger.error(error, e);
-            throw new RuntimeException(error, e);
+            throw new ArtifactBuilderException(error, e);
         }
     }
 

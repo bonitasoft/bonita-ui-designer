@@ -74,7 +74,7 @@ public class AssetService<T extends Assetable> {
                     existingAsset.setComponentId(component.getId());
                     assetRepository.delete(existingAsset);
                 } catch (NotFoundException | IOException e) {
-                    logger.warn(format("Asset to delete %s was not found", existingAsset.getName()), e);
+                    logger.warn("Asset to delete {} was not found", existingAsset.getName(), e);
                 }
             }
             component.getAssets().remove(existingAsset);
@@ -163,14 +163,14 @@ public class AssetService<T extends Assetable> {
         checkArgument(isNotEmpty(assetId), ASSET_ID_IS_REQUIRED);
 
         //In need an ordered list
-        List<Asset> assets = Ordering.from(Asset.getComparatorByOrder()).sortedCopy(component.getAssets());
+        var assets = Ordering.from(Asset.getComparatorByOrder()).sortedCopy(component.getAssets());
 
         Asset previous = null;
         Asset actual = null;
         var i = 0;
-        int size = assets.size();
+        var size = assets.size();
 
-        for (Asset a : assets) {
+        for (var a : assets) {
             if (actual != null) {
                 //We have to break the loop
                 if (OrderType.INCREMENT.equals(ordering)) {

@@ -15,11 +15,11 @@
 
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import java.util.Map;
-
 import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Test;
+
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -20,11 +20,9 @@ import org.bonitasoft.web.designer.migration.MigrationStep;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.model.widget.Property;
-import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import org.bonitasoft.web.designer.visitor.VisitorFactory;
@@ -34,8 +32,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
-
-import static java.lang.String.format;
 
 
 public class BondMigrationStep<T extends AbstractPage> implements MigrationStep<T> {
@@ -59,45 +55,41 @@ public class BondMigrationStep<T extends AbstractPage> implements MigrationStep<
     }
 
     @Override
-    public Optional<MigrationStepReport> migrate(AbstractPage page) throws Exception {
-        try {
-            for (Component component : page.accept(componentVisitor)) {
-                Widget widget = widgetRepository.get(component.getId());
-                for (Entry<String, PropertyValue> entry : component.getPropertyValues().entrySet()) {
-                    Property property = widget.getProperty(entry.getKey());
-                    String formerType = entry.getValue().getType();
+    public Optional<MigrationStepReport> migrate(AbstractPage page)  {
+        for (Component component : page.accept(componentVisitor)) {
+            var widget = widgetRepository.get(component.getId());
+            for (var entry : component.getPropertyValues().entrySet()) {
+                var property = widget.getProperty(entry.getKey());
+                var formerType = entry.getValue().getType();
 
-                    migrationStrategies
-                            .get(property != null ? property.getBond() : BondType.EXPRESSION)
-                            .migrate(property, entry.getValue());
+                migrationStrategies
+                        .get(property != null ? property.getBond() : BondType.EXPRESSION)
+                        .migrate(property, entry.getValue());
 
-                    logTypeChange(component.getId(), formerType, entry);
-                }
+                logTypeChange(component.getId(), formerType, entry);
             }
-
-            for (Element element : page.accept(visitorFactory.createAnyContainerVisitor())) {
-                for (Entry<String, PropertyValue> entry : element.getPropertyValues().entrySet()) {
-                    migrationStrategies
-                            .get(BondType.EXPRESSION)
-                            .migrate(new Property(), entry.getValue());
-
-                    logTypeChange(element.getClass().getSimpleName(), entry.getValue().getType(), entry);
-                }
-            }
-            return Optional.empty();
-        } catch (Exception e) {
-            throw e;
         }
+
+        for (var element : page.accept(visitorFactory.createAnyContainerVisitor())) {
+            for (var entry : element.getPropertyValues().entrySet()) {
+                migrationStrategies
+                        .get(BondType.EXPRESSION)
+                        .migrate(new Property(), entry.getValue());
+
+                logTypeChange(element.getClass().getSimpleName(), entry.getValue().getType(), entry);
+            }
+        }
+        return Optional.empty();
     }
 
     private void logTypeChange(String name, String formerType, Entry<String, PropertyValue> entry) {
-        String currentType = entry.getValue().getType();
+        var currentType = entry.getValue().getType();
         if (!formerType.equals(currentType)) {
-            logger.info(format("[MIGRATION] %s property <%s> value type has been changed from <%s> to <%s>",
+            logger.info("[MIGRATION] {} property <{}> value type has been changed from <{}> to <{}>",
                     name,
                     entry.getKey(),
                     formerType,
-                    currentType));
+                    currentType);
         }
     }
 

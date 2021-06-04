@@ -22,8 +22,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
-import static java.lang.String.format;
-
 public class SplitWidgetResourcesMigrationStep extends AbstractMigrationStep<Widget> {
 
     private static final Logger logger = LoggerFactory.getLogger(SplitWidgetResourcesMigrationStep.class);
@@ -32,9 +30,7 @@ public class SplitWidgetResourcesMigrationStep extends AbstractMigrationStep<Wid
     public Optional<MigrationStepReport> migrate(Widget widget) {
         // This migration step is only needed to update the UID version so that the save is performed
         // (template and controller are extracted in the widget repository save)
-        logger.info(format(
-                "[MIGRATION] Spliting controller and template into separate files for widget [%s]",
-                widget.getName()));
-        return Optional.of(MigrationStepReport.warningMigrationReport(widget.getId(), "Spliting controller and template into separate files for widget", this.getClass().getName()));
+        logger.info("[MIGRATION] Splitting controller and template into separate files for widget [{}]", widget.getName());
+        return Optional.of(MigrationStepReport.warningMigrationReport(widget.getId(), "Splitting controller and template into separate files for widget", this.getClass().getName()));
     }
 }

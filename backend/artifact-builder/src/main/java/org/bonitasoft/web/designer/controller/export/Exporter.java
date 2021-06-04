@@ -80,7 +80,6 @@ public abstract class Exporter<T extends DesignerArtifact> {
             zipper.addToZip(json, format("%s/%s.json", RESOURCES, getComponentType()));
             // forceExecution export steps
             for (ExportStep<T> exporter : exportSteps) {
-                logger.info("export step {}", exporter.getClass().getName());
                 exporter.execute(zipper, identifiable);
             }
 
