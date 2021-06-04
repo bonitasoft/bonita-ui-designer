@@ -37,7 +37,9 @@ import java.util.Comparator;
 
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.write;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -310,6 +312,42 @@ public class WorkspaceTest {
     public void should_throw_runtimeException_if_error_occurs_while_initializing_workspace() throws Exception {
         doThrow(new IOException()).when(workspace).initialize();
         workspace.initialize();
+    }
+
+
+    @Test
+    public void should_refresh_index_file_in_metadata_folder_when_initialize_is_called() throws Exception {
+        //Folder creation
+        temporaryFolder.newFolderPath("pages", ".metadata");
+        temporaryFolder.newFolderPath("pages", "myPage");
+        var pageContent = "{\"designerVersion\": \"1.0.0\"," +
+                "\"id\": \"myPage\"," +
+                "\"uuid\": \"123ca6c5-9a72-4a03-a890-2e6bc2aeed93\"," +
+                "\"name\": \"myPage\"," +
+                "\"type\": \"page\"," +
+                "\"lastUpdate\": 1436966572684," +
+                "\"rows\": [[]],\"assets\": [],\"data\": {}}";
+
+        write(temporaryFolder.newFilePath("pages/myPage/myPage.json"),
+                pageContent.getBytes(), StandardOpenOption.WRITE);
+
+        write(temporaryFolder.newFilePath("pages/.metadata/.index.json"),
+                "{\"4a732c6f-254b-4b37-841f-9582696d40e9\":\"anyPage\",\"225ca6c5-9a72-4a03-a890-2e6bc2aeed93\":\"myPage\"}".getBytes(), StandardOpenOption.WRITE);
+
+        temporaryFolder.newFilePath("pages/.metadata/oldestPage.json");
+
+        workspace.initialize();
+
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage")).exists();
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage").resolve("js")).doesNotExist();
+        await().atMost(1, SECONDS).untilAsserted(() ->
+            assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve(".index.json")).exists()
+        );
+        assertThat(contentOf(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve(".index.json")))
+                .isEqualTo("{\"123ca6c5-9a72-4a03-a890-2e6bc2aeed93\":\"myPage\"}");
+
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve("oldestPage.json")).doesNotExist();
+        assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve("myPage.json")).exists();
     }
 
 }
