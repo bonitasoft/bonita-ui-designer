@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-04-12 01:30\n"
+"PO-Revision-Date: 2021-06-07 01:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -36,12 +36,6 @@ msgstr "../API/"
 
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
-
-msgid "7.12.0"
-msgstr ""
-
-msgid "7.5.0"
-msgstr ""
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
 msgstr "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a>で書式化された文字列変数 (時間情報の有無にかかわらず)"
@@ -2133,6 +2127,9 @@ msgstr "サイズ"
 
 msgid "Small devices (width ≥ 768px)"
 msgstr "タブレット （横幅 ≥ 768 px）"
+
+msgid "Some option can be disabled because the source value type is not compatible with target property type."
+msgstr ""
 
 msgid "Sort"
 msgstr "ソート"

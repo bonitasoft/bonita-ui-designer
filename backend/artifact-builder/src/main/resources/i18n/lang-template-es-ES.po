@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2021-04-12 01:31\n"
+"PO-Revision-Date: 2021-06-07 01:31\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -36,12 +36,6 @@ msgstr ".. /API/"
 
 msgid "../API/formFileUpload"
 msgstr "../API/formFileUpload"
-
-msgid "7.12.0"
-msgstr ""
-
-msgid "7.5.0"
-msgstr ""
 
 msgid "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> String variables (with or without time information)"
 msgstr "Variables String con formato <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" target=\"_blank\">ISO 8601</a> (con o sin información de tiempo)"
@@ -2120,6 +2114,9 @@ msgstr "Tamaño"
 
 msgid "Small devices (width ≥ 768px)"
 msgstr "Pequeños dispositivos (tamaño ≥ 768px)"
+
+msgid "Some option can be disabled because the source value type is not compatible with target property type."
+msgstr ""
 
 msgid "Sort"
 msgstr "Ordenar"
