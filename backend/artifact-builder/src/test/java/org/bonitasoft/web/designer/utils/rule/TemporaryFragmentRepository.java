@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.utils.rule;
 
 import org.bonitasoft.web.designer.JsonHandlerFactory;
+import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.builder.FragmentBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
@@ -49,15 +50,17 @@ public class TemporaryFragmentRepository extends TemporaryFolder {
     protected void before() throws Throwable {
         super.before();
 
+        var uiDesignerProperties = new UiDesignerProperties("1.13.0", Version.MODEL_VERSION);
         workspaceProperties.getFragments().setDir(this.toPath());
+        uiDesignerProperties.setWorkspace(workspaceProperties);
 
         BeanValidator validator = mock(BeanValidator.class);
         Watcher watcher = mock(Watcher.class);
 
         repository = new FragmentRepository(
-                workspaceProperties,
+                uiDesignerProperties.getWorkspace(),
                 new WorkspaceUidProperties(),
-                new JsonFileBasedPersister<>(jsonHandler, validator,new UiDesignerProperties("1.13.0","2.0")),
+                new JsonFileBasedPersister<>(jsonHandler, validator, uiDesignerProperties),
                 new JsonFileBasedLoader<>(jsonHandler, Fragment.class),
                 validator,
                 watcher);

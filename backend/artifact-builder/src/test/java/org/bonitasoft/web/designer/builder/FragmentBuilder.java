@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.builder;
 
 import com.google.common.collect.ImmutableSortedMap;
+import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.data.Variable;

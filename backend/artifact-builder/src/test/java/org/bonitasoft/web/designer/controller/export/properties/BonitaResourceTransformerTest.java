@@ -46,6 +46,6 @@ public class BonitaResourceTransformerTest {
                 .value("/path/to/whatever/resource")
                 .build());
 
-        assertThat(url).isEqualTo("");
+        assertThat(url).isEmpty();
     }
 }

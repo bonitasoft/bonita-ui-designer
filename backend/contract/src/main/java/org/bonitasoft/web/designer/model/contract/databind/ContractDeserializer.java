@@ -38,21 +38,20 @@ import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 public class ContractDeserializer extends JsonDeserializer<Contract> {
 
     @Override
-    public Contract deserialize(JsonParser parser, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException {
+    public Contract deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException {
         ObjectCodec oc = parser.getCodec();
         ObjectNode treeNode = oc.readTree(parser);
-        Contract contract = new Contract();
+        var contract = new Contract();
         parseNodeContractInput(childInput(treeNode), contract);
         return contract;
     }
 
     private void parseNodeContractInput(ArrayNode inputArray, ContractInputContainer rootNodeInput) throws IOException {
-        for (int i = 0; i < inputArray.size(); i++) {
+        for (var i = 0; i < inputArray.size(); i++) {
             JsonNode childNode = inputArray.get(i);
             Class<?> inputType = inputType(childNode);
             if (inputType.equals(NodeContractInput.class)) {
-                NodeContractInput nodeContractInput = newNodeContractInput(childNode);
+                var nodeContractInput = newNodeContractInput(childNode);
                 rootNodeInput.addInput(nodeContractInput);
                 parseNodeContractInput(childInput(childNode), nodeContractInput);
             } else {
@@ -62,7 +61,7 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
     }
 
     private NodeContractInput newNodeContractInput(JsonNode childNode) {
-        NodeContractInput nodeContractInput = new NodeContractInput(inputName(childNode));
+        var nodeContractInput = new NodeContractInput(inputName(childNode));
         nodeContractInput.setMandatory(mandatoryValue(childNode));
         nodeContractInput.setMultiple(multipleValue(childNode));
         nodeContractInput.setDescription(descriptionValue(childNode));
@@ -73,7 +72,7 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
     }
 
     private LeafContractInput newLeafContractInput(JsonNode childNode, Class<?> inputType) {
-        LeafContractInput leafContractInput = new LeafContractInput(inputName(childNode), inputType);
+        var leafContractInput = new LeafContractInput(inputName(childNode), inputType);
         leafContractInput.setMandatory(mandatoryValue(childNode));
         leafContractInput.setMultiple(multipleValue(childNode));
         leafContractInput.setDescription(descriptionValue(childNode));
@@ -99,7 +98,7 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
     }
 
     private String classNameValue(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get("type");
+        var jsonNode = contractInput.get("type");
         return jsonNode != null ? jsonNode.asText(String.class.getName()) : String.class.getName();
     }
 
@@ -109,22 +108,22 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
     }
 
     private boolean multipleValue(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get("multiple");
-        return jsonNode != null ? jsonNode.asBoolean(false) : false;
+        var jsonNode = contractInput.get("multiple");
+        return jsonNode != null && jsonNode.asBoolean(false);
     }
 
     private boolean mandatoryValue(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get("mandatory");
-        return jsonNode != null ? jsonNode.asBoolean(false) : false;
+        var jsonNode = contractInput.get("mandatory");
+        return jsonNode != null && jsonNode.asBoolean(false);
     }
 
     private String inputName(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get("name");
+        var jsonNode = contractInput.get("name");
         return jsonNode != null ? jsonNode.asText("") : "";
     }
 
     private DataReference dataReference(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get("dataReference");
+        var jsonNode = contractInput.get("dataReference");
         if (jsonNode != null && !jsonNode.isNull()) {
             boolean isBusinessDataRef = jsonNode.get("relationType") != null && !jsonNode.get("relationType").isNull();
             return isBusinessDataRef
@@ -139,13 +138,13 @@ public class ContractDeserializer extends JsonDeserializer<Contract> {
     }
 
     private EditMode inputMode(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get("mode");
+        var jsonNode = contractInput.get("mode");
         return jsonNode != null ? EditMode.valueOf(jsonNode.asText("")) : EditMode.CREATE;
     }
 
     private boolean readOnlyValue(JsonNode contractInput) {
-        JsonNode jsonNode = contractInput.get("readOnly");
-        return jsonNode != null ? jsonNode.asBoolean(false) : false;
+        var jsonNode = contractInput.get("readOnly");
+        return jsonNode != null && jsonNode.asBoolean(false);
     }
 
     @Override

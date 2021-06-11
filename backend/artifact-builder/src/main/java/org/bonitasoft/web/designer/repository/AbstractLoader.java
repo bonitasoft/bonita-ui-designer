@@ -106,12 +106,12 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         if (!Files.exists(directory.resolve(objectName))) {
             return objectName;
         }
-        Pattern pattern = Pattern.compile(objectName + "(\\d+)$");
+        var pattern = Pattern.compile(objectName + "(\\d+)$");
         String nextAvailableObjectId;
         try (final Stream<Path> directoryStream = Files.list(directory)) {
             OptionalInt maxInt = directoryStream.map(directoryPath -> pattern.matcher(directoryPath.getFileName().toString()))
                     .filter(Matcher::find)
-                    .mapToInt(m -> Integer.valueOf(m.group(1)))
+                    .mapToInt(m -> Integer.parseInt(m.group(1)))
                     .max();
             nextAvailableObjectId = objectName + (maxInt.orElse(0) + 1);
         }

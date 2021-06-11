@@ -21,11 +21,11 @@ public class BusinessDataReference extends DataReference {
 
     public enum RelationType {
         COMPOSITION, AGGREGATION
-    };
+    }
 
     public enum LoadingType {
         EAGER, LAZY
-    };
+    }
 
     public BusinessDataReference(String name, String type, RelationType relationType, LoadingType loadingType) {
         super(name, type);
@@ -51,8 +51,8 @@ public class BusinessDataReference extends DataReference {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
+        var prime = 31;
+        var result = 1;
         result = prime * result + ((loadingType == null) ? 0 : loadingType.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((relationType == null) ? 0 : relationType.hashCode());

@@ -92,7 +92,7 @@ public class BusinessDataToWidgetMapperTest {
         assertThat(tableWidget.getId()).isEqualTo("pbTable");
 
         Map<String, Variable> variables = boc.getBusinessObjectVariable();
-        assertThat(variables.size()).isEqualTo(1);
+        assertThat(variables).hasSize(1);
         assertThat(variables.get("person_selected")).isNotNull();
     }
 
@@ -121,7 +121,7 @@ public class BusinessDataToWidgetMapperTest {
         assertThat(tableCollectionPropertyValue.get("headers").getValue()).isEqualTo(Arrays.asList("Addresses"));
 
         Map<String, Variable> variables = boc.getBusinessObjectVariable();
-        assertThat(variables.size()).isEqualTo(2);
+        assertThat(variables).hasSize(2);
         assertThat(variables.get("customer_addresses_selected")).isNotNull();
         assertThat(variables.get("customer_addresses").getType()).isEqualTo(DataType.URL);
         assertThat(variables.get("customer_addresses").getValue().get(0)).isEqualTo("{{customer_selected|lazyRef:'addresses'}}");
@@ -151,7 +151,7 @@ public class BusinessDataToWidgetMapperTest {
         assertThat(tableCollectionPropertyValue.get("headers").getValue()).isEqualTo(Arrays.asList("Name", "Need Balls"));
 
         Map<String, Variable> variables = boc.getBusinessObjectVariable();
-        assertThat(variables.size()).isEqualTo(1);
+        assertThat(variables).hasSize(1);
         assertThat(variables.get("person_sport_selected")).isNotNull();
     }
 

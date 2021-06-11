@@ -7,13 +7,7 @@
         <artifactId>ui-designer</artifactId>
         <version>1.13.0-SNAPSHOT</version>
     </parent>
-
-    <properties>
-        <uidModelVersion>2.2</uidModelVersion>
-    </properties>
-
     <artifactId>ui-designer-frontend</artifactId>
-
     <packaging>pom</packaging>
 
     <build>

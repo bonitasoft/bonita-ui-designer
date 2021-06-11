@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.export.FragmentExporter;

@@ -51,6 +51,7 @@ import org.mockito.stubbing.Answer;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -158,16 +159,16 @@ public class ArtifactImporterTest {
 
     @Test
     public void should_return_an_import_report_containing_imported_element_and_imported_dependencies() throws Exception {
-        List<Widget> addedWidgets = wMocks.mockWidgetsAsAddedDependencies();
-        List<Widget> overridenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
+        var addedWidgets = wMocks.mockWidgetsAsAddedDependencies();
+        var overridenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
         Page page = pMocks.mockPageToBeImported();
         when(pageRepository.updateLastUpdateAndSave(page)).thenReturn(page);
 
 //        ImportReport report = pageImporter.doImport(anImport(pageImportPath));
         final ImportReport report = artifactBuilder.importPage(pageImportPath, true);
 
-        assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
-        assertThat(report.getDependencies().getOverwritten().get("widget")).isEqualTo(overridenWidgets);
+        assertThat(report.getDependencies().getAdded()).containsEntry("widget", new ArrayList<>(addedWidgets));
+        assertThat(report.getDependencies().getOverwritten()).containsEntry("widget", new ArrayList<>(overridenWidgets));
         assertThat(report.getElement()).isEqualTo(page);
     }
 
@@ -272,15 +273,15 @@ public class ArtifactImporterTest {
 
     @Test
     public void should_force_an_import() throws Exception {
-        List<Widget> addedWidgets = wMocks.mockWidgetsAsAddedDependencies();
-        List<Widget> overriddenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
+        var addedWidgets = wMocks.mockWidgetsAsAddedDependencies();
+        var overriddenWidgets = wMocks.mockWidgetsAsOverridenDependencies();
         Page page = pMocks.mockPageToBeImported();
         when(pageRepository.exists(page.getId())).thenReturn(false);
 
         final ImportReport report = artifactBuilder.importPage(pageImportPath, true);
 
-        assertThat(report.getDependencies().getAdded().get("widget")).isEqualTo(addedWidgets);
-        assertThat(report.getDependencies().getOverwritten().get("widget")).isEqualTo(overriddenWidgets);
+        assertThat(report.getDependencies().getAdded()).containsEntry("widget", new ArrayList<>(addedWidgets));
+        assertThat(report.getDependencies().getOverwritten()).containsEntry("widget", new ArrayList<>(overriddenWidgets));
         assertThat(report.getElement()).isEqualTo(page);
         assertThat(report.getUUID()).isNotBlank();
         assertThat(UUID.fromString(report.getUUID())).isNotNull();

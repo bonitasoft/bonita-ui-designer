@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.builder;
 
 import com.google.common.base.Function;
+import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
@@ -79,12 +80,7 @@ public class PageBuilder {
     }
 
     public PageBuilder with(ElementBuilder... elements) {
-        rows.add(newArrayList(transform(asList(elements), new Function<ElementBuilder, Element>() {
-            @Override
-            public Element apply(ElementBuilder elementBuilder) {
-                return elementBuilder.build();
-            }
-        })));
+        rows.add(newArrayList(transform(asList(elements), ElementBuilder::build)));
         return this;
     }
 

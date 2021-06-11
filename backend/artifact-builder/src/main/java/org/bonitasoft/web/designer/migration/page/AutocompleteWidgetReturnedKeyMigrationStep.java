@@ -35,27 +35,24 @@ public class AutocompleteWidgetReturnedKeyMigrationStep<T extends AbstractPage> 
 
     @Override
     public Optional<MigrationStepReport> migrate(AbstractPage page) throws Exception {
-        try {
-            for (Component component : page.accept(componentVisitor)) {
-                if ("pbAutocomplete".equals(component.getId())) {
-                    PropertyValue displayedKeyValue = component.getPropertyValues().get("displayedKey");
-                    if (displayedKeyValue != null) {
-                        //put the same value as displayedKey in returnedKey
-                        PropertyValue returnedKeyValue = new PropertyValue();
-                        returnedKeyValue.setType(BondType.INTERPOLATION.toJson());
-                        returnedKeyValue.setValue(displayedKeyValue.getValue());
-                        component.getPropertyValues().put("returnedKey", returnedKeyValue);
-                        //change the BondType of displayedKey to INTERPOLATION
-                        PropertyValue newDisplayedKeyValue = new PropertyValue();
-                        newDisplayedKeyValue.setType(BondType.INTERPOLATION.toJson());
-                        newDisplayedKeyValue.setValue(displayedKeyValue.getValue());
-                        component.getPropertyValues().put("displayedKey", newDisplayedKeyValue);
-                    }
+        for (Component component : page.accept(componentVisitor)) {
+            if ("pbAutocomplete".equals(component.getId())) {
+                PropertyValue displayedKeyValue = component.getPropertyValues().get("displayedKey");
+                if (displayedKeyValue != null) {
+                    //put the same value as displayedKey in returnedKey
+                    var returnedKeyValue = new PropertyValue();
+                    returnedKeyValue.setType(BondType.INTERPOLATION.toJson());
+                    returnedKeyValue.setValue(displayedKeyValue.getValue());
+                    component.getPropertyValues().put("returnedKey", returnedKeyValue);
+                    //change the BondType of displayedKey to INTERPOLATION
+                    var newDisplayedKeyValue = new PropertyValue();
+                    newDisplayedKeyValue.setType(BondType.INTERPOLATION.toJson());
+                    newDisplayedKeyValue.setValue(displayedKeyValue.getValue());
+                    component.getPropertyValues().put("displayedKey", newDisplayedKeyValue);
                 }
             }
-            return Optional.empty();
-        } catch (Exception e) {
-            throw e;
         }
+        return Optional.empty();
+
     }
 }

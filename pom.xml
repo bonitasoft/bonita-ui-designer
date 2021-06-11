@@ -36,6 +36,7 @@
         <java.version>11</java.version>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
+
         <uidModelVersion>2.2</uidModelVersion>
 
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>

@@ -38,9 +38,8 @@ public class AssetExternalMigrationStep<A extends Identifiable & Assetable> exte
     public Optional<MigrationStepReport> migrate(A artifact) {
         for (Asset asset : artifact.getAssets()) {
             asset.setExternal(isAssetURL(asset.getName()));
-            logger.info(
-                    format("[MIGRATION] Asset <%s> with id <%s> has been identified as %s (external property was introduced in 1.2)", asset.getName(), asset.getId(),
-                            (asset.isExternal() ? "external" : "internal")));
+            logger.info("[MIGRATION] Asset <{}> with id <{}> has been identified as {} (external property was introduced in 1.2)", asset.getName(), asset.getId(),
+                            (asset.isExternal() ? "external" : "internal"));
         }
         return Optional.empty();
     }

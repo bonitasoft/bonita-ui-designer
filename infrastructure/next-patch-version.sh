@@ -6,6 +6,7 @@ BASEDIR=$SCRIPTDIR/..
 cd $BASEDIR
 
 get_current_version() {
+  # TODO: could be replaced  (safer) with curr_version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
     grep -Po -m1 '(?<=<version>).*(?=</version>)' pom.xml
 }
 

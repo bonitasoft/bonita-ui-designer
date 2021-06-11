@@ -22,6 +22,10 @@ public abstract class AssetScope {
     public static final String WIDGET = "widget";
     public static final String PAGE = "page";
 
+    private AssetScope(){
+        // Use factory method instead
+    }
+
     public static String forComponent(Assetable assetable) {
         if (assetable instanceof Page) {
             return PAGE;

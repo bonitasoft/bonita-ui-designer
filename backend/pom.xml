@@ -15,9 +15,7 @@
     <properties>
         <spring-boot.version>2.4.2</spring-boot.version>
         <handlebar.version>4.0.6</handlebar.version>
-
         <projectInfoReports.version>3.0.0</projectInfoReports.version>
-        <uidModelVersion>2.2</uidModelVersion>
     </properties>
 
     <modules>

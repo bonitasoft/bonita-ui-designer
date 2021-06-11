@@ -20,8 +20,8 @@ public class ArtifactBuilderIT {
     @Before
     public void setUp() throws Exception {
         properties = new UiDesignerPropertiesBuilder()
-                .workspacePath("./target/ArtifactBuilderIT/project")
-                .workspaceUidPath("./target/ArtifactBuilderIT/uid")
+                .workspacePath(Path.of("./target/ArtifactBuilderIT/project"))
+                .workspaceUidPath(Path.of("./target/ArtifactBuilderIT/uid"))
                 .build();
 
         await().atMost(1, SECONDS).until(() -> {

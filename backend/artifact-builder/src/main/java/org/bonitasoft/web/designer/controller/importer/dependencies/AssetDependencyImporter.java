@@ -44,7 +44,7 @@ public class AssetDependencyImporter<T extends Identifiable & Assetable> impleme
 
     @Override
     public List<Asset> load(Identifiable component, Path resources) throws IOException {
-        Path assetsPath = component instanceof Widget ? getWidgetAssetsFolderPath(component.getId(), resources) : resources.resolve("assets");
+        Path assetsPath = component instanceof Widget ? getWidgetAssetsFolderPath(component.getId(), resources) : resources.resolve(ASSETS_FOLDER_NAME);
 
         if (exists(assetsPath)) {
             List<Asset> assets = new ArrayList<>();
@@ -64,7 +64,7 @@ public class AssetDependencyImporter<T extends Identifiable & Assetable> impleme
      * Return assets path, could be componentId/assets or only assets/
      */
     private Path getWidgetAssetsFolderPath(String componentId, Path resources) {
-        Path assetsPath =  resources.resolve(componentId).resolve(ASSETS_FOLDER_NAME);
+        var assetsPath =  resources.resolve(componentId).resolve(ASSETS_FOLDER_NAME);
         return Files.exists(assetsPath) ? assetsPath : resources.resolve(ASSETS_FOLDER_NAME);
     }
 

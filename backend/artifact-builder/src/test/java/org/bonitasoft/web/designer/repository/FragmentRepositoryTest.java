@@ -44,7 +44,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFilledFragment;
 import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
-import static org.bonitasoft.web.designer.builder.UiDesignerPropertiesBuilder.aUiDesignerProperties;
+import static org.bonitasoft.web.designer.builder.UiDesignerPropertiesTestBuilder.aUiDesignerProperties;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 

@@ -27,7 +27,7 @@ public abstract class AbstractContractInput implements ContractInput {
     private EditMode mode = EditMode.CREATE;
     private boolean readOnly;
 
-    public AbstractContractInput(String name) {
+    protected AbstractContractInput(String name) {
         this.name = name;
     }
 

@@ -14,13 +14,7 @@
  */
 package org.bonitasoft.web.designer.migration;
 
-import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
-
-import java.util.Optional;
-
 public abstract class AbstractMigrationStep<A> implements MigrationStep<A> {
-
-    public abstract Optional<MigrationStepReport> migrate(A artifact) throws Exception;
 
     public String getErrorMessage() {
         return "An error occurs during migration step";

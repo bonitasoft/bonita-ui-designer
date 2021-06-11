@@ -33,6 +33,7 @@ NEXT_VERSION_CUT=$(echo $1| cut -f1 -d'_')
 
 echo "Changing version from $CUR_VERSION to $NEXT_VERSION"
 # replace first <version> value in poms
+# TODO: replace with maven plugin : mvn versions:set -DnewVersion="$NEXT_VERSION" versions:commit
 find . -name "pom.xml" | while read pom; do replace_first_version $NEXT_VERSION "$pom"; done
 
 # replace version in files that need it (Dockerfile, README, widgets/page/fragments models used for tests)

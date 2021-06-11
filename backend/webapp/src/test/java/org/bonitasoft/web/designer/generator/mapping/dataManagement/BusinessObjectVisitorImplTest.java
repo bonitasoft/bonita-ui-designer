@@ -64,8 +64,8 @@ public class BusinessObjectVisitorImplTest {
         Component component = ((Component) detailsRow.get(0));
         assertThat(detailsRow.get(0)).isInstanceOf(Component.class);
         assertThat(component.getId()).isEqualTo("pbContainer");
-        assertThat(component.getDimension().get("xs")).isEqualTo(1);
-        assertThat(((Component) detailsRow.get(1)).getDimension().get("xs")).isEqualTo(11);
+        assertThat(component.getDimension()).containsEntry("xs",1);
+        assertThat(detailsRow.get(1).getDimension()).containsEntry("xs",11);
     }
 
     @Test
@@ -89,23 +89,23 @@ public class BusinessObjectVisitorImplTest {
         Container objectContainer = (Container) container.getRows().get(0).get(0);
         assertThat(objectContainer.getRows()).hasSize(3);
         List<List<Element>> rows = objectContainer.getRows();
-        assertThat(((Component) rows.get(0).get(0)).getPropertyValues().get(TEXT_PARAMETER).getValue()).isEqualTo("Person");
+        assertThat(rows.get(0).get(0).getPropertyValues().get(TEXT_PARAMETER).getValue()).isEqualTo("Person");
         assertThat(((Component) rows.get(1).get(0)).getId()).isEqualTo("pbTable");
-        assertThat(((Component) rows.get(1).get(0)).getPropertyValues().get(HEADERS_PARAMETER).getValue()).isEqualTo(Arrays.asList("Name"));
+        assertThat(rows.get(1).get(0).getPropertyValues().get(HEADERS_PARAMETER).getValue()).isEqualTo(Arrays.asList("Name"));
 
         // Details container nested Section
         Container detailsContainer = (Container) rows.get(2).get(1);
         assertThat(detailsContainer.getId()).isEqualTo("pbContainer");
-        assertThat(detailsContainer.getDimension().get("xs")).isEqualTo(11);
+        assertThat(detailsContainer.getDimension()).containsEntry("xs",11);
         assertThat(detailsContainer.getPropertyValues().get(HIDDEN_PARAMETER).getValue()).isEqualTo("!person_selected");
-        assertThat(((Component) detailsContainer.getRows().get(0).get(0)).getPropertyValues().get(LABEL_PARAMETER).getValue()).isEqualTo("Name");
+        assertThat(detailsContainer.getRows().get(0).get(0).getPropertyValues().get(LABEL_PARAMETER).getValue()).isEqualTo("Name");
 
         // ADDRESSES nested Section
         List<List<Element>> addressesContainerObject = ((Container) detailsContainer.getRows().get(1).get(0)).getRows();
         assertThat(addressesContainerObject.size()).isEqualTo(3);
-        assertThat(((Component) addressesContainerObject.get(0).get(0)).getPropertyValues().get(TEXT_PARAMETER).getValue()).isEqualTo("Addresses");
-        assertThat(((Component) addressesContainerObject.get(1).get(0)).getPropertyValues().get(CONTENT_PARAMETER).getValue()).isEqualTo("person_address");
-        assertThat(((Component) addressesContainerObject.get(1).get(0)).getPropertyValues().get(SELECTED_ROW_PARAMETER).getValue()).isEqualTo("person_address_selected");
+        assertThat(addressesContainerObject.get(0).get(0).getPropertyValues().get(TEXT_PARAMETER).getValue()).isEqualTo("Addresses");
+        assertThat(addressesContainerObject.get(1).get(0).getPropertyValues().get(CONTENT_PARAMETER).getValue()).isEqualTo("person_address");
+        assertThat(addressesContainerObject.get(1).get(0).getPropertyValues().get(SELECTED_ROW_PARAMETER).getValue()).isEqualTo("person_address_selected");
     }
 
     @Test

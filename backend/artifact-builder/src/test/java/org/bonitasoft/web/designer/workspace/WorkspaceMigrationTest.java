@@ -41,7 +41,7 @@ import java.util.Map;
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.transform;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.UiDesignerPropertiesBuilder.aUiDesignerProperties;
+import static org.bonitasoft.web.designer.builder.UiDesignerPropertiesTestBuilder.aUiDesignerProperties;
 
 public class WorkspaceMigrationTest {
 

@@ -29,7 +29,6 @@ import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrati
 import org.bonitasoft.web.designer.migration.page.TextWidgetLabelMigrationStep;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.JsonHandler;
-import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -151,7 +150,7 @@ public class UiDesignerCoreFactory {
                 new Migration<>("1.10.12", new DataToVariableMigrationStep<>()),
                 new Migration<>("1.10.16", new TableWidgetInterpretHTMLMigrationStep<>(componentVisitor)),
                 new Migration<>("1.10.18", new TableWidgetStylesMigrationStep<>(componentVisitor)),
-                new Migration<>("1.11.40", new BusinessVariableMigrationStep<Page>()),
+                new Migration<>("1.11.40", new BusinessVariableMigrationStep()),
                 new Migration<>("1.11.46", new StyleUpdateInputRequiredLabelMigrationStep(pageAssetService)),
                 new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<>(INITIAL_MODEL_VERSION), new AutocompleteWidgetReturnedKeyMigrationStep<Page>(componentVisitor)),
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1")),

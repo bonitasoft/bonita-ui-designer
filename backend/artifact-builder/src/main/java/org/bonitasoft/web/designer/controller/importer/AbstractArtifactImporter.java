@@ -144,7 +144,9 @@ public abstract class AbstractArtifactImporter<T extends Identifiable> {
 
     private void deleteComponentWithSameUUID(ImportReport report, T element) {
         var elementToReplace = (T) report.getOverwrittenElement();
-        if (report.isOverwritten() && elementToReplace instanceof HasUUID
+        if (report.isOverwritten()
+                && elementToReplace instanceof HasUUID
+                // FIXME: when using !equals() instead of != feature is broken, we end up with a folder with a friendly name and a folder with a UUID name !
                 && elementToReplace.getId() != element.getId()) {
             repository.delete(elementToReplace.getId());
         }
@@ -169,9 +171,8 @@ public abstract class AbstractArtifactImporter<T extends Identifiable> {
         } else {
             try {
                 UUID.fromString(element.getId());
-                logger.info(
-                        format("Imported artifact %s does not have an uuid attribute but its id has the UUID format."
-                                + "The migration will give it an uuid attribute with the same value as its id.", element.getId()));
+                logger.info("Imported artifact {} does not have an uuid attribute but its id has the UUID format."
+                                + "The migration will give it an uuid attribute with the same value as its id.", element.getId());
                 // Migration will give the artifact the same uuid attribute as its ID
                 // so if there is already an artifact with this UUID, it will be replaced
                 overwrittenElement = repository.getByUUID(element.getId());

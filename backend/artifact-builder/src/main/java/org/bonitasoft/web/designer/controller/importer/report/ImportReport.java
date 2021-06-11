@@ -57,7 +57,7 @@ public class ImportReport {
         this.overwrittenElement = overwrittenElement;
     }
 
-    public Boolean isOverwritten() {
+    public boolean isOverwritten() {
         return overwritten;
     }
 

@@ -49,6 +49,7 @@ import static java.util.Collections.emptyList;
 public class AssetRepository<T extends Identifiable & Assetable> {
 
     public static final String COMPONENT_ID_REQUIRED = "The component id is required to add an asset to this component";
+    public static final String ASSETS = "assets";
 
     private final Repository<T> repository;
     private final BeanValidator validator;
@@ -64,7 +65,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
 
     protected Path resolveAssetPath(String componentId, Asset asset) {
         validator.validate(asset);
-        return resolveComponentPath(componentId).resolve("assets").resolve(asset.getType().getPrefix()).resolve(asset.getName());
+        return resolveComponentPath(componentId).resolve(ASSETS).resolve(asset.getType().getPrefix()).resolve(asset.getName());
     }
 
     protected Path resolveAssetPath(Asset asset) {
@@ -90,8 +91,8 @@ public class AssetRepository<T extends Identifiable & Assetable> {
     public void save(Asset asset, byte[] content) throws IOException {
         checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
         var parent = resolveComponentPath(asset.getComponentId());
-        if (!exists(parent.resolve("assets").resolve(asset.getType().getPrefix()))) {
-            createDirectories(parent.resolve("assets").resolve(asset.getType().getPrefix()));
+        if (!exists(parent.resolve(ASSETS).resolve(asset.getType().getPrefix()))) {
+            createDirectories(parent.resolve(ASSETS).resolve(asset.getType().getPrefix()));
         }
         write(resolveAssetPath(asset), content);
     }
@@ -109,7 +110,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
 
 
     private Path resolveAssetDirectory(String componentId, Asset asset) {
-        return repository.resolvePathFolder(componentId).resolve("assets").resolve(asset.getType().getPrefix());
+        return repository.resolvePathFolder(componentId).resolve(ASSETS).resolve(asset.getType().getPrefix());
     }
 
     /**
@@ -203,7 +204,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
 
         component.addAssets(newHashSet(concat(transform(newArrayList(AssetType.values()), type -> {
             try {
-                var assetTypePath = repository.resolvePath(component.getId()).resolve(Paths.get("assets", type.getPrefix()));
+                var assetTypePath = repository.resolvePath(component.getId()).resolve(Paths.get(ASSETS, type.getPrefix()));
                 if (exists(assetTypePath)) {
                     return findAssetInPathWhithoutComponentId(component, type, assetTypePath);
                 }

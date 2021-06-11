@@ -22,29 +22,24 @@ import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
-import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BusinessVariableMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<Page> {
+public class BusinessVariableMigrationStep extends AbstractMigrationStep<Page> {
 
-    private static final Logger logger = LoggerFactory.getLogger(BusinessVariableMigrationStep.class);
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public Optional<MigrationStepReport> migrate(Page page) throws IOException {
         for (Variable variable : page.getVariables().values()) {
             if (variable.getType() == DataType.BUSINESSDATA) {
                 String property = variable.getValue().get(0);
-                ObjectMapper mapper = new ObjectMapper();
                 JsonNode businessObjectNode;
                 businessObjectNode = mapper.readTree(property);
-
 
                 // 'id' property: replace '_' separator by '.'
                 JsonNode idNode = businessObjectNode.get("id");

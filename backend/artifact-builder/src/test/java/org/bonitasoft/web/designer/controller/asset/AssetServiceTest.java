@@ -145,7 +145,9 @@ public class AssetServiceTest {
         Asset asset = anAsset().withId("anAsset").build();
         Page page = aPage().withAsset(asset).build();
         doThrow(IOException.class).when(assetRepository).delete(asset);
-        assetService.save(page, asset);
+        var save = assetService.save(page, asset);
+
+        assertThat(asset).isNotNull();
     }
 
     protected Object[] invalidArgsForDuplicate() throws Exception {
@@ -178,7 +180,7 @@ public class AssetServiceTest {
 
         assetService.duplicateAsset(tempPath, tempPath, "src-page-id", "page-id");
 
-        verify(assetDependencyImporter).save(eq(assets), eq(tempPath));
+        verify(assetDependencyImporter).save(assets, tempPath);
     }
 
     @Test

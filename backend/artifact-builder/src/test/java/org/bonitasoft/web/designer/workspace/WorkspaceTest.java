@@ -340,7 +340,7 @@ public class WorkspaceTest {
 
         assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage")).exists();
         assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage").resolve("js")).doesNotExist();
-        await().atMost(1, SECONDS).untilAsserted(() ->
+        await().atMost(2, SECONDS).untilAsserted(() ->
             assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve(".index.json")).exists()
         );
         assertThat(contentOf(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve(".index.json")))

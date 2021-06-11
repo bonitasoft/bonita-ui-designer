@@ -26,7 +26,7 @@ public abstract class AbstractArtifactService<R extends Repository<T>, T extends
 
     protected R repository;
 
-    public AbstractArtifactService(UiDesignerProperties uiDesignerProperties, R repository) {
+    protected AbstractArtifactService(UiDesignerProperties uiDesignerProperties, R repository) {
         this.repository = repository;
         this.uiDesignerProperties = uiDesignerProperties;
     }
