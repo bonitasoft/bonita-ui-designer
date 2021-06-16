@@ -23,19 +23,19 @@ public class UiDesignerPropertiesBuilderTest {
 
     @Test
     public void default_paths_should_be_set() {
-        var workspacePath = "some/place";
+        var workspacePath = Path.of("some", "place");
 
         var properties = new UiDesignerPropertiesBuilder()
-                .workspacePath(Path.of(workspacePath))
+                .workspacePath(workspacePath)
                 .build();
 
-        assertThat(properties.getWorkspace().getPath().toString()).isEqualTo(workspacePath);
+        assertThat(properties.getWorkspace().getPath()).isEqualTo(workspacePath);
         assertThat(properties.getWorkspaceUid()).isNotNull();
     }
 
     @Test
     public void should_override_default_folder_name() {
-        var workspacePath = "some/place";
+        var workspacePath = Path.of("some", "place");
 
         var pageFolder = "web-pages";
         var fragmentFolder = "web-fragments";
@@ -43,14 +43,14 @@ public class UiDesignerPropertiesBuilderTest {
         var widgetWcFolder = "web-widgetWcs";
 
         var properties = new UiDesignerPropertiesBuilder()
-                .workspacePath(Path.of(workspacePath))
+                .workspacePath(workspacePath)
                 .pagesFolderName(pageFolder)
                 .fragmentsFolderName(fragmentFolder)
                 .widgetsFolderName(widgetFolder)
                 .widgetsWcFolderName(widgetWcFolder)
                 .build();
 
-        assertThat(properties.getWorkspace().getPath().toString()).isEqualTo(workspacePath);
+        assertThat(properties.getWorkspace().getPath()).isEqualTo(workspacePath);
         assertThat(properties.getWorkspace().getPages().getDir()).isEqualTo(properties.getWorkspace().getPath().resolve(pageFolder));
     }
 }
