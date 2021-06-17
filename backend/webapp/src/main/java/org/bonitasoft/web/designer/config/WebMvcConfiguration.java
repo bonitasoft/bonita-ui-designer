@@ -49,8 +49,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     public static final String WIDGETS_RESOURCES = "widgets";
 
-    public static final String WIDGETS_WC_RESOURCES = "widgetsWc";
-
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {BACKEND_RESOURCES, FRONTEND_RESOURCES};
 
     /**
@@ -95,11 +93,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         if (!registry.hasMappingForPattern("/widgets/**")) {
             registry.addResourceHandler("/widgets/**")
                     .addResourceLocations(WIDGETS_RESOURCES);
-        }
-
-        if (!registry.hasMappingForPattern("/widgetsWc/**")) {
-            registry.addResourceHandler("/widgetsWc/**")
-                    .addResourceLocations(WIDGETS_WC_RESOURCES);
         }
 
         if (!registry.hasMappingForPattern("/**")) {

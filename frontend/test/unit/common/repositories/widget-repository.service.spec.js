@@ -36,7 +36,7 @@ describe('widgetRepo', function() {
 
   it('should get all web components widgets', function() {
     var expectedWidgets = [{ id: 'pbInput', name: 'input' }, { id: 'pbText', name: 'Text' }];
-    $httpBackend.expectGET('rest/widgets?widgetsWc=true').respond(expectedWidgets);
+    $httpBackend.expectGET('rest/widgets').respond(expectedWidgets);
 
     widgetRepo.all(true).then(function(widgets) {
       expect(widgets).toEqual(expectedWidgets);

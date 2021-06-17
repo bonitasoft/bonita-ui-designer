@@ -38,8 +38,13 @@
       paletteItems[key] = repository;
     }
 
-    function initialize(repo, id, isWCWidgets) {
-      let allWidgets = widgetRepo.all(isWCWidgets);
+    function initialize(repo, id, isWcWidgets) {
+      let allWidgets;
+      if (isWcWidgets) {
+        allWidgets = widgetRepo.webComponents();
+      } else {
+        allWidgets = widgetRepo.angularJs();
+      }
       let dataWidgets = dataManagementRepo.getDataObjects()
         .then(addDataManagement);
       return $q.all([dataWidgets, allWidgets])

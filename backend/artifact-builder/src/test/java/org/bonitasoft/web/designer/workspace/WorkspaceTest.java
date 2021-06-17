@@ -68,7 +68,6 @@ public class WorkspaceTest {
         final String fakeProjectFolder = temporaryFolder.toPath().toString();
         workspaceProperties.getPages().setDir(Paths.get(fakeProjectFolder, "pages"));
         workspaceProperties.getWidgets().setDir(Paths.get(fakeProjectFolder, "widgets"));
-        workspaceProperties.getWidgetsWc().setDir(Paths.get(fakeProjectFolder, "widgetsWc"));
         workspaceProperties.getFragments().setDir(Paths.get(fakeProjectFolder, "fragments"));
 
         WorkspaceUidProperties workspaceUidProperties = uiDesignerProperties.getWorkspaceUid();
@@ -139,27 +138,32 @@ public class WorkspaceTest {
         assertThat(widgetsPath.resolve("pbButton/pbButton.json")).exists();
         assertThat(widgetsPath.resolve("pbButton/help.html")).exists();
         assertThat(widgetsPath.resolve("pbMissingHelp/pbMissingHelp.json")).exists();
+        assertThat(widgetsPath.resolve("uidInput/uidInput.json")).exists();
+        assertThat(widgetsPath.resolve("uidText/uidText.json")).exists();
     }
 
 
     @Test
-    public void should_copy_widgetWc_to_widgetWc_repository_folder() throws Exception {
+    public void should_copy_widget_Wc_to_widget_repository_folder() throws Exception {
         uiDesignerProperties.setExperimental(true);
 
         workspace.initialize();
-        Path widgetsWcPath = workspaceProperties.getWidgetsWc().getDir();
-        assertThat(widgetsWcPath.resolve("pbInput/pbInput.json")).exists();
-        assertThat(widgetsWcPath.resolve("pbText/pbText.json")).exists();
+
+        Path widgetsPath = workspaceProperties.getWidgets().getDir();
+        assertThat(widgetsPath.resolve("uidInput/uidInput.json")).exists();
+        assertThat(widgetsPath.resolve("uidText/uidText.json")).exists();
 
     }
 
     @Test
-    public void should_not_copy_widgetWc_to_widgetWc_repository_folder_when_experimental_mode_is_not_set() throws Exception {
+    public void should_copy_widget_Wc_to_widget_repository_folder_when_experimental_mode_is_not_set() throws Exception {
         uiDesignerProperties.setExperimental(false);
+
         workspace.initialize();
-        Path widgetsWcPath = workspaceProperties.getWidgetsWc().getDir();
-        assertThat(widgetsWcPath.resolve("pbLabel/pbLabel.json")).doesNotExist();
-        assertThat(widgetsWcPath.resolve("pbText/pbText.json")).doesNotExist();
+
+        Path widgetsPath = workspaceProperties.getWidgets().getDir();
+        assertThat(widgetsPath.resolve("uidInput/uidInput.json")).exists();
+        assertThat(widgetsPath.resolve("uidText/uidText.json")).exists();
     }
 
     @Test

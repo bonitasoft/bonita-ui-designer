@@ -1,4 +1,4 @@
-<pb-input ng-if="properties.labelHidden"
+<uid-input ng-if="properties.labelHidden"
           label="{{properties.label}}" required type="{{properties.type}}"
           ng-readonly="properties.readOnly"
           label-hidden
@@ -6,12 +6,12 @@
           value="{{properties.value}}" min="{{properties.min}}" max="{{properties.max}}"
           min-length="{{properties.minLength}}" max-length="{{properties.maxLength}}"
           label-position="{{properties.labelPosition}}" label-width="{{properties.labelWidth}}"
-          placeholder="{{properties.placeholder}}" step="{{properties.step}}"></pb-input>
-<pb-input ng-if="!properties.labelHidden"
+          placeholder="{{properties.placeholder}}" step="{{properties.step}}"></uid-input>
+<uid-input ng-if="!properties.labelHidden"
           label="{{properties.label}}" type="{{properties.type}}"
           ng-readonly="properties.readOnly"
           ng-required="properties.required"
           value="{{properties.value}}" min="{{properties.min}}" max="{{properties.max}}"
           min-length="{{properties.minLength}}" max-length="{{properties.maxLength}}"
           label-position="{{properties.labelPosition}}" label-width="{{properties.labelWidth}}"
-          placeholder="{{properties.placeholder}}" step="{{properties.step}}"></pb-input>
+          placeholder="{{properties.placeholder}}" step="{{properties.step}}"></uid-input>

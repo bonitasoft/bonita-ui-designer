@@ -98,7 +98,6 @@ public class WidgetRepositoryTest {
 
         uiDesignerProperties = new UiDesignerProperties(DESIGNER_VERSION, MODEL_VERSION);
         uiDesignerProperties.getWorkspace().getWidgets().setDir(widgetDir);
-        uiDesignerProperties.getWorkspace().getWidgetsWc().setDir(createDirectories(widgetWcDir));
 
         // spying objectMapper to be able to simulate a json conversion error
         jsonHandler = spy(new JsonHandlerFactory().create());
@@ -147,31 +146,26 @@ public class WidgetRepositoryTest {
     public void should_retrieve_all_widgets() throws Exception {
         Widget input = aWidget().withId("input").build();
         Widget label = aWidget().withId("label").build();
-        addToRepository(input, label);
-        Widget inputWc = aWidgetWc().withId("inputWc").build();
-        Widget labelWc = aWidgetWc().withId("labelWc").build();
-        addToRepositoryWc(inputWc, labelWc);
+        Widget uidInput = aWidgetWc().withId("uidInput").build();
+        Widget uidLabel = aWidgetWc().withId("uidLabel").build();
+        addToRepository(input, label, uidInput, uidLabel);
 
         uiDesignerProperties.setExperimental(false);
-        List<Widget> widgets = widgetRepository.getAll(false);
-        assertThat(widgets).containsOnly(input, label);
-        widgets = widgetRepository.getAll(true);
-        assertThat(widgets).containsOnly(input, label);
+        List<Widget> widgets = widgetRepository.getAll();
+        assertThat(widgets).containsOnly(input, label, uidInput, uidLabel);
 
         uiDesignerProperties.setExperimental(true);
-        widgets = widgetRepository.getAll(false);
-        assertThat(widgets).containsOnly(input, label);
-        List<Widget> widgetsWc = widgetRepository.getAll(true);
-        assertThat(widgetsWc).containsOnly(inputWc, labelWc);
+        widgets = widgetRepository.getAll();
+        assertThat(widgets).containsOnly(input, label, uidInput, uidLabel);
     }
 
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_if_error_occurs_while_getting_all_widgets() throws Exception {
         doThrow(new IOException()).when(jsonHandler).fromJson(any(byte[].class), eq(Widget.class));
         addToRepository(aWidget().withId("input").build());
-        widgetRepository.getAll(false);
+        widgetRepository.getAll();
         addToRepository(aWidgetWc().withId("input").build());
-        widgetRepository.getAll(true);
+        widgetRepository.getAll();
     }
 
     @Test
@@ -513,25 +507,21 @@ public class WidgetRepositoryTest {
     }
 
     private Widget addToRepository(Widget widget) throws Exception {
-        return addToRepository(widgetDir, widgetRepository, widget, false);
+        return addToRepository(widgetDir, widgetRepository, widget);
     }
 
-    private Widget addToRepositoryWc(Widget widget) throws Exception {
-        return addToRepository(widgetWcDir, widgetRepository, widget, true);
-    }
-
-    private Widget addToRepository(Path widgetDirectory, WidgetRepository widgetRepository, Widget widget, boolean loadWcWidget) throws Exception {
+    private Widget addToRepository(Path widgetDirectory, WidgetRepository widgetRepository, Widget widget) throws Exception {
         Path widgetDir = createDirectory(widgetDirectory.resolve(widget.getId()));
         writeWidgetMetadataInFile(widget, widgetDir.resolve(widget.getId() + ".json"));
-        return getFromRepository(widgetRepository, widget.getId(), loadWcWidget);
+        return getFromRepository(widgetRepository, widget.getId());
     }
 
     private Widget getFromRepository(String widgetId) {
-        return getFromRepository(widgetRepository, widgetId, false);
+        return getFromRepository(widgetRepository, widgetId);
     }
 
-    private Widget getFromRepository(WidgetRepository widgetRepository, String widgetId, boolean loadWcWidget) {
-        return widgetRepository.get(widgetId, loadWcWidget);
+    private Widget getFromRepository(WidgetRepository widgetRepository, String widgetId) {
+        return widgetRepository.get(widgetId);
     }
 
     private void writeWidgetMetadataInFile(Widget widget, Path path) throws IOException {

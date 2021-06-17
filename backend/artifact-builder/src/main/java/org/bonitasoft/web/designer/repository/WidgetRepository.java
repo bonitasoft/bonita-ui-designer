@@ -25,8 +25,6 @@ import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
-import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +35,8 @@ import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
 public class WidgetRepository extends AbstractRepository<Widget> {
 
+    public static final String ANGULARJS_CUSTOM_PREFIX = "custom";
+    public static final String ANGULARJS_STANDARD_PREFIX = "pb";
     private final WorkspaceProperties workspaceProperties;
     private final UiDesignerProperties uiDesignerProperties;
 
@@ -70,7 +70,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
      * Create a new widget, computing id with widget name
      */
     public Widget create(Widget widget) throws IllegalArgumentException {
-        var id = "custom" + trimToEmpty(capitalize(widget.getName()));
+        var id = ANGULARJS_CUSTOM_PREFIX + trimToEmpty(capitalize(widget.getName()));
         try {
             var existingWidget = get(id);
             throw new NotAllowedException("Widget with name " + existingWidget.getName() + " already exists");
@@ -82,30 +82,6 @@ public class WidgetRepository extends AbstractRepository<Widget> {
             return widget;
         }
 
-    }
-
-    public Widget get(String id, boolean loadWidgetsWc) throws NotFoundException, RepositoryException {
-        try {
-            if (loadWidgetsWc) {
-                return loader.get(workspaceProperties.getWidgetsWc().getDir().resolve(format("%s/%s.json", id, id)));
-            }
-            return this.get(id);
-        } catch (NoSuchFileException e) {
-            throw new NotFoundException(format("Non existing %s [%s]", getComponentName(), id));
-        } catch (IOException e) {
-            throw new RepositoryException(format("Error while getting %s [%s]", getComponentName(), id), e);
-        }
-    }
-
-    public List<Widget> getAll(boolean loadWidgetsWc) throws RepositoryException {
-        try {
-            if (loadWidgetsWc && uiDesignerProperties.isExperimental()) {
-                return loader.getAll(workspaceProperties.getWidgetsWc().getDir());
-            }
-            return loader.getAll(path);
-        } catch (IOException e) {
-            throw new RepositoryException(format("Error while getting %ss", getComponentName()), e);
-        }
     }
 
     public List<Widget> getByIds(Set<String> widgetIds) {

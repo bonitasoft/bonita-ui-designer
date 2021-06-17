@@ -47,7 +47,6 @@ public class UiDesignerPropertiesBuilderTest {
                 .pagesFolderName(pageFolder)
                 .fragmentsFolderName(fragmentFolder)
                 .widgetsFolderName(widgetFolder)
-                .widgetsWcFolderName(widgetWcFolder)
                 .build();
 
         assertThat(properties.getWorkspace().getPath()).isEqualTo(workspacePath);

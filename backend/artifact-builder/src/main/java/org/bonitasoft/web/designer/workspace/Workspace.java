@@ -52,7 +52,6 @@ public class Workspace {
 
     public static final String WIDGETS_RESOURCES = "widgets";
 
-    public static final String WIDGETS_WC_RESOURCES = "widgetsWc";
     public static final String METADATA_FOLDER_NAME = ".metadata";
     protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
     private final UiDesignerProperties uiDesignerProperties;
@@ -101,10 +100,6 @@ public class Workspace {
         ensurePageRepositoryPresent();
         ensureWidgetRepositoryPresent();
         ensureWidgetRepositoryFilled();
-        if (this.uiDesignerProperties.isExperimental()) {
-            ensureWidgetWcRepositoryPresent();
-            ensureWidgetRepositoryFilledWc();
-        }
         ensureFragmentRepositoryPresent();
         cleanFragmentWorkspace();
         extractResourcesForExport();
@@ -231,21 +226,6 @@ public class Workspace {
 
     private void ensureWidgetRepositoryPresent() throws IOException {
         createDirectories(uiDesignerProperties.getWorkspace().getWidgets().getDir());
-    }
-
-    private void ensureWidgetWcRepositoryPresent() throws IOException {
-        createDirectories(uiDesignerProperties.getWorkspace().getWidgetsWc().getDir());
-    }
-
-    private void ensureWidgetRepositoryFilledWc() throws IOException {
-
-        resourcesCopier.copy(extractPath, WIDGETS_WC_RESOURCES);
-
-        var widgetRepositorySourcePath = extractPath.resolve(WIDGETS_WC_RESOURCES);
-        FileUtils.copyDirectory(
-                FileUtils.getFile(widgetRepositorySourcePath.toString()),
-                uiDesignerProperties.getWorkspace().getWidgetsWc().getDir().toFile()
-        );
     }
 
     private void ensureWidgetRepositoryFilled() throws IOException {

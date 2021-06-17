@@ -75,7 +75,7 @@ public class DefaultWidgetService extends AbstractAssetableArtifactService<Widge
     @Override
     protected void checkUpdatable(String id) {
         super.checkUpdatable(id);
-        if (id.startsWith("pb")) {
+        if (id.startsWith(WidgetRepository.ANGULARJS_STANDARD_PREFIX)) {
             throw new NotAllowedException("Not allowed to modify a non custom widgets");
         }
     }
@@ -146,8 +146,8 @@ public class DefaultWidgetService extends AbstractAssetableArtifactService<Widge
     }
 
     @Override
-    public List<Widget> getAll(boolean widgetsWc) {
-        return repository.getAll(widgetsWc).stream()
+    public List<Widget> getAll() {
+        return repository.getAll().stream()
                 .map(widget -> {
                     widget.setStatus(this.getStatus(widget));
                     return widget;
@@ -155,8 +155,8 @@ public class DefaultWidgetService extends AbstractAssetableArtifactService<Widge
     }
 
     @Override
-    public List<Widget> getAllWithUsedBy(boolean widgetsWc) {
-        List<Widget> widgets = getAll(widgetsWc);
+    public List<Widget> getAllWithUsedBy() {
+        List<Widget> widgets = getAll();
         List<String> widgetIds = new ArrayList<>();
         for (Widget widget : widgets) {
             widgetIds.add(widget.getId());

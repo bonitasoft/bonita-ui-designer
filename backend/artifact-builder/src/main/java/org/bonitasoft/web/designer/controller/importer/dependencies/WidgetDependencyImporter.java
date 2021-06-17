@@ -31,7 +31,8 @@ import java.util.List;
 @Slf4j
 public class WidgetDependencyImporter extends ComponentDependencyImporter<Widget> {
 
-    public static final DirectoryStream.Filter<Path> CUSTOM_WIDGET_FILTER = path -> !path.getFileName().toString().startsWith("pb");
+    public static final DirectoryStream.Filter<Path> CUSTOM_WIDGET_FILTER =
+            path -> !path.getFileName().toString().startsWith(WidgetRepository.ANGULARJS_STANDARD_PREFIX);
 
     private final WidgetRepository widgetRepository;
 

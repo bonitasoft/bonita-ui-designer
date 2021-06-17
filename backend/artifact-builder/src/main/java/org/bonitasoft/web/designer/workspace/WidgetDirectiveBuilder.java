@@ -18,10 +18,12 @@ import org.bonitasoft.web.designer.livebuild.AbstractLiveFileBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static java.lang.String.valueOf;
 import static java.nio.file.Files.write;
@@ -58,6 +60,12 @@ public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
 
     @Override
     public boolean isBuildable(String path) {
-        return path.endsWith(".json") && !path.contains(".metadata");
+        return isAngularJsWidget(path) && path.endsWith(".json") && !path.contains(".metadata");
+    }
+
+    private boolean isAngularJsWidget(String path) {
+        String fileName = Paths.get(path).getFileName().toString();
+        return fileName.startsWith(WidgetRepository.ANGULARJS_STANDARD_PREFIX)
+                || fileName.startsWith(WidgetRepository.ANGULARJS_CUSTOM_PREFIX);
     }
 }

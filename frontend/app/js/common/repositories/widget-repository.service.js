@@ -40,10 +40,19 @@
           }));
       }
 
-      all(isWcWidgets) {
-        let stateParamUrl = isWcWidgets ? '?widgetsWc=true' : '';
-        return this.$http.get(`${this.baseUrl}${stateParamUrl}`)
+      all() {
+        return this.$http.get(`${this.baseUrl}`)
           .then((response) => response.data);
+      }
+
+      angularJs() {
+        return this.$http.get(`${this.baseUrl}`)
+          .then((response) => response.data.filter((widget) => !this.isWebComponent(widget.technology)));
+      }
+
+      webComponents() {
+        return this.$http.get(`${this.baseUrl}`)
+          .then((response) => response.data.filter((widget) => this.isWebComponent(widget.technology)));
       }
 
       /**
@@ -70,6 +79,10 @@
 
       getHelp(widgetId) {
         return this.$http.get(`${this.baseUrl}/${widgetId}/help`);
+      }
+
+      isWebComponent(technology) {
+        return technology === 'web_component';
       }
     }
     return new WidgetRepository();

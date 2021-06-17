@@ -29,7 +29,6 @@ public class WorkspaceProperties {
     private Pages pages = new Pages();
     private Fragments fragments = new Fragments();
     private Widgets widgets = new Widgets();
-    private WidgetsWc widgetsWc = new WidgetsWc();
 
     @Data
     public static class Pages {
@@ -44,13 +43,6 @@ public class WorkspaceProperties {
     @Data
     public static class Widgets {
 
-        public static final String WIDGET_SUFFIX_WC = "Wc";
-
-        private Path dir;
-    }
-
-    @Data
-    public static class WidgetsWc {
         private Path dir;
     }
 

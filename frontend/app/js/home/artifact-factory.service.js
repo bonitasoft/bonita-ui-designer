@@ -27,7 +27,7 @@
           state: 'page',
           value: gettext('Application page'),
           filterName: gettext('Pages'),
-          create: name => this.createPage(name, 'page')
+          create: (name, technology) => this.createPage(name, 'page', technology)
         },
         form: {
           key: 'form',
@@ -66,8 +66,8 @@
     getFactories() {
       return this.factories;
     }
-    createPage(name, type) {
-      return { type, name, rows: [[]] };
+    createPage(name, type, technology) {
+      return { type, name, technology, rows: [[]] };
     }
     createWidget(name) {
       var template = '<!-- The custom widget template is defined here\n   - You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system\n   - Custom widget properties defined on the right can be used as variables in a templates with properties.newProperty\n   - Functions exposed in the controller can be used with ctrl.newFunction()\n   - You can use the \'environment\' property injected in the scope when inside the Editor whiteboard. It allows to define a mockup\n     of the Custom Widget to be displayed in the whiteboard only. By default the widget is represented by an auto-generated icon\n     and its name (See the <span> below).\n-->\n \n<span ng-if="environment"><identicon name="{{environment.component.id}}" size="30" background-color="[255,255,255, 0]" foreground-color="[51,51,51]"></identicon> {{environment.component.name}}</span>\n\n<div style="color: {{ properties.color }}; background-color: {{ backgroudColor }}" ng-click="ctrl.toggleBackgroundColor()">\n    Value is:  <i>{{ properties.value }}</i>. Click me to toggle background color\n</div>';

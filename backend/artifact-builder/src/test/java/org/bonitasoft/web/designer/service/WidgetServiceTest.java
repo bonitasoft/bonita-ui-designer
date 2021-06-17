@@ -137,10 +137,10 @@ public class WidgetServiceTest {
         Widget input = aWidget().withId("input").build();
         Widget label = aWidget().withId("label").build();
         List<Widget> expectedWidgetList = asList(input, label);
-        when(widgetRepository.getAll(false)).thenReturn(expectedWidgetList);
+        when(widgetRepository.getAll()).thenReturn(expectedWidgetList);
 
         //When
-        List<Widget> widgets = widgetService.getAll(false);
+        List<Widget> widgets = widgetService.getAll();
 
         //Then
         assertThat(widgets).hasSameSizeAs(expectedWidgetList);
@@ -150,9 +150,9 @@ public class WidgetServiceTest {
 
     @Test
     public void should_serve_empty_list_if_widget_repository_is_empty() throws Exception {
-        when(widgetRepository.getAll(false)).thenReturn(new ArrayList<Widget>());
+        when(widgetRepository.getAll()).thenReturn(new ArrayList<Widget>());
 
-        List<Widget> widgets = widgetService.getAll(false);
+        List<Widget> widgets = widgetService.getAll();
 
         assertThat(widgets).isEmpty();
 
@@ -160,9 +160,9 @@ public class WidgetServiceTest {
 
     @Test
     public void should_throw_repo_exception_if_an_error_occurs_while_getting_widgets() throws Exception {
-        when(widgetRepository.getAll(false)).thenThrow(new RepositoryException("error occurs", new Exception()));
+        when(widgetRepository.getAll()).thenThrow(new RepositoryException("error occurs", new Exception()));
 
-        assertThatThrownBy(() -> widgetService.getAll(false)).isInstanceOf(RepositoryException.class);
+        assertThatThrownBy(() -> widgetService.getAll()).isInstanceOf(RepositoryException.class);
     }
 
     @Test
@@ -560,7 +560,7 @@ public class WidgetServiceTest {
     public void should_serve_all_light_widgets_in_repository() throws Exception {
         Widget input = aWidget().withId("input").build();
         Widget label = aWidget().withId("label").lastUpdate(parse("2015-02-02")).build();
-        when(widgetRepository.getAll(false)).thenReturn(asList(input, label));
+        when(widgetRepository.getAll()).thenReturn(asList(input, label));
         String[] ids = {"input", "label"};
         Map<String, List<Page>> map = new HashMap();
         map.put("input", singletonList(aPage().withName("hello").build()));
@@ -571,9 +571,9 @@ public class WidgetServiceTest {
         when(fragmentRepository.getArtifactsUsingWidgets(asList(ids))).thenReturn(map2);
         when(fragmentRepository.getComponentName()).thenReturn("fragment");
         List<Widget> expectedWidgets = asList(input,label);
-        when(widgetRepository.getAll(false)).thenReturn(expectedWidgets);
+        when(widgetRepository.getAll()).thenReturn(expectedWidgets);
 
-        List<Widget> returnedWidgets = widgetService.getAllWithUsedBy(false);
+        List<Widget> returnedWidgets = widgetService.getAllWithUsedBy();
 
         assertThat(returnedWidgets).hasSameSizeAs(expectedWidgets);
         assertThat(returnedWidgets).contains(input);

@@ -43,7 +43,6 @@ public class Main {
         log.info("TmpFragmentsRepositoryPath: {}", workspaceUidProperties.getTmpFragmentsRepositoryPath());
 
         log.info("WidgetsRepositoryPath: {}", workspaceProperties.getWidgets().getDir());
-        log.info("WidgetsWcRepositoryPath: {}", workspaceProperties.getWidgetsWc().getDir());
 
         log.info("WorkspacePath: {}", workspaceProperties.getPath());
         log.info("TemporaryWorkspacePath: {}", workspaceUidProperties.getPath());

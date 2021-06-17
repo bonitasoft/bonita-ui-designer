@@ -56,7 +56,6 @@ public class UiDesignerPropertiesTest {
 
     @Test
     public void should_workspace_properties_correct() throws Exception {
-        assertThat(workspaceProperties.getWidgetsWc()).isNotNull();
         assertThat(workspaceProperties.getWidgets()).isNotNull();
         assertThat(workspaceProperties.getFragments()).isNotNull();
         assertThat(workspaceProperties.getPages()).isNotNull();

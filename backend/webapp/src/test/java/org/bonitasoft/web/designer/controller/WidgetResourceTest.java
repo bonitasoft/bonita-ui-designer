@@ -99,7 +99,7 @@ public class WidgetResourceTest {
     public void should_serve_all_widgets_in_repository() throws Exception {
         Widget input = aWidget().withId("input").build();
         Widget label = aWidget().withId("label").build();
-        when(widgetService.getAll(false)).thenReturn(asList(input, label));
+        when(widgetService.getAll()).thenReturn(asList(input, label));
 
         mockMvc.perform(get("/rest/widgets"))
                 .andExpect(status().isOk())
@@ -110,7 +110,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_serve_empty_list_if_widget_repository_is_empty() throws Exception {
-        when(widgetService.getAll(false)).thenReturn(new ArrayList<Widget>());
+        when(widgetService.getAll()).thenReturn(new ArrayList<Widget>());
 
         mockMvc.perform(get("/rest/widgets"))
                 .andExpect(status().isOk())
@@ -119,7 +119,7 @@ public class WidgetResourceTest {
 
     @Test
     public void should_respond_500_internal_server_error_if_an_error_occurs_while_getting_widgets() throws Exception {
-        when(widgetService.getAll(false)).thenThrow(new RepositoryException("error occurs", new Exception()));
+        when(widgetService.getAll()).thenThrow(new RepositoryException("error occurs", new Exception()));
 
         mockMvc.perform(get("/rest/widgets")).andExpect(status().is(500));
     }
@@ -693,7 +693,7 @@ public class WidgetResourceTest {
 
         List<Widget> returnedWidgets = asList(input,label);
 
-        when(widgetService.getAllWithUsedBy(false)).thenReturn(returnedWidgets);
+        when(widgetService.getAllWithUsedBy()).thenReturn(returnedWidgets);
 
         mockMvc.perform(get("/rest/widgets?view=light")).andDo(print())
                 .andExpect(status().isOk())

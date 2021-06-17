@@ -21,10 +21,10 @@ let paths = {
     'node_modules/bootstrap/dist/css/bootstrap.min.css',
     'src/main/runtime/css/**.css'
   ],
-  widgetsWc: ['src/main/resources/widgetsWc/**/*.*'],
   widgets: ['src/main/resources/widgets/**/*.*'],
-  widgetsWcJson: ['src/main/resources/widgetsWc/**/*.json'],
-  widgetsWcTpl: ['src/main/resources/widgetsWc/**/*.tpl.html'],
+  widgetsPbJson: ['src/main/resources/widgets/**/pb*.json'],
+  widgetsUidJson: ['src/main/resources/widgets/**/uid*.json'],
+  widgetsUidTpl: ['src/main/resources/widgets/**/uid*.tpl.html'],
   widgetsJson: ['src/main/resources/widgets/**/*.json'],
   widgetsHtml: ['src/main/resources/widgets/**/*.html'],
   karma: { configFile: __dirname + '../../src/test/javascript/karma.conf.js' },
@@ -36,10 +36,8 @@ let paths = {
     fonts: 'target/classes/META-INF/resources/runtime/fonts',
     js: 'target/classes/META-INF/resources/runtime/js',
     json: 'target/classes/widgets',
-    jsonWc: 'target/classes/widgetsWc',
   },
   dev:{
-    widgetsWc: homedir + path.sep + '.bonita/widgetsWc',
     widgets: homedir + path.sep + '.bonita/widgets',
   }
 };

@@ -17,6 +17,20 @@
       type: 'widget'
     };
 
+    var uidLabelWidget = {
+      id: 'uidLabel',
+      custom: false,
+      type: 'widget',
+      technology: 'web_component'
+    };
+
+    var uidInputwidget = {
+      id: 'uidInput',
+      custom: false,
+      type: 'widget',
+      technology: 'web_component'
+    };
+
     let containers = [
       {
         id: 'pbContainer',
@@ -154,6 +168,14 @@
       }
     };
 
+    var emptyJson = {
+      'data': {
+        'id': 'person',
+        'name': 'person page',
+        'rows': []
+      }
+    };
+
     let fragmentDef = {
       id: 'f1',
       type: 'fragment',
@@ -207,7 +229,9 @@
       spyOn(fragmentRepo, 'all').and.returnValue($q.when({ data: [fragmentDef] }));
       spyOn(fragmentRepo, 'allNotUsingElement').and.returnValue($q.when({ data: [fragmentDef] }));
 
-      spyOn(widgetRepo, 'all').and.returnValue($q.when(containers.concat([labelWidget, inputwidget])));
+      spyOn(widgetRepo, 'angularJs').and.returnValue($q.when(containers.concat([labelWidget, inputwidget])));
+      spyOn(widgetRepo, 'webComponents').and.returnValue($q.when(containers.concat([uidLabelWidget, uidInputwidget])));
+
       spyOn(dataManagementRepoMock, 'getDataObjects').and.returnValue($q.when({error: false, objects: dataManagementWidgets}));
       spyOn(alerts, 'addError');
       spyOn(fragmentRepo, 'migrate').and.returnValue($q.when({}));
@@ -258,8 +282,17 @@
       expect(formContainer.$$parentContainerRow.container).toBe(page);
     });
 
-    it('should init components', function() {
+    it('should initialize web component a page', function() {
+      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
+      spyOn(migration, 'handleMigrationNotif');
+      spyOn(pageRepo, 'load').and.returnValue($q.when(emptyJson));
+      editorService.initialize(pageRepo, 'person', 'v2')
 
+      $rootScope.$apply();
+      expect(widgetRepo.webComponents).toHaveBeenCalled();
+    });
+
+    it('should init components', function() {
       spyOn(components, 'register');
       spyOn(components, 'reset');
       spyOn(whiteboardComponentWrapper, 'wrapPage').and.returnValue({});

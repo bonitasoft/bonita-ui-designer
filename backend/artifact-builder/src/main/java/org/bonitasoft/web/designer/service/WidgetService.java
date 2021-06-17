@@ -25,9 +25,9 @@ public interface WidgetService extends AssetableArtifactService<Widget> {
 
     Widget getWithAsset(String id);
 
-    List<Widget> getAll(boolean widgetsWc);
+    List<Widget> getAll();
 
-    List<Widget> getAllWithUsedBy(boolean widgetsWc);
+    List<Widget> getAllWithUsedBy();
 
     void delete(String id);
 

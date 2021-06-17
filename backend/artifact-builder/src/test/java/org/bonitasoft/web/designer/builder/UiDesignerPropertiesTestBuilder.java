@@ -34,7 +34,6 @@ public class UiDesignerPropertiesTestBuilder {
         WorkspaceProperties workspaceProperties = uiDesignerProperties.getWorkspace();
         workspaceProperties.getPages().setDir(workspacePath.resolve("pages"));
         workspaceProperties.getWidgets().setDir(workspacePath.resolve("widgets"));
-        workspaceProperties.getWidgetsWc().setDir(workspacePath.resolve("widgetsWc"));
         workspaceProperties.getFragments().setDir(workspacePath.resolve("fragments"));
 
         return uiDesignerProperties;

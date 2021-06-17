@@ -21,13 +21,16 @@ import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.Technology;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedPersister;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,12 +40,14 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static java.nio.file.Files.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -66,6 +71,8 @@ public class WidgetDirectiveBuilderTest {
 
     Widget pbButton;
 
+    Widget uidInput;
+
     HtmlSanitizer htmlSanitizer = new HtmlSanitizer();
 
     TemplateEngine htmlBuilder = new TemplateEngine("widgetDirectiveTemplate.hbs.js");
@@ -74,7 +81,6 @@ public class WidgetDirectiveBuilderTest {
     public void setup() throws Exception {
         JsonHandler jsonHandler = new JsonHandlerFactory().create();
         final UiDesignerProperties uiDesignerProperties = new UiDesignerProperties("1.13.0", "2.0");
-        ArtifactBuilderFactory artifactBuilderFactory = new ArtifactBuilderFactory(uiDesignerProperties);
         widgetDirectiveBuilder = new WidgetDirectiveBuilder(watcher, new WidgetFileBasedLoader(jsonHandler), htmlSanitizer);
 
         WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jsonHandler);
@@ -98,6 +104,11 @@ public class WidgetDirectiveBuilderTest {
         pbButton.setCustom(true);
         createDirectories(repository.resolvePath(pbButton.getId()));
         repository.updateLastUpdateAndSave(pbButton);
+
+        uidInput = aWidget().withId("uidInput").build();
+        uidInput.setTechnology(Technology.WEB_COMPONENT);
+        createDirectories(repository.resolvePath(uidInput.getId()));
+        repository.updateLastUpdateAndSave(uidInput);
     }
 
     @Test
@@ -109,12 +120,21 @@ public class WidgetDirectiveBuilderTest {
     }
 
     @Test
+    public void should_not_build_directives_for_web_component_widgets() throws Exception {
+        widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
+
+        assertFalse(Files.exists(getDirectivePath("uidInput")));
+    }
+
+    @Test
     public void should_only_build_directives_files() throws Exception {
+        //
         widgetRepositoryDirectory.newFile("whatever.txt");
 
         widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
 
-        assertThat(widgetRepositoryDirectory.getRoot().list()).containsOnly(".metadata", "pbButton", "whatever.txt", "pbInput");
+        //assert that we do not create a whatever.js file ?
+        assertThat(widgetRepositoryDirectory.getRoot().list()).containsOnly(".metadata", "pbButton", "whatever.txt", "uidInput", "pbInput");
     }
 
     @Test
@@ -150,8 +170,13 @@ public class WidgetDirectiveBuilderTest {
      * @throws IOException
      */
     private String readDirective(String widgetId) throws IOException {
-        return new String(readAllBytes(resolve(widgetId + "/" + widgetId + ".js")));
+        return new String(readAllBytes(getDirectivePath(widgetId)));
     }
+
+    private Path getDirectivePath(String widgetId) {
+        return resolve(widgetId + "/" + widgetId + ".js");
+    }
+
 
     /**
      * Generate directive

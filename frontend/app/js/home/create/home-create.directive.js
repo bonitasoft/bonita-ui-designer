@@ -36,8 +36,8 @@
       return this.artifactNamingValidatorService.isArtifactNameAlreadyUseForType(name,type.key,this.artifacts);
     }
 
-    create(type, name) {
-      this.repositories.get(type.key).create(type.create(name)).then(data =>
+    create(type, name, technology) {
+      this.repositories.get(type.key).create(type.create(name, technology)).then(data =>
         this.$state.go(`designer.${type.key}`, {
           id: data.id
         }));

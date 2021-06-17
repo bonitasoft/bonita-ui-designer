@@ -1,5 +1,6 @@
 const widgets = require('./subTasks/widgets');
 const runtime = require('./subTasks/runtime');
+const gulpIf = require('gulp-if');
 const {series, src, dest, watch} = require('gulp');
 const shell = require('gulp-shell');
 const config = require('./config');
@@ -13,7 +14,6 @@ function devWatch(done) {
   watch(config.paths.css, runtime.runtimeCss);
   watch(config.paths.runtime, runtime.runtimeJs);
   watch(config.paths.widgets, devWidgets);
-  watch(config.paths.widgetsWc, devWidgetsWc);
   watch(config.paths.templates, devHtml);
   done();
 }
@@ -29,27 +29,18 @@ function devHtml() {
  * Task to inline json and build a widgets repository for development.
  */
 function devWidgets(done) {
-  // only copy widgets if the repository exist to let
-  // the application create and build them the first time.
+  // only copy widgets if the repository exist
   if (fs.existsSync(config.paths.dev.widgets)) {
-    src(config.paths.widgetsJson)
+    // The application create and build the pb widgets the first time.
+    src(config.paths.widgetsPbJson)
       .pipe(buildWidget())
       .pipe(dest(config.paths.dev.widgets));
-  }
-  done();
-}
-
-/**
- * Task to inline json and build a widgets repository for development.
- */
-function devWidgetsWc(done) {
-  // only copy widgets if the repository exist to let
-  // the application create and build them the first time.
-  if (fs.existsSync(config.paths.dev.widgetsWc)) {
-    src(config.paths.widgetsWcJson)
-      .pipe(dest(config.paths.dev.widgetsWc));
-    src(config.paths.widgetsWcTpl)
-      .pipe(dest(config.paths.dev.widgetsWc));
+    // The application create the uid widgets the first time.
+    src(config.paths.widgetsUidJson)
+      .pipe(dest(config.paths.dev.widgets));
+    src(config.paths.widgetsUidTpl)
+      .pipe(dest(config.paths.dev.widgets));
+    // TODO: copy uid widget bundle
   }
   done();
 }

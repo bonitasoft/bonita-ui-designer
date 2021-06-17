@@ -59,15 +59,14 @@ public class WidgetResource extends AssetResource<Widget, WidgetService> {
     }
 
     @GetMapping
-    public ResponseEntity<String> getAll(@RequestParam(value = "view", defaultValue = "full") String view,
-                                         @RequestParam(value = "widgetsWc", defaultValue = "false") Boolean widgetsWc) throws RepositoryException, IOException {
+    public ResponseEntity<String> getAll(@RequestParam(value = "view", defaultValue = "full") String view) throws RepositoryException, IOException {
 
         byte[] json;
         if ("light".equals(view)) {
-            var widgets = service.getAllWithUsedBy(widgetsWc);
+            var widgets = service.getAllWithUsedBy();
             json = jsonHandler.toJson(widgets, JsonViewLight.class);
         } else {
-            var widgets = service.getAll(widgetsWc);
+            var widgets = service.getAll();
             json = jsonHandler.toJson(widgets);
         }
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(new String(json));

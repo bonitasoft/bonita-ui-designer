@@ -13,7 +13,6 @@ public class UiDesignerPropertiesBuilder {
     private WorkspaceUidProperties workspaceUid = new WorkspaceUidProperties();
 
     private String widgetsFolderName = "widgets";
-    private String widgetsWcFolderName = "widgetsWc";
     private String fragmentsFolderName = "fragments";
     private String pagesFolderName = "pages";
 
@@ -60,11 +59,6 @@ public class UiDesignerPropertiesBuilder {
         return this;
     }
 
-    public UiDesignerPropertiesBuilder widgetsWcFolderName(String widgetsWcFolderName) {
-        this.widgetsWcFolderName = widgetsWcFolderName;
-        return this;
-    }
-
     public UiDesignerPropertiesBuilder widgetsFolderName(String widgetsFolderName) {
         this.widgetsFolderName = widgetsFolderName;
         return this;
@@ -83,7 +77,6 @@ public class UiDesignerPropertiesBuilder {
         properties.setWorkspace(workspace);
 
         properties.getWorkspace().getWidgets().setDir(properties.getWorkspace().getPath().resolve(widgetsFolderName));
-        properties.getWorkspace().getWidgetsWc().setDir(properties.getWorkspace().getPath().resolve(widgetsWcFolderName));
         properties.getWorkspace().getFragments().setDir(properties.getWorkspace().getPath().resolve(fragmentsFolderName));
         properties.getWorkspace().getPages().setDir(properties.getWorkspace().getPath().resolve(pagesFolderName));
 

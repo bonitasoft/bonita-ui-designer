@@ -104,7 +104,6 @@ public class WorkspaceInitializerTest {
         workspaceProperties.setPath(fakeProjectFolder);
         workspaceProperties.getPages().setDir(temporaryFolder.newFolderPath("pages"));
         workspaceProperties.getWidgets().setDir(temporaryFolder.newFolderPath("widgets"));
-        workspaceProperties.getWidgetsWc().setDir(temporaryFolder.newFolderPath("widgetsWc"));
         workspaceProperties.getFragments().setDir(temporaryFolder.newFolderPath("fragments"));
 
         WorkspaceUidProperties workspaceUidProperties = uiDesignerProperties.getWorkspaceUid();

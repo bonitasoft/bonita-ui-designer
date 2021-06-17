@@ -9,15 +9,8 @@ const flatten = require('gulp-flatten');
 /**
  * Task to inline add widgets to the webapp for production and inline templates in json file
  */
-function widgetsJs(){
+function widgets(){
   return src(config.paths.widgetsJson).pipe(buildWidget()).pipe(dest(config.paths.dest.json));
-}
-
-/**
- * Task to move widgetWc in webapp for production
- */
-function widgetsWc() {
-  return src(config.paths.widgetsWcJson).pipe(dest(config.paths.dest.jsonWc))
 }
 
 /**
@@ -30,5 +23,5 @@ function extractJsonSchema() {
     .pipe(dest('target/widget-schema'));
 }
 
-exports.copy = parallel(widgetsWc,widgetsJs);
+exports.copy = widgets;
 exports.extractJsonSchema = extractJsonSchema;
