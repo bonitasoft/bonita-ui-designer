@@ -29,9 +29,9 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.google.common.collect.Maps.newLinkedHashMap;
 import static java.util.Collections.EMPTY_LIST;
 
 public class FormInputVisitor implements ContractInputVisitor {
@@ -52,7 +52,7 @@ public class FormInputVisitor implements ContractInputVisitor {
         defaultValues.put(File.class.getName(), null);
     }
 
-    private final Map<String, Object> properties = newLinkedHashMap();
+    private final Map<String, Object> properties = new LinkedHashMap<>();
     private final JsonHandler jsonHandler;
 
     public FormInputVisitor(JsonHandler jsonHandler) {

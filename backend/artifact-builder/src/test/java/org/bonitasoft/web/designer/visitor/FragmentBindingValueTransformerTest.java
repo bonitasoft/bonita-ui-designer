@@ -17,6 +17,8 @@ package org.bonitasoft.web.designer.visitor;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 import org.junit.Test;
 
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FragmentBindingValueTransformerTest {
@@ -25,7 +27,7 @@ public class FragmentBindingValueTransformerTest {
     public void should_create_a_property_value_of_type_data() throws Exception {
         FragmentBindingValueTransformer transformer = new FragmentBindingValueTransformer();
 
-        PropertyValue propertyValue = transformer.transformEntry("name", "value");
+        PropertyValue propertyValue = transformer.apply(Map.entry("name", "value"));
 
         assertThat(propertyValue.getType()).isEqualTo("variable");
         assertThat(propertyValue.getValue()).isEqualTo("value");

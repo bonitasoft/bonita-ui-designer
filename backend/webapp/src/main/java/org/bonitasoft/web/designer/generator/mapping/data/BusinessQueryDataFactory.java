@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
-import com.google.common.base.Strings;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
@@ -25,6 +24,8 @@ import javax.inject.Named;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.springframework.util.StringUtils.hasText;
 
 @Named
 public class BusinessQueryDataFactory {
@@ -41,7 +42,7 @@ public class BusinessQueryDataFactory {
                 .map(NodeContractInput.class::cast)
                 .filter(child -> !child.isReadOnly())
                 .filter(child -> child.getDataReference() != null)
-                .filter(child -> !Strings.isNullOrEmpty(child.getDataReference().getName()))
+                .filter(child -> hasText(child.getDataReference().getName()))
                 .filter(child -> child.getDataReference().getRelationType() == RelationType.AGGREGATION)
                 .map(child -> new BusinessQueryData(child.getDataReference()))
                 .forEach(pageData::add);

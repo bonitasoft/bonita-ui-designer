@@ -36,10 +36,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.Map;
 
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.UiDesignerPropertiesTestBuilder.aUiDesignerProperties;
 
@@ -88,7 +87,7 @@ public class WorkspaceMigrationTest {
         assertThat(page.getArtifactVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
         assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.0");
 
-        assertThat(transform(page.getAssets(), Asset::getId)).doesNotContainNull();
+        assertThat(page.getAssets().stream().map(Asset::getId)).doesNotContainNull();
     }
 
     @Test
@@ -99,9 +98,9 @@ public class WorkspaceMigrationTest {
         // Then
         Page page = pageService.get("page_1_0_1");
 
-        Map<String, PropertyValue> propertyValues = concat(page.getRows()).iterator().next().getPropertyValues();
+        Map<String, PropertyValue> propertyValues = page.getRows().stream().flatMap(Collection::stream).iterator().next().getPropertyValues();
 
-        assertThat(transform(propertyValues.values(), PropertyValue::getType)).doesNotContain("data");
+        assertThat(propertyValues.values().stream().map(PropertyValue::getType)).doesNotContain("data");
     }
 
     @Test
@@ -113,7 +112,7 @@ public class WorkspaceMigrationTest {
         Page page = pageService.get("page_1_5_51");
 
         assertThat(page.getArtifactVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
-        Map<String, PropertyValue> propertyValues = concat(page.getRows()).iterator().next().getPropertyValues();
+        Map<String, PropertyValue> propertyValues = page.getRows().stream().flatMap(Collection::stream).iterator().next().getPropertyValues();
         PropertyValue allowHTMLProperty = propertyValues.get("allowHTML");
 
         assertThat(allowHTMLProperty).isNotNull();
@@ -143,7 +142,7 @@ public class WorkspaceMigrationTest {
         // Then
         Page page = pageService.get("page_1_0_1");
 
-        assertThat(transform(page.getAssets(), Asset::getName)).contains(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME);
+        assertThat(page.getAssets().stream().map(Asset::getName)).contains(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME);
     }
 
     @Test
@@ -157,7 +156,7 @@ public class WorkspaceMigrationTest {
         assertThat(page.getArtifactVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
         assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.1");
 
-        assertThat(transform(page.getAssets(), Asset::getName)).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(2);
+        assertThat(page.getAssets().stream().map(Asset::getName)).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(2);
     }
 
     @Test
@@ -171,6 +170,6 @@ public class WorkspaceMigrationTest {
         assertThat(page.getArtifactVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
         assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.1");
 
-        assertThat(transform(page.getAssets(), Asset::getName)).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(1);
+        assertThat(page.getAssets().stream().map(Asset::getName)).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(1);
     }
 }

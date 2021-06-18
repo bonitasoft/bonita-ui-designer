@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
-import com.google.common.io.Files;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -36,7 +35,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.readString;
+import static java.nio.file.Files.write;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
@@ -105,7 +105,7 @@ public class DirectiveFileGeneratorTest {
 
         String filename = generator.generateAllDirectivesFilesInOne(page, path);
 
-        assertThat(new String(readAllBytes(path.resolve(filename)), "UTF-8")).isEqualTo(expected);
+        assertThat(readString(path.resolve(filename))).isEqualTo(expected);
         assertThat(filename).isEqualTo("widgets-0f2d4ba1fa1992794df3dca7a9b8e4ec735b4746.min.js");
     }
 
@@ -113,8 +113,8 @@ public class DirectiveFileGeneratorTest {
         temporaryFolder.newFolder("pbLabel");
         temporaryFolder.newFolder("paragraph");
         temporaryFolder.newFolder("pages", page.getId());
-        Files.write("file1".getBytes(), temporaryFolder.newFile("pbLabel/pbLabel.js"));
-        Files.write("file2".getBytes(), temporaryFolder.newFile("paragraph/paragraph.js"));
+        write(temporaryFolder.newFile("pbLabel/pbLabel.js").toPath(), "file1".getBytes());
+        write(temporaryFolder.newFile("paragraph/paragraph.js").toPath(), "file2".getBytes());
     }
 
 
@@ -132,9 +132,9 @@ public class DirectiveFileGeneratorTest {
         temporaryFolder.newFolder("pbLabel");
         temporaryFolder.newFolder("paragraph");
         temporaryFolder.newFolder("pages", page.getId());
-        Files.write((" List<String> filename = getWidgetsFilesUsedInPage(previewable);\n byte[] content = " +
-                "getConcatenationWidgetsDirectives(filename);").getBytes(), temporaryFolder.newFile("pbLabel/pbLabel" +
-                ".js"));
-        Files.write("file2".getBytes(), temporaryFolder.newFile("paragraph/paragraph.js"));
+        write(temporaryFolder.newFile("pbLabel/pbLabel.js").toPath(),
+                (" List<String> filename = getWidgetsFilesUsedInPage(previewable);\n byte[] content = " +
+                        "getConcatenationWidgetsDirectives(filename);").getBytes());
+        write(temporaryFolder.newFile("paragraph/paragraph.js").toPath(), "file2".getBytes());
     }
 }

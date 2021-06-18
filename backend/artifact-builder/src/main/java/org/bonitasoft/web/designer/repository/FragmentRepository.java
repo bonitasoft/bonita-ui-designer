@@ -25,9 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Lists.newArrayList;
-
+import static java.util.stream.Collectors.toList;
 
 public class FragmentRepository extends AbstractRepository<Fragment> implements WidgetContainerRepository<Fragment> {
 
@@ -52,7 +50,7 @@ public class FragmentRepository extends AbstractRepository<Fragment> implements 
      */
     public List<Fragment> getAllNotUsingElement(final String id) {
         final List<String> fragmentsUsingElement = getFragmentsUsingElement(id);
-        return new ArrayList(filter(getAll(), fragment -> !fragmentsUsingElement.contains(fragment.getId())));
+        return getAll().stream().filter(fragment -> !fragmentsUsingElement.contains(fragment.getId())).collect(toList());
     }
 
     /**
@@ -63,8 +61,9 @@ public class FragmentRepository extends AbstractRepository<Fragment> implements 
      * @return fragments that uses element
      */
     private List<String> getFragmentsUsingElement(String id) {
-        List<String> fragIds = newArrayList(id);
-        for (Fragment fragment : findByObjectId(id)) {
+        var fragIds = new ArrayList<String>();
+        fragIds.add(id);
+        for (var fragment : findByObjectId(id)) {
             fragIds.addAll(getFragmentsUsingElement(fragment.getId()));
         }
         return fragIds;
@@ -81,7 +80,7 @@ public class FragmentRepository extends AbstractRepository<Fragment> implements 
 
     public List<Fragment> getByIds(Set<String> fragmentsId) {
         List<Fragment> result = new ArrayList<>();
-        for (String fragmentId : fragmentsId) {
+        for (var fragmentId : fragmentsId) {
             result.add(get(fragmentId));
         }
         return result;

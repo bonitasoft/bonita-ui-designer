@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.visitor;
 
 import lombok.RequiredArgsConstructor;
+import org.bonitasoft.web.designer.StreamUtils;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FormContainer;
@@ -25,8 +26,9 @@ import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import static java.util.Collections.singleton;
 
 /**
@@ -45,7 +47,10 @@ public class ComponentVisitor implements ElementVisitor<Iterable<Component>> {
     @Override
     public Iterable<Component> visit(Container container) {
         // transform a list of list of elements into a list of components by visiting element contents
-        return flatten(transform(flatten(container.getRows()), element -> element.accept(ComponentVisitor.this)));
+        return container.getRows().stream().flatMap(Collection::stream)
+                .map(element -> element.accept(ComponentVisitor.this))
+                .flatMap(StreamUtils::toStream)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -55,7 +60,10 @@ public class ComponentVisitor implements ElementVisitor<Iterable<Component>> {
 
     @Override
     public Iterable<Component> visit(TabsContainer tabsContainer) {
-        return flatten(transform(tabsContainer.getTabList(), tabContainer -> tabContainer.accept(ComponentVisitor.this)));
+        return tabsContainer.getTabList().stream()
+                .map(tabContainer -> tabContainer.accept(ComponentVisitor.this))
+                .flatMap(StreamUtils::toStream)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -80,7 +88,4 @@ public class ComponentVisitor implements ElementVisitor<Iterable<Component>> {
         return container.accept(this);
     }
 
-    private <T> Iterable<T> flatten(Iterable<? extends Iterable<? extends T>> iterables) {
-        return concat(iterables);
-    }
 }

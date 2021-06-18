@@ -8,9 +8,9 @@ public class UiDesignerPropertiesBuilder {
 
     private boolean experimental = false;
 
-    private UiDesignerProperties.BonitaProperties bonita = new UiDesignerProperties.BonitaProperties();
-    private WorkspaceProperties workspace = new WorkspaceProperties();
-    private WorkspaceUidProperties workspaceUid = new WorkspaceUidProperties();
+    private final UiDesignerProperties.BonitaProperties bonita = new UiDesignerProperties.BonitaProperties();
+    private final WorkspaceProperties workspace = new WorkspaceProperties();
+    private final WorkspaceUidProperties workspaceUid = new WorkspaceUidProperties();
 
     private String widgetsFolderName = "widgets";
     private String fragmentsFolderName = "fragments";

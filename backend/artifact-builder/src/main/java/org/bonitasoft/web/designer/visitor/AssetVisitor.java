@@ -14,11 +14,9 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import com.google.common.collect.Collections2;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -37,6 +35,9 @@ import java.util.List;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
+import static org.bonitasoft.web.designer.model.asset.AssetScope.PAGE;
+import static org.bonitasoft.web.designer.model.asset.AssetScope.WIDGET;
 
 public class AssetVisitor implements ElementVisitor<Set<Asset>> {
 
@@ -91,7 +92,7 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
         //Component id and scope are not persisted
         for (var asset : widget.getAssets()) {
             asset.setComponentId(widget.getId());
-            asset.setScope(AssetScope.WIDGET);
+            asset.setScope(WIDGET);
         }
         return widget.getAssets();
     }
@@ -99,7 +100,7 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
     public Set<Asset> visit(Widget widget) {
         //Scope is not persisted
         for (var asset : widget.getAssets()) {
-            asset.setScope(AssetScope.WIDGET);
+            asset.setScope(WIDGET);
         }
         return widget.getAssets();
     }
@@ -116,7 +117,7 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
         var widget = widgetRepository.get(id);
         return widget.getAssets().stream().map(asset -> {
             asset.setComponentId(widget.getId());
-            asset.setScope(AssetScope.WIDGET);
+            asset.setScope(WIDGET);
             return asset;
         }).collect(toList());
     }
@@ -127,7 +128,7 @@ public class AssetVisitor implements ElementVisitor<Set<Asset>> {
 
         if (previewable instanceof Assetable) {
             var pageAssets = ((Assetable) previewable).getAssets();
-            assets.addAll(Collections2.transform(pageAssets, asset -> asset.setScope(AssetScope.PAGE)));
+            assets.addAll(pageAssets.stream().map(asset -> asset.setScope(PAGE)).collect(toSet()));
             assets.addAll(visitRows(previewable.getRows()));
 
             //User can exclude assets or specify a specific order in the page

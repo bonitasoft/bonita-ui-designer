@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.model.page;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.google.common.collect.FluentIterable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -132,7 +131,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
     }
 
     public boolean hasAsset(final AssetType type, final String name) {
-        return FluentIterable.from(assets).anyMatch(asset -> CSS.equals(type) && asset.getName().equals(name));
+        return assets.stream().anyMatch(asset -> CSS.equals(type) && asset.getName().equals(name));
     }
 
     @Deprecated

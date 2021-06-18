@@ -25,7 +25,7 @@ public class ConstantPropertyValuePredicateTest {
     public void should_return_true_when_the_property_value_matches() throws Exception {
         ConstantPropertyValuePredicate predicate = new ConstantPropertyValuePredicate("bar");
 
-        assertThat(predicate.apply(aComponent()
+        assertThat(predicate.test(aComponent()
                 .withPropertyValue("foo", "constant", "bar")
                 .build())).isTrue();
     }
@@ -34,7 +34,7 @@ public class ConstantPropertyValuePredicateTest {
     public void should_return_false_when_property_value_do_not_match() throws Exception {
         ConstantPropertyValuePredicate predicate = new ConstantPropertyValuePredicate("qux");
 
-        assertThat(predicate.apply(aComponent()
+        assertThat(predicate.test(aComponent()
                 .withPropertyValue("foo", "constant", "bar")
                 .build())).isFalse();
     }
@@ -43,7 +43,7 @@ public class ConstantPropertyValuePredicateTest {
     public void should_return_false_when_property_value_is_not_a_constant() throws Exception {
         ConstantPropertyValuePredicate predicate = new ConstantPropertyValuePredicate("bar");
 
-        assertThat(predicate.apply(aComponent()
+        assertThat(predicate.test(aComponent()
                 .withPropertyValue("foo", "whatever", "bar")
                 .build())).isFalse();
     }

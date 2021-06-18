@@ -29,6 +29,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -83,7 +84,8 @@ public class VariableModelVisitorTest {
 
         assertThat(variableModelVisitor.generate(page)).isEqualTo(new TemplateEngine("factory.hbs.js")
                 .with("name", "variableModel")
-                .with("resources", singletonMap("page-id", singletonMap("foo", variable))).build(this));
+                .with("resources", new TreeMap<>(singletonMap("page-id", singletonMap("foo", variable))) )
+                .build(this));
     }
 
     @Test
@@ -160,7 +162,7 @@ public class VariableModelVisitorTest {
 
         assertThat(factory).isEqualTo(new TemplateEngine("factory.hbs.js")
                 .with("name", "variableModel")
-                .with("resources", variableModel)
+                .with("resources", new TreeMap<>(variableModel))
                 .build(this));
     }
 }

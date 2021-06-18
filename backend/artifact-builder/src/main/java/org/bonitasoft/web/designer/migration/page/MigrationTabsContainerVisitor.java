@@ -17,7 +17,6 @@ package org.bonitasoft.web.designer.migration.page;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.model.page.FormContainer;
 import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.ModalContainer;
@@ -28,15 +27,14 @@ import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.visitor.ElementVisitor;
 
-import static com.google.common.collect.Iterables.concat;
+import java.util.Collection;
 
 public class MigrationTabsContainerVisitor implements ElementVisitor<Void> {
 
     @Override
     public Void visit(Container container) {
-        for (Element element : concat(container.getRows())) {
-            element.accept(this);
-        }
+        container.getRows().stream().flatMap(Collection::stream)
+                .forEach(element -> element.accept(this));
         return null;
     }
 
@@ -82,15 +80,14 @@ public class MigrationTabsContainerVisitor implements ElementVisitor<Void> {
 
     @Override
     public <P extends Previewable & Identifiable> Void visit(P previewable) {
-        for (Element element : concat(previewable.getRows())) {
-            element.accept(this);
-        }
+        previewable.getRows().stream().flatMap(Collection::stream)
+                .forEach(element -> element.accept(this));
         return null;
     }
 
     private void createPropertyValue(Component component, String propertyName, BondType bondType, Object defaultValue) {
         if (!component.getPropertyValues().containsKey(propertyName)) {
-            PropertyValue newPropertyValue = new PropertyValue();
+            var newPropertyValue = new PropertyValue();
             newPropertyValue.setType(bondType.toJson());
             newPropertyValue.setValue(defaultValue);
             component.getPropertyValues().put(propertyName, newPropertyValue);

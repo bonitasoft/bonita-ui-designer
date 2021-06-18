@@ -37,7 +37,7 @@ public class BonitaVariableResourcePredicateTest {
         variable.setType(URL);
         variable.setDisplayValue("matches");
 
-        assertThat(predicate.apply(variable)).isTrue();
+        assertThat(predicate.test(variable)).isTrue();
     }
 
     @Test
@@ -45,7 +45,7 @@ public class BonitaVariableResourcePredicateTest {
         variable.setType(URL);
         variable.setDisplayValue("do not match");
 
-        assertThat(predicate.apply(variable)).isFalse();
+        assertThat(predicate.test(variable)).isFalse();
     }
 
     @Test
@@ -53,7 +53,7 @@ public class BonitaVariableResourcePredicateTest {
         variable.setType(CONSTANT);
         variable.setDisplayValue("matches");
 
-        assertThat(predicate.apply(variable)).isFalse();
+        assertThat(predicate.test(variable)).isFalse();
     }
 
     @Test
@@ -61,7 +61,7 @@ public class BonitaVariableResourcePredicateTest {
         variable.setType(EXPRESSION);
         variable.setDisplayValue("matches");
 
-        assertThat(predicate.apply(variable)).isFalse();
+        assertThat(predicate.test(variable)).isFalse();
     }
 
     @Test
@@ -69,6 +69,6 @@ public class BonitaVariableResourcePredicateTest {
         variable.setType(JSON);
         variable.setDisplayValue("matches");
 
-        assertThat(predicate.apply(variable)).isFalse();
+        assertThat(predicate.test(variable)).isFalse();
     }
 }

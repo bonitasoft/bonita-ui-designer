@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
+
+import org.bonitasoft.web.designer.StreamUtils;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
@@ -24,15 +26,18 @@ import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
+import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
+import static java.util.stream.Stream.of;
 
 /**
  * A visitor
  */
 public class AnyLocalContainerVisitor implements ElementVisitor<Iterable<Element>> {
+
 
     @Override
     public Iterable<Element> visit(FragmentElement fragmentElement) {
@@ -43,29 +48,50 @@ public class AnyLocalContainerVisitor implements ElementVisitor<Iterable<Element
     @Override
     public Iterable<Element> visit(Container container) {
         // transform a list of list of elements into a list of components by visiting element contents
-        return concat(singletonList(container), traverse(concat(container.getRows())));
+        return Stream.concat(
+                of(container),
+                traverse(container.getRows().stream().flatMap(Collection::stream))
+        ).collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Element> visit(FormContainer formContainer) {
-        return concat(singletonList(formContainer), formContainer.getContainer().accept(this));
+        return Stream.concat(
+                of(formContainer),
+                of(formContainer.getContainer())
+                        .map(container -> container.accept(this))
+                        .flatMap(StreamUtils::toStream)
+        ).collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Element> visit(TabsContainer tabsContainer) {
-        return concat(
-                singletonList(tabsContainer),
-                concat(transform(tabsContainer.getTabList(), tabContainer -> tabContainer.accept(AnyLocalContainerVisitor.this))));
+        return Stream.concat(
+                of(tabsContainer),
+                tabsContainer.getTabList().stream()
+                        .map(tabContainer -> tabContainer.accept(this))
+                        .flatMap(StreamUtils::toStream)
+        ).collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Element> visit(TabContainer tabContainer) {
-        return concat(singletonList(tabContainer), tabContainer.getContainer().accept(this));
+        return Stream.concat(
+                of(tabContainer),
+                of(tabContainer.getContainer())
+                        .map(container -> container.accept(this))
+                        .flatMap(StreamUtils::toStream)
+        ).collect(Collectors.toList());
     }
 
     @Override
     public Iterable<Element> visit(ModalContainer modalContainer) {
-        return concat(singletonList(modalContainer), modalContainer.getContainer().accept(this));
+        return Stream.concat(
+                of(modalContainer),
+                of(modalContainer.getContainer())
+                        .map(container -> container.accept(this))
+                        .flatMap(StreamUtils::toStream)
+        ).collect(Collectors.toList());
     }
 
     @Override
@@ -75,10 +101,14 @@ public class AnyLocalContainerVisitor implements ElementVisitor<Iterable<Element
 
     @Override
     public Iterable<Element> visit(Previewable previewable) {
-        return traverse(concat(previewable.getRows()));
+        return traverse(
+                previewable.getRows().stream().flatMap(Collection::stream)
+        ).collect(Collectors.toList());
     }
 
-    private Iterable<Element> traverse(Iterable<Element> elements) {
-        return concat(transform(elements, element -> element.accept(AnyLocalContainerVisitor.this)));
+    private Stream<Element> traverse(Stream<Element> elements) {
+        return elements
+                .map(element -> element.accept(this))
+                .flatMap(StreamUtils::toStream);
     }
 }

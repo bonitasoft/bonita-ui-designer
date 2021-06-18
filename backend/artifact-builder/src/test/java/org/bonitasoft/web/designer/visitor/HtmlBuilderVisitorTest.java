@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import com.google.common.collect.Sets;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.builder.ModalContainerBuilder;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -47,9 +46,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import static com.google.common.collect.Sets.newHashSet;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
@@ -293,7 +293,7 @@ public class HtmlBuilderVisitorTest {
         when(pageFactory.generate(page)).thenReturn("var baz = \"qux\";");
         when(directivesCollector.buildUniqueDirectivesFiles(page, page.getId())).thenReturn(Arrays.asList
                 ("assets/widgets-f8b2ef17808cccb95dbf0973e7745cd53c29c684.js"));
-        when(assetVisitor.visit(page)).thenReturn(Sets.newHashSet(assetRelative, assetJquery, assetLocal));
+        when(assetVisitor.visit(page)).thenReturn(Set.of(assetRelative, assetJquery, assetLocal));
 
         String html = visitor.build(page, "mycontext/");
 
@@ -371,7 +371,7 @@ public class HtmlBuilderVisitorTest {
     @Test
     public void should_add_extra_modules_when_widgets_needs_them() throws Exception {
         Page page = aPage().build();
-        when(requiredModulesVisitor.visit(page)).thenReturn(newHashSet("needed.module"));
+        when(requiredModulesVisitor.visit(page)).thenReturn(Set.of("needed.module"));
 
         String html = visitor.build(page, "");
 
@@ -395,7 +395,7 @@ public class HtmlBuilderVisitorTest {
         Page page = aPage().build();
 
         when(assetVisitor.visit(page)).thenReturn(
-                Sets.newHashSet(
+                Set.of(
                         //A css file in the page
                         new Asset().setName("myfile.css").setType(AssetType.CSS),
                         new Asset().setName("http://moncdn/myfile.css").setExternal(true).setType(AssetType.CSS),
@@ -426,7 +426,7 @@ public class HtmlBuilderVisitorTest {
         Page page = aPage().build();
 
         when(assetVisitor.visit(page)).thenReturn(
-                Sets.newHashSet(
+                Set.of(
                         //Widgets assets
                         new Asset().setName("myfile3.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
                         new Asset().setName("myfile2.js").setOrder(2).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
@@ -454,14 +454,15 @@ public class HtmlBuilderVisitorTest {
     public void should_import_asset_only_once_for_each_widget() throws Exception {
         Page page = aPage().build();
 
-        when(assetVisitor.visit(page)).thenReturn(
-                Sets.newHashSet(
-                        new Asset().setName("myfile5.js").setOrder(0).setType(AssetType.JAVASCRIPT),
-                        new Asset().setName("myfile2.js").setOrder(1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
-                        new Asset().setName("myfile3.js").setOrder(2).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
-                        new Asset().setName("myfile1.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
-                        new Asset().setName("myfile3.js").setOrder(4).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
-                        new Asset().setName("myfile2.js").setOrder(5).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id")));
+        var assets = new HashSet<Asset>();
+        assets.add(new Asset().setName("myfile5.js").setOrder(0).setType(AssetType.JAVASCRIPT));
+        assets.add(new Asset().setName("myfile2.js").setOrder(1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"));
+        assets.add(new Asset().setName("myfile3.js").setOrder(2).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"));
+        assets.add(new Asset().setName("myfile1.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"));
+        assets.add(new Asset().setName("myfile3.js").setOrder(4).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"));
+        assets.add(new Asset().setName("myfile2.js").setOrder(5).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"));
+
+        when(assetVisitor.visit(page)).thenReturn(assets);
 
         String html = visitor.build(page, "mycontext/");
 
@@ -479,13 +480,14 @@ public class HtmlBuilderVisitorTest {
     public void should_import_asset_only_once_globally() throws Exception {
         Page page = aPage().build();
 
-        when(assetVisitor.visit(page)).thenReturn(
-                Sets.newHashSet(
-                        new Asset().setName("myfile1.js").setOrder(0).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"),
-                        new Asset().setName("myfile1.js").setOrder(1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("zidget-id"),
-                        new Asset().setName("myfile1.js").setOrder(2).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("gidget-id"),
-                        new Asset().setName("myfile1.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("vidget-id"),
-                        new Asset().setName("myfile1.js").setOrder(4).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("nidget-id")));
+        var assets = new HashSet<Asset>();
+        assets.add(new Asset().setName("myfile1.js").setOrder(0).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("widget-id"));
+        assets.add(new Asset().setName("myfile1.js").setOrder(1).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("zidget-id"));
+        assets.add(new Asset().setName("myfile1.js").setOrder(2).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("gidget-id"));
+        assets.add(new Asset().setName("myfile1.js").setOrder(3).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("vidget-id"));
+        assets.add(new Asset().setName("myfile1.js").setOrder(4).setType(AssetType.JAVASCRIPT).setScope(AssetScope.WIDGET).setComponentId("nidget-id"));
+
+        when(assetVisitor.visit(page)).thenReturn(assets);
 
         String html = visitor.build(page, "mycontext/");
 

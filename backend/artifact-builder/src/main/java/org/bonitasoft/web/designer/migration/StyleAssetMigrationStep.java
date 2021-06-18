@@ -14,8 +14,8 @@
  */
 package org.bonitasoft.web.designer.migration;
 
-import org.apache.commons.io.IOUtils;
 import org.bonitasoft.web.designer.ArtifactBuilderException;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Optional;
 
 import static java.lang.Integer.parseInt;
@@ -35,10 +36,12 @@ public class StyleAssetMigrationStep extends AbstractMigrationStep<Page> {
 
     private static final Logger logger = LoggerFactory.getLogger(StyleAssetMigrationStep.class);
 
-    private AssetService<Page> assetService;
+    private final AssetService<Page> assetService;
+    private final UiDesignerProperties uiDesignerProperties;
 
-    public StyleAssetMigrationStep(AssetService<Page> assetService) {
+    public StyleAssetMigrationStep(UiDesignerProperties uiDesignerProperties, AssetService<Page> assetService) {
         this.assetService = assetService;
+        this.uiDesignerProperties = uiDesignerProperties;
     }
 
     @Override
@@ -68,10 +71,11 @@ public class StyleAssetMigrationStep extends AbstractMigrationStep<Page> {
     }
 
     public byte[] getContent() {
-        try (var is = this.getClass().getClassLoader().getResourceAsStream("templates/page/assets/css/style.css")) {
-            return IOUtils.toByteArray(is);
+        var defaultStyleFile = "templates/page/assets/css/style.css";
+        try {
+            return Files.readAllBytes(uiDesignerProperties.getWorkspaceUid().getExtractPath().resolve(defaultStyleFile));
         } catch (IOException e) {
-            throw new ArtifactBuilderException("Missing templates/page/assets/css/style.css from classpath", e);
+            throw new ArtifactBuilderException("Missing " + defaultStyleFile + " from classpath", e);
         }
     }
 }

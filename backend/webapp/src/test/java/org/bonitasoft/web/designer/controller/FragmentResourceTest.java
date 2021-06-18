@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.ComponentBuilder;
 import org.bonitasoft.web.designer.model.JsonHandler;
@@ -42,6 +41,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Set;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.util.Arrays.asList;
@@ -204,7 +205,7 @@ public class FragmentResourceTest {
         Fragment fragment2 = aFragment().withId("fragment2").withName("fragment2").build();
 
         when(fragmentService.getAllNotUsingFragment(null)).thenReturn(asList(fragment1, fragment2));
-        when(fragmentService.listAsset(fragment1)).thenReturn(Sets.newHashSet(anAsset().withId("myAsset").build()));
+        when(fragmentService.listAsset(fragment1)).thenReturn(Set.of(anAsset().withId("myAsset").build()));
 
         mockMvc.perform(get("/rest/fragments"))
                 .andExpect(status().isOk())
@@ -299,7 +300,7 @@ public class FragmentResourceTest {
         Fragment fragment1 = aFragment().withId("fragment1").build();
 
         when(fragmentService.get(fragment1.getId())).thenReturn(fragment1);
-        when(fragmentService.listAsset(fragment1)).thenReturn(Sets.newHashSet(anAsset().withId("myAsset").build()));
+        when(fragmentService.listAsset(fragment1)).thenReturn(Set.of(anAsset().withId("myAsset").build()));
 
         mockMvc
                 .perform(get("/rest/fragments/fragment1"))

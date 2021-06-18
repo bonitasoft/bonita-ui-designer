@@ -14,8 +14,10 @@
  */
 package org.bonitasoft.web.designer.controller.export.properties;
 
-import com.google.common.base.Function;
+
 import org.bonitasoft.web.designer.model.data.Variable;
+
+import java.util.function.Function;
 
 public class BonitaResourceTransformer implements Function<Variable, String> {
 

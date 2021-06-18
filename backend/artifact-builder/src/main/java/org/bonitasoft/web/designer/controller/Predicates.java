@@ -15,9 +15,8 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import com.google.common.base.Predicate;
-
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import static org.springframework.beans.BeanUtils.getPropertyDescriptor;
 

@@ -33,6 +33,7 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static java.util.Collections.emptyMap;
 
@@ -104,9 +105,10 @@ public class VariableModelVisitor implements ElementVisitor<Map<String, Map<Stri
     }
 
     public <P extends Previewable & Identifiable> String generate(P previewable) {
+        var resources = this.visit(previewable);
         return new TemplateEngine("factory.hbs.js")
                 .with("name", "variableModel")
-                .with("resources", this.visit(previewable))
+                .with("resources", resources == null ? resources : new TreeMap<>(resources))
                 .build(this);
     }
 }

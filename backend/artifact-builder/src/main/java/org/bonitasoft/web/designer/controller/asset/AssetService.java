@@ -14,9 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Ordering;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetDependencyImporter;
 import org.bonitasoft.web.designer.model.Assetable;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -32,12 +29,13 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.function.Predicate;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.String.format;
 import static java.nio.file.Files.exists;
 import static java.util.UUID.randomUUID;
+import static java.util.stream.Collectors.toList;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class AssetService<T extends Assetable> {
@@ -67,8 +65,7 @@ public class AssetService<T extends Assetable> {
     }
 
     private void deleteComponentAsset(T component, Predicate<Asset> assetPredicate) {
-        try {
-            var existingAsset = Iterables.find(component.getAssets(), assetPredicate);
+        component.getAssets().stream().filter(assetPredicate).findFirst().ifPresent(existingAsset -> {
             if (!existingAsset.isExternal()) {
                 try {
                     existingAsset.setComponentId(component.getId());
@@ -78,17 +75,19 @@ public class AssetService<T extends Assetable> {
                 }
             }
             component.getAssets().remove(existingAsset);
-        } catch (NoSuchElementException e) {
-            //For a creation component does not contain the asset
-        }
+        });
     }
 
     /**
      * Save an external asset
      */
     public Asset save(T component, final Asset asset) {
-        checkArgument(isNotEmpty(asset.getName()), ASSET_URL_IS_REQUIRED);
-        checkArgument(asset.getType() != null, ASSET_TYPE_IS_REQUIRED);
+        if (isEmpty(asset.getName())) {
+            throw new IllegalArgumentException(ASSET_URL_IS_REQUIRED);
+        }
+        if (asset.getType() == null) {
+            throw new IllegalArgumentException(ASSET_TYPE_IS_REQUIRED);
+        }
 
         if (asset.getId() != null) {
             //We find the existing asset and change the name and the type
@@ -163,7 +162,7 @@ public class AssetService<T extends Assetable> {
         checkArgument(isNotEmpty(assetId), ASSET_ID_IS_REQUIRED);
 
         //In need an ordered list
-        var assets = Ordering.from(Asset.getComparatorByOrder()).sortedCopy(component.getAssets());
+        var assets = component.getAssets().stream().sorted(Asset.getComparatorByOrder()).collect(toList());
 
         Asset previous = null;
         Asset actual = null;
@@ -217,6 +216,12 @@ public class AssetService<T extends Assetable> {
                 previewable.getInactiveAssets().add(assetId);
                 repository.updateLastUpdateAndSave(component);
             }
+        }
+    }
+
+    private void checkArgument(boolean expression, String errorMessage) {
+        if (!expression) {
+            throw new IllegalArgumentException(errorMessage);
         }
     }
 

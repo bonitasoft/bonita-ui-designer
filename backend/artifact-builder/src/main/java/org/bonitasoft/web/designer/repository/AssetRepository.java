@@ -30,18 +30,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.collect.Iterables.concat;
-import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newHashSet;
 import static java.lang.String.format;
 import static java.nio.file.Files.*;
-import static java.util.Collections.emptyList;
+import static java.util.Arrays.stream;
+import static java.util.Objects.requireNonNull;
 
 /**
  * This Persister is used to attach assets to a component. Each of them are serialized in the same directory
@@ -89,7 +88,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      * Add a file asset to a component
      */
     public void save(Asset asset, byte[] content) throws IOException {
-        checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
+        requireNonNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
         var parent = resolveComponentPath(asset.getComponentId());
         if (!exists(parent.resolve(ASSETS).resolve(asset.getType().getPrefix()))) {
             createDirectories(parent.resolve(ASSETS).resolve(asset.getType().getPrefix()));
@@ -117,7 +116,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      * Remove an asset
      */
     public void delete(Asset asset) throws IOException {
-        checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
+        requireNonNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
         Files.delete(resolveExistingAssetPath(asset));
     }
 
@@ -125,7 +124,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      * Read resource content
      */
     public byte[] readAllBytes(Asset asset) throws IOException {
-        checkNotNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
+        requireNonNull(asset.getComponentId(), COMPONENT_ID_REQUIRED);
         return Files.readAllBytes(resolveExistingAssetPath(asset));
     }
 
@@ -133,7 +132,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      * Read resource content
      */
     public byte[] readAllBytes(String componentId, Asset asset) throws IOException {
-        checkNotNull(componentId, COMPONENT_ID_REQUIRED);
+        requireNonNull(componentId, COMPONENT_ID_REQUIRED);
         return Files.readAllBytes(resolveExistingAssetPath(componentId, asset));
     }
 
@@ -143,8 +142,8 @@ public class AssetRepository<T extends Identifiable & Assetable> {
      * @throws NotFoundException when component not exists
      */
     public Path findAssetPath(String componentId, final String filename, final AssetType assetType) {
-        checkNotNull(filename, "Filename is required");
-        checkNotNull(assetType, format("Asset type is required (filename: %s)", filename));
+        requireNonNull(filename, "Filename is required");
+        requireNonNull(assetType, format("Asset type is required (filename: %s)", filename));
 
         var component = repository.get(componentId);
         var existingAsset = component.getAssets().stream()
@@ -187,12 +186,13 @@ public class AssetRepository<T extends Identifiable & Assetable> {
         List<Asset> objects = new ArrayList<>();
 
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directory)) {
+            var componentId = component instanceof Widget ? component.getId() : null;
             for (Path path : directoryStream) {
                 objects.add(new Asset()
                         .setName(path.getFileName().toString())
                         .setType(type)
                         .setScope(AssetScope.forComponent(component))
-                        .setComponentId(component instanceof Widget ? component.getId() : null)
+                        .setComponentId(componentId)
                         .setId(UUID.randomUUID().toString()));
             }
         }
@@ -201,8 +201,7 @@ public class AssetRepository<T extends Identifiable & Assetable> {
     }
 
     public void refreshAssets(final T component) {
-
-        component.addAssets(newHashSet(concat(transform(newArrayList(AssetType.values()), type -> {
+        var assets = stream(AssetType.values()).map(type -> {
             try {
                 var assetTypePath = repository.resolvePath(component.getId()).resolve(Paths.get(ASSETS, type.getPrefix()));
                 if (exists(assetTypePath)) {
@@ -211,8 +210,10 @@ public class AssetRepository<T extends Identifiable & Assetable> {
             } catch (IOException e) {
                 throw new RepositoryException(format("Failed to initialized assets for %s %s", repository.getComponentName(), component.getId()), e);
             }
-            return emptyList();
-        }))));
+            return Collections.<Asset>emptyList();
+        }).flatMap(Collection::stream).collect(Collectors.toSet());
+
+        component.addAssets(assets);
         repository.updateLastUpdateAndSave(component);
     }
 }

@@ -41,8 +41,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-import static com.google.common.collect.Collections2.transform;
 import static java.lang.String.format;
+import static java.util.stream.Collectors.toList;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_REMOVAL;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
 import static org.bonitasoft.web.designer.controller.ResponseHeadersHelper.getMovedResourceResponse;
@@ -126,11 +126,11 @@ public class FragmentResource {
             json = jsonHandler.toJsonString(fragments, JsonViewLight.class);
         } else {
             json = jsonHandler.toJsonString(
-                    transform(fragments, fragment -> {
-                                fragment.setAssets(fragmentService.listAsset(fragment));
-                                return fragment;
-                            }
-                    ));
+                    fragments.stream().map(fragment -> {
+                        fragment.setAssets(fragmentService.listAsset(fragment));
+                        return fragment;
+                    }).collect(toList())
+            );
         }
         //In our case we don't know the view asked outside this method. So like we can't know which JsonView used, I
         //build the json manually but in the return I must specify the mime-type in the header

@@ -25,7 +25,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.TreeMap;
 
 import static java.util.Collections.singletonMap;
@@ -114,7 +113,7 @@ public class PagePropertiesBuilderTest {
 
     @Test
     public void should_add_relative_bonita_resource_found_in_page_data() throws Exception {
-        Map<String, Data> dataMap = new TreeMap<String, Data>();
+        var dataMap = new TreeMap<String, Data>();
         dataMap.put("foo", anApiData("../API/bpm/userTask?filter=mine"));
         dataMap.put("bar", anApiData("../API/identity/user/1"));
         dataMap.put("other", anApiData("../API/identity/group/1?param=value"));

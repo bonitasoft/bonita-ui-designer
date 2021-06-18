@@ -78,6 +78,7 @@ public class UiDesignerCoreFactory {
 
     /**
      * Use this method to create a UID core object holding references to core services
+     *
      * @return
      */
     public UiDesignerCore create() {
@@ -140,7 +141,7 @@ public class UiDesignerCoreFactory {
                 new Migration<>("1.0.2", new AssetIdMigrationStep<>()),
                 new Migration<>("1.0.3", new BondMigrationStep<>(componentVisitor, widgetRepository, new VisitorFactory())),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<>()),
-                new Migration<>("1.5.7", new StyleAssetMigrationStep(pageAssetService)),
+                new Migration<>("1.5.7", new StyleAssetMigrationStep(uiDesignerProperties, pageAssetService)),
                 new Migration<>("1.5.10", new UIBootstrapAssetMigrationStep(pageAssetService, componentVisitor, widgetRepository)),
                 new Migration<>("1.7.4", new TextWidgetInterpretHTMLMigrationStep<>(componentVisitor)),
                 new Migration<>("1.7.25", new PageUUIDMigrationStep()),
@@ -263,6 +264,7 @@ public class UiDesignerCoreFactory {
 
     /**
      * Factory method for a Watcher
+     *
      * @param monitor
      * @return
      */
@@ -272,6 +274,7 @@ public class UiDesignerCoreFactory {
 
     /**
      * Factory method for a page Asset Repository
+     *
      * @param pageRepository
      * @return
      */
@@ -281,6 +284,7 @@ public class UiDesignerCoreFactory {
 
     /**
      * Factory method for a Page Repository
+     *
      * @param watcher
      * @return
      */
@@ -296,6 +300,7 @@ public class UiDesignerCoreFactory {
 
     /**
      * Factory method for a Fragment Repository
+     *
      * @param watcher
      * @return
      */
@@ -311,6 +316,7 @@ public class UiDesignerCoreFactory {
 
     /**
      * Factory method for a widget Asset Repository
+     *
      * @param widgetRepository
      * @return
      */
@@ -320,6 +326,7 @@ public class UiDesignerCoreFactory {
 
     /**
      * Factory method for a Widget Repository
+     *
      * @param watcher
      * @return
      */

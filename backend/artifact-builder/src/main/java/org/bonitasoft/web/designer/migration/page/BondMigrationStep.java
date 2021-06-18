@@ -15,7 +15,6 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
-import com.google.common.collect.ImmutableMap;
 import org.bonitasoft.web.designer.migration.MigrationStep;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
@@ -33,20 +32,19 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
-
 public class BondMigrationStep<T extends AbstractPage> implements MigrationStep<T> {
 
     private static final Logger logger = LoggerFactory.getLogger(BondMigrationStep.class);
-    private ComponentVisitor componentVisitor;
-    private WidgetRepository widgetRepository;
-    private VisitorFactory visitorFactory;
+    private final ComponentVisitor componentVisitor;
+    private final WidgetRepository widgetRepository;
+    private final VisitorFactory visitorFactory;
 
-    private Map<BondType, BondMigrationStrategy> migrationStrategies = ImmutableMap.<BondType, BondMigrationStrategy>builder()
-            .put(BondType.CONSTANT, new ConstantBondMigrationStrategy())
-            .put(BondType.INTERPOLATION, new InterpolationBondMigrationStrategy())
-            .put(BondType.EXPRESSION, new ExpressionBondMigrationStrategy())
-            .put(BondType.VARIABLE, new VariableBondMigrationStrategy())
-            .build();
+    private final Map<BondType, BondMigrationStrategy> migrationStrategies = Map.of(
+            BondType.CONSTANT, new ConstantBondMigrationStrategy(),
+            BondType.INTERPOLATION, new InterpolationBondMigrationStrategy(),
+            BondType.EXPRESSION, new ExpressionBondMigrationStrategy(),
+            BondType.VARIABLE, new VariableBondMigrationStrategy()
+    );
 
     public BondMigrationStep(ComponentVisitor componentVisitor, WidgetRepository widgetRepository, VisitorFactory visitorFactory) {
         this.componentVisitor = componentVisitor;
@@ -55,7 +53,7 @@ public class BondMigrationStep<T extends AbstractPage> implements MigrationStep<
     }
 
     @Override
-    public Optional<MigrationStepReport> migrate(AbstractPage page)  {
+    public Optional<MigrationStepReport> migrate(AbstractPage page) {
         for (Component component : page.accept(componentVisitor)) {
             var widget = widgetRepository.get(component.getId());
             for (var entry : component.getPropertyValues().entrySet()) {

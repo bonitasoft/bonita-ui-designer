@@ -12,7 +12,7 @@ import org.bonitasoft.web.designer.repository.Repository;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 public abstract class AbstractAssetableArtifactService<R extends Repository<T>, T extends Identifiable & Assetable> extends AbstractArtifactService<R, T> implements AssetableArtifactService<T> {
 
@@ -73,6 +73,6 @@ public abstract class AbstractAssetableArtifactService<R extends Repository<T>, 
     }
 
     protected void checkUpdatable(String id) {
-        checkNotNull(id);
+        requireNonNull(id, "id is null");
     }
 }

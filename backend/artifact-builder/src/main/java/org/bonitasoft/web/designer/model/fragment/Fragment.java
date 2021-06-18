@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.model.fragment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.google.common.collect.Maps;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.data.Variable;
@@ -27,6 +26,7 @@ import org.bonitasoft.web.designer.model.page.FragmentElement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
@@ -69,7 +69,8 @@ public class Fragment extends AbstractPage {
 
     @JsonIgnore
     public Map<String, Variable> getExposedVariables() {
-        return Maps.filterValues(getVariables(), Variable::isExposed);
+        return getVariables().entrySet().stream().filter(entry -> entry.getValue().isExposed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public Container toContainer(FragmentElement fragmentElement) {

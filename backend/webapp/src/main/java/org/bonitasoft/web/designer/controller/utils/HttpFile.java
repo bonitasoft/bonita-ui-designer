@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.utils;
 
-import com.google.common.base.Preconditions;
 import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +33,7 @@ public final class HttpFile {
     }
 
     public static void writeFileInResponseForVisualization(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
-        if (!isExistingFilePath(filePath)) {
+        if (notPathExists(filePath)) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
@@ -46,7 +45,7 @@ public final class HttpFile {
     }
 
     public static void writeFileInResponseForDownload(HttpServletResponse response, Path filePath) throws IOException {
-        if (!isExistingFilePath(filePath)) {
+        if (notPathExists(filePath)) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
@@ -54,7 +53,7 @@ public final class HttpFile {
     }
 
     public static void writeFileInResponse(HttpServletRequest request, HttpServletResponse response, Path filePath) throws IOException {
-        if (!isExistingFilePath(filePath)) {
+        if (notPathExists(filePath)) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
@@ -82,7 +81,10 @@ public final class HttpFile {
      * This method helps to fix a bug on IE when the browser send the full path of the file in the filename
      */
     public static String getOriginalFilename(String filename) {
-        Preconditions.checkNotNull(filename, "File name is required");
+        if (filename == null) {
+            throw new NullPointerException("File name is required");
+        }
+
         // check for Unix-style path
         int pos = filename.lastIndexOf("/");
         if (pos == -1) {
@@ -98,8 +100,8 @@ public final class HttpFile {
         }
     }
 
-    private static boolean isExistingFilePath(Path filePath) {
-        return filePath != null && exists(filePath);
+    private static boolean notPathExists(Path filePath) {
+        return filePath == null || !exists(filePath);
     }
 
 }

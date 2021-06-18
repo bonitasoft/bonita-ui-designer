@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import com.google.common.collect.ImmutableMap;
 import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
@@ -35,11 +34,10 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
-import static com.google.common.collect.Maps.filterKeys;
-import static com.google.common.collect.Maps.transformEntries;
 import static java.util.Collections.emptyMap;
-import static java.util.Collections.singletonMap;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect all the data used in a page
@@ -97,9 +95,11 @@ public class ModelPropertiesVisitor implements ElementVisitor<Map<String, Map<St
     }
 
     public <P extends Previewable & Identifiable> String generate(P previewable) {
+
+        var resources = this.visit(previewable);
         return new TemplateEngine("factory.hbs.js")
                 .with("name", "modelProperties")
-                .with("resources", this.visit(previewable))
+                .with("resources", resources == null ? resources : new TreeMap<>(resources))
                 .build(this);
     }
 
@@ -107,20 +107,20 @@ public class ModelPropertiesVisitor implements ElementVisitor<Map<String, Map<St
     public Map<String, Map<String, PropertyValue>> visit(FragmentElement fragmentElement) {
         try {
             var fragment = fragmentRepository.get(fragmentElement.getId());
-            return ImmutableMap.<String, Map<String, PropertyValue>>builder()
-                    .putAll(singletonMap(fragmentElement.getReference(), getBindings(fragmentElement, fragment)))
-                    .putAll(fragment.toContainer(fragmentElement).accept(this))
-                    .build();
+            var props = new HashMap<String, Map<String, PropertyValue>>();
+            props.putAll(Map.of(fragmentElement.getReference(), getBindings(fragmentElement, fragment)));
+            props.putAll(fragment.toContainer(fragmentElement).accept(this));
+            return Map.copyOf(props);
         } catch (RepositoryException | NotFoundException e) {
             throw new GenerationException("Error while generating model properties for fragment " + fragmentElement.getId(), e);
         }
     }
 
     private Map<String, PropertyValue> getBindings(FragmentElement fragmentElement, final Fragment fragment) {
-
         var exposedData = fragment.getExposedVariables();
-        var bindings = filterKeys(fragmentElement.getBinding(), exposedData::containsKey);
 
-        return transformEntries(bindings, new FragmentBindingValueTransformer());
+        return fragmentElement.getBinding().entrySet().stream()
+                .filter(entry -> exposedData.containsKey(entry.getKey()))
+                .collect(toMap(Map.Entry::getKey, new FragmentBindingValueTransformer()));
     }
 }

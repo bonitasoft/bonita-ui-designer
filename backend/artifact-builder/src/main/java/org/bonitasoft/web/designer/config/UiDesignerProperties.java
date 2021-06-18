@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.config;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bonitasoft.web.designer.Version;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data

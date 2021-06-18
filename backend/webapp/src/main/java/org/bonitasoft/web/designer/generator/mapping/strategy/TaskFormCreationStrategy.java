@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.strategy;
 
-import com.google.common.base.Strings;
 import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
 import org.bonitasoft.web.designer.generator.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.generator.mapping.ContractToContainerMapper;
@@ -52,6 +51,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import static java.lang.String.format;
+import static org.springframework.util.StringUtils.hasText;
 
 public class TaskFormCreationStrategy implements PageCreationStrategy {
 
@@ -97,7 +97,7 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
                 .map(NodeContractInput.class::cast)
                 .filter(input -> input.getMode() == EditMode.EDIT)
                 .filter(input -> input.getDataReference() != null)
-                .filter(input -> !Strings.isNullOrEmpty(input.getDataReference().getName()))
+                .filter(input -> hasText(input.getDataReference().getName()))
                 .flatMap(input -> input.getInput().stream())
                 .filter(NodeContractInput.class::isInstance)
                 .map(NodeContractInput.class::cast)
@@ -126,7 +126,7 @@ public class TaskFormCreationStrategy implements PageCreationStrategy {
                 .map(NodeContractInput::getDataReference)
                 .filter(Objects::nonNull)
                 .map(BusinessDataReference::getName)
-                .filter(data -> !Strings.isNullOrEmpty(data))
+                .filter(data -> hasText(data))
                 .distinct();
     }
 

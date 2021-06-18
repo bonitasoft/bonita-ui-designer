@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
@@ -34,6 +35,7 @@ import org.bonitasoft.web.designer.service.exception.IncompatibleException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -44,13 +46,11 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Maps.filterValues;
-import static com.google.common.collect.Sets.filter;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 import static org.springframework.util.StringUtils.hasText;
 
+@Slf4j
 public class DefaultPageService extends AbstractAssetableArtifactService<PageRepository, Page> implements PageService {
 
     public static final String BONITA_RESOURCE_REGEX = ".+/API/(?!extension)([^ /]*)/([^ /(?|{)]*)[\\S+]*";// matches ..... /API/{}/{}?...
@@ -72,13 +72,13 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
 
     @Override
     public Page get(String id) {
-        Page page = repository.get(id);
+        var page = repository.get(id);
         return migrate(page);
     }
 
     @Override
     public Page getWithAsset(String id) {
-        Page page = repository.get(id);
+        var page = repository.get(id);
         page = migrate(page);
         page.setAssets(assetVisitor.visit(page));
         return page;
@@ -94,7 +94,7 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
 
     @Override
     public Page create(Page page) {
-        final Page savedPage = doCreate(page);
+        final var savedPage = doCreate(page);
         // default assets
         assetService.loadDefaultAssets(page);
         return savedPage;
@@ -102,7 +102,7 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
 
     @Override
     public Page createFrom(String sourcePageId, Page page) {
-        final Page savedPage = doCreate(page);
+        final var savedPage = doCreate(page);
         // copy assets
         assetService.duplicateAsset(
                 repository.resolvePath(sourcePageId),
@@ -119,14 +119,14 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
         page.setId(pageId);
         // the page should not have an UUID. If it has one, we ignore it and generate one
         page.setUUID(UUID.randomUUID().toString());
-        page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
+        page.setAssets(page.getAssets().stream().filter(new PageAssetPredicate()).collect(toSet()));
         return repository.updateLastUpdateAndSave(page);
     }
 
     @Override
     public Page save(String pageId, Page page) {
         try {
-            Page existingPage = get(pageId);
+            var existingPage = get(pageId);
             if (!existingPage.isCompatible()) {
                 throw new IncompatibleException("Page " + existingPage.getId() + " is in an incompatible version. Newer UI Designer version is required.");
             }
@@ -146,8 +146,8 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
             page.setUUID(UUID.randomUUID().toString());
         }
 
-        page.setAssets(filter(page.getAssets(), new PageAssetPredicate()));
-        Page savedPage = repository.updateLastUpdateAndSave(page);
+        page.setAssets(page.getAssets().stream().filter(new PageAssetPredicate()).collect(toSet()));
+        var savedPage = repository.updateLastUpdateAndSave(page);
         if (!savedPage.getId().equals(pageId)) {
             assetService.duplicateAsset(repository.resolvePath(pageId), repository.resolvePath(pageId), pageId, savedPage.getId());
         }
@@ -176,20 +176,21 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
 
     @Override
     public List<String> getResources(Page page) {
-        List<String> resources = newArrayList(transform(
-                filterValues(page.getVariables(), new BonitaVariableResourcePredicate(BONITA_RESOURCE_REGEX)).values(),
-                new BonitaResourceTransformer(BONITA_RESOURCE_REGEX)));
+        List<String> resources = page.getVariables().values().stream()
+                .filter(new BonitaVariableResourcePredicate(BONITA_RESOURCE_REGEX))
+                .map(new BonitaResourceTransformer(BONITA_RESOURCE_REGEX))
+                .collect(toList());
 
-        List<String> extension = newArrayList(transform(
-                filterValues(page.getVariables(), new BonitaVariableResourcePredicate(EXTENSION_RESOURCE_REGEX))
-                        .values(),
-                new BonitaResourceTransformer(EXTENSION_RESOURCE_REGEX)));
+        List<String> extension = page.getVariables().values().stream()
+                .filter(new BonitaVariableResourcePredicate(EXTENSION_RESOURCE_REGEX))
+                .map(new BonitaResourceTransformer(EXTENSION_RESOURCE_REGEX))
+                .collect(Collectors.toList());
 
         resources.addAll(extension);
 
-        Iterable<Component> components = componentVisitor.visit(page);
+        var componentList = new ArrayList<Component>();
+        componentVisitor.visit(page).forEach(componentList::add);
 
-        List<Component> componentList = newArrayList(components);
         if (componentList.stream()
                 .anyMatch(withAction("Start process"))) {
             resources.add("POST|bpm/process");
@@ -205,7 +206,7 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
         resources.addAll(findResourcesIn(componentList.stream(), "apiUrl", "GET"));
         resources.addAll(findResourcesIn(componentList.stream().filter(withId("pbUpload")), "url", "POST"));
 
-        return resources.stream().distinct().collect(Collectors.toList());
+        return resources.stream().distinct().collect(toList());
     }
 
 
@@ -217,7 +218,7 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
                 .filter(notNullOrEmptyValue())
                 .map(toPageResource(httpVerb))
                 .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
+                .collect(toSet());
     }
 
     private Predicate<? super PropertyValue> notNullOrEmptyValue() {
@@ -267,8 +268,12 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
 
         MigrationResult<Page> migratedResult = pageMigrationApplyer.migrate(pageToMigrate);
         Page migratedPage = migratedResult.getArtifact();
+        // Error during adding modalContainer classes in asset, Missing templates/page/assets/css/style.css from classpath
         if (!migratedResult.getFinalStatus().equals(MigrationStatus.ERROR)) {
             repository.updateLastUpdateAndSave(migratedPage);
+        } else {
+            migratedResult.getMigrationStepReportList().stream().filter(report -> !MigrationStatus.SUCCESS.equals(report.getMigrationStatus()))
+                    .forEach(report -> log.error("{}: {} - {}", report.getMigrationStatus(), report.getStepInfo(), report.getComments()));
         }
         return migratedResult;
     }

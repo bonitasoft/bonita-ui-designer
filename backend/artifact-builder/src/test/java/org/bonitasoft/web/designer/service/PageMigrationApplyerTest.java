@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.service;
 
-import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.migration.Migration;

@@ -14,16 +14,18 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import com.google.common.collect.Maps;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 
-public class FragmentBindingValueTransformer implements Maps.EntryTransformer<String, String, PropertyValue> {
+import java.util.Map;
+import java.util.function.Function;
+
+public class FragmentBindingValueTransformer implements Function<Map.Entry<String, String>, PropertyValue> {
 
     @Override
-    public PropertyValue transformEntry(String name, String value) {
-        var propertyValue = new PropertyValue();
+    public PropertyValue apply(Map.Entry<String, String> entry) {
+        PropertyValue propertyValue = new PropertyValue();
         propertyValue.setType("variable");
-        propertyValue.setValue(value);
+        propertyValue.setValue(entry.getValue());
         return propertyValue;
     }
 }

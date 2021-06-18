@@ -14,8 +14,10 @@
  */
 package org.bonitasoft.web.designer.controller.export.properties;
 
-import com.google.common.base.Predicate;
+
 import org.bonitasoft.web.designer.model.data.Variable;
+
+import java.util.function.Predicate;
 
 import static java.lang.String.valueOf;
 import static org.bonitasoft.web.designer.model.data.DataType.URL;
@@ -29,7 +31,7 @@ public class BonitaVariableResourcePredicate implements Predicate<Variable> {
     }
 
     @Override
-    public boolean apply(Variable variable) {
+    public boolean test(Variable variable) {
         return variable != null
                 && URL.equals(variable.getType())
                 && variable.getValue() != null

@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.controller.asset;
 
 import com.fasterxml.jackson.core.JsonLocation;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.common.collect.ImmutableMap;
 
 import java.util.Map;
 
@@ -30,9 +29,9 @@ public class MalformedJsonException extends RuntimeException {
     }
 
     public Map<String, Integer> getLocationInfos() {
-        return ImmutableMap.<String, Integer>builder()
-                .put("column", location.getColumnNr())
-                .put("line", location.getLineNr())
-                .build();
+        return Map.of(
+                "column", location.getColumnNr(),
+                "line", location.getLineNr()
+        );
     }
 }

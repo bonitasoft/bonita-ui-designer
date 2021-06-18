@@ -15,7 +15,6 @@
 package org.bonitasoft.web.designer.model.asset;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.google.common.primitives.Ints;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -26,6 +25,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Comparator;
 
+import static java.util.Comparator.comparingInt;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 /**
@@ -64,7 +64,7 @@ public class Asset {
     private boolean external = false;
 
     public static Comparator<Asset> getComparatorByOrder() {
-        return (asset1, asset2) -> Ints.compare(asset1.getOrder(), asset2.getOrder());
+        return comparingInt(Asset::getOrder);
     }
 
     public static Comparator<Asset> getComparatorByComponentId() {

@@ -14,9 +14,10 @@
  */
 package org.bonitasoft.web.designer.controller.export.properties;
 
-import com.google.common.base.Predicate;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
+
+import java.util.function.Predicate;
 
 public class ConstantPropertyValuePredicate implements Predicate<Component> {
 
@@ -29,7 +30,7 @@ public class ConstantPropertyValuePredicate implements Predicate<Component> {
     }
 
     @Override
-    public boolean apply(Component component) {
+    public boolean test(Component component) {
         return component != null && component.getPropertyValues().containsValue(propertyValue);
     }
 }

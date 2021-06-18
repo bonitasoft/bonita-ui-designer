@@ -14,10 +14,11 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import com.google.common.collect.ImmutableSortedMap;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.Page;
+
+import java.util.Map;
 
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
@@ -32,7 +33,7 @@ public class PageWithFragmentBuilder {
     public static Page aPageWithFragmentElement() throws Exception {
         FragmentElement fragment = new FragmentElement();
         fragment.setId("a-fragment");
-        fragment.setDimension(ImmutableSortedMap.of("md", 8));
+        fragment.setDimension(Map.of("md", 8));
         Container fragmentContainer = aContainer().with(fragment).build();
 
         return aPage()

@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -28,12 +27,12 @@ import java.util.UUID;
 
 public class WidgetBuilder {
 
+    List<Property> properties = new ArrayList<>();
     private String id = UUID.randomUUID().toString();
     private String name = "aName";
     private boolean custom = false;
     private String template = "<h1>this is a template</h1>";
     private String controller;
-    List<Property> properties = new ArrayList<>();
     private AssetBuilder[] assetBuilders;
     private Instant lastUpdate;
     private Set<String> modules = new HashSet<>();
@@ -46,7 +45,11 @@ public class WidgetBuilder {
     private boolean favorite = false;
     private boolean hasHelp = false;
     private boolean isWidgetWc = false;
-    private MigrationStatusReport migrationStatusReport = new MigrationStatusReport(true,true);
+    private MigrationStatusReport migrationStatusReport = new MigrationStatusReport(true, true);
+
+    private WidgetBuilder(boolean isWidgetWc) {
+        this.isWidgetWc = isWidgetWc;
+    }
 
     public static WidgetBuilder aWidget() {
         return new WidgetBuilder(false);
@@ -54,10 +57,6 @@ public class WidgetBuilder {
 
     public static WidgetBuilder aWidgetWc() {
         return new WidgetBuilder(true);
-    }
-
-    private WidgetBuilder(boolean isWidgetWc) {
-        this.isWidgetWc = isWidgetWc;
     }
 
     public WidgetBuilder withId(String id) {
@@ -102,12 +101,12 @@ public class WidgetBuilder {
     }
 
     public WidgetBuilder modules(String... modules) {
-        this.modules = Sets.<String>newHashSet(modules);
+        this.modules = Set.of(modules);
         return this;
     }
 
     public WidgetBuilder authRules(String... rules) {
-        this.authRules = Sets.<String>newHashSet(rules);
+        this.authRules = Set.of(rules);
         return this;
     }
 
@@ -146,12 +145,12 @@ public class WidgetBuilder {
         return this;
     }
 
-    public WidgetBuilder type(String type){
+    public WidgetBuilder type(String type) {
         this.type = type;
         return this;
     }
 
-    public WidgetBuilder withMigrationStatusReport(MigrationStatusReport migrationStatusReport){
+    public WidgetBuilder withMigrationStatusReport(MigrationStatusReport migrationStatusReport) {
         this.migrationStatusReport = migrationStatusReport;
         return this;
     }
@@ -160,12 +159,12 @@ public class WidgetBuilder {
         return isWidgetWc;
     }
 
-    public WidgetBuilder isCompatible(boolean compatible){
+    public WidgetBuilder isCompatible(boolean compatible) {
         this.migrationStatusReport.setCompatible(compatible);
         return this;
     }
 
-    public WidgetBuilder isMigration(boolean migration){
+    public WidgetBuilder isMigration(boolean migration) {
         this.migrationStatusReport.setMigration(migration);
         return this;
     }

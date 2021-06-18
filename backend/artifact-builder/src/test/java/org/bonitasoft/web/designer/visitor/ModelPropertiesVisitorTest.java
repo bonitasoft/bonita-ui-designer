@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import org.bonitasoft.web.designer.builder.FragmentBuilder;
 import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
@@ -30,9 +28,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
-import static com.google.common.collect.ImmutableMap.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
@@ -71,12 +70,13 @@ public class ModelPropertiesVisitorTest {
 
         String generated = modelPropertiesVisitor.generate(page);
 
+        var resources = new TreeMap<String, Map<String, PropertyValue>>();
+        resources.put("address", createProperty("baz", "qux"));
+        resources.put("person", createProperty("foo", "bar"));
         assertThat(generated).isEqualTo(
                 new TemplateEngine("factory.hbs.js")
                         .with("name", "modelProperties")
-                        .with("resources", of(
-                                "person", createProperty("foo", "bar"),
-                                "address", createProperty("baz", "qux")))
+                        .with("resources", resources)
                         .build(this));
 
     }
@@ -101,8 +101,8 @@ public class ModelPropertiesVisitorTest {
 
         Map<String, Map<String, PropertyValue>> bindings = modelPropertiesVisitor.visit(page);
 
-        assertThat(bindings).contains(entry("person", emptyMap()));
-        assertThat(bindings).contains(entry("address", emptyMap()));
+        assertThat(bindings).contains(entry("person", new HashMap<>()));
+        assertThat(bindings).contains(entry("address", new HashMap<>()));
 
     }
 
@@ -123,13 +123,9 @@ public class ModelPropertiesVisitorTest {
         when(fragmentRepository.get(fragment.getId())).thenReturn(fragment);
     }
 
-    private ImmutableMap<String, PropertyValue> createProperty(String name, String value) {
+    private Map<String, PropertyValue> createProperty(String name, String value) {
         PropertyValue propertyValue = aPropertyValue().withType(ParameterType.VARIABLE).withValue(value).build();
-        return ImmutableMap.of(name, propertyValue);
-    }
-
-    private Map<String, PropertyValue> emptyMap() {
-        return Maps.newHashMap();
+        return Map.of(name, propertyValue);
     }
 
 }

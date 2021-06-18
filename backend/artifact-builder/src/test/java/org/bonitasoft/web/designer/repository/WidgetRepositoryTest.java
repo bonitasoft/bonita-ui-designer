@@ -16,7 +16,6 @@ package org.bonitasoft.web.designer.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.google.common.collect.Sets;
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
@@ -49,6 +48,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static java.nio.file.Files.*;
 import static java.util.Arrays.asList;
@@ -439,7 +439,7 @@ public class WidgetRepositoryTest {
         addToRepository(input, label);
 
         //input is used by label
-        assertThat(widgetRepository.getByIds(Sets.newHashSet("input", "label"))).hasSize(2)
+        assertThat(widgetRepository.getByIds(Set.of("input", "label"))).hasSize(2)
                 .extracting("id").containsOnly("input", "label");
     }
 

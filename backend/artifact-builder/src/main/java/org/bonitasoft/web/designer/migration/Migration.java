@@ -66,6 +66,7 @@ public class Migration<A extends DesignerArtifact> {
                     }).orElseGet(MigrationStepReport::successMigrationReport);
                     msr.add(stepReport);
                 } catch (Exception e) {
+                    logger.error("Migration error: {}", migrationStep.getClass().getName(), e);
                     msr.add(MigrationStepReport.errorMigrationReport(artifact.getId(), migrationStep.getErrorMessage()));
                 }
             }

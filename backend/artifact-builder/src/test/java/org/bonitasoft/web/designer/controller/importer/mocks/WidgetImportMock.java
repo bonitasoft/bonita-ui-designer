@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.importer.mocks;
 
-import com.google.common.base.Function;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetDependencyImporter;
 import org.bonitasoft.web.designer.model.JsonHandler;
@@ -26,9 +25,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.Mockito.when;
 
@@ -36,10 +36,10 @@ public class WidgetImportMock {
 
     private static final String WIDGETS_FOLDER = "widgets";
 
-    private Path unzippedPath;
-    private WidgetRepository widgetRepository;
+    private final Path unzippedPath;
+    private final WidgetRepository widgetRepository;
+    private final List<Widget> widgets = new ArrayList<>();
     private JsonHandler jsonHandlerMock;
-    private List<Widget> widgets = new ArrayList<>();
 
     public WidgetImportMock(Path unzippedPath, WidgetRepository widgetRepository, JsonHandler jsonHandlerMock) throws IOException {
         this.unzippedPath = unzippedPath;
@@ -54,13 +54,7 @@ public class WidgetImportMock {
     }
 
     public List<Widget> mockWidgetsAsAddedDependencies(WidgetBuilder... widgetBuilders) throws IOException {
-        List<Widget> widgets = transform(asList(widgetBuilders), new Function<WidgetBuilder, Widget>() {
-
-            @Override
-            public Widget apply(WidgetBuilder builder) {
-                return builder.build();
-            }
-        });
+        List<Widget> widgets = stream(widgetBuilders).map(WidgetBuilder::build).collect(Collectors.toList());
         Files.createDirectories(unzippedPath.resolve(WIDGETS_FOLDER));
         this.widgets.addAll(widgets);
         when(widgetRepository.getComponentName()).thenReturn("widget");

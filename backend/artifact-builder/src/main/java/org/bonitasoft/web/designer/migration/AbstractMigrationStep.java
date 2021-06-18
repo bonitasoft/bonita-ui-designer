@@ -17,6 +17,6 @@ package org.bonitasoft.web.designer.migration;
 public abstract class AbstractMigrationStep<A> implements MigrationStep<A> {
 
     public String getErrorMessage() {
-        return "An error occurs during migration step";
+        return "An error occurs during migration step (" + getClass().getName() + ")";
     }
 }

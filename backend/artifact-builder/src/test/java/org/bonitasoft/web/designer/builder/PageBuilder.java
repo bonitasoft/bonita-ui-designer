@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import com.google.common.base.Function;
-import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
@@ -36,10 +34,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aParagraph;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
@@ -74,20 +72,44 @@ public class PageBuilder {
         return new PageBuilder();
     }
 
+    public static Page aFilledPage(String id) throws Exception {
+        RowBuilder row = aRow().with(
+                aParagraph().withPropertyValue("content", "hello <br/> world").withDimension(6),
+                anInput().withDescription("A mandatory name input").withPropertyValue("required", false).withPropertyValue("placeholder", "enter you're name").withDimension(6));
+
+        Container containerWithTwoRows = aContainer().with(row, row).build();
+
+        TabContainer tabContainer = new TabContainer();
+        tabContainer.setContainer(containerWithTwoRows);
+
+        TabContainer tabContainer2 = new TabContainer();
+        tabContainer2.setContainer(containerWithTwoRows);
+
+        TabsContainer tabsContainer = new TabsContainer();
+        tabsContainer.setTabList(asList(tabContainer, tabContainer2));
+
+        FormContainer formContainer = new FormContainer();
+        formContainer.setContainer(aContainer().with(aParagraph().withPropertyValue("content", "hello <br/> world").withDimension(6)).build());
+
+        return aPage().withId(id).with(tabsContainer, containerWithTwoRows, formContainer)
+                .withAsset(anAsset().withName("asset.js").withScope(AssetScope.PAGE).build())
+                .withVariable("aVariable", aConstantVariable().value("a value"))
+                .withVariable("anotherVariable", aConstantVariable().value("4"))
+                .build();
+    }
+
     public PageBuilder with(Element... elements) {
         rows.add(asList(elements));
         return this;
     }
 
     public PageBuilder with(ElementBuilder... elements) {
-        rows.add(newArrayList(transform(asList(elements), ElementBuilder::build)));
+        rows.add(stream(elements).map(ElementBuilder::build).collect(Collectors.toList()));
         return this;
     }
 
     public PageBuilder withAsset(Asset... assets) {
-        for (Asset asset : assets) {
-            this.assets.add(asset);
-        }
+        this.assets.addAll(asList(assets));
         return this;
     }
 
@@ -228,31 +250,5 @@ public class PageBuilder {
             page.setType(type);
         }
         return page;
-    }
-
-    public static Page aFilledPage(String id) throws Exception {
-        RowBuilder row = aRow().with(
-                aParagraph().withPropertyValue("content", "hello <br/> world").withDimension(6),
-                anInput().withDescription("A mandatory name input").withPropertyValue("required", false).withPropertyValue("placeholder", "enter you're name").withDimension(6));
-
-        Container containerWithTwoRows = aContainer().with(row, row).build();
-
-        TabContainer tabContainer = new TabContainer();
-        tabContainer.setContainer(containerWithTwoRows);
-
-        TabContainer tabContainer2 = new TabContainer();
-        tabContainer2.setContainer(containerWithTwoRows);
-
-        TabsContainer tabsContainer = new TabsContainer();
-        tabsContainer.setTabList(asList(tabContainer, tabContainer2));
-
-        FormContainer formContainer = new FormContainer();
-        formContainer.setContainer(aContainer().with(aParagraph().withPropertyValue("content", "hello <br/> world").withDimension(6)).build());
-
-        return aPage().withId(id).with(tabsContainer, containerWithTwoRows, formContainer)
-                .withAsset(anAsset().withName("asset.js").withScope(AssetScope.PAGE).build())
-                .withVariable("aVariable", aConstantVariable().value("a value"))
-                .withVariable("anotherVariable", aConstantVariable().value("4"))
-                .build();
     }
 }

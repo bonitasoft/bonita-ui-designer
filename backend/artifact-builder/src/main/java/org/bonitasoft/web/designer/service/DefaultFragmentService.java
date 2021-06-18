@@ -14,8 +14,7 @@
  */
 package org.bonitasoft.web.designer.service;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.Predicates;
@@ -51,11 +50,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.google.common.base.Predicates.not;
-import static com.google.common.collect.Collections2.filter;
 import static java.lang.String.format;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.*;
 import static org.bonitasoft.web.designer.repository.exception.NotAllowedException.checkNotAllowed;
 import static org.jsoup.helper.StringUtil.isBlank;
 
@@ -89,7 +86,7 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
         this.pageHasValidationErrorVisitor = pageHasValidationErrorVisitor;
         this.assetVisitor = assetVisitor;
         // fragmentsUsedBy Repositories
-        this.usedByRepositories = Lists.newArrayList(pageRepository, repository);
+        this.usedByRepositories = asList(pageRepository, repository);
     }
 
 
@@ -206,7 +203,7 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
 
         checkNameIsUnique(
                 // make sure we don't check against the fragment itself
-                filter(repository.getAll(), not(Predicates.propertyEqualTo("id", fragmentId))),
+                repository.getAll().stream().filter(Predicates.propertyEqualTo("id", fragmentId).negate()).collect(toList()),
                 fragment);
 
         var savedFragment = repository.updateLastUpdateAndSave(fragment);
@@ -220,7 +217,7 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
         checkNameIsUnique(repository.getAll(), fragment);
 
         fragment.setId(repository.getNextAvailableId(fragment.getName()));
-        fragment.setAssets(Sets.filter(fragment.getAssets(), new PageAssetPredicate()));
+        fragment.setAssets(fragment.getAssets().stream().filter(new PageAssetPredicate()).collect(toSet()));
         return repository.updateLastUpdateAndSave(fragment);
     }
 
@@ -228,7 +225,9 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
     public Fragment save(String fragmentId, Fragment fragment) throws ModelException {
         checkNameIsUnique(
                 // make sure we don't check against the fragment itself
-                filter(repository.getAll(), not(Predicates.propertyEqualTo("id", fragment.getId()))),
+                repository.getAll().stream().filter(
+                        Predicates.propertyEqualTo("id", fragment.getId()).negate()
+                ).collect(toList()),
                 fragment);
 
         String newFragmentId;
@@ -254,7 +253,7 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
         }
 
         fragment.setId(newFragmentId);
-        fragment.setAssets(Sets.filter(fragment.getAssets(), new PageAssetPredicate()));
+        fragment.setAssets(fragment.getAssets().stream().filter(new PageAssetPredicate()).collect(toSet()));
 
         var savedFragment = repository.updateLastUpdateAndSave(fragment);
         if (!fragmentId.equals(savedFragment.getId())) {
@@ -299,14 +298,14 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
 
     private void checkNameIsUnique(Collection<Fragment> fragments, Fragment fragment) {
         checkNotAllowed(
-                fragments.stream().anyMatch(Predicates.propertyEqualTo("name", fragment.getName())::apply),
+                fragments.stream().anyMatch(Predicates.propertyEqualTo("name", fragment.getName())),
                 format("A fragment with name %s already exists", fragment.getName())
         );
     }
 
     private void checkIfFragmentIsCompatible(Fragment fragment) throws ModelException {
         if (fragment.getStatus() != null && !fragment.getStatus().isCompatible()) {
-            var message = String.format("Fragment %s is in an incompatible version. Newer UI Designer version is required.", fragment.getId());
+            var message = format("Fragment %s is in an incompatible version. Newer UI Designer version is required.", fragment.getId());
             throw new ModelException(message);
         }
     }

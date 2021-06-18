@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
-import com.google.common.collect.Lists;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetDependencyImporter;
@@ -162,7 +161,7 @@ public class AssetServiceTest {
     @Parameters(method = "invalidArgsForDuplicate")
     @Test
     public void should_not_duplicate_asset_when_arg_invalid(Path artifactSourcePath, Path artifactTargetPath, String sourceArtifactId, String targetArtifactId,
-            String expectedErrorMessage) throws Exception {
+                                                            String expectedErrorMessage) throws Exception {
         when(repository.getComponentName()).thenReturn("page");
         final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
                 assetService.duplicateAsset(artifactSourcePath, artifactTargetPath, sourceArtifactId, targetArtifactId)
@@ -173,7 +172,7 @@ public class AssetServiceTest {
     @Test
     public void should_duplicate_asset() throws Exception {
         Page page = new Page();
-        List<Asset> assets = Lists.newArrayList(anAsset().withId("UUID").withName("myfile.js").build());
+        List<Asset> assets = List.of(anAsset().withId("UUID").withName("myfile.js").build());
         Path tempPath = Files.createTempDirectory("test");
         when(repository.get("src-page-id")).thenReturn(page);
         when(assetDependencyImporter.load(page, tempPath)).thenReturn(assets);
@@ -224,7 +223,7 @@ public class AssetServiceTest {
     }
 
     private Asset[] getSortedAssets() {
-        return new Asset[] {
+        return new Asset[]{
                 anAsset().withId("asset1").withName("asset1").withOrder(1).build(),
                 anAsset().withId("asset2").withName("asset2").withOrder(2).build(),
                 anAsset().withId("asset3").withName("asset3").withOrder(3).build()

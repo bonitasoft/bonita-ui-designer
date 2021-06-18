@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.service;
 
-import com.google.common.collect.ImmutableSortedMap;
 import org.assertj.core.api.Condition;
 import org.bonitasoft.web.designer.builder.ComponentBuilder;
 import org.bonitasoft.web.designer.builder.ContainerBuilder;
@@ -970,7 +969,7 @@ public class FragmentServiceTest {
         final String fragmentChildId = "fragmentChild";
         FragmentElement fragmentElement = new FragmentElement();
         fragmentElement.setHasValidationError(false);
-        fragmentElement.setDimension(ImmutableSortedMap.of("md", 8));
+        fragmentElement.setDimension(Map.of("md", 8));
         fragmentElement.setId(fragmentChildId);
 
         Page page = aPage()
@@ -1004,7 +1003,7 @@ public class FragmentServiceTest {
         final String fragmentChildId = "fragmentChild";
         FragmentElement fragmentElement = new FragmentElement();
         fragmentElement.setHasValidationError(false);
-        fragmentElement.setDimension(ImmutableSortedMap.of("md", 8));
+        fragmentElement.setDimension(Map.of("md", 8));
         fragmentElement.setId(fragmentChildId);
 
         Fragment fragmentParent = aFragment()
@@ -1040,12 +1039,12 @@ public class FragmentServiceTest {
         final String fragmentChildId = "fragmentChild";
         FragmentElement fragmentElement = new FragmentElement();
         fragmentElement.setHasValidationError(false);
-        fragmentElement.setDimension(ImmutableSortedMap.of("md", 8));
+        fragmentElement.setDimension(Map.of("md", 8));
         fragmentElement.setId(fragmentChildId);
 
         FragmentElement fragmentElementParent = new FragmentElement();
         fragmentElementParent.setHasValidationError(false);
-        fragmentElementParent.setDimension(ImmutableSortedMap.of("md", 8));
+        fragmentElementParent.setDimension(Map.of("md", 8));
         fragmentElementParent.setId("parentFragment");
 
         Fragment fragmentParent = aFragment()
@@ -1091,7 +1090,7 @@ public class FragmentServiceTest {
         final String fragmentChildId = "fragmentChild";
         FragmentElement fragmentElement = new FragmentElement();
         fragmentElement.setHasValidationError(false);
-        fragmentElement.setDimension(ImmutableSortedMap.of("md", 8));
+        fragmentElement.setDimension(Map.of("md", 8));
         fragmentElement.setId(fragmentChildId);
 
         Page page = aPage()
@@ -1125,7 +1124,7 @@ public class FragmentServiceTest {
         final String fragmentChildId = "fragmentChild";
         FragmentElement fragmentElement = new FragmentElement();
         fragmentElement.setHasValidationError(false);
-        fragmentElement.setDimension(ImmutableSortedMap.of("md", 8));
+        fragmentElement.setDimension(Map.of("md", 8));
         fragmentElement.setId(fragmentChildId);
 
         Fragment fragmentParent = aFragment()
@@ -1160,12 +1159,12 @@ public class FragmentServiceTest {
         final String fragmentChildId = "fragmentChild";
         FragmentElement fragmentElement = new FragmentElement();
         fragmentElement.setHasValidationError(true);
-        fragmentElement.setDimension(ImmutableSortedMap.of("md", 8));
+        fragmentElement.setDimension(Map.of("md", 8));
         fragmentElement.setId(fragmentChildId);
 
         FragmentElement fragmentElementParent = new FragmentElement();
         fragmentElementParent.setHasValidationError(true);
-        fragmentElementParent.setDimension(ImmutableSortedMap.of("md", 8));
+        fragmentElementParent.setDimension(Map.of("md", 8));
         fragmentElementParent.setId("parentFragment");
 
         Fragment fragmentParent = aFragment()

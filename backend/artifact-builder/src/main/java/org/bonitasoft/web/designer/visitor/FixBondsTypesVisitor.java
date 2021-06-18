@@ -24,9 +24,9 @@ import org.bonitasoft.web.designer.model.page.TabContainer;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.model.widget.Property;
 
+import java.util.Collection;
 import java.util.List;
 
-import static com.google.common.collect.Iterables.concat;
 import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
 import static org.bonitasoft.web.designer.model.widget.BondType.EXPRESSION;
 
@@ -40,9 +40,8 @@ public class FixBondsTypesVisitor implements ElementVisitor<Void> {
 
     @Override
     public Void visit(Container container) {
-        for (var element : concat(container.getRows())) {
-            element.accept(this);
-        }
+        container.getRows().stream().flatMap(Collection::stream)
+                .forEach(element -> element.accept(this));
         return null;
     }
 
@@ -96,9 +95,8 @@ public class FixBondsTypesVisitor implements ElementVisitor<Void> {
 
     @Override
     public Void visit(Previewable previewable) {
-        for (var element : concat(previewable.getRows())) {
-            element.accept(this);
-        }
+        previewable.getRows().stream().flatMap(Collection::stream)
+                .forEach(element -> element.accept(this));
         return null;
     }
 }

@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.migration;
 
 import org.apache.commons.io.IOUtils;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -29,6 +30,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
@@ -42,7 +44,7 @@ public class StyleAssetMigrationStepTest {
     @Mock
     private AssetRepository<Page> assetRepository;
 
-    private PageRepository pageRepository = new FakePageRepository();
+    private final PageRepository pageRepository = new FakePageRepository();
 
     @InjectMocks
     private StyleAssetMigrationStep step;
@@ -50,7 +52,11 @@ public class StyleAssetMigrationStepTest {
     @Before
     public void setUp() throws Exception {
         AssetService<Page> pageAssetService = new AssetService<>(pageRepository, assetRepository, null);
-        step = new StyleAssetMigrationStep(pageAssetService);
+        var uiDesignerProperties = new UiDesignerPropertiesBuilder()
+                .workspacePath(Path.of("target/workspace/"))
+                .build();
+        uiDesignerProperties.getWorkspaceUid().setExtractPath(Path.of("src/test/resources"));
+        step = new StyleAssetMigrationStep(uiDesignerProperties,pageAssetService);
     }
 
     private Asset expectedAsset(String name) {

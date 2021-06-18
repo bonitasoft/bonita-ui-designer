@@ -24,8 +24,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
-import static java.lang.String.format;
-
 public class AssetExternalMigrationStep<A extends Identifiable & Assetable> extends AbstractMigrationStep<A> {
 
     private static final Logger logger = LoggerFactory.getLogger(AssetExternalMigrationStep.class);

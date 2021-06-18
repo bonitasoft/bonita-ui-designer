@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
-import com.google.common.io.Files;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,9 +22,10 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.List;
 
+import static java.nio.file.Files.write;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -38,9 +38,9 @@ public class FilesConcatenatorTest {
 
     @Test
     public void should_concatenate_files() throws IOException {
-        Files.write("file1".getBytes(), temporaryFolder.newFile("file1.js"));
-        Files.write("file2".getBytes(), temporaryFolder.newFile("file2.js"));
-        List<Path> files = Arrays.asList(temporaryFolder.toPath().resolve("file1.js"), temporaryFolder.toPath()
+        write(temporaryFolder.newFile("file1.js").toPath(), "file1".getBytes());
+        write(temporaryFolder.newFile("file2.js").toPath(), "file2".getBytes());
+        List<Path> files = asList(temporaryFolder.toPath().resolve("file1.js"), temporaryFolder.toPath()
                 .resolve("file2.js"));
 
         byte[] content = FilesConcatenator.concat(files);

@@ -14,8 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller.asset;
 
-import com.google.common.base.Predicate;
 import org.bonitasoft.web.designer.model.asset.Asset;
+
+import java.util.function.Predicate;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -25,7 +26,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 public class PageAssetPredicate implements Predicate<Asset> {
 
     @Override
-    public boolean apply(Asset asset) {
-        return asset != null && isBlank(asset.getComponentId());
+    public boolean test(Asset asset) {
+            return asset != null && isBlank(asset.getComponentId());
     }
 }

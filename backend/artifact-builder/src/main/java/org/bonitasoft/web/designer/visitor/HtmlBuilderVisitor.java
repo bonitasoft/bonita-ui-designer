@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import com.google.common.collect.Ordering;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.ArtifactBuilderException;
@@ -48,8 +47,10 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.google.common.base.Joiner.on;
-import static com.google.common.collect.Lists.transform;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+import static org.bonitasoft.web.designer.model.asset.Asset.getComparatorByComponentId;
+import static org.bonitasoft.web.designer.model.asset.Asset.getComparatorByOrder;
 import static org.bonitasoft.web.designer.model.widget.Widget.spinalCase;
 
 /**
@@ -157,7 +158,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                 .with("rowsHtml", build(previewable.getRows()))
                 .with("jsAsset", getAssetHtmlSrcList(previewable.getId(), AssetType.JAVASCRIPT, sortedAssets))
                 .with("cssAsset", getAssetHtmlSrcList(previewable.getId(), AssetType.CSS, sortedAssets))
-                .with("factories", transform(pageFactories, factory -> factory.generate(previewable)));
+                .with("factories", pageFactories.stream().map(factory -> factory.generate(previewable)).collect(toList()));
 
         var modules = requiredModulesVisitor.visit(previewable);
         if (!modules.isEmpty()) {
@@ -168,8 +169,13 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
     public String build(List<List<Element>> rows) {
         return new TemplateEngine("rows.hbs.html")
-                .with("rows", transform(rows, elements -> on("").join(
-                        transform(elements, element -> element.accept(HtmlBuilderVisitor.this)))))
+                .with("rows",
+                        rows.stream()
+                                .map(elements -> elements.stream()
+                                        .map(element -> element.accept(HtmlBuilderVisitor.this))
+                                        .collect(joining(""))
+                                ).collect(toList())
+                )
                 .build(new Object());
     }
 
@@ -177,12 +183,9 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
      * Return the list of the previewable assets sorted with only active assets
      */
     protected <P extends Previewable & Identifiable> List<Asset> getSortedAssets(P previewable) {
-        return Ordering
-                .from(Asset.getComparatorByComponentId())
-                .compound(Asset.getComparatorByOrder())
-                .sortedCopy(
-                        assetVisitor.visit(previewable).stream().filter(Asset::isActive).collect(Collectors.toList())
-                );
+        return assetVisitor.visit(previewable).stream().filter(Asset::isActive)
+                .sorted(getComparatorByComponentId().thenComparing(getComparatorByOrder())
+                ).collect(Collectors.toList());
     }
 
     private List<String> getAssetHtmlSrcList(String previewableId, AssetType assetType, List<Asset> sortedAssets) {

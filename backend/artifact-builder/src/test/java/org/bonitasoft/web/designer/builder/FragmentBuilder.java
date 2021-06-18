@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.builder;
 
-import com.google.common.collect.ImmutableSortedMap;
-import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.data.Variable;
@@ -204,7 +202,7 @@ public class FragmentBuilder {
 
         FragmentElement fragment = new FragmentElement();
         fragment.setId("a-fragment");
-        fragment.setDimension(ImmutableSortedMap.of("md", 8));
+        fragment.setDimension(Map.of("md", 8));
         Container fragmentContainer = aContainer().with(fragment).build();
 
         return aFragment().withId(id).with(tabsContainer, containerWithTwoRows, fragmentContainer)

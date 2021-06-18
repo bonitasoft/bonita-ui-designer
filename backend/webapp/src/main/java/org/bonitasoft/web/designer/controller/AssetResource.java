@@ -45,7 +45,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.Boolean.TRUE;
 import static java.util.Optional.ofNullable;
 import static org.bonitasoft.web.designer.config.WebSocketConfig.PREVIEWABLE_UPDATE;
@@ -69,9 +68,16 @@ public abstract class AssetResource<T extends Identifiable & Assetable, S extend
         this.messagingTemplate = ofNullable(messagingTemplate);
     }
 
+    private void checkArgument(boolean expression, String errorMessage) {
+        if (!expression) {
+            throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
     // produces = MediaType.TEXT_PLAIN_VALUE to avoid some internet explorer issues
     @PostMapping(value = "/{artifactId}/assets/{type}", produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<Asset> saveOrUpdate(@RequestParam("file") MultipartFile file, @PathVariable("artifactId") String id, @PathVariable("type") String type) {
+    public ResponseEntity<Asset> saveOrUpdate(@RequestParam("file") MultipartFile
+                                                      file, @PathVariable("artifactId") String id, @PathVariable("type") String type) {
         checkArgument(file != null && !file.isEmpty(), "Part named [file] is needed to successfully import a component");
         var assetType = AssetType.getAsset(type);
         checkArgument(assetType != null, AssetService.ASSET_TYPE_IS_REQUIRED);
@@ -113,7 +119,8 @@ public abstract class AssetResource<T extends Identifiable & Assetable, S extend
     }
 
     @DeleteMapping(value = "/{artifactId}/assets/{assetId}")
-    public void deleteAsset(@PathVariable("artifactId") String id, @PathVariable("assetId") String assetId) throws RepositoryException {
+    public void deleteAsset(@PathVariable("artifactId") String id, @PathVariable("assetId") String assetId) throws
+            RepositoryException {
         service.deleteAsset(id, assetId);
     }
 

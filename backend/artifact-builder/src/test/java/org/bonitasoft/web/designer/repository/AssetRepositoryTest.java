@@ -14,8 +14,6 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import com.google.common.io.Files;
-import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -32,18 +30,21 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.repository.AssetRepository.COMPONENT_ID_REQUIRED;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -79,7 +80,7 @@ public class AssetRepositoryTest {
 
         Path path = assetRepository.resolveAssetPath(asset);
 
-        Assertions.assertThat(path.toUri()).isEqualTo(pagesPath.resolve("assets").resolve("js").resolve(asset.getName()).toUri());
+        assertThat(path.toUri()).isEqualTo(pagesPath.resolve("assets").resolve("js").resolve(asset.getName()).toUri());
     }
 
     @Test
@@ -101,11 +102,11 @@ public class AssetRepositoryTest {
         when(pageRepository.resolvePathFolder("page-id")).thenReturn(pagesPath);
         lenient().when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
-        assetRepository.save(asset, "My example with special characters réè@# \ntest".getBytes(Charset.forName("UTF-8")));
+        assetRepository.save(asset, "My example with special characters réè@# \ntest".getBytes(UTF_8));
 
         //A json file has to be created in the repository
         assertThat(fileExpected.toFile()).exists();
-        assertThat(Files.readFirstLine(fileExpected.toFile(), Charset.forName("UTF-8"))).isEqualTo("My example with special characters réè@# ");
+        assertThat(Files.readAllLines(fileExpected, UTF_8).get(0)).isEqualTo("My example with special characters réè@# ");
     }
 
     @Test(expected = NullPointerException.class)
@@ -137,6 +138,13 @@ public class AssetRepositoryTest {
         lenient().when(pageRepository.get(asset.getComponentId())).thenReturn(page);
 
         assetRepository.delete(asset);
+    }
+
+    @Test
+    public void readAllBytes_for_null_id_should_throw_ex() throws Exception {
+        assertThatThrownBy(() -> assetRepository.readAllBytes(null, mock(Asset.class)))
+                .isInstanceOf(NullPointerException.class)
+                .hasMessage(COMPONENT_ID_REQUIRED);
     }
 
     @Test

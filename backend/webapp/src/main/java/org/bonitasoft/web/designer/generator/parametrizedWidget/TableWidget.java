@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import com.google.common.base.CaseFormat;
 import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
 
@@ -23,6 +22,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static org.bonitasoft.web.designer.generator.Formatter.toDisplayName;
 import static org.bonitasoft.web.designer.model.ParameterType.EXPRESSION;
 
 @Widget
@@ -128,7 +128,6 @@ public class TableWidget extends AbstractParametrizedWidget {
     }
 
     private String displayHeader(String header) {
-        return CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, header)
-                .replaceAll("((?<=[a-z])(?=[A-Z]))|((?<=[A-Z])(?=[A-Z][a-z]))", " ");
+        return toDisplayName(header);
     }
 }
