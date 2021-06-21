@@ -50,17 +50,4 @@ describe('AssetEditPopupCtrl', () => {
     expect($uibModalInstance.close).not.toHaveBeenCalled();
     expect($scope.$broadcast).toHaveBeenCalledWith('saved');
   });
-
-  it('should save local asset content and close pop up', function() {
-    spyOn(assetRepo, 'updateLocalAssetContent').and.returnValue($q.when());
-    let ctrl = createController();
-
-    ctrl.content = 'new content';
-    ctrl.saveAndClose();
-    $scope.$apply();
-
-    expect(assetRepo.updateLocalAssetContent).toHaveBeenCalledWith(component.id, asset, 'new content');
-    expect($uibModalInstance.close).toHaveBeenCalled();
-  });
-
 });
