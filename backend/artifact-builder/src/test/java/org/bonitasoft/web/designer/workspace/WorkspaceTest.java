@@ -138,13 +138,13 @@ public class WorkspaceTest {
         assertThat(widgetsPath.resolve("pbButton/pbButton.json")).exists();
         assertThat(widgetsPath.resolve("pbButton/help.html")).exists();
         assertThat(widgetsPath.resolve("pbMissingHelp/pbMissingHelp.json")).exists();
-        assertThat(widgetsPath.resolve("uidInput/uidInput.json")).exists();
-        assertThat(widgetsPath.resolve("uidText/uidText.json")).exists();
+        assertThat(widgetsPath.resolve("uidInput/uidInput.json")).doesNotExist();
+        assertThat(widgetsPath.resolve("uidText/uidText.json")).doesNotExist();
     }
 
 
     @Test
-    public void should_copy_widget_Wc_to_widget_repository_folder() throws Exception {
+    public void should_copy_new_uid_widgets_to_widget_repository_folder() throws Exception {
         uiDesignerProperties.setExperimental(true);
 
         workspace.initialize();
@@ -153,17 +153,6 @@ public class WorkspaceTest {
         assertThat(widgetsPath.resolve("uidInput/uidInput.json")).exists();
         assertThat(widgetsPath.resolve("uidText/uidText.json")).exists();
 
-    }
-
-    @Test
-    public void should_copy_widget_Wc_to_widget_repository_folder_when_experimental_mode_is_not_set() throws Exception {
-        uiDesignerProperties.setExperimental(false);
-
-        workspace.initialize();
-
-        Path widgetsPath = workspaceProperties.getWidgets().getDir();
-        assertThat(widgetsPath.resolve("uidInput/uidInput.json")).exists();
-        assertThat(widgetsPath.resolve("uidText/uidText.json")).exists();
     }
 
     @Test
