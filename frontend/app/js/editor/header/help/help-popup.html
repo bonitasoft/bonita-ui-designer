@@ -223,9 +223,21 @@
     ...
   }
 }</pre>
-
         </uib-tab>
-        <uid-responsive-help-tab></uid-responsive-help-tab>
+
+        <uib-tab id="help-responsiveness" heading="{{ 'Multiple screen size' | translate}}" index="'responsiveness'">
+            <p translate>You can optimize the UI designer responsiveness behavior for various screen sizes by configuring a different value for the <em>width</em> property for each device type. This uses the Bootstrap CSS grid mechanism.</p>
+            <p translate>Four device types are available:</p>
+            <ul>
+                <li><i class="fa fa-lg fa-mobile"></i> {{'mobile screens (screenSize < 768px)'| translate}}</li>
+                <li><i class="fa fa-lg fa-tablet"></i> {{'tablet screens (768px ≤ screenSize < 992px)'| translate}}</li>
+                <li><i class="fa fa-lg fa-laptop"></i> {{'laptop screens (992px ≤ screenSize < 1200px)'| translate}}</li>
+                <li><i class="fa fa-lg fa-desktop"></i> {{'desktop screens (1200px ≤ screenSize)'| translate}}</li>
+            </ul>
+            <p translate>Select the device type icon in the top bar, then specify the width property for each widget in the page or form. Each configuration is independent.
+                To specify the width property for a widget for all device types, set the value for each device type separately, or leave the default value.</p>
+        </uib-tab>
+
         <uib-tab heading="{{ 'Migration' | translate }}" index="'migration'">
             <uid-migration-help-tab></uid-migration-help-tab>
         </uib-tab>
