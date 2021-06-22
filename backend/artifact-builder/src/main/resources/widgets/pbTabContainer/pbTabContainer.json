@@ -22,10 +22,11 @@
       "bond": "interpolation"
     },
     {
-      "label": "Active",
+      "label": "Selected",
       "name": "active",
       "type": "text",
-      "bond": "variable"
+      "bond": "variable",
+      "help" : "To define the tab selected by default"
     }
   ],
   "assets": [
