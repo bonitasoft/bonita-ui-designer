@@ -49,11 +49,14 @@
         .updateLocalAssetContent(this.component.id, this.asset, this.content)
         .then((response) => this.assetErrorManagement.manageErrorsFromResponse(response))
         .then(() => this.initialContent = this.content)
-        .then(() => this.scope.$broadcast('saved'));
-    }
-
-    saveAndClose() {
-      this.save().then(() => this.$uibModalInstance.close());
+        .then(() => this.scope.$broadcast('saved'))
+        .then(() => {
+          //Give focus back to textArea after click on save button
+          let textAreaElement = document.querySelector('textarea');
+          if (textAreaElement) {
+            textAreaElement.focus();
+          }
+        });
     }
 
     hasChanged() {
