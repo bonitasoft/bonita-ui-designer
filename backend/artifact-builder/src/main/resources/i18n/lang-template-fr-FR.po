@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2021-06-07 01:29\n"
+"PO-Revision-Date: 2021-06-29 01:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -94,6 +94,9 @@ msgstr "<code>Condensé</code><em>(par défaut : non)</em> : Supprimer les espac
 
 msgid "<code>Condensed</code><em>(Defaults: no)</em>: Display cells without spacing."
 msgstr "<code>Condensé</code><em>(par défaut : non)</em> : Supprimer les espaces dans les cellules."
+
+msgid "<code>Selected</code> <em>(Default: first tab is selected)</em>: Whether the tab is selected or not"
+msgstr ""
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr "<code>Titre</code> : peut être calculé dynamiquement pour afficher un <b>rendu html</b>."
@@ -2038,6 +2041,9 @@ msgstr "Sélectionnez votre fichier"
 msgid "Select your localization.json"
 msgstr "Sélectionnez votre fichier localization.json"
 
+msgid "Selected"
+msgstr ""
+
 msgid "Selected Row"
 msgstr "Ligne sélectionnée"
 
@@ -2521,6 +2527,9 @@ msgstr "Pour contrôler un container modal, de nouvelles actions sont disponible
 
 msgid "To control modal containers, the following methods are supported:"
 msgstr "Pour contrôler un container modal, de nouvelles actions sont disponibles sur le bouton :"
+
+msgid "To define the tab selected by default"
+msgstr ""
 
 msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "Pour afficher (non pas mettre à jour) une date et une heure récupérées de l’API du BDM (ou autre API), vous pouvez soit utiliser ce widget <em>DATE TIME</em> en activant la propriété <em>Lecture seule</em>, soit utiliser un widget <em>Texte</em>, <em>Titre</em> ou un widget <em>Table</em> en formatant la valeur grâce au <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtre</a> <em>uiDate</em> fourni."

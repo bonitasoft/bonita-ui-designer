@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-06-07 01:30\n"
+"PO-Revision-Date: 2021-06-29 01:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -96,6 +96,9 @@ msgstr ""
 
 msgid "<code>Condensed</code><em>(Defaults: no)</em>: Display cells without spacing."
 msgstr "<code>は</code><em>(Default: no)</em>に凝縮: 間隔のないセルを表示します。"
+
+msgid "<code>Selected</code> <em>(Default: first tab is selected)</em>: Whether the tab is selected or not"
+msgstr ""
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr ""
@@ -2051,6 +2054,9 @@ msgstr "あなたのファイルを選択します"
 msgid "Select your localization.json"
 msgstr "localization.json を選択してください"
 
+msgid "Selected"
+msgstr ""
+
 msgid "Selected Row"
 msgstr "選択された行"
 
@@ -2539,6 +2545,9 @@ msgstr "モーダルコンテナを制御するには、ボタンで以下のメ
 
 msgid "To control modal containers, the following methods are supported:"
 msgstr "モーダルコンテナを制御するには、以下の方法がサポートされています。"
+
+msgid "To define the tab selected by default"
+msgstr ""
 
 msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "BDM API （または別の API）から取得した日付と時刻を表示 （更新なし）するためには、<em>日時選択</em> ウィジェットを使用して、その<em>読み取り専用</em> プロパティを「はい」にするか 、 <em>テキスト</em>、<em>タイトル</em> または <em>表</em> ウィジェットを使用して、 その値を <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> で書式化します。"

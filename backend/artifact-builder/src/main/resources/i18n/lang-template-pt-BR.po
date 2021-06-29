@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2021-06-07 01:31\n"
+"PO-Revision-Date: 2021-06-29 01:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -96,6 +96,9 @@ msgstr "<code>Condensado</code><em>(Padrões: não)</em>: Exibir células sem es
 
 msgid "<code>Condensed</code><em>(Defaults: no)</em>: Display cells without spacing."
 msgstr "<code>Condensado</code><em>(Padrões: não)</em>: Exibir células sem espaço."
+
+msgid "<code>Selected</code> <em>(Default: first tab is selected)</em>: Whether the tab is selected or not"
+msgstr ""
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr "<code>Título</code>: pode ser calculado dinamicamente para exibir e <b>renderizar html</b>."
@@ -2047,6 +2050,9 @@ msgstr ""
 msgid "Select your localization.json"
 msgstr "Selecione o seu arquivo localization.json"
 
+msgid "Selected"
+msgstr ""
+
 msgid "Selected Row"
 msgstr ""
 
@@ -2536,6 +2542,9 @@ msgstr "Para controlar containers modais, os seguintes métodos estão disponív
 
 msgid "To control modal containers, the following methods are supported:"
 msgstr "Para controlar containers modais, os seguintes métodos são suportados:"
+
+msgid "To define the tab selected by default"
+msgstr ""
 
 msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "Para exibir (e não atualizar) uma data e um horário recuperados da API do BDM (ou de outra API), você pode usar este widget <em>Seletor de data e hora</em> com <em>Somente leitura</em> propriedade definida como \"sim\" ou use um <em>Texto</em>, <em>Titulo</em> ou um widget <em>Tabela</em> e formate o valor usando o <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filter\" editor-mode=\"page\">filter</a>."
