@@ -54,7 +54,7 @@ import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.*;
 import static org.bonitasoft.web.designer.repository.exception.NotAllowedException.checkNotAllowed;
-import static org.jsoup.helper.StringUtil.isBlank;
+import static org.springframework.util.StringUtils.hasText;
 
 
 public class DefaultFragmentService extends AbstractArtifactService<FragmentRepository, Fragment> implements FragmentService {
@@ -99,7 +99,7 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
     @Override
     public List<Fragment> getAllNotUsingFragment(String elementId) {
         List<Fragment> fragments;
-        if (!isBlank(elementId)) {
+        if (hasText(elementId)) {
             fragments = repository.getAllNotUsingElement(elementId);
         } else {
             fragments = repository.getAll();

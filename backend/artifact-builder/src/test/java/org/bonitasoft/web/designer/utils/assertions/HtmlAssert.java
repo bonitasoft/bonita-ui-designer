@@ -20,7 +20,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import static org.jsoup.helper.StringUtil.normaliseWhitespace;
+import static org.jsoup.internal.StringUtil.normaliseWhitespace;
 
 /**
  * Custom assertj assert to compare html strings using jsoup
@@ -105,7 +105,7 @@ public class HtmlAssert extends AbstractAssert<HtmlAssert, Element> {
 
     public HtmlAssert hasTagName(String tagName) {
         if (!actual.tagName().equals(tagName)) {
-            failWithMessage("Expected element to have tagName [ %s ] but was [ %s ]", tagName, actual.tagName());
+            failWithMessage("Expected element to have tagName [ %s ] but was [ %s ]", tagName, actual.tagName());
         }
         return this;
     }
