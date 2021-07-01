@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.controller.export.steps;
 import org.bonitasoft.web.designer.controller.export.IncludeChildDirectoryPredicate;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
+import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ import java.nio.file.Path;
 
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
 
-public class FragmentsExportStep implements ExportStep<Fragment> {
+public class FragmentsExportStep <T extends AbstractPage> implements ExportStep<T> {
 
     private final FragmentIdVisitor fragmentIdVisitor;
     private final Path fragmentsPath;
@@ -35,10 +36,10 @@ public class FragmentsExportStep implements ExportStep<Fragment> {
     }
 
     @Override
-    public void execute(Zipper zipper, Fragment fragment) throws IOException {
+    public void execute(Zipper zipper, T artifact) throws IOException {
         zipper.addDirectoryToZip(
                 fragmentsPath,
-                new IncludeChildDirectoryPredicate(fragmentsPath, fragmentIdVisitor.visit(fragment)),
+                new IncludeChildDirectoryPredicate(fragmentsPath, fragmentIdVisitor.visit(artifact)),
                 ALL_FILES,
                 RESOURCES + "/fragments");
     }

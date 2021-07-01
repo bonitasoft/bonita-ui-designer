@@ -124,13 +124,14 @@ public class ArtifactBuilderFactory {
                 new HtmlExportStep(htmlGenerator, uiDesignerProperties.getWorkspaceUid()),
                 new PagePropertiesExportStep(new PagePropertiesBuilder(uiDesignerProperties, core.getPageService())),
                 new WidgetsExportStep<Page>(uiDesignerProperties.getWorkspace().getWidgets().getDir(), widgetIdVisitor, directiveFileGenerator),
-                new AssetExportStep(core.getPageAssetRepository())
+                new AssetExportStep(core.getPageAssetRepository()),
+                new FragmentsExportStep<Page>(fragmentIdVisitor, uiDesignerProperties.getWorkspace().getFragments().getDir())
         };
 
         //Fragment
         var fragmentExportSteps = new ExportStep[]{
                 new WidgetsExportStep<Fragment>(uiDesignerProperties.getWorkspace().getWidgets().getDir(), widgetIdVisitor, directiveFileGenerator),
-                new FragmentsExportStep(fragmentIdVisitor, uiDesignerProperties.getWorkspace().getFragments().getDir()),
+                new FragmentsExportStep<Fragment>(fragmentIdVisitor, uiDesignerProperties.getWorkspace().getFragments().getDir()),
                 new FragmentPropertiesExportStep(new FragmentPropertiesBuilder(uiDesignerProperties))
         };
 
