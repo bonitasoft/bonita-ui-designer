@@ -18,7 +18,7 @@ usage() {
     echo ""
 }
 
-SCRIPT_DIR=$(dirname $(readlink -f "$0"))
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 BUILD_DIR=$SCRIPT_DIR/build
 BASE_DIR=$SCRIPT_DIR/../..
 
