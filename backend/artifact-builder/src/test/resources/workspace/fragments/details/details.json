@@ -1,0 +1,14 @@
+{
+  "modelVersion": "2.2",
+  "id": "details",
+  "name": "details",
+  "lastUpdate": 1625217952796,
+  "rows": [
+    [ ]
+  ],
+  "assets": [ ],
+  "inactiveAssets": [ ],
+  "variables": { },
+  "hasValidationError": false,
+  "type": "fragment"
+}
