@@ -18,6 +18,8 @@ import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.internal.Objects;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.ParseSettings;
+import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
 import static org.jsoup.internal.StringUtil.normaliseWhitespace;
@@ -41,7 +43,9 @@ public class HtmlAssert extends AbstractAssert<HtmlAssert, Element> {
     }
 
     protected static Element toBody(String html) {
-        return Jsoup.parse(html).body().child(0);
+        Parser parser = Parser.htmlParser();
+        parser.settings(new ParseSettings(true, true)); // tag, attribute preserve case
+        return parser.parseInput(html, "").body().child(0);
     }
 
     public HtmlAssert isEqualToBody(String html) {

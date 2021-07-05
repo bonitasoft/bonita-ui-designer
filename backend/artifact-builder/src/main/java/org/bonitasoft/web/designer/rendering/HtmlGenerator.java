@@ -20,6 +20,8 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
 import org.jsoup.Jsoup;
+import org.jsoup.parser.ParseSettings;
+import org.jsoup.parser.Parser;
 
 public class HtmlGenerator {
 
@@ -42,6 +44,8 @@ public class HtmlGenerator {
     }
 
     private String format(String html) {
-        return Jsoup.parse(html).toString();
+        Parser parser = Parser.htmlParser();
+        parser.settings(new ParseSettings(true, true)); // tag, attribute preserve case
+        return  parser.parseInput(html, "").toString();
     }
 }
