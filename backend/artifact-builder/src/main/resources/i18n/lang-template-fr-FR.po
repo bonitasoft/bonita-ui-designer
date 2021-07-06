@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2021-06-29 01:29\n"
+"PO-Revision-Date: 2021-07-05 12:54\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -96,7 +96,7 @@ msgid "<code>Condensed</code><em>(Defaults: no)</em>: Display cells without spac
 msgstr "<code>Condensé</code><em>(par défaut : non)</em> : Supprimer les espaces dans les cellules."
 
 msgid "<code>Selected</code> <em>(Default: first tab is selected)</em>: Whether the tab is selected or not"
-msgstr ""
+msgstr "<code>Sélectionné</code><em>(Défaut: premier onglet sélectionné)</em>: Définit si l'onglet est sélectionné ou non"
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr "<code>Titre</code> : peut être calculé dynamiquement pour afficher un <b>rendu html</b>."
