@@ -25,7 +25,7 @@ import org.bonitasoft.web.designer.repository.exception.ConstraintValidationExce
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.joda.time.Instant;
+import java.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,6 +37,7 @@ import javax.validation.Validation;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -139,7 +140,7 @@ public class PageRepositoryTest {
 
         //A json file has to be created in the repository
         assertThat(pageDir.resolve(page.getId()).resolve(page.getId() + ".json").toFile()).exists();
-        assertThat(page.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
+        assertThat(page.getLastUpdate()).isAfter(Instant.now().minus(5000, ChronoUnit.MILLIS));
         assertThat(exists(Paths.get(repository.resolvePath(page.getId()).toString(), "assets", "css", "style.css"))).isTrue();
     }
 
@@ -178,7 +179,7 @@ public class PageRepositoryTest {
         repository.save(page);
 
         Page fetchedPage = repository.get(page.getId());
-        assertThat(fetchedPage.getLastUpdate()).isEqualTo(lastUpdate);
+        assertThat(fetchedPage.getLastUpdate()).isEqualTo(lastUpdate.truncatedTo(ChronoUnit.MILLIS));
         assertThat(fetchedPage.getName()).isEqualTo("newName");
     }
 
@@ -205,7 +206,7 @@ public class PageRepositoryTest {
 
         //A json file has to be created in the repository
         assertThat(pageDir.resolve(expectedPage.getId()).resolve(expectedPage.getId() + ".json").toFile()).exists();
-        assertThat(expectedPage.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
+        assertThat(expectedPage.getLastUpdate()).isAfter(Instant.now().minus(5000,ChronoUnit.MILLIS));
     }
 
     @Test

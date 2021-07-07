@@ -19,7 +19,7 @@ import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
-import org.joda.time.Instant;
+import java.time.Instant;
 import org.mockito.stubbing.Answer;
 
 import java.io.IOException;

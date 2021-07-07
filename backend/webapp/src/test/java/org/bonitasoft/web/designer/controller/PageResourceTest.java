@@ -31,7 +31,6 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.DefaultPageService;
 import org.bonitasoft.web.designer.service.exception.IncompatibleException;
 import org.hamcrest.Matchers;
-import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,6 +47,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -127,12 +128,17 @@ public class PageResourceTest {
         return page;
     }
 
+
+    //1422835200.000
+    //1422835200.000 000 000
+
     @Test
     public void should_list_pages() throws Exception {
         Page page = new Page();
         page.setId("id");
         page.setName("name");
-        page.setLastUpdate(Instant.parse("2015-02-02"));
+        var lastUpdate = Instant.parse("2015-02-02T00:00:00.000Z");
+        page.setLastUpdate(lastUpdate);
         when(pageService.getAll()).thenReturn(Arrays.asList(page));
 
         mockMvc.perform(get("/rest/pages"))
@@ -140,7 +146,7 @@ public class PageResourceTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[*].id").value("id"))
                 .andExpect(jsonPath("$[*].name").value("name"))
-                .andExpect(jsonPath("$[*].lastUpdate").value(Instant.parse("2015-02-02").getMillis()));
+                .andExpect(jsonPath("$[*].lastUpdate").value(lastUpdate.toEpochMilli()));
     }
 
     @Test
@@ -214,7 +220,7 @@ public class PageResourceTest {
     public void should_create_a_page_from_a_Contract_at_overview_scope() throws Exception {
         Contract contract = aSimpleContract();
         Page newPage = aPage().withName("myPage").build();
-        when(contractToPageMapper.createFormPage(eq("myPage"), notNull(Contract.class), eq(FormScope.OVERVIEW))).thenReturn(newPage);
+        when(contractToPageMapper.createFormPage(eq("myPage"), notNull(), eq(FormScope.OVERVIEW))).thenReturn(newPage);
         when(pageService.create(any())).thenReturn(newPage);
 
         mockMvc
@@ -717,7 +723,7 @@ public class PageResourceTest {
         page.setVariables(variables);
         page.setDesignerVersion("1.10.6");
         page.setName("page");
-        page.setLastUpdate(new Instant(1514989634397L));
+        page.setLastUpdate(Instant.ofEpochMilli(1514989634397L));
         page.setRows(new ArrayList<>());
         page.setStatus(new MigrationStatusReport());
 

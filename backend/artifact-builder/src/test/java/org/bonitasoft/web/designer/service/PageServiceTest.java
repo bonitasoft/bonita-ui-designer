@@ -39,7 +39,7 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.exception.IncompatibleException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
-import org.joda.time.Instant;
+import java.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,6 +48,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -57,6 +59,7 @@ import java.util.Set;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllLines;
+import static java.time.format.DateTimeFormatter.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.*;
 import static org.assertj.core.api.Assertions.*;
@@ -234,7 +237,8 @@ public class PageServiceTest {
         page.setId(pageId);
         final String pageName = "name";
         page.setName(pageName);
-        final Instant pageLastUpdate = Instant.parse("2015-02-02");
+
+        final Instant pageLastUpdate = Instant.parse("2015-02-02T00:00:00.000Z");
         page.setLastUpdate(pageLastUpdate);
 
         final List<Page> pageList = singletonList(page);
@@ -759,7 +763,7 @@ public class PageServiceTest {
         page.setVariables(variables);
         page.setDesignerVersion("1.10.6");
         page.setName("page");
-        page.setLastUpdate(new Instant(1514989634397L));
+        page.setLastUpdate(Instant.ofEpochMilli(1514989634397L));
         page.setRows(new ArrayList<>());
         page.setStatus(new MigrationStatusReport());
 

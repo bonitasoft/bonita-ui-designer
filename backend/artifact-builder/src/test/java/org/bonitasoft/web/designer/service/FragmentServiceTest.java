@@ -47,7 +47,7 @@ import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.FragmentChangeVisitor;
 import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 import org.bonitasoft.web.designer.visitor.PageHasValidationErrorVisitor;
-import org.joda.time.Instant;
+import java.time.Instant;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

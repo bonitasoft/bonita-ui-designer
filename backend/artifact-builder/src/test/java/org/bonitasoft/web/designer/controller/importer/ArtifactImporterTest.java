@@ -37,7 +37,7 @@ import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.DefaultPageService;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.joda.time.Instant;
+import java.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

@@ -17,7 +17,7 @@ package org.bonitasoft.web.designer.builder;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.joda.time.Instant;
+import java.time.Instant;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -29,7 +29,6 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.DefaultWidgetService;
 import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
-import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -44,11 +43,14 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.nio.file.Files.readAllBytes;
+import static java.time.Instant.parse;
 import static java.util.Arrays.asList;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
@@ -58,7 +60,6 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.hamcrest.CoreMatchers.*;
-import static org.joda.time.Instant.parse;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.notNull;
@@ -684,7 +685,7 @@ public class WidgetResourceTest {
         Page page = aPage().withName("hello").build();
         Fragment fragment = aFragment().withName("helloFragment").build();
 
-        Instant lastUpdateDate = parse("2015-02-02");
+        Instant lastUpdateDate = parse("2015-02-02T00:00:00.000Z");
         Widget input = aWidget().withId("input").lastUpdate(lastUpdateDate).build();
         input.addUsedBy("page", asList(page));
 
@@ -699,7 +700,7 @@ public class WidgetResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[*].id").value(hasItems("input", "label")))
-                .andExpect(jsonPath("$[*].lastUpdate").value(hasItem(lastUpdateDate.getMillis())))
+                .andExpect(jsonPath("$[*].lastUpdate").value(hasItem(lastUpdateDate.toEpochMilli())))
                 .andExpect(jsonPath("$[*].usedBy.fragment[*].name").value(hasItems("helloFragment")))
                 .andExpect(jsonPath("$[*].usedBy.page[*].name").value(hasItems("hello")));
     }

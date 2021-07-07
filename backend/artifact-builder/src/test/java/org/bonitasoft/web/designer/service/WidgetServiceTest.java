@@ -72,7 +72,7 @@ import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderTyp
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
 import static org.bonitasoft.web.designer.model.widget.BondType.INTERPOLATION;
-import static org.joda.time.Instant.parse;
+import static java.time.Instant.parse;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -559,7 +559,7 @@ public class WidgetServiceTest {
     @Test
     public void should_serve_all_light_widgets_in_repository() throws Exception {
         Widget input = aWidget().withId("input").build();
-        Widget label = aWidget().withId("label").lastUpdate(parse("2015-02-02")).build();
+        Widget label = aWidget().withId("label").lastUpdate(parse("2015-02-02T00:00:00.000Z")).build();
         when(widgetRepository.getAll()).thenReturn(asList(input, label));
         String[] ids = {"input", "label"};
         Map<String, List<Page>> map = new HashMap();

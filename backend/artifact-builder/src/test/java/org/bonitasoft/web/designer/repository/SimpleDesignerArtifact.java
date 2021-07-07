@@ -22,7 +22,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.JsonViewMetadata;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
-import org.joda.time.Instant;
+import java.time.Instant;
 
 @JsonIgnoreProperties({"type"})
 public final class SimpleDesignerArtifact extends DesignerArtifact {

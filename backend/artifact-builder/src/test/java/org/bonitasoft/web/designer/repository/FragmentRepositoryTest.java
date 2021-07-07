@@ -28,7 +28,7 @@ import org.bonitasoft.web.designer.repository.exception.ConstraintValidationExce
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.joda.time.Instant;
+import java.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,6 +38,7 @@ import javax.validation.Validation;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
@@ -164,7 +165,7 @@ public class FragmentRepositoryTest {
 
         //A json file has to be created in the repository
         assertThat(workspaceProperties.getFragments().getDir().resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).exists();
-        Assertions.assertThat(expectedFragment.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
+        Assertions.assertThat(expectedFragment.getLastUpdate()).isAfter(Instant.now().minus(5000, ChronoUnit.MILLIS));
     }
 
     @Test
@@ -176,7 +177,7 @@ public class FragmentRepositoryTest {
         repository.save(fragment);
 
         Fragment fetchedFragment = repository.get(fragment.getId());
-        assertThat(fetchedFragment.getLastUpdate()).isEqualTo(lastUpdate);
+        assertThat(fetchedFragment.getLastUpdate()).isEqualTo(lastUpdate.truncatedTo(ChronoUnit.MILLIS));
         assertThat(fetchedFragment.getName()).isEqualTo("newName");
     }
 
@@ -208,7 +209,7 @@ public class FragmentRepositoryTest {
         repository.saveAll(Arrays.asList(expectedFragment));
         //A json file has to be created in the repository
         assertThat(workspaceProperties.getFragments().getDir().resolve(expectedFragment.getId()).resolve(expectedFragment.getId() + ".json").toFile()).exists();
-        Assertions.assertThat(expectedFragment.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
+        Assertions.assertThat(expectedFragment.getLastUpdate()).isAfter(Instant.now().minus(5000, ChronoUnit.MILLIS));
     }
 
     @Test

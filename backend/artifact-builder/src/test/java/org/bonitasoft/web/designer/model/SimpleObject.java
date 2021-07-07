@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.joda.time.Instant;
+import java.time.Instant;
 
 @JsonIgnoreProperties(value={"password"}, allowSetters = true)
 public final class SimpleObject {

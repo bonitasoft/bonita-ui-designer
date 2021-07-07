@@ -29,7 +29,6 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.DefaultFragmentService;
 import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
-import org.joda.time.Instant;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +41,8 @@ import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.Instant;
+import java.time.temporal.ChronoField;
 import java.util.Set;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
@@ -219,14 +220,15 @@ public class FragmentResourceTest {
     public void should_get_all_fragment_light() throws Exception {
         Fragment fragment1 = aFragment().withId("fragment1").withName("fragment1").build();
         Fragment fragment2 = aFragment().withId("fragment2").withName("fragment2").build();
-        fragment2.setLastUpdate(Instant.parse("2015-02-02"));
+        var lastUpdate = Instant.parse("2015-02-02T00:00:00.000Z");
+        fragment2.setLastUpdate(lastUpdate);
         when(fragmentService.getAllNotUsingFragment(null)).thenReturn(asList(fragment1, fragment2));
 
         mockMvc.perform(get("/rest/fragments").param("view", "light"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[*].id").value(hasItems("fragment1", "fragment2")))
-                .andExpect(jsonPath("$[*].lastUpdate").value(hasItem(Instant.parse("2015-02-02").getMillis())));
+                .andExpect(jsonPath("$[*].lastUpdate").value(hasItem(lastUpdate.toEpochMilli())));
     }
 
     @Test

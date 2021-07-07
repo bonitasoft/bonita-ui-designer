@@ -12,27 +12,10 @@
     <description>Wysiwyg editor for Bonita</description>
     <url>https://www.bonitasoft.com</url>
 
-    <developers>
-        <developer>
-            <id>bonitasoft</id>
-            <name>Bonitasoft</name>
-            <email>rd.user@bonitasoft.com</email>
-            <organization>Bonitasoft</organization>
-            <organizationUrl>https://www.bonitasoft.com</organizationUrl>
-        </developer>
-    </developers>
-
-    <licenses>
-        <license>
-            <name>GPL-v2.0</name>
-            <url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
-        </license>
-    </licenses>
-
     <properties>
+        <!-- Properties encoding used by the maven compiler -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- Properties encoding used by the maven compiler -->
         <java.version>11</java.version>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -58,6 +41,23 @@
         <git-commit-id-plugin.version>4.0.3</git-commit-id-plugin.version>
 
     </properties>
+
+    <developers>
+        <developer>
+            <id>bonitasoft</id>
+            <name>Bonitasoft</name>
+            <email>rd.user@bonitasoft.com</email>
+            <organization>Bonitasoft</organization>
+            <organizationUrl>https://www.bonitasoft.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>GPL-v2.0</name>
+            <url>http://www.gnu.org/licenses/gpl-2.0.txt</url>
+        </license>
+    </licenses>
 
     <modules>
         <module>frontend</module>
@@ -186,6 +186,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
                     <executions>
                         <execution>
                             <id>repackage</id>

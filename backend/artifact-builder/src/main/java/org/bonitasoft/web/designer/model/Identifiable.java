@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.model;
 
-import org.joda.time.Instant;
+import java.time.Instant;
 
 /**
  * A component is identifiable when he has an id and a version because

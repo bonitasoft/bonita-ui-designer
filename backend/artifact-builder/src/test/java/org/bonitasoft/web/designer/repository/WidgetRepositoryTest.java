@@ -28,7 +28,7 @@ import org.bonitasoft.web.designer.repository.exception.ConstraintValidationExce
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.joda.time.Instant;
+import java.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -46,6 +46,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -177,7 +178,7 @@ public class WidgetRepositoryTest {
 
         assertThat(jsonFile(customLabel)).exists();
         // last update field should be the current time
-        assertThat(customLabel.getLastUpdate()).isGreaterThan(Instant.now().minus(5000));
+        assertThat(customLabel.getLastUpdate()).isAfter(Instant.now().minus(5000, ChronoUnit.MILLIS));
     }
 
     @Test
@@ -189,7 +190,7 @@ public class WidgetRepositoryTest {
         widgetRepository.save(widget);
 
         Widget fetchedWidget = widgetRepository.get(widget.getId());
-        assertThat(fetchedWidget.getLastUpdate()).isEqualTo(lastUpdate);
+        assertThat(fetchedWidget.getLastUpdate()).isEqualTo(lastUpdate.truncatedTo(ChronoUnit.MILLIS));
         assertThat(fetchedWidget.getName()).isEqualTo("newName");
     }
 
