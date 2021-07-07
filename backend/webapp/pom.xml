@@ -11,8 +11,9 @@
     <artifactId>ui-designer-backend-webapp</artifactId>
     <packaging>jar</packaging>
 
-    <properties>
+    <properties>        
         <smiley-http-proxy-servlet.version>1.12</smiley-http-proxy-servlet.version>
+        <resource.delimiter>@</resource.delimiter>
     </properties>
 
     <dependencies>
@@ -218,6 +219,18 @@
         </testResources>
 
         <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
+                    <delimiters>
+                        <delimiter>${resource.delimiter}</delimiter>
+                    </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>pl.project13.maven</groupId>
