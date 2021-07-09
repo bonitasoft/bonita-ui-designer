@@ -35,7 +35,7 @@
                 return $scope.helpSection;
               }
             },
-            controller: function($scope, $uibModalInstance, pageEdition, helpSection) {
+            controller: function($scope, $uibModalInstance, keyBindingService, pageEdition, helpSection) {
               'ngInject';
               $scope.pageEdition = pageEdition;
               if (helpSection) {
@@ -46,6 +46,12 @@
               $scope.cancel = function() {
                 $uibModalInstance.dismiss('cancel');
               };
+              // Pause keyBindingService to avoid move selection in background when user press arrow key
+              keyBindingService.pause();
+              // Unpause keyBindingService when popup is destroy
+              $scope.$on('$destroy', function() {
+                keyBindingService.unpause();
+              });
             }
           });
         }

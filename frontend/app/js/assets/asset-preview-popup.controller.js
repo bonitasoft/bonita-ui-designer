@@ -14,12 +14,19 @@
  */
 (function() {
 
-  angular.module('bonitasoft.designer.assets').controller('AssetPreviewPopupCtrl', function($scope, $uibModalInstance, asset, component, assetsService) {
+  angular.module('bonitasoft.designer.assets').controller('AssetPreviewPopupCtrl', function($scope, $uibModalInstance, keyBindingService, asset, component, assetsService) {
 
     'use strict';
 
     $scope.url = getUrl();
     $scope.asset = asset;
+
+    // Pause keyBindingService to avoid move selection in background when user press arrow key
+    keyBindingService.pause();
+    // Unpause keyBindingService when popup is destroy
+    $scope.$on('$destroy', function() {
+      keyBindingService.unpause();
+    });
 
     $scope.cancel = function() {
       $uibModalInstance.dismiss();

@@ -20,7 +20,7 @@
     .module('bonitasoft.designer.assets')
     .controller('AssetPopupCtrl', AssetPopupCtrl);
 
-  function AssetPopupCtrl($scope, $uibModalInstance, alerts, assetsService, assetRepo, asset, assets, mode, artifact, gettextCatalog, assetErrorManagement, scope) {
+  function AssetPopupCtrl($scope, $uibModalInstance, keyBindingService, alerts, assetsService, assetRepo, asset, assets, mode, artifact, gettextCatalog, assetErrorManagement, scope) {
 
     var urlPrefixForLocalAsset = 'rest/' + mode + 's/' + artifact.id + '/assets/';
 
@@ -51,6 +51,13 @@
     // When source change, we reset name to avoid collision,
     // expecially with `assetsService.isExternalAsset` which is not accurate until asset have type returned by backend
     $scope.$watch(() => vm.newAsset.external, (old, newValue) => old !== newValue && delete vm.newAsset.name);
+
+    // Pause keyBindingService to avoid move selection in background when user press arrow key
+    keyBindingService.pause();
+    // Unpause keyBindingService when popup is destroy
+    $scope.$on('$destroy', function() {
+      keyBindingService.unpause();
+    });
 
     /**
      * An external asset is saved by a $http call
