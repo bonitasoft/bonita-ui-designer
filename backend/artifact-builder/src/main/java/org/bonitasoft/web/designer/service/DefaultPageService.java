@@ -150,6 +150,7 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
         var savedPage = repository.updateLastUpdateAndSave(page);
         if (!savedPage.getId().equals(pageId)) {
             assetService.duplicateAsset(repository.resolvePath(pageId), repository.resolvePath(pageId), pageId, savedPage.getId());
+            repository.delete(pageId);
         }
         return savedPage;
     }

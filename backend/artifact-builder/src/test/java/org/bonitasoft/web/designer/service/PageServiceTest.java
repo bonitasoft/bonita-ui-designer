@@ -350,6 +350,7 @@ public class PageServiceTest {
         // Then
         assertThat(savedPage.getId()).isEqualTo(newPageName);
         verify(pageRepository).updateLastUpdateAndSave(aPage().withId(newPageName).withName(newPageName).build());
+        verify(pageRepository).delete("my-page");
         verify(pageAssetService).duplicateAsset(pageRepository.resolvePath(myPageName), pageRepository.resolvePath(myPageName), myPageName, newPageName);
     }
 
