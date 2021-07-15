@@ -3,7 +3,7 @@
   'use strict';
 
   class SaveAsPopUpController {
-    constructor($uibModalInstance, page, gettext) {
+    constructor($scope, $uibModalInstance, keyBindingService, page, gettext) {
       this.$uibModalInstance = $uibModalInstance;
       this.page = page;
       this.newName = page.name;
@@ -22,6 +22,12 @@
       if (this.types[page.type]) {
         this.type = this.types[page.type];
       }
+      // Pause keyBindingService to avoid move selection in background when user press arrow key
+      keyBindingService.pause();
+      // Unpause keyBindingService when popup is destroy
+      $scope.$on('$destroy', function() {
+        keyBindingService.unpause();
+      });
     }
 
     ok() {

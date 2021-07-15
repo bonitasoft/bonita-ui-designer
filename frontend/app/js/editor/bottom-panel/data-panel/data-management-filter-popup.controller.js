@@ -15,7 +15,7 @@
 (function() {
 
   class DataManagementPopupController {
-    constructor($scope, $uibModalInstance, businessData, queriesForObject, pageData, businessDataUpdateService, gettextCatalog) {
+    constructor($scope, $uibModalInstance, keyBindingService, businessData, queriesForObject, pageData, businessDataUpdateService, gettextCatalog) {
       this.$uibModalInstance = $uibModalInstance;
       this.businessData = businessData;
       this.queriesForObject = queriesForObject;
@@ -33,6 +33,13 @@
       };
 
       document.addEventListener('queryChanged', this.handleQueryChanged);
+
+      // Pause keyBindingService to avoid move selection in background when user press arrow key
+      keyBindingService.pause();
+      // Unpause keyBindingService when popup is destroy
+      $scope.$on('$destroy', function() {
+        keyBindingService.unpause();
+      });
     }
 
     /**

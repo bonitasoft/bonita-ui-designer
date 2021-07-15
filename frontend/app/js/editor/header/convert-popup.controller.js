@@ -3,7 +3,7 @@
   'use strict';
 
   class ConvertPopUpController {
-    constructor($uibModalInstance, page, gettext) {
+    constructor($scope, $uibModalInstance, keyBindingService, page, gettext) {
       'ngInject';
       this.$uibModalInstance = $uibModalInstance;
       this.page = page;
@@ -20,6 +20,12 @@
       if (this.types[page.type]) {
         this.type = this.types[page.type];
       }
+      // Pause keyBindingService to avoid move selection in background when user press arrow key
+      keyBindingService.pause();
+      // Unpause keyBindingService when popup is destroy
+      $scope.$on('$destroy', function() {
+        keyBindingService.unpause();
+      });
     }
 
     save() {

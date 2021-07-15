@@ -15,11 +15,18 @@
 
 (function() {
   class ConfirmDeletePopupController {
-    constructor($scope, $uibModalInstance, artifact, type) {
+    constructor($scope, $uibModalInstance, keyBindingService, artifact, type) {
       this.$scope = $scope;
       this.$uibModalInstance = $uibModalInstance;
       this.artifact = artifact;
       this.type = type;
+
+      // Pause keyBindingService to avoid move selection in background when user press arrow key
+      keyBindingService.pause();
+      // Unpause keyBindingService when popup is destroy
+      $scope.$on('$destroy', function() {
+        keyBindingService.unpause();
+      });
     }
 
     confirm() {

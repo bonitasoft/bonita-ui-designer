@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.editor.properties-panel').controller('SaveFragmentController', function($scope, $rootScope, currentComponent, editor, $uibModalInstance, fragmentRepo, fragmentService) {
+angular.module('bonitasoft.designer.editor.properties-panel').controller('SaveFragmentController', function($scope, $rootScope, currentComponent, editor, $uibModalInstance, keyBindingService, fragmentRepo, fragmentService) {
 
   'use strict';
 
@@ -61,4 +61,11 @@ angular.module('bonitasoft.designer.editor.properties-panel').controller('SaveFr
     row[componentIndex] = newComponent;
     editor.selectComponent(newComponent);
   }
+
+  // Pause keyBindingService to avoid move selection in background when user press arrow key
+  keyBindingService.pause();
+  // Unpause keyBindingService when popup is destroy
+  $scope.$on('$destroy', function() {
+    keyBindingService.unpause();
+  });
 });
