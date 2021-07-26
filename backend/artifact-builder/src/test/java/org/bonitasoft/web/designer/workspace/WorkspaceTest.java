@@ -16,7 +16,9 @@ package org.bonitasoft.web.designer.workspace;
 
 import org.bonitasoft.web.designer.ArtifactBuilder;
 import org.bonitasoft.web.designer.ArtifactBuilderFactory;
+import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
@@ -45,9 +47,7 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class WorkspaceTest {
 
-    private static final String CURRENT_MODEL_VERSION = "2.0";
-
-    private final String extractPath = "target/workspace-test/workspace-uid/";
+    private final String workSpaceUidPath = "target/workspace-test/workspace-uid/";
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
@@ -60,18 +60,13 @@ public class WorkspaceTest {
 
     @Before
     public void setUp() throws Exception {
-
-        uiDesignerProperties = new UiDesignerProperties();
-        uiDesignerProperties.setModelVersion(CURRENT_MODEL_VERSION);
+        Path fakeProjectFolder = temporaryFolder.toPath();
+        uiDesignerProperties = new UiDesignerPropertiesBuilder()
+                .workspacePath(fakeProjectFolder)
+                .workspaceUidPath(Path.of(workSpaceUidPath)).build();
 
         workspaceProperties = uiDesignerProperties.getWorkspace();
-        final String fakeProjectFolder = temporaryFolder.toPath().toString();
-        workspaceProperties.getPages().setDir(Paths.get(fakeProjectFolder, "pages"));
-        workspaceProperties.getWidgets().setDir(Paths.get(fakeProjectFolder, "widgets"));
-        workspaceProperties.getFragments().setDir(Paths.get(fakeProjectFolder, "fragments"));
 
-        WorkspaceUidProperties workspaceUidProperties = uiDesignerProperties.getWorkspaceUid();
-        workspaceUidProperties.setExtractPath(Paths.get(extractPath));
 
         ArtifactBuilder artifactBuilder = new ArtifactBuilderFactory(uiDesignerProperties).create();
 
@@ -157,7 +152,7 @@ public class WorkspaceTest {
 
     @Test
     public void should_not_copy_widget_file_if_it_is_already_in_widget_repository_with_same_version() throws Exception {
-        String existingWidgetContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \"" + CURRENT_MODEL_VERSION + "\"}";
+        String existingWidgetContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \"" + uiDesignerProperties.getModelVersionLegacy() + "\"}";
         createWidget("pbLabel", existingWidgetContent);
 
         workspace.initialize();
@@ -246,7 +241,7 @@ public class WorkspaceTest {
     @Test
     public void should_not_copy_widget_file_if_it_is_already_in_widget_repository_folder() throws Exception {
         //We create the widget files
-        String existingWidget = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \"" + CURRENT_MODEL_VERSION + "\"}";
+        String existingWidget = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \"" + Version.MODEL_VERSION_LEGACY + "\"}";
         byte[] fileContent = existingWidget.getBytes(StandardCharsets.UTF_8);
         createWidget("pbLabel",existingWidget);
 

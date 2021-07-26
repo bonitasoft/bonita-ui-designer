@@ -26,22 +26,36 @@ describe('fragmentRepo', function() {
     expect(frags).toEqual(expectedFragment);
   });
 
-  it('should list the fragments not using a given element', function() {
-    var expectedFragment = [
+  it('should list the fragments not using a given element for a given model version', function() {
+    let expectedFragmentV2 =
       {
         id: 'f1',
+        modelVersion: '2.0',
         name: 'fragment1'
-      }
-    ];
-    $httpBackend.expectGET('rest/fragments?notUsedBy=1234').respond(expectedFragment);
+      };
+    let expectedFragmentV3 =
+      {
+        id: 'f2',
+        modelVersion: '3.0',
+        name: 'fragment2'
+      };
+    $httpBackend.expectGET('rest/fragments?notUsedBy=1234').respond([expectedFragmentV2, expectedFragmentV3]);
 
-    var frags;
-    fragmentRepo.allNotUsingElement(1234).then(function(response) {
-      frags = response.data;
+    // Check v2 fragments
+    let frags;
+    fragmentRepo.allNotUsingElement(1234, '2.0').then(function(response) {
+      frags = response;
     });
-
     $httpBackend.flush();
-    expect(frags).toEqual(expectedFragment);
+    expect(frags).toEqual([expectedFragmentV2]);
+
+    // Check v3 fragments
+    $httpBackend.expectGET('rest/fragments?notUsedBy=1234').respond([expectedFragmentV2, expectedFragmentV3]);
+    fragmentRepo.allNotUsingElement(1234, '3.0').then(function(response) {
+      frags = response;
+    });
+    $httpBackend.flush();
+    expect(frags).toEqual([expectedFragmentV3]);
   });
 
   it('should list the fragments in light view', function() {
@@ -160,5 +174,25 @@ describe('fragmentRepo', function() {
 
     $httpBackend.flush();
   });
+
+  it('should get the information of a fragment', function() {
+    // given a fragment info
+    let fragmentInfoJson = {
+      artifactVersion: '2.0'
+    };
+    $httpBackend.expectGET('rest/fragments/info/person').respond(200, fragmentInfoJson);
+
+    // when we get it
+    let fragmentInfoData;
+    fragmentRepo.getInfo('person')
+      .then(function(data) {
+        fragmentInfoData = data;
+      });
+
+    // then we should have called the backend
+    $httpBackend.flush();
+    expect(fragmentInfoData.artifactVersion).toEqual('2.0');
+  });
+
 
 });

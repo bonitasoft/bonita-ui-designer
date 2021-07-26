@@ -40,15 +40,11 @@ public class UiDesignerProperties {
     private String edition;
     private String version;
     private String modelVersion;
+    private String modelVersionLegacy;
     private boolean experimental;
     private BonitaProperties bonita = new BonitaProperties();
     private WorkspaceProperties workspace = new WorkspaceProperties();
     private WorkspaceUidProperties workspaceUid = new WorkspaceUidProperties();
-
-    public UiDesignerProperties(String version, String modelVersion) {
-        this.version = version;
-        this.modelVersion = modelVersion;
-    }
 
     @Data
     public static class BonitaProperties {

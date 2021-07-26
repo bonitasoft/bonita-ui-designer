@@ -38,13 +38,16 @@
       paletteItems[key] = repository;
     }
 
-    function initialize(repo, id, isWcWidgets) {
-      let allWidgets;
-      if (isWcWidgets) {
-        allWidgets = widgetRepo.webComponents();
-      } else {
-        allWidgets = widgetRepo.angularJs();
-      }
+    function initialize(repo, id) {
+
+      let artifactVersion;
+      let allWidgets = repo.getInfo(id).then(response => {
+        artifactVersion = response.artifactVersion;
+        return widgetRepo.widgets(artifactVersion).then(response => {
+          return response;
+        });
+      });
+
       let dataWidgets = dataManagementRepo.getDataObjects()
         .then(addDataManagement);
       return $q.all([dataWidgets, allWidgets])
@@ -57,8 +60,8 @@
         })
         .then(initializePalette)
         //Retrieve and register fragments that can be dropped without cyclic dependencies
-        .then(() => fragmentRepo.allNotUsingElement(id))
-        .then((fragmentResponse) => fragmentService.register(fragmentResponse.data))
+        .then(() => fragmentRepo.allNotUsingElement(id, artifactVersion))
+        .then((fragmentResponse) => fragmentService.register(fragmentResponse))
         .then(() => repo.migrationStatus(id))
         .then((response) => {
           return migration.handleMigrationStatus(id, response.data).then(() => {

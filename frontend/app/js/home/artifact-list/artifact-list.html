@@ -16,14 +16,13 @@
                       tooltip-popup-delay="500">
                     <identicon name="{{artifact.id}}" size="25"
                                foreground-color="[198, 199, 228, 255]"
-                               background-color="[0,0,0,0]"                               >
+                               background-color="[0,0,0,0]">
                     </identicon>
                       <i>
                     <i ng-if="artifact.hasValidationError" class="fa identicon-error-overlay"></i>
                     <i ng-if="artifact.status && !artifact.status.compatible" class="fa identicon-forbidden-overlay"></i>
                     <i ng-if="artifact.status && artifact.status.migration" class="fa identicon-warning-overlay"></i>
                 </i>
-
                 </span>
                 <i ng-if="!artifact.icon" class="ui-icon ui-{{:: artifact.type }}s Artifact-icon"
                    uib-tooltip="{{::artifactList.getTooltipMessage(artifact)}}"
@@ -32,7 +31,6 @@
                     <i ng-if="artifact.status && !artifact.status.compatible" class="fa forbidden-overlay"></i>
                     <i ng-if="artifact.status && artifact.status.migration" class="fa warning-overlay"></i>
                 </i>
-
                 <span class="Artifact-text">
                     <span class="Artifact-name"
                           uib-tooltip-template="'js/home/artifact-list/artifact-tooltip-template.html'"
@@ -41,6 +39,7 @@
                     </span>
                     <span class="Artifact-metadata"
                     >{{:: artifactList.translateKeys('Last Update:') }} {{:: artifact.lastUpdate | date:'short' }}</span>
+                    <span ng-if="isExperimentalMode() && artifact.modelVersion!=='3.0'" class="label label-warning" translate>Legacy</span>
                 </span>
             </a>
             <form name="renameArtifact" class="Artifact-form"

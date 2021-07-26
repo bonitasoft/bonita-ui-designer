@@ -2,9 +2,17 @@ describe('artifactListController', function() {
 
   beforeEach(angular.mock.module('bonitasoft.designer.common.repositories', 'bonitasoft.designer.home', 'bonitasoft.designer.editor.whiteboard'));
 
-  let $scope, $q, $uibModal, $localStorage, pageRepo, widgetRepo,element, migration;
+  let $scope, $q, $uibModal, $localStorage, pageRepo, widgetRepo,element, migration, $httpBackend;
 
-  beforeEach(inject(function($rootScope, $compile, $injector) {
+  let config = {
+    uidVersion: '1.13.0-SNAPSHOT',
+    modelVersion: '2.0',
+    modelVersionLegacy: '2.2',
+    bdrUrl: 'http://localhost:4000',
+    experimentalMode: false
+  };
+
+  beforeEach(inject(function($rootScope, $compile, $injector, _$httpBackend_) {
 
     $scope = $rootScope;
     $q = $injector.get('$q');
@@ -14,6 +22,7 @@ describe('artifactListController', function() {
     pageRepo = $injector.get('pageRepo');
     widgetRepo = $injector.get('widgetRepo');
     migration = $injector.get('migration');
+    $httpBackend = _$httpBackend_;
 
     spyOn(pageRepo, 'migrate').and.returnValue($q.when({}));
     spyOn(pageRepo, 'migrationStatus').and.returnValue($q.when({}));
@@ -39,6 +48,7 @@ describe('artifactListController', function() {
     ];
 
     element = $compile('<artifact-list artifacts="artifacts" existing-artifacts="artifacts" refresh-all="refreshAll" download-artifact="downloadArtifact"></artifact-list>')($scope);
+    $httpBackend.expectGET('./rest/config').respond(200, config);
     $scope.$digest();
   }));
 

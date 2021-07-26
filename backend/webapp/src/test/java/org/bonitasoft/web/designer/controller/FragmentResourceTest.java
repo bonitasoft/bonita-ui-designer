@@ -435,4 +435,16 @@ public class FragmentResourceTest {
 
         mockMvc.perform(get("/rest/fragments/fragmentChild")).andExpect(status().is(422));
     }
+
+    @Test
+    public void should_get_fragment_info() throws Exception {
+        String modelVersion = "2.0";
+        Fragment fragment1 = aFragment().withId("fragment1").withModelVersion(modelVersion).build();
+        when(fragmentService.getInfo(fragment1.getId())).thenReturn(new ArtifactInfo(modelVersion));
+
+        mockMvc
+                .perform(get("/rest/fragments/info/fragment1"))
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.artifactVersion").value(modelVersion));
+    }
 }

@@ -16,6 +16,8 @@ package org.bonitasoft.web.designer.model.page;
 
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.PageBuilder;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -39,6 +41,7 @@ public class PageTest {
 
     private BeanValidator beanValidator;
     private JsonHandler jsonHandler;
+    private UiDesignerProperties uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
 
     @Before
     public void init(){
@@ -53,6 +56,7 @@ public class PageTest {
         JSONAssert.assertEquals(json, "{"
                 + "\"id\":\"ID\","
                 + "\"uuid\":\"UUID\","
+                + "\"modelVersion\":\""+ uiDesignerProperties.getModelVersionLegacy() +"\","
                 + "\"name\":\"myPage\","
                 + "\"type\":\"page\","
                 + "\"favorite\": true,"
@@ -161,6 +165,7 @@ public class PageTest {
         page.setUUID("UUID");
         page.setFavorite(true);
         page.setName("myPage");
+        page.setModelVersion(uiDesignerProperties.getModelVersionLegacy());
         page.setStatus(new MigrationStatusReport());
         return page;
     }

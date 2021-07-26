@@ -45,14 +45,14 @@
           .then((response) => response.data);
       }
 
-      angularJs() {
-        return this.$http.get(`${this.baseUrl}`)
-          .then((response) => response.data.filter((widget) => !this.isWebComponent(widget.technology)));
-      }
-
-      webComponents() {
-        return this.$http.get(`${this.baseUrl}`)
-          .then((response) => response.data.filter((widget) => this.isWebComponent(widget.technology)));
+      widgets(artifactVersion) {
+        if (this.isV3Version(artifactVersion)) {
+          return this.$http.get(`${this.baseUrl}`)
+            .then((response) => response.data.filter((widget) => this.isV3Version(widget.modelVersion)));
+        } else {
+          return this.$http.get(`${this.baseUrl}`)
+            .then((response) => response.data.filter((widget) => !this.isV3Version(widget.modelVersion)));
+        }
       }
 
       /**
@@ -81,9 +81,6 @@
         return this.$http.get(`${this.baseUrl}/${widgetId}/help`);
       }
 
-      isWebComponent(technology) {
-        return technology === 'web_component';
-      }
     }
     return new WidgetRepository();
   }

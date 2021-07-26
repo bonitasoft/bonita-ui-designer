@@ -1,4 +1,4 @@
-<form class="NewArtifact" name="newArtifactForm" ng-submit="createCtrl.create(createCtrl.type, createCtrl.name)">
+<form class="NewArtifact" name="newArtifactForm" ng-submit="createCtrl.create(createCtrl.type, createCtrl.name, createCtrl.legacy)">
     <div class="modal-header">
         <h3 class="modal-title" translate>Create new artifact</h3>
     </div>
@@ -21,6 +21,17 @@
                    ui-validate-watch="'createCtrl.type'"
                    artifact-name-validation>
         </div>
+        <div class="checkbox" ng-if="createCtrl.experimental()">
+            <label>
+                <input
+                    name="legacy"
+                    ng-model="createCtrl.legacy"
+                    id="legacy"
+                    type="checkbox">
+                <translate>Use the legacy page generation (not recommended)</translate>
+            </label>
+        </div>
+
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" ng-disabled="newArtifactForm.$invalid" translate>Create</button>

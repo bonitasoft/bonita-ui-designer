@@ -21,6 +21,7 @@ import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.UiDesignerCore;
 import org.bonitasoft.web.designer.UiDesignerCoreFactory;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -40,27 +41,24 @@ import java.util.Collection;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.UiDesignerPropertiesTestBuilder.aUiDesignerProperties;
 
 public class WorkspaceMigrationTest {
-
-
-    private static final String HIGHER_MIGRATION_VERSION = "2.2";
 
     private PageService pageService;
 
     private WidgetService widgetService;
 
     private Workspace workspace;
+    private UiDesignerProperties uiDesignerProperties;
 
     @Before
     public void setUp() throws Exception {
         Path workspacePath = Paths.get(this.getClass().getClassLoader().getResource("workspace").toURI());
         Path uidWorkspacePath = Paths.get("target/uid-workspace");
 
-        UiDesignerProperties uiDesignerProperties = aUiDesignerProperties(workspacePath);
-        uiDesignerProperties.setModelVersion(HIGHER_MIGRATION_VERSION);
-        uiDesignerProperties.setVersion("1.13.0-SNAPSHOT");
+        uiDesignerProperties = new UiDesignerPropertiesBuilder()
+                .workspacePath(workspacePath)
+                .workspaceUidPath(uidWorkspacePath).build();
         uiDesignerProperties.setEdition("Community");
         uiDesignerProperties.getWorkspaceUid().setPath(uidWorkspacePath);
         uiDesignerProperties.getWorkspaceUid().setExtractPath(uidWorkspacePath.resolve("extract"));
@@ -84,7 +82,7 @@ public class WorkspaceMigrationTest {
         // Then
         Page page = pageService.get("page_1_0_0");
 
-        assertThat(page.getArtifactVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
+        assertThat(page.getArtifactVersion()).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
         assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.0");
 
         assertThat(page.getAssets().stream().map(Asset::getId)).doesNotContainNull();
@@ -111,7 +109,7 @@ public class WorkspaceMigrationTest {
         // Then
         Page page = pageService.get("page_1_5_51");
 
-        assertThat(page.getArtifactVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
+        assertThat(page.getArtifactVersion()).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
         Map<String, PropertyValue> propertyValues = page.getRows().stream().flatMap(Collection::stream).iterator().next().getPropertyValues();
         PropertyValue allowHTMLProperty = propertyValues.get("allowHTML");
 
@@ -128,7 +126,7 @@ public class WorkspaceMigrationTest {
         // Then
         Widget widget = widgetService.get("widget_1_0_0");
 
-        assertThat(widget.getArtifactVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
+        assertThat(widget.getArtifactVersion()).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
         assertThat(widget.getPreviousArtifactVersion()).isEqualTo("1.0.0");
 
         assertThat(widget.getAssets().stream().map(Asset::getId)).doesNotContainNull();
@@ -153,7 +151,7 @@ public class WorkspaceMigrationTest {
         // Then
         Page page = pageService.get("pageWithUIBootstrap");
 
-        assertThat(page.getArtifactVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
+        assertThat(page.getArtifactVersion()).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
         assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.1");
 
         assertThat(page.getAssets().stream().map(Asset::getName)).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(2);
@@ -167,7 +165,7 @@ public class WorkspaceMigrationTest {
         // Then
         Page page = pageService.get("pageWithUIBootstrapWidget");
 
-        assertThat(page.getArtifactVersion()).isEqualTo(HIGHER_MIGRATION_VERSION);
+        assertThat(page.getArtifactVersion()).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
         assertThat(page.getPreviousArtifactVersion()).isEqualTo("1.0.1");
 
         assertThat(page.getAssets().stream().map(Asset::getName)).doesNotContain(UIBootstrapAssetMigrationStep.ASSET_FILE_NAME).hasSize(1);

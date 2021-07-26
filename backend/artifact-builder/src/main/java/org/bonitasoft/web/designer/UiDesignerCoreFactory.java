@@ -336,7 +336,7 @@ public class UiDesignerCoreFactory {
                 uiDesignerProperties.getWorkspaceUid(),
                 new WidgetFileBasedPersister(jsonHandler, beanValidator, this.uiDesignerProperties),
                 new WidgetFileBasedLoader(jsonHandler),
-                beanValidator, watcher, uiDesignerProperties
+                beanValidator, watcher
         );
     }
 

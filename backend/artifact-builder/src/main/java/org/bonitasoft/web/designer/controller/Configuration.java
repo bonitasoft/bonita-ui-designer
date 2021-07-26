@@ -15,57 +15,25 @@
 
 package org.bonitasoft.web.designer.controller;
 
-public class ConfigurationReport {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class Configuration {
 
     private String uidVersion;
     private String modelVersion;
+    private String modelVersionLegacy;
     private String bdrUrl;
     private boolean experimentalMode;
-
-    public ConfigurationReport(String uidVersion, String modelVersion, String bdrUrl, boolean isExperimental) {
-        this.uidVersion = uidVersion;
-        this.modelVersion = modelVersion;
-        this.bdrUrl = bdrUrl;
-        this.experimentalMode = isExperimental;
-    }
-
-    public String getUidVersion() {
-        return uidVersion;
-    }
-
-    public void setUidVersion(String uidVersion) {
-        this.uidVersion = uidVersion;
-    }
-
-    public String getModelVersion() {
-        return modelVersion;
-    }
-
-    public void setModelVersion(String modelVersion) {
-        this.modelVersion = modelVersion;
-    }
-
-    public String getBdrUrl() {
-        return bdrUrl;
-    }
-
-    public void setBdrUrl(String bdrUrl) {
-        this.bdrUrl = bdrUrl;
-    }
-
-    public boolean isExperimentalMode() {
-        return experimentalMode;
-    }
-
-    public void setExperimentalMode(boolean experimentalMode) {
-        this.experimentalMode = experimentalMode;
-    }
 
     @Override
     public String toString() {
         return "{" +
                 "\"uidVersion\":" + uidVersion +
                 ",\"modelVersion\":" + modelVersion +
+                ",\"modelVersionLegacy\":" + modelVersionLegacy +
                 ",\"bdrUrl\":" + bdrUrl +
                 ",\"experimentalMode\":" + experimentalMode +
                 '}';

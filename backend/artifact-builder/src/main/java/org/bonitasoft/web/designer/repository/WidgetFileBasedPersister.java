@@ -57,9 +57,7 @@ public class WidgetFileBasedPersister extends JsonFileBasedPersister<Widget> {
         }
         content.setDesignerVersionIfEmpty(versionToSet);
         var artifactVersion = content.getArtifactVersion();
-        if (artifactVersion == null || Version.isSupportingModelVersion(artifactVersion)) {
-            content.setModelVersionIfEmpty(this.uiDesignerProperties.getModelVersion());
-        }
+        setModelVersion(content, artifactVersion);
         validator.validate(content);
 
         var templateFileName = content.getId() + ".tpl.html";
@@ -95,5 +93,18 @@ public class WidgetFileBasedPersister extends JsonFileBasedPersister<Widget> {
     public Path getFilePath(Path directory, String fileName) {
         return directory.resolve(fileName);
     }
+
+    private void setModelVersion(Widget content, String artifactVersion) {
+        if (artifactVersion == null || Version.isSupportingModelVersion(artifactVersion)) {
+            if (content.getId().startsWith(WidgetRepository.ANGULARJS_STANDARD_PREFIX)
+                    || content.getId().startsWith(WidgetRepository.ANGULARJS_CUSTOM_PREFIX)) {
+                content.setModelVersionIfEmpty(this.uiDesignerProperties.getModelVersionLegacy());
+            } else {
+                content.setModelVersionIfEmpty(this.uiDesignerProperties.getModelVersion());
+            }
+        }
+    }
+
+
 
 }

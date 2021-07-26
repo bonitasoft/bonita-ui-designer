@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JsonHandler;
@@ -64,10 +65,6 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetRepositoryTest {
 
-    private static final String DESIGNER_VERSION = "1.0.0";
-
-    private static final String MODEL_VERSION = "2.0";
-
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
@@ -86,8 +83,6 @@ public class WidgetRepositoryTest {
 
     private Path widgetDir;
 
-    private Path widgetWcDir;
-
     @Mock
     private Watcher watcher;
 
@@ -95,9 +90,8 @@ public class WidgetRepositoryTest {
     public void setUp() throws IOException {
 
         widgetDir = Paths.get(temporaryFolder.getRoot().getPath());
-        widgetWcDir = widgetDir.resolve("Wc");
 
-        uiDesignerProperties = new UiDesignerProperties(DESIGNER_VERSION, MODEL_VERSION);
+        uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
         uiDesignerProperties.getWorkspace().getWidgets().setDir(widgetDir);
 
         // spying objectMapper to be able to simulate a json conversion error
@@ -113,8 +107,7 @@ public class WidgetRepositoryTest {
                 widgetPersister,
                 widgetLoader,
                 validator,
-                watcher,
-                uiDesignerProperties
+                watcher
         );
     }
 
@@ -214,7 +207,7 @@ public class WidgetRepositoryTest {
         createDirectories(widgetDir.resolve("customLabel"));
         widgetRepository.updateLastUpdateAndSave(customLabel);
 
-        assertThat(customLabel.getModelVersion()).isEqualTo(MODEL_VERSION);
+        assertThat(customLabel.getModelVersion()).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
     }
 
     @Test

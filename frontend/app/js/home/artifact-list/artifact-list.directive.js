@@ -17,7 +17,7 @@
 
   class ArtifactListController {
 
-    constructor($q, $uibModal, $timeout, $localStorage, repositories, gettextCatalog, $state, artifactNamingValidatorService, alerts, migration) {
+    constructor($q, $uibModal, $timeout, $localStorage, repositories, gettextCatalog, $state, artifactNamingValidatorService, alerts, migration, configuration) {
       this.$q = $q;
       this.$uibModal = $uibModal;
       this.$timeout = $timeout;
@@ -28,6 +28,7 @@
       this.artifactNamingValidatorService = artifactNamingValidatorService;
       this.alerts = alerts;
       this.migration = migration;
+      this.isExperimentalMode = () => configuration.isExperimentalModeEnabled();
     }
 
     translateKeys(key) {

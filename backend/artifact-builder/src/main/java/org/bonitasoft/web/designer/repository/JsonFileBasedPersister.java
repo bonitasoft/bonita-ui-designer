@@ -71,8 +71,11 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         content.setDesignerVersionIfEmpty(versionToSet);
         var artifactVersion = content.getArtifactVersion();
         if (artifactVersion == null || Version.isSupportingModelVersion(artifactVersion)) {
-            content.setModelVersionIfEmpty(uiDesignerProperties.getModelVersion());
+            // Typical cases: rename, or set as favorite a legacy artifact without model version
+            // (e.g. git checkout without migration)
+            content.setModelVersionIfEmpty(Version.getCurrentModelVersion(artifactVersion, uiDesignerProperties));
         }
+
         validator.validate(content);
         try {
             write(jsonFile(directory, content.getId()), jsonHandler.toPrettyJson(content, JsonViewPersistence.class));

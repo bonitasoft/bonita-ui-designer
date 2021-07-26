@@ -1,5 +1,6 @@
 package org.bonitasoft.web.designer.service;
 
+import org.bonitasoft.web.designer.controller.ArtifactInfo;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -37,6 +38,8 @@ public interface FragmentService extends ArtifactService<Fragment> {
     List<MigrationStepReport> migrateAllFragmentUsed(Previewable previewable);
 
     MigrationStatusReport getMigrationStatusOfFragmentUsed(Previewable previewable);
+
+    ArtifactInfo getInfo(String fragmentId);
 
     Fragment rename(Fragment fragment, String name) throws ModelException;
 

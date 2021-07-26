@@ -18,6 +18,8 @@ import com.fasterxml.jackson.core.FakeJsonProcessingException;
 import org.bonitasoft.web.designer.builder.AssetBuilder;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
+import org.bonitasoft.web.designer.controller.ArtifactInfo;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.MalformedJsonException;
@@ -27,6 +29,7 @@ import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
@@ -40,6 +43,7 @@ import org.bonitasoft.web.designer.service.exception.IncompatibleException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import java.time.Instant;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,8 +52,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -59,7 +61,6 @@ import java.util.Set;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllLines;
-import static java.time.format.DateTimeFormatter.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.*;
 import static org.assertj.core.api.Assertions.*;
@@ -82,8 +83,6 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class PageServiceTest {
 
-    private static final String CURRENT_MODEL_VERSION = "2.0";
-
     @Mock
     private PageMigrationApplyer pageMigrationApplyer;
 
@@ -100,21 +99,34 @@ public class PageServiceTest {
     private AssetService<Page> pageAssetService;
 
     private DefaultPageService pageService;
+    private DefaultPageService pageServiceExperimental;
 
     private MigrationStatusReport defaultStatusReport;
 
+    private UiDesignerProperties uiDesignerProperties;
+
     @Before
     public void setUp() throws Exception {
+        uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
         pageService = spy(new DefaultPageService(
                 pageRepository,
                 pageMigrationApplyer,
                 componentVisitor,
                 assetVisitor,
-                new UiDesignerProperties("1.13.0", CURRENT_MODEL_VERSION),
+                new UiDesignerPropertiesBuilder().build(),
+                pageAssetService
+        ));
+        pageServiceExperimental = spy(new DefaultPageService(
+                pageRepository,
+                pageMigrationApplyer,
+                componentVisitor,
+                assetVisitor,
+                new UiDesignerPropertiesBuilder().experimental(true).build(),
                 pageAssetService
         ));
         defaultStatusReport = new MigrationStatusReport(true, false);
         doReturn(defaultStatusReport).when(pageService).getStatus(any());
+        doReturn(defaultStatusReport).when(pageServiceExperimental).getStatus(any());
         when(pageRepository.updateLastUpdateAndSave(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
     }
@@ -135,6 +147,50 @@ public class PageServiceTest {
     }
 
     @Test
+    public void should_not_migrate_from_v2_to_V3_when_get_is_called() {
+        // not experimental mode
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersion()).build();
+        when(pageRepository.get("myPage")).thenReturn(page);
+
+        pageService.get("myPage");
+
+        verify(pageMigrationApplyer, never()).migrate(page);
+
+        // experimental mode
+
+        pageServiceExperimental.get("myPage");
+
+        verify(pageMigrationApplyer, never()).migrate(page);
+    }
+
+    @Test
+    public void should_return_correct_migration_status() {
+        // Artifact v2
+        // non experimental mode
+        Page page1 = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        MigrationStatusReport status = pageService.getStatusWithoutDependencies(page1);
+        assertTrue(status.isMigration());
+        assertTrue(status.isCompatible());
+        // experimental mode
+        status = pageServiceExperimental.getStatusWithoutDependencies(page1);
+        assertTrue(status.isMigration());
+        assertTrue(status.isCompatible());
+
+        // Artifact v3
+        // non experimental mode
+        Page page2 = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersion()).build();
+        status = pageService.getStatusWithoutDependencies(page2);
+        assertFalse(status.isMigration());
+        assertFalse(status.isCompatible());
+        // experimental mode
+        status = pageServiceExperimental.getStatusWithoutDependencies(page2);
+        assertFalse(status.isMigration());
+        assertTrue(status.isCompatible());
+    }
+
+
+    @Test
+
     public void should_not_update_and_save_page_if_no_migration_done() {
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("2.0").build();
         when(pageRepository.get("myPage")).thenReturn(page);
@@ -866,4 +922,19 @@ public class PageServiceTest {
         assertThat(asset.getId()).isEqualTo(existingAsset.getId());
     }
 
+    @Test
+    public void should_get_page_info() {
+        String currentModelVersion = uiDesignerProperties.getModelVersion();
+        String currentModelVersionLegacy = uiDesignerProperties.getModelVersionLegacy();
+        Page page1 = aPage().withId("page1").withModelVersion(currentModelVersion).build();
+        Page page2 = aPage().withId("page2").withModelVersion(currentModelVersionLegacy).build();
+        when(pageRepository.get(page1.getId())).thenReturn(page1);
+        when(pageRepository.get(page2.getId())).thenReturn(page2);
+        Assert.assertEquals(
+                pageService.getInfo(page1.getId()).getArtifactVersion(),
+                new ArtifactInfo(currentModelVersion).getArtifactVersion());
+        Assert.assertEquals(
+                pageService.getInfo(page2.getId()).getArtifactVersion(),
+                new ArtifactInfo(currentModelVersionLegacy).getArtifactVersion());
+    }
 }

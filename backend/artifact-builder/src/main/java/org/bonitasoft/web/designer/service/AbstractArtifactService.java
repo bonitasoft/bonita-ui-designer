@@ -40,18 +40,22 @@ public abstract class AbstractArtifactService<R extends Repository<T>, T extends
         }
     }
 
-    public MigrationStatusReport getStatus(T artifact) {
-        return getArtifactStatus(artifact);
-    }
+    public abstract MigrationStatusReport getStatus(T artifact);
 
-    private MigrationStatusReport getArtifactStatus(T artifact) {
+    /**
+     * Return status of artifact without checking dependencies
+     *
+     * @param artifact
+     * @return MigrationStatusReport
+     */
+    public MigrationStatusReport getStatusWithoutDependencies(T artifact) {
         // Check status of this artifact
         var artifactVersion = artifact.getArtifactVersion();
         if (artifactVersion == null) {
             return new MigrationStatusReport(true, true);
         }
 
-        var modelVersion = new Version(uiDesignerProperties.getModelVersion());
+        Version modelVersion = new Version(Version.getCurrentModelVersion(artifactVersion, uiDesignerProperties));
 
         var migration = modelVersion.isGreaterThan(artifactVersion);
         var compatible = modelVersion.isGreaterOrEqualThan(artifactVersion);
@@ -66,15 +70,4 @@ public abstract class AbstractArtifactService<R extends Repository<T>, T extends
 
         return new MigrationStatusReport(isCompatible, needMigration);
     }
-
-    /**
-     * Return status of artifact without checking dependencies
-     *
-     * @param artifact
-     * @return MigrationStatusReport
-     */
-    public MigrationStatusReport getStatusWithoutDependencies(T artifact) {
-        return getArtifactStatus(artifact);
-    }
-
 }

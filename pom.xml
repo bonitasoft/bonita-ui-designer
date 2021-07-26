@@ -20,7 +20,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
 
-        <uidModelVersion>2.2</uidModelVersion>
+        <uidModelVersion>3.0</uidModelVersion>
+        <uidModelVersionLegacy>2.2</uidModelVersionLegacy>
 
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>

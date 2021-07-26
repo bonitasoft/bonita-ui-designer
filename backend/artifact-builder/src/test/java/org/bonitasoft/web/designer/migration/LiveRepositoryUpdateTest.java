@@ -150,7 +150,7 @@ public class LiveRepositoryUpdateTest {
     public void should_order_LiveRepositoryUpdate() throws Exception {
         LiveRepositoryUpdate<Page> pageLiveRepositoryUpdate = new LiveRepositoryUpdate<>(repository, EMPTY_LIST);
 
-        Repository<Widget> wRepo = new WidgetRepository(workspaceProperties, new WorkspaceUidProperties(),mock(JsonFileBasedPersister.class), mock(WidgetFileBasedLoader.class), beanValidator, mock(Watcher.class), mock(UiDesignerProperties.class));
+        Repository<Widget> wRepo = new WidgetRepository(workspaceProperties, new WorkspaceUidProperties(),mock(JsonFileBasedPersister.class), mock(WidgetFileBasedLoader.class), beanValidator, mock(Watcher.class));
 
         LiveRepositoryUpdate<Widget> widgetLiveRepositoryUpdate = new LiveRepositoryUpdate<>(wRepo, EMPTY_LIST);
 

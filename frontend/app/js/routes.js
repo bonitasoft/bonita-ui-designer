@@ -75,11 +75,11 @@
       });
 
       $stateProvider.state('designer.page', {
-        url: '/pages/:id?:v2',
+        url: '/pages/:id',
         resolve: {
           //Make boolean dynamically. Get value from configuration.isExperimentalModeEnabled() but return undefined for now :(
           /* @ngInject */
-          artifact: (editorService, pageRepo, $stateParams) => editorService.initialize(pageRepo, $stateParams.id,$stateParams.v2),
+          artifact: (editorService, pageRepo, $stateParams) => editorService.initialize(pageRepo, $stateParams.id),
           /* @ngInject */
           artifactRepo: pageRepo => pageRepo,
           /* @ngInject */

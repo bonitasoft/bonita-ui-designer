@@ -1,14 +1,23 @@
 describe('home create button', () => {
 
-  var element, $scope, controller, q, artifactFactories, state, repositories;
+  let element, $scope, controller, q, artifactFactories, state, repositories, $httpBackend;
+
+  let config = {
+    uidVersion: '1.13.0-SNAPSHOT',
+    modelVersion: '2.0',
+    modelVersionLegacy: '2.2',
+    bdrUrl: 'http://localhost:4000',
+    experimentalMode: false
+  };
 
   beforeEach(angular.mock.module('bonitasoft.designer.home', 'mock.modal'));
 
-  beforeEach(inject(function($compile, $rootScope, $q, _artifactFactories_, _$state_, _repositories_) {
+  beforeEach(inject(function($compile, $rootScope, $q, _artifactFactories_, _$state_, _repositories_, _$httpBackend_) {
     q = $q;
     state = _$state_;
     artifactFactories = _artifactFactories_;
     repositories = _repositories_;
+    $httpBackend = _$httpBackend_;
 
     $scope = $rootScope.$new();
     $scope.refreshAll = jasmine.createSpy('refreshAll');
@@ -18,6 +27,7 @@ describe('home create button', () => {
     };
 
     element = $compile('<uid-create-artifact artifacts="artifacts.all"></uid-create-artifact>')($scope);
+    $httpBackend.expectGET('./rest/config').respond(200, config);
     $scope.$apply();
     controller = element.controller('uidCreateArtifact');
   }));

@@ -20,6 +20,7 @@ import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.UiDesignerCore;
 import org.bonitasoft.web.designer.UiDesignerCoreFactory;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetDependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.mocks.PageImportMock;
@@ -112,18 +113,14 @@ public class ArtifactImporterTest {
         pageImportPath = Files.createTempDirectory(tempDir.toPath(), "pageImport");
         widgetImportPath = Files.createTempDirectory(tempDir.toPath(), "widgetImport");
 
-        uiDesignerProperties = new UiDesignerProperties();
-        uiDesignerProperties.getWorkspace().getPages().
-                setDir(Files.createTempDirectory(tempDir.toPath(), "pages"));
-        uiDesignerProperties.getWorkspace().getWidgets().
-                setDir(Files.createTempDirectory(tempDir.toPath(), "widgets"));
-        uiDesignerProperties.getWorkspace().getFragments().
-                setDir(Files.createTempDirectory(tempDir.toPath(), "fragments"));
+        uiDesignerProperties = new UiDesignerPropertiesBuilder()
+                .workspacePath(tempDir.toPath().resolve("workspace"))
+                .workspaceUidPath(tempDir.toPath().resolve("workspaceUid")).build();
 
         when(widgetRepository.getComponentName()).thenReturn("widget");
         when(widgetRepository.resolvePath(any())).thenAnswer(invocation -> {
             String widgetId = invocation.getArgument(0);
-            return tempDir.toPath().resolve(WIDGETS_FOLDER).resolve(widgetId);
+            return uiDesignerProperties.getWorkspace().getWidgets().getDir().resolve(widgetId);
         });
 
         UiDesignerCore core = new UiDesignerCoreFactory(uiDesignerProperties, jsonHandler).create(
@@ -346,9 +343,8 @@ public class ArtifactImporterTest {
 
     @Test
     public void should_return_incompatible_status_if_version_is_not_compatible_with_uid() throws Exception {
-        uiDesignerProperties.setModelVersion("11.0.0");
         wMocks.mockWidgetsAsAddedDependencies();
-        Page page = pMocks.mockPageToBeImported(aPage().withName("myPage").withId("myPage").withModelVersion("12.0.0"));
+        Page page = pMocks.mockPageToBeImported(aPage().withName("myPage").withId("myPage").withModelVersion(uiDesignerProperties.getModelVersion()));
         lenient().when(pageRepository.getNextAvailableId(page.getName())).thenReturn("myPage1");
         when(pageService.getStatusWithoutDependencies(page)).thenReturn(new MigrationStatusReport(false, false));
 

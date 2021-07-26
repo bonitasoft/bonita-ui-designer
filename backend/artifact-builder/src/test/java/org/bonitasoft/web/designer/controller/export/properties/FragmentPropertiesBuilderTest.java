@@ -14,7 +14,9 @@
  */
 package org.bonitasoft.web.designer.controller.export.properties;
 
+import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,8 +29,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class FragmentPropertiesBuilderTest {
 
-    private static final String DESIGNER_VERSION = "1.12.1";
-
     private FragmentPropertiesBuilder fragmentPropertiesBuilder;
 
     private Fragment fragment;
@@ -37,8 +37,7 @@ public class FragmentPropertiesBuilderTest {
 
     @Before
     public void setUp() throws Exception {
-        uiDesignerProperties = new UiDesignerProperties();
-        uiDesignerProperties.setVersion(DESIGNER_VERSION);
+        uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
         fragmentPropertiesBuilder = new FragmentPropertiesBuilder(uiDesignerProperties);
 
         fragment = new Fragment();
@@ -47,14 +46,14 @@ public class FragmentPropertiesBuilderTest {
 
     @Test
     public void should_build_a_well_formed_page_property_file() throws Exception {
-        fragment.setDesignerVersion("1.12.1");
+        fragment.setDesignerVersion(Version.VERSION);
 
         byte[] a = fragmentPropertiesBuilder.build(fragment);
         String properties = new String(a);
 
         assertThat(properties).contains("contentType=fragment");
         assertThat(properties).contains("name=myFragment");
-        assertThat(properties).contains("designerVersion=1.12.1");
+        assertThat(properties).contains("designerVersion=" + Version.VERSION);
     }
 
 }

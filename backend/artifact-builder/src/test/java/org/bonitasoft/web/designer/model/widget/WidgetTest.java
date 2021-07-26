@@ -15,6 +15,8 @@
 package org.bonitasoft.web.designer.model.widget;
 
 import org.bonitasoft.web.designer.JsonHandlerFactory;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -51,6 +53,8 @@ public class WidgetTest {
 
     private JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
+    private UiDesignerProperties uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
+
     @Test
     public void jsonview_light_should_only_manage_id_name_hasValidationError_and_light_page() throws Exception {
         String json = jsonHandler.toJsonString(createAFilledWidget(), JsonViewLight.class);
@@ -58,6 +62,7 @@ public class WidgetTest {
         assertEquals(json, "{"
                 + "\"id\":\"ID2\","
                 + "\"name\":\"aName\","
+                + "\"modelVersion\":\""+ uiDesignerProperties.getModelVersionLegacy() +"\","
                 + "\"custom\":false,"
                 + "\"favorite\": true,"
                 + "\"status\": {\"compatible\":true, \"migration\":true},"
@@ -75,6 +80,7 @@ public class WidgetTest {
                 + "\"widget\":[{"
                 + "\"id\":\"ID\","
                 + "\"name\":\"aName\","
+                + "\"modelVersion\":\""+ uiDesignerProperties.getModelVersionLegacy() +"\","
                 + "\"custom\":false,"
                 + "\"type\": \"widget\","
                 + "\"favorite\": false,"
@@ -88,11 +94,15 @@ public class WidgetTest {
         String json = jsonHandler.toJsonString(createAFilledWidgetWithFragment(), JsonViewLight.class);
 
         assertEquals(json,
-                "{\"id\":\"ID2\",\"name\":\"aName\",\"custom\":false,\"favorite\":false,\"type\":\"widget\",\"status\": {\"compatible\":true, \"migration\":true},"
+                "{\"id\":\"ID2\",\"name\":\"aName\","
+                        + "\"modelVersion\":\""+ uiDesignerProperties.getModelVersionLegacy() +"\","
+                        +"\"custom\":false,\"favorite\":false,\"type\":\"widget\",\"status\": {\"compatible\":true, \"migration\":true},"
                         + "\"usedBy\":{"
                         + "\"page\":[{\"id\":\"ID\",\"uuid\":\"UUID\",\"name\":\"myPage\",\"type\":\"page\", \"favorite\":false, \"hasValidationError\": false,\"status\": {\"compatible\":true, \"migration\":true}}],"
                         + "\"fragment\":[{\"id\":\"ID\",\"name\":\"father\",\"type\":\"fragment\", \"favorite\":false, \"hasValidationError\": false,\"status\": {\"compatible\":true, \"migration\":true}}],"
-                        + "\"widget\":[{\"id\":\"ID\",\"name\":\"aName\",\"custom\":false,\"favorite\":false, \"type\":\"widget\", \"status\": {\"compatible\":true, \"migration\":true}}]}}", true);
+                        + "\"widget\":[{\"id\":\"ID\",\"name\":\"aName\","
+                        + "\"modelVersion\":\""+ uiDesignerProperties.getModelVersionLegacy() +"\","
+                        + "\"custom\":false,\"favorite\":false, \"type\":\"widget\", \"status\": {\"compatible\":true, \"migration\":true}}]}}", true);
     }
 
     @Test
@@ -155,9 +165,10 @@ public class WidgetTest {
      * Create a filled widget with a value for all fields
      */
     private Widget createAFilledWidget() throws Exception {
-        Widget widget = aWidget().withId("ID").build();
+        Widget widget = aWidget().modelVersion(uiDesignerProperties.getModelVersionLegacy())
+                .withId("ID").build();
 
-        Widget widgetSon = aWidget().withId("ID2").build();
+        Widget widgetSon = aWidget().withId("ID2").modelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         Page page = aFilledPage("ID");
         page.setUUID("UUID");
         page.setName("myPage");
@@ -172,9 +183,9 @@ public class WidgetTest {
      * Create a filled widget with a value for all fields
      */
     private Widget createAFilledWidgetWithFragment() throws Exception {
-        Widget widget = aWidget().withId("ID").build();
+        Widget widget = aWidget().withId("ID").modelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
 
-        Widget widgetSon = aWidget().withId("ID2").build();
+        Widget widgetSon = aWidget().withId("ID2").modelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         Fragment fragment = aFragment().withId("ID").withName("father").withHasValidationError(false).build();
         Page page = aFilledPage("ID");
         page.setUUID("UUID");

@@ -19,6 +19,7 @@ import org.awaitility.core.ThrowingRunnable;
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
@@ -49,23 +50,21 @@ import static org.mockito.Mockito.spy;
 @RunWith(MockitoJUnitRunner.class)
 public class JsonFileBasedPersisterTest {
 
-    private static final String DESIGNER_VERSION = "1.0.0";
-    private static final String MODEL_VERSION = "2.0";
+    private static final String OLD_DESIGNER_VERSION = "1.0.0";
 
     private Path repoDirectory;
     private JsonHandler jsonHandler;
     private JsonFileBasedPersister<SimpleDesignerArtifact> jsonFileBasedPersister;
+    private UiDesignerProperties uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
 
     @Mock
     private BeanValidator validator;
-    private UiDesignerProperties uiDesignerProperties;
+
 
     @Before
     public void setUp() throws IOException {
         repoDirectory = Files.createTempDirectory("jsonrepository");
-        uiDesignerProperties = new UiDesignerProperties();
-        uiDesignerProperties.setVersion(DESIGNER_VERSION);
-        uiDesignerProperties.setModelVersion(MODEL_VERSION);
+        uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
         jsonHandler = spy(new JsonHandlerFactory().create());
         jsonFileBasedPersister = new JsonFileBasedPersister<>(jsonHandler, validator, uiDesignerProperties);
     }
@@ -92,7 +91,9 @@ public class JsonFileBasedPersisterTest {
 
     @Test
     public void should_not_set_model_version_while_saving_if_uid_version_does_not_support_model_version() throws Exception {
+
         SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
+        expectedObject.setDesignerVersion(OLD_DESIGNER_VERSION);
 
         jsonFileBasedPersister.save(repoDirectory, expectedObject);
 
@@ -102,13 +103,24 @@ public class JsonFileBasedPersisterTest {
 
     @Test
     public void should_set_model_version_while_saving_if_not_already_set() throws Exception {
-        uiDesignerProperties.setVersion("1.12.0");
         SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
 
         jsonFileBasedPersister.save(repoDirectory, expectedObject);
 
         SimpleDesignerArtifact savedObject = getFromRepository("foo");
-        assertThat(savedObject.getModelVersion()).isEqualTo(MODEL_VERSION);
+        assertThat(savedObject.getModelVersion()).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
+
+    }
+
+    @Test
+    public void should_not_change_model_version_while_saving_if_already_set() throws Exception {
+        SimpleDesignerArtifact expectedObject = new SimpleDesignerArtifact("foo", "aName", 2);
+        expectedObject.setModelVersion("2.0");
+
+        jsonFileBasedPersister.save(repoDirectory, expectedObject);
+
+        SimpleDesignerArtifact savedObject = getFromRepository("foo");
+        assertThat(savedObject.getModelVersion()).isEqualTo("2.0");
 
     }
 

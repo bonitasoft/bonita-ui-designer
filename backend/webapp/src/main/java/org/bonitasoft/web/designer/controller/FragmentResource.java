@@ -158,6 +158,11 @@ public class FragmentResource {
         return ResponseEntity.ok(mapping);
     }
 
+    @GetMapping(value = "/info/{fragmentId}")
+    public ArtifactInfo getInfo(@PathVariable("fragmentId") String fragmentId) throws NotFoundException, RepositoryException {
+        return fragmentService.getInfo(fragmentId);
+    }
+
     @DeleteMapping(value = "/{fragmentId}")
     public void delete(@PathVariable("fragmentId") String fragmentId) throws RepositoryException {
         fragmentService.delete(fragmentId);

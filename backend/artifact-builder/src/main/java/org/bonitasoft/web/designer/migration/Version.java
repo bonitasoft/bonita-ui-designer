@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.migration;
 
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
 
 public class Version {
 
@@ -39,8 +40,24 @@ public class Version {
         return this.version.compareTo(new DefaultArtifactVersion(version)) >= 0;
     }
 
+    public int getMajorVersion() {
+        return this.version.getMajorVersion();
+    }
+
     @Override
     public String toString() {
         return version.toString();
+    }
+
+    public static String getCurrentModelVersion(String artifactVersion, UiDesignerProperties uiDesignerProperties){
+        if (uiDesignerProperties.isExperimental() && isV3Version(artifactVersion)) {
+            return uiDesignerProperties.getModelVersion();
+        } else {
+            return uiDesignerProperties.getModelVersionLegacy();
+        }
+    }
+
+    private static boolean isV3Version(String artifactVersion) {
+        return new Version(artifactVersion).getMajorVersion() == 3;
     }
 }

@@ -40,7 +40,6 @@ public class UiDesignerPropertiesBuilder {
 
     public UiDesignerPropertiesBuilder workspaceUidPath(Path path) {
         this.workspaceUid.setPath(path);
-        this.workspaceUid.setExtractPath(this.workspaceUid.getPath().resolve("extract"));
         return this;
     }
 
@@ -70,15 +69,24 @@ public class UiDesignerPropertiesBuilder {
         properties.setVersion(Version.VERSION);
         properties.setEdition(Version.EDITION);
         properties.setModelVersion(Version.MODEL_VERSION);
+        properties.setModelVersionLegacy(Version.MODEL_VERSION_LEGACY);
 
         properties.setExperimental(experimental);
         properties.setBonita(bonita);
         properties.setWorkspaceUid(workspaceUid);
         properties.setWorkspace(workspace);
 
-        properties.getWorkspace().getWidgets().setDir(properties.getWorkspace().getPath().resolve(widgetsFolderName));
-        properties.getWorkspace().getFragments().setDir(properties.getWorkspace().getPath().resolve(fragmentsFolderName));
-        properties.getWorkspace().getPages().setDir(properties.getWorkspace().getPath().resolve(pagesFolderName));
+        Path workspacePath = properties.getWorkspace().getPath();
+        if (workspacePath != null) {
+            properties.getWorkspace().getWidgets().setDir(workspacePath.resolve(widgetsFolderName));
+            properties.getWorkspace().getFragments().setDir(workspacePath.resolve(fragmentsFolderName));
+            properties.getWorkspace().getPages().setDir(workspacePath.resolve(pagesFolderName));
+        }
+
+        Path workspaceUidPath = properties.getWorkspaceUid().getPath();
+        if (workspaceUidPath != null) {
+            properties.getWorkspaceUid().setExtractPath(workspaceUidPath.resolve("extract"));
+        }
 
         return properties;
     }

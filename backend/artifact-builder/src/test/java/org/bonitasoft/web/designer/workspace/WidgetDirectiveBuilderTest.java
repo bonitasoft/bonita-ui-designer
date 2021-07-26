@@ -14,23 +14,21 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import org.bonitasoft.web.designer.ArtifactBuilderFactory;
 import org.bonitasoft.web.designer.JsonHandlerFactory;
+import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.JsonHandler;
-import org.bonitasoft.web.designer.model.Technology;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedPersister;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -48,7 +46,6 @@ import static java.nio.file.Files.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -81,10 +78,8 @@ public class WidgetDirectiveBuilderTest {
     @Before
     public void setup() throws Exception {
         JsonHandler jsonHandler = new JsonHandlerFactory().create();
-        final UiDesignerProperties uiDesignerProperties = new UiDesignerProperties("1.13.0", "2.0");
-
-        uiDesignerProperties.setExperimental(false);
-        widgetDirectiveBuilder = new WidgetDirectiveBuilder(uiDesignerProperties, watcher, new WidgetFileBasedLoader(jsonHandler), htmlSanitizer);
+        final UiDesignerProperties uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
+        widgetDirectiveBuilder = new WidgetDirectiveBuilder(watcher, new WidgetFileBasedLoader(jsonHandler), htmlSanitizer);
 
         WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jsonHandler);
         WorkspaceProperties workspaceProperties = new WorkspaceProperties();
@@ -95,8 +90,7 @@ public class WidgetDirectiveBuilderTest {
                 new WidgetFileBasedPersister(jsonHandler,validator,uiDesignerProperties),
                 widgetLoader,
                 validator,
-                mock(Watcher.class),
-                mock(UiDesignerProperties.class));
+                mock(Watcher.class));
 
         pbInput = aWidget().withId("pbInput").build();
         pbInput.setCustom(true);
@@ -109,7 +103,6 @@ public class WidgetDirectiveBuilderTest {
         repository.updateLastUpdateAndSave(pbButton);
 
         uidInput = aWidget().withId("uidInput").build();
-        uidInput.setTechnology(Technology.WEB_COMPONENT);
         createDirectories(repository.resolvePath(uidInput.getId()));
         repository.updateLastUpdateAndSave(uidInput);
     }
@@ -123,10 +116,10 @@ public class WidgetDirectiveBuilderTest {
     }
 
     @Test
-    public void should_build_directives_for_custom_widgets_without_prefix() throws Exception {
+    public void should_not_build_directives_for_web_component_widgets() throws Exception {
         widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
 
-        assertTrue(Files.exists(getDirectivePath("uidInput")));
+        assertFalse(Files.exists(getDirectivePath("uidInput")));
     }
 
     @Test

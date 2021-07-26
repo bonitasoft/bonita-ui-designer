@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.workspace;
 
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetDependencyImporter;
@@ -45,12 +46,10 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class WorkspaceInitializerTest {
 
-    private String extractPath;
-
     @Rule
-    public TemporaryFolder temporaryExtractFolder = new TemporaryFolder();
+    public TemporaryFolder workspacePath = new TemporaryFolder();
     @Rule
-    public TemporaryFolder temporaryFolder = new TemporaryFolder();
+    public TemporaryFolder workspaceUIDPath = new TemporaryFolder();
 
     @Mock
     private LiveRepositoryUpdate<Page> pageRepositoryLiveUpdate;
@@ -63,9 +62,9 @@ public class WorkspaceInitializerTest {
     @Before
     public void setUp() throws IOException {
 
-        extractPath = temporaryExtractFolder.toPath().toString();
-
-        UiDesignerProperties uiDesignerProperties = newUiDesignerProperties();
+        UiDesignerProperties uiDesignerProperties = new UiDesignerPropertiesBuilder()
+                .workspacePath(workspacePath.toPath())
+                .workspaceUidPath(workspaceUIDPath.toPath()).build();
 
         WidgetRepository widgetRepository = mock(WidgetRepository.class);
         when(widgetRepository.resolvePath(anyString())).thenAnswer(invocation -> {
@@ -93,28 +92,6 @@ public class WorkspaceInitializerTest {
                 jsonHandler
         ));
 
-    }
-
-    private UiDesignerProperties newUiDesignerProperties() throws IOException {
-        UiDesignerProperties uiDesignerProperties = new UiDesignerProperties();
-        uiDesignerProperties.setModelVersion("2.0");
-
-        WorkspaceProperties workspaceProperties = uiDesignerProperties.getWorkspace();
-        final Path fakeProjectFolder = temporaryFolder.toPath();
-        workspaceProperties.setPath(fakeProjectFolder);
-        workspaceProperties.getPages().setDir(temporaryFolder.newFolderPath("pages"));
-        workspaceProperties.getWidgets().setDir(temporaryFolder.newFolderPath("widgets"));
-        workspaceProperties.getFragments().setDir(temporaryFolder.newFolderPath("fragments"));
-
-        WorkspaceUidProperties workspaceUidProperties = uiDesignerProperties.getWorkspaceUid();
-        final Path extractDirPath = Path.of(extractPath);
-        if (!Files.exists(extractDirPath)) {
-            Files.createDirectory(extractDirPath);
-        }
-        workspaceUidProperties.setExtractPath(extractDirPath);
-//        workspaceUidProperties.setExtractPath(Paths.get(extractPath));
-
-        return uiDesignerProperties;
     }
 
     @Test

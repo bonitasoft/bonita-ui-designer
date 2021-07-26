@@ -1,5 +1,6 @@
 package org.bonitasoft.web.designer.service;
 
+import org.bonitasoft.web.designer.controller.ArtifactInfo;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
 
@@ -9,6 +10,8 @@ import java.util.Set;
 public interface PageService extends AssetableArtifactService<Page> {
 
     List<Page> getAll();
+
+    ArtifactInfo getInfo(String pageId);
 
     Page create(Page page);
 

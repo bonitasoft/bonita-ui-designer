@@ -18,6 +18,7 @@ import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.builder.FragmentBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
@@ -50,7 +51,7 @@ public class TemporaryFragmentRepository extends TemporaryFolder {
     protected void before() throws Throwable {
         super.before();
 
-        var uiDesignerProperties = new UiDesignerProperties("1.13.0", Version.MODEL_VERSION);
+        var uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
         workspaceProperties.getFragments().setDir(this.toPath());
         uiDesignerProperties.setWorkspace(workspaceProperties);
 

@@ -40,11 +40,7 @@
       $scope.refreshAll = () => artifactStore.load()
         .then((artifacts) => $scope.artifacts.all = artifacts)
         .then(artifacts => artifacts.map(artifact => {
-          if (isWebComponent(artifact.technology)) {
-            artifact.editionUrl = $state.href(`designer.${artifact.type}`, {id: artifact.id}, true);
-          } else {
-            artifact.editionUrl = $state.href(`designer.${artifact.type}`, {id: artifact.id});
-          }
+          artifact.editionUrl = $state.href(`designer.${artifact.type}`, {id: artifact.id});
           return artifact;
         }))
         .then(filterArtifacts);
@@ -93,10 +89,6 @@
           name: $scope.search,
           type: type.id
         }));
-      }
-
-      function isWebComponent(technology) {
-        return technology === 'web_component';
       }
     }
   }

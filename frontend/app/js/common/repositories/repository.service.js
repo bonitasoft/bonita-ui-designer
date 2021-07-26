@@ -106,8 +106,13 @@
         return this.$http.put(`${this.baseUrl}/${artifactId}/assets/${asset.id}?decrement=true`, asset);
       }
 
+      isV3Version(artifactVersion) {
+        if (!artifactVersion || (artifactVersion.indexOf('.') < 0) || isNaN(parseInt(artifactVersion.split('.')[0]))) {
+          return true;
+        }
+        return parseInt(artifactVersion.split('.')[0]) === 3;
+      }
     }
-
     return Repository;
   }
 

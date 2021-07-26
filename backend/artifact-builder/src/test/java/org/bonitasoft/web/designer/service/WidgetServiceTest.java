@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.service;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.builder.PropertyBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -48,13 +49,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Arrays.asList;
@@ -77,8 +72,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetServiceTest {
-
-    private static final String CURRENT_MODEL_VERSION = "2.0";
 
     @Mock
     private WidgetRepository widgetRepository;
@@ -113,7 +106,8 @@ public class WidgetServiceTest {
     public void setUp() throws Exception {
         assetVisitor = new AssetVisitor(widgetRepository, fragmentRepository);
 
-        uiDesignerProperties = new UiDesignerProperties("1.13.0", CURRENT_MODEL_VERSION);
+        uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
+
         uiDesignerProperties.getWorkspace().getWidgets().setDir(Paths.get("Widget"));
 
         widgetService = spy(new DefaultWidgetService(
@@ -419,7 +413,7 @@ public class WidgetServiceTest {
         assertThatThrownBy(() ->
                 widgetService.deleteProperty("label", "toBeDeleted"))
                 .isInstanceOf(NotFoundException.class);
-     }
+    }
 
     @Test
     public void should_respond_500_when_error_appear_while_deleting_property() throws Exception {
@@ -445,7 +439,7 @@ public class WidgetServiceTest {
             return assetToSave;
         });
 
-        Asset savedAsset = widgetService.saveOrUpdateAsset("my-widget", AssetType.JAVASCRIPT,"myfile.js", fileContent);
+        Asset savedAsset = widgetService.saveOrUpdateAsset("my-widget", AssetType.JAVASCRIPT, "myfile.js", fileContent);
         assertThat(savedAsset.getId()).isEqualTo(assetGeneratedId);
         ArgumentCaptor<Asset> assetCaptor = ArgumentCaptor.forClass(Asset.class);
         verify(widgetAssetService).save(eq(widget), assetCaptor.capture(), eq(fileContent));
@@ -458,8 +452,8 @@ public class WidgetServiceTest {
     @Test
     public void should_not_upload_an_asset_for_internal_widget() throws Exception {
         assertThatThrownBy(() ->
-            widgetService.saveOrUpdateAsset("pbwidget", AssetType.JAVASCRIPT, "myfile.js", "foo".getBytes()))
-                    .isInstanceOf(NotAllowedException.class);
+                widgetService.saveOrUpdateAsset("pbwidget", AssetType.JAVASCRIPT, "myfile.js", "foo".getBytes()))
+                .isInstanceOf(NotAllowedException.class);
     }
 
     @Test
@@ -479,8 +473,8 @@ public class WidgetServiceTest {
         Asset asset = anAsset().build();
 
         assertThatThrownBy(() ->
-            widgetService.saveAsset("pb-widget", asset))
-                    .isInstanceOf(NotAllowedException.class);
+                widgetService.saveAsset("pb-widget", asset))
+                .isInstanceOf(NotAllowedException.class);
     }
 
     @Test
@@ -491,7 +485,7 @@ public class WidgetServiceTest {
         when(widgetAssetService.save(widget, asset)).thenThrow(IllegalArgumentException.class);
 
         assertThatThrownBy(() ->
-            widgetService.saveAsset("my-widget", asset))
+                widgetService.saveAsset("my-widget", asset))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -552,7 +546,7 @@ public class WidgetServiceTest {
                 .thenThrow(new RuntimeException("can't read file"));
 
         assertThatThrownBy(() ->
-            widgetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix()))
+                widgetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix()))
                 .isInstanceOf(RuntimeException.class);
     }
 
@@ -570,7 +564,7 @@ public class WidgetServiceTest {
         map2.put("label", singletonList(aFragment().withName("helloFragment").build()));
         when(fragmentRepository.getArtifactsUsingWidgets(asList(ids))).thenReturn(map2);
         when(fragmentRepository.getComponentName()).thenReturn("fragment");
-        List<Widget> expectedWidgets = asList(input,label);
+        List<Widget> expectedWidgets = asList(input, label);
         when(widgetRepository.getAll()).thenReturn(expectedWidgets);
 
         List<Widget> returnedWidgets = widgetService.getAllWithUsedBy();
@@ -602,7 +596,7 @@ public class WidgetServiceTest {
     public void should_fix_bonds_types_on_save() {
         Property constantTextProperty = aProperty().name("text").bond(CONSTANT).build();
         Property interpolationTextProperty = aProperty().name("text").bond(INTERPOLATION).build();
-        Widget persistedWidget = aWidget().withId("labelWidget").modelVersion("2.0").property(constantTextProperty).build();
+        Widget persistedWidget = aWidget().withId("labelWidget").modelVersion(uiDesignerProperties.getModelVersionLegacy()).property(constantTextProperty).build();
         lenient().when(widgetRepository.get("labelWidget")).thenReturn(persistedWidget);
 
         widgetService.updateProperty("labelWidget", "text", interpolationTextProperty);
@@ -614,7 +608,7 @@ public class WidgetServiceTest {
     public void should_migrate_found_widget_when_get_is_called() {
         reset(widgetService);
         Widget widget = aWidget().withId("widget").designerVersion("1.0.0").build();
-        Widget widgetMigrated = aWidget().withId("widget").modelVersion("2.0").previousArtifactVersion("1.0.0").build();
+        Widget widgetMigrated = aWidget().withId("widget").modelVersion(uiDesignerProperties.getModelVersionLegacy()).previousArtifactVersion("1.0.0").build();
         when(widgetRepository.get("widget")).thenReturn(widget);
         MigrationResult<Widget> mr = new MigrationResult(widgetMigrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS)));
         when(widgetMigrationApplyer.migrate(widget)).thenReturn(mr);
@@ -628,8 +622,9 @@ public class WidgetServiceTest {
     @Test
     public void should_not_update_and_save_widget_if_no_migration_done() {
         reset(widgetService);
-        Widget widget = aWidget().withId("widget").modelVersion("2.0").build();
-        Widget widgetMigrated = aWidget().withId("widget").modelVersion("2.0").previousArtifactVersion("2.0").build();
+        Widget widget = aWidget().withId("widget").modelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
+        Widget widgetMigrated = aWidget().withId("widget").modelVersion(uiDesignerProperties.getModelVersionLegacy())
+                .previousArtifactVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         MigrationResult mr = new MigrationResult(widget, Arrays.asList(any(MigrationStepReport.class)));
         lenient().when(widgetMigrationApplyer.migrate(widget)).thenReturn(mr);
         when(widgetRepository.get("widget")).thenReturn(widget);
@@ -646,8 +641,8 @@ public class WidgetServiceTest {
         reset(widgetService);
         Widget widget1 = aWidget().withId("widget1").designerVersion("1.0.0").build();
         Widget widget2 = aWidget().withId("widget2").designerVersion("1.0.0").build();
-        Widget widget1Migrated = aWidget().withId("widget1").designerVersion("2.0").build();
-        Widget widget2Migrated = aWidget().withId("widget2").designerVersion("2.0").build();
+        Widget widget1Migrated = aWidget().withId("widget1").designerVersion(uiDesignerProperties.getModelVersionLegacy()).build();
+        Widget widget2Migrated = aWidget().withId("widget2").designerVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         lenient().when(widgetRepository.get("widget1")).thenReturn(widget1);
         lenient().when(widgetRepository.get("widget2")).thenReturn(widget2);
         when(widgetMigrationApplyer.migrate(widget1)).thenReturn(new MigrationResult(widget1Migrated, Arrays.asList(new MigrationStepReport(MigrationStatus.SUCCESS, "widget1"))));
@@ -672,7 +667,8 @@ public class WidgetServiceTest {
     public void should_not_update_and_save_widget_if_migration_finish_on_error() {
         reset(widgetService);
         Widget widget = aWidget().withId("widget").modelVersion("1.0").build();
-        Widget widgetMigrated = aWidget().withId("widget").modelVersion("2.0").previousArtifactVersion("2.0").build();
+        Widget widgetMigrated = aWidget().withId("widget").modelVersion(uiDesignerProperties.getModelVersionLegacy())
+                .previousArtifactVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         MigrationResult mr = new MigrationResult(widget, Arrays.asList(new MigrationStepReport(MigrationStatus.ERROR)));
         when(widgetMigrationApplyer.migrate(widget)).thenReturn(mr);
         when(widgetRepository.get("widget")).thenReturn(widget);
@@ -687,7 +683,7 @@ public class WidgetServiceTest {
     public void should_get_correct_migration_status_when_dependency_is_to_migrate() throws Exception {
         reset(widgetService);
         Widget widget = aWidget().withId("widget").designerVersion("1.10.0").build();
-        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         Set<String> ids = new HashSet<>(Arrays.asList("widget"));
         when(widgetRepository.getByIds(ids)).thenReturn(Arrays.asList(widget));
         when(widgetIdVisitor.visit(page)).thenReturn(ids);
@@ -699,9 +695,10 @@ public class WidgetServiceTest {
     @Test
     public void should_get_correct_migration_status_when_dependency_is_not_compatible() throws Exception {
         reset(widgetService);
-        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         Widget widget1 = aWidget().withId("widget1").designerVersion("1.10.0").build();
-        Widget widget2 = aWidget().withId("widget2").modelVersion("2.1").isCompatible(false).isMigration(false).build(); //incompatible
+        Widget widget2 = aWidget().withId("widget2").modelVersion(uiDesignerProperties.getModelVersion())
+                .isCompatible(false).isMigration(false).build(); //incompatible
         Set<String> ids = new HashSet<>(Arrays.asList("widget1", "widget2"));
         when(widgetRepository.getByIds(ids)).thenReturn(Arrays.asList(widget1, widget2));
         when(widgetIdVisitor.visit(page)).thenReturn(ids);
@@ -713,8 +710,8 @@ public class WidgetServiceTest {
     @Test
     public void should_get_correct_migration_status_when_dependency_is_not_to_migrate() throws Exception {
         reset(widgetService);
-        Widget widget = aWidget().withId("widget").designerVersion("2.0").isCompatible(true).isMigration(false).build();
-        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        Widget widget = aWidget().withId("widget").designerVersion(uiDesignerProperties.getModelVersionLegacy()).isCompatible(true).isMigration(false).build();
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         Set<String> ids = new HashSet<>(Arrays.asList("widget"));
         when(widgetRepository.getByIds(ids)).thenReturn(Arrays.asList(widget));
         when(widgetIdVisitor.visit(page)).thenReturn(ids);

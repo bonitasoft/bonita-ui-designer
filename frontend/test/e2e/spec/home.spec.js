@@ -72,6 +72,14 @@ describe('home page', function() {
     expect($('.EditorHeader-brand').getText()).toBe('PAGE EDITOR');
   });
 
+  it('should not have the legacy checkbox when create a page in non-experimental mode', function() {
+    $('.HomeCreate').click();
+    let nameInput = $('.modal-body input[name="name"]');
+    let legacyCheckBox = $('.modal-body input[name="legacy"]');
+    expect(nameInput.isPresent()).toBeTruthy();
+    expect(legacyCheckBox.isPresent()).toBeFalsy();
+  });
+
   it('should create a widget with widget tab selected', function() {
     home.openTab('widget');
     home.createDefault('testWidget');

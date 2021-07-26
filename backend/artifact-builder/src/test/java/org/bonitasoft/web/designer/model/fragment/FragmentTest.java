@@ -17,6 +17,8 @@ package org.bonitasoft.web.designer.model.fragment;
 import org.assertj.core.api.Assertions;
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.PageBuilder;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -41,6 +43,7 @@ import static org.bonitasoft.web.designer.utils.ListUtil.asList;
 public class FragmentTest {
 
     private JsonHandler jsonHandler = new JsonHandlerFactory().create();
+    private UiDesignerProperties uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
 
     @Test
     public void jsonview_light_should_only_manage_id_name_hasValidationErrors_and_light_page() throws Exception {
@@ -49,13 +52,16 @@ public class FragmentTest {
         JSONAssert.assertEquals(json,
                 "{\"id\":\"ID\","
                         + "\"name\":\"name\","
+                        + "\"modelVersion\":\""+ uiDesignerProperties.getModelVersionLegacy() +"\","
                         + "\"type\":\"fragment\","
                         + "\"favorite\":false,"
                         + "\"hasValidationError\":false,"
                         + "\"status\": {\"compatible\":true, \"migration\":true},"
                         + "\"usedBy\":{"
                         + "\"page\":[{\"id\":\"ID\",\"uuid\":\"UUID\",\"name\":\"myPage\",\"type\":\"page\", \"favorite\":false, \"hasValidationError\":false, \"status\": {\"compatible\":true, \"migration\":true}}],"
-                        + "\"fragment\":[{\"id\":\"ID\",\"name\":\"father\",\"type\":\"fragment\", \"favorite\":true, \"hasValidationError\":false, \"status\": {\"compatible\":true, \"migration\":true}}]}}", true);
+                        + "\"fragment\":[{"
+                        +        "\"modelVersion\":\""+ uiDesignerProperties.getModelVersionLegacy() +"\","
+                        +        "\"id\":\"ID\",\"name\":\"father\",\"type\":\"fragment\", \"favorite\":true, \"hasValidationError\":false, \"status\": {\"compatible\":true, \"migration\":true}}]}}", true);
     }
 
     @Test
@@ -80,8 +86,10 @@ public class FragmentTest {
      * Create a filled fragment with a value for all fields
      */
     private Fragment createAFilledFragment() throws Exception {
-        Fragment fragment = aFragment().withId("ID").withName("father").favorite().build();
-        Fragment fragmentSon = aFragment().withId("ID").withName("name").build();
+        Fragment fragment = aFragment().withId("ID").withName("father")
+                .withModelVersion(uiDesignerProperties.getModelVersionLegacy()).favorite().build();
+        Fragment fragmentSon = aFragment().withId("ID").withName("name")
+                .withModelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         Page page = PageBuilder.aFilledPage("ID");
         page.setUUID("UUID");
         page.setName("myPage");

@@ -18,6 +18,7 @@ import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JsonHandler;
@@ -50,7 +51,7 @@ public class TemporaryWidgetRepository extends TemporaryFolder {
 
         workspaceProperties.getWidgets().setDir(this.toPath());
 
-        var uiDesignerProperties = new UiDesignerProperties("1.13.0", Version.MODEL_VERSION);
+        var uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
         uiDesignerProperties.setWorkspace(workspaceProperties);
 
         repository = new WidgetRepository(
@@ -59,8 +60,7 @@ public class TemporaryWidgetRepository extends TemporaryFolder {
                 new JsonFileBasedPersister<>(jsonHandler, mock(BeanValidator.class), uiDesignerProperties),
                 new WidgetFileBasedLoader(jsonHandler),
                 mock(BeanValidator.class),
-                mock(Watcher.class),
-                uiDesignerProperties
+                mock(Watcher.class)
         );
 
     }

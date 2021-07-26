@@ -23,23 +23,29 @@ describe('widgetRepo', function() {
     $httpBackend.flush();
   });
 
-  it('should get all widgets', function() {
-    var expectedWidgets = [{ id: 'label', name: 'Label' }, { id: 'input', name: 'Input' }];
+  it('should get all AngularJS widgets', function() {
+    var expectedWidgets = [
+      { id: 'pbInput', name: 'input', modelVersion: '2.0' }, { id: 'pbText', name: 'Text', modelVersion: '2.0' },
+      { id: 'uidInput', name: 'input', modelVersion: '3.0'  }, { id: 'uidText', name: 'Text', modelVersion: '3.0' }
+    ];
     $httpBackend.expectGET('rest/widgets').respond(expectedWidgets);
 
-    widgetRepo.all(false).then(function(widgets) {
-      expect(widgets).toEqual(expectedWidgets);
+    widgetRepo.widgets('2.0').then(function(widgets) {
+      expect(widgets).toEqual([{ id: 'pbInput', name: 'input', modelVersion: '2.0' }, { id: 'pbText', name: 'Text', modelVersion: '2.0' }]);
     });
 
     $httpBackend.flush();
   });
 
   it('should get all web components widgets', function() {
-    var expectedWidgets = [{ id: 'pbInput', name: 'input' }, { id: 'pbText', name: 'Text' }];
+    var expectedWidgets = [
+      { id: 'pbInput', name: 'input', modelVersion: '2.0' }, { id: 'pbText', name: 'Text', modelVersion: '2.0' },
+      { id: 'uidInput', name: 'input', modelVersion: '3.0'  }, { id: 'uidText', name: 'Text', modelVersion: '3.0' }
+    ];
     $httpBackend.expectGET('rest/widgets').respond(expectedWidgets);
 
-    widgetRepo.all(true).then(function(widgets) {
-      expect(widgets).toEqual(expectedWidgets);
+    widgetRepo.widgets('3.0').then(function(widgets) {
+      expect(widgets).toEqual([{ id: 'uidInput', name: 'input', modelVersion: '3.0'  }, { id: 'uidText', name: 'Text', modelVersion: '3.0' }]);
     });
 
     $httpBackend.flush();

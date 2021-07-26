@@ -5,6 +5,7 @@
     <option name="VM_PARAMETERS" value="-Ddesigner.bonita.portal.url=http://localhost:8081  -Ddesigner.bonita.bdm.url=http://localhost:4000  -Ddesigner.experimental=true" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="ALTERNATIVE_JRE_PATH" value="11" />
+    <option name="SHORTEN_COMMAND_LINE" value="NONE" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

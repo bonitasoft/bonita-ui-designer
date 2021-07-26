@@ -32,30 +32,30 @@
             'Content-Type': 'application/json',
           }
         };
-        this.configReport = this.getConfigInfo();
+        this.configInfo = this.getConfigInfo();
       }
 
       getConfigInfo() {
         return this.$http.get(`${this.baseUrl}`)
-          .then((configReport) => {
-            this.configReport = configReport.data;
+          .then((configInfo) => {
+            this.configInfo = configInfo.data;
           });
       }
 
       getUidVersion() {
-        return this.configReport.uidVersion;
+        return this.configInfo.uidVersion;
       }
 
       getModelVersion() {
-        return this.configReport.modelVersion;
+        return this.configInfo.modelVersion;
       }
 
       getBdrUrl() {
-        return this.configReport.bdrUrl;
+        return this.configInfo.bdrUrl;
       }
 
       isExperimentalModeEnabled() {
-        return this.configReport.experimentalMode;
+        return this.configInfo.experimentalMode;
       }
 
     }

@@ -176,6 +176,11 @@ public class PageResource extends AssetResource<Page, PageService> {
         return ResponseEntity.ok(mapping);
     }
 
+    @GetMapping(value = "/info/{pageId}")
+    public ArtifactInfo getInfo(@PathVariable("pageId") String pageId) throws NotFoundException, RepositoryException {
+        return service.getInfo(pageId);
+    }
+
     @DeleteMapping(value = "/{pageId}")
     public void delete(@PathVariable("pageId") String pageId) throws RepositoryException {
         service.delete(pageId);

@@ -262,4 +262,9 @@ public class DefaultWidgetService extends AbstractAssetableArtifactService<Widge
         }
         return new MigrationStatusReport(true, migration);
     }
+
+    @Override
+    public MigrationStatusReport getStatus(Widget artifact) {
+        return super.getStatusWithoutDependencies(artifact);
+    }
 }

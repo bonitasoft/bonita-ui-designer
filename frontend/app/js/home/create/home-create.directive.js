@@ -17,9 +17,10 @@
   'use strict';
 
   class CreateArtifactCtrl {
-    constructor($scope, repositories, $state, artifactFactories, artifactNamingValidatorService) {
+    constructor($scope, repositories, $state, artifactFactories, artifactNamingValidatorService, configuration) {
       this.repositories = repositories;
       this.artifactNamingValidatorService = artifactNamingValidatorService;
+      this.experimental = () => configuration.isExperimentalModeEnabled();
       this.$state = $state;
       this.$scope = $scope;
       this.types = artifactFactories.getFactories();
@@ -36,8 +37,8 @@
       return this.artifactNamingValidatorService.isArtifactNameAlreadyUseForType(name,type.key,this.artifacts);
     }
 
-    create(type, name, technology) {
-      this.repositories.get(type.key).create(type.create(name, technology)).then(data =>
+    create(type, name, legacy) {
+      this.repositories.get(type.key).create(type.create(name, legacy)).then(data =>
         this.$state.go(`designer.${type.key}`, {
           id: data.id
         }));

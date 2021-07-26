@@ -14,6 +14,8 @@
  */
 package org.bonitasoft.web.designer.migration;
 
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,4 +43,24 @@ public class VersionTest {
 
         assertThat(version.toString()).isEqualTo("1.2.2-SNAPHOT");
     }
+
+    @Test
+    public void should_return_current_model_version() throws Exception {
+        UiDesignerProperties uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
+
+        // non-experimental mode by default
+        String currentVersion;
+        currentVersion = Version.getCurrentModelVersion("2.0", uiDesignerProperties);
+        assertThat(currentVersion).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
+        currentVersion = Version.getCurrentModelVersion("3.0", uiDesignerProperties);
+        assertThat(currentVersion).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
+
+        uiDesignerProperties.setExperimental(true);
+        currentVersion = Version.getCurrentModelVersion("2.0", uiDesignerProperties);
+        assertThat(currentVersion).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
+        currentVersion = Version.getCurrentModelVersion("3.0", uiDesignerProperties);
+        assertThat(currentVersion).isEqualTo(uiDesignerProperties.getModelVersion());
+
+    }
+
 }

@@ -24,6 +24,7 @@ import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -64,6 +65,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PageWithFragmentBuilder.aPageWithFragmentElement;
@@ -842,6 +844,18 @@ public class PageResourceTest {
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.type").value("MalformedJsonException"))
         ;
+    }
+
+    @Test
+    public void should_get_page_info() throws Exception {
+        String modelVersion = "2.0";
+        Page page1 = aPage().withId("page1").withModelVersion(modelVersion).build();
+        when(pageService.getInfo(page1.getId())).thenReturn(new ArtifactInfo(modelVersion));
+
+        mockMvc
+                .perform(get("/rest/pages/info/page1"))
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.artifactVersion").value(modelVersion));
     }
 
 }

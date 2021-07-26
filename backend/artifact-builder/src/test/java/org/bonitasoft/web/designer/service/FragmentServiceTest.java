@@ -15,12 +15,15 @@
 package org.bonitasoft.web.designer.service;
 
 import org.assertj.core.api.Condition;
+import org.bonitasoft.web.designer.Version;
 import org.bonitasoft.web.designer.builder.ComponentBuilder;
 import org.bonitasoft.web.designer.builder.ContainerBuilder;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.builder.TabContainerBuilder;
 import org.bonitasoft.web.designer.builder.TabsContainerBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
+import org.bonitasoft.web.designer.controller.ArtifactInfo;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.model.asset.Asset;
@@ -98,6 +101,7 @@ public class FragmentServiceTest {
 
     private FragmentChangeVisitor fragmentChangeVisitor;
     private PageHasValidationErrorVisitor pageHasValidationErrorVisitor;
+    private UiDesignerProperties uiDesignerProperties;
 
     @InjectMocks
     private DefaultFragmentService fragmentService;
@@ -106,9 +110,9 @@ public class FragmentServiceTest {
     public void setUp() {
         fragmentChangeVisitor = new FragmentChangeVisitor();
         pageHasValidationErrorVisitor = new PageHasValidationErrorVisitor();
+        uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
         fragmentService = new DefaultFragmentService(fragmentRepository, pageRepository, fragmentMigrationApplyer,
-                fragmentIdVisitor, fragmentChangeVisitor, pageHasValidationErrorVisitor, assetVisitor,
-                new UiDesignerProperties("1.13.1", "2.0")
+                fragmentIdVisitor, fragmentChangeVisitor, pageHasValidationErrorVisitor, assetVisitor, uiDesignerProperties
         );
 
         when(fragmentRepository.getComponentName()).thenReturn("fragment");
@@ -138,7 +142,7 @@ public class FragmentServiceTest {
 
     @Test
     public void should_not_save_fragment_when_migration_is_not_done() {
-        Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.0").withPreviousDesignerVersion("1.0.0").build();
+        Fragment fragment = aFragment().withId("myFragment").withModelVersion(uiDesignerProperties.getModelVersionLegacy()).withPreviousDesignerVersion("1.0.0").build();
         when(fragmentRepository.get("myFragment")).thenReturn(fragment);
         when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment)).thenReturn(new MigrationStatusReport(true, false));
 
@@ -166,8 +170,8 @@ public class FragmentServiceTest {
     public void should_migrate_child_fragment_when_parent_fragment_is_migrate() {
         Fragment fragment = aFragment().withId("myFragmentBis").withDesignerVersion("1.0.0").withPreviousDesignerVersion("1.0.0").build();
         Fragment parentFragment = aFragment().withId("myFragment").withDesignerVersion("1.0.0").with(fragment).withPreviousDesignerVersion("1.0.0").build();
-        Fragment fragmentMigrated = aFragment().withId("myFragmentBis").withDesignerVersion("2.0").withPreviousDesignerVersion("1.0.0").build();
-        Fragment parentFragmentMigrated = aFragment().withId("myFragment").withDesignerVersion("2.0").withPreviousDesignerVersion("1.0.0").with(fragmentMigrated).build();
+        Fragment fragmentMigrated = aFragment().withId("myFragmentBis").withDesignerVersion(uiDesignerProperties.getModelVersionLegacy()).withPreviousDesignerVersion("1.0.0").build();
+        Fragment parentFragmentMigrated = aFragment().withId("myFragment").withDesignerVersion(uiDesignerProperties.getModelVersionLegacy()).withPreviousDesignerVersion("1.0.0").with(fragmentMigrated).build();
         MigrationResult mr = new MigrationResult(fragmentMigrated, singletonList(new MigrationStepReport(MigrationStatus.SUCCESS, "myFragmentBis")));
         MigrationResult parentMigrated = new MigrationResult(parentFragmentMigrated, singletonList(new MigrationStepReport(MigrationStatus.SUCCESS, "myFragment")));
         when(fragmentRepository.get("myFragment")).thenReturn(parentFragment);
@@ -191,7 +195,7 @@ public class FragmentServiceTest {
     @Test
     public void should_get_correct_migration_status_when_dependency_is_to_migrate() {
         Fragment fragment = aFragment().withId("fragment").withDesignerVersion("1.10.0").build();
-        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         Set<String> ids = new HashSet<>(singletonList("fragment"));
         when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment)).thenReturn(new MigrationStatusReport(true, false));
         when(fragmentRepository.getByIds(ids)).thenReturn(singletonList(fragment));
@@ -203,9 +207,9 @@ public class FragmentServiceTest {
 
     @Test
     public void should_get_correct_migration_status_when_dependency_is_not_compatible() {
-        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         Fragment fragment1 = aFragment().withId("fragment1").withDesignerVersion("1.10.0").build();
-        Fragment fragment2 = aFragment().withId("fragment2").withModelVersion("2.1").build(); //incompatible
+        Fragment fragment2 = aFragment().withId("fragment2").withModelVersion(uiDesignerProperties.getModelVersion()).build(); //incompatible
         Set<String> ids = new HashSet<>(asList("fragment1", "fragment2"));
         when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment1)).thenReturn(new MigrationStatusReport(true, false));
         when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment2)).thenReturn(new MigrationStatusReport(false, false));
@@ -219,7 +223,7 @@ public class FragmentServiceTest {
     @Test
     public void should_get_correct_migration_status_when_fragment_contains_incompatible_fragment() {
         Fragment fragment1 = aFragment().withId("fragment1").withDesignerVersion("1.10.0").build();
-        Fragment fragment2 = aFragment().withId("fragment2").withModelVersion("2.1").build(); //incompatible
+        Fragment fragment2 = aFragment().withId("fragment2").withModelVersion(uiDesignerProperties.getModelVersion()).build(); //incompatible
         Set<String> ids = new HashSet<>(singletonList("fragment2"));
         lenient().when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment1)).thenReturn(new MigrationStatusReport(true, false));
         when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment2)).thenReturn(new MigrationStatusReport(true, false));
@@ -232,8 +236,8 @@ public class FragmentServiceTest {
 
     @Test
     public void should_get_correct_migration_status_when_dependency_is_not_to_migrate() {
-        Fragment fragment = aFragment().withId("fragment").withDesignerVersion("2.0").isMigration(false).build();
-        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
+        Fragment fragment = aFragment().withId("fragment").withDesignerVersion(uiDesignerProperties.getModelVersionLegacy()).isMigration(false).build();
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         Set<String> ids = new HashSet<>(singletonList("fragment"));
         when(fragmentRepository.getByIds(ids)).thenReturn(singletonList(fragment));
         when(fragmentIdVisitor.visit(page)).thenReturn(ids);
@@ -1204,4 +1208,19 @@ public class FragmentServiceTest {
         verify(fragmentRepository).updateLastUpdateAndSave(fragmentToSave);
     }
 
+    @Test
+    public void should_get_fragment_info() {
+        String currentModelVersion = uiDesignerProperties.getModelVersion();
+        String currentModelVersionLegacy = uiDesignerProperties.getModelVersionLegacy();
+        Fragment fragment1 = aFragment().withId("fragment1").withModelVersion(currentModelVersion).build();
+        Fragment fragment2 = aFragment().withId("fragment2").withModelVersion(currentModelVersionLegacy).build();
+        when(fragmentRepository.get(fragment1.getId())).thenReturn(fragment1);
+        when(fragmentRepository.get(fragment2.getId())).thenReturn(fragment2);
+        Assert.assertEquals(
+                fragmentService.getInfo(fragment1.getId()).getArtifactVersion(),
+                new ArtifactInfo(currentModelVersion).getArtifactVersion());
+        Assert.assertEquals(
+                fragmentService.getInfo(fragment2.getId()).getArtifactVersion(),
+                new ArtifactInfo(currentModelVersionLegacy).getArtifactVersion());
+    }
 }

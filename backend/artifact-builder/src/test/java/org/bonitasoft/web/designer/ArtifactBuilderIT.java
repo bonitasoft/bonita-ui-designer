@@ -167,7 +167,7 @@ public class ArtifactBuilderIT {
         copyDirectory(source.toFile(), target.toFile());
 
         // Then
-        await().atMost(1, SECONDS).untilAsserted(() ->
+        await().atMost(2, SECONDS).untilAsserted(() ->
                 assertThat(jsonIndex).exists()
         );
     }

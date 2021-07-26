@@ -32,10 +32,19 @@
        * Usefull to filter fragment that can be used by another one
        * @returns {Promise}
        */
-      allNotUsingElement(elementId) {
-        return this.$http.get(this.baseUrl, {
-          params: { notUsedBy: elementId }
-        });
+      allNotUsingElement(elementId, artifactVersion) {
+        if (this.isV3Version(artifactVersion)) {
+          return this.$http.get(this.baseUrl, {
+            params: {notUsedBy: elementId}
+          }).then((response) =>
+            response.data.filter((fragment) => this.isV3Version(fragment.modelVersion)));
+        } else {
+          return this.$http.get(this.baseUrl, {
+            params: {notUsedBy: elementId}
+          }).then((response) => {
+            return response.data.filter((fragment) => !this.isV3Version(fragment.modelVersion))
+          });
+        }
       }
 
       all() {
@@ -63,6 +72,11 @@
        */
       rename(id, newName) {
         return this.$http.put(`${this.baseUrl}/${id}/name`, newName);
+      }
+
+      getInfo(id) {
+        return this.$http.get(`${this.baseUrl}/info/${id}`)
+          .then((response) => response.data);
       }
     }
     return new FragmentRepository();

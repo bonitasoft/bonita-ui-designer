@@ -2,7 +2,6 @@
   "id": "uidInput",
   "name": "Input",
   "type": "widget",
-  "technology": "web_component",
   "template": "@uidInput.tpl.html",
   "description": "Field where the user can enter information",
   "order": "1",

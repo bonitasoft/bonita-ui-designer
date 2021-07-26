@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
@@ -37,8 +36,6 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     public static final String ANGULARJS_CUSTOM_PREFIX = "custom";
     public static final String ANGULARJS_STANDARD_PREFIX = "pb";
-    private final WorkspaceProperties workspaceProperties;
-    private final UiDesignerProperties uiDesignerProperties;
 
     public WidgetRepository(
             WorkspaceProperties workspaceProperties,
@@ -46,10 +43,8 @@ public class WidgetRepository extends AbstractRepository<Widget> {
             JsonFileBasedPersister<Widget> fileBasedRepository,
             JsonFileBasedLoader<Widget> widgetLoader,
             BeanValidator validator,
-            Watcher watcher, UiDesignerProperties uiDesignerProperties) {
+            Watcher watcher) {
         super(workspaceProperties.getWidgets().getDir(), fileBasedRepository, widgetLoader, validator, watcher, workspaceUidProperties.getTemplateResourcesPath());
-        this.workspaceProperties = workspaceProperties;
-        this.uiDesignerProperties = uiDesignerProperties;
     }
 
     @Override

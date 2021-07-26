@@ -62,6 +62,11 @@
         return this.$http.get(`${this.baseUrl}/${page.id}/resources`)
           .then((response)=> response.data);
       }
+
+      getInfo(id) {
+        return this.$http.get(`${this.baseUrl}/info/${id}`)
+          .then((response) => response.data);
+      }
     }
     return new PageRepository();
   }

@@ -1,8 +1,9 @@
 describe('pageRepo', function() {
   let pageRepo, $httpBackend;
 
-  var json = {
+  var pageJson = {
     id: 'person',
+    modelVersion: '2.0',
     'rows': []
   };
 
@@ -82,7 +83,7 @@ describe('pageRepo', function() {
     $httpBackend.expectPUT('rest/pages/person').respond(204);
 
     // when we save it
-    pageRepo.save(json);
+    pageRepo.save(pageJson);
 
     // then we should have called the backend
     $httpBackend.flush();
@@ -93,7 +94,7 @@ describe('pageRepo', function() {
     $httpBackend.expectDELETE('rest/pages/person').respond(200);
 
     // when we delete it
-    pageRepo.delete('person', json);
+    pageRepo.delete('person', pageJson);
 
     // then we should have called the backend
     $httpBackend.flush();
@@ -101,7 +102,7 @@ describe('pageRepo', function() {
 
   it('should load a page', function() {
     // given a page
-    $httpBackend.expectGET('rest/pages/person').respond(200, json);
+    $httpBackend.expectGET('rest/pages/person').respond(200, pageJson);
 
     // when we load it
     var pageData;
@@ -301,4 +302,24 @@ describe('pageRepo', function() {
     $httpBackend.flush();
     expect(resources).toEqual(expectedResources);
   });
+
+  it('should get the information of a page', function() {
+    // given a page info
+    let pageInfoJson = {
+      artifactVersion: '2.0'
+    };
+    $httpBackend.expectGET('rest/pages/info/person').respond(200, pageInfoJson);
+
+    // when we get it
+    let pageInfoData;
+    pageRepo.getInfo('person')
+      .then(function(data) {
+        pageInfoData = data;
+      });
+
+    // then we should have called the backend
+    $httpBackend.flush();
+    expect(pageInfoData.artifactVersion).toEqual('2.0');
+  });
+
 });

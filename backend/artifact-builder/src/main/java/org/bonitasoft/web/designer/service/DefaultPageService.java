@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.controller.ArtifactInfo;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
@@ -90,6 +91,12 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
             page.setStatus(getStatus(page));
             return page;
         }).collect(toList());
+    }
+
+    @Override
+    public ArtifactInfo getInfo(String id) {
+        Page page = repository.get(id);
+        return new ArtifactInfo(page.getArtifactVersion());
     }
 
     @Override
@@ -282,7 +289,7 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
     @Override
     public MigrationStatusReport getStatus(Page page) {
 
-        MigrationStatusReport pageStatusReport = super.getStatus(page);
+        MigrationStatusReport pageStatusReport = super.getStatusWithoutDependencies(page);
         MigrationStatusReport depReport = pageMigrationApplyer.getMigrationStatusDependencies(page);
 
         return mergeStatusReport(pageStatusReport, depReport);

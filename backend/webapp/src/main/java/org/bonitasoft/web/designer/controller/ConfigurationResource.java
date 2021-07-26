@@ -36,7 +36,7 @@ public class ConfigurationResource {
     private final UiDesignerProperties uiDesignerProperties;
 
     @GetMapping
-    public ResponseEntity<ConfigurationReport> getConfig() {
+    public ResponseEntity<Configuration> getConfig() {
         String bdrUrl = uiDesignerProperties.getBonita().getBdm().getUrl();
         try {
             new URL(bdrUrl);
@@ -44,6 +44,12 @@ public class ConfigurationResource {
             log.warn("Bonita data repository url is not set, or not a valid URL.");
             bdrUrl = "";
         }
-        return new ResponseEntity<>(new ConfigurationReport(this.uiDesignerProperties.getVersion(), this.uiDesignerProperties.getModelVersion(), bdrUrl, uiDesignerProperties.isExperimental()), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new Configuration(this.uiDesignerProperties.getVersion(),
+                        this.uiDesignerProperties.getModelVersion(),
+                        this.uiDesignerProperties.getModelVersionLegacy(),
+                        bdrUrl,
+                        uiDesignerProperties.isExperimental()),
+                HttpStatus.OK);
     }
 }

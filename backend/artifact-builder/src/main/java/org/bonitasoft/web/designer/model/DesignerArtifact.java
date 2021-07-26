@@ -30,12 +30,11 @@ public abstract class DesignerArtifact implements Identifiable {
     private String previousDesignerVersion; // used to be able to read 'old' artifacts
     private String previousArtifactVersion;
     private boolean favorite = false;
-    private Technology technology;
 
     // This field is only in memory, we don't need to store it
     private MigrationStatusReport status;
 
-    @JsonView({JsonViewPersistence.class})
+    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public String getModelVersion() {
         return modelVersion;
     }
@@ -100,15 +99,6 @@ public abstract class DesignerArtifact implements Identifiable {
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
-    }
-
-    @JsonView({JsonViewLight.class, JsonViewPersistence.class})
-    public Technology getTechnology() {
-        return technology;
-    }
-
-    public void setTechnology(Technology technology) {
-        this.technology = technology;
     }
 
     @JsonView({JsonViewPersistence.class, JsonViewLight.class})

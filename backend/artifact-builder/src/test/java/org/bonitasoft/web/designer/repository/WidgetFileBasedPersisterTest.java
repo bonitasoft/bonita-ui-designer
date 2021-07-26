@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.repository;
 
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.junit.After;
@@ -53,7 +54,7 @@ public class WidgetFileBasedPersisterTest {
     @Before
     public void setUp() throws IOException {
         repoDirectory = Files.createTempDirectory("jsonrepository");
-        uiDesignerProperties = new UiDesignerProperties();
+        uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
         uiDesignerProperties.setVersion(DESIGNER_VERSION);
         jsonHandler = spy(new JsonHandlerFactory().create());
         widgetPersister = new WidgetFileBasedPersister(jsonHandler, validator,uiDesignerProperties);
@@ -71,8 +72,6 @@ public class WidgetFileBasedPersisterTest {
 
     @Test
     public void should_serialize_an_object_and_save_it_to_a_file() throws Exception {
-        String templateFileName = "input.tpl.html";
-        String controllerFileName = "input.ctrl.js";
         String htmlContent = "<div></div>";
         String jsContent = "function ($scope) {}";
         Widget widgetToSave = aWidget().withId("input").template(htmlContent).controller(jsContent).build();
@@ -80,10 +79,22 @@ public class WidgetFileBasedPersisterTest {
         widgetPersister.save(repoDirectory, widgetToSave);
 
         Widget savedObject = getFromRepository("input");
+        assertThat(savedObject.getModelVersion()).isEqualTo(uiDesignerProperties.getModelVersion());
         assertThat(savedObject.getTemplate()).isEqualTo("@" + widgetToSave.getId() + ".tpl.html");
         assertThat(savedObject.getController()).isEqualTo("@" + widgetToSave.getId() + ".ctrl.js");
         assertThat(readAllLines(repoDirectory.resolve(widgetToSave.getId() + ".ctrl.js"), StandardCharsets.UTF_8).get(0)).isEqualTo(jsContent);
         assertThat(readAllLines(repoDirectory.resolve(widgetToSave.getId() + ".tpl.html"), StandardCharsets.UTF_8).get(0)).isEqualTo(htmlContent);
+
+        // Legacy widgets
+        Widget pbWidgetToSave = aWidget().withId("pbInput").template(htmlContent).controller(jsContent).build();
+        widgetPersister.save(repoDirectory, pbWidgetToSave);
+        Widget savedPbWidget = getFromRepository("pbInput");
+        assertThat(savedPbWidget.getModelVersion()).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
+
+        Widget customLegacyWidgetToSave = aWidget().withId("customMyInput").template(htmlContent).controller(jsContent).build();
+        widgetPersister.save(repoDirectory, customLegacyWidgetToSave);
+        Widget savedCustomLegacyWidget = getFromRepository("customMyInput");
+        assertThat(savedCustomLegacyWidget.getModelVersion()).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
 
     }
 

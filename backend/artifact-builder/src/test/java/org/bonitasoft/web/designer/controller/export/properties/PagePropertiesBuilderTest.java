@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.controller.export.properties;
 
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.service.DefaultPageService;
@@ -52,7 +53,7 @@ public class PagePropertiesBuilderTest {
     public void setUp() throws Exception {
         page = new Page();
         page.setName("myPage");
-        uiDesignerProperties = new UiDesignerProperties();
+        uiDesignerProperties = new UiDesignerPropertiesBuilder().build();
         uiDesignerProperties.setVersion(DESIGNER_VERSION);
         pagePropertiesBuilder = new PagePropertiesBuilder(uiDesignerProperties, pageService);
     }

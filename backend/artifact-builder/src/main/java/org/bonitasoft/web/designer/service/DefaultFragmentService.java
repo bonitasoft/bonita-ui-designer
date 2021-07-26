@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.service;
 
 
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.controller.ArtifactInfo;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.Predicates;
 import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
@@ -97,6 +98,12 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
     }
 
     @Override
+    public ArtifactInfo getInfo(String id) {
+        Fragment fragment = repository.get(id);
+        return new ArtifactInfo(fragment.getArtifactVersion());
+    }
+
+    @Override
     public List<Fragment> getAllNotUsingFragment(String elementId) {
         List<Fragment> fragments;
         if (hasText(elementId)) {
@@ -135,7 +142,7 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
 
     @Override
     public MigrationStatusReport getStatus(Fragment fragment) {
-        var fragmentStatusReport = super.getStatus(fragment);
+        var fragmentStatusReport = super.getStatusWithoutDependencies(fragment);
         var depWidgetReport = fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment);
         var depFragmentReport = getMigrationStatusOfFragmentUsed(fragment);
         return mergeStatusReport(fragmentStatusReport, mergeStatusReport(depWidgetReport, depFragmentReport));
