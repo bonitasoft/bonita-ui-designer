@@ -31,9 +31,19 @@
       // Status
       $httpBackend.whenGET(/rest\/migration\/status\/.*\/.*/).respond(() => { return [200,{'compatible': true, 'migration': false},{}];});
       // Config
-      $httpBackend.whenGET(/rest\/config/).respond(() => { return [200,{}];});
+      $httpBackend.whenGET(/rest\/config/).respond(() => {
+        return [200, {
+          'uidVersion': '1.14.0-SNAPSHOT',
+          'modelVersion': '3.0',
+          'modelVersionLegacy': '2.2',
+          'experimentalMode': false
+        }, {}];
+      });
+
+      $httpBackend.whenGET(/bdm\/json/).respond(() => {return [200, {}];});
+
       // Info
-      $httpBackend.whenGET(/rest\/.*\/info\/.*/).respond(() => { return [200,{}];});
+      $httpBackend.whenGET(/rest\/.*\/info\/.*/).respond(() => { return [200,{'artifactVersion':'2.2'}, {}];});
 
       // Migration
       $httpBackend.whenPUT(/rest\/migration\/.*\/.*/).respond(() => { return [200,{ 'comments': 'No migration is needed', 'status': 'none', 'migrationStepReport':[] },{}];} );
@@ -100,7 +110,7 @@
 
       // get all light representation
       $httpBackend.whenGET('rest/widgets?view=light').respond(function() {
-        var response = widgets.map(({id, name, custom, lastUpdate, favorite}) => ({id, name, custom, lastUpdate, favorite}));
+        var response = widgets.map(({id, name, modelVersion, custom, lastUpdate, favorite}) => ({id, name, modelVersion, custom, lastUpdate, favorite}));
         return [200, response, {}];
       });
 

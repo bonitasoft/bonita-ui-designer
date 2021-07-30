@@ -31,7 +31,7 @@ describe('home page', function() {
     expect($('.HomeHeader-title').getText()).toBe('UI Designer');
   });
 
-  it('should navigate to a widget', function() {
+  it('should navigate to a widget if legacy', function() {
     $$('.ArtifactList-widget a').first().click();
 
     expect($('.EditorHeader-brand').getText()).toBe('WIDGET EDITOR');

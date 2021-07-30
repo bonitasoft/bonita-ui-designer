@@ -7,6 +7,8 @@
   "description" : "Short string or paragraph of text to be displayed. Can include HTML tags",
   "custom" : false,
   "order" : 19,
+  "jsBundle": "assets/js/uid-text.es5.min.js",
+  "htmlBundle": "assets/js/uid-text.tpl.runtime.html",
   "properties" : [
     {
       "label" : "Label hidden",

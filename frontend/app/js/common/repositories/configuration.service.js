@@ -57,7 +57,6 @@
       isExperimentalModeEnabled() {
         return this.configInfo.experimentalMode;
       }
-
     }
 
     return new Configuration();

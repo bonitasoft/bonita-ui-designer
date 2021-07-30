@@ -194,5 +194,4 @@ describe('fragmentRepo', function() {
     expect(fragmentInfoData.artifactVersion).toEqual('2.0');
   });
 
-
 });

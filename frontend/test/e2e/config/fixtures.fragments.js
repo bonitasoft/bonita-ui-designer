@@ -6,6 +6,7 @@
     .module('bonitasoft.designer.e2e')
     .value('fragments', [{
       designerVersion: '1.5-SNAPSHOT',
+      modelVersion: '2.2',
       id: 'personFragment',
       name: 'personFragment',
       type: 'fragment',
@@ -108,6 +109,7 @@
         }]
     }, {
       designerVersion: '1.5-SNAPSHOT',
+      modelVersion: '2.2',
       id: 'empty',
       name: 'empty',
       type: 'fragment',
@@ -118,6 +120,7 @@
     },
     {
       designerVersion: '1.2.9-SNAPSHOT',
+      modelVersion: '2.2',
       favorite: false,
       id: 'fragWithTitleFrag',
       name: 'fragWithTitleFrag',
@@ -187,6 +190,7 @@
       variables: {}
     }, {
       designerVersion: '1.2.9-SNAPSHOT',
+      modelVersion: '2.2',
       favorite: false,
       id: 'simpleFragment',
       name: 'simpleFragment',

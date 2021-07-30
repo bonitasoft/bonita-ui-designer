@@ -60,7 +60,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
     private String id;
     @NotBlank(message = "Widget name should not be blank")
     private String name;
-    private Instant lastUpdate; //makes sense only for custom widget
+    private Instant lastUpdate; //makes sense only for legacy custom widget
     private String template;
     private String icon;
     private String controller;
@@ -73,6 +73,8 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
     private Set<String> authRules;
     private String type = "widget";
     private boolean hasHelp = false;
+    private String jsBundle;    // For widgets V3
+    private String htmlBundle;  // For widgets V3
 
     public static String spinalCase(String widgetId) {
         var firstLetter = Character.toLowerCase(widgetId.charAt(0));
@@ -285,6 +287,24 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
         this.hasHelp = hasHelp;
     }
 
+    @JsonView({JsonViewPersistence.class})
+    public String getJsBundle() {
+        return jsBundle;
+    }
+
+    public void setJsBundle(String jsBundle) {
+        this.jsBundle = jsBundle;
+    }
+
+    @JsonView({JsonViewPersistence.class})
+    public String getHtmlBundle() {
+        return htmlBundle;
+    }
+
+    public void setHtmlBundle(String htmlBundle) {
+        this.htmlBundle = htmlBundle;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof Widget) {
@@ -297,6 +317,8 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
                     .append(custom, other.custom)
                     .append(properties, other.properties)
                     .append(hasHelp, other.hasHelp)
+                    .append(jsBundle, other.jsBundle)
+                    .append(htmlBundle, other.htmlBundle)
                     .isEquals();
         } else {
             return false;
@@ -313,6 +335,8 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
                 .append(custom)
                 .append(properties)
                 .append(hasHelp)
+                .append(jsBundle)
+                .append(htmlBundle)
                 .toHashCode();
     }
 
@@ -326,6 +350,8 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
                 .append("custom", custom)
                 .append("properties", properties)
                 .append("hasHelp", hasHelp)
+                .append("jsBundle", jsBundle)
+                .append("htmlBundle", htmlBundle)
                 .toString();
     }
 

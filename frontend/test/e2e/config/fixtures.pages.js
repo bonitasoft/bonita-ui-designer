@@ -9,6 +9,7 @@
         id: 'personPage',
         name: 'Person',
         type: 'page',
+        modelVersion: '2.2',
         lastUpdate: 1447944407862,
         favorite: true,
         variables: {
@@ -283,6 +284,7 @@
         id: 'empty',
         name: 'empty',
         type: 'page',
+        modelVersion: '2.2',
         lastUpdate: 1447891242960,
         rows: [[]],
         variables: {}
@@ -316,6 +318,7 @@
         id: 'aPageIncompatible',
         name: 'aPageIncompatible',
         type: 'page',
+        modelVersion: '4.0',
         status: { migration: false, compatible:false },
         lastUpdate: 1447791242960,
         rows: [[]],
@@ -327,6 +330,7 @@
         id: 'fragInFragInFragFragment',
         name: 'fragInFragInFrag',
         type: 'page',
+        modelVersion: '2.2',
         lastUpdate: 1447944407850,
         rows: [
           [{

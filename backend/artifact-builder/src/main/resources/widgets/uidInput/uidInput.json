@@ -6,6 +6,9 @@
   "description": "Field where the user can enter information",
   "order": "1",
   "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20'><g><path fill='#fff' d='M1,19V1h48v18H1z M0,0v20h50V0H0z M6,18v-1H5v1H6z M8,17H7v1h1V17z M7,2v1h1V2H7z M5,3h1V2H5V3z M6,3v14h1 V3H6z '/></g></svg>",
+  "custom" : false,
+  "jsBundle": "assets/js/uid-input.es5.min.js",
+  "htmlBundle": "assets/js/uid-input.tpl.runtime.html",
   "properties": [
     {
       "label": "Required",

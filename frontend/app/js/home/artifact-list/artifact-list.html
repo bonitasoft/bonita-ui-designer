@@ -10,7 +10,7 @@
             <a ng-switch-default href=""
                class="Artifact-link Artifact-link--primary"
                ng-click="artifactList.openArtifact(artifact)"
-               ng-class="{'Artifact-disabled': artifact.status && !artifact.status.compatible, 'Artifact-enabled': !artifact.status || artifact.status.compatible}">
+               ng-class="{'Artifact-disabled': !artifactList.isV3Widget(artifact) && artifact.status && !artifact.status.compatible, 'Artifact-enabled': !artifactList.isV3Widget(artifact) && (!artifact.status || artifact.status.compatible)}">
                 <span ng-if="artifact.icon" class="Artifact-icon"
                       uib-tooltip="{{::artifactList.getTooltipMessage(artifact)}}"
                       tooltip-popup-delay="500">
@@ -39,7 +39,7 @@
                     </span>
                     <span class="Artifact-metadata"
                     >{{:: artifactList.translateKeys('Last Update:') }} {{:: artifact.lastUpdate | date:'short' }}</span>
-                    <span ng-if="isExperimentalMode() && artifact.modelVersion!=='3.0'" class="label label-warning" translate>Legacy</span>
+                    <span ng-if="!artifactList.isModelVersionV3(artifact)" class="label label-warning" translate>Legacy</span>
                 </span>
             </a>
             <form name="renameArtifact" class="Artifact-form"

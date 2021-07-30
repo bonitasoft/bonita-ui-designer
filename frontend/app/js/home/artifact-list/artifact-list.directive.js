@@ -28,7 +28,9 @@
       this.artifactNamingValidatorService = artifactNamingValidatorService;
       this.alerts = alerts;
       this.migration = migration;
-      this.isExperimentalMode = () => configuration.isExperimentalModeEnabled();
+      this.configuration = configuration;
+      this.isModelVersionV3 = (artifact) => this.getRepository(artifact.type).isV3Version(artifact.modelVersion);
+      this.isV3Widget = (artifact) => artifact.type === 'widget' && this.isModelVersionV3(artifact);
     }
 
     translateKeys(key) {
@@ -193,6 +195,10 @@
     }
 
     openArtifact(artifact) {
+      // Do not open V3 (web component) widget
+      if (artifact.type === 'widget' && this.getRepository(artifact.type).isV3Version(artifact.modelVersion)) {
+        return;
+      }
       if (!artifact.status || artifact.status.compatible) {
         window.location = artifact.editionUrl;
       }

@@ -210,4 +210,14 @@ describe('widgetRepo', function() {
     $httpBackend.flush();
   });
 
+  it('should recognize V3 version', function() {
+    expect(widgetRepo.isV3Version('2.4.0')).toBe(false);
+
+    expect(widgetRepo.isV3Version('invalid')).toBe(true);
+    expect(widgetRepo.isV3Version('inv.alid')).toBe(true);
+    expect(widgetRepo.isV3Version('.')).toBe(true);
+    expect(widgetRepo.isV3Version('3.0.0')).toBe(true);
+    expect(widgetRepo.isV3Version('3.1.0')).toBe(true);
+  });
+
 });

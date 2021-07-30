@@ -49,6 +49,7 @@
           key: 'widget',
           state: 'widget',
           value: gettext('Custom widget'),
+          tooltip: gettext('You should use the UI Designer SDK to create a custom widget. Create a legacy custom widget only if you need to include it in a legacy page or fragment.'),
           filterName: gettext('Custom widgets'),
           create: name => this.createWidget(name)
         },
