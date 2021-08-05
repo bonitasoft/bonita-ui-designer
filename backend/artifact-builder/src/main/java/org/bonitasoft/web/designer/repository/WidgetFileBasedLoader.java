@@ -46,28 +46,6 @@ public class WidgetFileBasedLoader extends JsonFileBasedLoader<Widget> {
         super(jsonHandler, Widget.class);
     }
 
-    private void setWidgetTemplate(Path directory, Widget widget) throws IOException {
-        if (widget.getTemplate() != null && widget.getTemplate().startsWith("@")) {
-            var templateFileName = widget.getTemplate().substring(1);
-            var templateFile = directory.resolve(format("%s", templateFileName));
-            if (!Files.exists(templateFile)) {
-                throw new NotFoundException(format("Template not found for [%s]", templateFile.getFileName()));
-            }
-            widget.setTemplate(new String(readAllBytes(templateFile)));
-        }
-    }
-
-    private void setWidgetController(Path directory, Widget widget) throws IOException {
-        if (widget.getController() != null && widget.getController().startsWith("@")) {
-            var controllerFileName = widget.getController().substring(1);
-            var controllerFile = directory.resolve(format("%s", controllerFileName));
-            if (!Files.exists(controllerFile)) {
-                throw new NotFoundException(format("Controller not found for [%s]", controllerFile.getFileName()));
-            }
-            widget.setController(new String(readAllBytes(controllerFile)));
-        }
-    }
-
     @Override
     public Widget get(Path path) {
         try {
@@ -84,13 +62,11 @@ public class WidgetFileBasedLoader extends JsonFileBasedLoader<Widget> {
 
     private Widget getWidgetWithView(Path path, Class<?> view) {
         try {
-            var widget = (view == null)
+             var widget = (view == null)
                     ? jsonHandler.fromJson(readAllBytes(path), type)
                     : jsonHandler.fromJson(readAllBytes(path), type, view);
 
-            var widgetDirectoryPath = path.getParent();
-            setWidgetTemplate(widgetDirectoryPath, widget);
-            setWidgetController(widgetDirectoryPath, widget);
+            widget.prepareWidgetToDeserialize(path.getParent());
             return widget;
         } catch (JsonProcessingException e) {
             throw new JsonReadException(format("Could not read json file [%s]", path.getFileName()), e);

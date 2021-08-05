@@ -36,6 +36,7 @@ import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.DefaultPageService;
+import org.bonitasoft.web.designer.service.DefaultWidgetService;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import java.time.Instant;
 import org.junit.Before;
@@ -80,6 +81,9 @@ public class ArtifactImporterTest {
 
     @Mock(lenient = true)
     private DefaultPageService pageService;
+
+    @Mock(lenient = true)
+    private DefaultWidgetService widgetService;
 
     @Mock(lenient = true)
     private WidgetRepository widgetRepository;
@@ -140,7 +144,6 @@ public class ArtifactImporterTest {
         widgetUnzippedPath = widgetImportPath.resolve("resources");
         Files.createDirectory(widgetUnzippedPath);
 
-
         wMocks = new WidgetImportMock(pageUnzippedPath, widgetRepository, jsonHandler);
         pMocks = new PageImportMock(pageUnzippedPath, pageRepository, jsonHandler);
     }
@@ -155,6 +158,17 @@ public class ArtifactImporterTest {
 
         verify(widgetRepository).saveAll(widgets);
         verify(pageRepository, times(3)).updateLastUpdateAndSave(page);
+    }
+
+    @Test
+    public void should_prepare_widget_to_deserialize_on_import_widget() throws Exception {
+        Widget widget = spy(aWidget().withId("aWidget").custom().build());
+        doReturn(widget).when(jsonHandler).fromJson(any(Path.class), eq(Widget.class), eq(JsonViewPersistence.class));
+        when(widgetRepository.updateLastUpdateAndSave(widget)).thenReturn(widget);
+
+        artifactBuilder.importWidget(widgetImportPath, true);
+
+        verify(widget).prepareWidgetToDeserialize(any(Path.class));
     }
 
     @Test

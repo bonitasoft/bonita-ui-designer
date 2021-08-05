@@ -19,6 +19,7 @@ import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.ModelException;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.service.ArtifactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,11 +72,14 @@ public abstract class Exporter<T extends DesignerArtifact> {
             }
 
             if (!identifiable.getStatus().isCompatible()) {
-                var errorMessage = String.format("%s export failed. A newer UI Designer version is required.", identifiable.getName());
+                var errorMessage = String.format("%s export failed. A newer UI Designer version is required.e", identifiable.getName());
                 throw new ModelException(errorMessage);
             }
 
-            // add json model
+            if (identifiable instanceof Widget) {
+                ((Widget) identifiable).prepareWidgetToSerialize();
+            }
+
             final byte[] json = jsonHandler.toJson(identifiable, JsonViewPersistence.class);
             zipper.addToZip(json, format("%s/%s.json", RESOURCES, getComponentType()));
             // forceExecution export steps
@@ -96,4 +100,5 @@ public abstract class Exporter<T extends DesignerArtifact> {
             throw new ExportException(format("Technical error when exporting %s with id %s", getComponentType(), id), e);
         }
     }
+
 }

@@ -23,6 +23,7 @@ import org.bonitasoft.web.designer.model.HasUUID;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.JsonReadException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -66,7 +67,11 @@ public abstract class AbstractArtifactImporter<T extends Identifiable> {
 
     public T load(Path path) {
         try {
-            return jsonHandler.fromJson(path, getArtifactType(), JsonViewPersistence.class);
+            var artifact =  jsonHandler.fromJson(path, getArtifactType(), JsonViewPersistence.class);
+            if(artifact instanceof Widget){
+                ((Widget) artifact).prepareWidgetToDeserialize(path.getParent());
+            }
+            return artifact;
         } catch (JsonProcessingException e) {
             throw new JsonReadException(format("Could not read json file [%s]", path.getFileName()), e);
         } catch (NoSuchFileException e) {

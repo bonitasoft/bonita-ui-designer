@@ -21,25 +21,33 @@ import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 import static org.apache.commons.io.IOUtils.toByteArray;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
+import static org.bonitasoft.web.designer.builder.RowBuilder.aRow;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.utils.ListUtil.asList;
+import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.assertThatHtmlBody;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 public class WidgetTest {
 
     @Rule
     public TestResource testResource = new TestResource(this.getClass());
+
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     private JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
@@ -178,5 +186,57 @@ public class WidgetTest {
         widgetSon.setDescription("#widget fils d'son père!");
         return widgetSon;
     }
+
+    @Test
+    public void should_prepare_widget_before_serialize() throws Exception {
+        Widget widget = new Widget();
+        widget.setId("widgetToSerialize");
+        widget.setTemplate("<div>A widget template</div>");
+        widget.setController("function(){return 'aa';}");
+
+        widget.prepareWidgetToSerialize();
+
+
+
+        assertThat(widget.getTemplate()).isEqualTo("@widgetToSerialize.tpl.html");
+        assertThat(widget.getController()).isEqualTo("@widgetToSerialize.ctrl.js");
+    }
+
+    @Test
+    public void should_prepare_widget_before_deserialize() throws Exception {
+        Widget widget = new Widget();
+        widget.setId("widgetToDeserialize");
+        widget.setController("@widgetToDeserialize.ctrl.js");
+        widget.setTemplate("@widgetToDeserialize.tpl.html");
+
+        temporaryFolder.newFolder("aWidget");
+        var widgetPath = temporaryFolder.getRoot().toPath().resolve("aWidget");
+
+        byte[] ctrlContent = "function widgetToSerializeCtrl() { function comparator(initialValue, item) { return angular.equals(initialValue, ctrl.getValue(item));}}".getBytes();
+        Files.write(widgetPath.resolve("widgetToDeserialize.ctrl.js"), ctrlContent);
+
+        byte[] htmlContent = "<div>A widget Template</div>".getBytes();
+        Files.write(widgetPath.resolve("widgetToDeserialize.tpl.html"), htmlContent);
+
+        widget.prepareWidgetToDeserialize(widgetPath);
+
+        assertThat(widget.getController().getBytes()).isEqualTo(ctrlContent);
+        assertThat(widget.getTemplate().getBytes()).isEqualTo(htmlContent);
+    }
+
+    @Test
+    public void should_prepare_widget_before_deserialize_when_field_not_referred_to_files() throws Exception {
+        Widget widget = new Widget();
+        widget.setId("aWidget");
+        widget.setController("function widgetCtrl(){}");
+        widget.setTemplate("<div>my Template</div>");
+
+        var path = temporaryFolder.newFolder("aWidget");
+        widget.prepareWidgetToDeserialize(temporaryFolder.getRoot().toPath().resolve("aWidget"));
+
+        assertThat(widget.getController()).isEqualTo("function widgetCtrl(){}");
+        assertThat(widget.getTemplate()).isEqualTo("<div>my Template</div>");
+    }
+
 
 }

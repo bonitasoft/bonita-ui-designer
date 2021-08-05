@@ -16,6 +16,8 @@ package org.bonitasoft.web.designer.model.widget;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -25,10 +27,14 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +46,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 
 
@@ -320,5 +328,62 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
                 .append("hasHelp", hasHelp)
                 .toString();
     }
+
+
+    /**
+     * Prepare object to deserialize     *
+     */
+    public void prepareWidgetToDeserialize(Path directory) throws IOException {
+        loadControllerFromFileContent(directory);
+        loadTemplateFromFileContent(directory);
+    }
+
+
+    /**
+     * Prepare object to serialize
+     */
+    public void prepareWidgetToSerialize() {
+        if (this.getTemplate() != null && !this.getTemplate().startsWith("@")) {
+            var templateFileName = "@" + this.getId() + ".tpl.html";
+            this.setTemplate(templateFileName);
+        }
+        if (this.getController() != null && !this.getController().startsWith("@")) {
+            var controllerFileName = "@" + this.getId() + ".ctrl.js";
+            this.setController(controllerFileName);
+        }
+    }
+
+    /**
+     * Load content from widget controller file (*.ctrl.js) and set it in controller field
+     *
+     * @throws IOException
+     */
+    private void loadControllerFromFileContent(Path directory) throws IOException {
+        if (this.getController() != null && this.getController().startsWith("@")) {
+            var controllerFileName = this.getController().substring(1);
+            var controllerFile = directory.resolve(format("%s", controllerFileName));
+            if (!Files.exists(controllerFile)) {
+                throw new NotFoundException(format("Controller not found for [%s]", controllerFile.getFileName()));
+            }
+            this.setController(new String(readAllBytes(controllerFile)));
+        }
+    }
+
+    /**
+     * Load content from widget template file (*.tpl.html) and set it in template field
+     *
+     * @throws IOException
+     */
+    private void loadTemplateFromFileContent(Path directory) throws IOException {
+        if (this.getTemplate() != null && this.getTemplate().startsWith("@")) {
+            var templateFileName = this.getTemplate().substring(1);
+            var templateFile = directory.resolve(format("%s", templateFileName));
+            if (!Files.exists(templateFile)) {
+                throw new NotFoundException(format("Template not found for [%s]", templateFile.getFileName()));
+            }
+            this.setTemplate(new String(readAllBytes(templateFile)));
+        }
+    }
+
 
 }

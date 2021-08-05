@@ -48,6 +48,7 @@ import static java.nio.file.Files.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -81,7 +82,9 @@ public class WidgetDirectiveBuilderTest {
     public void setup() throws Exception {
         JsonHandler jsonHandler = new JsonHandlerFactory().create();
         final UiDesignerProperties uiDesignerProperties = new UiDesignerProperties("1.13.0", "2.0");
-        widgetDirectiveBuilder = new WidgetDirectiveBuilder(watcher, new WidgetFileBasedLoader(jsonHandler), htmlSanitizer);
+
+        uiDesignerProperties.setExperimental(false);
+        widgetDirectiveBuilder = new WidgetDirectiveBuilder(uiDesignerProperties, watcher, new WidgetFileBasedLoader(jsonHandler), htmlSanitizer);
 
         WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jsonHandler);
         WorkspaceProperties workspaceProperties = new WorkspaceProperties();
@@ -120,10 +123,10 @@ public class WidgetDirectiveBuilderTest {
     }
 
     @Test
-    public void should_not_build_directives_for_web_component_widgets() throws Exception {
+    public void should_build_directives_for_custom_widgets_without_prefix() throws Exception {
         widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
 
-        assertFalse(Files.exists(getDirectivePath("uidInput")));
+        assertTrue(Files.exists(getDirectivePath("uidInput")));
     }
 
     @Test
