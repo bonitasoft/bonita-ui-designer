@@ -48,6 +48,9 @@ public class VariableBuilder {
     public static VariableBuilder anExpressionVariable() {
         return new VariableBuilder(EXPRESSION);
     }
+    public static VariableBuilder aBusinessDataVariable() {
+        return new VariableBuilder(BUSINESSDATA);
+    }
 
     public VariableBuilder value(String value) {
         this.value = value;

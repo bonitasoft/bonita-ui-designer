@@ -22,19 +22,21 @@ import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
+import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BusinessVariableMigrationStep extends AbstractMigrationStep<Page> {
+public class BusinessVariableMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<T>  {
 
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public Optional<MigrationStepReport> migrate(Page page) throws IOException {
+    public Optional<MigrationStepReport> migrate(AbstractPage page) throws IOException {
         for (Variable variable : page.getVariables().values()) {
             if (variable.getType() == DataType.BUSINESSDATA) {
                 String property = variable.getValue().get(0);

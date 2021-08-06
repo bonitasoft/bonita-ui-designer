@@ -133,8 +133,8 @@ public class UiDesignerCoreFactory {
                 new Migration<>("1.10.18", new TableWidgetStylesMigrationStep<>(componentVisitor)),
                 new Migration<>("1.11.46", new DataExposedMigrationStep<>()),
                 new Migration<Fragment>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<>("INITIAL_MODEL_VERSION")),
-                new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1"), new AutocompleteWidgetReturnedKeyMigrationStep<Fragment>(componentVisitor)),
-                new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2"))
+                new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1"), new AutocompleteWidgetReturnedKeyMigrationStep<>(componentVisitor)),
+                new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2"), new BusinessVariableMigrationStep<>())
         );
 
         List<Migration<Page>> pageMigrationStepsList = List.of(
@@ -151,7 +151,7 @@ public class UiDesignerCoreFactory {
                 new Migration<>("1.10.12", new DataToVariableMigrationStep<>()),
                 new Migration<>("1.10.16", new TableWidgetInterpretHTMLMigrationStep<>(componentVisitor)),
                 new Migration<>("1.10.18", new TableWidgetStylesMigrationStep<>(componentVisitor)),
-                new Migration<>("1.11.40", new BusinessVariableMigrationStep()),
+                new Migration<>("1.11.40", new BusinessVariableMigrationStep<>()),
                 new Migration<>("1.11.46", new StyleUpdateInputRequiredLabelMigrationStep(pageAssetService)),
                 new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<>(INITIAL_MODEL_VERSION), new AutocompleteWidgetReturnedKeyMigrationStep<Page>(componentVisitor)),
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1")),
