@@ -1,21 +1,24 @@
 package org.bonitasoft.web.designer;
 
+import org.apache.commons.io.FileUtils;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
+import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
+import org.bonitasoft.web.designer.controller.utils.Unzipper;
+import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.apache.commons.io.FileUtils.*;
@@ -26,6 +29,15 @@ public class ArtifactBuilderIT {
 
     private UiDesignerProperties properties;
     private ArtifactBuilder artifactBuilder;
+
+    private Unzipper unziper;
+
+    @Rule
+    public TemporaryFolder tempFolder = new TemporaryFolder();
+
+    public ArtifactBuilderIT() throws IOException {
+        unziper = new Unzipper();
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -44,6 +56,43 @@ public class ArtifactBuilderIT {
             }
         });
     }
+
+    @Test
+    public void should_import_cutom_widget_without_prefix() throws Exception {
+
+        // Given
+        Path timelineWidgetToImportPath = tempFolder.newFolderPath("timelineWidget");
+        FileUtils.copyDirectory(Path.of("src/test/resources/import/timelineWidget").toFile(), timelineWidgetToImportPath.toFile());
+
+        // When
+        artifactBuilder = new ArtifactBuilderFactory(properties).create();
+
+        ImportReport importReport = artifactBuilder.importWidget(timelineWidgetToImportPath, true);
+
+        String loadedControler = ((Widget)importReport.getElement()).getController();
+        String loadedTemplate = ((Widget)importReport.getElement()).getTemplate();
+
+        var widget = artifactBuilder.buildWidget("timelineWidget");
+
+        Path timelineWidgetPath = unziper.unzipInTempDir(new ByteArrayInputStream(widget), "timelineWidget");
+
+        // Then
+        assertThat(loadedControler).doesNotStartWith("@");
+        assertThat(loadedTemplate).doesNotStartWith("@");
+
+        assertThat(timelineWidgetPath.resolve("resources/widget.json")).exists();
+        assertThat(Files.readString(timelineWidgetPath.resolve("resources/widget.json"))).contains("\"template\":\"@timelineWidget.tpl.html\",");
+        assertThat(Files.readString(timelineWidgetPath.resolve("resources/widget.json"))).contains("\"controller\":\"@timelineWidget.ctrl.js\",");
+
+        assertThat(timelineWidgetPath.resolve("resources/timelineWidget.ctrl.js")).exists();
+        assertThat(timelineWidgetPath.resolve("resources/timelineWidget.ctrl.js").toFile()).hasContent(loadedControler);
+
+        assertThat(timelineWidgetPath.resolve("resources/timelineWidget.tpl.html")).exists();
+        assertThat(timelineWidgetPath.resolve("resources/timelineWidget.tpl.html").toFile()).hasContent(loadedTemplate);
+
+        assertThat(timelineWidgetPath.resolve("resources/timelineWidget.js")).exists();
+    }
+
 
     @Test
     public void should_export_page() throws Exception {

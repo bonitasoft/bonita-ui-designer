@@ -1,0 +1,68 @@
+<!-- The custom widget template is defined here
+   - You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system
+   - Custom widget properties defined on the right can be used as variables in a templates with properties.newProperty
+   - Functions exposed in the controller can be used with ctrl.newFunction()
+ - You can use the environment property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available.
+-->
+
+<span ng-if="environment"><identicon name="{{environment.component.id}}" size="30" background-color="[255,255,255, 0]" foreground-color="[51,51,51]"></identicon> {{environment.component.name}}</span>
+
+<timeline>
+    <timeline-node  ng-repeat="event in properties.events" side="{{$even ?'left':'right'}}">
+        <timeline-badge class="{{buildEventStyle(event)}}"> <i class="glyphicon glyphicon-{{buildEventIcon(event)}}"></i>
+        </timeline-badge>
+        <timeline-panel>
+            <timeline-heading>
+                <timeline-title ng-bind-html="buildEventTitle(event)">
+               </timeline-title>
+                <p>
+                    <small class="text-muted"> <i class="glyphicon glyphicon-time"></i>
+                          {{formatDate(buildEventTime(event)) | date:properties.eventsTimeAttributeFormat}}
+                    </small>
+                    <br/>
+                    <small class="text-muted" ng-if="buildEventAuthor(event)"> <i class="glyphicon glyphicon-user"></i>
+                        {{buildEventAuthor(event)}}
+                    </small>
+                </p>
+            </timeline-heading>
+            <timeline-content>
+                <p>{{buildEventContent(event)}}</p>
+            </timeline-content>
+        </timeline-panel>
+    </timeline-node>
+    <timeline-node ng-if="properties.events[0]===undefined">
+        <timeline-badge class="warning"> <i class="glyphicon glyphicon-asterisk"></i>
+        </timeline-badge>
+        <timeline-panel>
+            <timeline-heading>
+                <timeline-title>
+                    <span translate>{{properties.noEventsTitle}}</span>
+                </timeline-title>
+            </timeline-heading>
+            <timeline-content>
+                <p translate>{{properties.noEventsContent}}</p>
+            </timeline-content>
+        </timeline-panel>
+    </timeline-node>
+</timeline>
+<timeline-footer>
+    <timeline-panel>
+        <timeline-heading>
+            <timeline-title>
+                <span translate>{{buildOriginTitle()}}</span>
+            </timeline-title>
+            <p>
+                <small class="text-muted"> <i class="glyphicon glyphicon-time"></i>
+                    {{formatDate(buildOriginTime()) | date:properties.eventsTimeAttributeFormat}}
+                </small>
+                 <br/>
+                <small class="text-muted"> <i class="glyphicon glyphicon-user"></i>
+                    {{buildOriginAuthor()}}
+                </small>
+            </p>
+        </timeline-heading>
+        <timeline-content>
+            <p>{{buildOriginContent()}}</p>
+        </timeline-content>
+    </timeline-panel>
+</timeline-footer>
