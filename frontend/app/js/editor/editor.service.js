@@ -21,7 +21,7 @@
     .service('editorService', editorService);
 
   function editorService($q, widgetRepo, fragmentRepo, fragmentService, components, whiteboardComponentWrapper, pageElementFactory, properties, alerts,
-    gettext, whiteboardService, assetsService, dataManagementRepo, $uibModal, gettextCatalog, migration) {
+    gettext, whiteboardService, assetsService, dataManagementRepo, $uibModal, gettextCatalog, migration, $http) {
 
     var paletteItems = {};
     var page;
@@ -44,6 +44,7 @@
       let allWidgets = repo.getInfo(id).then(response => {
         artifactVersion = response.artifactVersion;
         return widgetRepo.widgets(artifactVersion).then(response => {
+          loadCustomWidgets(response);
           return response;
         });
       });
@@ -83,6 +84,25 @@
           whiteboardComponentWrapper.wrapPage(page);
           return page;
         });
+    }
+
+    function loadCustomWidgets(widgets) {
+      // TODO:
+      // It would be better to have a single request to get all custom widgets.
+      // Perhaps also better to use the assets service instead of a direct http call from here.
+      widgets.forEach((widget) => {
+        if (widget.custom && widget.modelVersion && widgetRepo.isV3Version(widget.modelVersion)) {
+          // e.g. jsBundle = "assets/js/my-input.es5.min.js"
+          if (widget.jsBundle.startsWith('assets/js')) {
+            let assetName = widget.jsBundle.split('/')[2];
+            $http.get(`rest/widgets/${widget.id}/assets/js/${assetName}?format=text`)
+              .then((assetContent) => {
+                let func = new Function(assetContent.data);
+                func();
+              });
+          }
+        }
+      })
     }
 
     function initializePalette(items) {
