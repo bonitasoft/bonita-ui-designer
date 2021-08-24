@@ -63,4 +63,12 @@ public class VersionTest {
 
     }
 
+    @Test
+    public void should_check_invalid_version() throws Exception {
+        assertThat(Version.isInvalid("invalid")).isTrue();
+        assertThat(Version.isInvalid("")).isTrue();
+        // A null version is considered as valid (not set)
+        assertThat(Version.isInvalid(null)).isFalse();
+    }
+
 }

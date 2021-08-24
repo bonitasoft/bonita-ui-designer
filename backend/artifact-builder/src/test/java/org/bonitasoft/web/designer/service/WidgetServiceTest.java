@@ -189,6 +189,16 @@ public class WidgetServiceTest {
     }
 
     @Test
+    public void should_not_allow_to_get_a_v3_widget_with_asset_by_its_id() throws Exception {
+        String widgetId = "input";
+        Widget input = aWidget().withId(widgetId).modelVersion("3.0").assets(anAsset().withName("myScopeWidgetAsset").withType(AssetType.CSS)).build();
+
+        when(widgetRepository.get(widgetId)).thenReturn(input);
+
+        assertThatThrownBy(() -> widgetService.getWithAsset(widgetId)).isInstanceOf(NotAllowedException.class);
+    }
+
+    @Test
     public void should_throw_NotFoundException_when_getting_an_unexisting_widget() throws Exception {
         when(widgetRepository.get("notExistingWidget")).thenThrow(new NotFoundException("not found"));
 
@@ -209,6 +219,32 @@ public class WidgetServiceTest {
         Widget pbWidget = aWidget().custom().build();
 
         assertThatThrownBy(() -> widgetService.save("pbLabel", pbWidget)).isInstanceOf(NotAllowedException.class);
+    }
+
+    @Test
+    public void should_not_allow_to_save_a_v3_widget() throws Exception {
+        Widget v3Widget = aWidget().custom().modelVersion("3.0").build();
+
+        assertThatThrownBy(() -> widgetService.save("label", v3Widget)).isInstanceOf(NotAllowedException.class);
+    }
+
+    @Test
+    public void should_not_allow_to_save_a_widget_with_an_invalid_model_version() throws Exception {
+        Widget invalidWidget = aWidget().custom().modelVersion("invalid").build();
+        assertThatThrownBy(() -> widgetService.save("label", invalidWidget)).isInstanceOf(NotAllowedException.class);
+    }
+
+    @Test
+    public void should_not_allow_to_save_a_widget_with_an_empty_model_version() throws Exception {
+        Widget invalidWidget = aWidget().custom().modelVersion("").build();
+        assertThatThrownBy(() -> widgetService.save("label", invalidWidget)).isInstanceOf(NotAllowedException.class);
+    }
+
+    @Test
+    public void should_allow_to_save_a_widget_without_model_version() throws Exception {
+        Widget noModelVersionWidget = aWidget().custom().modelVersion(null).build();
+        widgetService.save("label", noModelVersionWidget);
+        verify(widgetRepository).updateLastUpdateAndSave(noModelVersionWidget);
     }
 
     @Test
@@ -260,6 +296,14 @@ public class WidgetServiceTest {
     }
 
     @Test
+    public void should_not_allow_to_create_a_v3_widget() throws Exception {
+        Widget v3Widget = aWidget().custom().modelVersion("3.0").build();
+        when(widgetRepository.create(v3Widget)).thenThrow(new NotAllowedException("v3 widget"));
+
+        assertThatThrownBy(() -> widgetService.create(v3Widget)).isInstanceOf(NotAllowedException.class);
+    }
+
+    @Test
     public void should_not_allow_to_create_a_widget_with_an_existing_name() throws Exception {
         Widget customLabel = aWidget().withName("alreadyExistingName").build();
         when(widgetRepository.create(customLabel)).thenThrow(new NotAllowedException("already existing name"));
@@ -275,6 +319,14 @@ public class WidgetServiceTest {
         when(pageRepository.getArtifactsUsingWidget(customLabel.getId())).thenReturn(emptyList());
         widgetService.delete("customLabel");
         verify(widgetRepository).delete("customLabel");
+    }
+
+    @Test
+    public void should_delete_a_v3_widget() throws Exception {
+        Widget label = aWidget().custom().withId("label").modelVersion("3.0").build();
+        when(widgetRepository.get("label")).thenReturn(label);
+        widgetService.delete("label");
+        verify(widgetRepository).delete("label");
     }
 
     @Test
@@ -367,6 +419,15 @@ public class WidgetServiceTest {
     public void should_not_allow_to_update_a_property_of_a_pb_widget() throws Exception {
         assertThatThrownBy(() ->
                 widgetService.updateProperty("pbLabel", "toBeUpdated", aProperty().build()))
+                .isInstanceOf(NotAllowedException.class);
+    }
+
+    @Test
+    public void should_not_allow_to_update_a_property_of_a_v3_widget() throws Exception {
+        Widget label = aWidget().custom().withId("label").modelVersion("3.0").build();
+        when(widgetRepository.get("label")).thenReturn(label);
+        assertThatThrownBy(() ->
+                widgetService.updateProperty("label", "toBeUpdated", aProperty().build()))
                 .isInstanceOf(NotAllowedException.class);
     }
 

@@ -44,6 +44,10 @@ public class Version {
         return this.version.getMajorVersion();
     }
 
+    public int getMinorVersion() {
+        return this.version.getMinorVersion();
+    }
+
     @Override
     public String toString() {
         return version.toString();
@@ -57,7 +61,18 @@ public class Version {
         }
     }
 
-    private static boolean isV3Version(String artifactVersion) {
-        return new Version(artifactVersion).getMajorVersion() == 3;
+    public static boolean isV3Version(String artifactVersion) {
+        return artifactVersion != null && new Version(artifactVersion).getMajorVersion() == 3;
     }
+
+    public static boolean isInvalid(String artifactVersion) {
+        if (artifactVersion == null) {
+            // null artifactVersion is valid: means "not set"
+            return false;
+        }
+        Version version = new Version(artifactVersion);
+        // Fallback of invalid version is major and minor set to 0
+        return (version.getMajorVersion() == 0) && (version.getMinorVersion() == 0);
+    }
+
 }

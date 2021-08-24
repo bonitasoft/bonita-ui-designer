@@ -248,6 +248,34 @@ public class WidgetRepositoryTest {
         widgetRepository.create(widget);
     }
 
+    @Test(expected = NotAllowedException.class)
+    public void should_not_allow_to_create_a_v3_widget() throws Exception {
+        Widget widget = aWidget().withName("hello").modelVersion("3.0").build();
+
+        widgetRepository.create(widget);
+    }
+
+    @Test(expected = NotAllowedException.class)
+    public void should_not_allow_to_create_a_widget_with_invalid_model_version() throws Exception {
+        Widget widget = aWidget().withName("hello").modelVersion("invalid").build();
+        widgetRepository.create(widget);
+    }
+
+    @Test(expected = NotAllowedException.class)
+    public void should_not_allow_to_create_a_widget_with_empty_model_version() throws Exception {
+        Widget widget = aWidget().withName("hello").modelVersion("").build();
+        widgetRepository.create(widget);
+    }
+
+    @Test
+    public void should_allow_to_create_a_widget_with_null_model_version() throws Exception {
+        Widget widget = aWidget().withName("hello").modelVersion(null).build();
+        widgetRepository.create(widget);
+
+        Widget fetchedWidget = widgetRepository.get(widget.getId());
+        assertThat(fetchedWidget.getName()).isEqualTo("hello");
+    }
+
     @Test(expected = ConstraintValidationException.class)
     public void should_allow_to_save_a_custom_widget_with_name_containing_space() throws Exception {
         Widget widget = aWidget().withName("hello world").custom().build();
@@ -362,6 +390,14 @@ public class WidgetRepositoryTest {
         widgetRepository.addProperty(aWidget.getId(), alreadyAddedProperty);
     }
 
+    @Test(expected = NotAllowedException.class)
+    public void should_not_allow_to_add_a_new_property_on_a_v3_widget() throws Exception {
+        Property property = aProperty().build();
+        Widget aV3Widget = addToRepository(aWidget().custom().modelVersion("3.0").build());
+
+        widgetRepository.addProperty(aV3Widget.getId(), property);
+    }
+
     @Test
     public void should_update_an_existing_property() throws Exception {
         Property initialParam = aProperty().name("propertyName").label("propertyLabel").build();
@@ -373,6 +409,15 @@ public class WidgetRepositoryTest {
         Widget widget = getFromRepository(aWidget.getId());
         assertThat(widget.getProperties()).contains(updatedParam);
         assertThat(widget.getProperties()).doesNotContain(initialParam);
+    }
+
+    @Test(expected = NotAllowedException.class)
+    public void should_not_allow_to_update_an_existing_property_on_a_v3_widget() throws Exception {
+        Property initialParam = aProperty().name("propertyName").label("propertyLabel").build();
+        Property updatedParam = aProperty().name("newName").label("newLablel").build();
+        Widget aWidget = addToRepository(aWidget().custom().modelVersion("3.0").property(initialParam).build());
+
+        widgetRepository.updateProperty(aWidget.getId(), initialParam.getName(), updatedParam);
     }
 
     @Test(expected = NotFoundException.class)
@@ -392,6 +437,14 @@ public class WidgetRepositoryTest {
         Widget widget = getFromRepository(aWidget.getId());
         assertThat(widget.getProperties()).doesNotContain(aProperty);
         assertThat(properties).containsOnlyElementsOf(widget.getProperties());
+    }
+
+    @Test(expected = NotAllowedException.class)
+    public void should_not_allow_to_delete_an_existing_property_on_a_v3_widget() throws Exception {
+        Property property = aProperty().name("propertyName").label("propertyLabel").build();
+        Widget aWidget = addToRepository(aWidget().custom().modelVersion("3.0").property(property).build());
+
+        widgetRepository.deleteProperty(aWidget.getId(), "propertyName");
     }
 
     @Test(expected = NotFoundException.class)

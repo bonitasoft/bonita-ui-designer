@@ -221,6 +221,18 @@ public class WidgetResourceTest {
     }
 
     @Test
+    public void should_not_allow_to_create_a_v3_widget() throws Exception {
+        Widget customLabel = aWidget().withName("label").custom().modelVersion("3.0").build();
+        when(widgetService.create(customLabel)).thenThrow(new NotAllowedException("Not allowed to create a v3 widget"));
+
+        mockMvc
+                .perform(post("/rest/widgets")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(jsonHandler.toJson(customLabel)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     public void should_duplicate_a_widget_from_a_widget() throws Exception {
         Widget customLabel = aWidget().withName("label").assets(anAsset().withName("myfile.js")).custom().build();
         String sourceWidgetId = "my-widget-source";

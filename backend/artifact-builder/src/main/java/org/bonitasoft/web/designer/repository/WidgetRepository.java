@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.repository;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.exception.InUseException;
@@ -65,6 +66,9 @@ public class WidgetRepository extends AbstractRepository<Widget> {
      * Create a new widget, computing id with widget name
      */
     public Widget create(Widget widget) throws IllegalArgumentException {
+        if (Version.isV3Version(widget.getModelVersion()) || Version.isInvalid(widget.getModelVersion())) {
+            throw new NotAllowedException(format("Cannot create a widget version %s", widget.getModelVersion()));
+        }
         var id = ANGULARJS_CUSTOM_PREFIX + trimToEmpty(capitalize(widget.getName()));
         try {
             var existingWidget = get(id);
@@ -89,6 +93,9 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     public List<Property> addProperty(String widgetId, Property property) {
         var widget = get(widgetId);
+        if (widget != null && Version.isV3Version(widget.getModelVersion())) {
+            throw new NotAllowedException(format("Cannot add a property on a widget version %s", widget.getModelVersion()));
+        }
         var existingProperty = widget.getProperty(property.getName());
         if (existingProperty != null) {
             throw new NotAllowedException(format("Widget [ %s ] has already a property named %s", widgetId, property.getName()));
@@ -100,6 +107,9 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     public List<Property> updateProperty(String widgetId, String propertyName, Property property) {
         var widget = get(widgetId);
+        if (widget != null && Version.isV3Version(widget.getModelVersion())) {
+            throw new NotAllowedException(format("Cannot update a property on a widget version %s", widget.getModelVersion()));
+        }
         var existingProperty = widget.getProperty(propertyName);
         if (existingProperty == null) {
             throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId, propertyName));
@@ -111,6 +121,9 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     public List<Property> deleteProperty(String widgetId, String propertyName) {
         var widget = get(widgetId);
+        if (widget != null && Version.isV3Version(widget.getModelVersion())) {
+            throw new NotAllowedException(format("Cannot delete a property on a widget version %s", widget.getModelVersion()));
+        }
         var param = widget.getProperty(propertyName);
         if (param == null) {
             throw new NotFoundException(format("Widget [ %s ] has no property named %s", widgetId, propertyName));

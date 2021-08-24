@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.service;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
+import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.WidgetContainerRepository;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static java.lang.String.format;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
@@ -102,6 +104,9 @@ public class DefaultWidgetService extends AbstractAssetableArtifactService<Widge
     public Widget save(String widgetId, Widget widget) {
 
         this.checkUpdatable(widgetId);
+        if (Version.isV3Version(widget.getModelVersion()) || Version.isInvalid(widget.getModelVersion())) {
+            throw new NotAllowedException(format("Cannot update a widget version %s", widget.getModelVersion()));
+        }
         if (!widget.isCustom()) {
             throw new NotAllowedException("We can only save a custom widget");
         }
@@ -119,6 +124,10 @@ public class DefaultWidgetService extends AbstractAssetableArtifactService<Widge
     @Override
     public List<Property> updateProperty(String widgetId, String propertyName, Property property) {
         this.checkUpdatable(widgetId);
+        Widget widget = repository.get(widgetId);
+        if (widget != null && Version.isV3Version(widget.getModelVersion())) {
+            throw new NotAllowedException(format("Cannot update a property on a widget version %s", widget.getModelVersion()));
+        }
         for (var bondsTypesFixer : bondsTypesFixers) {
             bondsTypesFixer.fixBondsTypes(widgetId, singletonList(property));
         }
@@ -140,6 +149,9 @@ public class DefaultWidgetService extends AbstractAssetableArtifactService<Widge
     @Override
     public Widget getWithAsset(String id) {
         var widget = repository.get(id);
+        if (widget != null && Version.isV3Version(widget.getModelVersion())) {
+            throw new NotAllowedException(format("Cannot get a widget version %s", widget.getModelVersion()));
+        }
         widget = migrate(widget);
         widget.setAssets(assetVisitor.visit(widget));
         return widget;
