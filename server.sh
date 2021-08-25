@@ -2,7 +2,7 @@
 
 export PORTAL_ORIGIN=http://localhost:8081
 export DATA_REPOSITORY_ORIGIN=http://localhost:4000
-export EXPERIMENTAL=false
+export EXPERIMENTAL=true
 
 echo "Using $PORTAL_ORIGIN as portal origin."
 echo "Using $DATA_REPOSITORY_ORIGIN as data repository origin."
