@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-08-24 07:49\n"
+"PO-Revision-Date: 2021-08-31 01:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -98,7 +98,7 @@ msgid "<code>Condensed</code><em>(Defaults: no)</em>: Display cells without spac
 msgstr "<code>は</code><em>(Default: no)</em>に凝縮: 間隔のないセルを表示します。"
 
 msgid "<code>Selected</code> <em>(Default: first tab is selected)</em>: Whether the tab is selected or not"
-msgstr ""
+msgstr "<code>選択</code> <em>(デフォルト: 最初のタブが選択されています)</em>: タブの選択はされていますか"
 
 msgid "<code>Title</code>: can be calculated dynamically to display and <b>render html</b>."
 msgstr ""
@@ -169,7 +169,7 @@ msgid "<i>context.myDocument_ref</i> or <i>myVar.myDocument_ref</i>"
 msgstr "<i>context.myDocument_ref</i> または <i>myVar.myDocument_ref</i>"
 
 msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type. </li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax. </li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here. </li> <li translate>You can retrieve the Status Code or Response Headers with a usual variable binding and use it in the artifact. </li> </ul>"
-msgstr ""
+msgstr "<p><span class=\"tip\">ヒント：</span></p><ul><li translate>へ<i>ビジネスデータモデル</i>からデータを取得するには、ビジネスデータ変数タイプを使用してください。 </li><li translate> URLのデータは、<i><em ng-non-bindable>{{dataName}}</em></i>構文で使用できます。 </li> <li translate> Bonita StudioでRESTAPI拡張機能を作成し、ここで使用することでRESTAPI機能を拡張できます。 </ li> <li translate>通常の変数バインディングを使用してステータスコードまたはレスポンスヘッダーを取得し、アーティファクトで使用できます。 </ li> </ ul>"
 
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr "<span class=\"tip\">ヒント：</span> 配列の文法：[\"値1\", \"値2\"]、オブジェクトの文法：{\"キー1\": \"値1\", \"キー2\": \"値2\"}"
@@ -507,7 +507,7 @@ msgid "Bind the filter variable to the widget."
 msgstr "フィルタ変数をウィジェットにバインドします。"
 
 msgid "Bind these options to a UI-Designer variable and use them in your artifact."
-msgstr ""
+msgstr "これらのオプションを UI-Designer 変数にバインドし、アーティファクトで使用します。"
 
 msgid "Bind to a Variable to filter the table 'Content'"
 msgstr "テーブル「Content」をフィルタリングする変数にバインドします。"
@@ -678,7 +678,7 @@ msgid "Comma-separated list or variable"
 msgstr "カンマで区切られたリストまたは変数"
 
 msgid "Community edition features"
-msgstr ""
+msgstr "コミュニティ エディション（Community Edition）の機能"
 
 msgid "Condensed"
 msgstr "コンデンス"
@@ -1229,7 +1229,7 @@ msgid "Get all business variables defined in a case"
 msgstr "案件で定義されているすべてのビジネス変数を取得します"
 
 msgid "Get all the advanced features such as fragments and localization in the community edition."
-msgstr ""
+msgstr "コミュニティ版でフラグメントやローカライズなどの高度な機能をすべて入手できます。"
 
 msgid "Get current logged user"
 msgstr "現在のログインユーザーを取得する"
@@ -1635,10 +1635,10 @@ msgid "Migration"
 msgstr ""
 
 msgid "Migration enhancements"
-msgstr ""
+msgstr "マイグレーション（移行）の強化"
 
 msgid "Migration notes"
-msgstr ""
+msgstr "マイグレーション ノート"
 
 msgid "Migration report"
 msgstr "マイグレーション レポート"
@@ -1953,10 +1953,10 @@ msgid "Response"
 msgstr "レスポンス"
 
 msgid "Response headers"
-msgstr ""
+msgstr "レスポンス ヘッダー"
 
 msgid "Response status code"
-msgstr ""
+msgstr "レスポンス ステータスコード："
 
 msgid "Returned key"
 msgstr "返されるキー"
@@ -2055,7 +2055,7 @@ msgid "Select your localization.json"
 msgstr "localization.json を選択してください"
 
 msgid "Selected"
-msgstr ""
+msgstr "選択済み"
 
 msgid "Selected Row"
 msgstr "選択された行"
@@ -2120,7 +2120,7 @@ msgid "Shows the languages for which there are translations in localization.json
 msgstr "localization.json 内に存在する翻訳対象言語とデフォルト言語（あなたのページのソース言語）を表示します"
 
 msgid "Since 7.12.0, after an artifact has been migrated, a migration report <i class=\"fa fa-wrench status\"></i> is available from the editor header. It disappears once the page is refreshed, but can be retrieved in the UI Designer log file."
-msgstr ""
+msgstr "アーティファクトが移行された後の7.12.0 以降は、マイグレーションレポート <i class=\"fa fa-wrench status\"></i> はエディタヘッダーから使用できます。 ページが更新されると消えますが、UI デザイナーのログファイルから取得できます。"
 
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr ""
@@ -2204,10 +2204,10 @@ msgid "Step"
 msgstr "ステップ"
 
 msgid "Store as Number value"
-msgstr ""
+msgstr "数値として保存"
 
 msgid "Store as a Json object { header-name : HeaderValue } and can be accessed using this syntax $data.myRequestHeaders['header-name']"
-msgstr ""
+msgstr "Json オブジェクト { header-name : HeaderValue } として保存し、この構文 $data.myRequestHeaders['header-name'] を使用してアクセスできます。"
 
 msgid "String"
 msgstr "文字列"
@@ -2547,7 +2547,7 @@ msgid "To control modal containers, the following methods are supported:"
 msgstr "モーダルコンテナを制御するには、以下の方法がサポートされています。"
 
 msgid "To define the tab selected by default"
-msgstr ""
+msgstr "デフォルトで選択されたタブを定義する"
 
 msgid "To display (and not update) a date and a time retrieved from the BDM API (or another API), you can either use this <em>Date time picker</em> widget with <em>Read-only</em> property set to \"yes\" or use a <em>Text</em>, <em>Title</em> or a <em>Table</em> widget and format the value using the provided <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filter</a>."
 msgstr "BDM API （または別の API）から取得した日付と時刻を表示 （更新なし）するためには、<em>日時選択</em> ウィジェットを使用して、その<em>読み取り専用</em> プロパティを「はい」にするか 、 <em>テキスト</em>、<em>タイトル</em> または <em>表</em> ウィジェットを使用して、 その値を <em>uiDate</em> <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> で書式化します。"
@@ -2575,7 +2575,7 @@ msgid "To extend a page or form with custom AngularJS services (such as filters,
 msgstr "カスタム AngularJS サービス（フィルター、コンスタント、ファクトリーなど）を使用してページやフォームを拡張するには、<code>bonitasoft.ui.extensions</code> モジュールを使用します。"
 
 msgid "To get data from the <i>Business Data Model</i>, please use the Business data variable type."
-msgstr ""
+msgstr "<i>ビジネス データ モデル</i>からデータを取得するには、ビジネス データ タイプを使用してください。"
 
 msgid "To get the data from a selected row, bind selected row to a variable."
 msgstr ""
@@ -2720,7 +2720,7 @@ msgid "Update asset"
 msgstr "アセットを更新"
 
 msgid "Upgrade between maintenance versions without migration. When a migration is required, get help from the UI Designer (warning icon, confirmation dialog, migration report)"
-msgstr ""
+msgstr "移行せずにメンテナンスバージョンをアップグレードします。移行が必要な場合は、UI デザイナーのヘルプを参照してください (警告アイコン、確認ダイアログ、移行レポート)"
 
 msgid "Upgrade to a newer UI Designer version to import this {{type}}"
 msgstr "この {{type}} をインポートするには、新しい UI デザイナーのバージョンにアップグレードしてください"
@@ -2974,7 +2974,7 @@ msgid "You can explore the data model (with a graphical view) using the graph ic
 msgstr ""
 
 msgid "You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here."
-msgstr ""
+msgstr "Studio で REST API 拡張を作成することで、REST API 機能を拡張できます。"
 
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Studio の<i>開発</i> メニューで <em>REST API 拡張</em> を作成することによって REST API の能力を拡大できます。そして、UI デザイナーでそれらを外部 API 変数として使用します。"
@@ -2997,7 +2997,7 @@ msgstr "ユーザーが表示されたテーブルを更新して、フィルタ
 "             フィルターを提供できます。 これを実行するには ："
 
 msgid "You can retrieve the Status Code or Response Headers with a usual variable binding and use it in the artifact."
-msgstr ""
+msgstr "通常の変数バインディングでステータスコードまたはレスポンスヘッダーを取得し、アーティファクトで使用できます。"
 
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "プレイン コンテナを再利用可能なフラグメントとして保存できます。"
@@ -3012,7 +3012,7 @@ msgid "You can use Pagination section to define the number of elements you want 
 msgstr ""
 
 msgid "You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax."
-msgstr ""
+msgstr "URLのデータは、 <i><em ng-non-bindable>{{dataName}}</em></i> 構文で使用できます。"
 
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
 msgstr "標準の HTML タグと AngularJS 組み込みディレクティブ、スコープおよび補完機能を使用できます。"
@@ -3047,7 +3047,7 @@ msgid "You will have to manage the minification and update the resources URL to 
 msgstr "CSS や JavaScript ファイルの圧縮(minify) を管理したり、キャッシュの無効化をトリガーするリソースの URL を更新する必要があります。"
 
 msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to model version <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
-msgstr ""
+msgstr "アーティファクトは <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> からモデル バージョン <b>{{ctrl.migrationReport.newArtifactVersion}}</b> に移行されました。"
 
 msgid "Your artifact was migrated to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
 msgstr "アーティファクトは <b>{{ctrl.migrationReport.newArtifactVersion}}</b> にマイグレートされました。"
