@@ -32,6 +32,7 @@ import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.FileSystemUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,6 +96,8 @@ public class Workspace {
     }
 
     protected void doInitialize() throws IOException {
+        // First, clean up the extractPath temp dir
+        FileSystemUtils.deleteRecursively(extractPath);
         ensureTemplateRepositoryPresent();
         ensureTemplateRepositoryFilled();
         ensurePageRepositoryPresent();
@@ -230,7 +233,7 @@ public class Workspace {
 
     private void ensureWidgetRepositoryFilled() throws IOException {
 
-        // Extract/Unzip widgets from UID jar file to a uid working dir (not the bonita project dir)
+        // Extract/Unzip widgets from UID jar file to a temp uid working dir (not the bonita project dir)
         resourcesCopier.copy(extractPath, WIDGETS_RESOURCES);
         var widgetRepositorySourcePath = extractPath.resolve(WIDGETS_RESOURCES);
 
