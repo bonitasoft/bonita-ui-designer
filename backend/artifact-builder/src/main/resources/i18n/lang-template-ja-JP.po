@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-08-31 01:30\n"
+"PO-Revision-Date: 2021-09-06 13:17\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -266,6 +266,9 @@ msgstr " {{type}} のアセット名： <em>{{ name }}</em> は既にアセッ�
 
 msgid "API URL"
 msgstr "API の URL"
+
+msgid "API Variables response Metadata usage"
+msgstr ""
 
 msgid "API request parameters"
 msgstr "APIリクエストパラメータ"
@@ -1380,6 +1383,9 @@ msgstr "Bonita Studio でビジネス データ モデルをインポート、�
 msgid "Improve collaboration on UID artifacts"
 msgstr "UIDアーティファクトでのコラボレーションを改善"
 
+msgid "Improvements on the widget switch"
+msgstr ""
+
 msgid "In 'CSS Classes' property add the <code>zebra-custom</code> class"
 msgstr ""
 
@@ -1480,6 +1486,12 @@ msgstr "無効な URL: 英数字または #!:.?+ = &%@-/ のみ許されます"
 
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr "{{ infos.modelfile }} は、無効な json ファイル構造です"
+
+msgid "It is now possible to define the tab that will be selected by default in the tab group with the new \"Selected\" field on the tabs."
+msgstr ""
+
+msgid "It is now possible to easily bind the metadata of an API variable response (header, status code, and response value) to other variables"
+msgstr ""
 
 msgid "It is possible to deactivate the animation when the modal appears. The main usage of this option would be to create a wizard, where several modal containers are displayed in a sequence."
 msgstr "モーダルが表示されたときにアニメーションを無効にすることができます。 このオプションの主な使用法は、ウィザードを作成することで複数のモーダルコンテナがシーケンスに表示されます。"
@@ -2278,6 +2290,9 @@ msgstr "スイッチ..."
 msgid "Tab properties usage"
 msgstr ""
 
+msgid "Tab widget: Possibility to define the selected tab"
+msgstr ""
+
 msgid "Tab x"
 msgstr "Tab x"
 
@@ -2432,6 +2447,9 @@ msgstr "折れ線グラフと棒グラフのx軸の目盛りラベル、レー�
 
 msgid "The sort is backend when datasource is Bonita API. It is frontend, otherwise."
 msgstr "データソースがBonitaAPIの場合、ソートはバックエンドです。 それ以外の場合はフロントエンドです。"
+
+msgid "The switch widget feature has been improved to guide the user efficiently to avoid incompatible properties mapping that may lead to inconsistent states of widgets."
+msgstr ""
 
 msgid "The tab's properties allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
 msgstr ""

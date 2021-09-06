@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2021-08-31 01:30\n"
+"PO-Revision-Date: 2021-09-06 13:18\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -267,6 +267,9 @@ msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr ""
 
 msgid "API URL"
+msgstr ""
+
+msgid "API Variables response Metadata usage"
 msgstr ""
 
 msgid "API request parameters"
@@ -1378,6 +1381,9 @@ msgstr "Importar, definir ou implantar um Modelo de Dados de Negócio no Bonita 
 msgid "Improve collaboration on UID artifacts"
 msgstr "Melhorar colaboração em artefatos UID"
 
+msgid "Improvements on the widget switch"
+msgstr ""
+
 msgid "In 'CSS Classes' property add the <code>zebra-custom</code> class"
 msgstr "Na propriedade 'Classes CSS' adicione a classe <code>zebra-custom</code>"
 
@@ -1475,6 +1481,12 @@ msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
 msgstr ""
 
 msgid "Invalid {{ infos.modelfile }} json file structure"
+msgstr ""
+
+msgid "It is now possible to define the tab that will be selected by default in the tab group with the new \"Selected\" field on the tabs."
+msgstr ""
+
+msgid "It is now possible to easily bind the metadata of an API variable response (header, status code, and response value) to other variables"
 msgstr ""
 
 msgid "It is possible to deactivate the animation when the modal appears. The main usage of this option would be to create a wizard, where several modal containers are displayed in a sequence."
@@ -2274,6 +2286,9 @@ msgstr "Trocar..."
 msgid "Tab properties usage"
 msgstr "Uso de propriedades de guia"
 
+msgid "Tab widget: Possibility to define the selected tab"
+msgstr ""
+
 msgid "Tab x"
 msgstr "Tab x"
 
@@ -2428,6 +2443,9 @@ msgstr "As etiquetas do eixo x-axis para gráficos de linhas e barras, do raio p
 
 msgid "The sort is backend when datasource is Bonita API. It is frontend, otherwise."
 msgstr "O tipo é backend quando a fonte de dados é Bonita API. É frontend, caso contrário."
+
+msgid "The switch widget feature has been improved to guide the user efficiently to avoid incompatible properties mapping that may lead to inconsistent states of widgets."
+msgstr ""
 
 msgid "The tab's properties allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
 msgstr "As propriedades da guia permitem que você personalize o comportamento e exibição padrão de guias baseadas em dados e/ou expressões JS."

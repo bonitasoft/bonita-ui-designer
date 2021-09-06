@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2021-08-31 01:29\n"
+"PO-Revision-Date: 2021-09-06 13:16\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -264,6 +264,9 @@ msgstr "Un asset de type {{type}} portant le nom <em>{{ name }}</em> a déjà é
 
 msgid "API URL"
 msgstr "URL d'API"
+
+msgid "API Variables response Metadata usage"
+msgstr "Utilisation des métadonnées de réponse des variables API"
 
 msgid "API request parameters"
 msgstr "Paramètres de requête de l'API"
@@ -1369,6 +1372,9 @@ msgstr "Importer, définir ou déployer un Modèle de Données Métier dans Boni
 msgid "Improve collaboration on UID artifacts"
 msgstr "Améliorer la collaboration sur les artefacts UID"
 
+msgid "Improvements on the widget switch"
+msgstr "Améliorations de l'échangeur de widget"
+
 msgid "In 'CSS Classes' property add the <code>zebra-custom</code> class"
 msgstr "Dans la propriété 'Classes CSS', ajoutez la classe <code>zebra-custom</code>"
 
@@ -1467,6 +1473,12 @@ msgstr "URL invalide : elle doit contenir uniquement des caractères alphanumér
 
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr "La structure du fichier json {{ infos.modelfile }} est invalide"
+
+msgid "It is now possible to define the tab that will be selected by default in the tab group with the new \"Selected\" field on the tabs."
+msgstr "Il est maintenant possible de définir l'onglet qui sera sélectionné par défaut dans le groupe d'onglets avec le nouveau champ \"Sélectionné\" dans les onglets."
+
+msgid "It is now possible to easily bind the metadata of an API variable response (header, status code, and response value) to other variables"
+msgstr "Il est maintenant possible de lier facilement les métadonnées d'une réponse de variable API (en-tête, code de statut et valeur de réponse) à d'autres variables"
 
 msgid "It is possible to deactivate the animation when the modal appears. The main usage of this option would be to create a wizard, where several modal containers are displayed in a sequence."
 msgstr "Vous pouvez désactiver l’animation d'affichage de la fenêtre modale. Ce sera le cas par exemple pour créer un assistant dans lequel plusieurs fenêtres modales se succèdent."
@@ -2264,6 +2276,9 @@ msgstr "Remplacer ..."
 msgid "Tab properties usage"
 msgstr "Utilisation des propriétés de l'onglet"
 
+msgid "Tab widget: Possibility to define the selected tab"
+msgstr "Widget Onglet: Possibilité de définir l'onglet sélectionné"
+
 msgid "Tab x"
 msgstr "Onglet x"
 
@@ -2416,6 +2431,9 @@ msgstr "Les libellés de l'axe des abscisses pour les graphiques de type courbes
 
 msgid "The sort is backend when datasource is Bonita API. It is frontend, otherwise."
 msgstr "Le tri est réalisé sur le serveur lorsque la Source de données est l'API Bonita. Il est réalisé en front-end sinon."
+
+msgid "The switch widget feature has been improved to guide the user efficiently to avoid incompatible properties mapping that may lead to inconsistent states of widgets."
+msgstr "La fonctionnalité de l'échangeur de widget a été améliorée pour guider l'utilisateur efficacement afin d'éviter le mappage de propriétés incompatibles qui peut conduire à des états incohérents de widgets."
 
 msgid "The tab's properties allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
 msgstr "Les propriétés d'onglet permettent de personnaliser l'affichage par défaut et le comportement des onglets en fonction de données et/ou d'expressions JavaScript."

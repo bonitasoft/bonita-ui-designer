@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2021-08-31 01:31\n"
+"PO-Revision-Date: 2021-09-06 13:19\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -266,6 +266,9 @@ msgstr "Un recurso externo {{type}} con nombre <em>{{ name }}</em> ya ha sido ag
 
 msgid "API URL"
 msgstr "API URL"
+
+msgid "API Variables response Metadata usage"
+msgstr "Uso de los metadatos de la respuesta de las variables API"
 
 msgid "API request parameters"
 msgstr "Parámetros de la petición API"
@@ -1370,6 +1373,9 @@ msgstr "Importar, definir o desplegar un Modelo de Datos de Negocio (BDM) en Bon
 msgid "Improve collaboration on UID artifacts"
 msgstr "Mejorar la colaboración en artefactos UID"
 
+msgid "Improvements on the widget switch"
+msgstr "Mejoras en el cambio de widgets"
+
 msgid "In 'CSS Classes' property add the <code>zebra-custom</code> class"
 msgstr "En la propiedad 'Clases CSS', agregar la clase <code>zebra-custom</code>"
 
@@ -1468,6 +1474,12 @@ msgstr "URL no válida: sólo debe contener caracteres alfanuméricos o #!:.? +=
 
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr "Estructura de archivos json no válida {{ infos.modelfile }}"
+
+msgid "It is now possible to define the tab that will be selected by default in the tab group with the new \"Selected\" field on the tabs."
+msgstr "Ahora es posible definir la pestaña que se seleccionará por defecto en el grupo de pestañas con el nuevo campo \"Seleccionado\" en las pestañas."
+
+msgid "It is now possible to easily bind the metadata of an API variable response (header, status code, and response value) to other variables"
+msgstr "Ahora es posible enlazar fácilmente los metadatos de una respuesta de variable API (header, status code y valor de respuesta) a otras variables"
 
 msgid "It is possible to deactivate the animation when the modal appears. The main usage of this option would be to create a wizard, where several modal containers are displayed in a sequence."
 msgstr "Es posible desactivar la animación de entrada de la modal. El uso principal de esta opción es para crear un wizard o asistente, es decir, cuando varios contenedores se van a mostrar en secuencia."
@@ -2265,6 +2277,9 @@ msgstr "Cambiar..."
 msgid "Tab properties usage"
 msgstr "Uso de propiedades de la pestaña"
 
+msgid "Tab widget: Possibility to define the selected tab"
+msgstr "Widget de pestañas: Posibilidad de definir la pestaña seleccionada"
+
 msgid "Tab x"
 msgstr "Tab x"
 
@@ -2417,6 +2432,9 @@ msgstr "Etiquetas del eje-x para gráficas de línea y de barras, etiquetas de r
 
 msgid "The sort is backend when datasource is Bonita API. It is frontend, otherwise."
 msgstr "El orden es realizado desde el backend cuando la fuente de datos es Bonita API. En cualquier otro caso, es realizado desde el frontend."
+
+msgid "The switch widget feature has been improved to guide the user efficiently to avoid incompatible properties mapping that may lead to inconsistent states of widgets."
+msgstr "Se ha mejorado la función de cambio de widgets para guiar al usuario de forma eficiente a fin de evitar el mapeo de propiedades incompatibles que pueden llevar a estados inconsistentes de los widgets."
 
 msgid "The tab's properties allows you to customize default display and behaviour of tabs based on data and/or JS expressions."
 msgstr "Las propiedades de la pestaña le permiten personalizar la visualización por defecto y el comportamiento de las pestañas basándose en datos y/o expresiones JS."
