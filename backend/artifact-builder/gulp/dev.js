@@ -26,7 +26,7 @@ function devHtml() {
 }
 
 /**
- * Task to inline json and build a widgets repository for development.
+ * Task to inline json and build legacy (pb) widgets repository for development.
  */
 function devWidgets(done) {
   // only copy widgets if the repository exist
@@ -35,12 +35,6 @@ function devWidgets(done) {
     src(config.paths.widgetsPbJson)
       .pipe(buildWidget())
       .pipe(dest(config.paths.dev.widgets));
-    // The application create the uid widgets the first time.
-    src(config.paths.widgetsUidJson)
-      .pipe(dest(config.paths.dev.widgets));
-    src(config.paths.widgetsUidTpl)
-      .pipe(dest(config.paths.dev.widgets));
-    // TODO: copy uid widget bundle
   }
   done();
 }

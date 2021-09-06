@@ -44,7 +44,7 @@
       let allWidgets = repo.getInfo(id).then(response => {
         artifactVersion = response.artifactVersion;
         return widgetRepo.widgets(artifactVersion).then(response => {
-          loadCustomWidgets(response);
+          loadWidgets(response);
           return response;
         });
       });
@@ -86,12 +86,12 @@
         });
     }
 
-    function loadCustomWidgets(widgets) {
+    function loadWidgets(widgets) {
       // TODO:
       // It would be better to have a single request to get all custom widgets.
       // Perhaps also better to use the assets service instead of a direct http call from here.
       widgets.forEach((widget) => {
-        if (widget.custom && widget.modelVersion && widgetRepo.isV3Version(widget.modelVersion)) {
+        if (widget.modelVersion && widgetRepo.isV3Version(widget.modelVersion)) {
           // e.g. jsBundle = "assets/js/my-input.es5.min.js"
           if (widget.jsBundle.startsWith('assets/js')) {
             let assetName = widget.jsBundle.split('/')[2];

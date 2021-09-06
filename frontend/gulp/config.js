@@ -36,8 +36,6 @@ const paths = {
     'node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js',
     'node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js',
     'node_modules/@bonitasoft/query-selector/lib/query-selector.es5.min.js',
-    'node_modules/@bonitasoft/uid-input/lib/uid-input.es5.min.js',
-    'node_modules/@bonitasoft/uid-text/lib/uid-text.es5.min.js',
     'node_modules/angular-filter/dist/angular-filter.min.js'
   ],
   css: [
@@ -84,6 +82,24 @@ const paths = {
     fontIconTemplate: 'app/css/icons.css',
     favicon: [
       'app/favicon.ico'
+    ],
+    stdWidgetsAsset: [
+      'node_modules/@bonitasoft/uid*/assets/**/*.*'
+    ],
+    stdWidgetsUidJson: [
+      'node_modules/@bonitasoft/uid*/assets/*.json'
+    ],
+    stdWidgetsUidTmpl: [
+      'node_modules/@bonitasoft/uid*/assets/*.tpl.html'
+    ],
+    stdWidgetsUidRuntimeTmpl: [
+      'node_modules/@bonitasoft/uid*/assets/*.tpl.runtime.html'
+    ],
+    stdWidgetsUidLib: [
+      'node_modules/@bonitasoft/uid*/lib/**/*.*'
+    ],
+    resourceWidgets: [
+      '../backend/artifact-builder/src/main/resources/widgets'
     ]
   },
   locales: [

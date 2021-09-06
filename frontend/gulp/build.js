@@ -34,6 +34,8 @@ let timestamp = config.timestamp;
  * Clean the directories created by tasks in this file
  */
 function clean(done) {
+  // clean standard widgets uid
+  del(paths.assets.resourceWidgets + '/uid*/**', {force:true});
   return del('build', done);
 }
 

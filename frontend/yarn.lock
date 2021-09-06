@@ -270,19 +270,19 @@
     lit-element "^2.3.1"
     lit-translate "^1.2.1"
 
-"@bonitasoft/uid-input@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-input/-/uid-input-0.1.2.tgz#7b2fdf3a5b47823234e24dff24b4a54dae6ccee7"
-  integrity sha512-G2USUR0bQxX0mbRzkUcmotGsH6QHTmTmogu7bBkXRb2wYVvBvkNcS4sQI/0bPdia58g/wSFxx4SBwHvKl6TmeQ==
+"@bonitasoft/uid-input@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-input/-/uid-input-0.1.4.tgz#faefbdca085e645ad0209b6bac74fa21ba8d0a81"
+  integrity sha512-vWNnDo7OtXIsZ40AYCXNnQlD70QlpygUzyQoQlkIu51fV9NYA6TNKDhn05EPqeybfkHKkuS6vUiBI4ZIDiDVRQ==
   dependencies:
     bootstrap "^4.5.3"
     lit-element "^2.4.0"
     lit-translate "^1.2.1"
 
-"@bonitasoft/uid-text@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-text/-/uid-text-0.1.2.tgz#40380aaed417ec25e3782b8e8d8af904e6e432fa"
-  integrity sha512-8TtCkTlMYDacsXAUZyPeQtRfdVtG02OombbOjDfnMDpMd/c1iNcVWhkf5LbvChYuZXzCWxQCqIBWURYDhoh/Yg==
+"@bonitasoft/uid-text@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-text/-/uid-text-0.1.4.tgz#3110da942be4678b83538511c1c09bf4d7bf91b7"
+  integrity sha512-MgGWXGUWGr8B/hYtKfJaNJRcqnDNSY+ugXq7/5L08qXs4uIUA4cpPwN9AEdCzLXELPSsANdRFTdrs38TSCnmQQ==
   dependencies:
     bootstrap "^4.5.3"
     lit-element "^2.4.0"

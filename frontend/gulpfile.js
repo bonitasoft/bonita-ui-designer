@@ -15,4 +15,5 @@ exports.serveDist = serve.dist;
 exports.serveE2e = serve.e2e;
 exports.checkEslint = build.checkEslint;
 exports.fixEsLint = build.fixEsLint;
+exports.clean = build.clean;
 

@@ -8,7 +8,7 @@ var Server = require('karma').Server;
  * Task to build widget directives for tests.
  */
 function buildWidgets() {
-  return src(config.paths.widgetsJson)
+  return src(config.paths.widgetsPbJson)
     .pipe(buildWidget())
     .pipe(dest('target/widget-directives'));
 }

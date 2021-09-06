@@ -23,8 +23,6 @@ let paths = {
   ],
   widgets: ['src/main/resources/widgets/**/*.*'],
   widgetsPbJson: ['src/main/resources/widgets/**/pb*.json'],
-  widgetsUidJson: ['src/main/resources/widgets/**/uid*.json'],
-  widgetsUidTpl: ['src/main/resources/widgets/**/uid*.tpl.html'],
   widgetsJson: ['src/main/resources/widgets/**/*.json'],
   widgetsHtml: ['src/main/resources/widgets/**/*.html'],
   karma: { configFile: __dirname + '../../src/test/javascript/karma.conf.js' },
