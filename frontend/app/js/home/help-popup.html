@@ -70,6 +70,21 @@
         </uib-tab>
         <uib-tab heading="{{ 'Noteworthy changes' | translate }}" class="shaker">
             <uib-accordion>
+                <uib-accordion-group is-open="status.bonita713open">
+                    <uib-accordion-heading>
+                        Bonita 2021.2 <i class="pull-right glyphicon"
+                                       ng-class="{'glyphicon-chevron-down': status.bonita713open, 'glyphicon-chevron-right': !status.bonita713open}"></i>
+                    </uib-accordion-heading>
+                    <dt translate>Improvements on the widget switch</dt>
+                    <p translate>The switch widget feature has been improved to guide the user efficiently to avoid incompatible properties mapping that may lead to inconsistent states of widgets.</p>
+
+                    <dt translate>Tab widget: Possibility to define the selected tab</dt>
+                    <p translate>It is now possible to define the tab that will be selected by default in the tab group with the new "Selected" field on the tabs.</p>
+
+                    <dt translate>API Variables response Metadata usage</dt>
+                    <p translate>It is now possible to easily bind the metadata of an API variable response (header, status code, and response value) to other variables</p>
+
+                </uib-accordion-group>
                 <uib-accordion-group is-open="status.bonita712open">
                     <uib-accordion-heading>
                         Bonita 7.12 <i class="pull-right glyphicon"
