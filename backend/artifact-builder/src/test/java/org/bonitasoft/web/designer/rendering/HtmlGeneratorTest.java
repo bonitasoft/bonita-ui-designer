@@ -16,7 +16,7 @@ package org.bonitasoft.web.designer.rendering;
 
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
+import org.bonitasoft.web.designer.visitor.angularJS.AngularJsBuilderVisitor;
 import org.jsoup.Jsoup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.when;
 public class HtmlGeneratorTest {
 
     @Mock
-    private HtmlBuilderVisitor htmlBuilderVisitor;
+    private AngularJsBuilderVisitor angularJsHtmlBuilderVisitor;
 
     @InjectMocks
     private HtmlGenerator generator;
@@ -41,7 +41,7 @@ public class HtmlGeneratorTest {
     @Test
     public void should_generate_formatted_html_with_given_widgets() throws Exception {
         Page page = aPage().build();
-        when(htmlBuilderVisitor.build(page, "mycontext/")).thenReturn("foobar");
+        when(angularJsHtmlBuilderVisitor.build(page, "mycontext/")).thenReturn("foobar");
 
         String generateHtml = generator.generateHtml(page, "mycontext/");
 
@@ -51,7 +51,7 @@ public class HtmlGeneratorTest {
     @Test
     public void should_generate_formatted_html_with_no_context() throws Exception {
         Page page = aPage().build();
-        when(htmlBuilderVisitor.build(page, "")).thenReturn("foobar");
+        when(angularJsHtmlBuilderVisitor.build(page, "")).thenReturn("foobar");
 
         String generateHtml = generator.generateHtml(page);
 
@@ -61,7 +61,7 @@ public class HtmlGeneratorTest {
     @Test
     public void should_generate_formatted_html_for_fragment_with_given_widgets() throws Exception {
         Fragment fragment = aFragment().build();
-        when(htmlBuilderVisitor.build(fragment, "mycontext/")).thenReturn("foobar");
+        when(angularJsHtmlBuilderVisitor.build(fragment, "mycontext/")).thenReturn("foobar");
 
         String generateHtml = generator.generateHtml(fragment, "mycontext/");
 

@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.visitor;
+package org.bonitasoft.web.designer.visitor.angularJS;
 
 import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.model.Identifiable;
@@ -31,6 +31,8 @@ import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.visitor.ElementVisitor;
+import org.bonitasoft.web.designer.visitor.PageFactory;
 
 import java.util.HashMap;
 import java.util.List;

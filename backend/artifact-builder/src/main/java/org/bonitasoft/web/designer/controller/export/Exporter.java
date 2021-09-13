@@ -15,14 +15,13 @@
 package org.bonitasoft.web.designer.controller.export;
 
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
+import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.service.ArtifactService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -36,19 +35,19 @@ import static org.bonitasoft.web.designer.controller.export.steps.ExportStep.RES
 
 public abstract class Exporter<T extends DesignerArtifact> {
 
-    private static final Logger logger = LoggerFactory.getLogger(Exporter.class);
-
     protected final ExportStep<T>[] exportSteps;
 
     protected final ArtifactService<T> artifactService;
+    protected final ExportStep<T>[] angularExportSteps;
 
     protected JsonHandler jsonHandler;
 
     @SafeVarargs
-    protected Exporter(JsonHandler jsonHandler, ArtifactService<T> artifactService, ExportStep<T>... exportSteps) {
+    protected Exporter(JsonHandler jsonHandler, ArtifactService<T> artifactService, ExportStep<T>[] exportSteps, ExportStep<T>... angularExportSteps) {
         this.jsonHandler = jsonHandler;
         this.artifactService = artifactService;
         this.exportSteps = exportSteps;
+        this.angularExportSteps = angularExportSteps;
     }
 
     protected abstract String getComponentType();
@@ -82,11 +81,16 @@ public abstract class Exporter<T extends DesignerArtifact> {
 
             final byte[] json = jsonHandler.toJson(identifiable, JsonViewPersistence.class);
             zipper.addToZip(json, format("%s/%s.json", RESOURCES, getComponentType()));
-            // forceExecution export steps
-            for (ExportStep<T> exporter : exportSteps) {
-                exporter.execute(zipper, identifiable);
-            }
 
+            if (Version.isV3Version(identifiable.getModelVersion())) {
+                for (ExportStep<T> exporter : angularExportSteps) {
+                    exporter.execute(zipper, identifiable);
+                }
+            } else {
+                for (ExportStep<T> exporter : exportSteps) {
+                    exporter.execute(zipper, identifiable);
+                }
+            }
         } catch (ModelException e) {
             throw e;
         } catch (Exception e) {

@@ -1,0 +1,5 @@
+<ng-container *properties-values="'component-reference'; let properties;">
+    <div *ngIf="!properties.hidden" class="component col-xs-12" [ngClass]="properties.cssClasses">
+        <uid-input [label]="{{properties.label}}" [value]="properties.value"></uid-input>
+    </div>
+</ng-container>

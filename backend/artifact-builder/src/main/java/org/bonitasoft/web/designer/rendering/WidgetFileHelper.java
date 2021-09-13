@@ -22,6 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
+import static java.lang.String.format;
+
 public final class WidgetFileHelper {
 
     protected static final Logger logger = LoggerFactory.getLogger(WidgetFileHelper.class);
@@ -61,7 +63,7 @@ public final class WidgetFileHelper {
         try {
             Files.write(path, content);
         } catch (IOException e) {
-            throw new GenerationException("Error while write file " + path.toString(), e);
+            throw new GenerationException(format("Error while write file %s", path), e);
         }
     }
 
@@ -69,7 +71,7 @@ public final class WidgetFileHelper {
         try {
             Files.delete(p);
         } catch (IOException e) {
-            throw new GenerationException("Error while deleted file " + p.toString(), e);
+            throw new GenerationException(format("Error while deleted file %s",p), e);
         }
     }
 }

@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.controller.export.steps;
 
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.controller.export.Zipper;
+import org.bonitasoft.web.designer.controller.export.steps.angularJs.HtmlExportStep;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
 import org.junit.Before;

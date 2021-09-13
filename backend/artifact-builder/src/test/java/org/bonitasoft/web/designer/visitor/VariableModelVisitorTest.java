@@ -20,6 +20,7 @@ import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.visitor.angularJS.VariableModelVisitor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -12,10 +12,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.visitor;
+package org.bonitasoft.web.designer.visitor.angularJs;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.builder.ModalContainerBuilder;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.rendering.AssetHtmlBuilder;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -29,11 +31,12 @@ import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.utils.assertions.CustomAssertions;
 import org.bonitasoft.web.designer.utils.rule.TestResource;
+import org.bonitasoft.web.designer.visitor.*;
+import org.bonitasoft.web.designer.visitor.angularJS.AngularJsBuilderVisitor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -71,7 +74,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class HtmlBuilderVisitorTest {
+public class AngularJsHtmlBuilderVisitorTest {
 
     private static final byte[] assetsContent = new byte[0];
 
@@ -96,35 +99,24 @@ public class HtmlBuilderVisitorTest {
     @Mock
     private FragmentRepository fragmentRepository;
 
-    @Mock
-    private WidgetRepository widgetRepository;
-
-    @Mock
-    private PropertyValuesVisitor propertyValuesVisitor;
-
-    @Mock
-    private VariableModelVisitor variableModelVisitor;
-
-    @Mock
-    private WidgetIdVisitor widgetIdVisitor;
-
-    private HtmlBuilderVisitor visitor;
+    private AngularJsBuilderVisitor visitor;
 
     private String assetSHA1;
 
     @Mock
     private DirectivesCollector directivesCollector;
 
+    @Mock
+    private WorkspaceProperties workspaceProperties;
+
     @Before
     public void setUp() throws Exception {
-        visitor = new HtmlBuilderVisitor(
-                assetVisitor,
+        visitor = new AngularJsBuilderVisitor(
                 List.of(pageFactory),
                 requiredModulesVisitor,
                 directivesCollector,
-                pageAssetRepository,
-                widgetAssetRepository,
-                fragmentRepository
+                fragmentRepository,
+                new AssetHtmlBuilder(assetVisitor,pageAssetRepository,widgetAssetRepository,workspaceProperties)
         );
         when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.emptySet());
         when(pageAssetRepository.readAllBytes(anyString(), any(Asset.class))).thenReturn(assetsContent);

@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import org.bonitasoft.web.designer.AngularJsArtifactBuilder;
+import org.bonitasoft.web.designer.DefaultArtifactBuilder;
 import org.bonitasoft.web.designer.ArtifactBuilder;
 import org.bonitasoft.web.designer.controller.importer.ImportException;
 import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
@@ -311,7 +311,7 @@ public class ImportControllerTest {
     @Test
     public void should_respond_an_error_with_ok_code_when_model_file_is_not_found_while_importing_an_artifact() throws Exception {
         final ImportException exception = new ImportException(MODEL_NOT_FOUND, "Could not load component, artifact model file not found");
-        exception.addInfo("modelfiles", AngularJsArtifactBuilder.supportedArtifactTypes.stream().map(type -> type + ".json").collect(toList()));
+        exception.addInfo("modelfiles", DefaultArtifactBuilder.supportedArtifactTypes.stream().map(type -> type + ".json").collect(toList()));
         when(artifactBuilder.importArtifact(any(), eq(false))).thenThrow(exception);
 
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());

@@ -25,6 +25,7 @@ import org.bonitasoft.web.designer.controller.importer.ImportStore;
 import org.bonitasoft.web.designer.controller.importer.PageImporter;
 import org.bonitasoft.web.designer.controller.importer.WidgetImporter;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
+import org.bonitasoft.web.designer.rendering.angular.AngularAppGenerator;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
@@ -71,12 +72,12 @@ public class ImporterResolverTest {
     @Mock
     private FragmentImporter fragmentImporter;
 
-    private AngularJsArtifactBuilder artifactBuilder;
+    private DefaultArtifactBuilder artifactBuilder;
 
     @Before
     public void setUp() throws Exception {
 
-        artifactBuilder = spy(new AngularJsArtifactBuilder(
+        artifactBuilder = spy(new DefaultArtifactBuilder(
                 mock(Workspace.class),
                 mock(WidgetService.class),
                 mock(FragmentService.class),
@@ -85,6 +86,7 @@ public class ImporterResolverTest {
                 mock(FragmentExporter.class),
                 mock(WidgetExporter.class),
                 mock(HtmlGenerator.class),
+                mock(AngularAppGenerator.class),
                 importStore,
                 pageImporter,
                 fragmentImporter,

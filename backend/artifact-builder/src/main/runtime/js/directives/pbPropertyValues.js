@@ -12,7 +12,6 @@
               pbPropertyValues,
               bindingContextFactory.create(pbModelCtrl, $scope),
               $scope.properties = {});
-
             $scope.properties.isBound = function(propertyName) {
               return !!pbPropertyValues[propertyName] &&
                 pbPropertyValues[propertyName].type === 'variable' &&

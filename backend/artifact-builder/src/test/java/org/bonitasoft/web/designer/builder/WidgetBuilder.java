@@ -14,9 +14,11 @@
  */
 package org.bonitasoft.web.designer.builder;
 
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
+
 import java.time.Instant;
 
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ public class WidgetBuilder {
     private boolean custom = false;
     private String template = "<h1>this is a template</h1>";
     private String controller;
+    private String htmlBundle;
+    private String jsBundle;
     private AssetBuilder[] assetBuilders;
     private Instant lastUpdate;
     private Set<String> modules = new HashSet<>();
@@ -48,7 +52,9 @@ public class WidgetBuilder {
     private MigrationStatusReport migrationStatusReport = new MigrationStatusReport(true, true);
 
     private WidgetBuilder(boolean isWidgetWc) {
-        this.isWidgetWc = isWidgetWc;
+        if (isWidgetWc) {
+            this.modelVersion = "3.0";
+        }
     }
 
     public static WidgetBuilder aWidget() {
@@ -83,6 +89,16 @@ public class WidgetBuilder {
         if (!isWidgetWc) {
             this.controller = controller;
         }
+        return this;
+    }
+
+    public WidgetBuilder withHtmlBundle(String htmlBundle) {
+        this.htmlBundle = htmlBundle;
+        return this;
+    }
+
+    public WidgetBuilder withJsBundle(String jsBundle) {
+        this.jsBundle = jsBundle;
         return this;
     }
 
@@ -189,6 +205,8 @@ public class WidgetBuilder {
         if (controller != null) {
             widget.setController(controller);
         }
+        widget.setHtmlBundle(htmlBundle);
+        widget.setJsBundle(jsBundle);
         widget.setStatus(migrationStatusReport);
 
         if (assetBuilders != null) {

@@ -22,14 +22,10 @@ import org.bonitasoft.web.designer.controller.export.WidgetExporter;
 import org.bonitasoft.web.designer.controller.export.properties.FragmentPropertiesBuilder;
 import org.bonitasoft.web.designer.controller.export.properties.PagePropertiesBuilder;
 import org.bonitasoft.web.designer.controller.export.properties.WidgetPropertiesBuilder;
-import org.bonitasoft.web.designer.controller.export.steps.AssetExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.FragmentPropertiesExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.FragmentsExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.HtmlExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.PagePropertiesExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.WidgetByIdExportStep;
-import org.bonitasoft.web.designer.controller.export.steps.WidgetsExportStep;
+import org.bonitasoft.web.designer.controller.export.steps.*;
+import org.bonitasoft.web.designer.controller.export.steps.angular.AngularAppExportStep;
+import org.bonitasoft.web.designer.controller.export.steps.angularJs.HtmlExportStep;
+import org.bonitasoft.web.designer.controller.export.steps.common.PagePropertiesExportStep;
 import org.bonitasoft.web.designer.controller.importer.FragmentImporter;
 import org.bonitasoft.web.designer.controller.importer.ImportStore;
 import org.bonitasoft.web.designer.controller.importer.PageImporter;
@@ -38,6 +34,7 @@ import org.bonitasoft.web.designer.controller.importer.dependencies.AssetDepende
 import org.bonitasoft.web.designer.controller.importer.dependencies.DependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.FragmentDependencyImporter;
 import org.bonitasoft.web.designer.controller.importer.dependencies.WidgetDependencyImporter;
+import org.bonitasoft.web.designer.rendering.AssetHtmlBuilder;
 import org.bonitasoft.web.designer.i18n.I18nInitializer;
 import org.bonitasoft.web.designer.i18n.LanguagePackBuilder;
 import org.bonitasoft.web.designer.i18n.LanguagePackFactory;
@@ -49,21 +46,17 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.rendering.DirectiveFileGenerator;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
+import org.bonitasoft.web.designer.rendering.angular.AngularAppGenerator;
+import org.bonitasoft.web.designer.rendering.angular.WidgetBundleFile;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
-import org.bonitasoft.web.designer.visitor.AssetVisitor;
-import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
-import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
-import org.bonitasoft.web.designer.visitor.ModelPropertiesVisitor;
-import org.bonitasoft.web.designer.visitor.PageFactory;
-import org.bonitasoft.web.designer.visitor.PropertyValuesVisitor;
-import org.bonitasoft.web.designer.visitor.RequiredModulesVisitor;
-import org.bonitasoft.web.designer.visitor.VariableModelVisitor;
-import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
-import org.bonitasoft.web.designer.workspace.FragmentDirectiveBuilder;
-import org.bonitasoft.web.designer.workspace.HtmlSanitizer;
-import org.bonitasoft.web.designer.workspace.ResourcesCopier;
-import org.bonitasoft.web.designer.workspace.WidgetDirectiveBuilder;
-import org.bonitasoft.web.designer.workspace.Workspace;
+import org.bonitasoft.web.designer.visitor.*;
+import org.bonitasoft.web.designer.visitor.angular.AngularBuilderVisitor;
+import org.bonitasoft.web.designer.visitor.angular.AngularPropertyValuesVisitor;
+import org.bonitasoft.web.designer.visitor.angular.AngularVariableVisitor;
+import org.bonitasoft.web.designer.visitor.angularJS.AngularJsBuilderVisitor;
+import org.bonitasoft.web.designer.visitor.angularJS.PropertyValuesVisitor;
+import org.bonitasoft.web.designer.visitor.angularJS.VariableModelVisitor;
+import org.bonitasoft.web.designer.workspace.*;
 import org.fedorahosted.tennera.jgettext.PoParser;
 
 import java.util.List;
@@ -86,6 +79,7 @@ public class ArtifactBuilderFactory {
 
     /**
      * Factory method for an instance of {@link ArtifactBuilder}
+     *
      * @return
      */
     public ArtifactBuilder create() {
@@ -102,9 +96,9 @@ public class ArtifactBuilderFactory {
         );
 
         var directiveFileGenerator = new DirectiveFileGenerator(uiDesignerProperties.getWorkspace(), core.getWidgetRepository(), widgetIdVisitor);
-
-        var htmlBuilderVisitor = new HtmlBuilderVisitor(
-                new AssetVisitor(core.getWidgetRepository(), core.getFragmentRepository()),
+        var assetVisitor = new AssetVisitor(core.getWidgetRepository(), core.getFragmentRepository());
+        var assetHtmlBuilder = new AssetHtmlBuilder(assetVisitor,core.getPageAssetRepository(), core.getWidgetAssetRepository(), uiDesignerProperties.getWorkspace());
+        var htmlBuilderVisitor = new AngularJsBuilderVisitor(
                 pageFactories,
                 new RequiredModulesVisitor(core.getWidgetRepository(), core.getFragmentRepository()),
                 new DirectivesCollector(uiDesignerProperties.getWorkspaceUid(),
@@ -112,21 +106,41 @@ public class ArtifactBuilderFactory {
                         fragmentIdVisitor,
                         core.getFragmentRepository()
                 ),
-                core.getPageAssetRepository(),
-                core.getWidgetAssetRepository(),
-                core.getFragmentRepository()
+                core.getFragmentRepository(),
+                assetHtmlBuilder
         );
 
-        //Page
-        var htmlGenerator = new HtmlGenerator(htmlBuilderVisitor);
+        // Common export part
+        var pagePropertiesExportStep = new PagePropertiesExportStep(new PagePropertiesBuilder(uiDesignerProperties, core.getPageService()));
 
-        var pageExportSteps = new ExportStep[]{
-                new HtmlExportStep(htmlGenerator, uiDesignerProperties.getWorkspaceUid()),
-                new PagePropertiesExportStep(new PagePropertiesBuilder(uiDesignerProperties, core.getPageService())),
+        //AngularJs Page
+        var angularJsHtmlGenerator = new HtmlGenerator(htmlBuilderVisitor);
+
+        ExportStep[] pageExportSteps;
+        pageExportSteps = new ExportStep[]{
+                new HtmlExportStep(angularJsHtmlGenerator, uiDesignerProperties.getWorkspaceUid()),
+                pagePropertiesExportStep,
                 new WidgetsExportStep<Page>(uiDesignerProperties.getWorkspace().getWidgets().getDir(), widgetIdVisitor, directiveFileGenerator),
                 new AssetExportStep(core.getPageAssetRepository()),
                 new FragmentsExportStep<Page>(fragmentIdVisitor, uiDesignerProperties.getWorkspace().getFragments().getDir())
         };
+
+        // Angular Part
+        var angularHtmlBuilderVisitor = new AngularBuilderVisitor(uiDesignerProperties.getWorkspace(), core.getWidgetService());
+
+        // Angular App part
+        var angularHtmlGenerator = new HtmlGenerator(angularHtmlBuilderVisitor);
+
+        var angularPropertyValuesVisitor = new AngularPropertyValuesVisitor(core.getFragmentRepository());
+        var angularVariableVisitor = new AngularVariableVisitor(core.getFragmentRepository());
+        var widgetBundleFile = new WidgetBundleFile(uiDesignerProperties.getWorkspace(),core.getWidgetRepository(),widgetIdVisitor);
+        var angularAppGenerator = new AngularAppGenerator(uiDesignerProperties.getWorkspaceUid(), angularHtmlGenerator, assetHtmlBuilder, angularPropertyValuesVisitor, angularVariableVisitor, widgetBundleFile);
+
+        var angularPageExportSteps = new ExportStep[]{
+                new AngularAppExportStep(angularAppGenerator),
+                pagePropertiesExportStep
+        };
+
 
         //Fragment
         var fragmentExportSteps = new ExportStep[]{
@@ -143,7 +157,7 @@ public class ArtifactBuilderFactory {
         // == Builder
         var widgetExporter = new WidgetExporter(jsonHandler, core.getWidgetService(), widgetExportSteps);
         var fragmentExporter = new FragmentExporter(jsonHandler, core.getFragmentService(), fragmentExportSteps);
-        var pageExporter = new PageExporter(jsonHandler, core.getPageService(), pageExportSteps);
+        var pageExporter = new PageExporter(jsonHandler, core.getPageService(), pageExportSteps, angularPageExportSteps);
 
 
         // Dependency importers
@@ -220,7 +234,7 @@ public class ArtifactBuilderFactory {
         );
         i18nInitializer.initialize();
 
-        return new AngularJsArtifactBuilder(
+        return new DefaultArtifactBuilder(
                 // Workspace management
                 workspace,
                 core.getWidgetService(),
@@ -230,7 +244,8 @@ public class ArtifactBuilderFactory {
                 pageExporter,
                 fragmentExporter,
                 widgetExporter,
-                htmlGenerator,
+                angularJsHtmlGenerator,
+                angularAppGenerator,
                 // Import
                 new ImportStore(),
                 pageImporter,

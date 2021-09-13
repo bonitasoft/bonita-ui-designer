@@ -20,7 +20,7 @@ import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
-import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
+import org.bonitasoft.web.designer.visitor.angularJS.AngularJsBuilderVisitor;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -33,17 +33,17 @@ import static java.nio.file.Paths.get;
 public class FragmentDirectiveBuilder extends AbstractLiveFileBuilder {
 
     private final JsonHandler jsonHandler;
-    private final HtmlBuilderVisitor htmlBuilderVisitor;
+    private final AngularJsBuilderVisitor angularJsHtmlBuilderVisitor;
     private final HtmlSanitizer htmlSanitizer;
     private final TemplateEngine htmlBuilder = new TemplateEngine("fragmentDirectiveTemplate.hbs.js");
 
     public FragmentDirectiveBuilder(Watcher watcher,
                                     JsonHandler jsonHandler,
-                                    HtmlBuilderVisitor htmlBuilderVisitor,
+                                    AngularJsBuilderVisitor angularJsHtmlBuilderVisitor,
                                     HtmlSanitizer htmlSanitizer) {
         super(watcher);
         this.jsonHandler = jsonHandler;
-        this.htmlBuilderVisitor = htmlBuilderVisitor;
+        this.angularJsHtmlBuilderVisitor = angularJsHtmlBuilderVisitor;
         this.htmlSanitizer = htmlSanitizer;
     }
 
@@ -62,7 +62,7 @@ public class FragmentDirectiveBuilder extends AbstractLiveFileBuilder {
         write(
                 get(path.replace(".json", ".js")),
                 htmlBuilder
-                        .with("rowsHtml", htmlSanitizer.escapeSingleQuotesAndNewLines(htmlBuilderVisitor.build(fragment.getRows())))
+                        .with("rowsHtml", htmlSanitizer.escapeSingleQuotesAndNewLines(angularJsHtmlBuilderVisitor.build(fragment.getRows())))
                         .build(fragment).getBytes(StandardCharsets.UTF_8));
     }
 

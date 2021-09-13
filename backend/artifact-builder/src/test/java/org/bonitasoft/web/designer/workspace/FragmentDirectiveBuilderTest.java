@@ -20,7 +20,7 @@ import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
-import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
+import org.bonitasoft.web.designer.visitor.angularJS.AngularJsBuilderVisitor;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -56,7 +56,7 @@ public class FragmentDirectiveBuilderTest {
     private JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
     @Mock
-    private HtmlBuilderVisitor htmlBuilderVisitor;
+    private AngularJsBuilderVisitor angularJsHtmlBuilderVisitor;
 
     private HtmlSanitizer htmlSanitizer = new HtmlSanitizer();
 
@@ -73,7 +73,7 @@ public class FragmentDirectiveBuilderTest {
     public void setUp() throws Exception {
         initMocks(this);
 
-        fragmentDirectiveBuilder = new FragmentDirectiveBuilder(watcher, jsonHandler, htmlBuilderVisitor, htmlSanitizer);
+        fragmentDirectiveBuilder = new FragmentDirectiveBuilder(watcher, jsonHandler, angularJsHtmlBuilderVisitor, htmlSanitizer);
         fragmentFile = repositoryDirectory.newFile("fragment.json");
         fragment = aFragment()
                 .withName("aUnicornFragment")
@@ -82,12 +82,12 @@ public class FragmentDirectiveBuilderTest {
 
         write(fragmentFile.toPath(), jsonHandler.toJson(fragment));
 
-        when(htmlBuilderVisitor.build(anyList())).thenReturn("");
+        when(angularJsHtmlBuilderVisitor.build(anyList())).thenReturn("");
     }
 
     @Test
     public void should_build_a_fragment_directive() throws Exception {
-        when(htmlBuilderVisitor.build(anyList())).thenReturn("<p>content</p>");
+        when(angularJsHtmlBuilderVisitor.build(anyList())).thenReturn("<p>content</p>");
         fragmentDirectiveBuilder.build(fragmentFile.toPath());
 
         String directive = new String(readAllBytes(get(repositoryDirectory.getRoot().toString(), "fragment.js")));

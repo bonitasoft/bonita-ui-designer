@@ -1,0 +1,11 @@
+<div class="{{ dimensionAsCssClasses }}"
+     [ngClass]="properties.cssClasses"
+     *ngIf="!properties.hidden"
+     {{#repeated}}
+        *ngFor="let $item of ($collection = properties.repeatedCollection) track by $index"
+     {{/repeated}}>
+
+{{{rowsHtml}}}
+
+</div>
+

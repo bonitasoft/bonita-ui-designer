@@ -16,6 +16,7 @@ package org.bonitasoft.web.designer.controller.export.steps;
 
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.controller.export.properties.PagePropertiesBuilder;
+import org.bonitasoft.web.designer.controller.export.steps.common.PagePropertiesExportStep;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.junit.Test;
 import org.junit.runner.RunWith;

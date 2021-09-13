@@ -58,6 +58,7 @@
      * We have to prefix the url with `index.html` for Firefox, or it will not display the iframe.
      */
     function buildIframeSrc() {
+      //return $sce.trustAsResourceUrl('http://localhost:4200');
       return $sce.trustAsResourceUrl(iframeParameters.url + '/' + appSelectorService.getPathToLivingApp() + '/' + iframeParameters.id + '/' + buildIframeQueryString({ time: clock.now() }));
     }
 

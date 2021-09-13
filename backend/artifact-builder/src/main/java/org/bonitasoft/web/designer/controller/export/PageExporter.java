@@ -5,11 +5,13 @@ import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.service.PageService;
 
+import java.util.List;
+
 public class PageExporter extends Exporter<Page> {
 
     @SafeVarargs
-    public PageExporter(JsonHandler jsonHandler, PageService pageService, ExportStep<Page>... exportSteps) {
-        super(jsonHandler, pageService, exportSteps);
+    public PageExporter(JsonHandler jsonHandler, PageService pageService, ExportStep<Page>[] exportSteps, ExportStep<Page>... angularExportSteps) {
+        super(jsonHandler, pageService, exportSteps, angularExportSteps);
     }
 
     @Override

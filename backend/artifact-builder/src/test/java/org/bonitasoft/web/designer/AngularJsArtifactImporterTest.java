@@ -25,6 +25,7 @@ import org.bonitasoft.web.designer.controller.importer.ImportStore;
 import org.bonitasoft.web.designer.controller.importer.PageImporter;
 import org.bonitasoft.web.designer.controller.importer.WidgetImporter;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
+import org.bonitasoft.web.designer.rendering.angular.AngularAppGenerator;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
@@ -54,7 +55,7 @@ public class AngularJsArtifactImporterTest {
     @Rule
     public TemporaryFolder tempDir = new TemporaryFolder();
 
-    private AngularJsArtifactBuilder artifactImporter;
+    private DefaultArtifactBuilder artifactImporter;
 
     private Path resources;
 
@@ -73,12 +74,12 @@ public class AngularJsArtifactImporterTest {
         WidgetExporter widgetExporter = mock(WidgetExporter.class);
         final HtmlGenerator htmlGenerator = mock(HtmlGenerator.class);
 
-        artifactImporter = spy(new AngularJsArtifactBuilder(
+        artifactImporter = spy(new DefaultArtifactBuilder(
                 workspace,
                 mock(WidgetService.class),
                 mock(FragmentService.class),
                 mock(PageService.class),
-                pageExporter, fragmentExporter, widgetExporter, htmlGenerator,
+                pageExporter, fragmentExporter, widgetExporter, htmlGenerator, mock(AngularAppGenerator.class),
                 importStore, pageImporter, fragmentImporter, widgetImporter
         ));
 

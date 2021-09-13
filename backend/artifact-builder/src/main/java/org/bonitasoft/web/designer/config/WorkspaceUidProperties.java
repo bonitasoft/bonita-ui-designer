@@ -31,6 +31,7 @@ public class WorkspaceUidProperties {
     public static final String FRAGMENTS = "fragments";
     public static final String TEMPLATES_RESOURCES = "templates";
     private static final String PAGES_DEFAULT_DIRECTORY = "pages";
+    private static final String ANGULAR_APP_FOLDER_DIRECTORY_NAME = "app";
 
     private Path path = Path.of(System.getProperty("java.io.tmpdir")).resolve("workspace-uid");
 
@@ -44,12 +45,20 @@ public class WorkspaceUidProperties {
         return getPath().resolve(PAGES_DEFAULT_DIRECTORY);
     }
 
+    public Path getTmpAngularAppPath(String artifactId) {
+        return getPath().resolve(PAGES_DEFAULT_DIRECTORY).resolve(artifactId).resolve(ANGULAR_APP_FOLDER_DIRECTORY_NAME);
+    }
+
     public Path getTmpI18nPath() throws IOException {
         return createDirectories(getPath().resolve(I18N_RESOURCES));
     }
 
     public Path getExportBackendResourcesPath() {
         return getExtractPath().resolve(EXTRACT_BACKEND_RESOURCES).resolve("runtime");
+    }
+
+    public Path getExportAngularBackendResourcesPath() {
+        return getExtractPath().resolve(EXTRACT_BACKEND_RESOURCES).resolve("runtime-angular-app");
     }
 
     public Path getTemplateResourcesPath() {

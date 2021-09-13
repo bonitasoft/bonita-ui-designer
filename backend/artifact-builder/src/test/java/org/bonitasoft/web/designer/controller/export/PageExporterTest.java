@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller.export;
 
+import org.assertj.core.util.Arrays;
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.controller.utils.Unzipper;
@@ -64,7 +65,7 @@ public class PageExporterTest {
     @Before
     public void setUp() throws Exception {
         artifactStream = new ByteArrayOutputStream();
-        exporter = new PageExporter(jsonHandler, pageService, mock(ExportStep.class));
+        exporter = new PageExporter(jsonHandler, pageService, Arrays.array(mock(ExportStep.class)), mock(ExportStep.class));
     }
 
     private Page create(Page page) throws IOException {
@@ -141,7 +142,7 @@ public class PageExporterTest {
     public void should_execute_export_steps() throws Exception {
         FakeStep fakeStep1 = new FakeStep("This is some content", "resources/file1.json");
         FakeStep fakeStep2 = new FakeStep("This is another content", "resources/deep/file2.json");
-        Exporter<Page> exporter = new PageExporter(jsonHandler, pageService, fakeStep1, fakeStep2);
+        Exporter<Page> exporter = new PageExporter(jsonHandler, pageService, Arrays.array(fakeStep1, fakeStep2),Arrays.array());
         Page page = create(aPage().build());
 
         exporter.handleFileExport(page.getId(), artifactStream);

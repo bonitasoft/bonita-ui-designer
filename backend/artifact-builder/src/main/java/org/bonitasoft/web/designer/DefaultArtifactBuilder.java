@@ -13,12 +13,14 @@ import org.bonitasoft.web.designer.controller.importer.ImportStore;
 import org.bonitasoft.web.designer.controller.importer.PageImporter;
 import org.bonitasoft.web.designer.controller.importer.WidgetImporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
+import org.bonitasoft.web.designer.migration.Version;
 import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
+import org.bonitasoft.web.designer.rendering.angular.AngularAppGenerator;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
@@ -37,7 +39,7 @@ import static org.bonitasoft.web.designer.controller.importer.ImportPathResolver
 import static org.bonitasoft.web.designer.controller.importer.report.ImportReport.Status.IMPORTED;
 
 @RequiredArgsConstructor
-public class AngularJsArtifactBuilder implements ArtifactBuilder {
+public class DefaultArtifactBuilder implements ArtifactBuilder {
 
     public static final List<String> supportedArtifactTypes = List.of("page", "fragment", "widget");
 
@@ -50,6 +52,7 @@ public class AngularJsArtifactBuilder implements ArtifactBuilder {
     private final FragmentExporter fragmentExporter;
     private final WidgetExporter widgetExporter;
     private final HtmlGenerator htmlGenerator;
+    private final AngularAppGenerator<Page> angularAppGenerator;
     private final ImportStore importStore;
     private final PageImporter pageImporter;
     private final FragmentImporter fragmentImporter;
@@ -99,7 +102,13 @@ public class AngularJsArtifactBuilder implements ArtifactBuilder {
 
     @Override
     public String buildHtml(Page page, String context) throws GenerationException, NotFoundException {
-        return htmlGenerator.generateHtml(page, context);
+        if (Version.isV3Version(page.getModelVersion())) {
+            angularAppGenerator.generateAngularApp(page);
+            return "Artifact is generated";
+        } else {
+            return htmlGenerator.generateHtml(page, context);
+        }
+
     }
 
     @Override

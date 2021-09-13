@@ -12,63 +12,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.bonitasoft.web.designer.visitor;
+package org.bonitasoft.web.designer.visitor.angularJS;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.codec.digest.DigestUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.bonitasoft.web.designer.ArtifactBuilderException;
+import org.bonitasoft.web.designer.rendering.AssetHtmlBuilder;
 import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.FormContainer;
-import org.bonitasoft.web.designer.model.page.FragmentElement;
-import org.bonitasoft.web.designer.model.page.ModalContainer;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.TabContainer;
-import org.bonitasoft.web.designer.model.page.TabsContainer;
+import org.bonitasoft.web.designer.model.page.*;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.rendering.GenerationException;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
-import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.bonitasoft.web.designer.visitor.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
-import static org.bonitasoft.web.designer.model.asset.Asset.getComparatorByComponentId;
-import static org.bonitasoft.web.designer.model.asset.Asset.getComparatorByOrder;
 import static org.bonitasoft.web.designer.model.widget.Widget.spinalCase;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect html parts of a page
  */
 @RequiredArgsConstructor
-public class HtmlBuilderVisitor implements ElementVisitor<String> {
+@Slf4j
+public class AngularJsBuilderVisitor implements ElementVisitor<String>, AbstractBuilderVisitor<String> {
 
-    private static final Logger logger = LoggerFactory.getLogger(HtmlBuilderVisitor.class);
-
-    private final AssetVisitor assetVisitor;
-    //Localizationfactory, EmptyPagefactory, ModelPropertiesVisitor, PropertyValuesVisitor, VariableModelVisitor
     private final List<PageFactory> pageFactories;
     private final RequiredModulesVisitor requiredModulesVisitor;
     private final DirectivesCollector directivesCollector;
-    private final AssetRepository<Page> pageAssetRepository;
-    private final AssetRepository<Widget> widgetAssetRepository;
     private final FragmentRepository fragmentRepository;
+    private final AssetHtmlBuilder assetHtmlBuilder;
 
     @Override
     public String visit(FragmentElement fragmentElement) {
@@ -150,14 +130,15 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
      * @param previewable     to build
      * @param resourceContext the URL context can change on export or preview...
      */
+    @Override
     public <P extends Previewable & Identifiable> String build(final P previewable, String resourceContext) {
-        var sortedAssets = getSortedAssets(previewable);
+        var sortedAssets = assetHtmlBuilder.getSortedAssets(previewable);
         var template = new TemplateEngine("page.hbs.html")
                 .with("resourceContext", resourceContext == null ? "" : resourceContext)
                 .with("directives", directivesCollector.buildUniqueDirectivesFiles(previewable, previewable.getId()))
                 .with("rowsHtml", build(previewable.getRows()))
-                .with("jsAsset", getAssetHtmlSrcList(previewable.getId(), AssetType.JAVASCRIPT, sortedAssets))
-                .with("cssAsset", getAssetHtmlSrcList(previewable.getId(), AssetType.CSS, sortedAssets))
+                .with("jsAsset", assetHtmlBuilder.getAssetHtmlSrcList(previewable.getId(),AssetType.JAVASCRIPT, sortedAssets))
+                .with("cssAsset", assetHtmlBuilder.getAssetHtmlSrcList(previewable.getId(), AssetType.CSS, sortedAssets))
                 .with("factories", pageFactories.stream().map(factory -> factory.generate(previewable)).collect(toList()));
 
         var modules = requiredModulesVisitor.visit(previewable);
@@ -172,54 +153,11 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
                 .with("rows",
                         rows.stream()
                                 .map(elements -> elements.stream()
-                                        .map(element -> element.accept(HtmlBuilderVisitor.this))
+                                        .map(element -> element.accept(AngularJsBuilderVisitor.this))
                                         .collect(joining(""))
                                 ).collect(toList())
                 )
                 .build(new Object());
-    }
-
-    /**
-     * Return the list of the previewable assets sorted with only active assets
-     */
-    protected <P extends Previewable & Identifiable> List<Asset> getSortedAssets(P previewable) {
-        return assetVisitor.visit(previewable).stream().filter(Asset::isActive)
-                .sorted(getComparatorByComponentId().thenComparing(getComparatorByOrder())
-                ).collect(Collectors.toList());
-    }
-
-    private List<String> getAssetHtmlSrcList(String previewableId, AssetType assetType, List<Asset> sortedAssets) {
-        var assetsSrc = new ArrayList<String>();
-        sortedAssets.stream()
-                .filter(asset -> assetType.equals(asset.getType()))
-                .forEach(asset -> {
-                    var widgetPrefix = "";
-                    if (asset.isExternal()) {
-                        assetsSrc.add(asset.getName());
-                    } else {
-                        String assetHash;
-                        if (AssetScope.WIDGET.equals(asset.getScope())) {
-                            widgetPrefix = String.format("widgets/%s/", asset.getComponentId());
-                            assetHash = getHash(asset, widgetAssetRepository, previewableId);
-                        } else {
-                            assetHash = getHash(asset, pageAssetRepository, previewableId);
-                        }
-                        if (!assetsSrc.contains(asset.getName())) {
-                            assetsSrc.add(String.format("%sassets/%s/%s?hash=%s", widgetPrefix, asset.getType().getPrefix(), asset.getName(), assetHash));
-                        }
-                    }
-                });
-        return assetsSrc;
-    }
-
-    private String getHash(Asset asset, AssetRepository<?> assetRepository, String previewableId) {
-        try {
-            var content = asset.getComponentId() == null ? assetRepository.readAllBytes(previewableId, asset) : assetRepository.readAllBytes(asset);
-            return DigestUtils.sha1Hex(content);
-        } catch (Exception e) {
-            logger.warn("Failure to generate hash for asset {}", asset.getName(), e);
-            return UUID.randomUUID().toString();
-        }
     }
 
     static class TabContainerTemplate {

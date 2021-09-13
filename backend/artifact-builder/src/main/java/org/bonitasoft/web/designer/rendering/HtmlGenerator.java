@@ -18,16 +18,16 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.visitor.HtmlBuilderVisitor;
+import org.bonitasoft.web.designer.visitor.AbstractBuilderVisitor;
 import org.jsoup.Jsoup;
 import org.jsoup.parser.ParseSettings;
 import org.jsoup.parser.Parser;
 
 public class HtmlGenerator {
 
-    private final HtmlBuilderVisitor htmlBuilderVisitor;
+    private final AbstractBuilderVisitor<String> htmlBuilderVisitor;
 
-    public HtmlGenerator(HtmlBuilderVisitor htmlBuilderVisitor) {
+    public HtmlGenerator(AbstractBuilderVisitor htmlBuilderVisitor) {
         this.htmlBuilderVisitor = htmlBuilderVisitor;
     }
 

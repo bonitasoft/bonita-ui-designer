@@ -1,0 +1,10 @@
+<ng-container *properties-values="'{{ reference }}'; let properties;">
+    <div
+     *ngIf="!properties.hidden"
+     class="component {{ dimensionAsCssClasses }}"
+     [ngClass]="properties.cssClasses">
+        {{{ template }}}
+    </div>
+</ng-container>
+
+

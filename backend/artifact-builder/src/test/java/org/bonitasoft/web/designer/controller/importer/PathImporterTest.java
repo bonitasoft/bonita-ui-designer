@@ -14,7 +14,7 @@
  */
 package org.bonitasoft.web.designer.controller.importer;
 
-import org.bonitasoft.web.designer.AngularJsArtifactBuilder;
+import org.bonitasoft.web.designer.DefaultArtifactBuilder;
 import org.bonitasoft.web.designer.ArtifactBuilder;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
 import org.bonitasoft.web.designer.controller.export.FragmentExporter;
@@ -22,6 +22,7 @@ import org.bonitasoft.web.designer.controller.export.PageExporter;
 import org.bonitasoft.web.designer.controller.export.WidgetExporter;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
+import org.bonitasoft.web.designer.rendering.angular.AngularAppGenerator;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
@@ -69,7 +70,7 @@ public class PathImporterTest {
         pageImporter = mock(PageImporter.class);
         fragmentImporter = mock(FragmentImporter.class);
         widgetImporter = mock(WidgetImporter.class);
-        artifactBuilder = new AngularJsArtifactBuilder(
+        artifactBuilder = new DefaultArtifactBuilder(
                 mock(Workspace.class),
                 mock(WidgetService.class),
                 mock(FragmentService.class),
@@ -78,6 +79,7 @@ public class PathImporterTest {
                 mock(FragmentExporter.class),
                 mock(WidgetExporter.class),
                 mock(HtmlGenerator.class),
+                mock(AngularAppGenerator.class),
                 importStore,
                 pageImporter,
                 fragmentImporter,

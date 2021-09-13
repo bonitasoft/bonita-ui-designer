@@ -165,6 +165,14 @@
                 <filtering>true</filtering>
                 <targetPath>${project.build.directory}/generated-sources/</targetPath>
             </resource>
+            <!-- Adding angular-app template-->
+            <resource>
+                <directory>src/main/runtime-angular-app-template</directory>
+                <includes>
+                    <include>**/**/*.*</include>
+                </includes>
+                <targetPath>META-INF/resources/runtime-angular-app</targetPath>
+            </resource>
         </resources>
 
         <plugins>
