@@ -26,6 +26,7 @@ public class Configuration {
     private String modelVersion;
     private String modelVersionLegacy;
     private String bdrUrl;
+    private String appServerUrl;
     private boolean experimentalMode;
 
     @Override
@@ -35,6 +36,7 @@ public class Configuration {
                 ",\"modelVersion\":" + modelVersion +
                 ",\"modelVersionLegacy\":" + modelVersionLegacy +
                 ",\"bdrUrl\":" + bdrUrl +
+                ",\"appServerUrl\":" + appServerUrl +
                 ",\"experimentalMode\":" + experimentalMode +
                 '}';
     }

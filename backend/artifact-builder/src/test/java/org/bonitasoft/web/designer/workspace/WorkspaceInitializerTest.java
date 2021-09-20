@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.workspace;
 
 import org.bonitasoft.web.designer.JsonHandlerFactory;
+import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
@@ -24,6 +25,7 @@ import org.bonitasoft.web.designer.migration.LiveRepositoryUpdate;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.rendering.angular.AngularAppGenerator;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
@@ -57,6 +59,9 @@ public class WorkspaceInitializerTest {
     @Mock
     private LiveRepositoryUpdate<Widget> widgetRepositoryLiveUpdate;
 
+    @Mock
+    AngularAppGenerator<Page> angularAppGenerator;
+
     private Workspace workspace;
 
     @Before
@@ -89,7 +94,8 @@ public class WorkspaceInitializerTest {
                 widgetAssetDependencyImporter,
                 resourcesCopier,
                 migrations,
-                jsonHandler
+                jsonHandler,
+                angularAppGenerator
         ));
 
     }
@@ -101,6 +107,9 @@ public class WorkspaceInitializerTest {
         // Then
         verify(workspace).doInitialize();
         verify(workspace).cleanPageWorkspace();
+        Page genericPage = PageBuilder.aPage().withId(Workspace.GENERIC_ANGULAR_PAGE_ID).withModelVersion("3.0").build();
+        verify(angularAppGenerator).generateAngularApp(genericPage);
+        verify(angularAppGenerator).generatedAppInstallStart(genericPage);
         assertThat(workspace.initialized).isTrue();
     }
 

@@ -57,7 +57,6 @@ import static java.util.stream.Collectors.*;
 import static org.bonitasoft.web.designer.repository.exception.NotAllowedException.checkNotAllowed;
 import static org.springframework.util.StringUtils.hasText;
 
-
 public class DefaultFragmentService extends AbstractArtifactService<FragmentRepository, Fragment> implements FragmentService {
 
     private final FragmentMigrationApplyer fragmentMigrationApplyer;

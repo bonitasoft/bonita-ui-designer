@@ -134,7 +134,7 @@ public class ArtifactBuilderFactory {
         var angularPropertyValuesVisitor = new AngularPropertyValuesVisitor(core.getFragmentRepository());
         var angularVariableVisitor = new AngularVariableVisitor(core.getFragmentRepository());
         var widgetBundleFile = new WidgetBundleFile(uiDesignerProperties.getWorkspace(),core.getWidgetRepository(),widgetIdVisitor);
-        var angularAppGenerator = new AngularAppGenerator(uiDesignerProperties.getWorkspaceUid(), angularHtmlGenerator, assetHtmlBuilder, angularPropertyValuesVisitor, angularVariableVisitor, widgetBundleFile);
+        var angularAppGenerator = new AngularAppGenerator<Page>(uiDesignerProperties.getWorkspaceUid(), angularHtmlGenerator, assetHtmlBuilder, angularPropertyValuesVisitor, angularVariableVisitor, widgetBundleFile);
 
         var angularPageExportSteps = new ExportStep[]{
                 new AngularAppExportStep(angularAppGenerator),
@@ -219,7 +219,8 @@ public class ArtifactBuilderFactory {
                         new LiveRepositoryUpdate<>(core.getFragmentRepository(), core.getFragmentMigrationStepsList()),
                         new LiveRepositoryUpdate<>(core.getWidgetRepository(), core.getWidgetMigrationStepsList())
                 ),
-                jsonHandler
+                jsonHandler,
+                angularAppGenerator
         );
         workspace.initialize();
 

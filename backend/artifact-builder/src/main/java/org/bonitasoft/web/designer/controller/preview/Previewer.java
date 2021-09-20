@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
+import org.bonitasoft.web.designer.rendering.angular.AngularAppGenerator;
 
 @Getter
 @RequiredArgsConstructor

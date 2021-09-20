@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.rendering.angular;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.apache.maven.cli.MavenCli;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -27,13 +28,19 @@ import org.bonitasoft.web.designer.rendering.HtmlGenerator;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.visitor.angular.AngularPropertyValuesVisitor;
 import org.bonitasoft.web.designer.visitor.angular.AngularVariableVisitor;
+import org.bonitasoft.web.designer.workspace.Workspace;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 import static java.lang.String.format;
 
@@ -54,7 +61,7 @@ public class AngularAppGenerator<P extends Previewable & Identifiable> {
     public void generateAngularApp(P artifact) {
         try {
             // Copy Angular template app
-            var appDir = workspaceUidProperties.getTmpAngularAppPath(artifact.getId());
+            var appDir = workspaceUidProperties.getTmpAngularAppPath(Workspace.GENERIC_ANGULAR_PAGE_ID);
             if (!Files.exists(appDir)) {
                 Files.createDirectories(appDir);
             }
@@ -77,12 +84,22 @@ public class AngularAppGenerator<P extends Previewable & Identifiable> {
                 Files.createDirectories(assetFolderPath);
             }
             assetsFilesGeneration(artifact, assetFolderPath);
-            log.error("To see something, go on workspace-uid, add widget @bonitasoft/uid-input and npm install on your page. Then you can run npm run start and enjoy");
         } catch (IOException e) {
             var logMessage = format("Error during %s angular app generation %s", artifact.getId(), e.getMessage());
             log.error(logMessage);
             throw new GenerationException(logMessage, e);
         }
+    }
+
+    public void generatedAppInstallStart(P artifact) {
+        // Start this in a separate thread to avoid block the tomcat server
+        Thread threadGeneratedAppInstallation = new Thread(() -> {
+            var appDir = workspaceUidProperties.getTmpAngularAppPath(artifact.getId());
+            MavenCli maven = new MavenCli();
+            System.setProperty("maven.multiModuleProjectDirectory", appDir.toString());
+            maven.doMain(new String[]{"install"}, appDir.toString(), System.out, System.err);
+        });
+        threadGeneratedAppInstallation.start();
     }
 
     protected String generateComponentTs(P page) {

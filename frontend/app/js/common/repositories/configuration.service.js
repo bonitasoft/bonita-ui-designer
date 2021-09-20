@@ -54,6 +54,10 @@
         return this.configInfo.bdrUrl;
       }
 
+      getAppServerUrl() {
+        return this.configInfo.appServerUrl;
+      }
+
       isExperimentalModeEnabled() {
         return this.configInfo.experimentalMode;
       }

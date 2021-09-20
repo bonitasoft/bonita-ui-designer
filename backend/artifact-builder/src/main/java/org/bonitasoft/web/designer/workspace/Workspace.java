@@ -27,6 +27,7 @@ import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.WidgetFileHelper;
+import org.bonitasoft.web.designer.rendering.angular.AngularAppGenerator;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
@@ -36,6 +37,8 @@ import org.springframework.util.FileSystemUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -54,6 +57,9 @@ public class Workspace {
     public static final String WIDGETS_RESOURCES = "widgets";
 
     public static final String METADATA_FOLDER_NAME = ".metadata";
+
+    public static final String GENERIC_ANGULAR_PAGE_ID = "generatedPage";
+
     protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
     private final UiDesignerProperties uiDesignerProperties;
 
@@ -75,13 +81,15 @@ public class Workspace {
 
     private final JsonHandler jsonHandler;
 
+    private final AngularAppGenerator<Page> angularAppGenerator;
+
     protected AtomicBoolean initialized = new AtomicBoolean(false);
 
     public Workspace(UiDesignerProperties uiDesignerProperties, WidgetRepository widgetRepository, PageRepository pageRepository,
                      WidgetDirectiveBuilder widgetDirectiveBuilder, FragmentDirectiveBuilder fragmentDirectiveBuilder,
                      AssetDependencyImporter<Widget> widgetAssetDependencyImporter, ResourcesCopier resourcesCopier,
                      List<LiveRepositoryUpdate> migrations,
-                     JsonHandler jsonHandler
+                     JsonHandler jsonHandler, AngularAppGenerator angularAppGenerator
     ) {
         this.widgetRepository = widgetRepository;
         this.pageRepository = pageRepository;
@@ -93,6 +101,7 @@ public class Workspace {
         this.extractPath = uiDesignerProperties.getWorkspaceUid().getExtractPath();
         this.migrations = migrations;
         this.jsonHandler = jsonHandler;
+        this.angularAppGenerator = angularAppGenerator;
     }
 
     protected void doInitialize() throws IOException {
@@ -106,6 +115,7 @@ public class Workspace {
         ensureFragmentRepositoryPresent();
         cleanFragmentWorkspace();
         extractResourcesForExport();
+        initializeAngularApplication();
     }
 
     public void initialize() {
@@ -329,6 +339,20 @@ public class Workspace {
     private void extractResourcesForExport() throws IOException {
         resourcesCopier.copy(extractPath, EXTRACT_BACKEND_RESOURCES);
     }
+
+    private void initializeAngularApplication() {
+        // Generate empty app
+        Page page = new Page();
+        String appId = GENERIC_ANGULAR_PAGE_ID;
+        String appName = appId.substring(0, 1).toUpperCase() + appId.substring(1);
+        page.setName(appName);
+        page.setId(appId);
+        page.setModelVersion("3.0");
+        this.angularAppGenerator.generateAngularApp(page);
+
+        // Install Node and dependencies, and start Angular server
+        this.angularAppGenerator.generatedAppInstallStart(page);
+     }
 
 }
 

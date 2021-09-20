@@ -37,6 +37,8 @@ public class WorkspaceUidProperties {
 
     private Path extractPath = getPath().resolve("extract");
 
+    private String appServerUrl;
+
     public Path getTmpFragmentsRepositoryPath() {
         return getPath().resolve(FRAGMENTS);
     }

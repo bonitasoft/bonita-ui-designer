@@ -24,7 +24,7 @@
    * The preview controller. It handles the loading of the page model, the resolution changes and provides
    * common functions to the directives used inside the page.
    */
-  function PreviewCtrl($scope, $sce, $location, $httpParamSerializer, $window, $log, iframeParameters, resolutions, webSocket, clock, artifactRepo, $state, mode, appSelectorService) {
+  function PreviewCtrl($scope, $sce, $location, $httpParamSerializer, $window, $log, $http, configuration, iframeParameters, resolutions, webSocket, clock, artifactRepo, $state, mode, appSelectorService) {
     $scope.iframe = {};
     $scope.refreshIframe = refreshIframe;
     $scope.buildIframeSrc = buildIframeSrc;
@@ -32,14 +32,16 @@
     $scope.updateResolutionInUrl = updateResolutionInUrl;
     $scope.openExpandedPreviewWindow = openExpandedPreviewWindow;
     $scope.isNavCollapsed = true;
+    $scope.configuration =  configuration;
 
     artifactRepo
       .load(iframeParameters.id)
       .then((response) => {
         $scope.pageName = response.data.name;
+        $scope.isV3Version = artifactRepo.isV3Version(response.data.modelVersion);
+        refreshIframe();
       });
 
-    refreshIframe();
     webSocket.connect().then(() => {
       webSocket.subscribe('/previewableUpdates', (id) => {
         if (id === iframeParameters.id) {
@@ -58,8 +60,16 @@
      * We have to prefix the url with `index.html` for Firefox, or it will not display the iframe.
      */
     function buildIframeSrc() {
-      //return $sce.trustAsResourceUrl('http://localhost:4200');
-      return $sce.trustAsResourceUrl(iframeParameters.url + '/' + appSelectorService.getPathToLivingApp() + '/' + iframeParameters.id + '/' + buildIframeQueryString({ time: clock.now() }));
+      let previewUrl = iframeParameters.url + '/' + appSelectorService.getPathToLivingApp() + '/' + iframeParameters.id +
+        '/' + buildIframeQueryString({time: clock.now()});
+      if ($scope.isV3Version) {
+        return $http.get(`${previewUrl}`)
+          .then(() => {
+            $scope.iframe.src = $sce.trustAsResourceUrl($scope.configuration.getAppServerUrl());
+          });
+      } else {
+        $scope.iframe.src = $sce.trustAsResourceUrl(previewUrl);
+      }
     }
 
     function buildIframeQueryString(additionalParams) {
@@ -73,7 +83,7 @@
     }
 
     function refreshIframe() {
-      $scope.iframe.src = buildIframeSrc();
+      buildIframeSrc();
     }
 
     function closeWindow() {

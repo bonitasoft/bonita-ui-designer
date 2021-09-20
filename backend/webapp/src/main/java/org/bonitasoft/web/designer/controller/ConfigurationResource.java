@@ -44,11 +44,19 @@ public class ConfigurationResource {
             log.warn("Bonita data repository url is not set, or not a valid URL.");
             bdrUrl = "";
         }
+        String appServerUrl = uiDesignerProperties.getWorkspaceUid().getAppServerUrl();
+        try {
+            new URL(appServerUrl);
+        } catch (MalformedURLException e) {
+            log.warn("App server url is not set, or not a valid URL.");
+            appServerUrl = "";
+        }
         return new ResponseEntity<>(
                 new Configuration(this.uiDesignerProperties.getVersion(),
                         this.uiDesignerProperties.getModelVersion(),
                         this.uiDesignerProperties.getModelVersionLegacy(),
                         bdrUrl,
+                        appServerUrl,
                         uiDesignerProperties.isExperimental()),
                 HttpStatus.OK);
     }
