@@ -32,7 +32,7 @@
     "bootstrap": "twbs/bootstrap#3.3.6",
     "font-awesome": "FortAwesome/Font-Awesome#4.7.0",
     "identicon.js": "bonitasoft/identicon.js#1.0.0",
-    "jquery": "jquery/jquery-dist#1.9.1 - 2",
+    "jquery": "^3.0.0",
     "jsSHA": "Caligatio/jsSHA#~2.0.1",
     "less.js": "less/less.js#1.7.0",
     "moment": "moment/moment#>=2.8.0 <2.10.0",
