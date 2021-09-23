@@ -14,7 +14,6 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.livebuild.AbstractLiveFileBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
@@ -32,14 +31,12 @@ import static java.nio.file.Paths.get;
 
 public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
 
-    private UiDesignerProperties uiDesignerProperties;
     private final WidgetFileBasedLoader widgetLoader;
     private final HtmlSanitizer htmlSanitizer;
     private final TemplateEngine htmlBuilder = new TemplateEngine("widgetDirectiveTemplate.hbs.js");
 
-    public WidgetDirectiveBuilder(UiDesignerProperties uiDesignerProperties, Watcher watcher, WidgetFileBasedLoader widgetLoader, HtmlSanitizer htmlSanitizer) {
+    public WidgetDirectiveBuilder(Watcher watcher, WidgetFileBasedLoader widgetLoader, HtmlSanitizer htmlSanitizer) {
         super(watcher);
-        this.uiDesignerProperties = uiDesignerProperties;
         this.widgetLoader = widgetLoader;
         this.htmlSanitizer = htmlSanitizer;
     }
@@ -67,9 +64,6 @@ public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
     }
 
     private boolean isAngularJsWidget(String path) {
-        if(!uiDesignerProperties.isExperimental()){
-            return true;
-        }
         String fileName = Paths.get(path).getFileName().toString();
         return fileName.startsWith(WidgetRepository.ANGULARJS_STANDARD_PREFIX)
                 || fileName.startsWith(WidgetRepository.ANGULARJS_CUSTOM_PREFIX);
