@@ -22,6 +22,8 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class WidgetMigrationApplyer {
     }
 
     public MigrationResult<Widget> migrate(Widget widget) {
-        var startTime = System.currentTimeMillis();
+        var startTime = Instant.now();
         var formerArtifactVersion = widget.getArtifactVersion();
         List<MigrationStepReport> l = new ArrayList<>();
         for (Migration<Widget> migration : migrationList) {
@@ -45,7 +47,8 @@ public class WidgetMigrationApplyer {
 
         if (!StringUtils.equals(formerArtifactVersion, widget.getArtifactVersion())) {
             widget.setPreviousArtifactVersion(formerArtifactVersion);
-            logger.info("[MIGRATION] Widget {} has been terminated in {} seconds !", widget.getName(), (System.currentTimeMillis() - startTime / 1000.0f));
+            var durationTime = Duration.between(startTime,Instant.now()).toMillis() / 1000.0f ;
+            logger.info("[MIGRATION] Widget {} has been terminated in {} seconds !", widget.getName(), durationTime);
         }
         return new MigrationResult<>(widget, l);
     }

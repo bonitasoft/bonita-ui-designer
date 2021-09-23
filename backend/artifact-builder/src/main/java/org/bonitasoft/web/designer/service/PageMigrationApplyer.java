@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.web.designer.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.migration.Migration;
@@ -23,12 +24,13 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class PageMigrationApplyer {
-
-    private static final Logger logger = LoggerFactory.getLogger(PageMigrationApplyer.class);
 
     private final List<Migration<Page>> migrationList;
     private final FragmentService fragmentService;
@@ -41,7 +43,7 @@ public class PageMigrationApplyer {
     }
 
     public MigrationResult<Page> migrate(Page page) {
-        var startTime = System.currentTimeMillis();
+        var startTime = Instant.now();
         var formerArtifactVersion = page.getArtifactVersion();
         List<MigrationStepReport> reports = new ArrayList<>();
         for (Migration<Page> migration : migrationList) {
@@ -67,10 +69,11 @@ public class PageMigrationApplyer {
         return new MigrationStatusReport(true, false);
     }
 
-    protected void updatePreviousArtifactVersionIfMigrationDone(Page page, String formerArtifactVersion, long startTime) {
+    protected void updatePreviousArtifactVersionIfMigrationDone(Page page, String formerArtifactVersion, Instant startTime) {
         if (!StringUtils.equals(formerArtifactVersion, page.getArtifactVersion())) {
             page.setPreviousArtifactVersion(formerArtifactVersion);
-            logger.info("[MIGRATION] Page {} has been terminated in {} seconds!", page.getName(), (System.currentTimeMillis() - startTime / 1000.0f));
+            var durationTime = Duration.between(startTime,Instant.now()).toMillis() / 1000.0f;
+            log.info("[MIGRATION] Page {} has been terminated in {} seconds!", page.getName(), durationTime);
         }
     }
 

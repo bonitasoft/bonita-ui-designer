@@ -23,6 +23,8 @@ import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class FragmentMigrationApplyer {
     }
 
     public MigrationResult<Fragment> migrate(Fragment fragment, boolean migrateCustomWidgetUsed) {
-        var startTime = System.currentTimeMillis();
+        var startTime = Instant.now();
         var formerArtifactVersion = fragment.getArtifactVersion();
         List<MigrationStepReport> reports = new ArrayList<>();
         for (var migration : migrationList) {
@@ -52,7 +54,8 @@ public class FragmentMigrationApplyer {
 
         if (!StringUtils.equals(formerArtifactVersion, fragment.getArtifactVersion())) {
             fragment.setPreviousArtifactVersion(formerArtifactVersion);
-            logger.info("[MIGRATION] Fragment {} has been terminated in {} seconds!", fragment.getName(), (System.currentTimeMillis() - startTime / 1000.0f));
+            var durationTime = Duration.between(startTime, Instant.now()).toMillis() / 1000.0f ;
+            logger.info("[MIGRATION] Fragment {} has been terminated in {} seconds!", fragment.getName(), durationTime);
         }
 
         return new MigrationResult(fragment, reports);
