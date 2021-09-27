@@ -47,8 +47,6 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class WorkspaceTest {
 
-    private final String workSpaceUidPath = "target/workspace-test/workspace-uid/";
-
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
@@ -63,10 +61,9 @@ public class WorkspaceTest {
         Path fakeProjectFolder = temporaryFolder.toPath();
         uiDesignerProperties = new UiDesignerPropertiesBuilder()
                 .workspacePath(fakeProjectFolder)
-                .workspaceUidPath(Path.of(workSpaceUidPath)).build();
+                .workspaceUidPath(fakeProjectFolder.resolve("workspace-uid")).build();
 
         workspaceProperties = uiDesignerProperties.getWorkspace();
-
 
         ArtifactBuilder artifactBuilder = new ArtifactBuilderFactory(uiDesignerProperties).create();
 
@@ -329,7 +326,7 @@ public class WorkspaceTest {
         assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage")).exists();
         assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage").resolve("js")).doesNotExist();
         await().atMost(2, SECONDS).untilAsserted(() ->
-            assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve(".index.json")).exists()
+                assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve(".index.json")).exists()
         );
         assertThat(contentOf(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve(".index.json")))
                 .isEqualTo("{\"123ca6c5-9a72-4a03-a890-2e6bc2aeed93\":\"myPage\"}");
