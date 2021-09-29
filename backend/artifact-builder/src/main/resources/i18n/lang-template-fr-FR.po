@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2021-09-06 13:16\n"
+"PO-Revision-Date: 2021-09-28 08:53\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -27,6 +27,9 @@ msgstr "(Expérimental)"
 
 msgid "(displayed in editor's property panel)"
 msgstr "(affiché dans le panneau de propriétés de l'éditeur)"
+
+msgid "(legacy)"
+msgstr ""
 
 msgid "(used in your template and controller)"
 msgstr "(utilisé dans le template et le controller)"
@@ -601,6 +604,9 @@ msgstr "Vérifiez que la structure du fichier json correspond bien à un fichier
 
 msgid "Check the log files"
 msgstr "Consultez les fichiers de log"
+
+msgid "Check this only if you want to use in this new ' + createCtrl.type.value + ' a legacy artifact (custom widget, fragment) not yet migrated."
+msgstr ""
 
 msgid "Choices"
 msgstr "Choix"
@@ -1537,6 +1543,9 @@ msgstr "Layouts"
 msgid "Lazy reference filter"
 msgstr "Filtre de référencement de données en mode \"Lazy\""
 
+msgid "Legacy"
+msgstr ""
+
 msgid "Legend hidden"
 msgstr "Légende masquée"
 
@@ -2133,7 +2142,7 @@ msgid "Small devices (width ≥ 768px)"
 msgstr "Tablettes (largeur ≥ 768px)"
 
 msgid "Some option can be disabled because the source value type is not compatible with target property type."
-msgstr ""
+msgstr "Certaines options peuvent être désactivées car le type de valeur source n'est pas compatible avec le type de propriété cible."
 
 msgid "Sort"
 msgstr "Trier"
@@ -2779,6 +2788,9 @@ msgstr "Utilisez les caractères : M (mois), d (jour), y (année)"
 msgid "Use the generated user interface"
 msgstr "Utiliser l'interface utilisateur générée"
 
+msgid "Use the legacy generation (not recommended)"
+msgstr ""
+
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "Utiliser la palette sur la gauche pour glisser-déplacer les containers et les widgets dans le whiteboard."
 
@@ -3039,6 +3051,9 @@ msgstr "Vous devez utiliser le sélecteur css suivant dans votre fichier theme.c
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Vous devriez créer le formulaire de processus à partir du Studio : dans le pool ou la tâche humaine adéquate, créez un contrat et lancez le UI Designer. Le formulaire sera automatiquement généré, basé sur le contrat et éditable pour sa finalisation."
+
+msgid "You should use the UI Designer SDK to create a custom widget. Create a legacy custom widget only if you need to include it in a legacy page or fragment."
+msgstr ""
 
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "Vous devrez gérer la minification et mettre à jour les URL des ressources pour déclencher le cache-busting et prendre en compte les modifications."

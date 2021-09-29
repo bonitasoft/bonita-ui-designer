@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2021-09-06 13:19\n"
+"PO-Revision-Date: 2021-09-29 01:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -27,6 +27,9 @@ msgstr "(Experimental)"
 
 msgid "(displayed in editor's property panel)"
 msgstr "(se muestra en el panel Propiedades del editor)"
+
+msgid "(legacy)"
+msgstr "(legacy)"
 
 msgid "(used in your template and controller)"
 msgstr "(utilizado en su plantilla y controller)"
@@ -603,6 +606,9 @@ msgstr "Compruebe que la estructura del archivo zip coincide con el archivo est�
 
 msgid "Check the log files"
 msgstr "Compruebe los archivos de log"
+
+msgid "Check this only if you want to use in this new ' + createCtrl.type.value + ' a legacy artifact (custom widget, fragment) not yet migrated."
+msgstr ""
 
 msgid "Choices"
 msgstr "opciones"
@@ -1537,6 +1543,9 @@ msgstr "Layouts"
 
 msgid "Lazy reference filter"
 msgstr "Filtro de referencia Lazy"
+
+msgid "Legacy"
+msgstr ""
 
 msgid "Legend hidden"
 msgstr "Leyenda oculta"
@@ -2780,6 +2789,9 @@ msgstr "Utilice los caracteres: M (mes), d (día), y (año)"
 msgid "Use the generated user interface"
 msgstr "Utilice la interfaz de usuario generada"
 
+msgid "Use the legacy generation (not recommended)"
+msgstr ""
+
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "Utiliza la paleta de la izquierda para arrastrar y soltar contenedores y widgets en el whiteboard."
 
@@ -3040,6 +3052,9 @@ msgstr "Necesita utilisar el siguiente selector css en su fichero \"theme.css\":
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desde la Pool apropiada o tarea humana, crear un contrato y ejecutar el UI Designer. Se auto-generará un formulario concreto para poder editar."
+
+msgid "You should use the UI Designer SDK to create a custom widget. Create a legacy custom widget only if you need to include it in a legacy page or fragment."
+msgstr ""
 
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "Se debe administrar el miniaturizado y actualizar la URL del recurso para activar el cache-busting."
