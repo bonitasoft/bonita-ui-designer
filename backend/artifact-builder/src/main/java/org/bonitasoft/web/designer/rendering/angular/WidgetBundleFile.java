@@ -14,20 +14,22 @@
  */
 package org.bonitasoft.web.designer.rendering.angular;
 
+import lombok.extern.slf4j.Slf4j;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 public class WidgetBundleFile {
 
-    private final Path widgetPath;
     private final WidgetRepository widgetRepository;
     private final WidgetIdVisitor widgetIdVisitor;
     private final WorkspaceProperties workspaceProperties;
@@ -35,20 +37,29 @@ public class WidgetBundleFile {
     public WidgetBundleFile(WorkspaceProperties workspaceProperties, WidgetRepository widgetRepository,
                             WidgetIdVisitor widgetIdVisitor) {
         this.workspaceProperties= workspaceProperties;
-        this.widgetPath = workspaceProperties.getWidgets().getDir();
         this.widgetRepository = widgetRepository;
         this.widgetIdVisitor = widgetIdVisitor;
     }
 
-    public List<Path> getWidgetsBundlePathUsedInArtifact(Previewable previewable) {
+    public List<String> getWidgetsBundlePathUsedInArtifact(Previewable previewable) {
         return widgetRepository.getByIds(widgetIdVisitor.visit(previewable)).stream()
                 .filter(widget -> !"pbContainer".equals(widget.getId()))
                 .map(this::getBundlePath)
-                .map(widgetPath::resolve)
+                .filter(this::isBundleFileExist)
                 .collect(Collectors.toList());
     }
 
-    private Path getBundlePath(Widget widget){
-        return this.workspaceProperties.getWidgets().getDir().resolve(widget.getId()).resolve(widget.getJsBundle()).toAbsolutePath();
+    private boolean isBundleFileExist(String bundlePath) {
+        boolean isBundleFileExist = Files.exists(Paths.get(bundlePath));
+        if(!isBundleFileExist) {
+            //TODO This error should be manage to avoid broken page generation
+            log.error("Widget bundle does not exist for {}", bundlePath);
+        }
+        return isBundleFileExist;
+    }
+
+    private String getBundlePath(Widget widget){
+        return this.workspaceProperties.getWidgets().getDir().resolve(widget.getId()).resolve(widget.getJsBundle())
+                .toAbsolutePath().toString().replace("\\", "/");
     }
 }

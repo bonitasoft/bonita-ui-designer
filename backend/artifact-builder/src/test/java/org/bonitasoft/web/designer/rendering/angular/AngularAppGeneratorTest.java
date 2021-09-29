@@ -39,7 +39,7 @@ public class AngularAppGeneratorTest {
         var page = aPage().withId("aSimplePage").build();
         var sortedAsset = Arrays.asList(AssetBuilder.anAsset().withName("myAsset.js").withType(AssetType.JAVASCRIPT).build());
         when(assetHtmlBuilder.getSortedAssets(page)).thenReturn(sortedAsset);
-        when(widgetBundleFile.getWidgetsBundlePathUsedInArtifact(page)).thenReturn(Arrays.asList(Paths.get("aPathToBundleJs/input.js")));
+        when(widgetBundleFile.getWidgetsBundlePathUsedInArtifact(page)).thenReturn(Arrays.asList("aPathToBundleJs/input.js"));
         when( assetHtmlBuilder.getAssetAngularSrcList(page.getId(),AssetType.JAVASCRIPT,sortedAsset)).thenReturn(Arrays.asList("absolutePath/to/assets/js/path"));
 
         var componentTsContent = angularAppGenerator.generateComponentTs(page);

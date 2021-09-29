@@ -12,6 +12,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Set;
@@ -46,22 +49,24 @@ public class WidgetBundleFileTest {
     }
 
     @Test
-    public void should_return_absolute_path_of_widgets_bundle_files() {
+    public void should_return_absolute_path_of_widgets_bundle_files() throws IOException {
         // A fake page used for this test
         var myPage = aPage().build();
-
         var widgetsList= Arrays.asList(
                 aWidget().withId("uidInput").withJsBundle("assets/js/uidInput.es5.min.js").build(),
                 aWidget().withId("uidText").withJsBundle("assets/js/uidText.es5.min.js").build()
         );
+
+        File uidInputFolders = temporaryFolder.newFolder("uidInput", "assets", "js");
+        Files.createFile(Paths.get(uidInputFolders.getPath()).resolve("uidInput.es5.min.js"));
 
         when(widgetIdVisitor.visit(myPage)).thenReturn(Set.of("uidInput","uidText"));
         when(widgetRepository.getByIds(Set.of("uidInput","uidText"))).thenReturn(widgetsList);
 
         var bundlePaths = widgetBundleFile.getWidgetsBundlePathUsedInArtifact(myPage);
 
-        Assert.assertEquals(bundlePaths.size(),2);
-        Assert.assertTrue(bundlePaths.get(0).toString().contains("uidInput.es5.min.js"));
-        Assert.assertTrue(bundlePaths.get(0).isAbsolute());
+        Assert.assertEquals(bundlePaths.size(),1);
+        Assert.assertTrue(bundlePaths.get(0).contains("uidInput.es5.min.js"));
+
     }
 }
