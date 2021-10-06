@@ -43,9 +43,9 @@
       let artifactVersion;
       let allWidgets = repo.getInfo(id).then(response => {
         artifactVersion = response.artifactVersion;
-        return widgetRepo.widgets(artifactVersion).then(response => {
-          loadWidgets(response);
-          return response;
+        return widgetRepo.widgets(artifactVersion).then(resp => {
+          loadWidgets(resp);
+          return resp;
         });
       });
 
@@ -67,7 +67,7 @@
         .then((response) => {
           return migration.handleMigrationStatus(id, response.data).then(() => {
             if (response.data.migration) {
-              repo.migrate(id).then(response => migration.handleMigrationNotif(id, response.data));
+              repo.migrate(id).then(resp => migration.handleMigrationNotif(id, resp.data));
             }
           });
         })
@@ -93,7 +93,7 @@
       widgets.forEach((widget) => {
         if (widget.modelVersion && widgetRepo.isV3Version(widget.modelVersion)) {
           // e.g. jsBundle = "assets/js/my-input.es5.min.js"
-          if (widget.jsBundle.startsWith('assets/js')) {
+          if (widget.jsBundle && widget.jsBundle.startsWith('assets/js')) {
             let assetName = widget.jsBundle.split('/')[2];
             $http.get(`rest/widgets/${widget.id}/assets/js/${assetName}?format=text`)
               .then((assetContent) => {
@@ -173,6 +173,10 @@
 
     function paletteContainerWrapper(component) {
       let fns = {
+        uidContainer: {
+          init: whiteboardComponentWrapper.wrapUidContainer,
+          create: createContainer
+        },
         pbContainer: {
           init: whiteboardComponentWrapper.wrapContainer,
           create: createContainer

@@ -36,7 +36,10 @@ public class ModalContainer extends Component {
     // This migration step will be migrate all element before 1.4.21 to add id for each type container.
     @Override
     public String getId() {
-        return "pbModalContainer";
+        if (this.id == null) {
+            return "pbModalContainer";
+        }
+        return this.id;
     }
 
     @JsonView({JsonViewPersistence.class})

@@ -29,7 +29,10 @@ public class TabContainer extends Component {
 
     @Override
     public String getId() {
-        return "pbTabContainer";
+        if (this.id == null) {
+            return "pbTabContainer";
+        }
+        return this.id;
     }
 
     @JsonView({JsonViewPersistence.class})

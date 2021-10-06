@@ -32,8 +32,18 @@ public class ContainerBuilder extends ElementBuilder<Container> {
         container.setReference("container-reference");
     }
 
+    private ContainerBuilder(boolean isUidContainer) {
+        container = new Container();
+        container.setId(isUidContainer ? "uidContainer" : "pbContainer");
+        container.setReference("container-reference");
+    }
+
     public static ContainerBuilder aContainer() {
         return new ContainerBuilder();
+    }
+
+    public static ContainerBuilder aUidContainer() {
+      return new ContainerBuilder(true);
     }
 
     public ContainerBuilder with(Element... elements) {

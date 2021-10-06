@@ -43,7 +43,7 @@ public class WidgetBundleFile {
 
     public List<String> getWidgetsBundlePathUsedInArtifact(Previewable previewable) {
         return widgetRepository.getByIds(widgetIdVisitor.visit(previewable)).stream()
-                .filter(widget -> !"pbContainer".equals(widget.getId()))
+                .filter(widget ->!"uidContainer".equals(widget.getId()))
                 .map(this::getBundlePath)
                 .filter(this::isBundleFileExist)
                 .collect(Collectors.toList());

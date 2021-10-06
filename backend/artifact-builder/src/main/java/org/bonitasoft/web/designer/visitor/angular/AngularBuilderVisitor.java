@@ -59,7 +59,7 @@ public class AngularBuilderVisitor implements ElementVisitor<String>, AbstractBu
 
     @Override
     public String visit(Container container) {
-        return new TemplateEngine("container.hbs.html")
+        return new TemplateEngine("angular/container.hbs.html")
                 .with("rowsHtml", build(container.getRows()))
                 .build(container);
     }

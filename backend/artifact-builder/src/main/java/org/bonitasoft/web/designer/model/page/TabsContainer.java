@@ -37,7 +37,10 @@ public class TabsContainer extends Component {
     // This migration step will be migrate all element before 1.4.21 to add id for each type tabsContainer.
     @Override
     public String getId() {
-        return "pbTabsContainer";
+        if (this.id == null) {
+            return "pbTabsContainer";
+        }
+        return this.id;
     }
 
     @Deprecated

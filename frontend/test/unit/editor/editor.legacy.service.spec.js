@@ -1,12 +1,18 @@
 (function() {
   'use strict';
 
-  describe('editor service', function() {
+  describe('legacy editor service', function() {
     var $rootScope, $q, widgetRepo, pageRepo, editorService, alerts, components, whiteboardComponentWrapper,
-      whiteboardService, dataManagementRepoMock, migration, fragmentRepo;
+      whiteboardService, modalContainerStructureMockJSON, dataManagementRepoMock, migration, fragmentRepo;
 
     var labelWidget = {
       id: 'label',
+      custom: false,
+      type: 'widget'
+    };
+
+    var inputwidget = {
+      id: 'pbInput',
       custom: false,
       type: 'widget'
     };
@@ -25,11 +31,38 @@
 
     let containers = [
       {
-        id: 'uidContainer',
+        id: 'pbContainer',
         name: 'Container',
+        type: 'container'
+      },
+      {
+        id: 'pbTabsContainer',
+        name: 'Tabs container',
+        type: 'container'
+      },
+      {
+        id: 'pbFormContainer',
+        name: 'Form container',
+        type: 'container'
+      },
+      {
+        id: 'pbModalContainer',
+        name: 'Modal container',
         type: 'container'
       }
     ];
+
+    let dataManagementWidgets =  [{
+      id: 'Declarant',
+      name: 'Declarant',
+      custom: false,
+      type: 'model'
+    },{
+      id: 'Declaration',
+      name: 'Declaration',
+      custom: false,
+      type: 'model'
+    }];
 
     var json = {
       'data': {
@@ -38,7 +71,7 @@
         'rows': [
           [
             {
-              'id':'uidContainer',
+              'id':'pbContainer',
               'type': 'container',
               'dimension': {'xs': 12},
               'rows': [
@@ -58,16 +91,116 @@
                     'propertyValues': {'text': 'label 2', 'alignment': 'left'}
                   }
                 ],
+                [
+                  {
+                    'id':'pbTabsContainer',
+                    'type': 'tabsContainer',
+                    'dimension': {'xs': 12},
+                    'tabList': [
+                      {
+                        'title': 'Tab 1',
+                        'container': {
+                          'type': 'container',
+                          'rows': [
+                            []
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
               ]
-            }],
+            }
+          ], [
+            {
+              'id':'pbFormContainer',
+              'type': 'formContainer',
+              'dimension': {
+                'xs': 12
+              },
+              'propertyValues': {
+                'cssClasses': {
+                  'type': 'constant',
+                  'value': ''
+                },
+                'isDisplayed': {
+                  'type': 'constant',
+                  'value': true
+                },
+                'url': {
+                  'type': 'constant',
+                  'value': ''
+                },
+                'method': {
+                  'type': 'constant',
+                  'value': ''
+                },
+                'action': {
+                  'type': 'constant',
+                  'value': null
+                }
+              },
+              'container': {
+                'type': 'container',
+                'dimension': {
+                  'xs': 12
+                },
+                'propertyValues': {
+                  'cssClasses': {
+                    'type': 'constant',
+                    'value': ''
+                  },
+                  'isDisplayed': {
+                    'type': 'constant',
+                    'value': true
+                  }
+                },
+                'rows': []
+              },
+              'name': '',
+              'method': '',
+              'action': null
+            }
+          ]
         ]
       }
     };
 
+    let fragmentDef = {
+      id: 'f1',
+      type: 'fragment',
+      name: 'foo',
+      rows: [
+        [
+          {
+            type: 'component',
+            id: 'label'
+          }
+        ]
+      ]
+    };
 
-    beforeEach(angular.mock.module('bonitasoft.designer.editor'));
+    let jsonFragment = {
+      'data': {
+        'rows': [
+          [
+            {
+              'type': 'component',
+              'dimension': { 'xs': 12, 'sm': null, 'md': null, 'lg': null },
+              'id': 'label',
+              'propertyValues': { 'initialValue': null, 'placeholder': null, 'required': false, 'maxlength': null, 'label': 'First name', 'labelPosition': 'left', 'labelWidth': 4 }
+            }
+          ]
+        ],
+        'id': 'f1',
+        'name': 'name'
+      }
+    };
+
+    beforeEach(angular.mock.module('bonitasoft.designer.editor', 'modalContainerStructureMock' ));
 
     beforeEach(inject(function($injector) {
+      modalContainerStructureMockJSON = $injector.get('modalContainerStructureMockJSON');
       $rootScope = $injector.get('$rootScope');
       $q = $injector.get('$q');
 
@@ -82,19 +215,27 @@
       alerts = $injector.get('alerts');
       whiteboardService = $injector.get('whiteboardService');
       migration = $injector.get('migration');
-      spyOn(fragmentRepo, 'load').and.returnValue($q.when({}));
-      spyOn(fragmentRepo, 'all').and.returnValue($q.when({ data: [{}] }));
-      spyOn(fragmentRepo, 'allNotUsingElement').and.returnValue($q.when([{}]));
-      spyOn(fragmentRepo, 'getInfo').and.returnValue($q.when({data: {artifactVersion: '3.0'}}));
+      spyOn(fragmentRepo, 'load').and.returnValue($q.when(jsonFragment));
+      spyOn(fragmentRepo, 'all').and.returnValue($q.when({ data: [fragmentDef] }));
+      spyOn(fragmentRepo, 'allNotUsingElement').and.returnValue($q.when([fragmentDef]));
+      spyOn(fragmentRepo, 'getInfo').and.returnValue($q.when({data: {artifactVersion: '2.0'}}));
 
-      spyOn(widgetRepo, 'widgets').and.returnValue($q.when(containers.concat([labelWidget, uidLabelWidget, uidInputwidget])));
+      spyOn(widgetRepo, 'widgets').and.returnValue($q.when(containers.concat([labelWidget, inputwidget, uidLabelWidget, uidInputwidget])));
 
-      spyOn(dataManagementRepoMock, 'getDataObjects').and.returnValue($q.when({error: false, objects: []}));
+      spyOn(dataManagementRepoMock, 'getDataObjects').and.returnValue($q.when({error: false, objects: dataManagementWidgets}));
       spyOn(alerts, 'addError');
       spyOn(fragmentRepo, 'migrate').and.returnValue($q.when({}));
       spyOn(pageRepo, 'migrate').and.returnValue($q.when({}));
-      spyOn(pageRepo, 'getInfo').and.returnValue($q.when({data: {artifactVersion: '3.0'}}));
+      spyOn(pageRepo, 'getInfo').and.returnValue($q.when({data: {artifactVersion: '2.0'}}));
       spyOn(pageRepo, 'migrationStatus').and.returnValue($q.when({data: {migration: false, compatible: true}}));
+    }));
+
+    beforeEach(inject(function (pageElementFactory, components) {
+      spyOn(components, 'getById').and.returnValue({
+        component: {
+          id: 'pbTabContainer'
+        }
+      });
     }));
 
     it('should initialize a page', function() {
@@ -112,7 +253,7 @@
       expect(pageRepo.getInfo).toHaveBeenCalled();
       expect(pageRepo.migrate).not.toHaveBeenCalled();
 
-      expect(page.rows[0][0].$$id).toBe('uidContainer-0');
+      expect(page.rows[0][0].$$id).toBe('pbContainer-0');
       expect(page.rows[0][0].$$widget.name).toBe('Container');
       expect(page.rows[0][0].rows[0][0].$$id).toBe('component-0');
       expect(page.rows[0][0].rows[0][0].$$widget).toEqual(labelWidget);
@@ -120,6 +261,17 @@
       expect(page.rows[0][0].rows[0][0].$$parentContainerRow.row).toBe(page.rows[0][0].rows[0]);
       expect(page.rows[0][0].rows[1][0].$$parentContainerRow.container).toBe(page.rows[0][0]);
       expect(page.rows[0][0].rows[1][0].$$parentContainerRow.row).toBe(page.rows[0][0].rows[1]);
+
+      var tabsContainer = page.rows[0][0].rows[2][0];
+      expect(tabsContainer.$$parentContainerRow.container).toBe(page.rows[0][0]);
+      expect(tabsContainer.$$parentContainerRow.row).toBe(page.rows[0][0].rows[2]);
+      expect(tabsContainer.$$id).toBe('pbTabsContainer-0');
+      expect(tabsContainer.$$widget.name).toBe('Tabs container');
+
+      var formContainer = page.rows[1][0];
+      expect(formContainer.$$id).toBe('pbFormContainer-0');
+      expect(formContainer.$$widget.name).toBe('Form container');
+      expect(formContainer.$$parentContainerRow.container).toBe(page);
     });
 
     it('should init components', function() {
@@ -196,6 +348,24 @@
       expect(page.assets).toContain({id: 'anAsset', componentId: 'aWidgget'});
     });
 
+    it('should initialize a page with a modal container', function () {
+      var page = {};
+      spyOn(pageRepo, 'load').and.returnValue($q.when(modalContainerStructureMockJSON));
+      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
+      spyOn(migration, 'handleMigrationNotif');
+      editorService.initialize(pageRepo, 'person')
+        .then(function (data) {
+          page = data;
+        });
+      $rootScope.$apply();
+      expect(page.rows[0][0].$$id).toBe('pbModalContainer-0');
+      expect(page.rows[0][0].id).toBe('pbModalContainer');
+      expect(page.rows[0][0].$$widget.name).toBe('Modal container');
+      expect(page.rows[0][0].container.rows[0][0].$$id).toBe('component-0');
+      expect(page.rows[0][0].container.rows[0][0].id).toBe('pbInput');
+      expect(page.rows[0][0].container.rows[0][0].$$widget).toEqual(inputwidget);
+    });
+
     it('should migrate a page before initializing', function() {
       spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
       spyOn(migration, 'handleMigrationNotif');
@@ -221,6 +391,19 @@
 
       expect(pageRepo.migrate).not.toHaveBeenCalled();
       expect(migration.handleMigrationNotif).not.toHaveBeenCalled();
+    });
+
+    it('should initialize a fragment', function() {
+      spyOn(fragmentRepo, 'migrationStatus').and.returnValue($q.when({data: {migration: false, compatible: true}}));
+      var fragment = {};
+      editorService.initialize(fragmentRepo, 'name')
+        .then(function(data) {
+          fragment = data;
+        });
+      $rootScope.$apply();
+      expect(fragmentRepo.getInfo).toHaveBeenCalled();
+
+      expect(fragment.rows[0][0].$$id).toBe('component-0');
     });
   });
 })();

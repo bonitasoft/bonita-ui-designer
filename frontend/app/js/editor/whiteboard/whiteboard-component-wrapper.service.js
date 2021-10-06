@@ -26,6 +26,7 @@
       wrapPage,
       wrapWidget,
       wrapContainer,
+      wrapUidContainer,
       wrapTabsContainer,
       wrapTabContainer,
       wrapModalContainer,
@@ -84,6 +85,20 @@
         $$widget: angular.copy(container),
         $$templateUrl: 'js/editor/whiteboard/container-template.html',
         $$propertiesTemplateUrl: 'js/editor/properties-panel/container-properties-template.html',
+        $$parentContainerRow: parentRow,
+        triggerRemoved: whiteboardService.onRemoveContainer.bind(null, element),
+        triggerAdded: angular.noop
+      });
+      component.rows.forEach(wrapRow.bind(null, element));
+      return component;
+    }
+
+    function wrapUidContainer(container, element, parentRow) {
+      var component = angular.extend(element, {
+        $$id: componentId.getNextId(container.id),
+        $$widget: angular.copy(container),
+        $$templateUrl: 'js/editor/whiteboard/container-template.html',
+        $$propertiesTemplateUrl: 'js/editor/properties-panel/uid-container-properties-template.html',
         $$parentContainerRow: parentRow,
         triggerRemoved: whiteboardService.onRemoveContainer.bind(null, element),
         triggerAdded: angular.noop

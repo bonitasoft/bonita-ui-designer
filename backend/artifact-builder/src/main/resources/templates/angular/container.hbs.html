@@ -1,11 +1,18 @@
-<div class="{{ dimensionAsCssClasses }}"
-     [ngClass]="properties.cssClasses"
-     *ngIf="!properties.hidden"
-     {{#repeated}}
-        *ngFor="let $item of ($collection = properties.repeatedCollection) track by $index"
-     {{/repeated}}>
-
-{{{rowsHtml}}}
-
-</div>
+<ng-container *properties-values="'{{ reference }}'; let properties;">
+    <ng-container *ngIf="!properties.hidden">
+    {{#repeated}}
+        <ng-container *ngIf="properties.repeatedCollection as $collection">
+    {{/repeated}}
+            <div class="{{ dimensionAsCssClasses }}"
+                 [ngClass]="properties.cssClasses"
+                 {{#repeated}}
+                *ngFor="let $item of $collection;index as $index; count as $count;"
+                 {{/repeated}}>
+                {{{rowsHtml}}}
+            </div>
+    {{#repeated}}
+        </ng-container>
+    {{/repeated}}
+    </ng-container>
+</ng-container>
 

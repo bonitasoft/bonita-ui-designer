@@ -35,7 +35,10 @@ public class FormContainer extends Component {
     // This migration step will be migrate all element before 1.4.21 to add id for each type FormContainer.
     @Override
     public String getId() {
-        return "pbFormContainer";
+        if (this.id == null) {
+            return "pbFormContainer";
+        }
+        return this.id;
     }
 
     @JsonView({JsonViewPersistence.class})
