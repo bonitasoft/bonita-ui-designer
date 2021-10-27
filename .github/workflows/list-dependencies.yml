@@ -33,6 +33,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
+          github_server: 'github.com'
           source_file: 'backend/webapp/target/bonita-ui-designer-dependencies.adoc'
           destination_repo: 'bonitasoft/bonita-doc'
           destination_branch: ${{ github.event.inputs.bonitaMinorVersion }}
