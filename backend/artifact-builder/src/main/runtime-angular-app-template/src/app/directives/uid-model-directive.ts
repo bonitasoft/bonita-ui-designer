@@ -29,12 +29,12 @@ export class uidModel implements OnInit {
         this.modelCtrl.fillVariableAccessors(new Map(Object.entries(uidVariables)));
 
         this.variablesAccessors = {
-            $implicit: this.modelCtrl.getVariableAccessors(),
+            $implicit: this.modelCtrl.variableAccessors,
         };
         this.viewContainerRef.createEmbeddedView(this.templateRef, this.variablesAccessors);
     }
 
     getVariableAccessors() {
-        return this.modelCtrl.getVariableAccessors();
+        return this.modelCtrl.variableAccessors;
     }
 }
