@@ -51,10 +51,11 @@ function stdWidgetsUid() {
   //  uid-input                         // uidInput
   //    assets                          //   assets
   //      uidInput.json                 //     js
-  //      uidInput.tpl.html             //       uid-input.es5.min.js
+  //      uidInput.tpl.html             //       uid-input.bundle.min.js
   //      uidInput.tpl.runtime.html     //       uidInput.tpl.runtime.html
-  //    lib                             //   uidInput.json
-  //      uid-input.es5.min.js          //   uidInput.tpl.html
+  //    dist                            //   uidInput.json
+  //       uid-input.es5.min.js         //   uidInput.tpl.html
+
   gulp.src(paths.assets.stdWidgetsUidJson)
     .pipe(rename(function (file) {
       // this removes the last parent directory of the relative file path
@@ -71,8 +72,7 @@ function stdWidgetsUid() {
       file.dirname = toCamelCase(file.dirname +'/js');
     }))
     .pipe(gulp.dest(paths.assets.resourceWidgets));
-
-  return gulp.src(paths.assets.stdWidgetsUidLib)
+  return gulp.src(paths.assets.stdWidgetsUidBundle)
     .pipe(rename(function (file) {
       file.dirname = toCamelCase(path.dirname(file.dirname) +'/assets/js');
     }))

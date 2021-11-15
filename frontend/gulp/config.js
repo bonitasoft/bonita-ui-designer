@@ -95,8 +95,8 @@ const paths = {
     stdWidgetsUidRuntimeTmpl: [
       'node_modules/@bonitasoft/uid*/assets/*.tpl.runtime.html'
     ],
-    stdWidgetsUidLib: [
-      'node_modules/@bonitasoft/uid*/lib/**/*.*'
+    stdWidgetsUidBundle: [
+      'node_modules/@bonitasoft/uid*/dist/*.bundle.min.js'
     ],
     resourceWidgets: [
       '../backend/artifact-builder/src/main/resources/widgets'

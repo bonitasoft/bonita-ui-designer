@@ -270,23 +270,19 @@
     lit-element "^2.3.1"
     lit-translate "^1.2.1"
 
-"@bonitasoft/uid-input@^0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-input/-/uid-input-0.1.7.tgz#2b687816f1e0ab522c37ed282ca62affd8dd21ad"
-  integrity sha512-oS5m8m7tUD9eOj8csGRN3NxcK01VMBztkyV6EHae6LvCZf3H4E5joSf842v6FILFX3AIp9blr79sOdaVUtfvFA==
+"@bonitasoft/uid-input@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-input/-/uid-input-1.0.1.tgz#47f4166c7d858830a58b39c441670afdeb149475"
+  integrity sha512-/pW9teGnGjhZTs1Iq8oqgE22FaLDub4tpV3YNEnjYr9QxRplCyb1BtyEo4PIi34iB2ndK61pGsp4p3dThEeE6A==
   dependencies:
-    bootstrap "^4.5.3"
-    lit "*"
-    lit-translate "^1.2.1"
+    lit "^2.0.0"
 
-"@bonitasoft/uid-text@^0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-text/-/uid-text-0.1.7.tgz#2959d90c4189a7fae2a21104554a7ad5ac6d79bc"
-  integrity sha512-tyCYAy9qiaUGQyZAbCggpy7t5y3AZWEMKHu3CqxosCQM7J9HSSUtJoqRl+umgNLeKOrz773ICRBNCpuSxs2VrQ==
+"@bonitasoft/uid-text@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-text/-/uid-text-1.0.1.tgz#e0392a8ccd37c0f5971ec921fb1d1716370d36b1"
+  integrity sha512-eglibQQeheZ4n8MvPSOx93XSolCpPAs/NLpv11C9LbZjHE+dLnP6DkDhXfDlshnCwleCbpjI+zzDMeR0s4KE7A==
   dependencies:
-    bootstrap "^4.5.3"
-    lit "*"
-    lit-translate "^1.2.1"
+    lit "^2.0.0"
 
 "@gulp-sourcemaps/identity-map@^2.0.1":
   version "2.0.1"
@@ -1632,7 +1628,7 @@ boom@0.4.x:
   dependencies:
     hoek "0.9.x"
 
-bootstrap@^4.4.1, bootstrap@^4.5.3:
+bootstrap@^4.4.1:
   version "4.5.3"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.3.tgz#c6a72b355aaf323920be800246a6e4ef30997fe6"
   integrity sha512-o9ppKQioXGqhw8Z7mah6KdTYpNQY//tipnkxppWhPbiSWdD+1raYsnhwEZjkTHYbGee4cVQ0Rx65EhOY/HNLcQ==
@@ -5658,10 +5654,10 @@ lit-translate@^1.2.1:
   dependencies:
     lit-html "^1.2.1"
 
-lit@*:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/lit/-/lit-2.0.0.tgz#7710095dc518d9858dde579e9c76b9eed71e98ba"
-  integrity sha512-pqi5O/wVzQ9Bn4ERRoYQlt1EAUWyY5Wv888vzpoArbtChc+zfUv1XohRqSdtQZYCogl0eHKd+MQwymg2XJfECg==
+lit@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/lit/-/lit-2.0.2.tgz#5e6f422924e0732258629fb379556b6d23f7179c"
+  integrity sha512-hKA/1YaSB+P+DvKWuR2q1Xzy/iayhNrJ3aveD0OQ9CKn6wUjsdnF/7LavDOJsKP/K5jzW/kXsuduPgRvTFrFJw==
   dependencies:
     "@lit/reactive-element" "^1.0.0"
     lit-element "^3.0.0"
