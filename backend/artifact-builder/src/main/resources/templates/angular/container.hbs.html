@@ -1,18 +1,18 @@
 <ng-container *properties-values="'{{ reference }}'; let properties;">
     <ng-container *ngIf="!properties.hidden">
-    {{#repeated}}
+        {{#repeated}}
         <ng-container *ngIf="properties.repeatedCollection as $collection">
-    {{/repeated}}
+        {{/repeated}}
             <div class="{{ dimensionAsCssClasses }}"
                  [ngClass]="properties.cssClasses"
                  {{#repeated}}
-                *ngFor="let $item of $collection;index as $index; count as $count;"
+                 *ngFor="let $item of $collection;index as $index; count as $count;"
                  {{/repeated}}>
                 {{{rowsHtml}}}
             </div>
-    {{#repeated}}
+        {{#repeated}}
         </ng-container>
-    {{/repeated}}
+        {{/repeated}}
     </ng-container>
 </ng-container>
 

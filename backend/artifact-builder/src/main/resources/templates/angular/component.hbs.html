@@ -1,4 +1,4 @@
-<ng-container *properties-values="'{{ reference }}'; let properties;">
+<ng-container *properties-values="'{{ reference }}'; let properties; collection:$collection; index:$index; count:$count">
     <div
      *ngIf="!properties.hidden"
      class="component {{ dimensionAsCssClasses }}"
