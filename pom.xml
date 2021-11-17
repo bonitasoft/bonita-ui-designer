@@ -238,6 +238,54 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>${maven-clean-plugin.version}</version>
+                    <configuration>
+                        <filesets>
+                            <fileset>
+                                <directory>node</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>node_modules</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>backend/artifact-builder/node_modules</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>backend/webapp/logs</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>frontend/node_modules</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>frontend/test/e2e/build</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>tests/build</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>tests/logs</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>tests/node</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>infrastructure/crowdin/build</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>frontend/test/e2e/build</directory>
+                                <followSymlinks>false</followSymlinks>
+                            </fileset>
+                        </filesets>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
