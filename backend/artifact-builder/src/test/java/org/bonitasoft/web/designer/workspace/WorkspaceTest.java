@@ -68,6 +68,7 @@ public class WorkspaceTest {
         ArtifactBuilder artifactBuilder = new ArtifactBuilderFactory(uiDesignerProperties).create();
 
         workspace = spy(artifactBuilder.getWorkspace());
+
         workspace.initialized.set(false);
 
     }
@@ -333,6 +334,15 @@ public class WorkspaceTest {
 
         assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve("oldestPage.json")).doesNotExist();
         assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve("myPage.json")).exists();
+    }
+
+    @Test
+    public void should_not_run_dev_server_if_experimental_mode_is_not_activate() {
+        uiDesignerProperties.setExperimental(false);
+        workspace.initialize();
+
+        // no exception expected and we have 3 folders
+        assertThat(temporaryFolder.toPath().resolve("workspace-uid").resolve("pages").resolve("generatedPage")).doesNotExist();
     }
 
 }

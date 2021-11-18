@@ -16,21 +16,12 @@ package org.bonitasoft.web.designer.controller.export.steps.angular;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.controller.export.Zipper;
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
-import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.rendering.HtmlGenerator;
-import org.bonitasoft.web.designer.rendering.TemplateEngine;
-import org.bonitasoft.web.designer.rendering.AssetHtmlBuilder;
 import org.bonitasoft.web.designer.rendering.angular.AngularAppGenerator;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
-import static java.lang.String.format;
-import static java.nio.file.Paths.get;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect html parts of a page

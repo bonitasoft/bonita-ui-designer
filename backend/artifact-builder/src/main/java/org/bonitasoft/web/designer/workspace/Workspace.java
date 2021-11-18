@@ -115,7 +115,9 @@ public class Workspace {
         ensureFragmentRepositoryPresent();
         cleanFragmentWorkspace();
         extractResourcesForExport();
-        initializeAngularApplication();
+        if(uiDesignerProperties.isExperimental()){
+            initializeAngularApplication();
+        }
     }
 
     public void initialize() {

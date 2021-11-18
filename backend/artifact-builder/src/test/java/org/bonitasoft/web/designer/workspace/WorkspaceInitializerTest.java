@@ -62,12 +62,14 @@ public class WorkspaceInitializerTest {
     @Mock
     AngularAppGenerator<Page> angularAppGenerator;
 
+    UiDesignerProperties uiDesignerProperties;
+
     private Workspace workspace;
 
     @Before
     public void setUp() throws IOException {
 
-        UiDesignerProperties uiDesignerProperties = new UiDesignerPropertiesBuilder()
+        uiDesignerProperties = new UiDesignerPropertiesBuilder()
                 .workspacePath(workspacePath.toPath())
                 .workspaceUidPath(workspaceUIDPath.toPath()).build();
 
@@ -102,6 +104,7 @@ public class WorkspaceInitializerTest {
 
     @Test
     public void should_initialize_workspace() throws Exception {
+        uiDesignerProperties.setExperimental(true);
         // When
         workspace.initialize();
         // Then
