@@ -29,6 +29,7 @@
     "@bonitasoft/query-selector": "^1.0.8",
     "@bonitasoft/uid-input": "^1.0.1",
     "@bonitasoft/uid-text": "^1.0.1",
+    "@bonitasoft/uid-title": "^1.0.0",
     "bootstrap": "twbs/bootstrap#3.3.6",
     "font-awesome": "FortAwesome/Font-Awesome#4.7.0",
     "identicon.js": "bonitasoft/identicon.js#1.0.0",

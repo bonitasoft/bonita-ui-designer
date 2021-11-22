@@ -284,6 +284,13 @@
   dependencies:
     lit "^2.0.0"
 
+"@bonitasoft/uid-title@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-title/-/uid-title-1.0.0.tgz#73b2005e4eba658a7fedc94cbf5d3f41c6412089"
+  integrity sha512-aKNIt5MUnSJC9LG93uHUFtIghfW2FeapYZv8nS4JSqAktf6jIbRieR821c4M0gbaMyRbx5hnEFj9RzfIFEGW3g==
+  dependencies:
+    lit "^2.0.0"
+
 "@gulp-sourcemaps/identity-map@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@gulp-sourcemaps/identity-map/-/identity-map-2.0.1.tgz#a6e8b1abec8f790ec6be2b8c500e6e68037c0019"
