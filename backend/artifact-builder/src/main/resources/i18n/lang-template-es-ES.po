@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2021-09-29 01:29\n"
+"PO-Revision-Date: 2021-11-30 03:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -191,6 +191,9 @@ msgstr "<span>Crear una nueva variable</span>"
 
 msgid "<strong>$collection</strong>: the current collection"
 msgstr "<strong>$collection</strong>: la colección actual"
+
+msgid "<strong>$count</strong>: the total of elements"
+msgstr ""
 
 msgid "<strong>$index</strong>: the index of the current iteration of the collection (counting from zero)"
 msgstr "<strong>$index</strong>: el índice de la iteración actual de la colección (contando desde cero)"
@@ -1717,6 +1720,9 @@ msgstr "Enlace a otra página o formulario"
 
 msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 msgstr "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
+
+msgid "New container v2"
+msgstr ""
 
 msgid "New embedded AngularJS filter to resolve the lazy references of a business object"
 msgstr "Nuevo filtro AngularJS incluido para resolver las referencias lazy de un objeto de negocio"

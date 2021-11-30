@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-09-28 08:55\n"
+"PO-Revision-Date: 2021-11-30 03:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -191,6 +191,9 @@ msgstr "<span>新しい変数を作成</span>"
 
 msgid "<strong>$collection</strong>: the current collection"
 msgstr "<strong>$collection</strong>: 現在のコレクション"
+
+msgid "<strong>$count</strong>: the total of elements"
+msgstr ""
 
 msgid "<strong>$index</strong>: the index of the current iteration of the collection (counting from zero)"
 msgstr "<strong>$index</strong>: コレクションの現在の反復処理のインデックス（0 から数える） "
@@ -1729,6 +1732,9 @@ msgstr "別のページやフォームへのナビゲーション リンク"
 
 msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 msgstr "<b>遊ぼう</b>っていうと<b>遊ぼう</b>っていう。<br/><b>ばか</b>っていうと<b>ばか</b>っていう。..."
+
+msgid "New container v2"
+msgstr ""
 
 msgid "New embedded AngularJS filter to resolve the lazy references of a business object"
 msgstr ""
