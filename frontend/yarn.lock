@@ -270,24 +270,31 @@
     lit-element "^2.3.1"
     lit-translate "^1.2.1"
 
-"@bonitasoft/uid-input@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-input/-/uid-input-1.0.1.tgz#47f4166c7d858830a58b39c441670afdeb149475"
-  integrity sha512-/pW9teGnGjhZTs1Iq8oqgE22FaLDub4tpV3YNEnjYr9QxRplCyb1BtyEo4PIi34iB2ndK61pGsp4p3dThEeE6A==
+"@bonitasoft/uid-input@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@bonitasoft/uid-input/-/uid-input-1.0.3.tgz#9c3c83dba54da06d91035a9c19046cef41c26966"
+  integrity sha512-0bqTZCOGaTllzJ32vK5KoLZhUF7CpOLxyuJYu8SUnt1kX0VCc4/2c1zoUfOt8Ai7R9vK0ZvCivwhiZr1ePexDA==
   dependencies:
     lit "^2.0.0"
 
-"@bonitasoft/uid-text@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-text/-/uid-text-1.0.1.tgz#e0392a8ccd37c0f5971ec921fb1d1716370d36b1"
-  integrity sha512-eglibQQeheZ4n8MvPSOx93XSolCpPAs/NLpv11C9LbZjHE+dLnP6DkDhXfDlshnCwleCbpjI+zzDMeR0s4KE7A==
+"@bonitasoft/uid-text@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/@bonitasoft/uid-text/-/uid-text-1.0.4.tgz#a9cfca1d98f4d7747fa50c07df520348d774676c"
+  integrity sha512-T//hZ+O75fMvUAYd/2zM4r71PsDvMIcLysYKP/wsbz2TrQKbAr1zeiFCrsD0GjOifxfqh+gCyphr9UwQSBdqMw==
   dependencies:
     lit "^2.0.0"
 
-"@bonitasoft/uid-title@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-title/-/uid-title-1.0.0.tgz#73b2005e4eba658a7fedc94cbf5d3f41c6412089"
-  integrity sha512-aKNIt5MUnSJC9LG93uHUFtIghfW2FeapYZv8nS4JSqAktf6jIbRieR821c4M0gbaMyRbx5hnEFj9RzfIFEGW3g==
+"@bonitasoft/uid-textarea@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@bonitasoft/uid-textarea/-/uid-textarea-1.0.1.tgz#16eee339bbe91fae62193aac56693b0f548f5d28"
+  integrity sha512-EZGaK4ivMwoSgzbKRNb9TTkTIh/ZEVWl8wXS6LFlSfiyOKNROZIM/uLEiLVH6gL/LMP4U7UtFTAEihnDEFVDuw==
+  dependencies:
+    lit "^2.0.0"
+
+"@bonitasoft/uid-title@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@bonitasoft/uid-title/-/uid-title-1.0.3.tgz#d48ead5eb586ef43cbef43ab6096f71dab611852"
+  integrity sha512-j8DucBAEweuh2oKDacMLN64EGFs8WKZTpkbSqHTykDxX2EozqMaH4E1lAfE8fe30qgn53YYzDLwKzLZUrPTp3Q==
   dependencies:
     lit "^2.0.0"
 
