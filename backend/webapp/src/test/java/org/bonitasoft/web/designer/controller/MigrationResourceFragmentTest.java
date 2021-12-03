@@ -68,7 +68,8 @@ public class MigrationResourceFragmentTest {
     @Before
     public void setUp() {
         mockMvc = mockServer(migrationResource).build();
-        when(uiDesignerProperties.getModelVersion()).thenReturn("2.0");
+        when(uiDesignerProperties.getModelVersionLegacy()).thenReturn("2.0");
+        when(uiDesignerProperties.isExperimental()).thenReturn(false);
     }
 
     @Test

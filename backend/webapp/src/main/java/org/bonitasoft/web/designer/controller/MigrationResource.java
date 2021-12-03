@@ -161,9 +161,9 @@ public class MigrationResource {
         if (artifactVersionNode == null) {
             artifactVersionNode = artifactNode.get("designerVersion");
         }
-        var currentVersion = new Version(this.uiDesignerProperties.getModelVersion());
         var artifactVersion = (artifactVersionNode != null) ? new Version(artifactVersionNode.asText()) : null;
-        var migrationStatusReport = compareVersions(artifactVersion, currentVersion);
+        var currentVersion = Version.getCurrentModelVersion(artifactVersion != null ? artifactVersion.toString() :"", this.uiDesignerProperties);
+        var migrationStatusReport = compareVersions(artifactVersion, new Version(currentVersion));
         return ResponseEntity.ok(migrationStatusReport);
     }
 

@@ -79,7 +79,9 @@ public class MigrationResourceTest {
 
     @Before
     public void setUp() throws URISyntaxException {
-        when(uiDesignerProperties.getModelVersion()).thenReturn("2.0");
+        when(uiDesignerProperties.getModelVersion()).thenReturn("3.0");
+        when(uiDesignerProperties.getModelVersionLegacy()).thenReturn("2.0");
+        when(uiDesignerProperties.isExperimental()).thenReturn(false);
         mockMvc = mockServer(MigrationResource).build();
     }
 
@@ -217,6 +219,46 @@ public class MigrationResourceTest {
 
         ResultActions result = getStatusRequestByIdRecursive("page", "myPage");
         Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+    }
+
+    @Test
+    public void should_return_correct_migration_status_when_legacy_artifact_is_created() throws Exception {
+        when(uiDesignerProperties.getModelVersionLegacy()).thenReturn("2.2");
+        when(uiDesignerProperties.isExperimental()).thenReturn(true);
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.2").build();
+
+        ResultActions result = postStatusRequest(page);
+        Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+    }
+
+    @Test
+    public void should_return_correct_migration_status_when_legacy_artifact_need_a_migration() throws Exception {
+        when(uiDesignerProperties.getModelVersionLegacy()).thenReturn("2.4");
+        when(uiDesignerProperties.isExperimental()).thenReturn(true);
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.2").build();
+
+        ResultActions result = postStatusRequest(page);
+        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+    }
+
+    @Test
+    public void should_return_correct_migration_status_artifact_need_a_migration() throws Exception {
+        when(uiDesignerProperties.getModelVersion()).thenReturn("3.2");
+        when(uiDesignerProperties.isExperimental()).thenReturn(true);
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("3.0").build();
+
+        ResultActions result = postStatusRequest(page);
+        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+    }
+
+    @Test
+    public void should_return_correct_migration_status_when_artifact_need_a_migration() throws Exception {
+        when(uiDesignerProperties.getModelVersionLegacy()).thenReturn("2.4");
+        when(uiDesignerProperties.isExperimental()).thenReturn(true);
+        Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.2").build();
+
+        ResultActions result = postStatusRequest(page);
+        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
     }
 
     private ResultActions postStatusRequest(DesignerArtifact artifact) throws Exception {
