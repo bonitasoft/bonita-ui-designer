@@ -32,6 +32,7 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -44,16 +45,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WorkspaceMigrationTest {
 
-    private PageService pageService;
+    private static PageService pageService;
 
-    private WidgetService widgetService;
+    private static WidgetService widgetService;
 
-    private Workspace workspace;
-    private UiDesignerProperties uiDesignerProperties;
+    private static Workspace workspace;
+    private static UiDesignerProperties uiDesignerProperties;
 
-    @Before
-    public void setUp() throws Exception {
-        Path workspacePath = Paths.get(this.getClass().getClassLoader().getResource("workspace").toURI());
+    @BeforeClass
+    public static void setUp() throws Exception {
+        Path workspacePath = Paths.get(WorkspaceMigrationTest.class.getClassLoader().getResource("workspace").toURI());
         Path uidWorkspacePath = Paths.get("target/uid-workspace");
 
         uiDesignerProperties = new UiDesignerPropertiesBuilder()
