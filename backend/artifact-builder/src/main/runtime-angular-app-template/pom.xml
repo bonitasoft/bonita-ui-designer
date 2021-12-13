@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.bonitasoft.web</groupId>
     <artifactId>angular-generated-app</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.14.6</version>
     <packaging>pom</packaging>
 
     <name>Angular generated app for UI Designer</name>
