@@ -15,12 +15,11 @@
 package org.bonitasoft.web.designer.visitor.angular;
 
 import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.page.*;
+import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.visitor.angularJS.VariableModelVisitor;
 
-import java.nio.file.Paths;
 import java.util.TreeMap;
 
 /**
@@ -34,7 +33,7 @@ public class AngularVariableVisitor extends VariableModelVisitor {
 
     public <P extends Previewable & Identifiable> String generate(P previewable) {
         var resources = this.visit(previewable);
-        return new TemplateEngine(Paths.get("angular/src/assets/resources.hbs.ts").toString())
+        return new TemplateEngine("angular/src/assets/resources.hbs.ts")
                 .with("resourceName","propertiesValues")
                 .with("resources", resources == null ? null : new TreeMap<>(resources))
                 .build(this);

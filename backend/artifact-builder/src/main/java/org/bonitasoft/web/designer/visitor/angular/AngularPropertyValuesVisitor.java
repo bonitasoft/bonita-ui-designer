@@ -20,8 +20,6 @@ import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.visitor.angularJS.PropertyValuesVisitor;
 
-import java.nio.file.Paths;
-
 /**
  * An element visitor which traverses the tree of elements recursively to collect property values in a page
  */
@@ -32,7 +30,7 @@ public class AngularPropertyValuesVisitor extends PropertyValuesVisitor {
     }
 
     public <P extends Previewable & Identifiable> String generate(P previewable) {
-        return new TemplateEngine(Paths.get("angular/src/assets/resources.hbs.ts").toString())
+        return new TemplateEngine("angular/src/assets/resources.hbs.ts")
                 .with("resourceName","propertiesValues")
                 .with("resources", super.visit(previewable))
                 .build(this);

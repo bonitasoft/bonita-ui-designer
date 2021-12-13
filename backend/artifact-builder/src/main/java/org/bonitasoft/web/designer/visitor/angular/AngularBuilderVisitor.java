@@ -29,7 +29,6 @@ import org.bonitasoft.web.designer.visitor.ElementVisitor;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
@@ -47,7 +46,7 @@ public class AngularBuilderVisitor implements ElementVisitor<String>, AbstractBu
 
     @Override
     public <P extends Previewable & Identifiable> String build(final P previewable, String resourceContext) {
-        var template = new TemplateEngine(Paths.get("angular/page.hbs.html").toString())
+        var template = new TemplateEngine("angular/page.hbs.html")
                 .with("rowsHtml", build(previewable.getRows()));
         return template.build(previewable);
     }
@@ -95,7 +94,7 @@ public class AngularBuilderVisitor implements ElementVisitor<String>, AbstractBu
         Path htmlTemplate = workspaceProperties.getWidgets().getDir().resolve(widget.getId()).resolve(widget.getHtmlBundle());
         try {
             // Write content in template
-            return new TemplateEngine(Paths.get("angular/component.hbs.html").toString())
+            return new TemplateEngine("angular/component.hbs.html")
                     .with("template", Files.readString(htmlTemplate))
                     .build(component);
         } catch (IOException e) {
@@ -104,7 +103,7 @@ public class AngularBuilderVisitor implements ElementVisitor<String>, AbstractBu
     }
 
     public String build(List<List<Element>> rows) {
-        return new TemplateEngine(Paths.get("angular/rows.hbs.html").toString())
+        return new TemplateEngine("angular/rows.hbs.html")
                 .with("rows",
                         rows.stream()
                                 .map(elements -> elements.stream()
