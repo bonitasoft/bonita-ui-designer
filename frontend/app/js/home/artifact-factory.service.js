@@ -28,7 +28,7 @@
           state: 'page',
           value: gettext('Application page'),
           filterName: gettext('Pages'),
-          create: (name, legacy) => this.createPage(name, 'page', legacy)
+          create: (name, nextGen) => this.createPage(name, 'page', nextGen)
         },
         form: {
           key: 'form',
@@ -36,20 +36,20 @@
           value: gettext('Process form'),
           tooltip: gettext('You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit.'),
           filterName: gettext('Forms'),
-          create: (name, legacy) => this.createPage(name, 'form', legacy)
+          create: (name, nextGen) => this.createPage(name, 'form', nextGen)
         },
         layout: {
           key: 'layout',
           state: 'page',
           value: gettext('Application layout'),
           filterName: gettext('Layouts'),
-          create: (name, legacy) => this.createPage(name, 'layout', legacy)
+          create: (name, nextGen) => this.createPage(name, 'layout', nextGen)
         },
         widget: {
           key: 'widget',
           state: 'widget',
           value: gettext('Custom widget'),
-          tooltip: gettext('You should use the UI Designer SDK to create a custom widget. Create a legacy custom widget only if you need to include it in a legacy page or fragment.'),
+          tooltip: gettext('Create a custom widget. If you need to create a custom widget for next UI Designer generation, please use the UI Designer SDK.'),
           filterName: gettext('Custom widgets'),
           create: name => this.createWidget(name)
         },
@@ -58,7 +58,7 @@
           state: 'fragment',
           value: gettext('Fragment'),
           filterName: gettext('Fragments'),
-          create: (name, legacy) => this.createFragment(name, legacy)
+          create: (name, nextGen) => this.createFragment(name, nextGen)
         }
       };
     }
@@ -68,12 +68,12 @@
     getFactories() {
       return this.factories;
     }
-    createPage(name, type, legacy) {
-      if (legacy || !this.configuration.isExperimentalModeEnabled()) {
-        let modelVersion = this.configuration.configInfo.modelVersionLegacy;
+    createPage(name, type, nextGen) {
+      let modelVersion = this.configuration.configInfo.modelVersionLegacy;
+      if (nextGen) {
+        modelVersion = this.configuration.configInfo.modelVersion;
         return { type, name, modelVersion, rows: [[]] };
       }
-      let modelVersion = this.configuration.configInfo.modelVersion;
       return { type, name, modelVersion, rows: [[]] };
     }
     createWidget(name) {
@@ -119,12 +119,16 @@
       };
     }
 
-    createFragment(name, legacy) {
-      if (legacy || !this.configuration.isExperimentalModeEnabled()) {
-        let modelVersion = this.configuration.configInfo.modelVersionLegacy;
-        return { name, modelVersion, rows: [[]] };
-      }
-      return { name, rows: [[]] };
+    createFragment(name, nextGen) {
+      console.log('nextGen',nextGen);
+      let modelVersion = this.configuration.configInfo.modelVersionLegacy;
+      //FIXME: Uncomment this to allow fragment new tech creation. An error occurs on web-component widget registration
+      // if (nextGen) {
+      //   modelVersion = this.configuration.configInfo.modelVersion;
+      //   return { name, modelVersion, rows: [[]] };
+      // }
+      return { name, modelVersion, rows: [[]] };
+
     }
   }
   angular

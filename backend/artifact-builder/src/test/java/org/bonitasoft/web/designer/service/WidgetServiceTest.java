@@ -73,6 +73,7 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class WidgetServiceTest {
 
+    public static final String INCOMPATIBLE_VERSION = "65.10.0";
     @Mock
     private WidgetRepository widgetRepository;
 
@@ -758,7 +759,7 @@ public class WidgetServiceTest {
         reset(widgetService);
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersionLegacy()).build();
         Widget widget1 = aWidget().withId("widget1").designerVersion("1.10.0").build();
-        Widget widget2 = aWidget().withId("widget2").modelVersion(uiDesignerProperties.getModelVersion())
+        Widget widget2 = aWidget().withId("widget2").modelVersion(INCOMPATIBLE_VERSION)
                 .isCompatible(false).isMigration(false).build(); //incompatible
         Set<String> ids = new HashSet<>(Arrays.asList("widget1", "widget2"));
         when(widgetRepository.getByIds(ids)).thenReturn(Arrays.asList(widget1, widget2));

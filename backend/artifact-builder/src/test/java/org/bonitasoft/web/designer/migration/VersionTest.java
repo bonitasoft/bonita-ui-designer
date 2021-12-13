@@ -53,9 +53,8 @@ public class VersionTest {
         currentVersion = Version.getCurrentModelVersion("2.0", uiDesignerProperties);
         assertThat(currentVersion).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
         currentVersion = Version.getCurrentModelVersion("3.0", uiDesignerProperties);
-        assertThat(currentVersion).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
+        assertThat(currentVersion).isEqualTo(uiDesignerProperties.getModelVersion());
 
-        uiDesignerProperties.setExperimental(true);
         currentVersion = Version.getCurrentModelVersion("2.0", uiDesignerProperties);
         assertThat(currentVersion).isEqualTo(uiDesignerProperties.getModelVersionLegacy());
         currentVersion = Version.getCurrentModelVersion("3.0", uiDesignerProperties);

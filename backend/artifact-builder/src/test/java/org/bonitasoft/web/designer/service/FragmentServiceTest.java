@@ -84,6 +84,7 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class FragmentServiceTest {
 
+    private final String INCOMPATIBLE_VERSION = "65.10.0";
     @Mock
     private FragmentRepository fragmentRepository;
 
@@ -223,7 +224,7 @@ public class FragmentServiceTest {
     @Test
     public void should_get_correct_migration_status_when_fragment_contains_incompatible_fragment() {
         Fragment fragment1 = aFragment().withId("fragment1").withDesignerVersion("1.10.0").build();
-        Fragment fragment2 = aFragment().withId("fragment2").withModelVersion(uiDesignerProperties.getModelVersion()).build(); //incompatible
+        Fragment fragment2 = aFragment().withId("fragment2").withModelVersion(INCOMPATIBLE_VERSION).build(); //incompatible
         Set<String> ids = new HashSet<>(singletonList("fragment2"));
         lenient().when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment1)).thenReturn(new MigrationStatusReport(true, false));
         when(fragmentMigrationApplyer.getMigrationStatusOfCustomWidgetsUsed(fragment2)).thenReturn(new MigrationStatusReport(true, false));

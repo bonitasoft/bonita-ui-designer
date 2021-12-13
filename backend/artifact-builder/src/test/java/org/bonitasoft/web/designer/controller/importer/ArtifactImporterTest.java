@@ -344,7 +344,7 @@ public class ArtifactImporterTest {
     @Test
     public void should_return_incompatible_status_if_version_is_not_compatible_with_uid() throws Exception {
         wMocks.mockWidgetsAsAddedDependencies();
-        Page page = pMocks.mockPageToBeImported(aPage().withName("myPage").withId("myPage").withModelVersion(uiDesignerProperties.getModelVersion()));
+        Page page = pMocks.mockPageToBeImported(aPage().withName("myPage").withId("myPage").withModelVersion("11.2"));
         lenient().when(pageRepository.getNextAvailableId(page.getName())).thenReturn("myPage1");
         when(pageService.getStatusWithoutDependencies(page)).thenReturn(new MigrationStatusReport(false, false));
 

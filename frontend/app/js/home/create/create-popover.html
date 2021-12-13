@@ -1,14 +1,12 @@
-<form class="NewArtifact" name="newArtifactForm" ng-submit="createCtrl.create(createCtrl.type, createCtrl.name, createCtrl.legacy)">
+<form class="NewArtifact" name="newArtifactForm" ng-submit="createCtrl.create(createCtrl.type, createCtrl.name, createCtrl.nextGen)">
     <div class="modal-header">
         <h3 class="modal-title" translate>Create new artifact</h3>
     </div>
     <div class="modal-body">
         <div class="form-group NewArtifact-type">
             <label for="type" translate>Type</label>
-
             <div class="radio" ng-repeat="type in createCtrl.types">
                 <label><input type="radio" name="type" id="type-{{type.key}}" ng-model="createCtrl.type" ng-value="type">{{type.value | translate}}
-                    <i ng-if="createCtrl.experimental() && type.key === 'widget'" translate>(legacy)</i>
                     <i ng-if="type.tooltip" class="fa fa-info-circle" uib-tooltip="{{type.tooltip | translate}}" tooltip-append-to-body="true" tooltip-placement="top"></i>
                 </label>
             </div>
@@ -22,17 +20,17 @@
                    ui-validate-watch="'createCtrl.type'"
                    artifact-name-validation>
         </div>
-        <div class="checkbox" ng-if="createCtrl.experimental() && createCtrl.type.key !== 'widget'">
+        <div class="checkbox" ng-if="createCtrl.type.key !== 'widget' && createCtrl.type.key !== 'fragment'">
             <label>
                 <input
-                    name="legacy"
-                    ng-model="createCtrl.legacy"
-                    id="legacy"
+                    name="nextGen"
+                    ng-model="createCtrl.nextGen"
+                    id="nextGen"
                     type="checkbox">
-                <translate>Use the legacy generation (not recommended)</translate>
+                <translate>Use the next UI Designer generation</translate>
                 <i class="fa fa-info-circle"
-                   uib-tooltip="{{'Check this only if you want to use in this new ' + createCtrl.type.value +
-                    ' a legacy artifact (custom widget, fragment) not yet migrated.' | translate}}"
+                   uib-tooltip="{{'Check this if you want to experiment in this new ' + createCtrl.type.value +
+                    ' the next generation artifact.' | translate}}"
                    tooltip-append-to-body="true"
                    tooltip-placement="top"></i>
             </label>

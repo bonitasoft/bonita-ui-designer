@@ -99,7 +99,6 @@ public class PageServiceTest {
     private AssetService<Page> pageAssetService;
 
     private DefaultPageService pageService;
-    private DefaultPageService pageServiceExperimental;
 
     private MigrationStatusReport defaultStatusReport;
 
@@ -116,17 +115,8 @@ public class PageServiceTest {
                 new UiDesignerPropertiesBuilder().build(),
                 pageAssetService
         ));
-        pageServiceExperimental = spy(new DefaultPageService(
-                pageRepository,
-                pageMigrationApplyer,
-                componentVisitor,
-                assetVisitor,
-                new UiDesignerPropertiesBuilder().experimental(true).build(),
-                pageAssetService
-        ));
         defaultStatusReport = new MigrationStatusReport(true, false);
         doReturn(defaultStatusReport).when(pageService).getStatus(any());
-        doReturn(defaultStatusReport).when(pageServiceExperimental).getStatus(any());
         when(pageRepository.updateLastUpdateAndSave(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
     }
@@ -148,17 +138,10 @@ public class PageServiceTest {
 
     @Test
     public void should_not_migrate_from_v2_to_V3_when_get_is_called() {
-        // not experimental mode
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersion()).build();
         when(pageRepository.get("myPage")).thenReturn(page);
 
         pageService.get("myPage");
-
-        verify(pageMigrationApplyer, never()).migrate(page);
-
-        // experimental mode
-
-        pageServiceExperimental.get("myPage");
 
         verify(pageMigrationApplyer, never()).migrate(page);
     }
@@ -166,31 +149,20 @@ public class PageServiceTest {
     @Test
     public void should_return_correct_migration_status() {
         // Artifact v2
-        // non experimental mode
         Page page1 = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
         MigrationStatusReport status = pageService.getStatusWithoutDependencies(page1);
         assertTrue(status.isMigration());
         assertTrue(status.isCompatible());
-        // experimental mode
-        status = pageServiceExperimental.getStatusWithoutDependencies(page1);
-        assertTrue(status.isMigration());
-        assertTrue(status.isCompatible());
 
         // Artifact v3
-        // non experimental mode
         Page page2 = PageBuilder.aPage().withId("myPage").withModelVersion(uiDesignerProperties.getModelVersion()).build();
         status = pageService.getStatusWithoutDependencies(page2);
-        assertFalse(status.isMigration());
-        assertFalse(status.isCompatible());
-        // experimental mode
-        status = pageServiceExperimental.getStatusWithoutDependencies(page2);
         assertFalse(status.isMigration());
         assertTrue(status.isCompatible());
     }
 
 
     @Test
-
     public void should_not_update_and_save_page_if_no_migration_done() {
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("2.0").build();
         when(pageRepository.get("myPage")).thenReturn(page);

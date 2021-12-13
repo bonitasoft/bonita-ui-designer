@@ -22,6 +22,7 @@ public class Version {
     public static String INITIAL_MODEL_VERSION = "2.0";
     public static String INITIAL_UID_VERSION_USING_MODEL_VERSION = "1.12.0-SNAPSHOT";
 
+
     private DefaultArtifactVersion version;
 
     public Version(String version) {
@@ -54,7 +55,7 @@ public class Version {
     }
 
     public static String getCurrentModelVersion(String artifactVersion, UiDesignerProperties uiDesignerProperties){
-        if (uiDesignerProperties.isExperimental() && isV3Version(artifactVersion)) {
+        if (isV3Version(artifactVersion)) {
             return uiDesignerProperties.getModelVersion();
         } else {
             return uiDesignerProperties.getModelVersionLegacy();
