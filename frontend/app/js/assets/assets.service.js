@@ -55,10 +55,10 @@
       },{
         active: true,
         external: false,
-        name: 'bootstrap-3.3.6.css',
+        name: 'bootstrap-3.4.1.css',
         order: -2,
         scope: 'baseFramework',
-        url: 'http://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=688&bos_redirect_product=bos&bos_redirect_major_version=&bos_redirect_minor_version=',
+        url: 'http://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=736&bos_redirect_product=bos&bos_redirect_major_version=&bos_redirect_minor_version=',
         type: 'css'
       },
       {
