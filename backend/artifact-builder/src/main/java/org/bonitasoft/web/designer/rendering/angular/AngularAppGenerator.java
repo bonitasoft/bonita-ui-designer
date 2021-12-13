@@ -30,17 +30,11 @@ import org.bonitasoft.web.designer.visitor.angular.AngularPropertyValuesVisitor;
 import org.bonitasoft.web.designer.visitor.angular.AngularVariableVisitor;
 import org.bonitasoft.web.designer.workspace.Workspace;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.concurrent.Executors;
-import java.util.function.Consumer;
 
 import static java.lang.String.format;
 
@@ -104,7 +98,7 @@ public class AngularAppGenerator<P extends Previewable & Identifiable> {
 
     protected String generateComponentTs(P page) {
         var sortedAssets = assetHtmlBuilder.getSortedAssets(page);
-        var template = new TemplateEngine(Paths.get("angular/src/app/app.component.hbs.ts").toString())
+        var template = new TemplateEngine("angular/src/app/app.component.hbs.ts")
                 .with("appTag", page.getId())
                 .with("widgets", widgetBundleFile.getWidgetsBundlePathUsedInArtifact(page))
                 .with("jsAsset", assetHtmlBuilder.getAssetAngularSrcList(page.getId(), AssetType.JAVASCRIPT, sortedAssets));
@@ -113,19 +107,19 @@ public class AngularAppGenerator<P extends Previewable & Identifiable> {
 
     protected String generateAssetsStyle(P page) {
         var sortedAssets = assetHtmlBuilder.getSortedAssets(page);
-        var template = new TemplateEngine(Paths.get("angular/src/app/app.style.hbs.css").toString())
+        var template = new TemplateEngine("angular/src/app/app.style.hbs.css")
                 .with("cssAsset", assetHtmlBuilder.getAssetAngularSrcList(page.getId(),AssetType.CSS, sortedAssets));
         return template.build(page);
     }
 
     protected String generateModuleTs(P page) {
-        var template = new TemplateEngine(Paths.get("angular/src/app/app.module.hbs.ts").toString())
+        var template = new TemplateEngine("angular/src/app/app.module.hbs.ts")
                 .with("appTag", page.getId());
         return template.build(page);
     }
 
     protected String generateFileWithAppTag(P page, String templateEngine) {
-        var template = new TemplateEngine(Paths.get(templateEngine).toString())
+        var template = new TemplateEngine(templateEngine)
                 .with("appTag", page.getId());
         return template.build(page);
     }
