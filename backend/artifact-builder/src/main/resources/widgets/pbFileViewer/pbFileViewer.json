@@ -58,7 +58,7 @@
     },
     {
       "id": "bf7dc770-ed0c-4dc7-82ec-e213dc667848",
-      "name": "jquery-2.2.1.min.js",
+      "name": "jquery-3.5.1.min.js",
       "type": "js",
       "order": 3
     },

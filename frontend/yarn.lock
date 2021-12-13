@@ -1620,9 +1620,9 @@ bootstrap@twbs/bootstrap#3.3.2:
   version "3.3.2"
   resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/bcf7dd38b5ab180256e2e4fb5da0369551b3f082"
 
-bootstrap@twbs/bootstrap#3.3.6:
-  version "3.3.6"
-  resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/81df608a40bf0629a1dc08e584849bb1e43e0b7a"
+bootstrap@twbs/bootstrap#3.4.1:
+  version "3.4.1"
+  resolved "https://codeload.github.com/twbs/bootstrap/tar.gz/68b0d231a13201eb14acd3dc84e51543d16e5f7e"
 
 brace-expansion@^1.0.0, brace-expansion@^1.1.7:
   version "1.1.11"
