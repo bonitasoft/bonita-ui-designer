@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2021-11-30 03:30\n"
+"PO-Revision-Date: 2021-12-15 03:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -27,9 +27,6 @@ msgstr "(Experimental)"
 
 msgid "(displayed in editor's property panel)"
 msgstr "(se muestra en el panel Propiedades del editor)"
-
-msgid "(legacy)"
-msgstr "(legacy)"
 
 msgid "(used in your template and controller)"
 msgstr "(utilizado en su plantilla y controller)"
@@ -610,7 +607,7 @@ msgstr "Compruebe que la estructura del archivo zip coincide con el archivo est�
 msgid "Check the log files"
 msgstr "Compruebe los archivos de log"
 
-msgid "Check this only if you want to use in this new ' + createCtrl.type.value + ' a legacy artifact (custom widget, fragment) not yet migrated."
+msgid "Check this if you want to experiment in this new ' + createCtrl.type.value + ' the next generation artifact."
 msgstr ""
 
 msgid "Choices"
@@ -744,6 +741,9 @@ msgstr "Crea una variable JSON llamada <code>updateDate</code> para mantener un 
 
 msgid "Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.ui.extensions</code> module with the filter:"
 msgstr "Crear un archivo JavaScript denominado <code>date-ago-filter.js</code> que actualiza el módulo <code>bonitasoft.ui.extensions</code> con el filtro:"
+
+msgid "Create a custom widget. If you need to create a custom widget for next UI Designer generation, please use the UI Designer SDK."
+msgstr ""
 
 msgid "Create a filter variable in the variable panel. If you are using an Input widget, this\n"
 "                variable has no value."
@@ -1547,9 +1547,6 @@ msgstr "Layouts"
 msgid "Lazy reference filter"
 msgstr "Filtro de referencia Lazy"
 
-msgid "Legacy"
-msgstr ""
-
 msgid "Legend hidden"
 msgstr "Leyenda oculta"
 
@@ -1732,6 +1729,9 @@ msgstr "Nuevo contenedor modal para crear pop-ins"
 
 msgid "New window (_blank)"
 msgstr "Nueva ventana (_blank)"
+
+msgid "Next Gen"
+msgstr ""
 
 msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
 msgstr "Página siguiente para mostrar, en las aplicaciones. En el Portal, se ignora ya que la navegación se gestiona automáticamente"
@@ -2795,7 +2795,7 @@ msgstr "Utilice los caracteres: M (mes), d (día), y (año)"
 msgid "Use the generated user interface"
 msgstr "Utilice la interfaz de usuario generada"
 
-msgid "Use the legacy generation (not recommended)"
+msgid "Use the next UI Designer generation"
 msgstr ""
 
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
@@ -3058,9 +3058,6 @@ msgstr "Necesita utilisar el siguiente selector css en su fichero \"theme.css\":
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desde la Pool apropiada o tarea humana, crear un contrato y ejecutar el UI Designer. Se auto-generará un formulario concreto para poder editar."
-
-msgid "You should use the UI Designer SDK to create a custom widget. Create a legacy custom widget only if you need to include it in a legacy page or fragment."
-msgstr ""
 
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "Se debe administrar el miniaturizado y actualizar la URL del recurso para activar el cache-busting."

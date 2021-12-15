@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-11-30 03:30\n"
+"PO-Revision-Date: 2021-12-15 03:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -27,9 +27,6 @@ msgstr "（テスト）"
 
 msgid "(displayed in editor's property panel)"
 msgstr "（エディタのプロパティ パネルで表示される）"
-
-msgid "(legacy)"
-msgstr ""
 
 msgid "(used in your template and controller)"
 msgstr "（テンプレートとコントローラーで使用される）"
@@ -614,7 +611,7 @@ msgstr "Zip ファイルの構造が標準の UI デザイナー エクスポー
 msgid "Check the log files"
 msgstr "ログ ファイルを確認してください"
 
-msgid "Check this only if you want to use in this new ' + createCtrl.type.value + ' a legacy artifact (custom widget, fragment) not yet migrated."
+msgid "Check this if you want to experiment in this new ' + createCtrl.type.value + ' the next generation artifact."
 msgstr ""
 
 msgid "Choices"
@@ -748,6 +745,9 @@ msgstr "<code>updateDate</code>と命名した JSON 変数を作成し、数値�
 
 msgid "Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.ui.extensions</code> module with the filter:"
 msgstr "<code>date-ago-filter.js</code> と命名した JavaScript を作成し、フィルターを使って <code>bonitasoft.ui.extensions</code> モジュールを更新します："
+
+msgid "Create a custom widget. If you need to create a custom widget for next UI Designer generation, please use the UI Designer SDK."
+msgstr ""
 
 msgid "Create a filter variable in the variable panel. If you are using an Input widget, this\n"
 "                variable has no value."
@@ -1559,9 +1559,6 @@ msgstr "レイアウト"
 msgid "Lazy reference filter"
 msgstr ""
 
-msgid "Legacy"
-msgstr ""
-
 msgid "Legend hidden"
 msgstr "凡例を非表示"
 
@@ -1744,6 +1741,9 @@ msgstr ""
 
 msgid "New window (_blank)"
 msgstr "新しいウィンドウ (_blank)"
+
+msgid "Next Gen"
+msgstr ""
 
 msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
 msgstr "アプリケーションに表示する次のページ。ポータルでは、ナビゲーションは自動的に管理されるので無視されます。"
@@ -2812,7 +2812,7 @@ msgstr "使用文字： M (月)、d (日)、 y (年)"
 msgid "Use the generated user interface"
 msgstr ""
 
-msgid "Use the legacy generation (not recommended)"
+msgid "Use the next UI Designer generation"
 msgstr ""
 
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
@@ -3078,9 +3078,6 @@ msgstr ""
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Studio でプロセス フォームの設計を開始する必要があります： 当該のプールまたはヒューマンタスクにコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"
-
-msgid "You should use the UI Designer SDK to create a custom widget. Create a legacy custom widget only if you need to include it in a legacy page or fragment."
-msgstr ""
 
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "CSS や JavaScript ファイルの圧縮(minify) を管理したり、キャッシュの無効化をトリガーするリソースの URL を更新する必要があります。"
