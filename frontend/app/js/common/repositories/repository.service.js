@@ -107,8 +107,8 @@
       }
 
       isV3Version(artifactVersion) {
-        if (!artifactVersion || (artifactVersion.indexOf('.') < 0) || isNaN(parseInt(artifactVersion.split('.')[0]))) {
-          return true;
+        if (!artifactVersion || artifactVersion.indexOf('.') < 0 || isNaN(parseInt(artifactVersion.split('.')[0]))) {
+          return false;
         }
         return parseInt(artifactVersion.split('.')[0]) === 3;
       }

@@ -322,4 +322,13 @@ describe('pageRepo', function() {
     expect(pageInfoData.artifactVersion).toEqual('2.0');
   });
 
+  it('should check artifact version', ()=>{
+    expect(pageRepo.isV3Version(undefined)).toEqual(false);
+    expect(pageRepo.isV3Version('1.15.9')).toEqual(false);
+    expect(pageRepo.isV3Version('')).toEqual(false);
+    expect(pageRepo.isV3Version('2.2')).toEqual(false);
+    expect(pageRepo.isV3Version('3.0')).toEqual(true);
+    expect(pageRepo.isV3Version('3.5')).toEqual(true);
+  });
+
 });
