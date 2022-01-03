@@ -1,5 +1,5 @@
 describe('data-type', function() {
-  var service;
+  let service;
 
   beforeEach(angular.mock.module('bonitasoft.designer.editor.bottom-panel.data-panel'));
   beforeEach(inject(function($injector) {
@@ -8,21 +8,17 @@ describe('data-type', function() {
 
   describe('getDataTypes', function() {
     it('should return an object of dataTypes', function() {
-      var dataTypes = service.getDataTypes();
-      var TYPES = ['constant', 'url', 'expression', 'json', 'urlparameter', 'businessdata'];
-      expect(Array.isArray(dataTypes)).toBe(true);
-      dataTypes.forEach(function(dataType) {
-        expect(dataType.hasOwnProperty('type')).toBe(true);
-        expect(TYPES.indexOf(dataType.type)).toBeGreaterThan(-1);
-        expect(dataType.hasOwnProperty('label')).toBe(true);
-        expect(dataType.hasOwnProperty('defaultValue')).toBe(true);
-      });
+      checkDataType(service.getVariableDataTypes());
+      checkDataType(service.getActionDataTypes());
     });
   });
 
   describe('getDataLabel', function() {
     it('should return label for known types', function() {
-      service.getDataTypes().forEach(function(dataType) {
+      service.getVariableDataTypes().forEach(function(dataType) {
+        expect(service.getDataLabel(dataType.type)).toEqual(dataType.label);
+      });
+      service.getActionDataTypes().forEach(function(dataType) {
         expect(service.getDataLabel(dataType.type)).toEqual(dataType.label);
       });
     });
@@ -34,7 +30,10 @@ describe('data-type', function() {
 
   describe('getDataDefaultValue', function() {
     it('should return label for known types', function() {
-      service.getDataTypes().forEach(function(dataType) {
+      service.getVariableDataTypes().forEach(function(dataType) {
+        expect(service.getDataDefaultValue(dataType.type)).toEqual(dataType.defaultValue);
+      });
+      service.getActionDataTypes().forEach(function(dataType) {
         expect(service.getDataDefaultValue(dataType.type)).toEqual(dataType.defaultValue);
       });
     });
@@ -51,5 +50,16 @@ describe('data-type', function() {
       expect(service.save().hasOwnProperty('exposed')).toBe(true);
     });
   });
+
+  function checkDataType(dataTypes) {
+    let TYPES = ['constant', 'url', 'expression', 'json', 'urlparameter', 'businessdata'];
+    expect(Array.isArray(dataTypes)).toBe(true);
+    dataTypes.forEach(function (dataType) {
+      expect(dataType.hasOwnProperty('type')).toBe(true);
+      expect(TYPES.indexOf(dataType.type)).toBeGreaterThan(-1);
+      expect(dataType.hasOwnProperty('label')).toBe(true);
+      expect(dataType.hasOwnProperty('defaultValue')).toBe(true);
+    });
+  }
 
 });

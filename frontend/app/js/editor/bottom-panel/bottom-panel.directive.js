@@ -29,6 +29,12 @@
         })
       ];
 
+      this.tabs.push(tabFactory.create({
+        name: gettext('Actions'),
+        stateName: `designer.${this.mode}.action`,
+        bottomPanel: this
+      }));
+
       if (this.mode === 'page') {
         this.tabs.push(tabFactory.create({
           name: gettext('Assets'),

@@ -15,7 +15,17 @@
     };
   }
 
-  var dataMethod = {
+  let dataMethod = {
+    openVariablePanel: function() {
+      // Click first on Asset panel to avoid closing the Variable panel (if already opened by default).
+      browser.actions().click(element.all(by.className('BottomPanel-tab')).last()).perform();
+      browser.actions().click(element.all(by.className('BottomPanel-tab')).first()).perform();
+    },
+
+    openActionPanel: function() {
+      browser.actions().click(element.all(by.className('BottomPanel-tab')).get(1)).perform();
+    },
+
     filter: function(filterPattern) {
       this.sidebar.element(by.model('search.value')).clear().sendKeys(filterPattern);
     },
@@ -112,7 +122,7 @@
 
     addButton: {
       get: function() {
-        return this.sidebar.element(by.buttonText('Create a new variable'));
+        return this.sidebar.element(by.css('.btn-default'));
       }
     },
 

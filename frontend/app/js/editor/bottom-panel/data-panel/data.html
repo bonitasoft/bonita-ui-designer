@@ -1,6 +1,7 @@
 <div class="Toolbar">
     <div class="Toolbar-action">
-        <button class="btn btn-default" ng-click="openDataPopup()" translate>Create a new variable</button>
+        <button ng-if="!isAction" class="btn btn-default" ng-click="openDataPopup()" translate>Create a new variable</button>
+        <button ng-if="isAction" class="btn btn-default" ng-click="openDataPopup()" translate>Create a new action</button>
         <button class="btn btn-default btn-data--help" ng-click="openHelp()" title="{{'Open help' | translate}}">
             <i class="fa fa-question-circle"></i>
         </button>

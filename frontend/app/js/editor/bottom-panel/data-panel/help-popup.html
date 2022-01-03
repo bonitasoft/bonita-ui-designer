@@ -7,39 +7,39 @@
     <uib-tabset class="tabs-left">
         <uib-tab heading="{{ 'General' | translate }}">
             <p translate>
-                In the scope of a page, form, or layout, a variable can be used to handle business data,
+                In the scope of a page, form, or layout, a variable or action can be used to handle business data,
                 or can contain structural information that determines how page elements behave.
             </p>
 
-            <p translate>Create a variable here. Using the variable in a widget property depends on the property value
+            <p translate>Using the variable or action in a widget property depends on the property value
                 type, described in the page editor general help, in the <i>Properties</i> section.</p>
 
-            <p translate>Available variables types are string and JSON (static), and External API, Business data, JavaScript
-                expression, and URL parameter (dynamic).</p>
+            <p translate>Available variables types are string, JSON, and URL parameter. Available action types are JavaScript
+                expression, External API, and Business data.</p>
 
             <p translate>You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio
                 <i>Development</i> menu and use them as External API variables in the UI Designer.</p>
         </uib-tab>
 
         <uib-tab heading="{{ 'Living data' | translate }}">
-            <p translate>Variables can be bound to input fields to create conditional behavior between widget
+            <p translate>Variables or actions can be bound to input fields to create conditional behavior between widget
                 properties.</p>
 
-            <p translate>A binding is dynamic, so every time data changes, all variables are re-evaluated and the
+            <p translate>A binding is dynamic, so every time data changes, all variables or actions are re-evaluated and the
                 UI is updated. In consequence:</p>
             <ul>
-                <li translate>A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when
+                <li translate>An action initialized with a JavaScript expression is executed when the page is loaded. Then, when
                     one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>.
                 </li>
-                <li translate>A variable initialized with an External API is reloaded every time the URL value changes.</li>
-                <li translate>A Business data variable is reloaded every time the filter value changes.</li>
+                <li translate>An action initialized with an External API is reloaded every time the URL value changes.</li>
+                <li translate>A Business data action is reloaded every time the filter value changes.</li>
             </ul>
         </uib-tab>
 
-        <uib-tab heading="{{ 'Default variables' | translate }}">
+        <uib-tab heading="{{ 'Default variables / actions' | translate }}">
             <p translate>
                 When you generate a form from a contract in the Studio, the form contains a Submit button and some
-                default variables: <code>formInput</code>,
+                default variables and actions: <code>formInput</code>,
                 <code>formOutput</code>, <code>taskId</code>, and <code>context</code>
             </p>
 
@@ -74,11 +74,11 @@
 
             <p><translate><code>context</code> is an External API.</translate>
                 <br/><translate>It provides references to all business variables and documents in the process instance (case).
-                To retrieve a business variable instance, create an External API variable with value</translate> <span
+                To retrieve a business variable instance, create an External API action with value</translate> <span
                 ng-non-bindable>../{{context.myBusinessData_ref.link}}</span>
             </p>
             <p>
-                <translate>To retrieve a document instance, create an External API variable with value</translate> <span
+                <translate>To retrieve a document instance, create an External API action with value</translate> <span
                 ng-non-bindable>../API/{{context.documentData_ref.url}}</span>
             </p>
             <p>
@@ -91,14 +91,14 @@
 			<p translate>
 				In some cases, other types of variables are created:
 				<ul>
-					<li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API).
-					<br/>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span
+					<li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer action is created for each variable (External API).
+					<br/>For example, if the contract input has been created from a business variable 'invoice' in the process, an action <code>invoice</code> is created in the form and its URL is set to <span
                 ng-non-bindable>../{{context.invoice_ref.link}}</span>.
-					<br/>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter).
-					<br/>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span
+					<br/>If <code>invoice</code> contains lazy relations, additional actions are generated for each lazy relation to resolve (using <em>lazyRef</em> filter).
+					<br/>For example, if 'invoice' has a 'customer' relation in lazy, an External API action <code>invoice_customer</code> is added. Its URL is set to <span
                 ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li>
-					<li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM.
-					<br/>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span
+					<li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The action (External API) bound to the widget is created. It queries the BDM.
+					<br/>For example, when the object Invoice has an aggregated object Customer, an action <code>customer_query</code> is created with URL: <span
                 ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li>
 				</ul>
             </p>

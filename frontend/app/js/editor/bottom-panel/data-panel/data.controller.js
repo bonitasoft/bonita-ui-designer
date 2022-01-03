@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller('DataCtrl', function($scope, dataTypeService, $location, $uibModal, artifact, mode, gettextCatalog) {
+angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller('DataCtrl', function($scope, dataTypeService, $location, $uibModal, artifact, mode, isAction, gettextCatalog) {
 
   'use strict';
 
@@ -20,6 +20,8 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
   $scope.page = artifact;
   $scope.getLabel = dataTypeService.getDataLabel;
   $scope.exposableData = mode !== 'page';
+  $scope.isAction = isAction;
+  $scope.actionTypes = ['expression', 'url', 'businessdata' ];
 
   $scope.delete = function(dataName) {
     let modalInstance = $uibModal.open({
@@ -72,7 +74,8 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
       resolve: {
         mode: () => mode,
         pageData: () => artifact.variables,
-        data: () => varName && angular.extend({}, artifact.variables[varName], { $$name: varName })
+        data: () => varName && angular.extend({}, artifact.variables[varName], { $$name: varName }),
+        isAction: () => isAction
       }
     });
 
@@ -94,11 +97,33 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
       return contains(variable.name, serchTerm) || contains(variable.displayValue, serchTerm);
     }
 
+    function shouldDisplay(variable) {
+      if (isAction && isActionType(variable)) {
+        return true;
+      }
+      // noinspection RedundantIfStatementJS
+      if (!isAction && isVariableType(variable)) {
+        return true;
+      }
+      return false;
+    }
+
+
+    function isVariableType(variable) {
+      return !$scope.actionTypes.includes(variable.type);
+    }
+
+    function isActionType(variable) {
+      return $scope.actionTypes.includes(variable.type);
+    }
+
+
     return Object.keys($scope.page.variables)
       .map((name) => {
-        var variable = $scope.page.variables[name];
+        let variable = $scope.page.variables[name];
         return Object.defineProperty(variable, 'name', { enumerable: false, value: name });
       })
+      .filter(shouldDisplay)
       .filter(toMatchSearchTerm);
   };
 

@@ -18,14 +18,14 @@ describe('Bottom panel', () => {
     };
   }));
 
-  it('should have 2 tabs for a page', () => {
-    expect(bottomPanel.find('.BottomPanel-tab').length).toBe(2);
+  it('should have 3 tabs for a page', () => {
+    expect(bottomPanel.find('.BottomPanel-tab').length).toBe(3);
   });
 
-  it('should have 1 tabs for a fragment', () => {
+  it('should have 2 tabs for a fragment', () => {
     let fragmentBottomPanel = createBottomPanel('fragment');
 
-    expect(fragmentBottomPanel.find('.BottomPanel-tab').length).toBe(1);
+    expect(fragmentBottomPanel.find('.BottomPanel-tab').length).toBe(2);
   });
 
   it('should close bottom panel', () => {

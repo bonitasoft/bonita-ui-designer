@@ -1,9 +1,9 @@
-var PageEditor = require('../pages/editor.page.js');
+let PageEditor = require('../pages/editor.page.js');
 
 describe('data panel', function() {
 
   describe('for page', function() {
-    var dataPanel;
+    let dataPanel;
 
     beforeEach(function() {
 
@@ -12,7 +12,8 @@ describe('data panel', function() {
     });
 
     it('should add a string data', function() {
-      var nbData;
+      dataPanel.openVariablePanel();
+      let nbData;
       dataPanel.lines.count().then(function(nb) {
         nbData = nb;
       });
@@ -30,7 +31,8 @@ describe('data panel', function() {
     });
 
     it('should add an Json data', function() {
-      var nbData;
+      dataPanel.openVariablePanel();
+      let nbData;
       dataPanel.lines.count().then(function(nb) {
         nbData = nb;
       });
@@ -48,7 +50,8 @@ describe('data panel', function() {
     });
 
     it('should add an Url data', function() {
-      var nbData;
+      dataPanel.openActionPanel();
+      let nbData;
       dataPanel.lines.count().then(function(nb) {
         nbData = nb;
       });
@@ -66,7 +69,8 @@ describe('data panel', function() {
     });
 
     it('should add a Javascript expression data', function() {
-      var nbData;
+      dataPanel.openActionPanel();
+      let nbData;
       dataPanel.lines.count().then(function(nb) {
         nbData = nb;
       });
@@ -84,7 +88,8 @@ describe('data panel', function() {
     });
 
     it('should delete a data', function() {
-      var nbData;
+      dataPanel.openVariablePanel();
+      let nbData;
       dataPanel.lines.count().then(function(nb) {
         nbData = nb;
       });
@@ -97,38 +102,37 @@ describe('data panel', function() {
     });
 
     it('should filter data', function() {
+      dataPanel.openVariablePanel();
       dataPanel.addData('aName', 'String', 'aValue');
 
       dataPanel.filter('aName');
       expect(dataPanel.lines.count()).toBe(1);
 
       dataPanel.clearFilter();
-      expect(dataPanel.lines.count()).toBe(4);
+      expect(dataPanel.lines.count()).toBe(3);
     });
 
     it('should sort data by name or type', function() {
+      dataPanel.openVariablePanel();
       // Default order is 'name'
       expect(dataPanel.getData(0).name).toBe('alreadyExistsData');
       expect(dataPanel.getData(1).name).toBe('jsonExample');
-      expect(dataPanel.getData(2).name).toBe('urlExample');
 
       dataPanel.sortByName();
-      expect(dataPanel.getData(0).name).toBe('urlExample');
-      expect(dataPanel.getData(1).name).toBe('jsonExample');
-      expect(dataPanel.getData(2).name).toBe('alreadyExistsData');
+      expect(dataPanel.getData(0).name).toBe('jsonExample');
+      expect(dataPanel.getData(1).name).toBe('alreadyExistsData');
 
       dataPanel.sortByType();
       expect(dataPanel.getData(0).type).toBe('String');
       expect(dataPanel.getData(1).type).toBe('JSON');
-      expect(dataPanel.getData(2).type).toBe('External API');
 
       dataPanel.sortByType();
-      expect(dataPanel.getData(0).type).toBe('External API');
-      expect(dataPanel.getData(1).type).toBe('JSON');
-      expect(dataPanel.getData(2).type).toBe('String');
+      expect(dataPanel.getData(0).type).toBe('JSON');
+      expect(dataPanel.getData(1).type).toBe('String');
     });
 
     it('should expand value field for Json when button is clicked', function() {
+      dataPanel.openVariablePanel();
       dataPanel.addButton.click();
       expect(dataPanel.popupExpandBtn.isPresent()).toBeFalsy();
       dataPanel.type = 'JSON';
@@ -140,6 +144,12 @@ describe('data panel', function() {
       expect(dataPanel.value.isDisplayed()).toBeTruthy();
       expect(dataPanel.name.isDisplayed()).toBeTruthy();
       expect(dataPanel.type.isDisplayed()).toBeTruthy();
+    });
+
+    it('should expand value field for Javascript when button is clicked', function() {
+      dataPanel.openActionPanel();
+      dataPanel.addButton.click();
+      expect(dataPanel.popupExpandBtn.isPresent()).toBeFalsy();
       dataPanel.type = 'Javascript expression';
       dataPanel.popupExpandBtn.click();
       expect(dataPanel.value.isDisplayed()).toBeTruthy();
@@ -148,6 +158,7 @@ describe('data panel', function() {
     });
 
     it('should not allow adding invalid Json', function() {
+      dataPanel.openVariablePanel();
       dataPanel.addButton.click();
       dataPanel.name = 'aJson';
       dataPanel.type = 'JSON';
@@ -156,6 +167,7 @@ describe('data panel', function() {
     });
 
     it('should not allow adding empty url', function() {
+      dataPanel.openActionPanel();
       dataPanel.addButton.click();
       dataPanel.name = 'aUrl';
       dataPanel.type = 'External API';
@@ -164,6 +176,7 @@ describe('data panel', function() {
     });
 
     it('should not be possible to add data with same name than already existing one', function() {
+      dataPanel.openVariablePanel();
       dataPanel.addButton.click();
       dataPanel.name = 'alreadyExistsData';
       dataPanel.value = 'aValue';
@@ -171,6 +184,7 @@ describe('data panel', function() {
     });
 
     it('should not be possible to add data with an invalid name', function() {
+      dataPanel.openVariablePanel();
       dataPanel.addButton.click();
 
       dataPanel.name = 'invalid name';
@@ -185,6 +199,7 @@ describe('data panel', function() {
     });
 
     it('should display an error message when invalid name is provided', function() {
+      dataPanel.openVariablePanel();
       dataPanel.addButton.click();
       dataPanel.name = 'already ExistsData';
       dataPanel.value = 'aValue';
@@ -192,6 +207,7 @@ describe('data panel', function() {
     });
 
     it('should allow modifying existing data value and rollbacking', function() {
+      dataPanel.openVariablePanel();
       dataPanel.editData('alreadyExistsData');
       dataPanel.value = 'foo';
       $('.modal-footer .btn-link').click();
@@ -199,6 +215,7 @@ describe('data panel', function() {
     });
 
     it('should allow modifying existing data value and confirming', function() {
+      dataPanel.openVariablePanel();
       dataPanel.editData('alreadyExistsData');
       dataPanel.value = 'foo';
       dataPanel.popupSaveBtn.click();
@@ -206,12 +223,14 @@ describe('data panel', function() {
     });
 
     it('should not allow confirming invalid URL', function() {
+      dataPanel.openActionPanel();
       dataPanel.editData('urlExample');
       dataPanel.value = '';
       expect(dataPanel.popupSaveBtn.isEnabled()).toBe(false);
     });
 
     it('should not allow confirming invalid Json', function() {
+      dataPanel.openVariablePanel();
       dataPanel.editData('jsonExample');
       dataPanel.type = 'JSON';
       dataPanel.setAceValue('');
@@ -219,6 +238,7 @@ describe('data panel', function() {
     });
 
     it('should open help popup',  function() {
+      dataPanel.openVariablePanel();
       $('.btn-data--help').click();
 
       expect($('.modal-header .modal-title').getText()).toBe('Help');

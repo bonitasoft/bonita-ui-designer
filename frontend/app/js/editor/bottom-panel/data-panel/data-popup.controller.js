@@ -13,7 +13,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
-  .controller('DataPopupController', function($scope, dataTypeService, $uibModalInstance, mode, pageData, data, apiExamples, dataManagementRepo, gettextCatalog, businessDataUpdateService, keyBindingService) {
+  .controller('DataPopupController', function($scope, dataTypeService, $uibModalInstance, mode, pageData, data, isAction, apiExamples, dataManagementRepo, gettextCatalog, businessDataUpdateService, keyBindingService) {
 
     'use strict';
     const BUSINESS_DATA_TYPE = 'businessdata';
@@ -22,9 +22,11 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
     $scope.example = $scope.apiExamples[0];
     $scope.examplesCollapsed = true;
     $scope.advancedExamplesCollapsed = true;
-    $scope.dataTypes = dataTypeService.getDataTypes();
+    $scope.variableDataTypes = dataTypeService.getVariableDataTypes();
+    $scope.actionDataTypes = dataTypeService.getActionDataTypes();
     $scope.getLabel = dataTypeService.getDataLabel;
     $scope.pageData = pageData;
+    $scope.isAction = isAction;
     $scope.isNewData = data === undefined;
     $scope.editBusinessDataQueries = true;
     $scope.newData = data || dataTypeService.save();

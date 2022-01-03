@@ -13,13 +13,14 @@
 
       let $controller = $injector.get('$controller');
 
-      getController = function(pageData, data) {
+      getController = function(pageData, data, isAction) {
         return $controller('DataPopupController', {
           $scope: $scope,
           $uibModalInstance: $uibModalInstance,
           mode: 'page',
           pageData: pageData,
-          data: data
+          data: data,
+          isAction: isAction
         });
       };
     }));
@@ -27,9 +28,10 @@
     describe('Variable creation', function() {
       let pageData = { users: { value: [] } };
       let data;
+      let isAction = false;
 
       beforeEach(function() {
-        getController(pageData, data);
+        getController(pageData, data, isAction);
       });
 
       it('should init scope data', function() {
@@ -45,7 +47,7 @@
       });
 
       it('should init newData.displayValue depending on the selectedType', function() {
-        $scope.dataTypes.forEach(function(dataType) {
+        $scope.variableDataTypes.forEach(function(dataType) {
           $scope.updateValue(dataType.type);
           expect($scope.newData.displayValue).toBe(dataType.defaultValue);
         });
@@ -55,9 +57,10 @@
     describe('Edit variable', function() {
       let data = { $$name: 'users', displayValue: '4', type: 'constant' };
       let pageData = { users: { displayValue: '4' } };
+      let isAction = false;
 
       beforeEach(function() {
-        getController(pageData, data);
+        getController(pageData, data, isAction);
       });
 
       it('should init scope data', function() {
@@ -71,9 +74,10 @@
     describe('save variable', function() {
       let pageData = { users: { value: ['4'] } };
       let data;
+      let isAction = false;
 
       beforeEach(function() {
-        getController(pageData, data);
+        getController(pageData, data, isAction);
       });
 
       it('should close modal', function() {
@@ -92,9 +96,10 @@
 
       let data = { $$name: 'users', displayValue: '4', type: 'url' };
       let pageData = { users: { displayValue: '4' }, userResponse: { displayValue: {} }, toto: { displayValue: {} }};
+      let isAction = true;
 
       beforeEach(function() {
-        getController(pageData, data);
+        getController(pageData, data, isAction);
       });
 
       it('should get list of all variable without himself', function() {

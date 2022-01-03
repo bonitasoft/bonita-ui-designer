@@ -26,17 +26,27 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel')
     function getDefaultValue(acc, item) {
       return item.defaultValue;
     }
-    var dataTypes = [
-      { label: gettext('String'), type: 'constant', group: gettext('Static'), defaultValue: '' },
-      { label: gettext('JSON'), type: 'json', group: gettext('Static'), defaultValue: '{}' },
-      { label: gettext('External API'), type: 'url', group: gettext('Dynamic'), defaultValue: '' },
-      { label: gettext('Javascript expression'), type: 'expression', group: gettext('Dynamic'), defaultValue: 'return "hello";' },
-      { label: gettext('URL parameter'), type: 'urlparameter', group: gettext('Dynamic'), defaultValue: '' },
+
+    let actionDataTypes = [
+      { label: gettext('External API'), type: 'url', group: gettext('Generic'), defaultValue: '' },
+      { label: gettext('Javascript expression'), type: 'expression', group: gettext('Generic'), defaultValue: 'return "hello";' },
       { label: gettext('Business data'), type: 'businessdata', group: gettext('Data Management'), defaultValue: '' },
     ];
 
-    this.getDataTypes = function() {
-      return dataTypes;
+    let variableDataTypes = [
+      { label: gettext('String'), type: 'constant', group: gettext('Static'), defaultValue: '' },
+      { label: gettext('JSON'), type: 'json', group: gettext('Static'), defaultValue: '{}' },
+      { label: gettext('URL parameter'), type: 'urlparameter', group: gettext('Static'), defaultValue: '' },
+    ];
+
+    let dataTypes = variableDataTypes.concat(actionDataTypes);
+
+    this.getVariableDataTypes = function() {
+      return variableDataTypes;
+    };
+
+    this.getActionDataTypes = function() {
+      return actionDataTypes;
     };
 
     this.getDataLabel = function(type) {

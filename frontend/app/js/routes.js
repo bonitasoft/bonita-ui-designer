@@ -82,7 +82,9 @@
           /* @ngInject */
           artifactRepo: pageRepo => pageRepo,
           /* @ngInject */
-          mode: () => 'page'
+          mode: () => 'page',
+          /* @ngInject */
+          isAction: () => false
         },
         views: {
           // main view (ui-view in index.html)
@@ -100,6 +102,32 @@
             controllerAs: 'vm',
             templateUrl: 'js/editor/header/header.html'
           }
+        }
+      });
+
+      $stateProvider.state('designer.page.action', {
+        views: {
+          //  sub view named in editor.html
+          'data@designer.page': {
+            controller: 'DataCtrl',
+            templateUrl: 'js/editor/bottom-panel/data-panel/data.html'
+          }
+        },
+        resolve: {
+          isAction: () => true
+        }
+      });
+
+      $stateProvider.state('designer.fragment.action', {
+        views: {
+          //  sub view named in editor.html
+          'data@designer.fragment': {
+            controller: 'DataCtrl',
+            templateUrl: 'js/editor/bottom-panel/data-panel/data.html'
+          }
+        },
+        resolve: {
+          isAction: () => true
         }
       });
 
@@ -208,7 +236,9 @@
           /* @ngInject */
           mode: function() {
             return 'fragment';
-          }
+          },
+          /* @ngInject */
+          isAction: () => false
         },
         views: {
           // main view (ui-view in index.html)

@@ -2,7 +2,7 @@
   'use strict';
   describe('DataCtrl', function() {
 
-    let $scope, repository, $q, $uibModal;
+    let $scope, repository, $q, $uibModal, getController;
 
     beforeEach(angular.mock.module('bonitasoft.designer.editor.bottom-panel.data-panel', 'bonitasoft.designer.editor.whiteboard'));
 
@@ -17,18 +17,23 @@
       $q = _$q_;
       $uibModal = _$uibModal_;
 
-      $controller('DataCtrl', {
-        $scope: $scope,
-        artifactRepo: repository,
-        mode: 'page',
-        artifact: {}
-      });
+      getController = function(isAction) {
+        return $controller('DataCtrl', {
+          $scope: $scope,
+          artifactRepo: repository,
+          mode: 'page',
+          isAction: isAction,
+          artifact: {}
+        });
+      };
+
 
     }));
 
     it('should save a new data', function() {
+      getController(false);
       $scope.page.variables = {};
-      var data = {
+      let data = {
         $$name: 'colin',
         displayValue: 4,
         exposed: false,
@@ -41,6 +46,7 @@
     });
 
     it('should edit a data with default value', function() {
+      getController(false);
       $scope.exposableData = true ;
       $scope.page.variables = {
         $$name: 'myDataToEdit',
@@ -67,6 +73,7 @@
     });
 
     it('should delete a data', function() {
+      getController(false);
       $scope.page.variables = { name: 'colin', displayValue: 4 };
 
       $scope.delete('colin');
@@ -75,33 +82,49 @@
     });
 
     it('should transform page data to an array', function () {
+      // Variables
+      getController(false);
       $scope.page.variables = {
         aKey: {type: 'constant', displayValue: 'aValue'},
         jsonExample: {type: 'json', displayValue: '{}'},
         urlExample: {type: 'url', displayValue: 'https://api.github.com/users/jnizet'}
       };
 
-      var variables = $scope.getVariables();
-
+      let variables = $scope.getVariables();
       expect(variables).toEqual([
         {type: 'constant', displayValue: 'aValue'},
         {type: 'json', displayValue: '{}'},
-        {type: 'url', displayValue: 'https://api.github.com/users/jnizet'}
       ]);
       // each object should have a property non enumerable named name
       expect(variables[0].name).toEqual('aKey');
       expect(variables[1].name).toEqual('jsonExample');
-      expect(variables[2].name).toEqual('urlExample');
+
+      // Actions
+      getController(true);
+      $scope.page.variables = {
+        aKey: {type: 'constant', displayValue: 'aValue'},
+        jsonExample: {type: 'json', displayValue: '{}'},
+        urlExample: {type: 'url', displayValue: 'https://api.github.com/users/jnizet'},
+        jsExample: {type: 'expression', displayValue: 'return true'}
+      };
+      let actions = $scope.getVariables();
+      expect(actions).toEqual([
+        {type: 'url', displayValue: 'https://api.github.com/users/jnizet'},
+        {type: 'expression', displayValue: 'return true'}
+      ]);
+      // each object should have a property non enumerable named name
+      expect(actions[0].name).toEqual('urlExample');
     });
 
     it('should filter variables by name', function () {
+      getController(false);
       $scope.page.variables = {
         aKey: {type: 'constant', displayValue: 'aValue'},
         jsonExample: {type: 'json', displayValue: '{}'},
         urlExample: {type: 'url', displayValue: 'https://api.github.com/users/jnizet'}
       };
 
-      var filtered = $scope.getVariables('aKey');
+      let filtered = $scope.getVariables('aKey');
       expect(filtered).toEqual([{type: 'constant', displayValue: 'aValue'}]);
 
       filtered = $scope.getVariables('unknownkey');
@@ -109,13 +132,14 @@
     });
 
     it('should filter variables by value', function() {
+      getController(false);
       $scope.page.variables = {
         aKey: {type: 'constant', displayValue: 'aValue'},
         jsonExample: {type: 'json', displayValue: '{}'},
         urlExample: {type: 'url', displayValue: 'https://api.github.com/users/jnizet'}
       };
 
-      var filtered = $scope.getVariables('aValue');
+      let filtered = $scope.getVariables('aValue');
       expect(filtered).toEqual([{type: 'constant', displayValue: 'aValue'}]);
 
       filtered = $scope.getVariables('unknownvalue');
@@ -123,6 +147,7 @@
     });
 
     it('should open a data popup', function() {
+      getController(false);
       spyOn($uibModal, 'open').and.returnValue({
         result: $q.when({})
       });
@@ -131,6 +156,7 @@
     });
 
     it('should return none exposed data type', function() {
+      getController(false);
       var data = {
         $$name: 'colin',
         displayValue: 4,
@@ -142,7 +168,8 @@
     });
 
     it('should return (Exposed) for exposed data type', function() {
-      var data = {
+      getController(false);
+      let data = {
         $$name: 'colin',
         displayValue: 4,
         exposed: true,
@@ -154,6 +181,7 @@
     });
 
     it('should sort based on a sort criteria', function() {
+      getController(false);
 
       $scope.sort('aCriteria');
 
@@ -161,6 +189,7 @@
     });
 
     it('should change sort order while sorting twice on same criteria', function() {
+      getController(false);
 
       $scope.sort('aCriteria');
       expect($scope.isReversedSorting).toBe(false);
@@ -170,6 +199,7 @@
     });
 
     it('should reset sort order while changing sort criteria', function() {
+      getController(false);
       $scope.isReversedSorting = true;
       $scope.sortCriteria = 'aCriteria';
 
@@ -180,6 +210,7 @@
     });
 
     it('should be sorted by name by default', function() {
+      getController(false);
       expect($scope.sortCriteria).toBe('name');
     });
 
