@@ -18,4 +18,10 @@ import '{{ this }}';
     styleUrls: ['style.css']
 })
 
-export class {{appTag}} {}
+export class {{appTag}} {
+    constructor() {
+      document.addEventListener('uid-action', (event) => {
+        console.log(event);
+      });
+    }
+}

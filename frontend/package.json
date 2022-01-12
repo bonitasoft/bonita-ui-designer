@@ -31,6 +31,7 @@
     "@bonitasoft/uid-text": "^1.0.4",
     "@bonitasoft/uid-textarea": "^1.0.1",
     "@bonitasoft/uid-title": "^1.0.3",
+    "@bonitasoft/uid-button": "^1.0.4",
     "bootstrap": "twbs/bootstrap#3.4.1",
     "font-awesome": "FortAwesome/Font-Awesome#4.7.0",
     "identicon.js": "bonitasoft/identicon.js#1.0.0",
