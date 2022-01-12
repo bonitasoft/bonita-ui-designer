@@ -14,6 +14,7 @@ import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -82,7 +83,10 @@ public class AssetHtmlBuilder {
     }
 
     private String getAssetPath(String previewableId, Asset asset){
-        return String.format("%s/assets/%s/%s", workspaceProperties.getPages().getDir().resolve(previewableId),asset.getType().getPrefix(), asset.getName());
+        return Paths.get(workspaceProperties.getPages().getDir().resolve(previewableId).toUri())
+                .resolve("assets")
+                .resolve(asset.getType().getPrefix())
+                .resolve(asset.getName()).toString();
     }
 
     public String getHash(Asset asset, AssetRepository<?> assetRepository, String previewableId) {

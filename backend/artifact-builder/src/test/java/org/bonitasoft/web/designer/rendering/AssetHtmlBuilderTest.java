@@ -42,7 +42,12 @@ public class AssetHtmlBuilderTest {
         var assets = assetHtmlBuilder.getAssetAngularSrcList("aPage", AssetType.JAVASCRIPT, assetsList);
 
         Assert.assertEquals(assets.size(),2);
-        Assert.assertTrue(assets.get(0).contains("aPage/assets/js/aJsAsset"));
+        Assert.assertTrue(assets.get(0).contains(
+                Paths.get(pages.getDir().toUri())
+                .resolve("aPage")
+                .resolve("assets")
+                .resolve("js")
+                .resolve("aJsAsset").toString()));
         Assert.assertEquals(assets.get(1),"https://aFakeCdnjs/jsFiles.min.js");
     }
 }
