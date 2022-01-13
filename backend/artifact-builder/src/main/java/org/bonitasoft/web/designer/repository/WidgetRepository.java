@@ -37,6 +37,7 @@ public class WidgetRepository extends AbstractRepository<Widget> {
 
     public static final String ANGULARJS_CUSTOM_PREFIX = "custom";
     public static final String ANGULARJS_STANDARD_PREFIX = "pb";
+    public static final String V3_WIDGET_STANDARD_PREFIX = "uid";
 
     public WidgetRepository(
             WorkspaceProperties workspaceProperties,

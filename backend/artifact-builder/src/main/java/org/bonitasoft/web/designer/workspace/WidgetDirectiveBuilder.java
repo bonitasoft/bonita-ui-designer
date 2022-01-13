@@ -16,6 +16,8 @@ package org.bonitasoft.web.designer.workspace;
 
 import org.bonitasoft.web.designer.livebuild.AbstractLiveFileBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.migration.Version;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
@@ -25,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static java.nio.file.Files.write;
 import static java.nio.file.Paths.get;
@@ -34,6 +37,7 @@ public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
     private final WidgetFileBasedLoader widgetLoader;
     private final HtmlSanitizer htmlSanitizer;
     private final TemplateEngine htmlBuilder = new TemplateEngine("widgetDirectiveTemplate.hbs.js");
+    private static final String JSON_EXTENSION = ".json";
 
     public WidgetDirectiveBuilder(Watcher watcher, WidgetFileBasedLoader widgetLoader, HtmlSanitizer htmlSanitizer) {
         super(watcher);
@@ -52,7 +56,7 @@ public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
     public void build(Path jsonPath) throws IOException {
         var widget = widgetLoader.get(jsonPath);
         write(
-                get(valueOf(jsonPath).replace(".json", ".js")),
+                get(valueOf(jsonPath).replace(JSON_EXTENSION, ".js")),
                 htmlBuilder
                         .with("escapedTemplate", htmlSanitizer.escapeSingleQuotesAndNewLines(widget.getTemplate()))
                         .build(widget).getBytes(StandardCharsets.UTF_8));
@@ -60,12 +64,35 @@ public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
 
     @Override
     public boolean isBuildable(String path) {
-        return isAngularJsWidget(path) && path.endsWith(".json") && !path.contains(".metadata");
+        return path.endsWith(JSON_EXTENSION) && !path.contains(".metadata") && isAngularJsWidget(Paths.get(path));
     }
 
-    private boolean isAngularJsWidget(String path) {
-        String fileName = Paths.get(path).getFileName().toString();
-        return fileName.startsWith(WidgetRepository.ANGULARJS_STANDARD_PREFIX)
-                || fileName.startsWith(WidgetRepository.ANGULARJS_CUSTOM_PREFIX);
+    private boolean isAngularJsWidget(Path path) {
+        String fileName = path.getFileName().toString();
+        if (fileName.startsWith(WidgetRepository.V3_WIDGET_STANDARD_PREFIX)) {
+            return false;
+        }
+        if (fileName.startsWith(WidgetRepository.ANGULARJS_STANDARD_PREFIX)
+                || fileName.startsWith(WidgetRepository.ANGULARJS_CUSTOM_PREFIX)) {
+            return true;
+        }
+        // "Custom widget V3" or "custom widget AngularJS without 'custom' prefix"
+        return !isV3CustomWidget(path);
     }
+
+    private boolean isV3CustomWidget(Path path) {
+        var widget = widgetLoader.get(path);
+        String version = getArtifactVersion(widget);
+        return Version.isV3Version(version);
+    }
+
+    public String getArtifactVersion(Widget widget) {
+        // Use model version if it is present
+        if (widget.getModelVersion() != null) {
+            return widget.getModelVersion();
+        } else {
+            return widget.getDesignerVersion();
+        }
+    }
+
 }

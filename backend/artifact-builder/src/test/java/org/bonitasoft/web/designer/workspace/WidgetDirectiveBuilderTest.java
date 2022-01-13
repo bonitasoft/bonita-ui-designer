@@ -65,11 +65,7 @@ public class WidgetDirectiveBuilderTest {
 
     WidgetDirectiveBuilder widgetDirectiveBuilder;
 
-    Widget pbInput;
-
-    Widget pbButton;
-
-    Widget uidInput;
+    Widget pbInput, pbButton, uidInput, customWidgetAngularJsNoPrefix, customWidgetAngularJsNoPrefix2;
 
     HtmlSanitizer htmlSanitizer = new HtmlSanitizer();
 
@@ -93,18 +89,23 @@ public class WidgetDirectiveBuilderTest {
                 mock(Watcher.class));
 
         pbInput = aWidget().withId("pbInput").build();
-        pbInput.setCustom(true);
         createDirectories(repository.resolvePath(pbInput.getId()));
         repository.updateLastUpdateAndSave(pbInput);
 
         pbButton = aWidget().withId("pbButton").build();
-        pbButton.setCustom(true);
         createDirectories(repository.resolvePath(pbButton.getId()));
         repository.updateLastUpdateAndSave(pbButton);
 
         uidInput = aWidget().withId("uidInput").build();
         createDirectories(repository.resolvePath(uidInput.getId()));
         repository.updateLastUpdateAndSave(uidInput);
+
+        customWidgetAngularJsNoPrefix = aWidget().withId("myCustomNoPrefix").build();
+        customWidgetAngularJsNoPrefix.setModelVersion("2.0");
+        customWidgetAngularJsNoPrefix.setCustom(true);
+        createDirectories(repository.resolvePath(customWidgetAngularJsNoPrefix.getId()));
+        repository.updateLastUpdateAndSave(customWidgetAngularJsNoPrefix);
+
     }
 
     @Test
@@ -113,6 +114,8 @@ public class WidgetDirectiveBuilderTest {
 
         assertThat(readDirective("pbInput")).isEqualTo(generateDirective(pbInput));
         assertThat(readDirective("pbButton")).isEqualTo(generateDirective(pbButton));
+        // For Jira UID-626
+        assertThat(readDirective("myCustomNoPrefix")).isEqualTo(generateDirective(customWidgetAngularJsNoPrefix));
     }
 
     @Test
@@ -130,7 +133,8 @@ public class WidgetDirectiveBuilderTest {
         widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
 
         //assert that we do not create a whatever.js file ?
-        assertThat(widgetRepositoryDirectory.getRoot().list()).containsOnly(".metadata", "pbButton", "whatever.txt", "uidInput", "pbInput");
+        assertThat(widgetRepositoryDirectory.getRoot().list())
+                .containsOnly(".metadata", "pbButton", "whatever.txt", "uidInput", "pbInput", "myCustomNoPrefix");
     }
 
     @Test
