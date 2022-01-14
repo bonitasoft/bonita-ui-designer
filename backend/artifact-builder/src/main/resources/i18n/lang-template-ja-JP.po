@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2021-12-15 03:30\n"
+"PO-Revision-Date: 2022-01-14 02:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -183,6 +183,9 @@ msgstr "<span class=\"tip\">ヒント：</span> URL パラメータはページU
 msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 msgstr "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 
+msgid "<span>Create a new action</span>"
+msgstr ""
+
 msgid "<span>Create a new variable</span>"
 msgstr "<span>新しい変数を作成</span>"
 
@@ -207,8 +210,8 @@ msgstr " <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 86
 msgid "A Bonita REST API URL"
 msgstr "Bonita REST API URL"
 
-msgid "A Business data variable is reloaded every time the filter value changes."
-msgstr "フィルタの値が変更されるたびに、ビジネス データ変数が再ロードされます。"
+msgid "A Business data action is reloaded every time the filter value changes."
+msgstr ""
 
 msgid "A JSON object"
 msgstr "JSON オブジェクト"
@@ -216,8 +219,8 @@ msgstr "JSON オブジェクト"
 msgid "A TabsContainer is a container that has multiple panes, but shows only one pane at a time."
 msgstr ""
 
-msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
-msgstr "バインディングは動的です。したがって、データが変更されるたびにすべての変数が再評価され、UI が更新されます。その結果："
+msgid "A binding is dynamic, so every time data changes, all variables or actions are re-evaluated and the UI is updated. In consequence:"
+msgstr ""
 
 msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object."
 msgstr ""
@@ -249,12 +252,6 @@ msgstr "サーバーエラーが発生しました。"
 msgid "A single entry will be created in the LocalStorage identified by the form URL."
 msgstr "URL によって識別された LocalStorage に単一のエントリが作成されます。"
 
-msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
-msgstr "JavaScript 式で初期化される変数は、ページが読み込まれたときに実行されます。その後、その依存関係の 1 つが変更されたときは、その値が更新されます。<code>$data.XXX</code> を使用して、依存関係が作成されます。"
-
-msgid "A variable initialized with an External API is reloaded every time the URL value changes."
-msgstr "外部 API で初期化される変数は、URL の値が変更されるたびに再度読み込まれます。"
-
 msgid "A variable that contains a JSON array (single set) or JSON array of arrays (multiple sets) where each array is a set. The data can be obtained by a BDM query, API call (default or extension), or JavaScript that retrieves and formats external data"
 msgstr "各配列がセットされている配列のJSON配列(単一セット)またはJSON配列(複数セット)を含む変数。 データは BDM クエリ、API call (デフォルトまたは拡張)、または JavaScript によって取得され、外部データを取得してフォーマットできます。"
 
@@ -281,6 +278,9 @@ msgstr "フォーム コンテナ： $form の機能にアクセスできます"
 
 msgid "Action"
 msgstr "アクション"
+
+msgid "Actions"
+msgstr ""
 
 msgid "Active"
 msgstr "アクティブ"
@@ -357,6 +357,12 @@ msgid "Alternatively, you can set the Data source to Variable and use a variable
 "            the table content."
 msgstr "あるいはデータソースを変数に設定し、変数定義を使用してテーブルコンテンツの\n"
 "            を指すようにすることもできます。"
+
+msgid "An action initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
+msgstr ""
+
+msgid "An action initialized with an External API is reloaded every time the URL value changes."
+msgstr ""
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "UI デザイナーで設計した生成物は、チームメンバーと共有するためにエクスポート（UI デザイナー内にインポート）するか、あるいは、Bonita ポータルにインポートして ビジネス アプリケーション 内で使用できます。"
@@ -479,8 +485,8 @@ msgstr "利用可能な値: <i>html, insertImage, insertLink, insertVideo, wordc
 msgid "Available values: <i>justifyLeft, justifyCenter, justifyRight, indent, outdent</i>"
 msgstr "使用可能な値： <i>左揃え, 中央揃え, 右揃え, インデント, インデント解除</i>"
 
-msgid "Available variables types are string and JSON (static), and External API, Business data, JavaScript expression, and URL parameter (dynamic)."
-msgstr "使用可能な変数の型はstring（文字列）と JSON (静的)、および外部API、ビジネスデータ、JavaScript 式、URL パラメータ (動的) です。"
+msgid "Available variables types are string, JSON, and URL parameter. Available action types are JavaScript expression, External API, and Business data."
+msgstr ""
 
 msgid "BDM APIs are not yet sortable. For other APIs, test in the preview or refer to the BonitaBPM documentation 'REST API' pages"
 msgstr "BDM API はまだソート可能ではありません。その他の API に対しては、プレビューでテストするか、または Bonita BPM ドキュメントの 'REST API' ページを参照してください。"
@@ -760,14 +766,14 @@ msgstr "ウィジェットを同一のグループにまとめて部品化し、
 msgid "Create a new UI Designer artifact"
 msgstr "新しい UI デザイナーの生成物を作成します"
 
+msgid "Create a new action"
+msgstr ""
+
 msgid "Create a new variable"
 msgstr "新規変数を作成"
 
 msgid "Create a user interface to handle \"{{ctrl.businessData.name}}\""
 msgstr ""
-
-msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
-msgstr "ここで変数を作成します。ウィジェット プロパティ内での変数の使用は、このページ エディタの全般ヘルプ、<b>プロパティ</b> セクションで説明されているように、プロパティ値のタイプに依存します。"
 
 msgid "Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type, described in the next section."
 msgstr "下部のパネルで変数を作成します。ウィジェット プロパティ内での変数の使用は、次のセクションで説明されているように、プロパティ値のタイプに依存します。"
@@ -879,8 +885,8 @@ msgstr "デフォルト名"
 msgid "Default value"
 msgstr "デフォルト値"
 
-msgid "Default variables"
-msgstr "デフォルト変数"
+msgid "Default variables / actions"
+msgstr ""
 
 msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
 msgstr "ウィジェットを表示する条件を定義する例： <em>userAge &gt; 18</em>"
@@ -980,9 +986,6 @@ msgstr "行内にウィジェットまたはコンテナをドラック＆ドロ
 
 msgid "Dropdown list of available values. The user selects one value"
 msgstr "使用可能な値のドロップダウン リスト。ユーザーが 1 つの値を選択します。"
-
-msgid "Dynamic"
-msgstr "ダイナミック"
 
 msgid "Dynamic value"
 msgstr "動的な値"
@@ -1231,6 +1234,9 @@ msgstr "GET"
 msgid "General"
 msgstr "全般"
 
+msgid "Generic"
+msgstr ""
+
 msgid "Get a case by its identifier"
 msgstr "案件IDで案件を取得する"
 
@@ -1431,9 +1437,8 @@ msgstr ""
 msgid "In some case, you want to override your theme to display <b>one</b> data-table with specific line color, to do this:"
 msgstr "いくつかのケースではテーマをオーバーライドして、特定の行の色を持つ <b>一つの</b> データテーブルを表示したい場合があります。"
 
-msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
-msgstr "場合によっては、他のタイプの変数が作成されます。<ul> <li>ビジネス変数がフォームで編集されると（契約作成ウィザードで指定）、変数ごとにUIデザイナー変数が作成されます（外部API）。 <br>たとえば、契約入力がプロセスのビジネス変数 'invoice'から作成された場合、変数<code> invoice</code>がフォームに作成され、そのURLは <span ng-non-bindable>../{{context.invoice_ref.link}}</span>に設定されます。 <br>もし <code> invoicee</code>に遅延関係が含まれている場合、解決する遅延関係ごとに追加の変数が生成されます（<em> lazyRef </em>フィルターを使用）。 <br>たとえば、「invoice」に「customer」リレーションがレイジーである場合、外部API変数<code> invoice_customer </code>が追加されます。そのURLは<span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>に設定されています。</li>  <li>集約されたオブジェクトを表示するために、選択ウィジェットが生成されてオブジェクトの<em>使用可能な値</em>が表示されます 。ウィジェットにバインドされた変数（外部API）が作成されます。 BDMにクエリを実行します。 <br>たとえば、オブジェクトInvoice（請求書）に集約オブジェクトCustomerがある場合、変数<code> customer_query </ code>は、次のURLで作成されます：<span ng-non-bindable> ../ API / bdm / businessData / com.company.model.Customer？q = find＆p = 0＆c = 99 </ span >。\n"
-"デフォルトでは、デフォルトのページネーションで<code> find </code> クエリを使用します（最初の100個のオブジェクトのみが返されます）。</li> </ul>"
+msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer action is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, an action <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional actions are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API action <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The action (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, an action <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
+msgstr ""
 
 msgid "In tab title properties add the following value"
 msgstr ""
@@ -1458,6 +1463,9 @@ msgstr "プレビューの実行時に、選択した言語が表示されるテ
 
 msgid "In the scope of a page, form, or layout, a variable can be used to handle business data, or can contain structural information that determines how page elements behave."
 msgstr "変数は、ページ、フォーム、またはレイアウトの有効範囲において、ビジネス データを取り扱うために使用したり、あるいはページ要素の動作方法を決定付ける構造化情報を含めることができます。"
+
+msgid "In the scope of a page, form, or layout, a variable or action can be used to handle business data, or can contain structural information that determines how page elements behave."
+msgstr ""
 
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "このリストの中で、アセットの並び替え、ローカルアセットの表示、外部アセットの編集および削除ができます。"
@@ -1505,8 +1513,8 @@ msgstr ""
 msgid "It is possible to deactivate the animation when the modal appears. The main usage of this option would be to create a wizard, where several modal containers are displayed in a sequence."
 msgstr "モーダルが表示されたときにアニメーションを無効にすることができます。 このオプションの主な使用法は、ウィザードを作成することで複数のモーダルコンテナがシーケンスに表示されます。"
 
-msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API variable with value"
-msgstr "プロセス インスタンス（案件のこと）内のすべてのビジネス変数およびドキュメントへの参照を提供します。ビジネス変数インスタンスを取得するには、値を持つ外部 API 変数を作成します。"
+msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API action with value"
+msgstr ""
 
 msgid "Item"
 msgstr "項目"
@@ -2638,8 +2646,8 @@ msgstr "モーダルウィンドウを開くには、プロパティにモーダ
 msgid "To pre-fill with a template, bind an HTML formatted variable"
 msgstr "テンプレートを事前の埋めるために、HTML で書式設定した変数をバインド"
 
-msgid "To retrieve a document instance, create an External API variable with value"
-msgstr "ドキュメント インスタンスを取得するには、値を持つExternal API 変数を作成します。"
+msgid "To retrieve a document instance, create an External API action with value"
+msgstr ""
 
 msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, <i>rename</i> it before you import."
 msgstr "<strong>{{ ::importReport.overwrittenName }}</strong> を別の識別子で保存するには、インポートする前に <i>rename</i> します。"
@@ -2845,6 +2853,9 @@ msgstr "User id は、 {{myData.user_id}} を使用することによって取�
 msgid "Using the Vertical Display property, it is possible to display tabs vertically or horizontally."
 msgstr ""
 
+msgid "Using the variable or action in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
+msgstr ""
+
 msgid "Validation Errors"
 msgstr ""
 
@@ -2896,8 +2907,8 @@ msgstr "配列型変数"
 msgid "Variables"
 msgstr "変数"
 
-msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
-msgstr "変数は入力項目にバインドして、ウィジェット プロパティ間での条件付きの挙動を設定することができます。"
+msgid "Variables or actions can be bound to input fields to create conditional behavior between widget properties."
+msgstr ""
 
 msgid "Vertical display"
 msgstr "垂直表示"
@@ -2940,8 +2951,8 @@ msgstr "テーブルが表示されると、ユーザーがフィルターを更
 msgid "When you delete a row, the following rows move up"
 msgstr "行を削除したら、それに続く行が上に移動します"
 
-msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
-msgstr "Studio内のコントラクトをベースにフォームを生成した場合は、そのフォームには送信ボタンといくつかのデフォルト変数： <code>formInput</code>、 <code>formOutput</code>、 <code>taskId</code>、 および <code>context</code> が含まれます。"
+msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables and actions: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
+msgstr ""
 
 msgid "Whenever this form is reloaded, either by hitting F5 or browsing away and back again, the entry will be reloaded automatically from LocalStorage."
 msgstr "F5キーを押すかブラウジングして再度参照することにより、このフォームが再ロードされるたびに、エントリはLocalStorageから自動的に再ロードされます。"

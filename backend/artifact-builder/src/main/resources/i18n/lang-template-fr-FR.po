@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2021-12-15 03:30\n"
+"PO-Revision-Date: 2022-01-14 02:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -181,6 +181,9 @@ msgstr "<span class=\"tip\"> Astuce :</span> Les paramètres d'URL se situent ap
 msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 msgstr "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 
+msgid "<span>Create a new action</span>"
+msgstr ""
+
 msgid "<span>Create a new variable</span>"
 msgstr "<span>Créer une nouvelle variable</span>"
 
@@ -188,7 +191,7 @@ msgid "<strong>$collection</strong>: the current collection"
 msgstr "<strong>$collection</strong> : la collection courante"
 
 msgid "<strong>$count</strong>: the total of elements"
-msgstr ""
+msgstr "<strong>$count</strong>: total  d'éléments"
 
 msgid "<strong>$index</strong>: the index of the current iteration of the collection (counting from zero)"
 msgstr "<strong>$index</strong> : l'index de l'itération courante de la collection (démarrant à zéro)"
@@ -205,8 +208,8 @@ msgstr "Variable de type String au format <a href='https://en.wikipedia.org/wiki
 msgid "A Bonita REST API URL"
 msgstr "Une URL d'API REST de Bonita"
 
-msgid "A Business data variable is reloaded every time the filter value changes."
-msgstr "Une variable Business Data est rechargée chaque fois que la valeur du filtre change."
+msgid "A Business data action is reloaded every time the filter value changes."
+msgstr ""
 
 msgid "A JSON object"
 msgstr "Un objet JSON"
@@ -214,8 +217,8 @@ msgstr "Un objet JSON"
 msgid "A TabsContainer is a container that has multiple panes, but shows only one pane at a time."
 msgstr "Un container TabsContainer est un container qui possède plusieurs panneaux, mais ne montre qu'un seul panneau à la fois."
 
-msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
-msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les variables sont réévaluées et l'interface utilisateur est mise à jour. En conséquence :"
+msgid "A binding is dynamic, so every time data changes, all variables or actions are re-evaluated and the UI is updated. In consequence:"
+msgstr ""
 
 msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object."
 msgstr "Un assistant de configuration s'affiche : créer une variable Business Data en fournissant des informations sur la façon de récupérer des éléments de cet objet métier."
@@ -247,12 +250,6 @@ msgstr "Une erreur serveur s'est produite."
 msgid "A single entry will be created in the LocalStorage identified by the form URL."
 msgstr "Une seule entrée sera créée dans le LocalStorage identifié par l’URL du formulaire."
 
-msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
-msgstr "Une variable initialisée avec une expression JavaScript s'exécute au chargement de la page. Puis, lorsqu'une de ses dépendances change, sa valeur est mise à jour. Les dépendances sont créées à l'aide de <code>$data.XXX</code>."
-
-msgid "A variable initialized with an External API is reloaded every time the URL value changes."
-msgstr "Une variable initialisée avec une API externe est rechargée à chaque fois que la valeur de l'URL change."
-
 msgid "A variable that contains a JSON array (single set) or JSON array of arrays (multiple sets) where each array is a set. The data can be obtained by a BDM query, API call (default or extension), or JavaScript that retrieves and formats external data"
 msgstr "Une variable qui contient un tableau JSON (graphique simple) ou un tableau de tableaux JSON (graphique multiple) où chaque tableau est un jeu de données. Ces données peuvent être obtenues par une requête BDM, un appel de l'API (par défaut ou extension d'API) ou une expression JavaScript qui récupère et met en forme des données externes"
 
@@ -279,6 +276,9 @@ msgstr "Accès aux fonctionnalités $form pour le form container"
 
 msgid "Action"
 msgstr "Action"
+
+msgid "Actions"
+msgstr ""
 
 msgid "Active"
 msgstr "Activés"
@@ -353,6 +353,12 @@ msgstr "Alternance de fonds gris et transparent"
 msgid "Alternatively, you can set the Data source to Variable and use a variable definition to point to\n"
 "            the table content."
 msgstr "Vous pouvez aussi passer la Source de données à Variable et utiliser une définition de variable pour pointer vers le contenu du tableau."
+
+msgid "An action initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
+msgstr ""
+
+msgid "An action initialized with an External API is reloaded every time the URL value changes."
+msgstr ""
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "Un artefact conçu avec le UI Designer peut être exporté pour être partagé entre coéquipiers (importation dans le UI Designer) ou utilisé dans les applications métier (importation dans Bonita Portal)."
@@ -473,8 +479,8 @@ msgstr "Valeurs disponibles : <i>html, insertImage, insertLink, insertVideo, wor
 msgid "Available values: <i>justifyLeft, justifyCenter, justifyRight, indent, outdent</i>"
 msgstr "Valeurs disponibles : <i>justifyLeft, justifyCenter, justifyRight, indent, outdent</i>"
 
-msgid "Available variables types are string and JSON (static), and External API, Business data, JavaScript expression, and URL parameter (dynamic)."
-msgstr "Les types de variables disponibles sont les chaînes de caractères et JSON (statique), et les API externes, les données métier, l'expression JavaScript et le paramètre URL (dynamique)."
+msgid "Available variables types are string, JSON, and URL parameter. Available action types are JavaScript expression, External API, and Business data."
+msgstr ""
 
 msgid "BDM APIs are not yet sortable. For other APIs, test in the preview or refer to the BonitaBPM documentation 'REST API' pages"
 msgstr "Les API BDM ne sont pas encore triables. Pour les autres API, faites un test avec l'aperçu ou consultez la documentation (mots-clés : «REST API»)"
@@ -606,7 +612,7 @@ msgid "Check the log files"
 msgstr "Consultez les fichiers de log"
 
 msgid "Check this if you want to experiment in this new ' + createCtrl.type.value + ' the next generation artifact."
-msgstr ""
+msgstr "Cochez cette case si vous voulez essayez ce nouveau ' + createCtrl.type.value + ' artefact de la prochaine génération."
 
 msgid "Choices"
 msgstr "Choix"
@@ -741,7 +747,7 @@ msgid "Create a JavaScript file named <code>date-ago-filter.js</code> that updat
 msgstr "Créez un fichier JavaScript nommé <code>date-ago-filter.js</code> qui met à jour le module <code>bonitasoft.ui.extensions</code> avec le filtre:"
 
 msgid "Create a custom widget. If you need to create a custom widget for next UI Designer generation, please use the UI Designer SDK."
-msgstr ""
+msgstr "Créez un widget personnalisé. Si vous avez besoin de créer un widget personnalisé pour la prochaine génération de UI Designer, veuillez utiliser le SDK du UI Designer ."
 
 msgid "Create a filter variable in the variable panel. If you are using an Input widget, this\n"
 "                variable has no value."
@@ -753,14 +759,14 @@ msgstr "Créez un fragment pour réutiliser un groupe de widgets identiques ayan
 msgid "Create a new UI Designer artifact"
 msgstr "Créer un nouvel artefact"
 
+msgid "Create a new action"
+msgstr ""
+
 msgid "Create a new variable"
 msgstr "Créer une nouvelle variable"
 
 msgid "Create a user interface to handle \"{{ctrl.businessData.name}}\""
 msgstr "Créer une interface utilisateur pour gérer \"{{ctrl.businessData.name}}\""
-
-msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
-msgstr "Créez une variable ici. L'utilisation de la variable dans une propriété de widget dépend du type de propriété, décrit dans l'aide générale de l'éditeur de page, dans la section <i>Propriétés</i>."
 
 msgid "Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type, described in the next section."
 msgstr "Créez une variable dans le panneau du bas. L'utilisation de la variable dans une propriété de widget dépend du type de propriété, décrit dans la section suivante."
@@ -872,8 +878,8 @@ msgstr "Nom par défaut"
 msgid "Default value"
 msgstr "Valeur par défaut"
 
-msgid "Default variables"
-msgstr "Variables par défaut"
+msgid "Default variables / actions"
+msgstr ""
 
 msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
 msgstr "Définissez une condition pour la visibilité du widget : <em>userAge &gt; 18</em>"
@@ -974,9 +980,6 @@ msgstr "Glisser et déposer des widgets ou des containers dans les lignes"
 msgid "Dropdown list of available values. The user selects one value"
 msgstr "Liste déroulante de valeurs disponibles. L'utilisateur sélectionne une valeur"
 
-msgid "Dynamic"
-msgstr "Dynamique"
-
 msgid "Dynamic value"
 msgstr "Valeur dynamique"
 
@@ -984,7 +987,7 @@ msgid "E.g. Given a variable <em>employee</em> of type External API that fetch t
 msgstr "Par exemple, étant donnée une variable <em>employé</em> de type API externe qui récupére le contexte de tâche <code>../{{context.employee_ref.link}}</code>. Pour récupérer toutes les adresses de <em>employé</em> qui sont liées en lazy dans le BDM, créez une autre variable <em>employee_addresses</em> de type API externe avec un paramètre d'URL tel que <code>employee | lazyRef : 'addresses'</code>"
 
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
-msgstr "Chaque artefact contient un asset <em>localization.json</em>, contenant les clés et les traductions pour toutes les chaînes de caractères des langues supportées (par défaut, français et espagnol). Chaque langue a sa propre section et est identifiée par l’attribut de langue ISO 639 (par exemple, fr-FR, es-ES). Pour ajouter de nouvelles langues, clés et/ou traductions, exportez le fichier <em>localization.json</em>, éditez-le et importez-le avec le même nom de fichier. Pour plus d’informations sur l’installation de nouvelles langues, visitez le site de documentation Bonita BPM (Mots-clés :"
+msgstr "Chaque artefact contient un asset <em>localization.json</em>, contenant les clés et les traductions pour toutes les chaînes de caractères des langues supportées (par défaut, français et espagnol). Chaque langue a sa propre section et est identifiée par l’attribut de langue ISO 639 (par exemple, fr-FR, es-ES). Pour ajouter de nouvelles langues, clés et/ou traductions, exportez le fichier <em>localization.json</em>, éditez-le et chargez-le avec le même nom de fichier. Pour plus d’informations sur l’installation de nouvelles langues, visitez le site de documentation Bonita BPM (Mots-clés :"
 
 msgid "Each element of this property has to match an element of the Columns key property to figure out\n"
 "            which table column can be sorted upon."
@@ -1039,7 +1042,7 @@ msgid "Error during migration of . Check migration details <i class=\"fa fa-wren
 msgstr "Erreur lors de la migration de . Vérifiez les détails de la migration <i class=\"fa fa-wrench status\"></i> pour plus de détails."
 
 msgid "Error on upload holder"
-msgstr "Contenu de l'erreur d'upload"
+msgstr "Contenu de l'erreur de chargement"
 
 msgid "Example of a tab title displaying a badge:"
 msgstr "Exemple de titre d'un onglet affichant un badge :"
@@ -1105,7 +1108,7 @@ msgid "File"
 msgstr "Fichier"
 
 msgid "File chooser for uploading a document to a form"
-msgstr "Sélecteur de fichier pour télécharger un document vers un formulaire"
+msgstr "Sélecteur de fichier pour charger un document vers un formulaire"
 
 msgid "File source"
 msgstr "Source du fichier"
@@ -1221,6 +1224,9 @@ msgstr "GET"
 msgid "General"
 msgstr "Général"
 
+msgid "Generic"
+msgstr ""
+
 msgid "Get a case by its identifier"
 msgstr "Obtenir un cas par son identifiant"
 
@@ -1285,7 +1291,7 @@ msgid "Holds the HTTP status code of the response"
 msgstr "Contient le code de statut de la réponse HTTP"
 
 msgid "Holds the response content from the upload error endpoint. That value can be used to guidance purpose"
-msgstr "Contient le contenu de la réponse du d'erreur su service d'upload. Cette valeur peut être utilisée pour guider l'utilisateur."
+msgstr "Contient la réponse du service d'erreur de chargement. Cette valeur peut être utilisée pour guider l'utilisateur."
 
 msgid "Holds the response from the upload endpoint. That value can be used to fulfill a contract"
 msgstr "Contient la réponse de l'URL cible après chargement. Cette valeur peut être utilisée pour remplir un contrat"
@@ -1420,8 +1426,8 @@ msgstr "Dans certains cas, vous voudrez remplacer votre thème pour afficher <b>
 msgid "In some case, you want to override your theme to display <b>one</b> data-table with specific line color, to do this:"
 msgstr "Dans certains cas, vous voudrez remplacer votre thème pour afficher <b>un</b> tableau avec une ligne de couleur spécifique. Pour cela :"
 
-msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
-msgstr "Dans certains cas, d'autres types de variables sont créées : <ul> <li> Quand la variable métier est éditée dans le formulaire (tel que spécifié dans l'assistant de création du contrat), une variable UI Designer est créée (de type External API).<br>Par exemple, si l'input de contrat a été créé à partir d'une variable métier 'facture' dans le processus, une variable <code>facture</code> est créée dans le formulaire, avec pour URL <span ng-non-bindable>../{{context.facture_ref.link}}</span>. <br>Si <code>facture</code> contient des relations lazy, d'autres variables sont créées pour chaque relation en lazy à résoudre (en utilisant le filtre <em>lazyRef</em>). <br>Par exemple, si 'facture' a une relation 'client' de type lazy, une variable External API <code>facture.client</code> est créée, avec pour URL <span ng-non-bindable>{facture|lazyRef:'client'}</span>. </li><li>Pour afficher un objet agrégé, un widget Select est généré. Il affichera les <em>valeurs disponibles</em> de l'objet. La variable (External API) liée au widget est créée pour requêter le BDM. <br>Par exemple, quand l'objet Facture a un objet agrégé Client, une variable <code>client_query</code> est créée avec, comme URL : <span ng-non-bindable>../API/bdm/businessData/com.company.model.Client?q=find&p=0&c=99</span>. Par défaut, elle utilise la requête <code>find</code> avec une pagination par défaut (seules les 100 premiers objets sont retournés).</li></ul>"
+msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer action is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, an action <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional actions are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API action <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The action (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, an action <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
+msgstr ""
 
 msgid "In tab title properties add the following value"
 msgstr "Dans la propriété Titre de l'onglet, ajoutez la valeur suivante"
@@ -1446,6 +1452,9 @@ msgstr "Dans l’aperçu et à l’exécution, le texte affiché s’adaptera au
 
 msgid "In the scope of a page, form, or layout, a variable can be used to handle business data, or can contain structural information that determines how page elements behave."
 msgstr "Dans le cadre d'une page, d'un formulaire ou d'un layout, une variable peut être utilisée pour gérer les données métier ou des variables de processus, ou peut contenir des informations de structure qui déterminent la façon dont se comportent les éléments."
+
+msgid "In the scope of a page, form, or layout, a variable or action can be used to handle business data, or can contain structural information that determines how page elements behave."
+msgstr ""
 
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "Dans cette liste, vous pouvez utiliser les flèches pour ré-ordonner les assets, voir les assets locaux, éditer les assets externes et supprimer tout type d'assets."
@@ -1492,8 +1501,8 @@ msgstr "Il est maintenant possible de lier facilement les métadonnées d'une r�
 msgid "It is possible to deactivate the animation when the modal appears. The main usage of this option would be to create a wizard, where several modal containers are displayed in a sequence."
 msgstr "Vous pouvez désactiver l’animation d'affichage de la fenêtre modale. Ce sera le cas par exemple pour créer un assistant dans lequel plusieurs fenêtres modales se succèdent."
 
-msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API variable with value"
-msgstr "Elle fournit des références aux documents et variables métiers définis dans l'instance de processus (cas). Pour récupérer la valeur d'une variable métier, créez une variable de type API externe avec pour valeur"
+msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API action with value"
+msgstr ""
 
 msgid "Item"
 msgstr "Elément courant"
@@ -1718,7 +1727,7 @@ msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>conse
 msgstr "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, <br/> consectetur, <br/> adipisci velit..."
 
 msgid "New container v2"
-msgstr ""
+msgstr "Nouveau conteneur v2"
 
 msgid "New embedded AngularJS filter to resolve the lazy references of a business object"
 msgstr "Nouveau filtre AngularJS intégré, permettant de résoudre les références à un objet métier en mode Lazy"
@@ -1730,7 +1739,7 @@ msgid "New window (_blank)"
 msgstr "Nouvelle fenêtre (_blank)"
 
 msgid "Next Gen"
-msgstr ""
+msgstr "Prochaine Gen"
 
 msgid "Next page to display, for applications. In the Portal, it is ignored as navigation is managed automatically"
 msgstr "Page suivante à afficher, dans une application. Dans le portail, ce champ est ignoré car la navigation est gérée automatiquement"
@@ -2620,8 +2629,8 @@ msgstr "Pour ouvrir une pop-in : dans les propriétés du container modal, saisi
 msgid "To pre-fill with a template, bind an HTML formatted variable"
 msgstr "Pour pré-remplir avec un template, binder une variable contenant du texte formaté en HTML"
 
-msgid "To retrieve a document instance, create an External API variable with value"
-msgstr "Pour récupérer une instance de document, créez une variable de type API externe avec pour valeur"
+msgid "To retrieve a document instance, create an External API action with value"
+msgstr ""
 
 msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, <i>rename</i> it before you import."
 msgstr "Pour enregistrer <strong>{{ ::importReport.overwrittenName }}</strong> avec un identifiant différent, <i>renommez</i>-le avant de l'importer."
@@ -2795,7 +2804,7 @@ msgid "Use the generated user interface"
 msgstr "Utiliser l'interface utilisateur générée"
 
 msgid "Use the next UI Designer generation"
-msgstr ""
+msgstr "Utiliser la nouvelle génération de UI Designer"
 
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "Utiliser la palette sur la gauche pour glisser-déplacer les containers et les widgets dans le whiteboard."
@@ -2826,6 +2835,9 @@ msgstr "L'Id de l'utilisateur pourrait ensuite être obtenue grâce à {{myData.
 
 msgid "Using the Vertical Display property, it is possible to display tabs vertically or horizontally."
 msgstr "En utilisant la propriété Affichage vertical, il est possible d'afficher les onglets verticalement ou horizontalement."
+
+msgid "Using the variable or action in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
+msgstr ""
 
 msgid "Validation Errors"
 msgstr "Erreurs de validation"
@@ -2878,8 +2890,8 @@ msgstr "Variable de type tableau"
 msgid "Variables"
 msgstr "Variables"
 
-msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
-msgstr "Les variables peuvent être bindées aux différents champs pour créer un comportement conditionnel entre propriétés de widgets."
+msgid "Variables or actions can be bound to input fields to create conditional behavior between widget properties."
+msgstr ""
 
 msgid "Vertical display"
 msgstr "Affichage vertical"
@@ -2921,8 +2933,8 @@ msgstr "Lorsque le tableau table est affiché, chaque fois que l'utilisateur met
 msgid "When you delete a row, the following rows move up"
 msgstr "Lorsque vous supprimez une ligne, les lignes suivantes se déplacent vers le haut"
 
-msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
-msgstr "Lorsque vous générez un formulaire à partir d'un contrat dans le studio, il contient un bouton \"Submit\" et 4 variables par défaut : <code>formInput</code>, <code>formOutput</code>, <code>taskId</code> et <code>context</code>"
+msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables and actions: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
+msgstr ""
 
 msgid "Whenever this form is reloaded, either by hitting F5 or browsing away and back again, the entry will be reloaded automatically from LocalStorage."
 msgstr "Chaque fois que ce formulaire est rechargé (appui sur F5 ou retour sur le formulaire après navigation sur une autre page), les valeurs saisies sont automatiquement rechargées à partir du LocalStorage."
@@ -3041,7 +3053,7 @@ msgid "You can use the <i>environment</i> property injected in the scope when in
 msgstr "Vous pouvez utiliser la propriété <i>environment</i> injectée dans le scope à l'intérieur du whiteboard. Elle permet de d'émuler un affichage pour le whiteboard puisque les données réelles d'utilisation ne seront pas disponibles."
 
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
-msgstr "Vous ne pouvez pas avoir plus d'un asset de localisation. Télécharger un nouvel asset remplace le fichier existant."
+msgstr "Vous ne pouvez pas avoir plus d'un asset de localisation. Charger un nouvel asset remplace le fichier existant."
 
 msgid "You cannot import or use this artifact in older version anymore."
 msgstr "Vous ne pouvez plus importer ou utiliser cet artefact dans une version antérieure."
