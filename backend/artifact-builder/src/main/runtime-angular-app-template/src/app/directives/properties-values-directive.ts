@@ -1,7 +1,7 @@
 import { Directive, Input, OnInit, ViewContainerRef, TemplateRef } from '@angular/core';
 import propertiesValues from '../../assets/propertiesValues';
 import { uidModel } from './uid-model-directive';
-import { BindingContextFactory, BindingFactory, EnumBinding, VariableContext } from '@bonitasoft/ui-designer-context-binding';
+import { BindingContextFactory, BindingFactory, EnumBinding, ModelFactory } from '@bonitasoft/ui-designer-context-binding';
 
 /**
  * Allow us to declare a directive to setup a structural directive like following
@@ -16,42 +16,39 @@ export class PropertiesValues implements OnInit {
     @Input('properties-values') reference: string = '';
 
     @Input('properties-valuesCollection') set setCollection(collection: Array<any>) {
-        this.scope.collection = collection;
+        this._context.collection = collection;
     }
 
     @Input('properties-valuesIndex') set setIndex(index: number) {
-        this.scope.index = index;
+        this._context.index = index;
     }
 
     @Input('properties-valuesItem') set setItem(item: any) {
-        this.scope.item = item;
+        this._context.item = item;
     }
 
     @Input('properties-valuesCount') set setCount(count: number) {
-        this.scope.count = count;
+        this._context.count = count;
     }
 
     private properties: any = {};
-    private context: VariableContext = {};
-    private model: uidModel;
-    private scope: any = {};
+    private _context: any = {};
 
     private bindingContextFactory: BindingContextFactory;
+    private modelFactory: ModelFactory;
 
     constructor(private templateRef: TemplateRef<any>,
-                private viewContainerRef: ViewContainerRef, private uidModel: uidModel) {
-        this.model = uidModel;
-        this.bindingContextFactory = new BindingContextFactory();
+                private viewContainerRef: ViewContainerRef, private _uidModelDirective: uidModel) {
+        this.modelFactory = this._uidModelDirective.getModelFactory();
+        this.bindingContextFactory = new BindingContextFactory(this.modelFactory);
     }
 
     async ngOnInit(): Promise<void> {
         const propertyValues = propertiesValues.get(this.reference);
 
-        let variablesAccessors = new Map(this.model.getVariableAccessors());
-
         BindingFactory.createPropertiesBinding(
             propertyValues,
-            this.bindingContextFactory.addSpecificKeywordOnAccessors(variablesAccessors, this.scope),
+            this.bindingContextFactory.addSpecificKeywordOnAccessors(this._context),
             this.properties);
 
         this.properties.isBound = function (propertyName: string) {
@@ -59,10 +56,6 @@ export class PropertiesValues implements OnInit {
                 propertyValues[propertyName].type === EnumBinding.Variable &&
                 !!propertyValues[propertyName].value;
         }
-
-        this.context = {
-            $implicit: this.properties,
-        };
-        this.viewContainerRef.createEmbeddedView(this.templateRef, this.context);
+        this.viewContainerRef.createEmbeddedView(this.templateRef, { $implicit: this.properties });
     }
 }
