@@ -270,24 +270,6 @@
     lit-element "^2.3.1"
     lit-translate "^1.2.1"
 
-"@bonitasoft/uid-input@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-input/-/uid-input-0.1.2.tgz#7b2fdf3a5b47823234e24dff24b4a54dae6ccee7"
-  integrity sha512-G2USUR0bQxX0mbRzkUcmotGsH6QHTmTmogu7bBkXRb2wYVvBvkNcS4sQI/0bPdia58g/wSFxx4SBwHvKl6TmeQ==
-  dependencies:
-    bootstrap "^4.5.3"
-    lit-element "^2.4.0"
-    lit-translate "^1.2.1"
-
-"@bonitasoft/uid-text@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@bonitasoft/uid-text/-/uid-text-0.1.2.tgz#40380aaed417ec25e3782b8e8d8af904e6e432fa"
-  integrity sha512-8TtCkTlMYDacsXAUZyPeQtRfdVtG02OombbOjDfnMDpMd/c1iNcVWhkf5LbvChYuZXzCWxQCqIBWURYDhoh/Yg==
-  dependencies:
-    bootstrap "^4.5.3"
-    lit-element "^2.4.0"
-    lit-translate "^1.2.1"
-
 "@gulp-sourcemaps/identity-map@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@gulp-sourcemaps/identity-map/-/identity-map-2.0.1.tgz#a6e8b1abec8f790ec6be2b8c500e6e68037c0019"
