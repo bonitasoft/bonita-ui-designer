@@ -22,6 +22,8 @@ const iconfontCss = require('gulp-iconfont-css');
 const base64 = require('gulp-base64');
 const babel = require('gulp-babel');
 const eslint = require('gulp-eslint');
+const strip = require('gulp-strip-comments');
+const cleanCSS = require('gulp-clean-css');
 
 const gulp = require('gulp');
 const assets = require('./assets.js');
@@ -66,6 +68,7 @@ function bundleCss() {
   let cssPipe = gulp.src(paths.css);
 
   return merge(lessPipe, cssPipe).pipe(concat('main.css'))
+    .pipe(cleanCSS({level: {1: {specialComments: false}}}))
     .pipe(gulp.dest(paths.dev + '/css'));
 }
 
@@ -166,6 +169,7 @@ function bundleVendors() {
     .pipe(sourcemaps.init())
     .pipe(gulpIf(notMinified, uglify()))
     .pipe(concat('vendors.js'))
+    .pipe(strip())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.dev + '/js'));
 }
