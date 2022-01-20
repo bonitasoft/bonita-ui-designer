@@ -51,7 +51,7 @@
     "babel-eslint": "8",
     "babel-polyfill": "6.3.14",
     "babel-preset-bonita": "1.0.2",
-    "browser-sync": "~1.7.1",
+    "browser-sync": "~2.27.7",
     "connect": "~3.2.0",
     "cross-env": "^5.1.4",
     "del": "^1.1.1",
