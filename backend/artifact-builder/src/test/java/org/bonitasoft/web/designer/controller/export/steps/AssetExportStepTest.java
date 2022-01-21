@@ -53,7 +53,7 @@ public class AssetExportStepTest {
 
         assetExportStep.execute(zipper, aPage().build());
 
-        Mockito.verifyZeroInteractions(zipper);
+        Mockito.verifyNoInteractions(zipper);
     }
 
     @Test
@@ -74,6 +74,6 @@ public class AssetExportStepTest {
 
         assetExportStep.execute(zipper, page);
 
-        verifyZeroInteractions(zipper);
+        verifyNoInteractions(zipper);
     }
 }
