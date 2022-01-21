@@ -1,6 +1,5 @@
 const widgets = require('./subTasks/widgets');
 const runtime = require('./subTasks/runtime');
-const gulpIf = require('gulp-if');
 const {series, src, dest, watch} = require('gulp');
 const shell = require('gulp-shell');
 const config = require('./config');

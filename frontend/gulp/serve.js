@@ -95,14 +95,15 @@ function browserSyncInit(baseDir, files, startPath, browser) {
   browser = browser || 'default';
 
   browserSync.instance = browserSync.init(files, {
-    server: {
+      server: {
       baseDir: baseDir,
       middleware: [
         uploadMiddleware,
         proxyMiddleware,
         serveStatic(paths.dist)
-      ]
+      ],
     },
+    injectChanges: false,
     browser: browser
   });
 }
