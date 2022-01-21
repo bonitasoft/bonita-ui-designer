@@ -124,7 +124,7 @@ public class UiDesignerCoreFactory {
         var pageAssetService = new AssetService<>(pageRepository, pageAssetRepository, pageAssetDependencyImporter);
 
         final var componentVisitor = new ComponentVisitor(fragmentRepository);
-        List<Migration<Fragment>> fragmentMigrationStepsList = List.of(
+        List<Migration<Fragment>> fragmentMigrationStepsList = List.<Migration<Fragment>>of(
                 new Migration<>("1.0.3", new BondMigrationStep<>(componentVisitor, widgetRepository, new VisitorFactory())),
                 new Migration<>("1.7.25", new TextWidgetInterpretHTMLMigrationStep<>(componentVisitor)),
                 new Migration<>("1.9.24", new TextWidgetLabelMigrationStep<>(componentVisitor)),
@@ -137,7 +137,7 @@ public class UiDesignerCoreFactory {
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2"), new BusinessVariableMigrationStep<>())
         );
 
-        List<Migration<Page>> pageMigrationStepsList = List.of(
+        List<Migration<Page>> pageMigrationStepsList = List.<Migration<Page>>of(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<>()),
                 new Migration<>("1.0.3", new BondMigrationStep<>(componentVisitor, widgetRepository, new VisitorFactory())),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<>()),
@@ -158,7 +158,7 @@ public class UiDesignerCoreFactory {
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2"))
         );
 
-        List<Migration<Widget>> widgetMigrationStepsList = List.of(
+        List<Migration<Widget>> widgetMigrationStepsList = List.<Migration<Widget>>of(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<>()),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<>()),
                 new Migration<>("1.10.12", new SplitWidgetResourcesMigrationStep()),

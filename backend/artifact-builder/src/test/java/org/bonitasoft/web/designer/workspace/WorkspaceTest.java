@@ -14,35 +14,37 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import org.bonitasoft.web.designer.ArtifactBuilder;
-import org.bonitasoft.web.designer.ArtifactBuilderFactory;
-import org.bonitasoft.web.designer.Version;
-import org.bonitasoft.web.designer.config.UiDesignerProperties;
-import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
-import org.bonitasoft.web.designer.config.WorkspaceProperties;
-import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
-import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.write;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.awaitility.Awaitility.await;
-import static org.mockito.Mockito.*;
+import org.bonitasoft.web.designer.ArtifactBuilder;
+import org.bonitasoft.web.designer.ArtifactBuilderFactory;
+import org.bonitasoft.web.designer.Version;
+import org.bonitasoft.web.designer.config.UiDesignerProperties;
+import org.bonitasoft.web.designer.config.UiDesignerPropertiesBuilder;
+import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WorkspaceTest {
@@ -65,10 +67,11 @@ public class WorkspaceTest {
 
         workspaceProperties = uiDesignerProperties.getWorkspace();
 
-        ArtifactBuilder artifactBuilder = new ArtifactBuilderFactory(uiDesignerProperties).create();
+        ArtifactBuilder artifactBuilder = new ArtifactBuilderFactory(uiDesignerProperties)
+                .create();
 
         workspace = spy(artifactBuilder.getWorkspace());
-
+        
         workspace.initialized.set(false);
 
     }
@@ -326,7 +329,7 @@ public class WorkspaceTest {
 
         assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage")).exists();
         assertThat(temporaryFolder.toPath().resolve("pages").resolve("myPage").resolve("js")).doesNotExist();
-        await().atMost(2, SECONDS).untilAsserted(() ->
+        await().atMost(3, SECONDS).untilAsserted(() ->
                 assertThat(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve(".index.json")).exists()
         );
         assertThat(contentOf(temporaryFolder.toPath().resolve("pages").resolve(".metadata").resolve(".index.json")))

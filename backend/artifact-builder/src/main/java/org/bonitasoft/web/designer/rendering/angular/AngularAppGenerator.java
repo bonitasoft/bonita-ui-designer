@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static java.lang.String.format;
 
@@ -51,6 +53,7 @@ public class AngularAppGenerator<P extends Previewable & Identifiable> {
     private final AngularPropertyValuesVisitor angularPropertyValuesVisitor;
     private final AngularVariableVisitor angularVariableVisitor;
     private final WidgetBundleFile widgetBundleFile;
+    private ExecutorService executorService = Executors.newCachedThreadPool();
 
     public void generateAngularApp(P artifact) {
         try {
@@ -87,13 +90,12 @@ public class AngularAppGenerator<P extends Previewable & Identifiable> {
 
     public void generatedAppInstallStart(P artifact) {
         // Start this in a separate thread to avoid block the tomcat server
-        Thread threadGeneratedAppInstallation = new Thread(() -> {
+        executorService.submit(() -> {
             var appDir = workspaceUidProperties.getTmpAngularAppPath(artifact.getId());
             MavenCli maven = new MavenCli();
             System.setProperty("maven.multiModuleProjectDirectory", appDir.toString());
-            maven.doMain(new String[]{"install"}, appDir.toString(), System.out, System.err);
+            maven.doMain(new String[] { "install" }, appDir.toString(), System.out, System.err);
         });
-        threadGeneratedAppInstallation.start();
     }
 
     protected String generateComponentTs(P page) {
@@ -101,14 +103,15 @@ public class AngularAppGenerator<P extends Previewable & Identifiable> {
         var template = new TemplateEngine("angular/src/app/app.component.hbs.ts")
                 .with("appTag", page.getId())
                 .with("widgets", widgetBundleFile.getWidgetsBundlePathUsedInArtifact(page))
-                .with("jsAsset", assetHtmlBuilder.getAssetAngularSrcList(page.getId(), AssetType.JAVASCRIPT, sortedAssets));
+                .with("jsAsset",
+                        assetHtmlBuilder.getAssetAngularSrcList(page.getId(), AssetType.JAVASCRIPT, sortedAssets));
         return template.build(page);
     }
 
     protected String generateAssetsStyle(P page) {
         var sortedAssets = assetHtmlBuilder.getSortedAssets(page);
         var template = new TemplateEngine("angular/src/app/app.style.hbs.css")
-                .with("cssAsset", assetHtmlBuilder.getAssetAngularSrcList(page.getId(),AssetType.CSS, sortedAssets));
+                .with("cssAsset", assetHtmlBuilder.getAssetAngularSrcList(page.getId(), AssetType.CSS, sortedAssets));
         return template.build(page);
     }
 
@@ -140,19 +143,24 @@ public class AngularAppGenerator<P extends Previewable & Identifiable> {
     }
 
     private void srcFilesGeneration(P artifact, Path srcFolderPath) throws IOException {
-        Files.write(srcFolderPath.resolve("index.html"), generateFileWithAppTag(artifact, INDEX_HTML_TEMPLATE).getBytes(StandardCharsets.UTF_8));
-        Files.write(srcFolderPath.resolve("main.ts"), generateFileWithAppTag(artifact, MAIN_TS_TEMPLATE).getBytes(StandardCharsets.UTF_8));
+        Files.write(srcFolderPath.resolve("index.html"),
+                generateFileWithAppTag(artifact, INDEX_HTML_TEMPLATE).getBytes(StandardCharsets.UTF_8));
+        Files.write(srcFolderPath.resolve("main.ts"),
+                generateFileWithAppTag(artifact, MAIN_TS_TEMPLATE).getBytes(StandardCharsets.UTF_8));
     }
 
-    private void copyAngularApp(String sourceDirectoryLocation, String destinationDirectoryLocation) throws IOException {
+    private void copyAngularApp(String sourceDirectoryLocation, String destinationDirectoryLocation)
+            throws IOException {
         File sourceDirectory = new File(sourceDirectoryLocation);
         File destinationDirectory = new File(destinationDirectoryLocation);
         FileUtils.copyDirectory(sourceDirectory, destinationDirectory);
     }
 
     private void assetsFilesGeneration(P artifact, Path assetsFolderPath) throws IOException {
-        Files.write(assetsFolderPath.resolve("propertiesValues.ts"),angularPropertyValuesVisitor.generate(artifact).getBytes(StandardCharsets.UTF_8));
-        Files.write(assetsFolderPath.resolve("variableModel.ts"),angularVariableVisitor.generate(artifact).getBytes(StandardCharsets.UTF_8));
+        Files.write(assetsFolderPath.resolve("propertiesValues.ts"),
+                angularPropertyValuesVisitor.generate(artifact).getBytes(StandardCharsets.UTF_8));
+        Files.write(assetsFolderPath.resolve("variableModel.ts"),
+                angularVariableVisitor.generate(artifact).getBytes(StandardCharsets.UTF_8));
     }
 
 }
