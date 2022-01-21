@@ -17,7 +17,7 @@
     "@angular/platform-browser": "~13.0.1",
     "@angular/platform-browser-dynamic": "~13.0.1",
     "@angular/router": "~13.0.1",
-    "@bonitasoft/ui-designer-context-binding": "0.0.13",
+    "@bonitasoft/ui-designer-context-binding": "0.0.14",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
