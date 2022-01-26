@@ -6,11 +6,13 @@ on:
       - dev
       - master
       - release-*
+      - 1.*
   pull_request:
     branches:
       - dev
       - master
       - release-*
+      - 1.*
 jobs:
   build:
     runs-on: [self-hosted, uid-runner]

@@ -10,6 +10,8 @@ const sourcemaps = require('gulp-sourcemaps');
 const ngAnnotate = require('gulp-ng-annotate');
 const babel = require('gulp-babel');
 const merge = require('merge-stream');
+const strip = require('gulp-strip-comments');
+const cleanCSS = require('gulp-clean-css');
 
 /**
  * js task, concatenate and minimify vendor js files
@@ -21,12 +23,14 @@ function notMinified(file) {
 function vendor() {
   return src(config.paths.vendor)
     .pipe(concat('vendor.min.js'))
+    .pipe(strip())
     .pipe(gulpIf(notMinified, uglify().on('error', console.error)))
     .pipe(dest(config.paths.dest.vendors));
 }
 
 function runtimeCss(){
   return src(config.paths.css)
+    .pipe(cleanCSS({level: {1: {specialComments: false}}}))
     .pipe(dest(config.paths.dest.css));
 }
 
@@ -56,6 +60,7 @@ function runtimeJs(done){
 
   merge(app, tpl)
     .pipe(concat('runtime.min.js'))
+    .pipe(strip())
     .pipe(uglify().on('error', console.error))
     .pipe(sourcemaps.write('.'))
     .pipe(dest(config.paths.dest.js));

@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <spring-boot.version>2.5.2</spring-boot.version>
+        <spring-boot.version>2.6.2</spring-boot.version>
         <handlebar.version>4.2.0</handlebar.version>
         <projectInfoReports.version>3.0.0</projectInfoReports.version>
     </properties>
@@ -71,7 +71,7 @@
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>1.13.1</version>
+                <version>1.14.2</version>
             </dependency>
             <!-- Spring -->
             <dependency>

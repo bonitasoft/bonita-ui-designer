@@ -54,7 +54,7 @@ jobs:
         shell: bash
         run: |
           git config remote.public.url >&- || git remote add public https://github.com/bonitasoft/bonita-ui-designer.git
-          git push public-repo ${{ steps.newTagVersion.outputs.value}}
+          git push public ${{ steps.newTagVersion.outputs.value}}
 
       - name: Create Release
         uses: ncipollo/release-action@v1

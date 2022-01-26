@@ -47,8 +47,6 @@ public class WorkspaceTest {
 
     private static final String CURRENT_MODEL_VERSION = "2.0";
 
-    private final String extractPath = "target/workspace-test/workspace-uid/";
-
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
@@ -71,7 +69,7 @@ public class WorkspaceTest {
         workspaceProperties.getFragments().setDir(Paths.get(fakeProjectFolder, "fragments"));
 
         WorkspaceUidProperties workspaceUidProperties = uiDesignerProperties.getWorkspaceUid();
-        workspaceUidProperties.setExtractPath(Paths.get(extractPath));
+        workspaceUidProperties.setExtractPath(Paths.get(fakeProjectFolder).resolve("tmpExtract"));
 
         ArtifactBuilder artifactBuilder = new ArtifactBuilderFactory(uiDesignerProperties).create();
 

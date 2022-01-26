@@ -1,7 +1,7 @@
 const through = require('through2');
 const os = require('os');
 const path = require('path');
-const gutil = require('gulp-util');
+const replaceExt = require('replace-ext');
 
 
 function prepare() {
@@ -141,7 +141,7 @@ function extract() {
       }
     });
 
-    file.path = gutil.replaceExtension(file.path, '.pot');
+    file.path = replaceExt(file.path, '.pot');
     file.contents = Buffer.from(transform(i18n));
 
     cb(undefined, file);

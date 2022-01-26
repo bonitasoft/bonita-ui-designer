@@ -63,8 +63,8 @@ fi
 pull_request() {
   PR="{\"title\": \"feat(l10n): [${BRANCH_NAME}] Translations update\", \"head\": \"feat/${BRANCH_NAME}/update-translations\", \"base\": \"${BRANCH_NAME}\"}"
   echo "Create new pull request $PR"
-  curl -i -X POST -d "$PR" \
-     https://api.github.com/repos/bonitasoft/bonita-ui-designer-internal/pulls?access_token=$1
+  curl -H "Authorization: token $1" -i -X POST -d "$PR" \
+       https://api.github.com/repos/bonitasoft/bonita-ui-designer-internal/pulls
 }
 
 # $1 directory
