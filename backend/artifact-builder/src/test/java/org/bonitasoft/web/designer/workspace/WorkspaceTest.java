@@ -142,18 +142,6 @@ public class WorkspaceTest {
 
 
     @Test
-    public void should_copy_new_uid_widgets_to_widget_repository_folder() throws Exception {
-        uiDesignerProperties.setExperimental(true);
-
-        workspace.initialize();
-
-        Path widgetsPath = workspaceProperties.getWidgets().getDir();
-        assertThat(widgetsPath.resolve("uidInput/uidInput.json")).exists();
-        assertThat(widgetsPath.resolve("uidText/uidText.json")).exists();
-
-    }
-
-    @Test
     public void should_not_copy_widget_file_if_it_is_already_in_widget_repository_with_same_version() throws Exception {
         String existingWidgetContent = "{\"id\":\"pbLabel\", \"template\": \"<div>Hello</div>\", \"designerVersion\": \"" + CURRENT_MODEL_VERSION + "\"}";
         createWidget("pbLabel", existingWidgetContent);
