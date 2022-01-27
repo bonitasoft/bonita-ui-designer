@@ -33,7 +33,7 @@ import java.net.URISyntaxException;
 
 import static org.bonitasoft.web.designer.builder.BusinessObjectBuilder.aBusinessObject;
 import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

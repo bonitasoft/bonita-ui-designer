@@ -69,9 +69,9 @@ import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContai
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
 import static org.bonitasoft.web.designer.builder.VariableBuilder.aConstantVariable;
 import static org.bonitasoft.web.designer.utils.assertions.CustomAssertions.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AngularJsHtmlBuilderVisitorTest {

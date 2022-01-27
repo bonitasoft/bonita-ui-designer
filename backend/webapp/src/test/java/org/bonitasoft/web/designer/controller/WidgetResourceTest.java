@@ -44,7 +44,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,9 +59,9 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.DECREMENT;
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.hamcrest.CoreMatchers.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.notNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -217,7 +216,7 @@ public class WidgetResourceTest {
                         .content(jsonHandler.toJson(customLabel)))
                 .andExpect(status().isOk());
 
-        verify(widgetService).create(notNull(Widget.class));
+        verify(widgetService).create(notNull());
     }
 
     @Test

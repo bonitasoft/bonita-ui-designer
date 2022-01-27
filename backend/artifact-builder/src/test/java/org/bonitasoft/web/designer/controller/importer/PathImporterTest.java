@@ -42,7 +42,6 @@ import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 import static org.bonitasoft.web.designer.builder.ImportReportBuilder.anImportReportFor;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.controller.importer.report.ImportReport.Status.IMPORTED;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

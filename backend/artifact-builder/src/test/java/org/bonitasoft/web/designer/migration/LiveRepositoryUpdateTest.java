@@ -53,7 +53,7 @@ import static java.lang.String.format;
 import static java.nio.file.Files.write;
 import static java.util.Collections.EMPTY_LIST;
 import static java.util.Collections.singletonList;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

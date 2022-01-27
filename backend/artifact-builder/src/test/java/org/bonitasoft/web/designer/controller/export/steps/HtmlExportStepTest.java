@@ -16,8 +16,10 @@ package org.bonitasoft.web.designer.controller.export.steps;
 
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.controller.export.Zipper;
+import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.controller.export.steps.angularJs.HtmlExportStep;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.rendering.HtmlGenerator;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,9 +35,9 @@ import static java.nio.file.Paths.get;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_DIRECTORIES;
 import static org.bonitasoft.web.designer.controller.export.Zipper.ALL_FILES;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HtmlExportStepTest {

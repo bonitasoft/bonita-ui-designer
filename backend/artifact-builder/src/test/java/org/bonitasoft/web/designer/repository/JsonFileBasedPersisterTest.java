@@ -43,7 +43,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 import static org.bonitasoft.web.designer.builder.SimpleObjectBuilder.aSimpleObjectBuilder;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.spy;
 
@@ -140,7 +139,7 @@ public class JsonFileBasedPersisterTest {
 
     @Test(expected = IOException.class)
     public void should_throw_IOException_when_error_occurs_while_saving_a_object() throws Exception {
-        doThrow(new RuntimeException()).when(jsonHandler).toJson(anyObject(), any(Class.class));
+        doThrow(new RuntimeException()).when(jsonHandler).toJson(any(), any(Class.class));
 
         jsonFileBasedPersister.save(repoDirectory, new SimpleDesignerArtifact());
     }

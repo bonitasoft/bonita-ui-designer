@@ -29,6 +29,7 @@ import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedPersister;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -45,9 +46,8 @@ import java.nio.file.Paths;
 import static java.nio.file.Files.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -122,7 +122,7 @@ public class WidgetDirectiveBuilderTest {
     public void should_not_build_directives_for_web_component_widgets() throws Exception {
         widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
 
-        assertFalse(Files.exists(getDirectivePath("uidInput")));
+        Assert.assertFalse(Files.exists(getDirectivePath("uidInput")));
     }
 
     @Test

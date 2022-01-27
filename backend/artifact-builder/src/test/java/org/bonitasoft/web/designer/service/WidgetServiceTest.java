@@ -68,6 +68,7 @@ import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderTyp
 import static org.bonitasoft.web.designer.model.widget.BondType.CONSTANT;
 import static org.bonitasoft.web.designer.model.widget.BondType.INTERPOLATION;
 import static java.time.Instant.parse;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -270,7 +271,7 @@ public class WidgetServiceTest {
 
         widgetService.create(customLabel);
 
-        verify(widgetRepository).create(notNull(Widget.class));
+        verify(widgetRepository).create(notNull());
     }
 
     @Test

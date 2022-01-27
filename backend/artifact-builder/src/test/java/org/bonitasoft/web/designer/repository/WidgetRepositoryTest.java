@@ -58,8 +58,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidgetWc;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)

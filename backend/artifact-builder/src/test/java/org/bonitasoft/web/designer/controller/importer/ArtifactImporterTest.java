@@ -62,7 +62,6 @@ import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.bonitasoft.web.designer.controller.importer.ImportException.Type.UNEXPECTED_ZIP_STRUCTURE;
 import static org.bonitasoft.web.designer.controller.importer.exception.ImportExceptionMatcher.hasType;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 

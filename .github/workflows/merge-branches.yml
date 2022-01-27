@@ -1,0 +1,51 @@
+name: Merge branches
+on:
+  workflow_dispatch:
+    inputs:
+      from:
+        description: Merge branch
+        default: 'master'
+        required: true
+      target:
+        description: into
+        default: 'dev'
+        required: true
+jobs:
+  merge-branches:
+    runs-on: [self-hosted, uid-runner]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Merge ${{ github.event.inputs.from }} ->  ${{ github.event.inputs.target }}
+        uses: devmasx/merge-branch@1.4.0
+        with:
+          type: now
+          from_branch: ${{ github.event.inputs.from }}
+          target_branch: ${{ github.event.inputs.target }}
+          github_token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+
+      - name: Send message to Slack channel
+        if: failure()
+        uses: slackapi/slack-github-action@v1.17.0
+        with:
+          channel-id: 'CFD1SMX7V'
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":x:  Merge ${{ github.event.inputs.from }} into ${{ github.event.inputs.target }} failed."
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "More details about the error <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}?check_suite_focus=true| here>"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
