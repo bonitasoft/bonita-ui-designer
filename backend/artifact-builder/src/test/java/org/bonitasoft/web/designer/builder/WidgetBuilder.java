@@ -44,19 +44,10 @@ public class WidgetBuilder {
     private String type;
     private boolean favorite = false;
     private boolean hasHelp = false;
-    private boolean isWidgetWc = false;
     private MigrationStatusReport migrationStatusReport = new MigrationStatusReport(true, true);
 
-    private WidgetBuilder(boolean isWidgetWc) {
-        this.isWidgetWc = isWidgetWc;
-    }
-
     public static WidgetBuilder aWidget() {
-        return new WidgetBuilder(false);
-    }
-
-    public static WidgetBuilder aWidgetWc() {
-        return new WidgetBuilder(true);
+        return new WidgetBuilder();
     }
 
     public WidgetBuilder withId(String id) {
@@ -80,9 +71,7 @@ public class WidgetBuilder {
     }
 
     public WidgetBuilder controller(String controller) {
-        if (!isWidgetWc) {
-            this.controller = controller;
-        }
+        this.controller = controller;
         return this;
     }
 
@@ -153,10 +142,6 @@ public class WidgetBuilder {
     public WidgetBuilder withMigrationStatusReport(MigrationStatusReport migrationStatusReport) {
         this.migrationStatusReport = migrationStatusReport;
         return this;
-    }
-
-    public boolean isWidgetWc() {
-        return isWidgetWc;
     }
 
     public WidgetBuilder isCompatible(boolean compatible) {

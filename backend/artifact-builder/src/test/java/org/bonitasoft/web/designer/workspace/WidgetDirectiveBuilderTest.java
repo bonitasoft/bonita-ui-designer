@@ -14,23 +14,19 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
-import org.bonitasoft.web.designer.ArtifactBuilderFactory;
 import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.JsonHandler;
-import org.bonitasoft.web.designer.model.Technology;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.BeanValidator;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedPersister;
 import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,14 +36,12 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static java.nio.file.Files.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -70,8 +64,6 @@ public class WidgetDirectiveBuilderTest {
     Widget pbInput;
 
     Widget pbButton;
-
-    Widget uidInput;
 
     HtmlSanitizer htmlSanitizer = new HtmlSanitizer();
 
@@ -106,11 +98,6 @@ public class WidgetDirectiveBuilderTest {
         pbButton.setCustom(true);
         createDirectories(repository.resolvePath(pbButton.getId()));
         repository.updateLastUpdateAndSave(pbButton);
-
-        uidInput = aWidget().withId("uidInput").build();
-        uidInput.setTechnology(Technology.WEB_COMPONENT);
-        createDirectories(repository.resolvePath(uidInput.getId()));
-        repository.updateLastUpdateAndSave(uidInput);
     }
 
     @Test
@@ -122,13 +109,6 @@ public class WidgetDirectiveBuilderTest {
     }
 
     @Test
-    public void should_build_directives_for_custom_widgets_without_prefix() throws Exception {
-        widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
-
-        assertTrue(Files.exists(getDirectivePath("uidInput")));
-    }
-
-    @Test
     public void should_only_build_directives_files() throws Exception {
         //
         widgetRepositoryDirectory.newFile("whatever.txt");
@@ -136,7 +116,7 @@ public class WidgetDirectiveBuilderTest {
         widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
 
         //assert that we do not create a whatever.js file ?
-        assertThat(widgetRepositoryDirectory.getRoot().list()).containsOnly(".metadata", "pbButton", "whatever.txt", "uidInput", "pbInput");
+        assertThat(widgetRepositoryDirectory.getRoot().list()).containsOnly(".metadata", "pbButton", "whatever.txt", "pbInput");
     }
 
     @Test

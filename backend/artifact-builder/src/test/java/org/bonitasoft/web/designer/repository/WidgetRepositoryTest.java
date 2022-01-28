@@ -56,7 +56,6 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.builder.PropertyBuilder.aProperty;
 import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
-import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidgetWc;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -84,8 +83,6 @@ public class WidgetRepositoryTest {
 
     private Path widgetDir;
 
-    private Path widgetWcDir;
-
     @Mock
     private Watcher watcher;
 
@@ -93,7 +90,6 @@ public class WidgetRepositoryTest {
     public void setUp() throws IOException {
 
         widgetDir = Paths.get(temporaryFolder.getRoot().getPath());
-        widgetWcDir = widgetDir.resolve("Wc");
 
         uiDesignerProperties = new UiDesignerProperties(DESIGNER_VERSION, MODEL_VERSION);
         uiDesignerProperties.getWorkspace().getWidgets().setDir(widgetDir);
@@ -145,25 +141,17 @@ public class WidgetRepositoryTest {
     public void should_retrieve_all_widgets() throws Exception {
         Widget input = aWidget().withId("input").build();
         Widget label = aWidget().withId("label").build();
-        Widget uidInput = aWidgetWc().withId("uidInput").build();
-        Widget uidLabel = aWidgetWc().withId("uidLabel").build();
-        addToRepository(input, label, uidInput, uidLabel);
+        addToRepository(input, label);
 
         uiDesignerProperties.setExperimental(false);
         List<Widget> widgets = widgetRepository.getAll();
-        assertThat(widgets).containsOnly(input, label, uidInput, uidLabel);
-
-        uiDesignerProperties.setExperimental(true);
-        widgets = widgetRepository.getAll();
-        assertThat(widgets).containsOnly(input, label, uidInput, uidLabel);
+        assertThat(widgets).containsOnly(input, label);
     }
 
     @Test(expected = RepositoryException.class)
     public void should_throw_RepositoryException_if_error_occurs_while_getting_all_widgets() throws Exception {
         doThrow(new IOException()).when(jsonHandler).fromJson(any(byte[].class), eq(Widget.class));
         addToRepository(aWidget().withId("input").build());
-        widgetRepository.getAll();
-        addToRepository(aWidgetWc().withId("input").build());
         widgetRepository.getAll();
     }
 

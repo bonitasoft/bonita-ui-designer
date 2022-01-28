@@ -63,15 +63,6 @@ public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
 
     @Override
     public boolean isBuildable(String path) {
-        return isAngularJsWidget(path) && path.endsWith(".json") && !path.contains(".metadata");
-    }
-
-    private boolean isAngularJsWidget(String path) {
-        if(!uiDesignerProperties.isExperimental()){
-            return true;
-        }
-        String fileName = Paths.get(path).getFileName().toString();
-        return fileName.startsWith(WidgetRepository.ANGULARJS_STANDARD_PREFIX)
-                || fileName.startsWith(WidgetRepository.ANGULARJS_CUSTOM_PREFIX);
+        return path.endsWith(".json") && !path.contains(".metadata");
     }
 }

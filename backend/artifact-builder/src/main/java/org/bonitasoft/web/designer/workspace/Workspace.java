@@ -241,11 +241,6 @@ public class Workspace {
         var widgetLoader = new WidgetFileBasedLoader(jsonHandler);
         var widgets = widgetLoader.getAll(widgetRepositorySourcePath);
         for (var widget : widgets) {
-            // Skip the new uid* widgets if not experimental
-            if (!uiDesignerProperties.isExperimental()
-                    && !widget.getId().startsWith(WidgetRepository.ANGULARJS_STANDARD_PREFIX)) {
-                continue;
-            }
             if (!widgetRepository.exists(widget.getId())) {
                 createWidget(widgetRepositorySourcePath, widget);
             } else {

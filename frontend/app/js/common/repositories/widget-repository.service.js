@@ -45,16 +45,6 @@
           .then((response) => response.data);
       }
 
-      angularJs() {
-        return this.$http.get(`${this.baseUrl}`)
-          .then((response) => response.data.filter((widget) => !this.isWebComponent(widget.technology)));
-      }
-
-      webComponents() {
-        return this.$http.get(`${this.baseUrl}`)
-          .then((response) => response.data.filter((widget) => this.isWebComponent(widget.technology)));
-      }
-
       /**
        * Loads assets used by the widgets and by the widgets
        * Returns a promise
@@ -79,10 +69,6 @@
 
       getHelp(widgetId) {
         return this.$http.get(`${this.baseUrl}/${widgetId}/help`);
-      }
-
-      isWebComponent(technology) {
-        return technology === 'web_component';
       }
     }
     return new WidgetRepository();

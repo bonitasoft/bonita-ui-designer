@@ -40,7 +40,6 @@ public class UiDesignerPropertiesBuilderTest {
         var pageFolder = "web-pages";
         var fragmentFolder = "web-fragments";
         var widgetFolder = "web-widgets";
-        var widgetWcFolder = "web-widgetWcs";
 
         var properties = new UiDesignerPropertiesBuilder()
                 .workspacePath(workspacePath)

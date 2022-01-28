@@ -34,12 +34,6 @@ function devWidgets(done) {
     src(config.paths.widgetsPbJson)
       .pipe(buildWidget())
       .pipe(dest(config.paths.dev.widgets));
-    // The application create the uid widgets the first time.
-    src(config.paths.widgetsUidJson)
-      .pipe(dest(config.paths.dev.widgets));
-    src(config.paths.widgetsUidTpl)
-      .pipe(dest(config.paths.dev.widgets));
-    // TODO: copy uid widget bundle
   }
   done();
 }

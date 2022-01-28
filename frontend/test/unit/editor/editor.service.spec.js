@@ -17,20 +17,6 @@
       type: 'widget'
     };
 
-    var uidLabelWidget = {
-      id: 'uidLabel',
-      custom: false,
-      type: 'widget',
-      technology: 'web_component'
-    };
-
-    var uidInputwidget = {
-      id: 'uidInput',
-      custom: false,
-      type: 'widget',
-      technology: 'web_component'
-    };
-
     let containers = [
       {
         id: 'pbContainer',
@@ -168,14 +154,6 @@
       }
     };
 
-    var emptyJson = {
-      'data': {
-        'id': 'person',
-        'name': 'person page',
-        'rows': []
-      }
-    };
-
     let fragmentDef = {
       id: 'f1',
       type: 'fragment',
@@ -229,8 +207,7 @@
       spyOn(fragmentRepo, 'all').and.returnValue($q.when({ data: [fragmentDef] }));
       spyOn(fragmentRepo, 'allNotUsingElement').and.returnValue($q.when({ data: [fragmentDef] }));
 
-      spyOn(widgetRepo, 'angularJs').and.returnValue($q.when(containers.concat([labelWidget, inputwidget])));
-      spyOn(widgetRepo, 'webComponents').and.returnValue($q.when(containers.concat([uidLabelWidget, uidInputwidget])));
+      spyOn(widgetRepo, 'all').and.returnValue($q.when(containers.concat([labelWidget, inputwidget])));
 
       spyOn(dataManagementRepoMock, 'getDataObjects').and.returnValue($q.when({error: false, objects: dataManagementWidgets}));
       spyOn(alerts, 'addError');
@@ -280,16 +257,6 @@
       expect(formContainer.$$id).toBe('pbFormContainer-0');
       expect(formContainer.$$widget.name).toBe('Form container');
       expect(formContainer.$$parentContainerRow.container).toBe(page);
-    });
-
-    it('should initialize web component a page', function() {
-      spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
-      spyOn(migration, 'handleMigrationNotif');
-      spyOn(pageRepo, 'load').and.returnValue($q.when(emptyJson));
-      editorService.initialize(pageRepo, 'person', 'v2')
-
-      $rootScope.$apply();
-      expect(widgetRepo.webComponents).toHaveBeenCalled();
     });
 
     it('should init components', function() {

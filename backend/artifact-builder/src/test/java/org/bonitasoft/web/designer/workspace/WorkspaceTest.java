@@ -136,8 +136,6 @@ public class WorkspaceTest {
         assertThat(widgetsPath.resolve("pbButton/pbButton.json")).exists();
         assertThat(widgetsPath.resolve("pbButton/help.html")).exists();
         assertThat(widgetsPath.resolve("pbMissingHelp/pbMissingHelp.json")).exists();
-        assertThat(widgetsPath.resolve("uidInput/uidInput.json")).doesNotExist();
-        assertThat(widgetsPath.resolve("uidText/uidText.json")).doesNotExist();
     }
 
 
