@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2021-09-06 13:16\n"
+"PO-Revision-Date: 2022-02-07 02:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -975,7 +975,7 @@ msgid "E.g. Given a variable <em>employee</em> of type External API that fetch t
 msgstr "Par exemple, étant donnée une variable <em>employé</em> de type API externe qui récupére le contexte de tâche <code>../{{context.employee_ref.link}}</code>. Pour récupérer toutes les adresses de <em>employé</em> qui sont liées en lazy dans le BDM, créez une autre variable <em>employee_addresses</em> de type API externe avec un paramètre d'URL tel que <code>employee | lazyRef : 'addresses'</code>"
 
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
-msgstr "Chaque artefact contient un asset <em>localization.json</em>, contenant les clés et les traductions pour toutes les chaînes de caractères des langues supportées (par défaut, français et espagnol). Chaque langue a sa propre section et est identifiée par l’attribut de langue ISO 639 (par exemple, fr-FR, es-ES). Pour ajouter de nouvelles langues, clés et/ou traductions, exportez le fichier <em>localization.json</em>, éditez-le et importez-le avec le même nom de fichier. Pour plus d’informations sur l’installation de nouvelles langues, visitez le site de documentation Bonita BPM (Mots-clés :"
+msgstr "Chaque artefact contient un asset <em>localization.json</em>, contenant les clés et les traductions pour toutes les chaînes de caractères des langues supportées (par défaut, français et espagnol). Chaque langue a sa propre section et est identifiée par l’attribut de langue ISO 639 (par exemple, fr-FR, es-ES). Pour ajouter de nouvelles langues, clés et/ou traductions, exportez le fichier <em>localization.json</em>, éditez-le et chargez-le avec le même nom de fichier. Pour plus d’informations sur l’installation de nouvelles langues, visitez le site de documentation Bonita BPM (Mots-clés :"
 
 msgid "Each element of this property has to match an element of the Columns key property to figure out\n"
 "            which table column can be sorted upon."
@@ -1030,7 +1030,7 @@ msgid "Error during migration of . Check migration details <i class=\"fa fa-wren
 msgstr "Erreur lors de la migration de . Vérifiez les détails de la migration <i class=\"fa fa-wrench status\"></i> pour plus de détails."
 
 msgid "Error on upload holder"
-msgstr "Contenu de l'erreur d'upload"
+msgstr "Contenu de l'erreur de chargement"
 
 msgid "Example of a tab title displaying a badge:"
 msgstr "Exemple de titre d'un onglet affichant un badge :"
@@ -1096,7 +1096,7 @@ msgid "File"
 msgstr "Fichier"
 
 msgid "File chooser for uploading a document to a form"
-msgstr "Sélecteur de fichier pour télécharger un document vers un formulaire"
+msgstr "Sélecteur de fichier pour charger un document vers un formulaire"
 
 msgid "File source"
 msgstr "Source du fichier"
@@ -1276,7 +1276,7 @@ msgid "Holds the HTTP status code of the response"
 msgstr "Contient le code de statut de la réponse HTTP"
 
 msgid "Holds the response content from the upload error endpoint. That value can be used to guidance purpose"
-msgstr "Contient le contenu de la réponse du d'erreur su service d'upload. Cette valeur peut être utilisée pour guider l'utilisateur."
+msgstr "Contient la réponse du service d'erreur de chargement. Cette valeur peut être utilisée pour guider l'utilisateur."
 
 msgid "Holds the response from the upload endpoint. That value can be used to fulfill a contract"
 msgstr "Contient la réponse de l'URL cible après chargement. Cette valeur peut être utilisée pour remplir un contrat"
@@ -2133,7 +2133,7 @@ msgid "Small devices (width ≥ 768px)"
 msgstr "Tablettes (largeur ≥ 768px)"
 
 msgid "Some option can be disabled because the source value type is not compatible with target property type."
-msgstr ""
+msgstr "Certaines options peuvent être désactivées car le type de valeur source n'est pas compatible avec le type de propriété cible."
 
 msgid "Sort"
 msgstr "Trier"
@@ -3023,7 +3023,7 @@ msgid "You can use the <i>environment</i> property injected in the scope when in
 msgstr "Vous pouvez utiliser la propriété <i>environment</i> injectée dans le scope à l'intérieur du whiteboard. Elle permet de d'émuler un affichage pour le whiteboard puisque les données réelles d'utilisation ne seront pas disponibles."
 
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
-msgstr "Vous ne pouvez pas avoir plus d'un asset de localisation. Télécharger un nouvel asset remplace le fichier existant."
+msgstr "Vous ne pouvez pas avoir plus d'un asset de localisation. Charger un nouvel asset remplace le fichier existant."
 
 msgid "You cannot import or use this artifact in older version anymore."
 msgstr "Vous ne pouvez plus importer ou utiliser cet artefact dans une version antérieure."
