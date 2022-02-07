@@ -32,9 +32,28 @@ jobs:
         run: ./mvnw -B clean verify -Pe2e,integration-test
 
       - name: Send message to Slack channel
-        uses: act10ns/slack@v1
         if: ${{ failure() && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/master') }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        uses: slackapi/slack-github-action@v1.17.0
         with:
-          status: ${{ job.status }}
+          channel-id: 'CFD1SMX7V'
+          payload: |
+            {
+            	"blocks": [
+            		{
+            			"type": "section",
+            			"text": {
+            				"type": "mrkdwn",
+            				"text": ":x: Build on branch ${{github.ref}} failed in UI-Designer."
+            			}
+            		},
+            		{
+            			"type": "section",
+            			"text": {
+            				"type": "mrkdwn",
+            				"text": "More details about the error <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}?check_suite_focus=true| here>"
+            			}
+            		}
+            	]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

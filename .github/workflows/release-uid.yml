@@ -76,9 +76,29 @@ jobs:
           client-payload: '{"ref":"${{ github.ref }}", "releaseVersion": "${{ steps.newTagVersion.outputs.value }}"}'
 
       - name: Send message to Slack channel
-        uses: act10ns/slack@v1
         if: ${{ failure() }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+        uses: slackapi/slack-github-action@v1.17.0
         with:
-          status: ${{ job.status }}
+          channel-id: 'CFD1SMX7V'
+          payload: |
+            {
+              "blocks": [
+                  {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": ":x: :scream: UI-Designer release ${{ steps.newTagVersion.outputs.value }} failed."
+                      }
+                  },
+                  {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": "More details about the error <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}?check_suite_focus=true| here>"
+                      }
+                  }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+

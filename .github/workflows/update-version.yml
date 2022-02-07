@@ -1,5 +1,7 @@
 name: Update version
-
+# Use this action to update version of ui-designer
+# Is running on each release of uid
+# and alone when we release a new major version
 on:
   workflow_dispatch:
     inputs:
@@ -22,7 +24,7 @@ jobs:
           git config --local user.email "ui-designer-bot@users.noreply.github.com"
           git config --local user.name "ui-designer-bot"
           git config pull.rebase true
-          
+
       - name: Extract branch name
         id: extract_branch
         shell: bash
@@ -34,11 +36,30 @@ jobs:
           ./infrastructure/update-version.sh ${{ github.event.inputs.version }}
           git commit -a -m "chore(versioning) update version to ${{ github.event.inputs.version }}"
           git push origin ${{ steps.extract_branch.outputs.branch }}
-          
+
       - name: Send message to Slack channel
-        uses: act10ns/slack@v1
         if: ${{ failure() }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        uses: slackapi/slack-github-action@v1.17.0
         with:
-          status: ${{ job.status }}
+          channel-id: 'CFD1SMX7V'
+          payload: |
+            {
+              "blocks": [
+                  {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": ":x: :scream: UI-Designer update-version ${{ steps.newTagVersion.outputs.value }} failed."
+                      }
+                  },
+                  {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": "More details about the error <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}?check_suite_focus=true| here>"
+                      }
+                  }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
