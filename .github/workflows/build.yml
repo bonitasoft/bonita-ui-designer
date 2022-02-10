@@ -29,27 +29,8 @@ jobs:
 
       - name: Send message to Slack channel
         if: ${{ failure() && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/master') }}
-        uses: slackapi/slack-github-action@v1.17.0
+        uses: ./.github/actions/notify-slack
         with:
-          channel-id: 'CFD1SMX7V'
-          payload: |
-            {
-            	"blocks": [
-            		{
-            			"type": "section",
-            			"text": {
-            				"type": "mrkdwn",
-            				"text": ":x: Build on branch ${{github.ref}} failed in UI-Designer."
-            			}
-            		},
-            		{
-            			"type": "section",
-            			"text": {
-            				"type": "mrkdwn",
-            				"text": "More details about the error <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}?check_suite_focus=true| here>"
-            			}
-            		}
-            	]
-            }
-        env:
+          CHANNEL-ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
+          MESSAGE: ":x: Build on branch ${{github.ref}} failed in UI-Designer."
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
