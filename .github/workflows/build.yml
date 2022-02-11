@@ -35,6 +35,6 @@ jobs:
         if: ${{ failure() && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/master') }}
         uses: ./.github/actions/notify-slack
         with:
-          CHANNEL-ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
+          CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           MESSAGE: ":x: Build on branch ${{github.ref}} failed in UI-Designer."
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
