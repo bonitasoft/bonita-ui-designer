@@ -41,6 +41,6 @@ jobs:
         if: ${{ failure() }}
         uses: ./.github/actions/notify-slack
         with:
-          CHANNEL-ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
+          CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           MESSAGE: ":x: :scream: UI-Designer update-version ${{ steps.newTagVersion.outputs.value }} failed."
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
