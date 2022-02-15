@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-02-07 02:28\n"
+"PO-Revision-Date: 2022-02-15 02:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -209,7 +209,7 @@ msgid "A JSON object"
 msgstr "Un objet JSON"
 
 msgid "A TabsContainer is a container that has multiple panes, but shows only one pane at a time."
-msgstr "Un container TabsContainer est un container qui possède plusieurs panneaux, mais ne montre qu'un seul panneau à la fois."
+msgstr "Un container à onglets (TabsContainer) est un container qui possède plusieurs onglets, mais ne montre qu'un seul contenu d'onglet à la fois."
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un binding est dynamique, donc dès qu'une donnée change, toutes les variables sont réévaluées et l'interface utilisateur est mise à jour. En conséquence :"
@@ -2292,7 +2292,7 @@ msgid "Tabs Container advancement"
 msgstr "Evolution des conteneurs d'onglets"
 
 msgid "Tabs container"
-msgstr "Tabs container"
+msgstr "Container à onglets"
 
 msgid "Tabular presentation of data from an array"
 msgstr "Présentation tabulaire de données à partir d'un tableau"
@@ -2861,7 +2861,7 @@ msgid "Variables"
 msgstr "Variables"
 
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
-msgstr "Les variables peuvent être bindées aux différents champs pour créer un comportement conditionnel entre propriétés de widgets."
+msgstr "Les variables peuvent être liées aux différents champs pour créer un comportement conditionnel entre les propriétés des widgets."
 
 msgid "Vertical display"
 msgstr "Affichage vertical"
