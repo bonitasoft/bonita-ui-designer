@@ -289,18 +289,6 @@
         </pluginManagement>
     </build>
 
-    <distributionManagement>
-        <!-- Central Repository -->
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
     <scm>
         <developerConnection>scm:git:git@github.com:bonitasoFft/bonita-ui-designer.git</developerConnection>
         <connection>scm:git:git@github.com:bonitasoft/bonita-ui-designer.git</connection>
