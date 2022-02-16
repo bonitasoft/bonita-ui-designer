@@ -48,9 +48,15 @@ jobs:
         with:
           java-version: 8
 
+      - name: Create maven settings
+        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
+        uses: whelk-io/maven-settings-xml-action@v4
+        with:
+          servers: '[{ "id": "releases", "username": "bonita-ci", "password": "${{ secrets.JFROG_AUTH }}" }]'
+
       - name: Publish artefact
         if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
-        run: ./mvnw deploy -DskipTests -DaltDeploymentRepository=bonita.releases::default::http://artifacts.rd.lan/maven/internal.releases/
+        run: ./mvnw deploy -DskipTests -DaltDeploymentRepository=releases::default::https://bonitasoft.jfrog.io/artifactory/releases/
 
       - name: Build binaries
         if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushMavenCentral != 'true')}}
