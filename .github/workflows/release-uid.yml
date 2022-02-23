@@ -50,7 +50,7 @@ jobs:
           echo "releaseDate=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
 
       - name: Push public dev tag
-        if: ${{ github.ref == 'refs/heads/dev' && github.event.inputs.pushToPublic == 'true'}}
+        if: ${{ github.ref != 'refs/heads/master' && github.event.inputs.pushToPublic == 'true'}}
         shell: bash
         run: |
           git config remote.public.url >&- || git remote add public https://github.com/bonitasoft/bonita-ui-designer.git
