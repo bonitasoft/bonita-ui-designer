@@ -36,7 +36,7 @@ jobs:
           ref: ${{ steps.init.outputs.tagVersion }}
 
       - name: Set up Java 11
-        if: ${{ steps.init.outputs.branchToRelease == 'refs/heads/master' || steps.init.outputs.branchToRelease == 'refs/heads/dev'}}
+        if: ${{ steps.init.outputs.branchToRelease != 'refs/heads/1.12.x' }}
         uses: actions/setup-java@v1
         with:
           java-version: 11
