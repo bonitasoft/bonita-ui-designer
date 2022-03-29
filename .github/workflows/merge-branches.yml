@@ -22,9 +22,10 @@ jobs:
           from_branch: ${{ github.event.inputs.from }}
           target_branch: ${{ github.event.inputs.target }}
           github_token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+
       - name: Send message to Slack channel
-        if: ${{ failure()}}
-        uses: ./.github/actions/notify-slack
+        if: ${{ failure() }}
+        uses: bonitasoft/actions/packages/notify-slack@1.1.0
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           MESSAGE: ":x: Merge ${{ github.event.inputs.from }} into ${{ github.event.inputs.target }} failed."

@@ -38,28 +38,8 @@ jobs:
         run: ./infrastructure/crowdin/download.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --github-api-key=${{ secrets.GITHUB_TOKEN }} --branch=${{ steps.init.outputs.baseBranch }}
       - name: Send message to Slack channel
         if: ${{ failure() }}
-        uses: slackapi/slack-github-action@v1.17.0
+        uses: bonitasoft/actions/packages/notify-slack@1.1.0
         with:
-          channel-id: 'CFD1SMX7V'
-          payload: |
-            {
-              "blocks": [
-                  {
-                      "type": "section",
-                      "text": {
-                          "type": "mrkdwn",
-                          "text": ":x: Download crowdin translation failed on  ${{github.ref}} in UI-Designer."
-                      }
-                  },
-                  {
-                      "type": "section",
-                      "text": {
-                          "type": "mrkdwn",
-                          "text": "More details about the error <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}?check_suite_focus=true| here>"
-                      }
-                  }
-              ]
-            }
-        env:
+          CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
+          MESSAGE: ":x: Download crowdin translation failed on  ${{github.ref}} in UI-Designer."
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
