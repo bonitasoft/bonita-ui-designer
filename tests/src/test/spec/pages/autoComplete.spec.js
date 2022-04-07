@@ -65,7 +65,6 @@ describe('autocomplete', function () {
   };
 
   describe('async', () => {
-    // see https://bonitasoft.atlassian.net/browse/BS-16696
     it('should display the right suggestions', () => {
       const input = $('.test-async input');
       input.clear().sendKeys('walt');
@@ -96,4 +95,30 @@ describe('autocomplete', function () {
       expect(p.getText()).toContain('4');
     });
   });
+
+  describe('double autocomplete', function() {
+    let input1, input2;
+
+    beforeEach(function() {
+      input1 = $('.test-double-autocomplete .autocomplete1 input');
+      input2 = $('.test-double-autocomplete .autocomplete2 input');
+      input1.clear();
+      input2.clear();
+    });
+
+    it('should set the second autocomplete when an item is selected in the first one', function() {
+      input1.sendKeys('a');
+      let values = $$('.dropdown-menu a');
+      values.get(0).click();
+      expect(input2.getAttribute('value')).toContain('vidjai DJOJI');
+    });
+
+    it('should the second autocomplete update its value when an item is selected from the suggestion', function() {
+      input2.sendKeys('a');
+      var values = $$('.dropdown-menu a');
+      values.get(0).click();
+      expect(input2.getAttribute('value')).toContain('VIDJAI DJOJI');
+    });
+  });
+
 });
