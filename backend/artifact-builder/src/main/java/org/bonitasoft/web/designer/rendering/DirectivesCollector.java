@@ -14,16 +14,21 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Previewable;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
@@ -37,13 +42,17 @@ public class DirectivesCollector {
 
     public static final String JS_FOLDER = "js";
 
+    private static final Logger logger = LoggerFactory.getLogger(DirectivesCollector.class);
+    private final JsonHandler jsonHandler;
+
     private final FragmentRepository fragmentRepository;
     private final FragmentIdVisitor fragmentIdVisitor;
     private final WorkspaceUidProperties workspaceUidProperties;
     private final DirectiveFileGenerator directiveFileGenerator;
 
-    public DirectivesCollector(WorkspaceUidProperties workspaceUidProperties, DirectiveFileGenerator directiveFileGenerator,
+    public DirectivesCollector(JsonHandler jsonHandler, WorkspaceUidProperties workspaceUidProperties, DirectiveFileGenerator directiveFileGenerator,
                                FragmentIdVisitor fragmentIdVisitor, FragmentRepository fragmentRepository) {
+        this.jsonHandler = jsonHandler;
         this.workspaceUidProperties = workspaceUidProperties;
         this.directiveFileGenerator = directiveFileGenerator;
         this.fragmentRepository = fragmentRepository;
@@ -71,13 +80,23 @@ public class DirectivesCollector {
         try {
             return createDirectories(path);
         } catch (IOException e) {
-            throw new GenerationException("Error while create directories " + path.toString(), e);
+            throw new GenerationException("Error while create directories " + path, e);
         }
     }
 
     private List<String> collectFragment(Previewable previewable) {
         return fragmentRepository.getByIds(fragmentIdVisitor.visit(previewable)).stream()
-                .map(fragment -> format("fragments/%s/%s.js", fragment.getId(), fragment.getId()))
+                .map(fragment -> format("fragments/%s/%s.js?hash=%s", fragment.getId(), fragment.getId(), getHash(fragment)))
                 .collect(Collectors.toList());
+    }
+
+    private String getHash(Fragment fragment) {
+        try {
+            byte[] content = this.jsonHandler.toJson(fragment);
+            return DigestUtils.sha1Hex(content);
+        } catch (Exception e) {
+            logger.warn("Failure to generate hash for fragment " + fragment.getName(), e);
+            return UUID.randomUUID().toString();
+        }
     }
 }
