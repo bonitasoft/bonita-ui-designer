@@ -22,6 +22,7 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.AssetRepository;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -200,6 +201,21 @@ public class AssetServiceTest {
         assetService.delete(page, "UIID");
 
         verify(assetRepository).delete(asset);
+    }
+
+    @Test
+    public void should_remove_asset_in_inactive_list_when_delete_is_called() throws Exception {
+        Page page = aFilledPage("page-id");
+        Asset asset = anAsset().withId("UIID").withName("myfile.js").withType(JAVASCRIPT).unactive().build();
+        page.getInactiveAssets().add("UIID");
+        page.getAssets().add(asset);
+
+        Assert.assertEquals(page.getInactiveAssets().size(),1);
+
+        assetService.delete(page, "UIID");
+
+        verify(assetRepository).delete(asset);
+        Assert.assertEquals(page.getInactiveAssets().size(),0);
     }
 
     @Test

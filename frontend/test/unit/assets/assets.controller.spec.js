@@ -20,7 +20,8 @@
             {id: '789', name: 'publicAsset', scope: 'WIDGET', active: true},
             {id: '321', name: 'publicDeactivatedAsset', scope: 'WIDGET', active: false}
           ]);
-        }
+        },
+        setLastSavedState: function () {}
       };
       assetRepo = jasmine.createSpyObj('assetRepo', ['deleteAsset', 'createAsset']);
       assetEditPopup = _assetEditPopup_;
