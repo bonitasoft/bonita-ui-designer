@@ -516,27 +516,6 @@ describe('EditorCtrl', function() {
     expect($scope.isCurrentComponent(component)).toBe(false);
   });
 
-  xit('should save a page using CTRL+s', function() {
-    spyOn(pageRepo, 'save');
-    //$scope.save();
-    // given a page
-    $scope.page = { id: 'person' };
-
-    document.addEventListener('keydown', function(e) {
-      console.log(e.type, e.ctrlKey, e.shiftKey);
-    });
-
-    var event = document.createEvent('Event');
-    event.initEvent('keydown', true, true);
-    event.ctrlKey = true;
-    event.shiftKey = true;
-    event.keyCode = 'S'.charCodeAt(0);
-    event.which = 's'.charCodeAt(0);
-    document.dispatchEvent(event);
-
-    expect(pageRepo.save).toHaveBeenCalledWith('person', $scope.page);
-  });
-
   it('should save and edit a custom widget', function() {
     spyOn(pageRepo, 'save').and.callFake(function() {
       return $q.when({});

@@ -4,7 +4,7 @@
                        'Palette-section-data': palette.isDataSection(section),
                        'Palette-section-data--active':  palette.isActiveSection(section) && palette.isDataSection(section),
                        }"
-            ng-repeat="section in palette.sections track by $index | orderBy:'order'"
+            ng-repeat="section in palette.sections | orderBy:'order' track by $index"
             ng-click="palette.toggleSection(section)"
             aria-label="{{section.name | translate}}"
             uib-tooltip="{{section.name | translate}}"

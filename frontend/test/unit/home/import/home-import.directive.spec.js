@@ -78,7 +78,6 @@ describe('home import', () => {
       controller.onComplete(importReport);
 
       forceImportModal.dismiss();
-      $scope.$apply();
 
       expect($scope.refreshAll).not.toHaveBeenCalled();
     });
@@ -108,7 +107,7 @@ describe('home import', () => {
       spyOn(importArtifactService, 'manageImportResponse').and.returnValue(deferred.promise);
 
       controller.onComplete(importReport);
-      deferred.reject();
+      deferred.reject('a');
       $scope.$apply();
 
       expect(importArtifactService.manageImportResponse).toHaveBeenCalledWith('artifact', true, importReport);

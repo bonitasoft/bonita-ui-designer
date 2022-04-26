@@ -23,19 +23,17 @@ angular.module('bonitasoft.designer.common.services').factory('errorInterceptor'
   const EXCLUSION_PATTERNS = ['?preview=true'];
 
   return {
-    responseError: function(rejection) {
+    'responseError': function(rejection) {
       if (rejection.headers('Content-Type') &&
-          rejection.headers('Content-Type').indexOf('application/json') === 0 &&
-          rejection.data.message) {
+        rejection.headers('Content-Type').indexOf('application/json') === 0 &&
+        rejection.data.message) {
         alerts.addError(rejection.data.message);
       } else if (rejection.status === 500 && rejection.config.url.includes('bdm')) {
         $log.log('Unable to access business data. Restart Bonita Studio and try again.');
       } else if (rejection.status === 422) {
         alerts.addError(rejection.data);
         $log.log(rejection.data);
-      } else if (EXCLUSION_PATTERNS.some(function(v) {
-        return rejection.config.url.indexOf(v) < 0;
-      })) {
+      } else if (EXCLUSION_PATTERNS.some(function (v) { return rejection.config.url.indexOf(v) < 0})) {
         alerts.addError('Unexpected server error');
       }
       return $q.reject(rejection);

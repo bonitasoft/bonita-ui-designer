@@ -34,8 +34,7 @@ describe('fileDownload directive', function() {
     $httpBackend.expectGET('rest/download/url').respond(404);
 
     element.trigger('click');
-    $httpBackend.flush();
-
+    expect(() => $httpBackend.flush()).toThrow();
     expect( $document.find('iframe')[0].getAttribute('src')).toEqual('');
   });
 

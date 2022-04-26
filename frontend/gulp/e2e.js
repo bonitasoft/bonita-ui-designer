@@ -21,8 +21,7 @@ const run = gulp.series(e2eReportScafold, build.buildAll, bundle.e2e, index.e2e,
 
   return gulp.src(['../test/e2e/spec/*.spec.js'])
     .pipe(protractor({
-      configFile: 'test/e2e/protractor.conf.js',
-      args: ['--baseUrl', 'http://localhost:' + config.protractor.port]
+      configFile: 'test/e2e/protractor.conf.js'
     }))
     .on('error', function (e) {
       throw e;

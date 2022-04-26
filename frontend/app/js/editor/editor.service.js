@@ -63,18 +63,17 @@
           });
         })
         .then(() => repo.load(id))
-        .catch((error) => {
-          if (error.message && error.status !== 422) {
-            alerts.addError(error.message);
-          }
-          return $q.reject(error);
-        })
         .then((response) => {
           whiteboardService.reset();
           page = response.data;
           whiteboardComponentWrapper.wrapPage(page);
           return page;
-        });
+        }).catch((error) => {
+          if (error.message && error.status !== 422) {
+            alerts.addError(error.message);
+          }
+          return $q.reject(error);
+        })
     }
 
     function initializePalette(items) {

@@ -33,12 +33,12 @@
     }
 
     onComplete(response) {
-      var importPromise = this.importArtifactService
+      let importPromise = this.importArtifactService
         .manageImportResponse(this.type, true, response);
-
-      importPromise.finally(() => this.close());
+      this.close();
       importPromise.then((importReport) => (!!importReport) && this.manageImportReport(importReport))
-        .then(this.$scope.refreshAll);
+        .then(this.$scope.refreshAll)
+        .catch(() => {});
     }
 
     manageImportReport(importReport) {

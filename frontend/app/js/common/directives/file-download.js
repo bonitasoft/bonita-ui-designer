@@ -27,11 +27,7 @@ angular.module('bonitasoft.designer.home')
       link: function(scope, element, attrs) {
         element.on('click', function() {
           //We need to intercept error when we change the iframe src
-          $http
-            .get(attrs.href)
-            .success(function() {
-              iframe.setAttribute('src', attrs.href);
-            });
+          $http.get(attrs.href).then( () => iframe.setAttribute('src', attrs.href));
         });
         scope.$on('$destroy', () => element.off('click'));
       }

@@ -184,16 +184,6 @@ describe('Service: modelFactory', function() {
       expect(dataModel.bar).toBeUndefined();
     });
 
-    xit('should not make a call to the url when data is null', function() {
-      $httpBackend.whenGET('../API/system/session/unusedId').respond(200, '');
-      $httpBackend.whenGET('/bonita/bar/foo').respond(200, 'foobar');
-      $httpBackend.whenGET('https://some.url.com/rest/bar/foo').respond(200, ['foo', 'bar', 'baz']);
-      dataModel.foo = null;
-
-      expect(dataModel.bar).toBeUndefined();
-      $httpBackend.flush();
-    });
-
     describe('date in init', () => {
       let williamAndDate;
       beforeEach(() => {

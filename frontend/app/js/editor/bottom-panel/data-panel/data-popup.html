@@ -245,7 +245,7 @@
                     </div>
                     <div class="col-xs-12">
                         <ace-editor class="ace-editor--data" autofocus mode="javascript"
-                                    auto-completion="{{pageData}}"
+                                    auto-completion="{{ pageData | json}}"
                                     ng-model="newData.displayValue" ng-model-options="{debounce: 300}"
                                     name="expression"
                                     class="form-control" id="value"></ace-editor>

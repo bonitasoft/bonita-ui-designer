@@ -287,8 +287,7 @@ describe('custom widget editor', function() {
     expect(popup.isOpen()).toBeTruthy();
     popup.dismissBtn.click();
     assets.editAsset('CSS', 'myStyle.css');
-    // Note: for some reasons, a ';' is added by selenium when a css rule is added
-    let expectedContent = someNewRule.concat(';', someRule);
+    let expectedContent = someNewRule.concat(someRule);
     expect(popup.fileContent).toBe(expectedContent);
 
     // should not update file content while clicking on cancel

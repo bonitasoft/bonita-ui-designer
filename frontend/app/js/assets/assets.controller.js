@@ -19,7 +19,6 @@
   angular
     .module('bonitasoft.designer.assets')
     .controller('AssetCtrl', AssetCtrl);
-
   function AssetCtrl($scope, $uibModal, artifact, artifactRepo, assetRepo, mode, assetsService, assetEditPopup) {
 
     var vm = this;
@@ -47,7 +46,8 @@
     vm.isAssetMatchSearchTerm = isAssetMatchSearchTerm;
 
     function isAssetMatchSearchTerm(asset) {
-      return angular.lowercase(asset.name || '').indexOf(angular.lowercase($scope.searchTerm) || '') !== -1;
+      let name = asset.name || '';
+      return name.toLowerCase().indexOf(($scope.searchTerm || '').toLowerCase()) !== -1;
     }
 
     function getAssetsByTypeForCurrentScope(type) {

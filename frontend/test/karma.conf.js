@@ -24,14 +24,15 @@ module.exports = function(config) {
     files: [
       'node_modules/babel-polyfill/dist/polyfill.min.js',
       'node_modules/jquery/dist/jquery.js',
-      'node_modules/ace-builds/src-noconflict/ace.js',
-      'node_modules/ace-builds/src-noconflict/ext-language_tools.js',
       'node_modules/angular/angular.js',
       'node_modules/angular-ui-router/release/angular-ui-router.js',
       'node_modules/angular-sanitize/angular-sanitize.js',
       'node_modules/angular-recursion/angular-recursion.js',
       'node_modules/angular-bootstrap/ui-bootstrap-tpls.js',
-      'node_modules/angular-ui-ace/ui-ace.js',
+      // Ace Editor
+      'node_modules/angular-ui-ace/src/ui-ace.js',
+      'node_modules/ace-builds/src-min-noconflict/ace.js',
+      'node_modules/ace-builds/src-min-noconflict/ext-language_tools.js',
       'node_modules/angular-ui-validate/dist/validate.min.js',
       'node_modules/ngUpload/ng-upload.min.js',
       'node_modules/angular-mocks/angular-mocks.js',

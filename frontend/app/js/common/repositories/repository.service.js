@@ -32,7 +32,7 @@
 
       save(artifact) {
         return this.$http.put(`${this.baseUrl}/${artifact.id}`, artifact)
-          .success(() => this.setLastSavedState(artifact));
+          .then(() => this.setLastSavedState(artifact));
       }
 
       /**

@@ -38,7 +38,7 @@ describe('ace-editor directive', function() {
 
   it('should enable auto-complete if auto-completion data object is provided', function() {
     scope.data = { name: 'bob' };
-    template = '<ace-editor mode=\'javascript\' ng-model=\'toto\' auto-completion=\'{{data}}\'></ace-editor>';
+    template = '<ace-editor mode=\'javascript\' ng-model=\'toto\' auto-completion=\'{{data | json }}\'></ace-editor>';
     element = $compile(template)(scope);
     scope.$apply();
 

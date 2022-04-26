@@ -8,6 +8,7 @@ describe('artifactListController', function() {
 
     $scope = $rootScope;
     $q = $injector.get('$q');
+
     $uibModal = $injector.get('$uibModal');
     $localStorage = $injector.get('$localStorage');
     $localStorage.bonitaUIDesigner = {};
@@ -37,7 +38,6 @@ describe('artifactListController', function() {
         custom: true
       }
     ];
-
     element = $compile('<artifact-list artifacts="artifacts" existing-artifacts="artifacts" refresh-all="refreshAll" download-artifact="downloadArtifact"></artifact-list>')($scope);
     $scope.$digest();
   }));
@@ -114,12 +114,13 @@ describe('artifactListController', function() {
   });
 
   it('should revert the name if the rename of the artifact has failed', function() {
-    spyOn(pageRepo, 'rename').and.returnValue($q.reject());
+    spyOn(pageRepo, 'rename').and.callFake(() => $q.reject(angular.noop));
 
     rename('#page1', 'test');
 
     expect(pageRepo.rename).toHaveBeenCalled();
     expect(element.find('#page1 input').controller('ngModel').$viewValue).toBe('Page 1');
+
   });
 
   it('should not rename an artifact if the name has not changed', function() {

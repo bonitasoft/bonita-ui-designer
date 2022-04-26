@@ -14,6 +14,7 @@ describe('widget property field', function() {
       type: 'boolean',
       bond: 'expression'
     };
+
     element = $compile('<property-field property="property" property-value="propertyValue"></property-field>')(scope);
     scope.$apply();
   }));
@@ -48,11 +49,18 @@ describe('widget property field', function() {
     expect(scope.propertyValue.value).toBe('hello');
   });
 
-  it('should update propertyValue with constant value', function() {
-    element.find('.radio-inline input').get(1).click();
+  //TODO BP: Reactivate it before merge
+  it('should update propertyValue with constant value', inject(function($document, $rootElement) {
+    let el = element.find('.radio-inline input');
+    let firstRadioButton = el.get(1);
+
+    $rootElement.append(firstRadioButton);
+    $document.find('body').append($rootElement);
+
+    firstRadioButton.click();
 
     expect(scope.propertyValue.value).toBe(true);
-  });
+  }));
 
   it('should display a constant property', function() {
     scope.property.bond = 'constant';

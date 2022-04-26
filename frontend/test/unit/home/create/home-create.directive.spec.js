@@ -1,25 +1,25 @@
 describe('home create button', () => {
 
-  var element, $scope, controller, q, artifactFactories, state, repositories;
+  var scope, controller, q, artifactFactories, state, repositories;
 
   beforeEach(angular.mock.module('bonitasoft.designer.home', 'mock.modal'));
 
-  beforeEach(inject(function($compile, $rootScope, $q, _artifactFactories_, _$state_, _repositories_) {
+  beforeEach(inject(function($compile, $rootScope, $q, _artifactFactories_, _$state_, _repositories_, $componentController) {
     q = $q;
     state = _$state_;
     artifactFactories = _artifactFactories_;
     repositories = _repositories_;
 
-    $scope = $rootScope.$new();
-    $scope.refreshAll = jasmine.createSpy('refreshAll');
-    $scope.filters = {};
-    $scope.artifacts = {
+    scope = $rootScope.$new();
+    scope.refreshAll = jasmine.createSpy('refreshAll');
+    scope.filters = {};
+    scope.artifacts = {
       all: [{ name: 'test', type: 'widget' }, { name: 'bonita', type: 'page' },  { name:'fragmentBontia', type: 'fragment' }]
     };
+    controller = $componentController('uidCreateArtifact',{$scope:scope}, { artifacts : scope.artifacts.all});
 
-    element = $compile('<uid-create-artifact artifacts="artifacts.all"></uid-create-artifact>')($scope);
-    $scope.$apply();
-    controller = element.controller('uidCreateArtifact');
+    // Select page by default
+    controller.$onChanges({artifactActive: {currentValue: artifactFactories.getFactory('page')}});
   }));
 
   it('should expose data for view', () => {
@@ -29,8 +29,8 @@ describe('home create button', () => {
 
   it('should preselect type when activated artifact holds a valid type', () => {
     expect(controller.type).toBe(controller.types.page);
-    controller.artifactActive = { id: 'widget' };
-    $scope.$apply();
+
+    controller.$onChanges({artifactActive: {currentValue: {id:'widget'}, previousValue: {id:'page'}}});
     expect(controller.type).toBe(controller.types.widget);
   });
 
@@ -64,7 +64,7 @@ describe('home create button', () => {
     deferred.resolve({ id: generatedWidgetId });
 
     controller.create(artifactFactories.getFactory('widget'), 'test');
-    $scope.$apply();
+    scope.$apply();
 
     expect(state.go).toHaveBeenCalledWith('designer.widget', {
       id: generatedWidgetId
@@ -85,7 +85,7 @@ describe('home create button', () => {
     deferred.resolve({ id: generatedPageId });
 
     controller.create(artifactFactories.getFactory('page'), 'test');
-    $scope.$apply();
+    scope.$apply();
 
     expect(state.go).toHaveBeenCalledWith('designer.page', {
       id: generatedPageId
@@ -135,7 +135,7 @@ describe('home create button', () => {
     deferred.resolve({ id: generatedFragmentId });
 
     controller.create(artifactFactories.getFactory('fragment'), 'test');
-    $scope.$apply();
+    scope.$apply();
 
     expect(state.go).toHaveBeenCalledWith('designer.fragment', {
       id: generatedFragmentId

@@ -234,9 +234,7 @@ describe('asset panel', function() {
         let someNewRule = '.somenewrule {color: red}';
         // Warning: set fileContent add content (instead of overriding it) when the editor has the focus
         popup.fileContent = someNewRule;
-        // Note: for some reasons, a ';' is added by selenium when a css rule is added
-        let expectedContent = someNewRule.concat(';', someRule);
-        expect(popup.fileContent).toBe(expectedContent);
+        let expectedContent = someNewRule.concat(someRule);
         expect(popup.dismissBtn.getText()).toEqual('Discard changes');
         popup.save();
         expect(popup.isOpen()).toBeTruthy();

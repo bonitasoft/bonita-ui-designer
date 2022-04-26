@@ -17,7 +17,8 @@ describe('errorInterceptor', function() {
       message: 'functional error'
     };
     $httpBackend.expectPUT('/foo').respond(400, data, { 'Content-Type': 'application/json' });
-    $http.put('/foo');
+    $http.put('/foo').catch(angular.noop);
+
     $httpBackend.flush();
 
     expect(alerts.addError).toHaveBeenCalledWith(data.message);
@@ -26,7 +27,8 @@ describe('errorInterceptor', function() {
   it('should add a generic error if non-JSON error response', function() {
     var data = 'Houston, we have a problem';
     $httpBackend.expectPUT('/foo').respond(400, data, { 'Content-Type': 'text/plain' });
-    $http.put('/foo');
+
+    $http.put('/foo').catch(angular.noop);
     $httpBackend.flush();
 
     expect(alerts.addError).toHaveBeenCalledWith('Unexpected server error');
@@ -37,7 +39,7 @@ describe('errorInterceptor', function() {
       error: 'Houston, we have a problem'
     };
     $httpBackend.expectPUT('/foo').respond(400, data, { 'Content-Type': 'application/json' });
-    $http.put('/foo');
+    $http.put('/foo').catch(angular.noop);
     $httpBackend.flush();
 
     expect(alerts.addError).toHaveBeenCalledWith('Unexpected server error');

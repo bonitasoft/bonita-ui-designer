@@ -88,7 +88,9 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
   $scope.getVariables = (serchTerm) => {
     function toMatchSearchTerm(variable) {
       function contains(value, search) {
-        return angular.lowercase(value || '').indexOf(angular.lowercase(search) || '') !== -1;
+        let val = value || '';
+
+        return val.toLowerCase().indexOf((search || '').toLowerCase()) !== -1;
       }
 
       return contains(variable.name, serchTerm) || contains(variable.displayValue, serchTerm);

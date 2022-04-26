@@ -281,11 +281,12 @@
       spyOn(migration, 'handleMigrationStatus').and.returnValue($q.when());
       spyOn(migration, 'handleMigrationNotif');
       spyOn(pageRepo, 'load').and.returnValue($q.reject(errorMessage));
+      // spyOn(pageRepo, 'load').and.returnValue($q.resolve(errorMessage));
 
-      editorService.initialize(pageRepo, 'person');
-      $rootScope.$apply();
+      editorService.initialize(pageRepo, 'person').catch(()=> expect(alerts.addError).toHaveBeenCalled());
+      // $rootScope.$apply();
 
-      expect(alerts.addError).toHaveBeenCalled();
+
     });
 
     it('should add an alert if incompatible migration or migration error', function() {
@@ -293,10 +294,7 @@
       errorMessage.message = 'incompatible or migration error';
       spyOn(migration, 'handleMigrationStatus').and.returnValue($q.reject(errorMessage));
 
-      editorService.initialize(pageRepo, 'person');
-      $rootScope.$apply();
-
-      expect(alerts.addError).toHaveBeenCalled();
+      editorService.initialize(pageRepo, 'person').catch(()=> expect(alerts.addError).toHaveBeenCalled());
     });
 
     it('should remove widget assets from page when widget is not in page anymore', function() {
@@ -370,12 +368,10 @@
       pageRepo.migrationStatus = jasmine.createSpy().and.returnValue($q.when({data: {migration: true, compatible: true}}));
       spyOn(pageRepo, 'load').and.returnValue($q.when(json));
 
-      editorService.initialize(pageRepo, 'person');
-
-      $rootScope.$apply();
-
-      expect(pageRepo.migrate).not.toHaveBeenCalled();
-      expect(migration.handleMigrationNotif).not.toHaveBeenCalled();
+      editorService.initialize(pageRepo, 'person').catch(()=> {
+        expect(pageRepo.migrate).not.toHaveBeenCalled();
+        expect(migration.handleMigrationNotif).not.toHaveBeenCalled();
+      });
     });
 
     it('should initialize a fragment', function() {

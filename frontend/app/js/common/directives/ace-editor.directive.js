@@ -65,13 +65,6 @@ angular.module('bonitasoft.designer.common.directives').directive('aceEditor', f
         // relates to https://bonitasoft.atlassian.net/browse/BS-16364
         editor.commands.bindKey('Ctrl-Alt-E', null);
       };
-
-      $scope.$on('$destroy', function() {
-        if (ctrl.editor.completer) {
-          ctrl.editor.completer.detach();
-        }
-        ctrl.editor.destroy();
-      });
     }
   };
 });

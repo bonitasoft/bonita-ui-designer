@@ -22,10 +22,8 @@
   ace.config.set('themePath', 'js');
   ace.config.set('workerPath', 'js');
 
-  var isIE9 = window.navigator.userAgent.indexOf('MSIE 9') > -1;
 
   angular.module('uidesigner', ['bonitasoft.designer'])
-    .value('isIE9', isIE9)
     .config(configureModule)
     .run(($rootScope, $uibModalStack, resolutions, gettext) => {
 
@@ -67,7 +65,7 @@
     });
 
   /* @ngInject */
-  function configureModule($compileProvider, boDraggableItemProvider, $uibTooltipProvider, $urlRouterProvider, assetsServiceProvider, $uibModalProvider) {
+  function configureModule($compileProvider, boDraggableItemProvider, $uibTooltipProvider, $urlRouterProvider, assetsServiceProvider, $uibModalProvider,$locationProvider,$qProvider) {
 
     /**
      * For the build, gulp replaces '%debugMode%' by false. For the dev no need to replace, it's eval to true.
@@ -101,5 +99,10 @@
       //BS-14199 : change modal appearance animation for IE not to put cursor anywhere during animation
       windowClass: 'modal fade in'
     });
+
+    //  the default hash-prefix used for $location hash-bang URLs has changed from the empty string ('') to the bang ('!')
+    $locationProvider.hashPrefix('');
+    // to avoid to update each $uibmodal cancel
+    $qProvider.errorOnUnhandledRejections(false);
   }
 })();

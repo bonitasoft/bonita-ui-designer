@@ -59,7 +59,7 @@
             'constraints': {
               'min': '0'
             },
-            bond: 'expression'
+            'bond': 'expression'
           },
           {
             'label': 'Value max length',
@@ -70,14 +70,14 @@
             'constraints': {
               'min': '1'
             },
-            bond: 'expression'
+            'bond': 'expression'
           },
           {
             'label': 'Read-only',
             'name': 'readOnly',
             'type': 'boolean',
             'defaultValue': false,
-            bond: 'expression'
+            'bond': 'expression'
           },
           {
             'label': 'Label hidden',
@@ -151,7 +151,7 @@
             'help': 'In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property',
             'type': 'integer',
             'showFor': 'properties.type.value === "number"',
-            bond: 'expression'
+            'bond': 'expression'
           },
           {
             'label': 'Max value',
@@ -159,7 +159,7 @@
             'help': 'In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property',
             'type': 'integer',
             'showFor': 'properties.type.value === "number"',
-            bond: 'expression'
+            'bond': 'expression'
           }
         ]
       },
@@ -440,7 +440,8 @@
             'label': 'Disabled',
             'name': 'disabled',
             'type': 'boolean',
-            'defaultValue': false
+            'defaultValue': false,
+            'bond': 'constant'
           },
           {
             'label': 'Title',

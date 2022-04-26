@@ -21,20 +21,22 @@
     constructor(gettext, tabFactory) {
       this.isBottomPanelClosed = false;
 
-      this.tabs = [
-        tabFactory.create({
-          name: gettext('Variables'),
-          stateName: `designer.${this.mode}`,
-          bottomPanel: this
-        })
-      ];
+      this.$onInit = function(){
+        this.tabs = [
+          tabFactory.create({
+            name: gettext('Variables'),
+            stateName: `designer.${this.mode}`,
+            bottomPanel: this
+          })
+        ];
 
-      if (this.mode === 'page') {
-        this.tabs.push(tabFactory.create({
-          name: gettext('Assets'),
-          stateName: 'designer.page.asset',
-          bottomPanel: this
-        }));
+        if (this.mode === 'page') {
+          this.tabs.push(tabFactory.create({
+            name: gettext('Assets'),
+            stateName: 'designer.page.asset',
+            bottomPanel: this
+          }));
+        }
       }
     }
 
@@ -51,12 +53,12 @@
     }
   }
 
-  angular.module('bonitasoft.designer.editor.bottom-panel').directive('bottomPanel', () => ({
-    restrict: 'E',
-    scope: {},
-    bindToController: { mode: '@' },
-    templateUrl: 'js/editor/bottom-panel/bottom-panel.html',
-    controller: BottomPanelController,
-    controllerAs: 'bottomPanel'
-  }));
+  angular
+    .module('bonitasoft.designer.editor.bottom-panel')
+    .component('bottomPanel', {
+      bindings: { mode: '@' },
+      templateUrl: 'js/editor/bottom-panel/bottom-panel.html',
+      controller: BottomPanelController,
+      controllerAs: 'bottomPanel'
+    });
 }());

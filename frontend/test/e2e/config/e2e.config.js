@@ -36,6 +36,9 @@
       // Migration
       $httpBackend.whenPUT(/rest\/migration\/.*\/.*/).respond(() => { return [200,{ 'comments': 'No migration is needed', 'status': 'none', 'migrationStepReport':[] },{}];} );
 
+      $httpBackend.whenGET(/bdm\/json/).respond(() => { return [200,{error:{}}];});
+
+
       /********************************************************************************************************
        *                                            WIDGETS
        * ******************************************************************************************************/

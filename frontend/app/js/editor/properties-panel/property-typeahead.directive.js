@@ -25,7 +25,7 @@
 
     getValues(search) {
       let effectiveSearch = search;
-      if (search.startsWith('!')) {
+      if ((search || '').startsWith('!')) {
         this.prefix = search.charAt(0);
         effectiveSearch = search.substr(1);
       } else {

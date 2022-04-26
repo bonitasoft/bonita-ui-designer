@@ -60,9 +60,9 @@
     <div class="switch-config">
         <bo-switch-config
             id="switch-component-config"
-            dictionary="{{ctrl.dictionary}}"
-            from="{{ ctrl.propertiesFrom }}"
-            to="{{ ctrl.propertiesTo}}"
+            dictionary="{{ctrl.dictionary | json}}"
+            from="{{ ctrl.propertiesFrom | json }}"
+            to="{{ ctrl.propertiesTo | json }}"
         ></bo-switch-config>
     </div>
 </div>

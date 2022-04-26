@@ -106,8 +106,8 @@ describe('pageRepo', function() {
     // when we load it
     var pageData;
     pageRepo.load('person')
-      .success(function(data) {
-        pageData = data;
+      .then(function(response) {
+        pageData = response.data;
       });
 
     // then we should have called the backend

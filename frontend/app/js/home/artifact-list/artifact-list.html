@@ -92,7 +92,7 @@
 
             <favorite-button artifact-repository="::artifactList.getRepository(artifact.type)"
                              artifact=":: artifact"></favorite-button>
-            <button file-download class="Artifact-button Artifact-export"
+            <button class="Artifact-button Artifact-export"
                     ng-class="{'Artifact-button--primary-disabled': artifact.status && !artifact.status.compatible, 'Artifact-button--primary': !artifact.status || artifact.status.compatible}"
                     ng-click="artifactList.exportArtifact(artifact)"
                     uib-tooltip="{{:: artifactList.translateKeys('Export')}}"

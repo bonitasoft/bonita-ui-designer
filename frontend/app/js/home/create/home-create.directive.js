@@ -14,8 +14,6 @@
  */
 (function() {
 
-  'use strict';
-
   class CreateArtifactCtrl {
     constructor($scope, repositories, $state, artifactFactories, artifactNamingValidatorService) {
       this.repositories = repositories;
@@ -23,9 +21,12 @@
       this.$state = $state;
       this.$scope = $scope;
       this.types = artifactFactories.getFactories();
-      $scope.$watch(() => this.artifactActive,
-        activeType =>
-          this.type = activeType && this.types[activeType.id] || this.types.page);
+      this.$onChanges = (changes) => {
+        if (changes.artifactActive) {
+          let activeType = changes.artifactActive.currentValue;
+          this.type = activeType && this.types[activeType.id] || this.types.page;
+        }
+      }
     }
 
     close() {
@@ -33,7 +34,7 @@
     }
 
     isArtifactNameAlreadyExist(name, type) {
-      return this.artifactNamingValidatorService.isArtifactNameAlreadyUseForType(name,type.key,this.artifacts);
+      return this.artifactNamingValidatorService.isArtifactNameAlreadyUseForType(name, type.key, this.artifacts);
     }
 
     create(type, name) {
@@ -44,18 +45,14 @@
     }
   }
 
-  angular
-    .module('bonitasoft.designer.home')
-    .directive('uidCreateArtifact', () => ({
-      scope: true,
-      require: '^HomeCtrl',
-      templateUrl: 'js/home/create/home-create.html',
-      controller: CreateArtifactCtrl,
-      bindToController: {
-        artifactActive: '=',
-        artifacts: '='
-      },
-      controllerAs: 'createCtrl'
-    }));
-
+  angular.module('bonitasoft.designer.home').component('uidCreateArtifact', {
+    templateUrl: 'js/home/create/home-create.html',
+    bindings: {
+      artifactActive: '<',
+      artifacts: '<'
+    },
+    require: '^HomeCtrl',
+    controller: CreateArtifactCtrl,
+    controllerAs: 'createCtrl'
+  })
 })();
