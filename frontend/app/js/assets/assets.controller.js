@@ -98,7 +98,8 @@
       artifactRepo.loadAssets(vm.component).then(function(response) {
         response.forEach(asset => pushToArray(memoryAssets, asset));
         vm.component.assets = memoryAssets;
-      });
+        return vm.component;
+      }).then(() =>  artifactRepo.setLastSavedState(vm.component));
       if (mode === 'widget') {
         vm.assetAlreadyOnMove = false;
         return;
@@ -144,6 +145,7 @@
         return asset.id || asset.name;
       });
       vm.component.inactiveAssets = (inactiveAssets.length) ? inactiveAssets : undefined;
+      artifactRepo.setLastSavedState(vm.component);
     }
 
     function deleteAsset(asset) {
@@ -160,10 +162,11 @@
 
       modalInstance.result.then(
         () =>
-          assetRepo.deleteAsset(vm.component.id, asset).then(function() {
+          assetRepo.deleteAsset(vm.component.id, asset).then( () => {
             vm.component.assets = vm.component.assets.filter(function(actual) {
               return actual.id !== asset.id;
             });
+            artifactRepo.setLastSavedState(vm.component);
           })
       );
     }
@@ -221,6 +224,7 @@
     function updateList(asset) {
       var replaced = false;
       asset.scope = mode;
+
       vm.component.assets = vm.component.assets.map(function(item) {
         if (item.id === asset.id) {
           replaced = true;
@@ -231,6 +235,7 @@
       if (!replaced) {
         vm.component.assets.push(asset);
       }
+      artifactRepo.setLastSavedState(vm.component);
     }
 
     function openHelp(elm) {

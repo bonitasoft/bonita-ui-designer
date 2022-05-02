@@ -14,10 +14,13 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.assertj.core.api.Assertions;
+import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.FragmentBuilder;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
@@ -57,6 +60,8 @@ public class DirectivesCollectorTest {
     @Mock
     private WorkspaceUidProperties workspaceUidProperties;
 
+    private JsonHandler jsonHandler = new JsonHandlerFactory().create();
+
     @Mock
     private FragmentRepository fragmentRepository;
 
@@ -71,7 +76,7 @@ public class DirectivesCollectorTest {
         when(workspaceUidProperties.getTmpPagesRepositoryPath()).thenReturn(temporaryFolder.toPath().resolve("pages"));
         when(workspaceUidProperties.getTmpFragmentsRepositoryPath()).thenReturn(temporaryFolder.toPath().resolve("fragments"));
 
-        collector = new DirectivesCollector(workspaceUidProperties,directiveFileGenerator,fragmentIdVisitor,fragmentRepository);
+        collector = new DirectivesCollector(jsonHandler, workspaceUidProperties,directiveFileGenerator,fragmentIdVisitor,fragmentRepository);
 
     }
 
@@ -100,11 +105,14 @@ public class DirectivesCollectorTest {
 
     @Test
     public void should_collect_widget_file_directive_and_fragment_file_when_fragment_will_be_use_in_page() throws IOException {
+
         Page page = PageBuilder.aPage().build();
         Fragment fragment = FragmentBuilder.aFragment().build();
+        byte[] content = this.jsonHandler.toJson(fragment);
+        String fragmentSHA1 = DigestUtils.sha1Hex(content);
         initFileAndMockForPageWhoHasFragment(page, fragment);
         List<String> expected = asList("js/widgets-123456.js",
-                "fragments/" + fragment.getId() + "/" + fragment.getId() + ".js");
+                "fragments/" + fragment.getId() + "/" + fragment.getId() + ".js?hash=" + fragmentSHA1);
 
         List<String> imports = collector.buildUniqueDirectivesFiles(page, page.getId());
 

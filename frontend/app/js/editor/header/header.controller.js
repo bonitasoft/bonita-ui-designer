@@ -16,7 +16,6 @@
       this.$timeout = $timeout;
       this.$q = $q;
       this.browserHistoryService = browserHistoryService;
-      this.pristine = true;
       this.dirty = false;
       this.scope = $scope;
       this.rootScope = $rootScope;
@@ -66,7 +65,6 @@
 
     isPageDirty(artifact) {
       let needSave = this.artifactRepo.needSave(artifact);
-      this.pristine = this.pristine && !needSave;
       this.dirty = this.dirty || needSave;
       return needSave;
     }

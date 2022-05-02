@@ -22,7 +22,11 @@ function PbAutocompleteCtrl($scope, $parse, $log, widgetNameFactory) {
     if (this.selectedItem) {
       return this.getLabel(this.selectedItem);
     } else {
-      return this.getLabel($model);
+      if (typeof $model === 'object') {
+        return this.getLabel($model);
+      } else {
+        return $model;
+      }
     }
   };
 

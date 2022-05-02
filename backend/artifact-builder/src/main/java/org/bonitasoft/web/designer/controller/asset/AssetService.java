@@ -151,6 +151,11 @@ public class AssetService<T extends Assetable> {
     public void delete(T component, final String assetId) {
         checkArgument(isNotEmpty(assetId), ASSET_ID_IS_REQUIRED);
 
+        // remove asset from inactive asset list
+        if(component instanceof Previewable && ((Previewable) component).getInactiveAssets().contains(assetId)){
+            ((Previewable) component).getInactiveAssets().remove(assetId);
+        }
+
         deleteComponentAsset(component, asset -> assetId.equals(asset.getId()));
         repository.updateLastUpdateAndSave(component);
     }

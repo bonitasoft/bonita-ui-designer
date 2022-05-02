@@ -1,7 +1,7 @@
 <div class="text-{{ properties.alignment }}">
     <button
         ng-class="'btn btn-' + properties.buttonStyle"
-        ng-click="ctrl.action()"
+        ng-click="ctrl.busy=true;ctrl.action()"
         type="button"
         ng-disabled="properties.disabled || ctrl.busy" ng-bind-html="properties.label | uiTranslate"></button>
 </div>

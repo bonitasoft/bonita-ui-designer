@@ -107,7 +107,7 @@ public class ArtifactBuilderFactory {
                 new AssetVisitor(core.getWidgetRepository(), core.getFragmentRepository()),
                 pageFactories,
                 new RequiredModulesVisitor(core.getWidgetRepository(), core.getFragmentRepository()),
-                new DirectivesCollector(uiDesignerProperties.getWorkspaceUid(),
+                new DirectivesCollector(this.jsonHandler, uiDesignerProperties.getWorkspaceUid(),
                         directiveFileGenerator,
                         fragmentIdVisitor,
                         core.getFragmentRepository()

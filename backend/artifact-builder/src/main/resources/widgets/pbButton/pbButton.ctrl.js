@@ -8,18 +8,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     if ($scope.properties.action === 'Remove from collection') {
       removeFromCollection();
       closeModal($scope.properties.closeOnSuccess);
+      vm.busy = false;
     } else if ($scope.properties.action === 'Add to collection') {
       addToCollection();
       closeModal($scope.properties.closeOnSuccess);
+      vm.busy = false;
+    } else if ($scope.properties.action === 'Open modal') {
+      closeModal($scope.properties.closeOnSuccess);
+      openModal($scope.properties.modalId);
+      vm.busy = false;
+    } else if ($scope.properties.action === 'Close modal') {
+      closeModal(true);
+      vm.busy = false;
     } else if ($scope.properties.action === 'Start process') {
       startProcess();
     } else if ($scope.properties.action === 'Submit task') {
       submitTask();
-    } else if ($scope.properties.action === 'Open modal') {
-      closeModal($scope.properties.closeOnSuccess);
-      openModal($scope.properties.modalId);
-    } else if ($scope.properties.action === 'Close modal') {
-      closeModal(true);
     } else if ($scope.properties.url) {
       doRequest($scope.properties.action, $scope.properties.url);
     }
@@ -74,7 +78,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   function startProcess() {
     var id = getUrlParam('id');
     if (id) {
-      var prom = doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam()).then(function() {
+      doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam()).then(function() {
         localStorageService.delete($window.location.href);
       });
 
@@ -89,7 +93,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
    * @return {void}
    */
   function doRequest(method, url, params) {
-    vm.busy = true;
     var req = {
       method: method,
       url: url,
