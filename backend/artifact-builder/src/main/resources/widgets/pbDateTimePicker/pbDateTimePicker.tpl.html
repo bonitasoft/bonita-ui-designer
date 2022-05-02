@@ -4,10 +4,16 @@
     }">
     <div class="form-group">
         <label
-            ng-if="!properties.labelHidden"
+            ng-if="!properties.labelHidden && properties.allowHTML"
             ng-class="{ 'control-label--required': properties.required }"
-            class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}"
+            class="control-label col-xs-{{ properties.labelPosition === 'left' ? properties.labelWidth : 12 }}"
             ng-bind-html="properties.label | uiTranslate">
+        </label>
+        <label
+            ng-if="!properties.labelHidden && !properties.allowHTML"
+            ng-class="{ 'control-label--required': properties.required }"
+            class="control-label col-xs-{{ properties.labelPosition === 'left' ? properties.labelWidth : 12 }}"
+            ng-bind="properties.label | uiTranslate">
         </label>
         <div ng-if="environment && environment.editor && properties.value" class="col-xs-12">
             <i class="fa fa-link"/></i>

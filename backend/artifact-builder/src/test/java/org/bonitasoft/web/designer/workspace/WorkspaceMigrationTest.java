@@ -15,11 +15,7 @@
 
 package org.bonitasoft.web.designer.workspace;
 
-import org.bonitasoft.web.designer.ArtifactBuilder;
-import org.bonitasoft.web.designer.ArtifactBuilderFactory;
-import org.bonitasoft.web.designer.JsonHandlerFactory;
-import org.bonitasoft.web.designer.UiDesignerCore;
-import org.bonitasoft.web.designer.UiDesignerCoreFactory;
+import org.bonitasoft.web.designer.*;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.JsonHandler;
@@ -46,7 +42,7 @@ import static org.bonitasoft.web.designer.builder.UiDesignerPropertiesTestBuilde
 public class WorkspaceMigrationTest {
 
 
-    private static final String HIGHER_MIGRATION_VERSION = "2.2";
+    private static final String HIGHER_MIGRATION_VERSION = Version.MODEL_VERSION;
 
     private static PageService pageService;
 

@@ -23,6 +23,14 @@
       "defaultValue": false
     },
     {
+      "label" : "Interpret HTML",
+      "name" : "allowHTML",
+      "help" : "If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks.",
+      "type" : "boolean",
+      "defaultValue" : false,
+      "bond": "constant"
+    },
+    {
       "label": "Label hidden",
       "name": "labelHidden",
       "type": "boolean",

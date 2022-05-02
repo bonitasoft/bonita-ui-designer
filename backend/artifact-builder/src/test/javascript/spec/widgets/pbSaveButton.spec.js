@@ -16,7 +16,8 @@ describe('pbSaveButton', function () {
     scope.properties = {
       label: "Save draft",
       alignment: "left",
-      buttonStyle: "default"
+      buttonStyle: "default",
+      allowHTML: true
     };
 
     element = $compile('<pb-save-button></pb-save-button>')(scope);
@@ -31,12 +32,21 @@ describe('pbSaveButton', function () {
 
     });
 
-    it('should have specified label', function () {
+    it('should have specified label and allows html markup to be interpreted', function () {
       scope.properties.label = '<i class="fa fa-bonita">foobar</i>';
       scope.$apply();
 
       expect(element.find('button').text().trim()).toBe('foobar');
       expect(element.find('button').html()).toContain('<i class="fa fa-bonita">foobar</i>');
+    });
+
+    it('should have specified label and prevent html markup to be interpreted', function () {
+      scope.properties.label = '<i class="fa fa-bonita">foobar</i>';
+      scope.properties.allowHTML= false;
+      scope.$apply();
+
+      expect(element.find('button').text().trim()).toContain('<i class="fa fa-bonita">foobar</i>');
+      expect(element.find('button').html()).toContain('&lt;i class="fa fa-bonita"&gt;foobar&lt;/i&gt;');
     });
 
     it('should support changing text alignment', function () {

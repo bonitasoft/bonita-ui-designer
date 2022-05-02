@@ -149,5 +149,30 @@ describe('pbChecklist', function () {
 
       expect(element.find('label.control-label').length).toBe(0);
     });
+
+    it('should allows html markup to be interpreted', function() {
+      scope.properties = angular.extend(scope.properties, {
+        label: '<span>allow html!</span>',
+        allowHTML: true
+      });
+
+      var element = compile('<pb-checklist></pb-checklist>')(scope);
+      scope.$apply();
+      var label = element.find('label.control-label');
+      expect(label.text().trim()).toBe('allow html!');
+    });
+
+    it('should prevent html markup to be interpreted', function() {
+      scope.properties = angular.extend(scope.properties, {
+        label: '<span>allow html!</span>',
+        allowHTML: false
+      });
+
+      var element = compile('<pb-checklist></pb-checklist>')(scope);
+      scope.$apply();
+      var label = element.find('label.control-label');
+      expect(label.text().trim()).toBe('<span>allow html!</span>');
+    });
+
   });
 });

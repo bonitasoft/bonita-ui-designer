@@ -129,6 +129,30 @@ describe('pbDateTimePicker', function() {
 
       expect(element.find('label').text().trim()).toBe('New label');
     });
+
+    it('should allows html markup to be interpreted', function() {
+      scope.properties = angular.extend(scope.properties, {
+        label: '<span>allow html!</span>',
+        allowHTML: true
+      });
+
+      var element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
+      scope.$apply();
+      var label = element.find('label');
+      expect(label.text().trim()).toBe('allow html!');
+    });
+
+    it('should prevent html markup to be interpreted', function() {
+      scope.properties = angular.extend(scope.properties, {
+        label: '<span>allow html!</span>',
+        allowHTML: false
+      });
+
+      var element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
+      scope.$apply();
+      var label = element.find('label');
+      expect(label.text().trim()).toBe('<span>allow html!</span>');
+    });
   });
 
   describe('input-group', function() {

@@ -13,8 +13,8 @@
         </timeline-badge>
         <timeline-panel>
             <timeline-heading>
-                <timeline-title ng-bind-html="buildEventTitle(event)">
-               </timeline-title>
+                <timeline-title ng-if="properties.allowHTML" ng-bind-html="buildEventTitle(event)"></timeline-title>
+                <timeline-title ng-if="!properties.allowHTML" ng-bind="buildEventTitle(event)"></timeline-title>
                 <p>
                     <small class="text-muted"> <i class="glyphicon glyphicon-time"></i>
                           {{formatDate(buildEventTime(event)) | date:properties.eventsTimeAttributeFormat}}

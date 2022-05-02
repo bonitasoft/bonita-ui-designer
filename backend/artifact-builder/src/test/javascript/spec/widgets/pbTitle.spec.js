@@ -48,4 +48,23 @@ describe('pbTitle', function() {
     expect(dom.find('h2').text()).toBe('yolo');
   });
 
+
+  it('should allows html markup to be interpreted', function() {
+    scope.properties = angular.extend(scope.properties, {
+      text: '<span>allow html!</span>',
+      allowHTML: true
+    });
+    scope.$apply();
+    expect(dom.find('h2').text()).toBe('allow html!');
+  });
+
+  it('should prevent html markup to be interpreted', function() {
+    scope.properties = angular.extend(scope.properties, {
+      text: '<span>allow html!</span>',
+      allowHTML: false
+    });
+    scope.$apply();
+    expect(dom.find('h2').text()).toBe('<span>allow html!</span>');
+  });
+
 });

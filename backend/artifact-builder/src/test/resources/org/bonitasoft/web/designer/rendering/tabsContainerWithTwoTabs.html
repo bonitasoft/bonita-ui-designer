@@ -2,8 +2,12 @@
     <div class="col-xs-12" ng-class="properties.cssClasses" ng-if="!properties.hidden">
         <tabset vertical="{{properties.vertical}}" type="{{properties.type}}">
             <tab pb-property-values="tab-container-1" ng-hide="properties.hidden" disable="properties.disabled" active="properties.active">
-                <tab-heading ng-bind-html="properties.title" ng-class="properties.cssClasses"
-                             ui-translate></tab-heading>
+                <tab-heading ng-class="properties.cssClasses" ui-translate>
+                    <span>
+                        <span ng-if="!properties.allowHTML" ng-bind="properties.title | uiTranslate"></span>
+                        <ng-bind-html ng-if="properties.allowHTML" ng-bind-html="properties.title | uiTranslate"/>
+                    </span>
+                </tab-heading>
                 <div ng-hide="properties.hidden" ng-if="properties.active">
                     <div pb-property-values="first-container">
                         <div class="col-xs-12" ng-class="properties.cssClasses" ng-if="!properties.hidden"></div>
@@ -11,8 +15,12 @@
                 </div>
             </tab>
             <tab pb-property-values="tab-container-2" ng-hide="properties.hidden" disable="properties.disabled" active="properties.active">
-                <tab-heading ng-bind-html="properties.title" ng-class="properties.cssClasses"
-                             ui-translate></tab-heading>
+                <tab-heading ng-class="properties.cssClasses" ui-translate>
+                    <span>
+                        <span ng-if="!properties.allowHTML" ng-bind="properties.title | uiTranslate"></span>
+                        <ng-bind-html ng-if="properties.allowHTML" ng-bind-html="properties.title | uiTranslate"/>
+                    </span>
+                </tab-heading>
                 <div ng-hide="properties.hidden" ng-if="properties.active">
                     <div pb-property-values="last-container">
                         <div class="col-xs-12" ng-class="properties.cssClasses" ng-if="!properties.hidden"></div>

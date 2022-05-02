@@ -20,7 +20,8 @@ describe('pbButton', function () {
     scope = $rootScope.$new();
     // set the default value for property method
     scope.properties = {
-      method: 'Submit task'
+      method: 'Submit task',
+      allowHTML: true
     };
 
     element = $compile('<pb-button></pb-button>')(scope);
@@ -304,7 +305,7 @@ describe('pbButton', function () {
     it('should bind response status code when GET succeeds', function() {
       var url = '/toto';
       $httpBackend.expectGET(url).respond(200, 'success');
-      
+
       scope.properties.action = 'GET';
       scope.properties.url = url;
 
@@ -539,7 +540,7 @@ describe('pbButton', function () {
       scope.properties.dataToSend = {'name': 'toto'};
       $httpBackend.expectPOST('../API/bpm/userTask/42/execution', scope.properties.dataToSend).respond('success');
 
-      element.find('button').triggerHandler('click');
+      scope.ctrl.action();
 
       $timeout.flush();
       $httpBackend.flush();
@@ -554,7 +555,7 @@ describe('pbButton', function () {
 	  scope.properties.assign = true;
       $httpBackend.expectPOST('../API/bpm/userTask/42/execution?assign=true', scope.properties.dataToSend).respond('success');
 
-      element.find('button').triggerHandler('click');
+    scope.ctrl.action();
 
       $timeout.flush();
       $httpBackend.flush();
@@ -569,7 +570,7 @@ describe('pbButton', function () {
       scope.properties.dataToSend = {'name': 'toto'};
       $httpBackend.expectPOST('../API/bpm/userTask/42/execution?user=1', scope.properties.dataToSend).respond('success');
 
-      element.find('button').triggerHandler('click');
+      scope.ctrl.action();
 
       $timeout.flush();
       $httpBackend.flush();
@@ -580,9 +581,8 @@ describe('pbButton', function () {
         return 'http://localhost/bonita/portal/WrongURL';
       };
 
-      element.find('button').triggerHandler('click');
+      scope.ctrl.action();
 
-      $timeout.flush();
       $httpBackend.verifyNoOutstandingRequest();
     });
 
@@ -599,7 +599,7 @@ describe('pbButton', function () {
       scope.properties.dataToSend = {'name': 'toto'};
       $httpBackend.expectPOST('../API/bpm/userTask/42/execution?user=1', scope.properties.dataToSend).respond('success');
 
-      element.find('button').triggerHandler('click');
+      scope.ctrl.action();
 
       $timeout.flush();
       $httpBackend.flush();
@@ -627,7 +627,7 @@ describe('pbButton', function () {
       scope.properties.dataToSend = {'name': 'toto'};
       $httpBackend.expectPOST('../API/bpm/process/8880000/instantiation', scope.properties.dataToSend).respond('success');
 
-      element.find('button').triggerHandler('click');
+      scope.ctrl.action();
 
       $timeout.flush();
       $httpBackend.flush();
@@ -641,7 +641,7 @@ describe('pbButton', function () {
       scope.properties.dataToSend = {'name': 'toto'};
       $httpBackend.expectPOST('../API/bpm/process/8880000/instantiation?user=1', scope.properties.dataToSend).respond('success');
 
-      element.find('button').triggerHandler('click');
+      scope.ctrl.action();
 
       $timeout.flush();
       $httpBackend.flush();
@@ -652,9 +652,8 @@ describe('pbButton', function () {
         return 'http://localhost/bonita/portal/WrongURL';
       };
 
-      element.find('button').triggerHandler('click');
+      scope.ctrl.action();
 
-      $timeout.flush();
       $httpBackend.verifyNoOutstandingRequest();
     });
 
@@ -669,9 +668,10 @@ describe('pbButton', function () {
       localStorageService.save(url, savedData);
 
       scope.properties.dataToSend = {'name': 'toto'};
+      scope.properties.dataToSend = {'name': 'toto'};
       $httpBackend.expectPOST('../API/bpm/process/8880000/instantiation?user=1', scope.properties.dataToSend).respond('success');
 
-      element.find('button').triggerHandler('click');
+      scope.ctrl.action();
 
       $timeout.flush();
       $httpBackend.flush();

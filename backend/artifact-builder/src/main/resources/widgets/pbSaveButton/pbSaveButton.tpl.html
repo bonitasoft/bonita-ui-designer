@@ -3,6 +3,7 @@
             ng-disabled="properties.disabled || !ctrl.isStorageAvailable()">
         <span
             ng-class="{glyphicon:true, 'glyphicon-floppy-disk':!ctrl.saving, 'glyphicon-floppy-saved':ctrl.saving}"></span>
-        <ng-bind-html ng-bind-html="properties.label | uiTranslate"></ng-bind-html>
+        <ng-bind-html ng-if="properties.allowHTML" ng-bind-html="properties.label | uiTranslate"></ng-bind-html>
+        <span ng-if="!properties.allowHTML" ng-bind="properties.label | uiTranslate"></span>
     </button>
 </div>

@@ -7,6 +7,14 @@
   "order": "19",
   "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20'><g><path fill='#fff' d='M8.2,20h15v-1h-15V20z M8.2,17h31v-1h-31V17z M8.2,4h32V3h-32V4z M8.2,14h34v-1h-34V14z M8.2,7h30V6h-30V7z M8.2,1h35V0h-35V1z'/></g></svg>",
   "properties": [
+    {
+      "label" : "Interpret HTML",
+      "name" : "allowHTML",
+      "help" : "If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks.",
+      "type" : "boolean",
+      "defaultValue" : false,
+      "bond": "constant"
+    },
   	{
       "label": "Label hidden",
       "name": "labelHidden",
@@ -45,14 +53,6 @@
         "min": "1",
         "max": "12"
       }
-    },
-    {
-      "label" : "Interpret HTML",
-      "name" : "allowHTML",
-      "help" : "If you choose 'no', HTML code will be escaped instead of being interpreted",
-      "type" : "boolean",
-      "defaultValue" : true,
-      "bond": "constant"
     },
     {
       "label": "Text",

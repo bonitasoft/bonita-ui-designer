@@ -57,6 +57,30 @@ describe('pbSelect', function () {
     expect(element.find('select').parent().hasClass('col-xs-7')).toBeTruthy();
   });
 
+  it('should allows html markup to be interpreted', function() {
+    scope.properties = angular.extend(scope.properties, {
+      label: '<span>allow html!</span>',
+      allowHTML: true
+    });
+
+    var element = $compile('<pb-select></pb-select>')(scope);
+    scope.$apply();
+    var label = element.find('label');
+    expect(label.text().trim()).toBe('allow html!');
+  });
+
+  it('should prevent html markup to be interpreted', function() {
+    scope.properties = angular.extend(scope.properties, {
+      label: '<span>allow html!</span>',
+      allowHTML: false
+    });
+
+    var element = $compile('<pb-select></pb-select>')(scope);
+    scope.$apply();
+    var label = element.find('label');
+    expect(label.text().trim()).toBe('<span>allow html!</span>');
+  });
+
   it('should update model value with selected model', function () {
     scope.properties.availableValues = collection;
 

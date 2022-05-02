@@ -14,7 +14,10 @@
                 <button ng-click="moveTabRight(tab)" ng-if="moveTabRightVisible(tab)" class="fa fa-arrow-circle-right move-tab-right btn-tab"
                         ng-class="{'fa-arrow-circle-down': isPropertyExist('vertical') && tabsContainer.propertyValues.vertical.value,
                          'fa-arrow-circle-right': !isPropertyExist || !tabsContainer.propertyValues.vertical.value}"></button>
-                <span class="tab-title">{{ tab.propertyValues.title.value }}</span>
+                <span class="tab-title">
+                    <span ng-if="!tab.propertyValues.allowHTML.value" ng-bind="tab.propertyValues.title.value"></span>
+                    <ng-bind-html ng-if="tab.propertyValues.allowHTML.value" ng-bind-html="tab.propertyValues.title.value"/>
+                </span>
                 <button title="{{ 'Remove tab' | translate }}"  ng-click="removeTab(tab)" ng-if="isRemoveTabVisible(tab)" class="fa fa-times-circle btn-tab"></button>
             </a>
         </li>

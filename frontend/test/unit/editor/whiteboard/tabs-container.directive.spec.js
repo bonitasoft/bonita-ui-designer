@@ -20,9 +20,13 @@ describe('tabsContainer', function() {
       tabList: [
         {
           propertyValues: {
+            allowHTML: {
+              type: 'constant',
+              value: true
+            },
             title: {
               type: 'interpolation',
-              value: 'Tab 1'
+              value: '<i>Tab 1</i>'
             }
           },
           container: {
@@ -33,9 +37,13 @@ describe('tabsContainer', function() {
         },
         {
           propertyValues: {
+            allowHTML: {
+              type: 'constant',
+              value: false
+            },
             title: {
               type: 'interpolation',
-              value: 'Tab 2'
+              value: '<i>Tab 2</i>'
             }
           },
           container: {
@@ -69,7 +77,7 @@ describe('tabsContainer', function() {
     expect(element.find('ul.nav.nav-tabs li').length).toBe(3);
     expect(element.find('ul.nav.nav-tabs li:first').text().trim()).toBe('Tab 1');
     expect(element.find('ul.nav.nav-tabs li:first').hasClass('active')).toBe(true);
-    expect(element.find('ul.nav.nav-tabs li:nth(1)').text().trim()).toBe('Tab 2');
+    expect(element.find('ul.nav.nav-tabs li:nth(1)').text().trim()).toBe('<i>Tab 2</i>');
     expect(element.find('ul.nav.nav-tabs li:nth(1)').hasClass('active')).toBe(false);
     expect(element.find('container').length).toBe(2);
   });

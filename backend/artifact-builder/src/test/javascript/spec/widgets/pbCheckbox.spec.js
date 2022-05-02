@@ -28,6 +28,30 @@ describe('pbCheckbox', function() {
     expect(element.find('label').text().trim()).toBe('Checkbox label');
   });
 
+  it('should allows html markup to be interpreted', function() {
+    scope.properties = angular.extend(scope.properties, {
+      label: '<span>allow html!</span>',
+      allowHTML: true
+    });
+
+    var element = compile('<pb-checkbox></pb-checkbox>')(scope);
+    scope.$apply();
+    var label = element.find('label');
+    expect(label.text().trim()).toBe('allow html!');
+  });
+
+  it('should prevent html markup to be interpreted', function() {
+    scope.properties = angular.extend(scope.properties, {
+      label: '<span>allow html!</span>',
+      allowHTML: false
+    });
+
+    var element = compile('<pb-checkbox></pb-checkbox>')(scope);
+    scope.$apply();
+    var label = element.find('label');
+    expect(label.text().trim()).toBe('<span>allow html!</span>');
+  });
+
   it('should be disabled  when requested', function() {
     scope.properties.disabled = true;
     scope.$apply();

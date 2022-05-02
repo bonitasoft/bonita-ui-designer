@@ -13,7 +13,8 @@ describe('pbInput', function () {
         return false;
       },
       labelWidth: 4,
-      label: '<i class="fa fa-icon">foobar</i>'
+      label: '<i class="fa fa-icon">foobar</i>',
+      allowHTML: true
     };
   }));
 
@@ -50,6 +51,31 @@ describe('pbInput', function () {
 
       expect(element.find('label').length).toBe(0);
     });
+
+    it('should allows html markup to be interpreted', function() {
+      scope.properties = angular.extend(scope.properties, {
+        label: '<span>allow html!</span>',
+        allowHTML: true
+      });
+
+      var element = $compile('<pb-input></pb-input>')(scope);
+      scope.$apply();
+      var label = element.find('label');
+      expect(label.text().trim()).toBe('allow html!');
+    });
+
+    it('should prevent html markup to be interpreted', function() {
+      scope.properties = angular.extend(scope.properties, {
+        label: '<span>allow html!</span>',
+        allowHTML: false
+      });
+
+      var element = $compile('<pb-input></pb-input>')(scope);
+      scope.$apply();
+      var label = element.find('label');
+      expect(label.text().trim()).toBe('<span>allow html!</span>');
+    });
+
   });
 
   describe('input', function() {
@@ -175,9 +201,9 @@ describe('pbInput', function () {
       scope.properties.type = 'number';
       scope.properties.step = 0.5;
       var element = $compile('<pb-input></pb-input>')(scope);
-      
+
       /*
-       * This part of the test would simulate the step feature 
+       * This part of the test would simulate the step feature
        * of the input using keyup but the triggerHandler do not
        * send the correct event and the value is not updated
        *

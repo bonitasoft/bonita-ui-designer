@@ -13,9 +13,9 @@
     {
       "label" : "Interpret HTML",
       "name" : "allowHTML",
-      "help" : "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells",
+      "help" : "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks.",
       "type" : "boolean",
-      "defaultValue" : true,
+      "defaultValue" : false,
       "bond": "constant"
     },
     {

@@ -14,7 +14,8 @@ describe('pbLink', function() {
     scope.properties = {
       type: 'URL',
       alignment: 'left',
-      buttonStyle: 'none'
+      buttonStyle: 'none',
+      allowHTML: true
     };
   }));
 
@@ -61,12 +62,21 @@ describe('pbLink', function() {
     expect(dom.find('a').attr('target')).toBe('_blank');
   });
 
-  it('should set a text', function() {
+  it('should set a text and allows html markup to be interpreted', function() {
     expect(dom.find('a').text()).toBe('');
     scope.properties.text = '<i class="fa fa-bonita">yolo</i>';
     scope.$apply();
     expect(dom.find('a').text()).toBe('yolo');
     expect(dom.find('a').html()).toBe('<i class="fa fa-bonita">yolo</i>');
+  });
+
+  it('should set a text and prevent html markup to be interpreted', function() {
+    scope.properties.allowHTML= false;
+    expect(dom.find('a').text()).toBe('');
+    scope.properties.text = '<i class="fa fa-bonita">yolo</i>';
+    scope.$apply();
+    expect(dom.find('a').text()).toBe('<i class="fa fa-bonita">yolo</i>');
+    expect(dom.find('a').html()).toBe('&lt;i class="fa fa-bonita"&gt;yolo&lt;/i&gt;');
   });
 
   it('should set target to top when type is page', function() {
@@ -191,5 +201,4 @@ describe('pbLink', function() {
     scope.$apply();
     expect(dom.find('a').attr('href')).toBe('http://localhost:8080/bonita/apps/myApp/mySecondPage?locale=fr&tenant=2');
   });
-
 });
