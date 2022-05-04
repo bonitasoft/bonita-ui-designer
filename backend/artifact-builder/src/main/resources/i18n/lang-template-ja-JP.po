@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-03-13 03:07\n"
+"PO-Revision-Date: 2022-05-04 01:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1126,6 +1126,9 @@ msgstr "フィルター"
 msgid "First"
 msgstr "最初の行"
 
+msgid "For 'Label' property only. If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
+msgstr ""
+
 msgid "For <em>Start process</em> and <em>Submit task</em> actions the format of the data must meet the process/task contract specifications."
 msgstr "<em>プロセスを開始</em> や<em>タスクを送信</em> のアクションに対するデータの形式は、プロセス/タスクのコントラクト仕様を満たす必要があります。"
 
@@ -1338,11 +1341,11 @@ msgstr "ページが iframe 内に表示されている場合、 JavaScript post
 msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
 msgstr "標準ウィジェットがお客様のニーズを満たしていない場合は、お客様の希望に合ったカスタム ウィジェットを作成できます。 これを行うには、別の名前で保存して標準ウィジェットをクローンし変更します。 作成後、カスタム ウィジェットはページ、フォーム、レイアウト、またはフラグメントを設計するためのパレットで使用できます。"
 
-msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
-msgstr "「いいえ」を選んだ場合、HTML コードは解釈される代わりにエスケープされます"
+msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
+msgstr ""
 
-msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
-msgstr "「いいえ」を選択すると、行のセルで解釈される代わりにHTMLコードがエスケープされます。"
+msgid "If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
+msgstr ""
 
 msgid "If you create your own user interface, bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
 msgstr ""
@@ -1480,6 +1483,9 @@ msgstr "補完（Interpolation）"
 
 msgid "Interpret HTML"
 msgstr "HTML を解釈"
+
+msgid "Interpret HTML in tab heading"
+msgstr ""
 
 msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
 msgstr "無効な URL: 英数字または #!:.?+ = &%@-/ のみ許されます"

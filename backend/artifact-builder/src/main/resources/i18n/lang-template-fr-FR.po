@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-03-13 03:07\n"
+"PO-Revision-Date: 2022-05-04 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1116,6 +1116,9 @@ msgstr "Filtres"
 msgid "First"
 msgstr "Premier"
 
+msgid "For 'Label' property only. If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
+msgstr ""
+
 msgid "For <em>Start process</em> and <em>Submit task</em> actions the format of the data must meet the process/task contract specifications."
 msgstr "Pour les actions <em>Démarrer le processus</em> et <em>Soumettre une tâche</em>, le format des données doit satisfaire les spécifications du contract de processus/tâche."
 
@@ -1326,11 +1329,11 @@ msgstr "Si la page est affichée à l’intérieur d’un iframe, un postMessage
 msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
 msgstr "Si le widget standard ne répond pas exactement à vos besoins, vous pouvez créer un widget personnalisé. Après création, un widget personnalisé est mis à disposition dans la palette pour être ajouté à des pages, des formulaires, des layouts our des fragments."
 
-msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
-msgstr "Si vous choisissez « non », le code HTML sera être échappé au lieu d’être interprété"
+msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
+msgstr ""
 
-msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
-msgstr "Si vous choisissez 'non', le code HTML sera échappé au lieu d'être interprété dans les cellules de la ligne"
+msgid "If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
+msgstr ""
 
 msgid "If you create your own user interface, bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
 msgstr "Si vous créez votre propre interface utilisateur, liez votre variable de données Métier sur les propriétés du widget ou utilisez votre variable dans les expressions javascript. Attention, par défaut, chaque variable de données métier est un tableau (même si un seul résultat de la requête est retourné)."
@@ -1467,6 +1470,9 @@ msgstr "Interpolation"
 
 msgid "Interpret HTML"
 msgstr "Interpréter le HTML"
+
+msgid "Interpret HTML in tab heading"
+msgstr ""
 
 msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
 msgstr "URL invalide : elle doit contenir uniquement des caractères alphanumériques ou #!:. ? += &%@-/"
