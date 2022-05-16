@@ -61,13 +61,22 @@
                         <h4 class="CustomEditor-section">
                             <span class="CustomEditor-section-underline" translate>Template</span>
                         </h4>
-                        <ace-editor id="template" class="ace-editor--widget" ng-class="{'ace_editor-readonly': !widget.custom}" mode="html" readonly="{{!widget.custom}}" ng-model="widget.template"></ace-editor>
+                        <ace-editor id="template" class="ace-editor--widget"
+                                ng-class="{'ace_editor-readonly': !widget.custom}" mode="html"
+                                ng-readonly="!widget.custom"
+                                ng-model="widget.template">
+                        </ace-editor>
                     </div>
                     <div>
                         <h4 class="CustomEditor-section">
                             <span class="CustomEditor-section-underline" translate>Controller</span>
                         </h4>
-                        <ace-editor id="controller" class="ace-editor--widget" ng-class="{'ace_editor-readonly': !widget.custom}"  mode="javascript" readonly="{{!widget.custom}}" ng-model="widget.controller"></ace-editor>
+                        <ace-editor id="controller" class="ace-editor--widget"
+                                    ng-class="{'ace_editor-readonly': !widget.custom}"
+                                    mode="javascript"
+                                    ng-readonly="!widget.custom"
+                                    ng-model="widget.controller">
+                        </ace-editor>
                     </div>
                 </form>
             </div>
