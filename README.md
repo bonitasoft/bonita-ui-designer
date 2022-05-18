@@ -11,7 +11,7 @@ Create your own pages for your Bonita application or your own project.
 ### Pre-requisite
 
 * [Maven][maven]
-* [Java 8][java] for compilation
+* [11.0.11.hs-adpt][java] for compilation (also see config .sdkmanrc)
 or
 * [Docker][docker]
 
