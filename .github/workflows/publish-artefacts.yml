@@ -56,7 +56,7 @@ jobs:
 
       - name: Publish artefact
         if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
-        run: ./mvnw deploy -DskipTests -DaltDeploymentRepository=releases::default::https://bonitasoft.jfrog.io/artifactory/releases/
+        run: ./mvnw deploy -DskipTests -DaltDeploymentRepository=releases::default::https://bonitasoft.jfrog.io/artifactory/libs-releases-local/
 
       - name: Build binaries
         if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushMavenCentral != 'true')}}
