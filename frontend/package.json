@@ -95,7 +95,7 @@
     "karma-source-map-support": "1.1.0",
     "license-checker": "^25.0.1",
     "license-report": "^3.0.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "merge-stream": "^0.1.7",
     "mkdirp": "^0.5.1",
     "multiparty": "^4.1.2",
