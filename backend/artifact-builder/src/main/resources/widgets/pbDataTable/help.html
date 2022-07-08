@@ -4,8 +4,11 @@
             standard table widget capabilities.
         <p translate>Set the Data source to Bonita API to populate the data table with records from a Bonita REST
             API.</p>
+        <p class="alert alert-warning" translate>
+            You do not need to specify paging parameters (such as ?p=0&c=10), because the data table handles paging automatically when you use a Bonita API data source.
+        </p>
         <p translate>You can use the <code>API request parameters</code> property to pass additional parameters to the
-            request.</p>
+            request. Supported parameters are described in the REST API Overview documentation page and in the REST API documentation for the relevant resources.</p>
         <p translate>Alternatively, you can set the Data source to Variable and use a variable definition to point to
             the table content.</p>
     </uib-tab>
@@ -45,22 +48,22 @@
     <uib-tab heading="{{ 'How to customize Zebra-striping' | translate }}" index="'zebra-custom-usage'">
         <p translate>Styling zebra-striping can be done in the theme.css file to customize all data-tables.</p>
         <p translate> You need to use this following css selector in your theme.css file:</p>
-<pre>
+        <pre>
 .table-striped > tbody
   > tr:nth-of-type(odd) {
-	background-color: chartreuse;
+    background-color: chartreuse;
 }
 
 .table-striped > tbody
   > tr:nth-of-type(even) {
-	background-color: black;
+    background-color: black;
 }
  </pre>
         <p translate>In some case, you want to override your theme to display <b>one</b> data-table with specific line color, to do this:</p>
-            <ol>
-                <li translate>In 'CSS Classes' property add the following class <code>zebra-custom</code></li>
-                <li translate>Add the following class in style.css asset.</li>
-                <pre>
+        <ol>
+            <li translate>In 'CSS Classes' property add the following class <code>zebra-custom</code></li>
+            <li translate>Add the following class in style.css asset.</li>
+            <pre>
 .zebra-custom .table-striped
  > tbody > tr:nth-of-type(odd){
     background-color: #8FB2DD;
@@ -71,7 +74,7 @@
     background-color:#994B42;
 }
 </pre>
-                <li transalte>Click on preview, select an app with a theme and check the result</li>
-            </ol>
-        </uib-tab>
+            <li transalte>Click on preview, select an app with a theme and check the result</li>
+        </ol>
+    </uib-tab>
 </uib-tabset>

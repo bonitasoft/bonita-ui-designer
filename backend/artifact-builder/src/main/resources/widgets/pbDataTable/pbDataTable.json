@@ -48,7 +48,7 @@
     },
     {
       "label": "API request parameters",
-      "help": "Additional request parameters added to the query string",
+      "help": "Additional request parameters added to the query string as json or javascript object, by using the related variable type",
       "name": "params",
       "type": "text",
       "showFor": "properties.type.value === 'Bonita API'"
