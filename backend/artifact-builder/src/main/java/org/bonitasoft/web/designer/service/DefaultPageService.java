@@ -24,6 +24,8 @@ import org.bonitasoft.web.designer.controller.export.properties.BonitaVariableRe
 import org.bonitasoft.web.designer.controller.export.properties.ResourceURLFunction;
 import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.page.Component;
@@ -34,10 +36,12 @@ import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.service.exception.IncompatibleException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
+import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -63,11 +67,19 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
 
     private final AssetVisitor assetVisitor;
 
-    public DefaultPageService(PageRepository pageRepository, PageMigrationApplyer pageMigrationApplyer, ComponentVisitor componentVisitor, AssetVisitor assetVisitor, UiDesignerProperties uiDesignerProperties, AssetService<Page> pagetAssetService) {
-        super(uiDesignerProperties, pagetAssetService, pageRepository);
+    private final FragmentIdVisitor fragmentIdVisitor;
+
+    private final FragmentService fragmentService;
+
+    public DefaultPageService(PageRepository pageRepository, PageMigrationApplyer pageMigrationApplyer, ComponentVisitor componentVisitor,
+                              AssetVisitor assetVisitor, FragmentIdVisitor fragmentIdVisitor, FragmentService fragmentService,
+                              UiDesignerProperties uiDesignerProperties, AssetService<Page> pageAssetService) {
+        super(uiDesignerProperties, pageAssetService, pageRepository);
         this.pageMigrationApplyer = pageMigrationApplyer;
         this.componentVisitor = componentVisitor;
         this.assetVisitor = assetVisitor;
+        this.fragmentIdVisitor = fragmentIdVisitor;
+        this.fragmentService = fragmentService;
     }
 
     @Override
@@ -177,17 +189,14 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
 
     @Override
     public List<String> getResources(Page page) {
-        List<String> resources = page.getVariables().values().stream()
-                .filter(new BonitaVariableResourcePredicate(BONITA_RESOURCE_REGEX))
-                .map(new BonitaResourceTransformer(BONITA_RESOURCE_REGEX))
-                .collect(toList());
+        List<String> resources = getResourcesFromVariables(page.getVariables());
 
-        List<String> extension = page.getVariables().values().stream()
-                .filter(new BonitaVariableResourcePredicate(EXTENSION_RESOURCE_REGEX))
-                .map(new BonitaResourceTransformer(EXTENSION_RESOURCE_REGEX))
-                .collect(Collectors.toList());
-
-        resources.addAll(extension);
+        Set<String> fragments = fragmentIdVisitor.visit(page);
+        for (String fragmentId : fragments) {
+            Fragment fragment = fragmentService.get(fragmentId);
+            List<String> fragmentResources = getResourcesFromVariables(fragment.getVariables());
+            resources.addAll(fragmentResources);
+        }
 
         var componentList = new ArrayList<Component>();
         componentVisitor.visit(page).forEach(componentList::add);
@@ -210,6 +219,19 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
         return resources.stream().distinct().collect(toList());
     }
 
+    private List<String> getResourcesFromVariables(Map<String, Variable> variables) {
+        List<String> resources = variables.values().stream()
+                .filter(new BonitaVariableResourcePredicate(BONITA_RESOURCE_REGEX))
+                .map(new BonitaResourceTransformer(BONITA_RESOURCE_REGEX))
+                .collect(toList());
+
+        List<String> extension = variables.values().stream()
+                .filter(new BonitaVariableResourcePredicate(EXTENSION_RESOURCE_REGEX))
+                .map(new BonitaResourceTransformer(EXTENSION_RESOURCE_REGEX))
+                .collect(Collectors.toList());
+        resources.addAll(extension);
+        return resources;
+    }
 
     private Set<String> findResourcesIn(Stream<Component> components, String propertyName, String httpVerb) {
         return components

@@ -204,6 +204,8 @@ public class UiDesignerCoreFactory {
                 pageMigrationApplyer,
                 new ComponentVisitor(fragmentRepository),
                 assetVisitor,
+                new FragmentIdVisitor(fragmentRepository),
+                fragmentService,
                 uiDesignerProperties,
                 pageAssetService
         );
