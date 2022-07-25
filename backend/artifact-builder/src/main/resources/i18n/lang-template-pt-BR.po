@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-06-22 01:31\n"
+"PO-Revision-Date: 2022-07-25 01:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -330,6 +330,9 @@ msgstr "Artefatos adicionados"
 
 msgid "Additional request parameters added to the query string"
 msgstr "Parâmetros de requisição adicionais adicionados à string de consulta"
+
+msgid "Additional request parameters added to the query string as json or javascript object, by using the related variable type"
+msgstr ""
 
 msgid "Advanced options"
 msgstr "Opções avançadas"
@@ -3040,9 +3043,8 @@ msgid "You can use standard HTML tags and AngularJS built-in directives, scope a
 msgstr "Você pode usar tags HTML padrão e diretivas do AngularJS, sistema de escopo e interpolação."
 
 msgid "You can use the <code>API request parameters</code> property to pass additional parameters to the\n"
-"            request."
-msgstr "Você pode usar os <code>parâmetros de solicitação de API</code> propriedade para passar parâmetros adicionais para a solicitação\n"
-"."
+"            request. Supported parameters are described in the REST API Overview documentation page and in the REST API documentation for the relevant resources."
+msgstr ""
 
 msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
 msgstr "Você pode usar a propriedade <i>environment</i> injetada no escopo quando dentro do editor do quadro. Ele permite criar um display de mockup para o quadro branco, pois dados de uso real não estarão disponíveis."
@@ -3055,6 +3057,9 @@ msgstr "Você não pode importar ou usar este artefato na versão mais antiga."
 
 msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
 msgstr "Você não pode mover, excluir ou desativar <b>Base framework</b> ativos. Eles estão aqui apenas para mostrar qual biblioteca é usada para construir seu artefato"
+
+msgid "You do not need to specify paging parameters (such as ?p=0&c=10), because the data table handles paging automatically when you use a Bonita API data source."
+msgstr ""
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Você tem alterações não salvas. Você realmente deseja sair ?"

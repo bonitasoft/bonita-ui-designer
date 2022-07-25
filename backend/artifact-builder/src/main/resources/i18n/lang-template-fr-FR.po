@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-06-22 01:28\n"
+"PO-Revision-Date: 2022-07-25 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -325,6 +325,9 @@ msgstr "Artefacts ajoutés"
 
 msgid "Additional request parameters added to the query string"
 msgstr "Paramètres de requête supplémentaires ajoutés à la requête"
+
+msgid "Additional request parameters added to the query string as json or javascript object, by using the related variable type"
+msgstr "Paramètres de requête supplémentaires ajoutés à la chaîne de requête en tant qu'objet json ou javascript, en utilisant le type de variable connexe"
 
 msgid "Advanced options"
 msgstr "Options avancées"
@@ -3022,8 +3025,9 @@ msgid "You can use standard HTML tags and AngularJS built-in directives, scope a
 msgstr "Vous pouvez utiliser les balises HTML standards ainsi que les directives, le scope, et le système d'interpolation d'AngularJS."
 
 msgid "You can use the <code>API request parameters</code> property to pass additional parameters to the\n"
-"            request."
-msgstr "Vous pouvez utiliser la propriété <code>paramètres de requête API</code> pour passer des paramètres supplémentaires à la requête."
+"            request. Supported parameters are described in the REST API Overview documentation page and in the REST API documentation for the relevant resources."
+msgstr "Vous pouvez utiliser la propriété <code>des paramètres de requête API</code> pour passer des paramètres supplémentaires à la requête\n"
+"            . Les paramètres pris en charge sont décrits dans la page generale de documentation de l’API REST et dans la documentation API REST pour les ressources pertinentes."
 
 msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
 msgstr "Vous pouvez utiliser la propriété <i>environment</i> injectée dans le scope à l'intérieur du whiteboard. Elle permet de d'émuler un affichage pour le whiteboard puisque les données réelles d'utilisation ne seront pas disponibles."
@@ -3036,6 +3040,9 @@ msgstr "Vous ne pouvez plus importer ou utiliser cet artefact dans une version a
 
 msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
 msgstr "Il n'est pas possible de déplacer, supprimer ou désactiver les assets du <b>Framework Bonita</b>. Il s'agit d'informations sur les bibliothèques utilisées pour la génération de votre artefact"
+
+msgid "You do not need to specify paging parameters (such as ?p=0&c=10), because the data table handles paging automatically when you use a Bonita API data source."
+msgstr "Vous n'avez pas besoin de spécifier des paramètres de pagination (comme ? =0&c=10), car le tableau de données gère automatiquement la pagination lorsque vous utilisez une source de données de l'API Bonita."
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Vous avez des modifications non enregistrées. Voulez-vous vraiment quitter ?"

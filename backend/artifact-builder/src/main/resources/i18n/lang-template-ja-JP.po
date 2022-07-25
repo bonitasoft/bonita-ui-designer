@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-06-22 01:29\n"
+"PO-Revision-Date: 2022-07-25 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -328,6 +328,9 @@ msgstr "追加された生成物"
 
 msgid "Additional request parameters added to the query string"
 msgstr "クエリ文字列に追加された追加のリクエスト パラメータ"
+
+msgid "Additional request parameters added to the query string as json or javascript object, by using the related variable type"
+msgstr ""
 
 msgid "Advanced options"
 msgstr "詳細オプション"
@@ -3042,9 +3045,8 @@ msgid "You can use standard HTML tags and AngularJS built-in directives, scope a
 msgstr "標準の HTML タグと AngularJS 組み込みディレクティブ、スコープおよび補完機能を使用できます。"
 
 msgid "You can use the <code>API request parameters</code> property to pass additional parameters to the\n"
-"            request."
-msgstr "<code>API リクエストパラメータ</code> プロパティを使用して、\n"
-"            リクエストに追加のパラメータを渡すことができます。"
+"            request. Supported parameters are described in the REST API Overview documentation page and in the REST API documentation for the relevant resources."
+msgstr ""
 
 msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
 msgstr "実データが利用可能でない場合は、ホワイトボード エディタの内部に投入された <i>環境</i> プロパティを使用し、ホワイトボードにモックアップ表示を作成できます。"
@@ -3057,6 +3059,9 @@ msgstr "古いバージョンではこのアーティファクトをインポー
 
 msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
 msgstr "<b>Base framework</b> のアセットを移動、削除、または無効にすることはできません。 これらはアーティファクトの設定に使用されるライブラリを表示するためにのみここにあります"
+
+msgid "You do not need to specify paging parameters (such as ?p=0&c=10), because the data table handles paging automatically when you use a Bonita API data source."
+msgstr ""
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
