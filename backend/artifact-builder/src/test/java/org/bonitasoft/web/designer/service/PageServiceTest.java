@@ -27,19 +27,24 @@ import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Element;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.exception.IncompatibleException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import java.time.Instant;
+
+import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,6 +61,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllLines;
@@ -65,6 +71,7 @@ import static java.util.Collections.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.PageWithFragmentBuilder.aPageWithFragmentElement;
@@ -97,9 +104,15 @@ public class PageServiceTest {
     private AssetVisitor assetVisitor;
 
     @Mock
+    private FragmentIdVisitor fragmentIdVisitor;
+
+    @Mock
     private AssetService<Page> pageAssetService;
 
     private DefaultPageService pageService;
+
+    @Mock
+    private DefaultFragmentService fragmentService;
 
     private MigrationStatusReport defaultStatusReport;
 
@@ -110,6 +123,8 @@ public class PageServiceTest {
                 pageMigrationApplyer,
                 componentVisitor,
                 assetVisitor,
+                fragmentIdVisitor,
+                fragmentService,
                 new UiDesignerProperties("1.13.0", CURRENT_MODEL_VERSION),
                 pageAssetService
         ));
@@ -645,6 +660,27 @@ public class PageServiceTest {
         return page;
     }
 
+    private Page setUpPageWithFragmentForResourcesTests() {
+        Fragment fragment = aFragment().withId("myFragment").build();
+        HashMap<String, Variable> variables = new HashMap<>();
+        variables.put("fragAPI", anApiVariable("../API/bpm/process/1"));
+        variables.put("fragAPIExt", anApiVariable("../API/extension/user/4"));
+        fragment.setVariables(variables);
+        when(fragmentService.get("myFragment")).thenReturn(fragment);
+
+        FragmentElement fragmentElement = new FragmentElement();
+        fragmentElement.setId("myFragment");
+        fragmentElement.setDimension(Map.of("md", 8));
+
+        Page page = aPage().withId("myPage").with(fragmentElement).build();
+        page.setVariables(singletonMap("foo", anApiVariable("../API/bpm/userTask?filter=mine")));
+        when(componentVisitor.visit(page)).thenReturn(Collections.<Component>emptyList());
+        TreeSet<String> fragmentIds = new TreeSet<String>();
+        fragmentIds.add("myFragment");
+        when(fragmentIdVisitor.visit(page)).thenReturn(fragmentIds);
+        return page;
+    }
+
     @Test
     public void should_add_bonita_resources_found_in_pages_widgets() throws Exception {
         Page page = setUpPageForResourcesTests();
@@ -655,6 +691,16 @@ public class PageServiceTest {
         String properties = resources.toString();
 
         assertThat(properties).contains("[GET|bpm/userTask]");
+    }
+
+    @Test
+    public void should_add_bonita_resources_found_in_fragments() throws Exception {
+        Page page = setUpPageWithFragmentForResourcesTests();
+
+        final List<String> resources = pageService.getResources(page);
+        String properties = resources.toString();
+
+        assertThat(properties).contains("[GET|bpm/userTask, GET|bpm/process, GET|extension/user/4]");
     }
 
     @Test
