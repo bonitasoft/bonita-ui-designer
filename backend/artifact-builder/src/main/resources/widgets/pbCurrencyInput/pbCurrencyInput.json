@@ -85,7 +85,7 @@
       "label": "Value",
       "name": "value",
       "caption": "Any variable: <i>myData</i> or <i>myData.attribute</i>",
-      "help": "Numerical value entered by user input formatted as float number",
+      "help": "Numerical value entered by user input formatted as float number. A rounding is applied.",
       "type": "text",
       "bond": "variable"
     },
@@ -106,7 +106,7 @@
     {
       "label": "Symbol",
       "name": "maskCurrency",
-      "help": "Set the text displayed for the currency. Numeric characters will be removed on displaying",
+      "help": "Set the text displayed for the currency. Numeric characters will be removed on display",
       "caption": "Can be any string, hence enabling any symbol (€, $, …) or any abbreviation (EUR, USD, …)",
       "type": "text",
       "defaultValue": "$",
