@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-07-25 01:29\n"
+"PO-Revision-Date: 2022-08-22 01:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -332,7 +332,7 @@ msgid "Additional request parameters added to the query string"
 msgstr "Parâmetros de requisição adicionais adicionados à string de consulta"
 
 msgid "Additional request parameters added to the query string as json or javascript object, by using the related variable type"
-msgstr ""
+msgstr "Parâmetros de solicitação adicionais adicionados à string de consulta como objeto json ou javascript usando o tipo de variável relacionado"
 
 msgid "Advanced options"
 msgstr "Opções avançadas"
@@ -1130,7 +1130,7 @@ msgid "First"
 msgstr "Primeiro"
 
 msgid "For 'Label' property only. If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
-msgstr ""
+msgstr "Apenas para a propriedade 'Etiqueta'. Se você escolher 'não', o código HTML será escapado em vez de ser interpretado. Se você escolher “Sim”, isso pode potencialmente levar a ataques de injeções HTML. Por favor, leve em conta esses riscos."
 
 msgid "For <em>Start process</em> and <em>Submit task</em> actions the format of the data must meet the process/task contract specifications."
 msgstr "Para <em>Iniciar processo</em> e <em>Enviar tarefa</em> ações que o formato dos dados deve preencher as especificações do contrato de processo/tarefa."
@@ -1343,10 +1343,10 @@ msgid "If the standard widget does not meet your needs, you can create a custom 
 msgstr "Se o widget padrão não responder às suas necessidades, você pode criar um widget personalizado para combinar exatamente o que você deseja. Para fazer isso, clone o widget padrão, salvando-o com um nome diferente e modificá-lo. Após a criação, o widget personalizado está disponível na paleta para desenhar páginas, formulários, layouts ou fragmentos."
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
-msgstr ""
+msgstr "Se você escolher 'não', o código HTML será escapado em vez de ser interpretado nas células da linha. Se você escolher “Sim”, isso pode potencialmente levar a ataques de injeções HTML. Por favor, leve em conta esses riscos."
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
-msgstr ""
+msgstr "Se você escolher 'não', o código HTML será escapado em vez de ser interpretado. Se você escolher “Sim”, isso pode potencialmente levar a ataques de injeções HTML. Por favor, leve em conta esses riscos."
 
 msgid "If you create your own user interface, bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
 msgstr "Se você criar sua própria interface de usuário, vincule sua variável de dados de negócio em propriedades do widget ou use sua variável em expressões javascript. Cuidado, por padrão, cada variável de dados de negócio é uma matriz (mesmo que apenas um resultado da consulta seja retornado)."
@@ -1484,7 +1484,7 @@ msgid "Interpret HTML"
 msgstr "Interpretar HTML"
 
 msgid "Interpret HTML in tab heading"
-msgstr ""
+msgstr "Interpretar HTML no cabeçalho da aba"
 
 msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
 msgstr "URL inválida: deve conter apenas caracteres alfanuméricos ou #!:.?+=&%@-/"
@@ -3044,7 +3044,8 @@ msgstr "Você pode usar tags HTML padrão e diretivas do AngularJS, sistema de e
 
 msgid "You can use the <code>API request parameters</code> property to pass additional parameters to the\n"
 "            request. Supported parameters are described in the REST API Overview documentation page and in the REST API documentation for the relevant resources."
-msgstr ""
+msgstr "Você pode usar os <code>parâmetros de solicitação de API</code> propriedade para passar parâmetros adicionais para a solicitação\n"
+"            . Os parâmetros suportados são descritos na página da documentação da documentação da API REST e na documentação da API REST para os recursos relevantes."
 
 msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
 msgstr "Você pode usar a propriedade <i>environment</i> injetada no escopo quando dentro do editor do quadro. Ele permite criar um display de mockup para o quadro branco, pois dados de uso real não estarão disponíveis."
@@ -3059,7 +3060,7 @@ msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are
 msgstr "Você não pode mover, excluir ou desativar <b>Base framework</b> ativos. Eles estão aqui apenas para mostrar qual biblioteca é usada para construir seu artefato"
 
 msgid "You do not need to specify paging parameters (such as ?p=0&c=10), because the data table handles paging automatically when you use a Bonita API data source."
-msgstr ""
+msgstr "Você não precisa especificar parâmetros de paginação (como ? =0&c=10), porque a tabela de dados lida automaticamente com a paginação quando você usa uma fonte de dados da Bonita."
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Você tem alterações não salvas. Você realmente deseja sair ?"
