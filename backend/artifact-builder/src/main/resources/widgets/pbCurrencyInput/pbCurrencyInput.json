@@ -177,7 +177,7 @@
   "assets": [
     {
       "id": "dad0d91e-4b99-4b12-afd5-a53aecf846aa",
-      "name": "angularjs-currency-input-mask.min.js",
+      "name": "angularjs-currency-input-mask-1.1.6-patched.min.js",
       "type": "js",
       "order": 0
     }
