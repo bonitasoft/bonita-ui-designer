@@ -362,7 +362,11 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         ButtonWidgetAssert.assertThat(button).hasButtonStyle(ButtonStyle.PRIMARY.getValue()).isNotDisabled();
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.ADD_TO_COLLECTION.getValue());
         assertThat(button.getAlignment()).isEqualTo(Alignment.LEFT.getValue());
-        assertThat(button.isInterpretHTML()).isEqualTo(true);
+
+        PropertyValue allowHTMLProp = button.toPropertyValues().get("allowHTML");
+        assertThat(allowHTMLProp.getType()).isEqualTo("constant");
+        assertThat(allowHTMLProp.getValue()).isEqualTo(true);
+
         AbstractParametrizedWidgetAssert.assertThat(button)
                 .hasLabel("<span class=\"glyphicon glyphicon-plus\"></span>")
                 .isDisplayed();
@@ -384,8 +388,11 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
         AbstractParametrizedWidgetAssert.assertThat(button)
                 .hasLabel("<span class=\"glyphicon glyphicon-remove\"></span>")
                 .isDisplayed();
-        assertThat(button.isInterpretHTML()).isEqualTo(true);
         ButtonWidgetAssert.assertThat(button).hasAction(ButtonAction.REMOVE_FROM_COLLECTION.getValue());
+
+        PropertyValue allowHTMLProp = button.toPropertyValues().get("allowHTML");
+        assertThat(allowHTMLProp.getType()).isEqualTo("constant");
+        assertThat(allowHTMLProp.getValue()).isEqualTo(true);
 
         PropertyValue PropertyValue = button.toPropertyValues().get("removeItem");
         assertThat(PropertyValue.getType()).isEqualTo("variable");

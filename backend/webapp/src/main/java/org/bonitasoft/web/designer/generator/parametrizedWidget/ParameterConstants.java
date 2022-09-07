@@ -19,7 +19,7 @@ public interface ParameterConstants {
     String ACTION_PARAMETER = "action";
     String AVAILABLE_VALUES_PARAMETER = "availableValues";
     String ALIGNMENT_PARAMTER = "alignment";
-    String ALLOW_HTML = "allowHtml";
+    String ALLOW_HTML = "allowHTML";
     String BORDERED_ROW_PARAMETER = "bordered";
     String BUTTON_STYLE_PARAMETER = "buttonStyle";
     String CSS_CLASSES_PARAMETER = "cssClasses";
