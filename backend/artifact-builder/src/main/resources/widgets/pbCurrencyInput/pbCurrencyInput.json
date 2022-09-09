@@ -106,8 +106,7 @@
     {
       "label": "Symbol",
       "name": "maskCurrency",
-      "help": "Set the text displayed for the currency. Numeric characters will be removed on display",
-      "caption": "Can be any string, hence enabling any symbol (€, $, …) or any abbreviation (EUR, USD, …)",
+      "help": "Can be any string, hence enabling any symbol (€, $, …) or any abbreviation (EUR, USD, …). Numeric characters will be removed on display",
       "type": "text",
       "defaultValue": "€",
       "bond": "expression"
