@@ -109,7 +109,7 @@
       "help": "Set the text displayed for the currency. Numeric characters will be removed on display",
       "caption": "Can be any string, hence enabling any symbol (€, $, …) or any abbreviation (EUR, USD, …)",
       "type": "text",
-      "defaultValue": "$",
+      "defaultValue": "€",
       "bond": "expression"
     },
     {
