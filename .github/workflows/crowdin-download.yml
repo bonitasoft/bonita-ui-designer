@@ -21,8 +21,7 @@ jobs:
         id: extract_branches
         uses: bonitasoft/actions/packages/list-branches@1.1.0
         with:
-#          branches_list: "master dev release-.*"
-          branches_list: "dev"
+          branches_list: "master dev release-.*"
   download-l10n-from-crowdin:
     runs-on: ubuntu-20.04
     needs: list-branches
@@ -60,6 +59,9 @@ jobs:
         # Remove all po files with only 2 letters, such as lang-template-ar.po
         run: |
           find . -name "lang-template-[a-z][a-z].po" -exec rm -f {} +
+      - name: Remove comments
+        run: |
+          find . -name "lang-template-*.po" -type f -exec sed -i '/^#/d' {} \;
       - name: Count modified lines
         run: |
           echo "modifiedlines=$(git diff --word-diff --unified=0 | grep -Ev "^diff --git|^index|^\+\+\+|^---|^@@|PO-Revision-Date" | wc -l)" >> $GITHUB_ENV

@@ -22,8 +22,7 @@ jobs:
         id: extract_branches
         uses: bonitasoft/actions/packages/list-branches@1.1.0
         with:
-#           branches_list: "master dev release-.*"
-          branches_list: "dev"
+          branches_list: "master dev release-.*"
   devUpload:
     name: Crowdin upload
     runs-on: ubuntu-20.04
