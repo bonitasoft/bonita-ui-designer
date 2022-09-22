@@ -1,0 +1,44 @@
+#
+# Crowdin credentials
+#
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_PERSONAL_TOKEN
+"base_path" : "."
+"base_url" : "https://api.crowdin.com"
+
+#
+# File structure in Crowdin
+#
+"preserve_hierarchy": true
+
+#
+# Files configuration
+#
+files: [
+ {
+  #
+  # Source files filter
+  #
+  "source" : "infrastructure/crowdin/build/lang-template.pot",
+
+  #
+  # The dest allows you to specify a file name in Crowdin
+  #
+  "dest" : "/ui-designer-test/lang-template.pot",
+
+  #
+  # Where translations will be placed
+  #
+  "translation" : "backend/artifact-builder/src/main/resources/i18n/%file_name%-%two_letters_code%.po",
+
+  "languages_mapping" : {
+     "two_letters_code" : {
+        "fr" : "fr-FR",
+        "es-ES" : "es-ES",
+        "ja" : "ja-JP",
+        "pt-BR" : "pt-BR"
+     }
+  },
+
+ }
+]
