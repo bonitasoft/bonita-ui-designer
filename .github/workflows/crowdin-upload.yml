@@ -1,0 +1,96 @@
+name: Crowdin upload files
+
+# Triggers the workflow every night
+on:
+  schedule:
+    - cron: '0 3 * * *'
+
+  workflow_dispatch:
+    inputs:
+
+jobs:
+  list-branches:
+    runs-on: ubuntu-20.04
+    outputs:
+      branches: ${{ steps.extract_branches.outputs.branches }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: List branches
+        id: extract_branches
+        uses: bonitasoft/actions/packages/list-branches@1.1.0
+        with:
+          branches_list: "master dev release-.*"
+  devUpload:
+    name: Crowdin upload
+    runs-on: ubuntu-20.04
+    needs: list-branches
+    strategy:
+      max-parallel: 1
+      matrix:
+        branch: ${{ fromJSON(needs.list-branches.outputs.branches) }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ matrix.branch }}
+      - name: Install Yarn
+        run: npm install -g yarn
+      - name: Install gettext
+        run: sudo apt-get install gettext
+      - name: Build pot files
+        run: |
+          cd frontend
+          yarn install && npm run pot
+          cd ..
+          cd backend/artifact-builder
+          yarn install && npm run pot
+          cd ../..
+      - name: Concatenate pot files
+        run: |
+          mkdir -p infrastructure/crowdin/build
+          cat `find . -name '*.pot' -print` | msguniq -s > infrastructure/crowdin/build/lang-template.pot
+      - name: Set Crowdin branch name
+        run: |
+          echo "crowdinBranch=$(echo ${{ matrix.branch }} | tr / -)" >> $GITHUB_ENV
+      - name: crowdin action
+        uses: crowdin/github-action@1.4.13
+        with:
+          upload_sources: true
+          crowdin_branch_name: ${{ env.crowdinBranch }}
+          upload_translations: false
+          download_translations: false
+          dryrun_action: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_API_KEY_V2 }}
+      - name: Send message to Slack channel
+        if: ${{ failure() }}
+        uses: slackapi/slack-github-action@v1.17.0
+        with:
+          channel-id: 'CFD1SMX7V'
+          payload: |
+            {
+              "blocks": [
+                  {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": ":x: Upload dev crowdin key failed in UI-Designer."
+                      }
+                  },
+                  {
+                      "type": "section",
+                      "text": {
+                          "type": "mrkdwn",
+                          "text": "More details about the error <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}?check_suite_focus=true| here>"
+                      }
+                  }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+

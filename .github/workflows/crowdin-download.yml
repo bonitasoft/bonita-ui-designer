@@ -6,36 +6,74 @@ on:
     - cron: '0 4 * * *'
 
   workflow_dispatch:
-    inputs:
 
 jobs:
-  devDownload:
-    name: Crowdin download on dev
+  list-branches:
+    runs-on: ubuntu-20.04
+    outputs:
+      branches: ${{ steps.extract_branches.outputs.branches }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: List branches
+        id: extract_branches
+        uses: bonitasoft/actions/packages/list-branches@1.1.0
+        with:
+            branches_list: "master dev release-.*"
+  download-l10n-from-crowdin:
+    runs-on: ubuntu-20.04
+    needs: list-branches
     strategy:
       max-parallel: 1
-    runs-on: [self-hosted, uid-runner]
-
+      matrix:
+        branch: ${{ fromJSON(needs.list-branches.outputs.branches) }}
     steps:
-      - name: Extract parameter
-        id: init
-        run: |
-          if [ ${{ github.event_name }} == 'workflow_dispatch' ]
-          then
-              echo ::set-output name=baseBranch::${GITHUB_REF#refs/*/}
-          else
-              echo "##[set-output name=baseBranch;]$(echo dev)"
-          fi
       - uses: actions/checkout@v2
         with:
-          ref: ${{ steps.init.outputs.baseBranch }}
-      - name: Config git
+          ref: ${{ matrix.branch }}
+          fetch-depth: '1'
+      - name: Set Crowdin branch name
         run: |
-          git config --local user.email "ui-designer-bot@users.noreply.github.com"
-          git config --local user.name "ui-designer-bot"
-          git config pull.rebase true
-      # Runs Crowdin download
+          echo "crowdinBranch=$(echo ${{ matrix.branch }} | tr / -)" >> $GITHUB_ENV
+      # Crowdin download
       - name: Run Crowdin download
-        run: ./infrastructure/crowdin/download.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --github-api-key=${{ secrets.GITHUB_TOKEN }} --branch=${{ steps.init.outputs.baseBranch }}
+        uses: crowdin/github-action@1.4.13
+        with:
+          upload_translations: false
+          upload_sources: false
+          download_translations: true
+          crowdin_branch_name: ${{ env.crowdinBranch }}
+          download_translations_args: '--all'
+          create_pull_request: false
+          push_translations: false
+        #  Note: we cannot use for now the "Create pull request" feature, until selecting multiple languages is supported by Crowdin CLI
+        #       (see https://github.com/crowdin/crowdin-cli/issues/427)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_API_KEY_V2 }}
+
+      - name: Clean-up unwanted languages
+        # Remove all po files with only 2 letters, such as lang-template-ar.po
+        run: |
+          find . -name "lang-template-[a-z][a-z].po" -exec rm -f {} +
+      - name: Count modified lines
+        run: |
+          echo "modifiedlines=$(git diff --word-diff --unified=0 | grep -Ev "^diff --git|^index|^\+\+\+|^---|^@@|PO-Revision-Date" | wc -l)" >> $GITHUB_ENV
+      - name: Create Pull Request
+        if: ${{ env.modifiedlines }} > 0
+        uses: peter-evans/create-pull-request@v4
+        id: create-pr
+        with:
+          branch: feat/${{ matrix.branch }}/update-translations
+          base: ${{ matrix.branch }}
+          commit-message: "feat(l10n):[${{ matrix.branch }}] Translations update"
+          title: "feat(l10n):[${{ matrix.branch }}] Translations update"
+          body: |
+            Latest translations made in [Crowdin](https://crowdin.com/project/bonita)
+
       - name: Send message to Slack channel
         if: ${{ failure() }}
         uses: bonitasoft/actions/packages/notify-slack@1.1.0
