@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-08-22 01:29\n"
+"PO-Revision-Date: 2022-09-22 12:15\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -330,7 +330,7 @@ msgid "Additional request parameters added to the query string"
 msgstr "クエリ文字列に追加された追加のリクエスト パラメータ"
 
 msgid "Additional request parameters added to the query string as json or javascript object, by using the related variable type"
-msgstr ""
+msgstr "関連する変数タイプを使用して、クエリ文字列に json または javascript オブジェクトとして追加された追加リクエストパラメータ"
 
 msgid "Advanced options"
 msgstr "詳細オプション"
@@ -1130,7 +1130,7 @@ msgid "First"
 msgstr "最初の行"
 
 msgid "For 'Label' property only. If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
-msgstr ""
+msgstr "「ラベル」プロパティのみです。「いいえ」を選択するとHTML コードは解釈されずにエスケープされます。 「はい」を選択した場合、HTMLインジェクション攻撃につながる可能性があります。これらのリスクを考慮してください。"
 
 msgid "For <em>Start process</em> and <em>Submit task</em> actions the format of the data must meet the process/task contract specifications."
 msgstr "<em>プロセスを開始</em> や<em>タスクを送信</em> のアクションに対するデータの形式は、プロセス/タスクのコントラクト仕様を満たす必要があります。"
@@ -1345,10 +1345,10 @@ msgid "If the standard widget does not meet your needs, you can create a custom 
 msgstr "標準ウィジェットがお客様のニーズを満たしていない場合は、お客様の希望に合ったカスタム ウィジェットを作成できます。 これを行うには、別の名前で保存して標準ウィジェットをクローンし変更します。 作成後、カスタム ウィジェットはページ、フォーム、レイアウト、またはフラグメントを設計するためのパレットで使用できます。"
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
-msgstr ""
+msgstr "「いいえ」を選択すると、行のセルで解釈される代わりにHTMLコードがエスケープされます。 「はい」を選択した場合、HTMLインジェクション攻撃につながる可能性があります。これらのリスクを考慮してください。"
 
 msgid "If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
-msgstr ""
+msgstr "「いいえ」を選択すると、HTMLコードは解釈されずにエスケープされます。 「はい」を選択した場合、HTMLインジェクション攻撃につながる可能性があります。これらのリスクを考慮してください。"
 
 msgid "If you create your own user interface, bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
 msgstr ""
@@ -1488,7 +1488,7 @@ msgid "Interpret HTML"
 msgstr "HTML を解釈"
 
 msgid "Interpret HTML in tab heading"
-msgstr ""
+msgstr "タブの見出しでHTMLを解釈する"
 
 msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
 msgstr "無効な URL: 英数字または #!:.?+ = &%@-/ のみ許されます"
@@ -3046,7 +3046,8 @@ msgstr "標準の HTML タグと AngularJS 組み込みディレクティブ、�
 
 msgid "You can use the <code>API request parameters</code> property to pass additional parameters to the\n"
 "            request. Supported parameters are described in the REST API Overview documentation page and in the REST API documentation for the relevant resources."
-msgstr ""
+msgstr "<code>API リクエストパラメータ</code> プロパティを使用して、\n"
+"            リクエストに追加のパラメータを渡すことができます。 サポートされているパラメータについては、REST API の概要ドキュメントページおよび関連リソースの REST API ドキュメントを参照してください。"
 
 msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
 msgstr "実データが利用可能でない場合は、ホワイトボード エディタの内部に投入された <i>環境</i> プロパティを使用し、ホワイトボードにモックアップ表示を作成できます。"
@@ -3061,7 +3062,7 @@ msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are
 msgstr "<b>Base framework</b> のアセットを移動、削除、または無効にすることはできません。 これらはアーティファクトの設定に使用されるライブラリを表示するためにのみここにあります"
 
 msgid "You do not need to specify paging parameters (such as ?p=0&c=10), because the data table handles paging automatically when you use a Bonita API data source."
-msgstr ""
+msgstr "Bonita API データ ソースを使用すると、データ テーブルがページングを自動的に処理するためページング パラメーター (?p=0&c=10 など) を指定する必要はありません。"
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
