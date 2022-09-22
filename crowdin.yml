@@ -24,7 +24,7 @@ files: [
   #
   # The dest allows you to specify a file name in Crowdin
   #
-  "dest" : "/ui-designer-test/lang-template.pot",
+  "dest" : "/ui-designer/lang-template.pot",
 
   #
   # Where translations will be placed
