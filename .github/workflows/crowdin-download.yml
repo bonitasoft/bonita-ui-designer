@@ -82,5 +82,5 @@ jobs:
         uses: bonitasoft/actions/packages/notify-slack@1.1.0
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
-          MESSAGE: ":x: Download crowdin translation failed on  ${{github.ref}} in UI-Designer."
+          MESSAGE: ":x: Download ${{ matrix.branch }} crowdin translation failed in UI-Designer."
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

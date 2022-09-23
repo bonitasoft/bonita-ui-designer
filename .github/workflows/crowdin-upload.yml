@@ -78,7 +78,7 @@ jobs:
                       "type": "section",
                       "text": {
                           "type": "mrkdwn",
-                          "text": ":x: Upload dev crowdin key failed in UI-Designer."
+                          "text": ":x: Upload ${{ matrix.branch }} crowdin key failed in UI-Designer."
                       }
                   },
                   {
