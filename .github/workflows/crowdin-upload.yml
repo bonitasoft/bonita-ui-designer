@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
       - name: List branches
         id: extract_branches
-        uses: bonitasoft/actions/packages/list-branches@1.1.0
+        uses: bonitasoft/actions/packages/list-branches@v1.3.1
         with:
           branches_list: "master dev release-.*"
   devUpload:

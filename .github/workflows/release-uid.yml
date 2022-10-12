@@ -77,7 +77,7 @@ jobs:
 
       - name: Send message to Slack channel
         if: ${{ failure() }}
-        uses: bonitasoft/actions/packages/notify-slack@1.1.0
+        uses: bonitasoft/actions/packages/notify-slack@v1.3.1
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           MESSAGE: ":x: :scream: UI-Designer release ${{ steps.newTagVersion.outputs.value }} failed."
