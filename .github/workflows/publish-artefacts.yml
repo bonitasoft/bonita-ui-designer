@@ -31,7 +31,7 @@ jobs:
                 echo "##[set-output name=branchToRelease;]$(echo ${{ github.ref }})"
                 echo "##[set-output name=pushMavenCentral;]$(echo ${{ github.event.inputs.pushMavenCentral == 'true' }})"
             fi
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ steps.init.outputs.tagVersion }}
 
