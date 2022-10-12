@@ -69,7 +69,7 @@ jobs:
       # repository-dispatch event will call always on default branch ('dev' in our case)
       - name: Publish artefact
         if: ${{ success() && github.event.inputs.publishBinaries == 'true'}}
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
           event-type: github-publish
