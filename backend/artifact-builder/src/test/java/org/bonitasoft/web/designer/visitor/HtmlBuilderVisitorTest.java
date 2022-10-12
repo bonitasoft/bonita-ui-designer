@@ -208,7 +208,7 @@ public class HtmlBuilderVisitorTest {
                         aComponent().withWidgetId("customLabel").build()))
                 .build())).select(".row");
 
-        assertThat(rows.size()).isEqualTo(2);
+        assertThat(rows).hasSize(2);
         assertThat(rows.first().select("pb-label").outerHtml()).isEqualTo("<pb-label></pb-label>");
         assertThat(rows.last().select("custom-label").outerHtml()).isEqualTo("<custom-label></custom-label>");
     }
@@ -265,10 +265,8 @@ public class HtmlBuilderVisitorTest {
         String generatedHtml = visitor.build(page, "mycontext/");
 
         // then we should have the directive scripts included
-        assertThat(generatedHtml).contains("<script src=\"assets/widgets.js\"></script>");
-
-        // and an empty object as constant
-        assertThat(generatedHtml).contains("pb-model='page-id'");
+        assertThat(generatedHtml).contains("<script src=\"assets/widgets.js\"></script>")
+                                 .contains("pb-model='page-id'");  // and an empty object as constant
     }
 
     @Test
@@ -406,9 +404,9 @@ public class HtmlBuilderVisitorTest {
         String html = visitor.build(page, "mycontext/");
 
         String head = Jsoup.parse(html).head().html();
-        assertThat(head).contains("<link rel=\"stylesheet\" href=\"assets/css/myfile.css?hash=" + assetSHA1 + "\">");
-        assertThat(head).contains("<link rel=\"stylesheet\" href=\"http://moncdn/myfile.css\">");
-        assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile.js?hash=" + assetSHA1 + "\"></script>");
+        assertThat(head).contains("<link rel=\"stylesheet\" href=\"assets/css/myfile.css?hash=" + assetSHA1 + "\">")
+                        .contains("<link rel=\"stylesheet\" href=\"http://moncdn/myfile.css\">")
+                        .contains("<script src=\"widgets/widget-id/assets/js/myfile.js?hash=" + assetSHA1 + "\"></script>");
     }
 
     @Test
@@ -442,12 +440,12 @@ public class HtmlBuilderVisitorTest {
         String head = Jsoup.parse(html).head().html();
 
         //The header not contain inactive asset
-        assertThat(head).doesNotContain("myfile99.js");
-        //Page asset should be the last one, after widget assets identified by [widget-id] and widget assets identified by [zidget-id]
-        assertThat(head).contains("<script src=\"widgets/widget-id/assets/js/myfile2.js?hash=" + assetSHA1 + "\"></script> \n" +
-                "<script src=\"widgets/widget-id/assets/js/myfile3.js?hash=" + assetSHA1 + "\"></script> \n" +
-                "<script src=\"widgets/zidget-id/assets/js/myfile4.js?hash=" + assetSHA1 + "\"></script> \n" +
-                "<script src=\"assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script>");
+        assertThat(head).doesNotContain("myfile99.js")
+                        //Page asset should be the last one, after widget assets identified by [widget-id] and widget assets identified by [zidget-id]
+                        .contains("<script src=\"widgets/widget-id/assets/js/myfile2.js?hash=" + assetSHA1 + "\"></script>\n" +
+                                "<script src=\"widgets/widget-id/assets/js/myfile3.js?hash=" + assetSHA1 + "\"></script>\n" +
+                                "<script src=\"widgets/zidget-id/assets/js/myfile4.js?hash=" + assetSHA1 + "\"></script>\n" +
+                                "<script src=\"assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script>");
     }
 
     @Test
@@ -469,10 +467,10 @@ public class HtmlBuilderVisitorTest {
         String head = Jsoup.parse(html).head().html();
 
         // The page should contain exactly these imports
-        assertThat(head).contains(
-                "<script src=\"widgets/widget-id/assets/js/myfile2.js?hash=" + assetSHA1 + "\"></script> \n" +
-                        "<script src=\"widgets/widget-id/assets/js/myfile3.js?hash=" + assetSHA1 + "\"></script> \n" +
-                        "<script src=\"widgets/widget-id/assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script> \n" +
+        assertThat(head).containsOnlyOnce(
+                "<script src=\"widgets/widget-id/assets/js/myfile2.js?hash=" + assetSHA1 + "\"></script>\n" +
+                        "<script src=\"widgets/widget-id/assets/js/myfile3.js?hash=" + assetSHA1 + "\"></script>\n" +
+                        "<script src=\"widgets/widget-id/assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script>\n" +
                         "<script src=\"assets/js/myfile5.js?hash=" + assetSHA1 + "\"></script>");
     }
 
@@ -494,8 +492,8 @@ public class HtmlBuilderVisitorTest {
         String head = Jsoup.parse(html).head().html();
 
         // The page should contain exactly these imports
-        assertThat(head).contains(
-                "<script src=\"widgets/widget-id/assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script> \n");
+        assertThat(head).containsOnlyOnce(
+                "<script src=\"widgets/widget-id/assets/js/myfile1.js?hash=" + assetSHA1 + "\"></script>\n");
     }
 
     @Test
