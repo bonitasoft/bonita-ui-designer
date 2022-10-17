@@ -14,7 +14,17 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
+import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.write;
+import static org.apache.commons.io.FileUtils.forceMkdir;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
@@ -27,16 +37,7 @@ import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static java.lang.String.format;
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
-import static org.apache.commons.io.FileUtils.forceMkdir;
+import com.fasterxml.jackson.core.JsonGenerationException;
 
 /**
  * This Persister is used to manage the persistence logic for a component. Each of them are serialized in a json file
@@ -75,7 +76,8 @@ public class JsonFileBasedPersister<T extends Identifiable> {
         }
         validator.validate(content);
         try {
-            write(jsonFile(directory, content.getId()), jsonHandler.toPrettyJson(content, JsonViewPersistence.class));
+            var file = jsonFile(directory, content.getId());
+            write(file, jsonHandler.toPrettyJson(content, JsonViewPersistence.class));
             var metadataPath = updateMetadata(directory, content);
             if (content instanceof HasUUID && !StringUtils.isEmpty(((HasUUID) content).getUUID())) {
                 //update index used by the studio to find artifacts given their UUID

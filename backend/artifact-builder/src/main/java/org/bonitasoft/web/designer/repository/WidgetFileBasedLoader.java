@@ -14,7 +14,16 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import static java.lang.String.format;
+import static java.nio.file.Files.readAllBytes;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.widget.Widget;
@@ -24,16 +33,7 @@ import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.lang.String.format;
-import static java.nio.file.Files.exists;
-import static java.nio.file.Files.readAllBytes;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * This Persister is used to manage the persistence logic for a widget. Each of them are serialized in a json file
@@ -51,14 +51,12 @@ public class WidgetFileBasedLoader extends JsonFileBasedLoader<Widget> {
         try {
             var widget = getWidgetWithView(path, null);
             var metadata = path.getParent().getParent().resolve(format(".metadata/%s.json", path.getParent().getFileName()));
-            if (exists(metadata)) {
-                widget = jsonHandler.assign(widget, readAllBytes(metadata));
-            }
-            return widget;
+            return updateMetadata(widget, metadata);
         } catch (IOException e) {
             throw new RepositoryException(format("Error while getting metadata (for file [%s])", path.getFileName()), e);
         }
     }
+    
 
     private Widget getWidgetWithView(Path path, Class<?> view) {
         try {

@@ -14,13 +14,10 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import org.apache.commons.lang3.StringUtils;
-import org.bonitasoft.web.designer.livebuild.PathListener;
-import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import java.time.Instant;
+import static java.lang.String.format;
+import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.walkFileTree;
+import static org.apache.commons.io.FileUtils.copyDirectory;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -28,13 +25,16 @@ import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.createDirectories;
-import static java.nio.file.Files.walkFileTree;
-import static org.apache.commons.io.FileUtils.copyDirectory;
+import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.designer.livebuild.PathListener;
+import org.bonitasoft.web.designer.livebuild.Watcher;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
 /**
  * File based repository

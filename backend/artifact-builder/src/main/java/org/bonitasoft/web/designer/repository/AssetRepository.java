@@ -14,15 +14,12 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import org.bonitasoft.web.designer.model.Assetable;
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.asset.AssetScope;
-import org.bonitasoft.web.designer.model.asset.AssetType;
-import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import static java.lang.String.format;
+import static java.nio.file.Files.createDirectories;
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.write;
+import static java.util.Arrays.stream;
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -37,10 +34,15 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.*;
-import static java.util.Arrays.stream;
-import static java.util.Objects.requireNonNull;
+import org.bonitasoft.web.designer.model.Assetable;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.asset.AssetScope;
+import org.bonitasoft.web.designer.model.asset.AssetType;
+import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 
 /**
  * This Persister is used to attach assets to a component. Each of them are serialized in the same directory

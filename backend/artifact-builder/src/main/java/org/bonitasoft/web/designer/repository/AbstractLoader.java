@@ -57,18 +57,30 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
     public T get(Path path) {
         try {
             var artifact = jsonHandler.fromJson(readAllBytes(path), type);
-            var metadata = path.getParent().getParent().resolve(format(".metadata/%s.json", path.getParent().getFileName()));
-            if (exists(metadata)) {
-                artifact = jsonHandler.assign(artifact, readAllBytes(metadata));
-            }
-            return artifact;
+            var metadata = path.getParent().getParent()
+                    .resolve(format(".metadata/%s.json", path.getParent().getFileName()));
+            return updateMetadata(artifact, metadata);
         } catch (JsonProcessingException e) {
             throw new JsonReadException(format("Could not read json file [%s]", path.getFileName()), e);
         } catch (NoSuchFileException e) {
             throw new NotFoundException(format("File not found: [%s]", path.getFileName()));
         } catch (IOException e) {
-            throw new RepositoryException(format("Error while getting component (on file [%s])", path.getFileName()), e);
+            throw new RepositoryException(format("Error while getting component (on file [%s])", path.getFileName()),
+                    e);
         }
+    }
+
+    protected T updateMetadata(T artifact, Path metadata) throws IOException {
+        if (exists(metadata)) {
+            var metadataContent = readAllBytes(metadata);
+            try {
+                jsonHandler.checkValidJson(metadataContent);
+                artifact = jsonHandler.assign(artifact, metadataContent);
+            } catch (IOException e) {
+                logger.warn("Failed to update {}", metadata);
+            }
+        }
+        return artifact;
     }
 
     private Optional<T> tryGet(Path path) {
@@ -109,7 +121,8 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         var pattern = Pattern.compile(objectName + "(\\d+)$");
         String nextAvailableObjectId;
         try (final Stream<Path> directoryStream = Files.list(directory)) {
-            OptionalInt maxInt = directoryStream.map(directoryPath -> pattern.matcher(directoryPath.getFileName().toString()))
+            OptionalInt maxInt = directoryStream
+                    .map(directoryPath -> pattern.matcher(directoryPath.getFileName().toString()))
                     .filter(Matcher::find)
                     .mapToInt(m -> Integer.parseInt(m.group(1)))
                     .max();
@@ -127,7 +140,8 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         } catch (NoSuchFileException e) {
             throw new NotFoundException(format("File not found: [%s]", path.getFileName()));
         } catch (IOException e) {
-            throw new RepositoryException(format("Error while getting component (on file [%s])", path.getFileName()), e);
+            throw new RepositoryException(format("Error while getting component (on file [%s])", path.getFileName()),
+                    e);
         }
     }
 
