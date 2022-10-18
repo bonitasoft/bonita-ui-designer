@@ -27,7 +27,6 @@ describe('pbDateTimePicker', function() {
     body.html('');
   }));
 
-
   describe('calendar', function() {
 
     beforeEach(function() {
@@ -311,6 +310,21 @@ describe('pbDateTimePicker', function() {
       scope.$apply();
 
       expect(element.find('input').eq(1).val()).toBe(moment.utc(scope.properties.value).local().format(scope.properties.timeFormat));
+    });
+
+    it('should not reset the date when time is removed then updated', function() {
+      scope.properties.value = '2015-09-30T14:02:55.000Z';
+      scope.properties.timeFormat = 'HH:mm:ss';
+      element = $compile('<pb-date-time-picker></pb-date-time-picker>')(scope);
+      element.appendTo(body);
+      scope.$apply();
+
+      element.find('input').eq(1).val('').triggerHandler('input');
+      scope.$apply();
+      element.find('input').eq(1).val('03:00:00').triggerHandler('input');
+      scope.$apply();
+      expect(element.find('input').eq(1).val()).toBe('03:00:00');
+      expect(element.find('input').eq(0).val()).toBe('30/09/2015');
     });
 
     it('should parse correctly date and time', function() {

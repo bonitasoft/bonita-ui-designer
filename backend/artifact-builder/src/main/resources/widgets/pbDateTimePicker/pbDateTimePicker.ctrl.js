@@ -1,7 +1,6 @@
 function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale, $bsDatepicker, moment) {
 
   'use strict';
-
   this.name = widgetNameFactory.getName('pbDateTimepicker');
   this.firstDayOfWeek = ($locale && $locale.DATETIME_FORMATS && $locale.DATETIME_FORMATS.FIRSTDAYOFWEEK) || 0;
 
@@ -31,12 +30,12 @@ function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale
 
   $scope.updateTimeValue = function() {
     if ($scope.properties.timeValue && moment($scope.properties.timeValue).isValid()) {
+      var date = moment($scope.properties.dateValue)
       var time = moment($scope.properties.timeValue);
-      var dateTime = moment($scope.properties.value);
-      if (!dateTime.isValid()) {
-        dateTime = moment();
+      if (!date.isValid()) {
+        date = moment();
       }
-      $scope.properties.value = formatToIso(dateTime
+      $scope.properties.value = formatToIso(date
         .hours(time.hours())
         .minutes(time.minutes())
         .seconds(time.seconds())
