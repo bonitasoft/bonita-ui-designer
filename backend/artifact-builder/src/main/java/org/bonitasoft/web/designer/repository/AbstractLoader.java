@@ -14,15 +14,10 @@
  */
 package org.bonitasoft.web.designer.repository;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.JsonHandler;
-import org.bonitasoft.web.designer.model.JsonViewPersistence;
-import org.bonitasoft.web.designer.repository.exception.JsonReadException;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static java.lang.String.format;
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.newDirectoryStream;
+import static java.nio.file.Files.readAllBytes;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -37,8 +32,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import static java.lang.String.format;
-import static java.nio.file.Files.*;
+import org.bonitasoft.web.designer.model.Identifiable;
+import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.bonitasoft.web.designer.repository.exception.JsonReadException;
+import org.bonitasoft.web.designer.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * Load a component
@@ -57,11 +60,7 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
     public T get(Path path) {
         try {
             var artifact = jsonHandler.fromJson(readAllBytes(path), type);
-            var metadata = path.getParent().getParent().resolve(format(".metadata/%s.json", path.getParent().getFileName()));
-            if (exists(metadata)) {
-                artifact = jsonHandler.assign(artifact, readAllBytes(metadata));
-            }
-            return artifact;
+            return applyMetadata(path, artifact);
         } catch (JsonProcessingException e) {
             throw new JsonReadException(format("Could not read json file [%s]", path.getFileName()), e);
         } catch (NoSuchFileException e) {
@@ -69,6 +68,20 @@ public abstract class AbstractLoader<T extends Identifiable> implements Loader<T
         } catch (IOException e) {
             throw new RepositoryException(format("Error while getting component (on file [%s])", path.getFileName()), e);
         }
+    }
+
+    protected T applyMetadata(Path path, T artifact) throws IOException {
+        var metadata = path.getParent().getParent().resolve(format(".metadata/%s.json", path.getParent().getFileName()));
+        if (exists(metadata)) {
+            try {
+                byte[] content = readAllBytes(metadata);
+                jsonHandler.checkValidJson(content);
+                artifact = jsonHandler.assign(artifact, content);
+            }catch (IOException e) {
+                logger.warn("Cannot apply metadata to {}. {} is not a valid Json file.", path, metadata);
+            }
+        }
+        return artifact;
     }
 
     private Optional<T> tryGet(Path path) {

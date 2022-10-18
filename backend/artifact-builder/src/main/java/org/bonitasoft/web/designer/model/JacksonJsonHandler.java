@@ -121,8 +121,7 @@ public class JacksonJsonHandler implements JsonHandler {
 
     @Override
     public void checkValidJson(byte[] bytes) throws IOException {
-        try {
-            var parser = objectMapper.getFactory().createParser(bytes);
+        try(var parser = objectMapper.getFactory().createParser(bytes)) {
             while (parser.nextToken() != null) {
                 // do nothing, will throw JsonProcessingException if error occurs
             }
