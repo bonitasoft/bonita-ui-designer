@@ -52,6 +52,7 @@ public abstract class AbstractParametrizedWidget implements ParametrizedWidget {
         propertyParameters.put(LABEL_HIDDEN_PARAMETER, ParameterType.CONSTANT);
         propertyParameters.put(READONLY_PARAMETER, ParameterType.CONSTANT);
         propertyParameters.put(HIDDEN_PARAMETER, ParameterType.EXPRESSION);
+        propertyParameters.put(ALLOW_HTML, ParameterType.CONSTANT);
     }
 
     private final Map<String, PropertyValue> propertyValues = new HashMap<>();

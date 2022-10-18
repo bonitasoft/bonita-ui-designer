@@ -26,6 +26,9 @@ public class ButtonWidget extends LabelParametrizedWidget {
     private boolean disabled = false;
 
     @WidgetProperty
+    private boolean allowHTML = false;
+
+    @WidgetProperty
     private String action;
 
     @WidgetProperty
@@ -75,6 +78,14 @@ public class ButtonWidget extends LabelParametrizedWidget {
 
     public void setDisabled(boolean isDisabled) {
         this.disabled = isDisabled;
+    }
+
+    public boolean getAllowHTML() {
+        return allowHTML;
+    }
+
+    public void setAllowHTML(boolean allowHTML) {
+        this.allowHTML = allowHTML;
     }
 
     public String getAction() {

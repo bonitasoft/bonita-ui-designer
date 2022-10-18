@@ -258,6 +258,7 @@ public class ParametrizedWidgetFactory {
         buttonComponent.setLabel(buttonText == null || buttonText.isEmpty()
                 ? "<span class=\"glyphicon glyphicon-plus\"></span>"
                 : "<span class=\"glyphicon glyphicon-plus\"></span> Add " + buttonText);
+        buttonComponent.setAllowHTML(true);
         buttonComponent.setButtonStyle(ButtonStyle.PRIMARY);
         buttonComponent.setAlignment(Alignment.LEFT);
         buttonComponent.setAction(ButtonAction.ADD_TO_COLLECTION);
@@ -279,6 +280,7 @@ public class ParametrizedWidgetFactory {
     public ButtonWidget createRemoveButton() {
         var buttonComponent = new ButtonWidget();
         buttonComponent.setLabel("<span class=\"glyphicon glyphicon-remove\"></span>");
+        buttonComponent.setAllowHTML(true);
         buttonComponent.setButtonStyle(ButtonStyle.DANGER);
         buttonComponent.setAction(ButtonAction.REMOVE_FROM_COLLECTION);
         buttonComponent.setCollectionPosition("Item");
