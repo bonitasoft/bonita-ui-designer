@@ -14,7 +14,7 @@
 
     <properties>
         <spring-boot.version>2.7.4</spring-boot.version>
-        <handlebar.version>4.3.0</handlebar.version>
+        <handlebar.version>4.3.1</handlebar.version>
         <projectInfoReports.version>3.0.0</projectInfoReports.version>
     </properties>
 
