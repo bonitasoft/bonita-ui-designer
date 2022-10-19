@@ -13,7 +13,7 @@ jobs:
     runs-on: [self-hosted, uid-runner]
     steps:
       - name: Check Commit Type
-        uses: gsactions/commit-message-checker@v1
+        uses: gsactions/commit-message-checker@v2
         with:
           pattern: '^\S+\((.+)\):\s(.+)$'
           error: 'Your first line has to matches the following pattern: type(category): description [flags], where flags is an optional coma separated list. Check the contributing guidlines for more details.'
