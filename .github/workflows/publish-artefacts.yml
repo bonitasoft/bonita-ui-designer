@@ -50,7 +50,7 @@ jobs:
 
       - name: Create maven settings
         if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
-        uses: whelk-io/maven-settings-xml-action@v4
+        uses: whelk-io/maven-settings-xml-action@v21
         with:
           servers: '[{ "id": "releases", "username": "bonita-ci", "password": "${{ secrets.JFROG_AUTH }}" }]'
 
