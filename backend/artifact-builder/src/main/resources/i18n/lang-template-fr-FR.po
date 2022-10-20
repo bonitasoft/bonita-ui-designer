@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61813\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-09-23 09:44\n"
+"PO-Revision-Date: 2022-10-20 04:32\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -563,8 +563,8 @@ msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préci
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection"
 msgstr "Peut être une liste d'objets. Utilisez « Clé affichée » pour préciser la liste des suggestions et « Clé retournée » pour préciser la sélection"
 
-msgid "Can be any string, hence enabling any symbol (€, $, …) or any abbreviation (EUR, USD, …)"
-msgstr "Peut être n'importe quelle chaîne, permettant ainsi n'importe quel symbole (€, $, …) ou n'importe quelle abréviation (EUR, USD, …)"
+msgid "Can be any string, hence enabling any symbol (€, $, …) or any abbreviation (EUR, USD, …). Numeric characters will be removed on display"
+msgstr "Peut être n'importe quelle chaîne, permettant ainsi n'importe quel symbole (€, $, …) ou n'importe quelle abréviation (EUR, USD, …). Les caractères numériques seront supprimés à l'affichage"
 
 msgid "Can be translated using the asset localization.json"
 msgstr "Peut être traduit à l'aide de l'asset localization.json"
@@ -2077,9 +2077,6 @@ msgstr "Passez la propriété Source de données à API Bonita pour remplir le t
 msgid "Set the input time on the same line as the input date"
 msgstr "Saisie de la date et de l’heure sur la même ligne"
 
-msgid "Set the text displayed for the currency. Numeric characters will be removed on display"
-msgstr "Définir le texte affiché pour la devise. Les caractères numériques seront supprimés à l'affichage"
-
 msgid "Short hint that describes the expected input format for the date"
 msgstr "Court indice qui décrit le format attendu pour la saisie de la date"
 
@@ -3199,7 +3196,7 @@ msgid "warning"
 msgstr "warning"
 
 msgid "whitespace"
-msgstr "whitespace"
+msgstr "espace"
 
 msgid "widget"
 msgstr "widget"
@@ -3246,4 +3243,7 @@ msgstr "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 
 msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
 msgstr "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
+
+msgid "€"
+msgstr "€"
 

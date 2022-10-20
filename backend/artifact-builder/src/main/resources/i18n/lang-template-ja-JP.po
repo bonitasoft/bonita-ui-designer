@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61813\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-09-23 09:44\n"
+"PO-Revision-Date: 2022-10-20 04:32\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -30,6 +30,12 @@ msgstr "（エディタのプロパティ パネルで表示される）"
 
 msgid "(used in your template and controller)"
 msgstr "（テンプレートとコントローラーで使用される）"
+
+msgid ","
+msgstr ""
+
+msgid "."
+msgstr ""
 
 msgid "../API/"
 msgstr "../API/"
@@ -234,6 +240,9 @@ msgstr ""
 msgid "A multiple set chart shows one or more set of data"
 msgstr "複数のセットグラフには、1 つまたは複数のデータセットが表示されます"
 
+msgid "A new widget is now available to display our data with currency"
+msgstr ""
+
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "コンスタント値を要求するプロパティが、ラジオ ボタンのセット、ドロップ ダウン リスト、または （幅プロパティ）の数値セレクターとして [プロパティ] パネルに表示されます。必要な値を選択します。"
 
@@ -308,9 +317,6 @@ msgstr "ユーザーがフィルターを指定するページにウィジェッ
 msgid "Add borders all around the table and between all the columns."
 msgstr "テーブル全体と全てのカラムの間に枠線を追加します。"
 
-msgid "Add documentation to your pages by providing information on a widget (e.g. how to use it), thanks to the new Description field. Use this information to generate documentation."
-msgstr ""
-
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr "下部にある [アセット] パネルで、画像、CSS または JavaScript のリソースをページに追加します。"
 
@@ -328,6 +334,9 @@ msgstr "追加された生成物"
 
 msgid "Additional request parameters added to the query string"
 msgstr "クエリ文字列に追加された追加のリクエスト パラメータ"
+
+msgid "Additional request parameters added to the query string as json or javascript object, by using the related variable type"
+msgstr "関連する変数タイプを使用して、クエリ文字列に json または javascript オブジェクトとして追加された追加リクエストパラメータ"
 
 msgid "Advanced options"
 msgstr "詳細オプション"
@@ -355,6 +364,9 @@ msgid "Alternatively, you can set the Data source to Variable and use a variable
 msgstr "あるいはデータソースを変数に設定し、変数定義を使用してテーブルコンテンツの\n"
 "            を指すようにすることもできます。"
 
+msgid "Amount"
+msgstr ""
+
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "UI デザイナーで設計した生成物は、チームメンバーと共有するためにエクスポート（UI デザイナー内にインポート）するか、あるいは、Bonita ポータルにインポートして ビジネス アプリケーション 内で使用できます。"
 
@@ -368,6 +380,9 @@ msgstr "\n"
 
 msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "{{type}} のアセット名： <em>{{ name }}</em> は既にアセットに追加されています。"
+
+msgid "AngularJs 1.8"
+msgstr ""
 
 msgid "Animation"
 msgstr "アニメーション"
@@ -458,9 +473,6 @@ msgstr "注意:"
 msgid "Automatically assign the Task to the current user before the execution"
 msgstr "実行前にタスクを現在のユーザーに自動的に割り当てます"
 
-msgid "Available in the palette, it opens over the content of a page/form/layout. To manage such containers, the Button widget gains two actions: \"Open modal\" and \"Close modal\"."
-msgstr ""
-
 msgid "Available values"
 msgstr "使用可能な値"
 
@@ -493,9 +505,6 @@ msgstr "バー"
 
 msgid "Base framework"
 msgstr "ベース フレームワーク"
-
-msgid "Because of this change, if you receive a fragment, rename it and then share it back, it will be considered as a new file by the other Bonita Studios or UI Designers."
-msgstr "この変更によりフラグメントを受け取り、名前を変更してから共有します。 このファイルは、他のBonita StudiosまたはUIデザイナーによって新しいファイルとみなされます。"
 
 msgid "Bidirectional bond"
 msgstr "双方向バインド"
@@ -533,9 +542,6 @@ msgstr "境界線"
 msgid "Bound data"
 msgstr "バウンドデータ"
 
-msgid "Business Data Management enhancements"
-msgstr ""
-
 msgid "Business data"
 msgstr "ビジネス データ"
 
@@ -563,6 +569,9 @@ msgstr "オブジェクトのリストを使用できます。表示したい選
 msgid "Can be a list of objects. Use 'Displayed key' to refine suggestions and 'Returned key' to refine selection"
 msgstr "オブジェクトのリストを使用できます。表示したい選択オプション項目を「表示するキー」に指定し、選択された行の中の取得したい項目を「返されるキー」に指定します。"
 
+msgid "Can be any string, hence enabling any symbol (€, $, …) or any abbreviation (EUR, USD, …). Numeric characters will be removed on display"
+msgstr ""
+
 msgid "Can be translated using the asset localization.json"
 msgstr "アセットlocalization.jsonを使用して翻訳できます"
 
@@ -586,9 +595,6 @@ msgstr "案件のIDは、{{myVar.rootCaseId}} で取得できます。"
 
 msgid "Case overview"
 msgstr "案件概況"
-
-msgid "Change the type of a UI Designer artifact (page/form)"
-msgstr ""
 
 msgid "Changes need to be saved to enable the preview"
 msgstr "プレビューを有効にするには変更を保存する必要があります"
@@ -778,6 +784,9 @@ msgstr "下部の変数パネルで変数を作成し、それらを使用して
 msgid "Created with an older version of UI Designer. Open it for more details."
 msgstr "古いバージョンのUIデザイナーで作成されました。 詳細は開いてください。"
 
+msgid "Currency input widget"
+msgstr ""
+
 msgid "Current frame (_self)"
 msgstr "現在のフレーム (_self)"
 
@@ -798,9 +807,6 @@ msgstr "カスタム ウィジェット"
 
 msgid "Custom widgets are not clearly visible on the whiteboard but you can see them with the preview."
 msgstr "カスタム ウィジェットは、ホワイト ボードには明確に表示されませんが、プレビューを使用すれば確認できます。"
-
-msgid "Customize tab title or add css dynamically, hide or disable tabs according to the conditions are the new capabilities of each tab. Change tab format or build nice side menus thanks to vertical display, read this <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=712&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.10\">how to to learn more about customization.</a>"
-msgstr ""
 
 msgid "Customize the default look and feel as follows:"
 msgstr ""
@@ -858,6 +864,9 @@ msgstr "Date オブジェクト"
 msgid "Date objects"
 msgstr "Date オブジェクト"
 
+msgid "Decimal separator"
+msgstr ""
+
 msgid "Default"
 msgstr "デフォルト"
 
@@ -882,6 +891,9 @@ msgstr "ビジネス オブジェクトを取得する方法を定義します"
 msgid "Define table headers as the value of a variable: <em>myArrayVariable</em>"
 msgstr "テーブルのヘッダーを変数の値で定義する例： <em>myArrayVariable</em>"
 
+msgid "Defines character(s) separation between currency sign and value"
+msgstr ""
+
 msgid "Defines endpoint URL where the file will be uploaded"
 msgstr "ファイルがアップロードされる場所を示すエンドポイントURLを定義します。"
 
@@ -903,9 +915,6 @@ msgstr "プロパティについて説明"
 msgid "Description"
 msgstr "説明"
 
-msgid "Description field on widgets"
-msgstr ""
-
 msgid "Details"
 msgstr "詳細情報"
 
@@ -918,9 +927,6 @@ msgstr "ターゲット ページで使用するアプリケーションのテ�
 msgid "Direct link to an external file"
 msgstr "外部ファイルへの直接リンク"
 
-msgid "Directly from the whiteboard or from the widget properties section, switch from your current widget to another one and keep the properties already configured."
-msgstr ""
-
 msgid "Disabled"
 msgstr "無効"
 
@@ -932,9 +938,6 @@ msgstr "アセットまたは URL からイメージを表示します。"
 
 msgid "Display name"
 msgstr "表示名"
-
-msgid "Display name and description are used when the page, form, or layout are imported in the portal's Resources page. To edit them, click on the new \"Tag\" button."
-msgstr ""
 
 msgid "Display or hide the shortcut button to current day"
 msgstr "現在日にショートカット ボタンを表示または非表示"
@@ -994,9 +997,6 @@ msgstr "このプロパティの各要素は、Columns キープロパティの�
 msgid "Each type or container has specific behaviors"
 msgstr "各タイプまたはコンテナは固有の挙動を持っています。"
 
-msgid "Easily create forms to edit business variables or documents, or display business variables in read-only"
-msgstr ""
-
 msgid "Edit"
 msgstr "編集"
 
@@ -1005,9 +1005,6 @@ msgstr "アセットを編集"
 
 msgid "Edit property"
 msgstr "プロパティを編集"
-
-msgid "Edit the display name and display description of a page, form, or layout from the Editor"
-msgstr ""
 
 msgid "Edit variable"
 msgstr "変数を編集"
@@ -1020,9 +1017,6 @@ msgstr "エディタの構成設定"
 
 msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
 msgstr "ウィジェットを選択して、 <i class=\"fa fa-exchange\"></i> をクリックします。"
-
-msgid "Enhancements on table and data table"
-msgstr "テーブルとデータテーブルの強化"
 
 msgid "Enter ' + vm.mode + ' name"
 msgstr "vm.mode + ' 名を入力します"
@@ -1075,9 +1069,6 @@ msgstr "フラグメントデータをページに公開しますか？"
 msgid "Exposed"
 msgstr "公開"
 
-msgid "Extend Bonita standard widgets to fulfill the specific needs of your project, using the menu option <b>View</b> in the Properties panel of every standard widget. From there, save as your custom widget and implement the extension you need."
-msgstr ""
-
 msgid "External"
 msgstr "外部"
 
@@ -1102,6 +1093,9 @@ msgstr "お気に入り"
 msgid "Field where the user can enter information"
 msgstr "ユーザーが情報を入力できるフィールド"
 
+msgid "Field where the user can enter information with a currency formatting."
+msgstr ""
+
 msgid "File"
 msgstr "File"
 
@@ -1125,6 +1119,9 @@ msgstr "フィルター"
 
 msgid "First"
 msgstr "最初の行"
+
+msgid "For 'Label' property only. If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
+msgstr "「ラベル」プロパティのみです。「いいえ」を選択するとHTML コードは解釈されずにエスケープされます。 「はい」を選択した場合、HTMLインジェクション攻撃につながる可能性があります。これらのリスクを考慮してください。"
 
 msgid "For <em>Start process</em> and <em>Submit task</em> actions the format of the data must meet the process/task contract specifications."
 msgstr "<em>プロセスを開始</em> や<em>タスクを送信</em> のアクションに対するデータの形式は、プロセス/タスクのコントラクト仕様を満たす必要があります。"
@@ -1158,9 +1155,6 @@ msgstr "例えば、カスタム リンク ウィジェット:"
 
 msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
 msgstr "詳細については、<a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">ドキュメント</a> を参照してください。"
-
-msgid "For more information, consult the official UI Designer overview documentation."
-msgstr "詳細については、公式の UI デザイナー概要のドキュメントを参照してください。"
 
 msgid "For more information, refer to the <a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>localization</em> help section</a>."
 msgstr "詳細については、<a href=\"javascript:void(0);\" open-help=\"localization\" editor-mode=\"page\"><em>ローカリゼーション</em>のヘルプ セクション</a> を参照してください。"
@@ -1210,7 +1204,7 @@ msgstr "フラグメント"
 msgid "Frame"
 msgstr "フレーム"
 
-msgid "From the page or form editors, right by the \"Save\" button, a click on the arrow displays a new option \"Convert to...\". It has also been added in the \"Save as\" option to, for example, save a form as a case overview page."
+msgid "Frontend has been migrated to AngularJS 1.8. Note: artefacts are still generated with AngularJS 1.3. Stay tuned for further updates."
 msgstr ""
 
 msgid "Functions exposed in the controller can be used with ctrl.newFunction()."
@@ -1323,9 +1317,6 @@ msgstr "{{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwritt
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "それらの要素は上書きされるので、Id は一意でなければなりません。"
 
-msgid "Identifier"
-msgstr "Identifier（識別子）"
-
 msgid "If a Business Object has been dropped, a user interface is generated for you. You can either keep it as is, modify it, or remove it if it does not fit your needs."
 msgstr ""
 
@@ -1338,17 +1329,17 @@ msgstr "ページが iframe 内に表示されている場合、 JavaScript post
 msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
 msgstr "標準ウィジェットがお客様のニーズを満たしていない場合は、お客様の希望に合ったカスタム ウィジェットを作成できます。 これを行うには、別の名前で保存して標準ウィジェットをクローンし変更します。 作成後、カスタム ウィジェットはページ、フォーム、レイアウト、またはフラグメントを設計するためのパレットで使用できます。"
 
-msgid "If you choose 'no', HTML code will be escaped instead of being interpreted"
-msgstr "「いいえ」を選んだ場合、HTML コードは解釈される代わりにエスケープされます"
+msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
+msgstr "「いいえ」を選択すると、行のセルで解釈される代わりにHTMLコードがエスケープされます。 「はい」を選択した場合、HTMLインジェクション攻撃につながる可能性があります。これらのリスクを考慮してください。"
 
-msgid "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells"
-msgstr "「いいえ」を選択すると、行のセルで解釈される代わりにHTMLコードがエスケープされます。"
+msgid "If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose 'Yes', this could potentially lead to HTML injections attacks. Please take into account these risks."
+msgstr ""
+
+msgid "If you choose 'no', HTML code will be escaped instead of being interpreted. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks."
+msgstr "「いいえ」を選択すると、HTMLコードは解釈されずにエスケープされます。 「はい」を選択した場合、HTMLインジェクション攻撃につながる可能性があります。これらのリスクを考慮してください。"
 
 msgid "If you create your own user interface, bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
 msgstr ""
-
-msgid "If you need to add links, icons, actions or customize styles, now you are able as you can enable html computing into table cells. New stylings properties are available to differentiate lines (zebra-striping), condensate table contents or even border your cells and table."
-msgstr "リンク、アイコン、アクションを追加したり、スタイルをカスタマイズしたりする必要がある場合は、テーブルセルへのHTMLコンピューティングを有効にできるようになりました。 新しいスタイリングプロパティを使用して、線を区別したり（ゼブラストライプ）、テーブルの内容を凝縮したりセルやテーブルの境界を設定したりすることができます。"
 
 msgid "If you specify an expression, the result must be an array of strings"
 msgstr "式を指定した場合は、その戻り値は文字列の配列（リスト）型にする必要があります。"
@@ -1379,9 +1370,6 @@ msgstr "{{ ::importReport.name }} をインポート"
 
 msgid "Import, define or deploy a Business Data Model in Bonita Studio."
 msgstr "Bonita Studio でビジネス データ モデルをインポート、定義、またはデプロイします。"
-
-msgid "Improve collaboration on UID artifacts"
-msgstr "UIDアーティファクトでのコラボレーションを改善"
 
 msgid "Improvements on the widget switch"
 msgstr "ウィジェットスイッチの改善"
@@ -1481,6 +1469,15 @@ msgstr "補完（Interpolation）"
 msgid "Interpret HTML"
 msgstr "HTML を解釈"
 
+msgid "Interpret HTML default properties"
+msgstr ""
+
+msgid "Interpret HTML in label"
+msgstr ""
+
+msgid "Interpret HTML in tab heading"
+msgstr "タブの見出しでHTMLを解釈する"
+
 msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
 msgstr "無効な URL: 英数字または #!:.?+ = &%@-/ のみ許されます"
 
@@ -1516,9 +1513,6 @@ msgstr "JSONの仕様が見つかりません："
 
 msgid "Javascript expression"
 msgstr "JavaScript 式"
-
-msgid "Know your Business Data Model and retrieve Business Data information is simpler than never"
-msgstr "ビジネスデータモデルを理解し、ビジネスデータ情報を取得するのはこれまでになく簡単です"
 
 msgid "Label"
 msgstr "ラベル"
@@ -1721,12 +1715,6 @@ msgstr "別のページやフォームへのナビゲーション リンク"
 msgid "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit..."
 msgstr "<b>遊ぼう</b>っていうと<b>遊ぼう</b>っていう。<br/><b>ばか</b>っていうと<b>ばか</b>っていう。..."
 
-msgid "New embedded AngularJS filter to resolve the lazy references of a business object"
-msgstr ""
-
-msgid "New modal container to create pop-ins"
-msgstr ""
-
 msgid "New window (_blank)"
 msgstr "新しいウィンドウ (_blank)"
 
@@ -1790,6 +1778,15 @@ msgstr "今時点のボタンのラベル"
 msgid "Number of array elements defines the number of times the container structure is repeated. Array data is available to widgets in the container"
 msgstr "配列の要素の数は、コンテナ構造体を繰り返す回数を定義します。配列データは、コンテナ内のウィジェットで使用可能です。"
 
+msgid "Number of decimal"
+msgstr ""
+
+msgid "Number of digits after the decimal separator"
+msgstr ""
+
+msgid "Numerical value entered by user input formatted as float number. A rounding is applied."
+msgstr ""
+
 msgid "Object key to display"
 msgstr "表示するオブジェクトのキー"
 
@@ -1813,9 +1810,6 @@ msgstr "ヘルプを開く"
 
 msgid "Open modal"
 msgstr "モーダルを開く"
-
-msgid "Open your preview in a browser tab to set new URL parameters, play with dynamic browser sizing, and to reuse the same URL in another browser for testing purposes."
-msgstr ""
 
 msgid "Or use the <b>Switch</b> menu option close to the widget name in the properties panel."
 msgstr "または、プロパティパネルのウィジェット名の近くにある <b>Switch</b>メニューオプションを使用します。"
@@ -1933,9 +1927,6 @@ msgstr "タブを削除"
 
 msgid "Rename"
 msgstr "名前を変更"
-
-msgid "Render a UID page of form in the end-user browser"
-msgstr "エンドユーザーブラウザでフォームの UID ページをレンダリングします"
 
 msgid "Repeat container content. Variable of type array"
 msgstr "コンテナの内容を繰り返します。配列型変数"
@@ -2206,9 +2197,6 @@ msgstr "デフォルトのレイアウトをインポートすることによっ
 msgid "Start process"
 msgstr "プロセスを開始"
 
-msgid "Starting with version 7.7.0, the name of a UI artifact becomes its unique identifier, instead of a randomized identifier. This will make them easier to find in Bonita repositories. You may rename existing artifacts so they benefit from this change too."
-msgstr ""
-
 msgid "Static"
 msgstr "Static（スタティック）"
 
@@ -2266,9 +2254,6 @@ msgstr "成功時のレスポンス値"
 msgid "Summary of the Bonita REST API calls made by the page."
 msgstr "Bonita REST API の呼び出しの概要"
 
-msgid "Summary of the calls to Bonita REST API made in a page, form, or layout"
-msgstr ""
-
 msgid "Switch"
 msgstr "スイッチ（切り替え）"
 
@@ -2278,14 +2263,20 @@ msgstr "<i class=\"fa fa-exchange\"></i> を切り替える"
 msgid "Switch to"
 msgstr "切り替え："
 
-msgid "Switch widget"
-msgstr ""
-
 msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 msgstr "{{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}} を切り替える"
 
 msgid "Switch..."
 msgstr "スイッチ..."
+
+msgid "Symbol"
+msgstr ""
+
+msgid "Symbol indentation"
+msgstr ""
+
+msgid "Symbol position"
+msgstr ""
 
 msgid "Tab properties usage"
 msgstr ""
@@ -2301,9 +2292,6 @@ msgstr ""
 
 msgid "Table with pagination and filtering capabilities"
 msgstr "ページネーションとフィルタリング機能を持つテーブル"
-
-msgid "Tabs Container advancement"
-msgstr "タブコンテナの進歩"
 
 msgid "Tabs container"
 msgstr ""
@@ -2378,6 +2366,12 @@ msgstr "UI デザイナーは、Bonita Studio の言語で表示されます。"
 msgid "The caption will be displayed as such below the property label."
 msgstr "この短い説明文は、プロパティ ラベルの下などに表示されます。"
 
+msgid "The character separator to the fraction"
+msgstr ""
+
+msgid "The character used as the thousands separator"
+msgstr ""
+
 msgid "The content of <em>Label</em>, <em>Technical date format</em>, <em>Placeholder</em> properties, as well as the label of button <em>Today</em> are localized by default. Localized format can be edited in the asset <em>localization.json</em>."
 msgstr "<em>ラベル</em>、<em>テクニカルな日付書式</em>、<em>プレース ホルダー</em> のプロパティの内容は、<em>今日</em> のボタンのラベルと同様に、デフォルトでローカライズされます。ローカライズされた書式は、アセットの <em>localization.json</em> で編集できます。"
 
@@ -2436,11 +2430,11 @@ msgstr "ページはインポートされていません。"
 msgid "The portal and tasklist will redirect to the process list (<em>Start process</em> action) or refresh the task list (<em>Submit task</em> action)."
 msgstr "ポータルやタスク リストは、プロセス リストにリダイレクト（<em>プロセスの開始</em> のアクション）するか、あるいは、タスク リストをリフレッシュ（<em>タスクを送信</em> のアクション）します。"
 
+msgid "The position of the currency symbol"
+msgstr ""
+
 msgid "The property <em>Value to add</em> can either be a JavaScript Object or a String depending on the format expected for the collection you are building."
 msgstr "プロパティ <em>追加する値</em> は、コレクションに必要な形式に応じて JavaScript オブジェクトまたは文字列にすることができます。"
-
-msgid "The same \"Tag\" button displays a summary of all REST API calls made by the current artifact to the Bonita REST API.\""
-msgstr ""
 
 msgid "The scale labels for the x-axis for line and bar charts, ray labels for a radar chart, sector labels for single set charts"
 msgstr "折れ線グラフと棒グラフのx軸の目盛りラベル、レーダーチャートの光線ラベル、単一セットグラフのセクターラベル"
@@ -2502,9 +2496,6 @@ msgstr "この機能は、現在Internet Explorer 11またはMicrosoft Edgeで�
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
 
-msgid "This improvement is visible when creating the form from Bonita Studio. It will automatically create new variables in the UI Designer and bind them with the related widgets. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=693&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.9\">dedicated documentation.</a>"
-msgstr ""
-
 msgid "This modal is based on ui-bootstrap implementation. It is possible to change the size or the style\n"
 "            of the modal."
 msgstr "このモーダルは、ui-bootstrapの実装に基づいています。 サイズやモーダルのスタイル\n"
@@ -2531,6 +2522,9 @@ msgstr "このウィジェットでは、その <em>値</em> プロパティに�
 msgid "This will also update the content of the preview window"
 msgstr "プレビュー ウィンドウの内容も更新されます"
 
+msgid "Thousands separator"
+msgstr ""
+
 msgid "Time Placeholder"
 msgstr "時刻のプレース ホルダー"
 
@@ -2549,6 +2543,9 @@ msgstr "コンテンツを追加するには、コンポーネントをパレッ
 
 msgid "To allow your user to download a document add a link widget with its url property bound to"
 msgstr "ユーザーがドキュメントをダウンロードできるようにするには、リンク ウィジェットを追加してそのドキュメントにバインドする URL プロパティを設定します。"
+
+msgid "To avoid some HTML injection in your page/form, we put for <b>Interpret HTML</b> property the default value to false for all widgets. If you already put this property to true, nothing change for you."
+msgstr ""
 
 msgid "To avoid them being overwritten, <i>rename</i> them before you import."
 msgstr "それらが上書きされないようにするには、インポートする前に<i>rename</i> してください。"
@@ -2596,9 +2593,6 @@ msgid "To get data from the <i>Business Data Model</i>, please use the Business 
 msgstr "<i>ビジネス データ モデル</i>からデータを取得するには、ビジネス データ タイプを使用してください。"
 
 msgid "To get the data from a selected row, bind selected row to a variable."
-msgstr ""
-
-msgid "To improve the management of embedded objects with lazy references, create a variable using the | lazyRef filter for the object to retrieve. For more information, read the <a href=\"https://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=692&amp;bos_redirect_product=bos&amp;bos_redirect_major_version=7.9\">dedicated documentation.</a>"
 msgstr ""
 
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
@@ -2776,9 +2770,6 @@ msgstr ""
 msgid "Use basic html tags (if allowed), <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 msgstr "データのアクセスには、基本的な html タグ <span ng-non-bindable>{{dataVariable}}</span> を使用（可能な場合）し、その書式設定には、<a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> を使用し ます。（たとえば、 <span ng-non-bindable>{{dateVariable|uiDate}}</span>）"
 
-msgid "Use provided UID widgets as a template for a custom widget"
-msgstr ""
-
 msgid "Use the <em>ui-translate</em> directive in custom widgets for static content to be translated"
 msgstr "スタティック（静的）コンテンツを翻訳するには、カスタム ウィジェットで <em>ui-translate</em> ディレクティブを使用してください"
 
@@ -2896,9 +2887,6 @@ msgstr ""
 msgid "View..."
 msgstr "表示..."
 
-msgid "Visualize and explore your Business Data Model (BDM) in your browser. In a few clicks, generate user interfaces from the BDM, using the master/details pattern."
-msgstr ""
-
 msgid "W3C website"
 msgstr "W3C webサイト"
 
@@ -2957,12 +2945,6 @@ msgstr "幅"
 
 msgid "Will be retrieved from the URL if not set ('app' parameter). You can pass it in the query string of the preview URL for tests."
 msgstr "（'app' パラメータ） を設定していない場合、URL から取得されます。テスト用のプレビュー URL のクエリ文字列で渡すことができます。"
-
-msgid "With the new data model section, list your objects and drag&amp;drop them into whiteboard (or create a new variable) to introspect your Business Data Model and simplify the retrieval of data by proposing an advanced wizard to configure it. Use this variable later as any other variable."
-msgstr ""
-
-msgid "With the newer way to store variables and widgets, the diff and merge operations are clearer thanks to a multiline storage."
-msgstr "変数とウィジェットを保存する新しい方法では、複数行のストレージにより差分とマージ操作が明確になります。"
 
 msgid "With this widget, you can display data from an array in tabular presentation."
 msgstr ""
@@ -3036,9 +3018,9 @@ msgid "You can use standard HTML tags and AngularJS built-in directives, scope a
 msgstr "標準の HTML タグと AngularJS 組み込みディレクティブ、スコープおよび補完機能を使用できます。"
 
 msgid "You can use the <code>API request parameters</code> property to pass additional parameters to the\n"
-"            request."
+"            request. Supported parameters are described in the REST API Overview documentation page and in the REST API documentation for the relevant resources."
 msgstr "<code>API リクエストパラメータ</code> プロパティを使用して、\n"
-"            リクエストに追加のパラメータを渡すことができます。"
+"            リクエストに追加のパラメータを渡すことができます。 サポートされているパラメータについては、REST API の概要ドキュメントページおよび関連リソースの REST API ドキュメントを参照してください。"
 
 msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
 msgstr "実データが利用可能でない場合は、ホワイトボード エディタの内部に投入された <i>環境</i> プロパティを使用し、ホワイトボードにモックアップ表示を作成できます。"
@@ -3051,6 +3033,9 @@ msgstr "古いバージョンではこのアーティファクトをインポー
 
 msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
 msgstr "<b>Base framework</b> のアセットを移動、削除、または無効にすることはできません。 これらはアーティファクトの設定に使用されるライブラリを表示するためにのみここにあります"
+
+msgid "You do not need to specify paging parameters (such as ?p=0&c=10), because the data table handles paging automatically when you use a Bonita API data source."
+msgstr "Bonita API データ ソースを使用すると、データ テーブルがページングを自動的に処理するためページング パラメーター (?p=0&c=10 など) を指定する必要はありません。"
 
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "変更が保存されていません。本当に終了しても良いですか？"
@@ -3176,6 +3161,9 @@ msgstr "名前"
 msgid "no"
 msgstr "いいえ"
 
+msgid "none"
+msgstr ""
+
 msgid "number"
 msgstr "数値"
 
@@ -3227,6 +3215,9 @@ msgstr "W3C の JSON 仕様を表示"
 msgid "warning"
 msgstr "warning"
 
+msgid "whitespace"
+msgstr ""
+
 msgid "widget"
 msgstr "ウィジェット"
 
@@ -3270,4 +3261,7 @@ msgstr "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 
 msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
 msgstr "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
+
+msgid "€"
+msgstr ""
 
