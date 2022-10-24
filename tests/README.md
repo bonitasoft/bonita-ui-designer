@@ -9,11 +9,6 @@ A profile `integration-test` has been created to launch the tests only on purpos
     mvn integration-test
     
 The `pre-integration-test` phase will run the jar, the `integration-test` will test the pages with Protractor, and the `post-integration-phase` will stop the app.
-/!\ To run the `integration-test` on Windows 10, you need to downgrade chrome version of the webdriver-manager, in the package.json file:
-
-     "scripts": {
-         "pretest": "webdriver-manager update --versions.standalone=3.11.0 --versions.chrome=2.29",
-
   
 ### Alternative
 By default mvn task will check for _ddescribe_ and _iit_ in spec files and fail if it find some. To avoid that in dev phase you can launch tests via gulp

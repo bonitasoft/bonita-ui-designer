@@ -16,6 +16,11 @@ const capabilities = {
   }
 };
 
+//Specify binary path to enable windows build
+if(process.platform.indexOf('win') === 0) {
+  capabilities.chromeOptions.binary = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+}
+
 // activate chrome in headless mode
 // see https://developers.google.com/web/updates/2017/04/headless-chrome
 if (process.env.HEADLESS) {
@@ -31,8 +36,8 @@ if (process.env.HEADLESS) {
 }
 
 exports.config = {
-  seleniumServerJar: './node_modules/webdriver-manager/selenium/selenium-server-standalone-3.141.0.jar',
-  chromeDriver: './node_modules/webdriver-manager/selenium/chromedriver_2.38',
+  directConnect: true,
+  chromeDriver: `./node_modules/webdriver-manager/selenium/chromedriver_2.38${process.platform.indexOf('win') === 0 ? '.exe' : ''}`,
   specs: [
     './src/test/spec/**/*.spec.js'
   ],

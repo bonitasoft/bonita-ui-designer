@@ -15,14 +15,13 @@
     "gulp-protractor": "4.1.1",
     "jasmine-reporters": "2.1.1",
     "npm-run-all": "^4.1.2",
-    "protractor": "5.2.0",
+    "protractor": "7.0.0",
     "query-string": "^5.1.0",
     "superagent": "4.1.0",
-    "url": "^0.11.0",
-    "webdriver-manager": "12.1.8"
+    "url": "^0.11.0"
   },
   "scripts": {
-    "pretest": "webdriver-manager update --versions.standalone=3.141.0 --versions.chrome=2.38",
+    "pretest": "webdriver-manager update --versions.chrome=2.38",
     "test": "gulp checkTestsCompleteness && gulp test",
     "test:headless": "cross-env HEADLESS=true npm-run-all test"
   },
