@@ -68,7 +68,7 @@ jobs:
 
       - name: Send message to Slack channel
         if: ${{ success() && ( github.event.action == 'github-publish' ||  steps.init.outputs.pushMavenCentral == 'true')}}
-        uses: bonitasoft/actions/packages/notify-slack@v1.3.1
+        uses: bonitasoft/actions/packages/notify-slack@v2.0.0
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.init.outputs.tagVersion }} successfully. You can open a PR on studio repository if needed :mini-gg:"
