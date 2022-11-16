@@ -55,7 +55,7 @@ jobs:
         run: |
           echo "crowdinBranch=$(echo ${{ matrix.branch }} | tr / -)" >> $GITHUB_ENV
       - name: crowdin action
-        uses: crowdin/github-action@1.5.0
+        uses: crowdin/github-action@1.5.1
         with:
           upload_sources: true
           crowdin_branch_name: ${{ env.crowdinBranch }}
