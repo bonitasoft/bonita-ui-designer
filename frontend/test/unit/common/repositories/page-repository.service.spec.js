@@ -79,13 +79,17 @@ describe('pageRepo', function() {
 
   it('should save a page', function() {
     // given a page
-    $httpBackend.expectPUT('rest/pages/person').respond(204);
+    $httpBackend.expectPUT('rest/pages/person').respond(204, json);
 
     // when we save it
-    pageRepo.save(json);
+    var returnedValue;
+    pageRepo.save(json).then(function(response) {
+      returnedValue = response;
+    });
 
     // then we should have called the backend
     $httpBackend.flush();
+    expect(returnedValue).toBeDefined();
   });
 
   it('should delete a page', function() {

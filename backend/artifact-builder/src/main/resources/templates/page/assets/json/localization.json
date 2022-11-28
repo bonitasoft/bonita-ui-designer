@@ -123,7 +123,9 @@
         "shortDate": "dd/MM/y",
         "shortTime": "HH:mm"
       }
-    }
+    },
+    "Uploading...": "Chargement...",
+    "Upload failed": "Erreur de chargement"
   },
   "es-ES": {
     "Title": "Título",
@@ -249,7 +251,9 @@
         "shortDate": "d/M/yy",
         "shortTime": "H:mm"
       }
-    }
+    },
+    "Uploading..." : "Cargando...",
+    "Upload failed" : "Fallo al cargar"
   },
   "ja-JP": {
     "Title": "タイトル",
@@ -375,7 +379,9 @@
         "shortDate": "y/MM/dd",
         "shortTime": "H:mm"
       }
-    }
+    },
+    "Uploading..." : "",
+    "Upload failed" : ""
   },
   "pt-BR": {
     "Title": "Título",
@@ -501,6 +507,8 @@
         "shortDate": "dd/MM/yy",
         "shortTime": "HH:mm"
       }
-    }
+    },
+    "Uploading..." : "Carregamento...",
+    "Upload failed" : "Upload falhou"
   }
 }
