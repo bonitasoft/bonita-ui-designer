@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
       - name: List branches
         id: extract_branches
-        uses: bonitasoft/actions/packages/list-branches@v2.1.0
+        uses: bonitasoft/actions/packages/list-branches@v2.2.0
         with:
           branches_list: "master dev release-.*"
   download-l10n-from-crowdin:
@@ -79,7 +79,7 @@ jobs:
 
       - name: Send message to Slack channel
         if: ${{ failure() }}
-        uses: bonitasoft/actions/packages/notify-slack@v2.1.0
+        uses: bonitasoft/actions/packages/notify-slack@v2.2.0
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           MESSAGE: ":x: Download ${{ matrix.branch }} crowdin translation failed in UI-Designer."

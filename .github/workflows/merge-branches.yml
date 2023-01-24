@@ -25,7 +25,7 @@ jobs:
 
       - name: Send message to Slack channel
         if: ${{ failure() }}
-        uses: bonitasoft/actions/packages/notify-slack@v2.1.0
+        uses: bonitasoft/actions/packages/notify-slack@v2.2.0
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           MESSAGE: ":x: Merge ${{ github.event.inputs.from }} into ${{ github.event.inputs.target }} failed."
