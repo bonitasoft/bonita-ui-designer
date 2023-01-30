@@ -5,6 +5,8 @@ body {
 }
 
 .HomeHeader {
+  display: flex;
+  align-items: center;
   width: 100%;
   height: @nav-bar-height;
   background-color: @color-header-home-bg;
@@ -22,11 +24,10 @@ body {
 }
 
 .HomeHeader-logo {
-  position: absolute;
-  top: 50%;
-  left: 3.6em;
-  transform: translate(0, -50%);
-  width: 110px;
+  margin-left: 15px;
+  width: 130px;
+  background-size: contain;
+  display: block;
 
   > img {
     width: 100%;
@@ -35,20 +36,13 @@ body {
 
 .HomeHeader-title {
   color: @color-header-home-title;
-  font-weight: normal;
-  letter-spacing: .2em;
+  font-weight: 900;
   margin: 0;
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 1.4em;
-  max-width: 50%;
+  flex-grow: 1;
 }
 
 .HomeHeader-help {
-  position: absolute;
-  top: 50%;
-  right: 3.6em;
-  transform: translate(0, -50%);
+  width: 150px;
 }
 
 .container--Home {
