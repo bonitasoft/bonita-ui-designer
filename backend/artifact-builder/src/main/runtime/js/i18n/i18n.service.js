@@ -19,6 +19,8 @@ angular.module('bonitasoft.ui.i18n').factory('i18n', function(gettextCatalog, $c
       });
 
       gettextCatalog.setCurrentLanguage(currentCode);
+
+      return currentCode;
     }
   };
 });
