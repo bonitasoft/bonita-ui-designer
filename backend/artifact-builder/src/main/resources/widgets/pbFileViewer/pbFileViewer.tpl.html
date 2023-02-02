@@ -23,13 +23,14 @@
   </a>
 
   <div ng-if="properties.showPreview && ctrl.isPDF() && !ctrl.isMobileDevice()">
-    <iframe ng-src="{{ctrl.getTrustedDocumentViewUrl()}}" frameborder="0" class="document-iframe"></iframe>
+    <iframe title="{{ 'Preview of' | translate }} {{ctrl.fileName}}" ng-src="{{ctrl.getTrustedDocumentViewUrl()}}" frameborder="0" class="document-iframe"></iframe>
   </div>
 
   <div
       ng-if="properties.showPreview && ctrl.isPDF() && ctrl.isMobileDevice()"
       ng-click="ctrl.openInNewTab()">
       <embed
+          title="{{ 'Preview of' | translate }} {{ctrl.fileName}}"
           ng-src="{{ctrl.getTrustedDocumentViewUrl()}}"
           frameborder="0"
           scrolling="no"
