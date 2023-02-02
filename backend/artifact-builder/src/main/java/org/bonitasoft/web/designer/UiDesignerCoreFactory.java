@@ -136,7 +136,8 @@ public class UiDesignerCoreFactory {
                 new Migration<Fragment>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<>("INITIAL_MODEL_VERSION")),
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1"), new AutocompleteWidgetReturnedKeyMigrationStep<>(componentVisitor)),
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2"), new BusinessVariableMigrationStep<>()),
-                new Migration<>("2.3", new SetInterpretHtmlTrueMigrationStep<>(componentVisitor))
+                new Migration<>("2.3", new SetInterpretHtmlTrueMigrationStep<>(componentVisitor)),
+                new Migration<>("2.4", new AddModelVersionMigrationStep<>("2.4"))
         );
 
         List<Migration<Page>> pageMigrationStepsList = List.of(
@@ -158,7 +159,8 @@ public class UiDesignerCoreFactory {
                 new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<>(INITIAL_MODEL_VERSION), new AutocompleteWidgetReturnedKeyMigrationStep<Page>(componentVisitor)),
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1")),
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2")),
-                new Migration<>("2.3", new SetInterpretHtmlTrueMigrationStep<>(componentVisitor))
+                new Migration<>("2.3", new SetInterpretHtmlTrueMigrationStep<>(componentVisitor)),
+                new Migration<>("2.4", new AddModelVersionMigrationStep<>("2.4"))
         );
 
         List<Migration<Widget>> widgetMigrationStepsList = List.of(
@@ -168,7 +170,8 @@ public class UiDesignerCoreFactory {
                 new Migration<>(INITIAL_MODEL_VERSION, new AddModelVersionMigrationStep<>(INITIAL_MODEL_VERSION)),
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1")),
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2")),
-                new Migration<>("2.3", new AddModelVersionMigrationStep<>("2.3"))
+                new Migration<>("2.3", new AddModelVersionMigrationStep<>("2.3")),
+                new Migration<>("2.4", new AddModelVersionMigrationStep<>("2.4"))
         );
 
         var widgetMigrationApplyer = new WidgetMigrationApplyer(widgetMigrationStepsList);

@@ -1,5 +1,6 @@
 <div class="table-responsive">
     <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <caption ng-if="properties.caption">{{properties.caption}}</caption>
         <thead>
             <tr>
                 <th ng-repeat="header in properties.headers">

@@ -11,6 +11,13 @@
   "hasHelp" : true,
   "properties": [
     {
+      "label": "Caption",
+      "name": "caption",
+      "help": "Describing the content of a data table. To be accessible the description must be relevant (clear and concise).",
+      "type": "text",
+      "bond": "interpolation"
+    },
+    {
       "label" : "Interpret HTML",
       "name" : "allowHTML",
       "help" : "If you choose 'no', HTML code will be escaped instead of being interpreted in row's cells. If you choose ‘Yes’, this could potentially lead to HTML injections attacks. Please take into account these risks.",

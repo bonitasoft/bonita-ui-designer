@@ -19,7 +19,7 @@
         <java.version>11</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
-        <uidModelVersion>2.3</uidModelVersion>
+        <uidModelVersion>2.4</uidModelVersion>
 
         <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
@@ -41,7 +41,7 @@
         <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
-		
+
     </properties>
 
     <developers>

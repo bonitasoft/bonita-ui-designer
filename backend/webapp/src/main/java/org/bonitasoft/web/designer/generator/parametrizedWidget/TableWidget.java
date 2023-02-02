@@ -46,6 +46,9 @@ public class TableWidget extends AbstractParametrizedWidget {
     @WidgetProperty
     private boolean bordered = false;
 
+    @WidgetProperty
+    private String caption;
+
 
     public TableWidget() {
         super(LABEL_WIDGET_ID);
@@ -106,6 +109,13 @@ public class TableWidget extends AbstractParametrizedWidget {
 
     public void setBordered(boolean bordered) {
         this.bordered = bordered;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 
     public boolean getAllowHtml() {
