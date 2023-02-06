@@ -135,7 +135,7 @@ describe('pbRadioButtons', function () {
       scope.$apply();
 
       expect(element.find('div.form-group').hasClass('form-horizontal')).toBeFalsy();
-      expect(element.find('label.control-label').text().trim()).toBe('foobar');
+      expect(element.find('legend.control-label').text().trim()).toBe('foobar');
     });
 
     it('should be on the left of the radio buttons', function () {
@@ -149,7 +149,7 @@ describe('pbRadioButtons', function () {
       scope.$apply();
 
       expect(element.find('div').hasClass('form-horizontal')).toBeTruthy();
-      expect(element.find('label.control-label').text().trim()).toBe('barbaz');
+      expect(element.find('legend.control-label').text().trim()).toBe('barbaz');
     });
 
     it('should not be there when displayValue is falsy', function () {
@@ -168,7 +168,7 @@ describe('pbRadioButtons', function () {
 
       var element = compile('<pb-radio-buttons></pb-radio-buttons>')(scope);
       scope.$apply();
-      var label = element.find('label.control-label');
+      var label = element.find('legend.control-label');
       expect(label.text().trim()).toBe('allow html!');
     });
 
@@ -180,7 +180,7 @@ describe('pbRadioButtons', function () {
 
       var element = compile('<pb-radio-buttons></pb-radio-buttons>')(scope);
       scope.$apply();
-      var label = element.find('label.control-label');
+      var label = element.find('legend.control-label');
       expect(label.text().trim()).toBe('<span>allow html!</span>');
     });
   });

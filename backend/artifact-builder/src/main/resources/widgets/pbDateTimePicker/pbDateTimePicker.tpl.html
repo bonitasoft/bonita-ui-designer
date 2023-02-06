@@ -4,12 +4,14 @@
     }">
     <div class="form-group">
         <label
+            for="{{ctrl.inputId}}"
             ng-if="!properties.labelHidden && properties.allowHTML"
             ng-class="{ 'control-label--required': properties.required }"
             class="control-label col-xs-{{ properties.labelPosition === 'left' ? properties.labelWidth : 12 }}"
             ng-bind-html="properties.label | uiTranslate">
         </label>
         <label
+            for="{{ctrl.inputId}}"
             ng-if="!properties.labelHidden && !properties.allowHTML"
             ng-class="{ 'control-label--required': properties.required }"
             class="control-label col-xs-{{ properties.labelPosition === 'left' ? properties.labelWidth : 12 }}"
@@ -27,6 +29,7 @@
                class="input-group"
                ng-style="properties.inlineInput ? {'float': 'left'} : {}">
                 <input class="form-control"
+                       id="{{ctrl.inputId}}"
                        name="{{ctrl.name}}date"
                        type="text"
                        data-date-type="{{properties.withTimeZone ? 'iso' : 'string'}}"
@@ -58,7 +61,8 @@
                                {{$form[ctrl.name+'date'].$dirty && (($form[ctrl.name+'date'].$error.date || $form[ctrl.name+'date'].$error.parse) ||
                                (properties.required && $form[ctrl.name+'date'].$error.required)) ? 'btn-invalid':''}}"
                         ng-click="ctrl.openDatePicker()"
-                        ng-disabled="properties.readOnly">
+                        ng-disabled="properties.readOnly"
+                        aria-label="{{'Open calendar' | uiTranslate}}">
                     <i class="glyphicon glyphicon-calendar"></i>
                 </button>
                 </span>
@@ -67,6 +71,7 @@
                class="input-group"
                ng-style="properties.inlineInput ? {'float': 'left'} : {}">
                 <input class="form-control"
+                       aria-labelledby="{{ctrl.inputId}}"
                        name="{{ctrl.name}}time"
                        type="text"
                        data-time-type="{{properties.withTimeZone ? 'iso' : 'string'}}"
@@ -102,7 +107,8 @@
                                 {{$form[ctrl.name+'time'].$dirty && (($form[ctrl.name+'time'].$error.date || $form[ctrl.name+'time'].$error.parse) ||
                                 (properties.required && $form[ctrl.name+'time'].$error.required)) ? 'btn-invalid':''}}"
                               ng-click="ctrl.openTimePicker()"
-                              ng-disabled="properties.readOnly">
+                              ng-disabled="properties.readOnly"
+                              aria-label="{{'Open clock' | uiTranslate}}">
                         <i class="glyphicon glyphicon-time"></i>
                       </button>
                   </span>

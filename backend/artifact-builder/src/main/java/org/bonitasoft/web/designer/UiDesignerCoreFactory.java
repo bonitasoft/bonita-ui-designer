@@ -17,18 +17,7 @@ import org.bonitasoft.web.designer.migration.SplitWidgetResourcesMigrationStep;
 import org.bonitasoft.web.designer.migration.StyleAddModalContainerPropertiesMigrationStep;
 import org.bonitasoft.web.designer.migration.StyleAssetMigrationStep;
 import org.bonitasoft.web.designer.migration.StyleUpdateInputRequiredLabelMigrationStep;
-import org.bonitasoft.web.designer.migration.page.AutocompleteWidgetReturnedKeyMigrationStep;
-import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
-import org.bonitasoft.web.designer.migration.page.BusinessVariableMigrationStep;
-import org.bonitasoft.web.designer.migration.page.DataToVariableMigrationStep;
-import org.bonitasoft.web.designer.migration.page.DynamicTabsContainerMigrationStep;
-import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
-import org.bonitasoft.web.designer.migration.page.SetInterpretHtmlTrueMigrationStep;
-import org.bonitasoft.web.designer.migration.page.TableWidgetInterpretHTMLMigrationStep;
-import org.bonitasoft.web.designer.migration.page.TableWidgetStylesMigrationStep;
-import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
-import org.bonitasoft.web.designer.migration.page.TextWidgetLabelMigrationStep;
-import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
+import org.bonitasoft.web.designer.migration.page.*;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -137,7 +126,7 @@ public class UiDesignerCoreFactory {
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1"), new AutocompleteWidgetReturnedKeyMigrationStep<>(componentVisitor)),
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2"), new BusinessVariableMigrationStep<>()),
                 new Migration<>("2.3", new SetInterpretHtmlTrueMigrationStep<>(componentVisitor)),
-                new Migration<>("2.4", new AddModelVersionMigrationStep<>("2.4"))
+                new Migration<>("2.4", new AccessibilityCheckListAndRadioButtonsMigrationStep(componentVisitor))
         );
 
         List<Migration<Page>> pageMigrationStepsList = List.of(
@@ -160,7 +149,7 @@ public class UiDesignerCoreFactory {
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1")),
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2")),
                 new Migration<>("2.3", new SetInterpretHtmlTrueMigrationStep<>(componentVisitor)),
-                new Migration<>("2.4", new AddModelVersionMigrationStep<>("2.4"))
+                new Migration<>("2.4", new AccessibilityCheckListAndRadioButtonsMigrationStep(componentVisitor))
         );
 
         List<Migration<Widget>> widgetMigrationStepsList = List.of(

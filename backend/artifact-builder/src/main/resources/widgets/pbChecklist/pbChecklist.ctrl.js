@@ -52,6 +52,7 @@ function PbChecklistCtrl($scope, $parse, widgetNameFactory, $log) {
   $scope.$watchCollection('properties.selectedValues', updateSelectedValues);
 
   this.name = widgetNameFactory.getName('pbChecklist');
+  this.inputId = widgetNameFactory.getId('pbChecklist');
 
   if (!$scope.properties.isBound('selectedValues')) {
     $log.error('the pbCheckList property named "selectedValues" need to be bound to a variable');

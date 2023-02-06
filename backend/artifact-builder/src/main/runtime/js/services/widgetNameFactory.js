@@ -5,7 +5,8 @@
     var widgetsName = {};
 
     return {
-      getName: getName
+      getName: getName,
+      getId: getId
     };
 
     function getName(widget) {
@@ -17,6 +18,11 @@
 
       return widget + widgetsName[widget];
     }
+
+    function getId(widget){
+      return `${widget + widgetsName[widget]}-input`;
+    }
+
   }
   angular.module('bonitasoft.ui.services')
     .service('widgetNameFactory', widgetNameFactory);

@@ -1,6 +1,6 @@
 function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log, gettextCatalog) {
   var ctrl = this;
-  this.name = widgetNameFactory.getName('pbInput');
+
   this.filename = '';
   this.filemodel = '';
 
@@ -10,6 +10,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
   this.uploadComplete = uploadComplete;
 
   this.name = widgetNameFactory.getName('pbUpload');
+  this.inputId = widgetNameFactory.getId('pbUpload');
 
   this.preventFocus = function($event) {
     $event.target.blur();

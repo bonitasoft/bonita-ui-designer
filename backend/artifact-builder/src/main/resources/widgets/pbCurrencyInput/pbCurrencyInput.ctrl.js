@@ -3,6 +3,7 @@ function PbCurrencyInputCtrl($scope, $log, widgetNameFactory) {
   'use strict';
   var mySelf = this;
   this.name = widgetNameFactory.getName('pbCurrencyInput');
+  this.inputId = widgetNameFactory.getId('pbCurrencyInput');
 
   var orientation = {
     "right": "r",

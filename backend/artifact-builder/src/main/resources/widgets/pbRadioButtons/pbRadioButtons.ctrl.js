@@ -34,6 +34,7 @@ function PbRadioBoxCtrl($scope, $parse, $log, widgetNameFactory) {
   });
 
   this.name = widgetNameFactory.getName('pbRadioBox');
+  this.inputId = widgetNameFactory.getId('pbRadioBox');
 
   if (!$scope.properties.isBound('selectedValue')) {
     $log.error('the pbRadioBox property named "selectedValue" need to be bound to a variable');

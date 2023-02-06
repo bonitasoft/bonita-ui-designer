@@ -4,12 +4,14 @@
     }">
     <div class="form-group">
         <label
+            for="{{ctrl.inputId}}"
             ng-if="!properties.labelHidden && properties.allowHTML"
             ng-class="{ 'control-label--required': properties.required }"
             class="control-label col-xs-{{ properties.labelPosition === 'left' ? properties.labelWidth : 12 }}"
             ng-bind-html="properties.label | uiTranslate">
         </label>
         <label
+            for="{{ctrl.inputId}}"
             ng-if="!properties.labelHidden && !properties.allowHTML"
             ng-class="{ 'control-label--required': properties.required }"
             class="control-label col-xs-{{ properties.labelPosition === 'left' ? properties.labelWidth : 12 }}"
@@ -17,6 +19,7 @@
         </label>
         <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
             <textarea class="form-control"
+                id="{{ctrl.inputId}}"
                 name="{{ctrl.name}}"
                 ng-model="properties.value"
                 ng-model-options="{ allowInvalid: true }"

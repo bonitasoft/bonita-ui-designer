@@ -2,6 +2,7 @@ function PbDateTimePickerCtrl($scope, $log, widgetNameFactory, $element, $locale
 
   'use strict';
   this.name = widgetNameFactory.getName('pbDateTimepicker');
+  this.inputId = widgetNameFactory.getId('pbDateTimepicker');
   this.firstDayOfWeek = ($locale && $locale.DATETIME_FORMATS && $locale.DATETIME_FORMATS.FIRSTDAYOFWEEK) || 0;
 
   $bsDatepicker.defaults.keyboard = false;

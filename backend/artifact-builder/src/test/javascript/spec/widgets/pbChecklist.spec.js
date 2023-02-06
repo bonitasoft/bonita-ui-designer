@@ -1,3 +1,4 @@
+
 describe('pbChecklist', function () {
 
   var compile, scope, dom;
@@ -125,7 +126,7 @@ describe('pbChecklist', function () {
       scope.$apply();
 
       expect(element.find('div.form-group').hasClass('form-horizontal')).toBeFalsy();
-      expect(element.find('label.control-label').text().trim()).toBe('foobar');
+      expect(element.find('legend.control-label').text().trim()).toBe('foobar');
     });
 
     it('should be on the left of the checklist', function () {
@@ -138,7 +139,7 @@ describe('pbChecklist', function () {
       scope.$apply();
 
       expect(element.find('div.form-group').hasClass('form-horizontal')).toBeTruthy();
-      expect(element.find('label.control-label').text().trim()).toBe('barbaz');
+      expect(element.find('legend.control-label').text().trim()).toBe('barbaz');
     });
 
     it('should not be there when labelHidden is truthy', function () {
@@ -147,7 +148,7 @@ describe('pbChecklist', function () {
       var element = compile('<pb-checklist></pb-checklist>')(scope);
       scope.$apply();
 
-      expect(element.find('label.control-label').length).toBe(0);
+      expect(element.find('legend.control-label').length).toBe(0);
     });
 
     it('should allows html markup to be interpreted', function() {
@@ -158,7 +159,7 @@ describe('pbChecklist', function () {
 
       var element = compile('<pb-checklist></pb-checklist>')(scope);
       scope.$apply();
-      var label = element.find('label.control-label');
+      var label = element.find('legend.control-label');
       expect(label.text().trim()).toBe('allow html!');
     });
 
@@ -170,7 +171,7 @@ describe('pbChecklist', function () {
 
       var element = compile('<pb-checklist></pb-checklist>')(scope);
       scope.$apply();
-      var label = element.find('label.control-label');
+      var label = element.find('legend.control-label');
       expect(label.text().trim()).toBe('<span>allow html!</span>');
     });
 
