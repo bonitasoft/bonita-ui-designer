@@ -4,6 +4,10 @@
 </div>
 <div class="modal-body">
     <uib-tabset class="tabs-left" active="tabContainer.activeTab">
+        <uib-tab heading="{{ 'Migration' | translate }}" index="'migration'">
+            <uid-migration-help-tab></uid-migration-help-tab>
+        </uib-tab>
+
         <uib-tab heading="{{ 'Editor organization' | translate }}" index="'editor'">
 
             <p translate>Use the palette on the left to drag and drop containers and widgets in the whiteboard.</p>
@@ -238,9 +242,6 @@
                 To specify the width property for a widget for all device types, set the value for each device type separately, or leave the default value.</p>
         </uib-tab>
 
-        <uib-tab heading="{{ 'Migration' | translate }}" index="'migration'">
-            <uid-migration-help-tab></uid-migration-help-tab>
-        </uib-tab>
     </uib-tabset>
 </div>
 <div class="modal-footer">

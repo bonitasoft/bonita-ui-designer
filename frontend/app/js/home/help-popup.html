@@ -70,6 +70,24 @@
         </uib-tab>
         <uib-tab heading="{{ 'Noteworthy changes' | translate }}" class="shaker">
             <uib-accordion>
+                <uib-accordion-group is-open="status.bonita716open">
+                    <uib-accordion-heading>
+                        Bonita 2023.1 <i class="pull-right glyphicon"
+                                         ng-class="{'glyphicon-chevron-down': status.bonita716open, 'glyphicon-chevron-right': !status.bonita716open}"></i>
+                    </uib-accordion-heading>
+                    <dt translate>Accessibility</dt>
+                    <p translate>The following improvements have been made so that digitally accessible applications could be developed natively with Bonita UI Designer with less custom code:</p>
+                    <ul>
+                        <li translate>An attribute <code>lang</code> is now available and based on the <code>BOS_locale</code> cookies at page initialization will automatically get filled without developer’s or end-user’s action.</li>
+                        <li translate>Table and Data table widget have a new <code>caption</code> property available for adding a title</li>
+                        <li translate>The default widgets in the palette that contain a html <code>input</code> tag have now an associated label, which will facilitate the use of computer tools (screen readers for example)</li>
+                        <li translate>To be more accessible for speech synthesizers, screen readers or some other tools, the internal html template of checklist and radio buttons widget has been updated.</li>
+                    </ul>
+                    <div class="alert alert-warning">
+                        <i class="fa fa-warning">&nbsp;</i>
+                        <translate>The changes will automatically be available when changing a page in Bonita UI Designer <2023.1> developed with a previous Bonita UI Designer version. Custom styling could be impacted so take this fact into account in your development estimates.</translate>
+                    </div>
+                </uib-accordion-group>
                 <uib-accordion-group is-open="status.bonita715open">
                     <uib-accordion-heading>
                         Bonita 2022.2 <i class="pull-right glyphicon"

@@ -1,11 +1,67 @@
 <div>
     <h4 translate>Migration notes</h4>
-    <dt>7.5.0</dt>
-    <p translate>Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages.</p>
-    <p translate>To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it.</p>
-    <p translate>For new artifacts, you need to add the asset yourself in the custom widgets or pages that require it.</p>
-    <br>
+
+
+    <dt>7.16.0</dt>
+    <p translate>Some improvements for <b>Accessibility</b> will help you to design and generate pages, forms or
+        applications easier accessible than before (for example, computer screen readers).</p>
+    <p translate><b>Checklist and Radiobuttons</b> internal HTML have been updated to follow some accessibility
+        recommendation</p>
+    <ul>
+        <li translate>Use <code>legend</code> tag instead <code>label</code></li>
+        <li tanslate>A <code>fieldset</code> tag has been added to wrap the legend and options.</li>
+    </ul>
+    <table class="table">
+        <caption translate>Html template update</caption>
+        <tr>
+            <th scope="col">Before</th>
+            <th scope="col">After</th>
+        </tr>
+        <tr scope="col">
+            <td>
+                <pre>
+
+&lt;div&gt;
+  &lt;label&gt;[...]&lt;/label&gt;
+  &lt;div&gt;
+    &lt;label&gt;
+      &lt;input&gt;[...]&lt;/input&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+                </pre>
+            </td>
+            <td>
+                <pre>
+&lt;div&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;[...]&lt;/legend&gt;
+    &lt;div&gt;
+      &lt;label&gt;
+        &lt;input&gt;[...]&lt;/input&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+ &lt;/fieldset&gt;
+&lt;/div&gt;
+                </pre>
+            </td>
+        </tr>
+    </table>
+
 
     <dt>7.12.0</dt>
-    <p translate>Since 7.12.0, after an artifact has been migrated, a migration report <i class="fa fa-wrench status"></i> is available from the editor header. It disappears once the page is refreshed, but can be retrieved in the UI Designer log file.</p>
+    <p translate>Since 7.12.0, after an artifact has been migrated, a migration report <i
+        class="fa fa-wrench status"></i> is available from the editor header. It disappears once the page is refreshed,
+        but can be retrieved in the UI Designer log file.</p>
+
+    <dt>7.5.0</dt>
+    <p translate>Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages.</p>
+    <p translate>To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing
+        custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically.
+        You can remove it if you don't need it.</p>
+    <p translate>For new artifacts, you need to add the asset yourself in the custom widgets or pages that require
+        it.</p>
+    <br>
+
 </div>
