@@ -293,7 +293,7 @@
             <id>dependencies</id>
             <properties>
                 <bonitaMinorVersion></bonitaMinorVersion>
-                <groovy.version>3.0.14</groovy.version>
+                <groovy.version>3.0.15</groovy.version>
             </properties>
             <build>
                 <plugins>
