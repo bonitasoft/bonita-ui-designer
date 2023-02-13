@@ -12,7 +12,7 @@ on:
         required: true
 jobs:
   merge-branches:
-    runs-on: [self-hosted, uid-runner]
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
       - name: Merge ${{ github.event.inputs.from }} ->  ${{ github.event.inputs.target }}

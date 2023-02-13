@@ -10,7 +10,7 @@ on:
 
 jobs:
   list-branches:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     outputs:
       branches: ${{ steps.extract_branches.outputs.branches }}
     steps:
