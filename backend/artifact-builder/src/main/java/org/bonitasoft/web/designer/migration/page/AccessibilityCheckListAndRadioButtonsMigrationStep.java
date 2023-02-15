@@ -42,7 +42,7 @@ public class AccessibilityCheckListAndRadioButtonsMigrationStep<T extends Abstra
         try {
             for (Component component : page.accept(componentVisitor)) {
                 if (isProvidedCheckListOrRadiobuttonsWidget(component.getId())) {
-                    var msg = format("Internal HTML template for Checklist and Radiobuttons have been update. Please check your css selector if you apply some custom style on theses widgets. You can found more details in Editor > Help > Migration section.");
+                    var msg = format("Internal HTML template for Checklist and Radiobuttons have been update. Please check your css selector if you apply some custom style on theses widgets. You can find more details in Editor > Help > Migration section.");
                     log.info("[MIGRATION] [{}] {}", page.getName(),msg);
                     return Optional.of(MigrationStepReport.warningMigrationReport(page.getName(), msg, this.getClass().getName()));
                 }
