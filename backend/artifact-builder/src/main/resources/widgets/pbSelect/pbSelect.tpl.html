@@ -19,7 +19,8 @@
             <select
                 class="form-control"
                 name="{{ctrl.name}}"
-                ng-model="properties.value"
+                ng-model="ctrl.internalValue"
+                ng-change="ctrl.updateValue()"
                 ng-model-options="{ allowInvalid: true }"
                 ng-options="ctrl.getValue(option) as (ctrl.getLabel(option) | uiTranslate) for option in properties.availableValues"
                 ng-required="properties.required"
