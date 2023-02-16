@@ -1,17 +1,16 @@
 describe('pbSelect', function () {
 
-  var $compile, scope, $rootScope, $timeout, gettextCatalog;
+  var $compile, scope, $rootScope, gettextCatalog;
 
   var collection = [{name: 'foo', value: 'baz'}, {name: 'bar', value: 'qux'}];
 
   beforeEach(module('bonitasoft.ui.widgets'));
   beforeEach(module('bonitasoft.ui.services'));
 
-  beforeEach(inject(function (_$compile_, _$rootScope_, _$timeout_, _gettextCatalog_) {
+  beforeEach(inject(function (_$compile_, _$rootScope_, _gettextCatalog_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     scope = _$rootScope_.$new();
-    $timeout = _$timeout_;
     gettextCatalog = _gettextCatalog_;
     gettextCatalog.setStrings('fr-FR', {
       'red': 'rouge',
@@ -167,7 +166,6 @@ describe('pbSelect', function () {
     scope.properties.value =  'serge' ;
     var widget = $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
-    $timeout.flush();
     var selectedIndex = widget.find('select')[0].value;
 
     expect(scope.properties.availableValues[selectedIndex]).toBe('serge');
@@ -182,7 +180,6 @@ describe('pbSelect', function () {
     });
     var widget = $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
-    $timeout.flush();
 
     var selectedIndex = widget.find('select')[0].value;
     expect(scope.properties.availableValues[selectedIndex]).toEqual({'name': 'serge'});
@@ -194,17 +191,37 @@ describe('pbSelect', function () {
       displayedKey: 'name',
       returnedKey: 'name'
     });
-    var widget = $compile('<pb-select></pb-select>')(scope);
+    $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
-    $timeout.flush();
 
     expect(scope.properties.value).toEqual('jean');
     scope.properties.availableValues = [{'name': 'jeanne'}, {'name': 'serge'}, {'name': 'bob'}];
 
     scope.$apply();
-    $timeout.flush();
 
     expect(scope.properties.value).toBeNull();
+  });
+
+  it('should not change model value if the available values are not available yet', function () {
+    scope.properties = angular.extend(scope.properties, {
+      value: 'jean',
+      displayedKey: 'name',
+      returnedKey: 'name'
+    });
+
+    scope.$watch('properties.value', function (value) {
+      expect(value).toBeDefined();
+    });
+
+    $compile('<pb-select></pb-select>')(scope);
+    scope.$apply();
+
+    expect(scope.properties.value).toEqual('jean');
+
+    scope.properties.availableValues = [{'name': 'jean'}, {'name': 'serge'}, {'name': 'bob'}];
+    scope.$apply();
+
+    expect(scope.properties.value).toEqual('jean');
   });
 
   it('should allow setting the value of the select after the available values', function(){
@@ -214,19 +231,16 @@ describe('pbSelect', function () {
     });
     var widget = $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
-    $timeout.flush();
 
     scope.properties.availableValues = [{'name': 'jeanne'}, {'name': 'serge'}, {'name': 'bob'}];
 
     scope.$apply();
-    $timeout.flush();
 
     expect(scope.properties.value).toBeNull();
 
     scope.properties.value = 'serge';
 
     scope.$apply();
-    $timeout.flush();
 
     expect(scope.properties.value).toEqual('serge');
     var selectedIndex = widget.find('select')[0].value;
@@ -241,13 +255,11 @@ describe('pbSelect', function () {
     });
     var widget = $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
-    $timeout.flush();
 
     expect(scope.properties.value).toBeNull();
     scope.properties.availableValues = [{'firstname': 'jeanne', 'username': 'jeanne1'}, {'firstname': 'serge', 'username': 'serge1'}, {'firstname': '', 'username': null}];
 
     scope.$apply();
-    $timeout.flush();
 
     expect(scope.properties.value).toBeNull();
     var selectedIndex = widget.find('select')[0].value;
@@ -262,13 +274,11 @@ describe('pbSelect', function () {
     });
     var widget = $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
-    $timeout.flush();
 
     expect(scope.properties.value).toEqual(0);
     scope.properties.availableValues = [{'firstname': 'jeanne', 'username': 'jeanne1'}, {'firstname': 'serge', 'username': 'serge1'}, {'firstname': '', 'username': 0}];
 
     scope.$apply();
-    $timeout.flush();
 
     expect(scope.properties.value).toEqual(0);
     var selectedIndex = widget.find('select')[0].value;
@@ -283,13 +293,11 @@ describe('pbSelect', function () {
     });
     var widget = $compile('<pb-select></pb-select>')(scope);
     scope.$digest();
-    $timeout.flush();
 
     expect(scope.properties.value).toEqual(false);
     scope.properties.availableValues = [{'firstname': 'jeanne', 'username': 'jeanne1'}, {'firstname': 'serge', 'username': 'serge1'}, {'firstname': '', 'username': false}];
 
     scope.$apply();
-    $timeout.flush();
 
     expect(scope.properties.value).toEqual(false);
     var selectedIndex = widget.find('select')[0].value;

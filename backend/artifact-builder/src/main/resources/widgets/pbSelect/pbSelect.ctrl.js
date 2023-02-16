@@ -1,5 +1,7 @@
-function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window, $element) {
+function PbSelectCtrl($scope, $parse, $log, widgetNameFactory) {
   var ctrl = this;
+
+  ctrl.internalValue = undefined;
 
   function comparator(initialValue, item) {
     return angular.equals(initialValue, ctrl.getValue(item));
@@ -25,26 +27,22 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
   };
 
   this.setSelectedValue = function (foundItem) {
-    $timeout(function () {
-        $scope.properties.value = angular.isDefined(foundItem) ? foundItem : null ;
-    }, 50);
+    if (angular.isDefined(foundItem)) {
+      ctrl.internalValue = foundItem;
+    } else {
+      ctrl.internalValue = null;
+      $scope.properties.value = null;
+    }
+  };
+
+  this.updateValue = function () {
+    $scope.properties.value = ctrl.internalValue;
   };
 
   $scope.$watchCollection('properties.availableValues', function(items) {
     if (Array.isArray(items)) {
       var foundItem = ctrl.findSelectedItem(items);
 
-      //force IE9 to rerender option list
-      if ($window.navigator && $window.navigator.userAgent && $window.navigator.userAgent.indexOf('MSIE 9') >= 0) {
-        var option = document.createElement('option');
-        var select = $element.find('select')[0];
-        select.add(option,null);
-        select.remove(select.options.length-1);
-      }
-
-      // terrible hack to force the select ui to show the correct options
-      // so we change it's value to undefined and then delay to the correct value
-      $scope.properties.value = undefined;
       ctrl.setSelectedValue(foundItem);
     }
   });
