@@ -13,12 +13,10 @@
     <span class="input-group-btn">
         <button class="btn btn-bonita-property"
                 type="button"
-                ng-click="propertyField.toggleExpressionEditor()">
-
-            <i ng-if="!propertyField.isExpression()" class="ui-icon ui-expression"
-               title="{{ 'Click to bind to an expression' | translate }}"></i>
-            <i ng-if="propertyField.isExpression()" class="fa fa-times"
-               title="{{ 'Click to bind to a constant' | translate }}"></i>
+                ng-click="propertyField.toggleExpressionEditor()"
+                title="{{ !propertyField.isExpression() ? 'Click to bind to an expression' : 'Click to bind to a constant' | translate }}">
+            <i ng-if="!propertyField.isExpression()" class="ui-icon ui-expression"></i>
+            <i ng-if="propertyField.isExpression()" class="fa fa-times"></i>
         </button>
     </span>
 </div>
