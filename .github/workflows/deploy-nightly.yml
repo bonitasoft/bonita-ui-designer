@@ -28,15 +28,15 @@ jobs:
         run: |
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]
           then
-              echo ::set-output name=baseBranch::${GITHUB_REF#refs/*/}
-              echo ::set-output name=dockerUrl::${github.event.inputs.dockerUrl}
-              echo ::set-output name=dockerUrl::${github.event.inputs.dockerName}
-              echo ::set-output name=port::${github.event.inputs.port}
+              echo "baseBranch=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+              echo "dockerUrl=${github.event.inputs.dockerUrl}" >> $GITHUB_OUTPUT
+              echo "dockerName=${github.event.inputs.dockerName}" >> $GITHUB_OUTPUT
+              echo "port=${github.event.inputs.port}" >> $GITHUB_OUTPUT
           else
-              echo "##[set-output name=baseBranch;]$(echo dev)"
-              echo "##[set-output name=dockerUrl;]$(echo tcp://docker.rd.lan:2375)"
-              echo "##[set-output name=dockerName;]$(echo nightly-uid)"
-              echo "##[set-output name=port;]$(echo 50000)"
+              echo "baseBranch=dev" >> $GITHUB_OUTPUT
+              echo "dockerUrl=tcp://docker.rd.lan:2375" >> $GITHUB_OUTPUT
+              echo "dockerName=nightly-uid" >> $GITHUB_OUTPUT
+              echo "port=50000" >> $GITHUB_OUTPUT
           fi
       - name: Setup checkout
         uses: actions/checkout@v3

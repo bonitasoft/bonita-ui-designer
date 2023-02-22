@@ -15,7 +15,7 @@ on:
 jobs:
   listDependencies:
     name: List dependencies
-    runs-on: [self-hosted, uid-runner]
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Set up Java 11
