@@ -36,6 +36,15 @@ angular.module('bonitasoft.designer.editor.whiteboard').directive('component', f
       if (scope.component.$$widget) {
         // insert the html template in the div with class widget-content
         var div = angular.element(element.get(0).querySelector('.widget-content'));
+
+        if(scope.component.id === 'pbSelect'){
+          // Ugly Hack to set internalValue to avoid displaying undefined in the whiteboard
+          // when an available values
+          // as it is the bound variable in this widget, this variable must be undefined
+          // in the widget implementation
+		      componentScope.ctrl= { internalValue : '' };
+        }
+
         var widgetDomElement = $compile(scope.component.$$widget.template)(componentScope);
         div.append(widgetDomElement);
       }
