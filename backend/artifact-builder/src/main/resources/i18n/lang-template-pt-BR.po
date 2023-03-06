@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2022-10-20 03:50\n"
+"PO-Revision-Date: 2023-03-04 02:31\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -57,6 +57,9 @@ msgid "<b><em>Today</em> button</b> sets the selected date to the current date f
 msgstr "<b><em>hoje</em> botão</b> define a data selecionada para a data atual para o usuário.\n"
 "            Não muda o tempo selecionado, exceto quando o tempo não é definido.\n"
 "            Neste caso, isto é arredondado para cima ou para baixo com o valor mais próximo de 5 min."
+
+msgid "<b>Checklist and Radiobuttons</b> internal HTML have been updated to follow some accessibility recommendation"
+msgstr ""
 
 msgid "<b>Note</b>: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
 msgstr "<b>Nota</b>: Os ativos de widget personalizado são editáveis apenas no editor de widget. Você não pode modificá-los ao nível da página para evitar efeitos secundários em outras páginas. Então, se você quiser reordenar os ativos de widget personalizado, por favor, vá para o editor de widget."
@@ -287,6 +290,9 @@ msgstr "Parâmetros de requisição API"
 msgid "Access to $form capabilities for form container"
 msgstr "Acesso a capacidades $form para o contêiner de formulário"
 
+msgid "Accessibility"
+msgstr ""
+
 msgid "Action"
 msgstr "Ação"
 
@@ -371,6 +377,9 @@ msgstr ""
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "Um artefato projetado com o Designer de UI pode ser exportado para ser compartilhado com colegas de equipe (importação no Designer de UI) ou usado em aplicações de negócios (importação no Portal Bonita)."
+
+msgid "An attribute <code>lang</code> is now available and based on the <code>BOS_locale</code> cookies at page initialization will automatically get filled without developer’s or end-user’s action."
+msgstr ""
 
 msgid "An errors occurs during migration."
 msgstr "Ocorreu erros durante a migração."
@@ -640,12 +649,6 @@ msgstr "Limpar Pesquisa"
 msgid "Click <em>Add</em> to override."
 msgstr "Clique em <em>Adicionar</em> à substituição."
 
-msgid "Click to bind to a constant"
-msgstr "Clique para associar a uma constante"
-
-msgid "Click to bind to an expression"
-msgstr "Clique para associar a uma expressão"
-
 msgid "Click to see migration report"
 msgstr "Clique para ver o relatório de migração"
 
@@ -913,6 +916,9 @@ msgstr "Exclusão não é possível"
 
 msgid "Describes the property"
 msgstr "Descreve a propriedade"
+
+msgid "Describing the content of a data table. To be accessible the description must be relevant (clear and concise)."
+msgstr ""
 
 msgid "Description"
 msgstr "Descrição"
@@ -1305,6 +1311,9 @@ msgstr "No entanto, <b>a saída do widget é sempre um obejto de Data Javascript
 
 msgid "However, such a redirection of the current window (frame) won't be performed in Bonita portal nor in an application iframe with id <em>bonitaframe</em> (as in the default application layout). This is due to the fact that Bonita Portal and the default application layout handle the successful response by themselves."
 msgstr "No entanto, um redirecionamento da janela atual (frame) não será realizado no portal Bonita nem em um iframe de aplicação com id <em>bonitaframe</em> (como no layout padrão da aplicação). Isso deve-se ao fato de que o Portal Bonita e o layout padrão da aplicação manipulam por si mesmo a resposta bem sucedida."
+
+msgid "Html template update"
+msgstr ""
 
 msgid "Human task form"
 msgstr "Formulário de tarefa humana"
@@ -1873,6 +1882,9 @@ msgstr "Visualizar"
 msgid "Preview - {{pageName}}"
 msgstr "Pré-visualização - {{pageName}}"
 
+msgid "Preview of"
+msgstr ""
+
 msgid "Process document"
 msgstr "Processar documento"
 
@@ -2133,6 +2145,9 @@ msgstr "Tamanho"
 msgid "Small devices (width ≥ 768px)"
 msgstr "Dispositivos pequenos (largura ≥ 768px)"
 
+msgid "Some improvements for <b>Accessibility</b> will help you to design and generate pages, forms or applications easier accessible than before (for example, computer screen readers)."
+msgstr ""
+
 msgid "Some option can be disabled because the source value type is not compatible with target property type."
 msgstr ""
 
@@ -2286,6 +2301,9 @@ msgstr "Tab x"
 msgid "Table"
 msgstr "Tabela"
 
+msgid "Table and Data table widget have a new <code>caption</code> property available for adding a title"
+msgstr ""
+
 msgid "Table with pagination and filtering capabilities"
 msgstr "Tabela com paginação e capacidades de filtragem"
 
@@ -2362,6 +2380,9 @@ msgstr "O Designer de UI é exibido no idioma do seu Bonita Studio."
 msgid "The caption will be displayed as such below the property label."
 msgstr "A legenda será exibida como tal abaixo da etiqueta da propriedade."
 
+msgid "The changes will automatically be available when changing a page in Bonita UI Designer <2023.1> developed with a previous Bonita UI Designer version. Custom styling could be impacted so take this fact into account in your development estimates.</2023.1>"
+msgstr ""
+
 msgid "The character separator to the fraction"
 msgstr ""
 
@@ -2380,11 +2401,17 @@ msgstr "O controlador é uma função JavaScript que aumenta o escopo AngularJS 
 msgid "The default application layout will retrieve the <em>Target URL on success</em> that was sent in the message and set its window location with it."
 msgstr "O layout padrão da aplicação recuperará a <em>URL de destino no sucesso</em> que foi enviado na mensagem e defini sua localização de janela com ela."
 
+msgid "The default widgets in the palette that contain a html <code>input</code> tag have now an associated label, which will facilitate the use of computer tools (screen readers for example)"
+msgstr ""
+
 msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
 msgstr "A exibição de datas e horas depende do fuso horário do navegador do usuário. Por conseguinte, os valores exibidos são diferentes dos valores armazenados (exceto na zona de tempo do GMT)."
 
 msgid "The following documentation applies if you need to handle the behavior on success yourself (e.g. if you build your own tasklist or any page with an iframe to display forms)."
 msgstr "A seguinte documentação se aplica se você precisa lidar com o comportamento no sucesso sozinho (por exemplo, se você construir sua própria lista de tarefas ou qualquer página com um iframe para exibir formulários)."
+
+msgid "The following improvements have been made so that digitally accessible applications could be developed natively with Bonita UI Designer with less custom code:"
+msgstr ""
 
 msgid "The hex codes for the sector colors for single set charts, or for the set colors for multiple set charts. If not specified, default colors are used"
 msgstr "Os códigos hexadecimais para as cores do setor para gráficos simples, ou cores para os conjuntos de dados para gráficos múltiplos. Se não for especificado, as cores padrões serão usadas"
@@ -2547,6 +2574,9 @@ msgstr ""
 msgid "To avoid them being overwritten, <i>rename</i> them before you import."
 msgstr "Para evitar que eles sejam substituídos, <i>renomear</i> eles antes de importar."
 
+msgid "To be more accessible for speech synthesizers, screen readers or some other tools, the internal html template of checklist and radio buttons widget has been updated."
+msgstr ""
+
 msgid "To close a modal window, put a button inside the modal that you wish to close and select the <em>Close\n"
 "            modal</em> action."
 msgstr "Para fechar uma janela modal, coloque um botão dentro da janela que você deseja fechar e selecionar a ação <em>Fechar\n"
@@ -2690,8 +2720,8 @@ msgstr "Dois casos de uso: <ul> <li><code>dateVariable|uiDate</code> aplica um p
 msgid "Type"
 msgstr "Tipo"
 
-msgid "UI Designer"
-msgstr "UI Designer"
+msgid "UI Designer <span ng-if=\"isExperimentalMode()\">(Experimental)</span>"
+msgstr ""
 
 msgid "URL"
 msgstr "URL"
@@ -2749,6 +2779,9 @@ msgstr "Use <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"
 
 msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users."
 msgstr "Use <b>widgets</b> da paleta do lado esquerdo para <b>exibir informações para</b> e <b>coletar informações dos</b> usuários finais."
+
+msgid "Use <code>legend</code> tag instead <code>label</code>"
+msgstr ""
 
 msgid "Use <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 msgstr "Use <span ng-non-bindable>{{dataVariable}}</span> para acessar os dados e <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filtros</a> para formatá-lo (ex.: <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"

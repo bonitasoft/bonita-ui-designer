@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-10-20 04:30\n"
+"PO-Revision-Date: 2023-03-04 02:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -57,6 +57,9 @@ msgid "<b><em>Today</em> button</b> sets the selected date to the current date f
 msgstr "<b><em>今日</em> のボタン</b> は、ユーザーの選択した日付を現在の日付に設定します。\n"
 "            時刻が設定されていない場合を除いて、選択された時刻を変更しません。\n"
 "           その場合は、上下 5 分の最も近い値に丸められます。"
+
+msgid "<b>Checklist and Radiobuttons</b> internal HTML have been updated to follow some accessibility recommendation"
+msgstr ""
 
 msgid "<b>Note</b>: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
 msgstr "<b>注</b>: カスタム ウィジェット アセットは、ウィジェット エディタでのみ編集可能です。 他のページへの影響を避けるためにページレベルで変更することはできません。 そのため、カスタムウィジェットのアセットを並べ替えたい場合は、ウィジェットエディタに移動してください。"
@@ -285,6 +288,9 @@ msgstr "APIリクエストパラメータ"
 msgid "Access to $form capabilities for form container"
 msgstr "フォーム コンテナ： $form の機能にアクセスできます"
 
+msgid "Accessibility"
+msgstr ""
+
 msgid "Action"
 msgstr "アクション"
 
@@ -369,6 +375,9 @@ msgstr ""
 
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "UI デザイナーで設計した生成物は、チームメンバーと共有するためにエクスポート（UI デザイナー内にインポート）するか、あるいは、Bonita ポータルにインポートして ビジネス アプリケーション 内で使用できます。"
+
+msgid "An attribute <code>lang</code> is now available and based on the <code>BOS_locale</code> cookies at page initialization will automatically get filled without developer’s or end-user’s action."
+msgstr ""
 
 msgid "An errors occurs during migration."
 msgstr "マイグレーション中にエラーが発生しました。"
@@ -638,12 +647,6 @@ msgstr "検索をクリア"
 msgid "Click <em>Add</em> to override."
 msgstr "<em>追加</em> をクリックして上書きします。"
 
-msgid "Click to bind to a constant"
-msgstr "クリックしてコンスタントにバインド"
-
-msgid "Click to bind to an expression"
-msgstr "クリックして式にバインド"
-
 msgid "Click to see migration report"
 msgstr "クリックしてマイグレーション レポートを表示"
 
@@ -911,6 +914,9 @@ msgstr "削除はできません。"
 
 msgid "Describes the property"
 msgstr "プロパティについて説明"
+
+msgid "Describing the content of a data table. To be accessible the description must be relevant (clear and concise)."
+msgstr ""
 
 msgid "Description"
 msgstr "説明"
@@ -1307,6 +1313,9 @@ msgstr "ただし、<b>ウィジェットの出力は常に Javascript の Date 
 
 msgid "However, such a redirection of the current window (frame) won't be performed in Bonita portal nor in an application iframe with id <em>bonitaframe</em> (as in the default application layout). This is due to the fact that Bonita Portal and the default application layout handle the successful response by themselves."
 msgstr "ただし、このような現在のウィンドウ (フレーム) へのリダイレクトは、Bonita ポータル内や <em>bonitaframe</em> id を使用したアプリケーション  iframe  (デフォルトのアプリケーション レイアウトなどの場合) 内では実行されません。これは、Bonita ポータルやデフォルトのアプリケーション  レイアウトは自身で成功なレスポンスを処理するものだからです。"
+
+msgid "Html template update"
+msgstr ""
 
 msgid "Human task form"
 msgstr "ヒューマンタスク フォーム"
@@ -1877,6 +1886,9 @@ msgstr "プレビュー"
 msgid "Preview - {{pageName}}"
 msgstr "プレビュー - {{pageName}}"
 
+msgid "Preview of"
+msgstr ""
+
 msgid "Process document"
 msgstr "プロセス ドキュメント"
 
@@ -2137,6 +2149,9 @@ msgstr "サイズ"
 msgid "Small devices (width ≥ 768px)"
 msgstr "タブレット （横幅 ≥ 768 px）"
 
+msgid "Some improvements for <b>Accessibility</b> will help you to design and generate pages, forms or applications easier accessible than before (for example, computer screen readers)."
+msgstr ""
+
 msgid "Some option can be disabled because the source value type is not compatible with target property type."
 msgstr ""
 
@@ -2290,6 +2305,9 @@ msgstr "Tab x"
 msgid "Table"
 msgstr ""
 
+msgid "Table and Data table widget have a new <code>caption</code> property available for adding a title"
+msgstr ""
+
 msgid "Table with pagination and filtering capabilities"
 msgstr "ページネーションとフィルタリング機能を持つテーブル"
 
@@ -2366,6 +2384,9 @@ msgstr "UI デザイナーは、Bonita Studio の言語で表示されます。"
 msgid "The caption will be displayed as such below the property label."
 msgstr "この短い説明文は、プロパティ ラベルの下などに表示されます。"
 
+msgid "The changes will automatically be available when changing a page in Bonita UI Designer <2023.1> developed with a previous Bonita UI Designer version. Custom styling could be impacted so take this fact into account in your development estimates.</2023.1>"
+msgstr ""
+
 msgid "The character separator to the fraction"
 msgstr ""
 
@@ -2384,11 +2405,17 @@ msgstr "コントローラは、AngularJS スコープを拡張し、ウィジ�
 msgid "The default application layout will retrieve the <em>Target URL on success</em> that was sent in the message and set its window location with it."
 msgstr "デフォルトのアプリケーション レイアウトは、メッセージで送信され、そのウィンドウの位置に設定された<em>成功時のターゲットURL</em> を取得します。"
 
+msgid "The default widgets in the palette that contain a html <code>input</code> tag have now an associated label, which will facilitate the use of computer tools (screen readers for example)"
+msgstr ""
+
 msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
 msgstr "日時の表示は、ユーザーのブラウザーのタイムゾーンに依存します。したがって、表示されている値は、（GMT タイムゾーンを除き、）格納されている値と違います。"
 
 msgid "The following documentation applies if you need to handle the behavior on success yourself (e.g. if you build your own tasklist or any page with an iframe to display forms)."
 msgstr "成功時の振る舞いを自分で処理する必要がある（例えば、あなた独自のタスク リストを構築する、あるいはフォームを表示するために iframe で任意のページを構築する）場合 は、次のドキュメントを適用します。"
+
+msgid "The following improvements have been made so that digitally accessible applications could be developed natively with Bonita UI Designer with less custom code:"
+msgstr ""
 
 msgid "The hex codes for the sector colors for single set charts, or for the set colors for multiple set charts. If not specified, default colors are used"
 msgstr "単一セットグラフのセクター色、または複数セットグラフの設定色は、16 進コードです。指定しない場合はデフォルトの色が使用されます。"
@@ -2550,6 +2577,9 @@ msgstr ""
 msgid "To avoid them being overwritten, <i>rename</i> them before you import."
 msgstr "それらが上書きされないようにするには、インポートする前に<i>rename</i> してください。"
 
+msgid "To be more accessible for speech synthesizers, screen readers or some other tools, the internal html template of checklist and radio buttons widget has been updated."
+msgstr ""
+
 msgid "To close a modal window, put a button inside the modal that you wish to close and select the <em>Close\n"
 "            modal</em> action."
 msgstr "モーダルウィンドウを閉じるには、閉じたいモーダル内にボタンを置き <em>\n"
@@ -2692,8 +2722,8 @@ msgstr "２つの使用例： <ul> <li><code>dateVariable | uiDate</code>はデ�
 msgid "Type"
 msgstr "タイプ"
 
-msgid "UI Designer"
-msgstr "UI デザイナー"
+msgid "UI Designer <span ng-if=\"isExperimentalMode()\">(Experimental)</span>"
+msgstr ""
 
 msgid "URL"
 msgstr "URL"
@@ -2751,6 +2781,9 @@ msgstr "日付の書式設定には、<a href=\"javascript:void(0);\" open-help=
 
 msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users."
 msgstr "エンドユーザーへの<b>情報表示</b> や彼らからの<b>情報収集</b>には、左側のパレットの<b>ウィジェット</b>を使用します。"
+
+msgid "Use <code>legend</code> tag instead <code>label</code>"
+msgstr ""
 
 msgid "Use <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 msgstr "データのアクセスには、<span ng-non-bindable>{{dataVariable}}</span> を使用し、その書式設定には、<a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">フィルター</a> を使用し ます。（たとえば、 <span ng-non-bindable>{{dateVariable|uiDate}}</span>）"
