@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61813\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2022-10-20 04:32\n"
+"PO-Revision-Date: 2023-03-04 02:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -637,12 +637,6 @@ msgstr "検索をクリア"
 
 msgid "Click <em>Add</em> to override."
 msgstr "<em>追加</em> をクリックして上書きします。"
-
-msgid "Click to bind to a constant"
-msgstr "クリックしてコンスタントにバインド"
-
-msgid "Click to bind to an expression"
-msgstr "クリックして式にバインド"
 
 msgid "Click to see migration report"
 msgstr "クリックしてマイグレーション レポートを表示"

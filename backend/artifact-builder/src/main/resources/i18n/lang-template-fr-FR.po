@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61813\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2022-10-20 04:32\n"
+"PO-Revision-Date: 2023-03-04 02:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -631,12 +631,6 @@ msgstr "Effacer la recherche"
 
 msgid "Click <em>Add</em> to override."
 msgstr "Cliquez sur <em>Ajouter</em> pour remplacer."
-
-msgid "Click to bind to a constant"
-msgstr "Cliquer pour binder une constante"
-
-msgid "Click to bind to an expression"
-msgstr "Cliquer pour binder une expression"
 
 msgid "Click to see migration report"
 msgstr "Cliquez pour voir le rapport de migration"
