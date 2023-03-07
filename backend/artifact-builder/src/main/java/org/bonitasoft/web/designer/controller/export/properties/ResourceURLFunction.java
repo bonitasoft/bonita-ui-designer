@@ -38,4 +38,9 @@ public class ResourceURLFunction implements Function<String, String> {
         return api.matches() ? httpVerb + "|" + api.group(1) + "/" + api.group(2) : "";
     }
 
+    public String applyApi(String value) {
+        var api = pattern.matcher(value);
+        return api.matches() ? api.group(1) + "/" + api.group(2) : "";
+    }
+
 }

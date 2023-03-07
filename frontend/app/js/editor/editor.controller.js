@@ -17,7 +17,7 @@
  * common functions to the directives used inside the page.
  */
 
-angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope, $state, $stateParams, $window,
+angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($scope,$rootScope, $state, $stateParams, $window,
   artifactRepo, resolutions, artifact, mode, arrays, componentUtils, keyBindingService, $uibModal, utils, whiteboardService,
   $timeout, widgetRepo, editorService, gettextCatalog, dataManagementRepo, businessDataUpdateService, whiteboardComponentWrapper, uiGeneration) {
 
@@ -32,6 +32,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
    * The editor mode
    */
   $scope.mode = mode || 'page';
+  $scope.isForm = artifact.type === 'form';
 
   // We delay page resolution to not block the ui while having  a big page to be displayed
   $timeout(() => {
@@ -168,6 +169,9 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
       $scope.selectComponent(newComponent);
       newComponent.triggerAdded();
     }
+    // Emit an event to trigger
+    $rootScope.$emit('artifactUpdate');
+
   };
 
   function removeRow(container, row) {
@@ -176,6 +180,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
       var rowIndex = rows.indexOf(row);
       rows.splice(rowIndex, 1);
       whiteboardService.triggerRowRemoved(row);
+      $rootScope.$emit('artifactUpdate');
     }
   }
 
@@ -256,6 +261,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     }
     if (!destinationRow) {
       component.triggerRemoved();
+      $rootScope.$emit('artifactUpdate');
     }
     $scope.currentComponent = null;
   };
@@ -317,6 +323,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
       arrays.insertAtPosition(newComponent, index, row);
       $scope.selectComponent(newComponent);
       newComponent.triggerAdded();
+      $rootScope.$emit('artifactUpdate');
     });
   }
 

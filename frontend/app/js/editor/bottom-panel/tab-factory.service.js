@@ -18,11 +18,13 @@
 
   class Tab {
 
-    constructor({ $state, name, stateName, bottomPanel }) {
+    constructor({ $state, name, stateName, bottomPanel, order,icon}) {
       this.$state = $state;
+      this.order = order
       this.name = name;
       this.stateName = stateName;
       this.bottomPanel = bottomPanel;
+      this.icon = icon;
     }
 
     isActive() {
@@ -40,8 +42,8 @@
   }
 
   angular.module('bonitasoft.designer.editor.bottom-panel').service('tabFactory', ($state) => ({
-    create({ name, stateName, bottomPanel }) {
-      return new Tab({ $state, name, stateName, bottomPanel });
+    create({ name, stateName, bottomPanel,order, icon }) {
+      return new Tab({ $state, name, stateName, bottomPanel, order, icon });
     }
   }));
 }());

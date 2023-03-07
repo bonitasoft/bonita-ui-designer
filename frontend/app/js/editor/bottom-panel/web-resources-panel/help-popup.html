@@ -1,0 +1,37 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" translate>Help</h3>
+</div>
+<div class="modal-body">
+    <dt translate>General</dt>
+    <p translate>
+        Permissions to access Bonita platform’s REST API resources are handled by a configurable authorizations mechanism, see the online documentation for more details.
+    </p>
+    <p translate>
+        For UI Designer artifacts, the Bonita REST API resources are exported in the page.properties files. Those resources are used at deployment to grant permission to those REST API to users with access to this page.
+    </p>
+
+    <dt><i class="fa-user-o fa"></i>
+        <translate>Manual detection</translate>
+    </dt>
+    <p translate>
+        You can manually declare the Bonita REST API resources which you're using in your artifact when the automatic detection fails to found them.
+        You need to select an HTTP Verb, and type/choose the REST API on the value field. This Bonita resource will export in page.properties files.
+    </p>
+    <div class="alert alert-warning">
+        <i class="fa fa-warning">&nbsp;</i>
+        <translate>You should always declare the resource on the most atomic artifact (in fragment, if the resource is used in a fragment, in a custom widget, or at page level)</translate>
+    </div>
+
+
+    <dt><i class="fa-cogs fa"></i>
+        <translate>Automatic detection</translate>
+    </dt>
+    <p translate>
+        When you drag and drop a widget or a fragment, some Bonita resources are automatically found and added in the Bonita resource table.
+        The <code>scopes</code> column of the Bonita resources table helps you identify what artifact declare a given resource.
+    </p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-link" ng-click="$dismiss()" translate>Close</button>
+</div>

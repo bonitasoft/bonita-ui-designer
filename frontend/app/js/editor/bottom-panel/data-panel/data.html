@@ -2,7 +2,7 @@
     <div class="Toolbar-action">
         <button class="btn btn-default" ng-click="openDataPopup()" translate>Create a new variable</button>
         <button class="btn btn-default btn-data--help" ng-click="openHelp()" title="{{'Open help' | translate}}">
-            <i class="fa fa-question-circle"></i>
+            <i class="fa fa-question-circle fa-lg"></i>
         </button>
     </div>
     <div>
@@ -20,7 +20,9 @@
         <th class="VariablesTable-type Table-sort">
             <a ng-click="sort('type')" translate>Type</a>
         </th>
-        <th class="VariablesTable-actions"></th>
+        <th class="VariablesTable-actions">
+            <span class="badge">{{getVariables(searchedData).length}} of {{countOfVariables()}}</span>
+        </th>
     </tr>
     </thead>
 </table>

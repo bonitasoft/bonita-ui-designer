@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Bonitasoft S.A.
+ * Copyright (C) 2023 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@
 
   'use strict';
 
-  angular.module('bonitasoft.designer.editor.bottom-panel', [
-    'bonitasoft.designer.editor.bottom-panel.data-panel',
-    'bonitasoft.designer.webResources',
-    'bonitasoft.designer.templates',
-    'ui.router',
-    'gettext'
+  angular.module('bonitasoft.designer.webResources', [
+    'bonitasoft.designer.common.directives',
+    'bonitasoft.designer.common.repositories',
+    'bonitasoft.designer.confirm-delete',
+    'gettext',
+    'ui.bootstrap'
   ]);
 
 })();

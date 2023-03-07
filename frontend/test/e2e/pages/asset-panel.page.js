@@ -58,7 +58,7 @@
   var assetMethod = {
 
     open: function() {
-      browser.actions().click(element.all(by.className('BottomPanel-tab')).last()).perform();
+      browser.actions().click(element.all(by.className('BottomPanel-tab')).get(1)).perform();
     },
 
     element: function(selector) {

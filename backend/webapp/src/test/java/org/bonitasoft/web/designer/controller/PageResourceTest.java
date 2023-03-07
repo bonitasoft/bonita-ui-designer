@@ -49,13 +49,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.nio.file.Files.readAllBytes;
@@ -725,6 +719,7 @@ public class PageResourceTest {
         page.setName("page");
         page.setLastUpdate(Instant.ofEpochMilli(1514989634397L));
         page.setRows(new ArrayList<>());
+        page.setWebResources(Collections.EMPTY_SET);
         page.setStatus(new MigrationStatusReport());
 
         when(pageService.getWithAsset("id")).thenReturn(page);

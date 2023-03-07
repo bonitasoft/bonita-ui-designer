@@ -14,16 +14,12 @@
  */
 package org.bonitasoft.web.designer.model.page;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.bonitasoft.web.designer.model.Assetable;
-import org.bonitasoft.web.designer.model.DesignerArtifact;
-import org.bonitasoft.web.designer.model.ElementContainer;
-import org.bonitasoft.web.designer.model.Identifiable;
-import org.bonitasoft.web.designer.model.JsonViewLight;
-import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.bonitasoft.web.designer.model.*;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.data.Data;
@@ -34,13 +30,7 @@ import org.bonitasoft.web.designer.visitor.ElementVisitor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static org.apache.commons.lang3.builder.ToStringStyle.SHORT_PREFIX_STYLE;
 import static org.bonitasoft.web.designer.model.asset.AssetType.CSS;
@@ -58,6 +48,8 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
     private Set<String> inactiveAssets = new HashSet<>();
     private Map<String, Variable> variables = new HashMap<>();
     private boolean hasValidationError = false;
+    private Set<WebResource> webResources = new HashSet<>();
+    private Set<WebResource> automaticWebResources = new HashSet<>();
 
     @JsonView({JsonViewLight.class, JsonViewPersistence.class})
     public String getId() {
@@ -105,6 +97,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
         this.assets = assets;
     }
 
+
     @Override
     public void addAsset(Asset asset) {
         if (assets == null) {
@@ -132,6 +125,24 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
 
     public boolean hasAsset(final AssetType type, final String name) {
         return assets.stream().anyMatch(asset -> CSS.equals(type) && asset.getName().equals(name));
+    }
+
+    @JsonView({JsonViewPersistence.class})
+    public Set<WebResource> getWebResources() {
+        return this.webResources;
+    }
+
+    public void setWebResources(Set<WebResource> webResources) {
+        this.webResources = webResources;
+    }
+
+    public Set<WebResource> getAutomaticWebResources() {
+        return this.automaticWebResources;
+    }
+
+    @JsonIgnore
+    public void setAutomaticWebResources(Set<WebResource> automaticWebResources) {
+        this.automaticWebResources = automaticWebResources;
     }
 
     @Deprecated

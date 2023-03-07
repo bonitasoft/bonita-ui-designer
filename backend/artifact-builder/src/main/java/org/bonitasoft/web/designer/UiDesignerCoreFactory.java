@@ -38,13 +38,7 @@ import org.bonitasoft.web.designer.service.DefaultWidgetService;
 import org.bonitasoft.web.designer.service.FragmentMigrationApplyer;
 import org.bonitasoft.web.designer.service.PageMigrationApplyer;
 import org.bonitasoft.web.designer.service.WidgetMigrationApplyer;
-import org.bonitasoft.web.designer.visitor.AssetVisitor;
-import org.bonitasoft.web.designer.visitor.ComponentVisitor;
-import org.bonitasoft.web.designer.visitor.FragmentChangeVisitor;
-import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
-import org.bonitasoft.web.designer.visitor.PageHasValidationErrorVisitor;
-import org.bonitasoft.web.designer.visitor.VisitorFactory;
-import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
+import org.bonitasoft.web.designer.visitor.*;
 
 import javax.validation.Validation;
 import java.util.List;
@@ -192,7 +186,8 @@ public class UiDesignerCoreFactory {
                 new FragmentChangeVisitor(),
                 new PageHasValidationErrorVisitor(),
                 assetVisitor,
-                uiDesignerProperties);
+                uiDesignerProperties,
+                new WebResourcesVisitor(fragmentRepository));
 
         var pageMigrationApplyer = new PageMigrationApplyer(pageMigrationStepsList, widgetService, fragmentService);
         var pageService = new DefaultPageService(
@@ -200,10 +195,9 @@ public class UiDesignerCoreFactory {
                 pageMigrationApplyer,
                 new ComponentVisitor(fragmentRepository),
                 assetVisitor,
-                new FragmentIdVisitor(fragmentRepository),
-                fragmentService,
                 uiDesignerProperties,
-                pageAssetService
+                pageAssetService,
+                new WebResourcesVisitor(fragmentRepository)
         );
 
         // Return core services

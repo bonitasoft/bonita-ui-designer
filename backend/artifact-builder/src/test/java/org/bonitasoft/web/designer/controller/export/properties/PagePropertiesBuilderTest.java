@@ -17,6 +17,7 @@ package org.bonitasoft.web.designer.controller.export.properties;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.data.Data;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.WebResource;
 import org.bonitasoft.web.designer.service.DefaultPageService;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +25,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.Arrays;
-import java.util.TreeMap;
+import java.util.*;
 
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -120,6 +120,7 @@ public class PagePropertiesBuilderTest {
         dataMap.put("archived", anApiData("../API/bpm/archivedUserTask?filter=mine&o=name DESC"));
 
         page.setData(dataMap);
+
         when(pageService.getResources(page)).thenReturn(Arrays.asList("GET|bpm/archivedUserTask", "GET|identity/user", "GET|bpm/userTask", "GET|identity/group"));
 
         String properties = new String(pagePropertiesBuilder.build(page));

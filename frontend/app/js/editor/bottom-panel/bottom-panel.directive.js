@@ -24,17 +24,32 @@
       this.$onInit = function(){
         this.tabs = [
           tabFactory.create({
+            order:0,
             name: gettext('Variables'),
             stateName: `designer.${this.mode}`,
-            bottomPanel: this
-          })
+            bottomPanel: this,
+            icon:'fa fa-link'
+          }),
+
         ];
 
         if (this.mode === 'page') {
           this.tabs.push(tabFactory.create({
+            order:1,
             name: gettext('Assets'),
             stateName: 'designer.page.asset',
-            bottomPanel: this
+            bottomPanel: this,
+            icon: 'fa fa-file'
+          }));
+        }
+        // We don't add the Bonita Resource panel for form artifact
+        if (this.isForm !== 'true') {
+          this.tabs.push(tabFactory.create({
+            order:2,
+            name: gettext('Bonita resources'),
+            stateName: `designer.${this.mode}.webResources`,
+            bottomPanel: this,
+            icon: 'fa fa-fg fa-lock'
           }));
         }
       }
@@ -56,7 +71,7 @@
   angular
     .module('bonitasoft.designer.editor.bottom-panel')
     .component('bottomPanel', {
-      bindings: { mode: '@' },
+      bindings: { mode: '@', isForm: '@' },
       templateUrl: 'js/editor/bottom-panel/bottom-panel.html',
       controller: BottomPanelController,
       controllerAs: 'bottomPanel'

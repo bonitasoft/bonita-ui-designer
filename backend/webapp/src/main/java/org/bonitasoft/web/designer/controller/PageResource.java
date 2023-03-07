@@ -25,6 +25,7 @@ import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.WebResource;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.PageService;
@@ -188,6 +189,12 @@ public class PageResource extends AssetResource<Page, PageService> {
         var page = service.get(pageId);
         return service.getResources(page);
     }
+
+    @PostMapping(value = "/autoWebResources")
+    public List<WebResource> getWebResources(@RequestBody Page page) {
+        return service.detectAutoWebResources(page);
+    }
+
 
     @GetMapping(value = "/{artifactId}/assets")
     @JsonView(Asset.JsonViewAsset.class)

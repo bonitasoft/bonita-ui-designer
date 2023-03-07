@@ -19,36 +19,21 @@ import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.asset.PageAssetPredicate;
-import org.bonitasoft.web.designer.controller.export.properties.BonitaResourceTransformer;
-import org.bonitasoft.web.designer.controller.export.properties.BonitaVariableResourcePredicate;
-import org.bonitasoft.web.designer.controller.export.properties.ResourceURLFunction;
-import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.asset.Asset;
-import org.bonitasoft.web.designer.model.data.Variable;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.PropertyValue;
+import org.bonitasoft.web.designer.model.page.WebResource;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.service.exception.IncompatibleException;
 import org.bonitasoft.web.designer.visitor.AssetVisitor;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
-import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
+import org.bonitasoft.web.designer.visitor.WebResourcesVisitor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -57,29 +42,22 @@ import static org.springframework.util.StringUtils.hasText;
 @Slf4j
 public class DefaultPageService extends AbstractAssetableArtifactService<PageRepository, Page> implements PageService {
 
-    public static final String BONITA_RESOURCE_REGEX = ".+/API/(?!extension)([^ /]*)/([^ /(?|{)]*)[\\S+]*";// matches ..... /API/{}/{}?...
-
-    public static final String EXTENSION_RESOURCE_REGEX = ".+/API/(?=extension)([^ /]*)/([^ (?|{)]*).*";
-
     private final PageMigrationApplyer pageMigrationApplyer;
 
     private final ComponentVisitor componentVisitor;
 
     private final AssetVisitor assetVisitor;
 
-    private final FragmentIdVisitor fragmentIdVisitor;
-
-    private final FragmentService fragmentService;
+    private final WebResourcesVisitor webResourcesVisitor;
 
     public DefaultPageService(PageRepository pageRepository, PageMigrationApplyer pageMigrationApplyer, ComponentVisitor componentVisitor,
-                              AssetVisitor assetVisitor, FragmentIdVisitor fragmentIdVisitor, FragmentService fragmentService,
-                              UiDesignerProperties uiDesignerProperties, AssetService<Page> pageAssetService) {
+                              AssetVisitor assetVisitor,
+                              UiDesignerProperties uiDesignerProperties, AssetService<Page> pageAssetService, WebResourcesVisitor webResourcesVisitor) {
         super(uiDesignerProperties, pageAssetService, pageRepository);
         this.pageMigrationApplyer = pageMigrationApplyer;
         this.componentVisitor = componentVisitor;
         this.assetVisitor = assetVisitor;
-        this.fragmentIdVisitor = fragmentIdVisitor;
-        this.fragmentService = fragmentService;
+        this.webResourcesVisitor = webResourcesVisitor;
     }
 
     @Override
@@ -188,91 +166,23 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
     }
 
     @Override
-    public List<String> getResources(Page page) {
-        List<String> resources = getResourcesFromVariables(page.getVariables());
+    public List<WebResource> detectAutoWebResources(Page page) {
+        var resources = this.webResourcesVisitor.visit(page);
+        return resources.values().stream().collect(toList());
+    }
 
-        Set<String> fragments = fragmentIdVisitor.visit(page);
-        for (String fragmentId : fragments) {
-            Fragment fragment = fragmentService.get(fragmentId);
-            List<String> fragmentResources = getResourcesFromVariables(fragment.getVariables());
-            resources.addAll(fragmentResources);
-        }
+    @Override
+    public List<String> getResources(Page page) {
+        List<WebResource> autoResource = detectAutoWebResources(page);
+
+        List<String> resources = autoResource.stream().map(WebResource::toDefinition).collect(toList());
+        List<String> manual = page.getWebResources().stream().map(WebResource::toDefinition).collect(Collectors.toList());
+        resources.addAll(manual);
 
         var componentList = new ArrayList<Component>();
         componentVisitor.visit(page).forEach(componentList::add);
 
-        if (componentList.stream()
-                .anyMatch(withAction("Start process"))) {
-            resources.add("POST|bpm/process");
-        }
-        if (componentList.stream()
-                .anyMatch(withAction("Submit task"))) {
-            resources.add("POST|bpm/userTask");
-        }
-        resources.addAll(findResourcesIn(componentList.stream().filter(withAction("GET")), "url", "GET"));
-        resources.addAll(findResourcesIn(componentList.stream().filter(withAction("POST")), "url", "POST"));
-        resources.addAll(findResourcesIn(componentList.stream().filter(withAction("PUT")), "url", "PUT"));
-        resources.addAll(findResourcesIn(componentList.stream().filter(withAction("DELETE")), "url", "DELETE"));
-        resources.addAll(findResourcesIn(componentList.stream(), "apiUrl", "GET"));
-        resources.addAll(findResourcesIn(componentList.stream().filter(withId("pbUpload")), "url", "POST"));
-
         return resources.stream().distinct().collect(toList());
-    }
-
-    private List<String> getResourcesFromVariables(Map<String, Variable> variables) {
-        List<String> resources = variables.values().stream()
-                .filter(new BonitaVariableResourcePredicate(BONITA_RESOURCE_REGEX))
-                .map(new BonitaResourceTransformer(BONITA_RESOURCE_REGEX))
-                .collect(toList());
-
-        List<String> extension = variables.values().stream()
-                .filter(new BonitaVariableResourcePredicate(EXTENSION_RESOURCE_REGEX))
-                .map(new BonitaResourceTransformer(EXTENSION_RESOURCE_REGEX))
-                .collect(Collectors.toList());
-        resources.addAll(extension);
-        return resources;
-    }
-
-    private Set<String> findResourcesIn(Stream<Component> components, String propertyName, String httpVerb) {
-        return components
-                .map(propertyValue(propertyName))
-                .filter(Objects::nonNull)
-                .filter(propertyType(ParameterType.CONSTANT).or(propertyType(ParameterType.INTERPOLATION)))
-                .filter(notNullOrEmptyValue())
-                .map(toPageResource(httpVerb))
-                .filter(Objects::nonNull)
-                .collect(toSet());
-    }
-
-    private Predicate<? super PropertyValue> notNullOrEmptyValue() {
-        return propertyValue -> propertyValue.getValue() != null && !propertyValue.getValue().toString().isEmpty();
-    }
-
-    private Function<PropertyValue, String> toPageResource(String httpVerb) {
-        return propertyValue -> {
-            String value = propertyValue.getValue().toString();
-            return value.matches(BONITA_RESOURCE_REGEX)
-                    ? new ResourceURLFunction(BONITA_RESOURCE_REGEX, httpVerb).apply(value)
-                    : value.matches(EXTENSION_RESOURCE_REGEX)
-                    ? new ResourceURLFunction(EXTENSION_RESOURCE_REGEX, httpVerb).apply(value) : null;
-        };
-    }
-
-    private Function<Component, PropertyValue> propertyValue(String propertyName) {
-        return component -> component.getPropertyValues().get(propertyName);
-    }
-
-    private Predicate<PropertyValue> propertyType(ParameterType type) {
-        return propertyValue -> Objects.equals(type.getValue(), propertyValue.getType());
-    }
-
-    private Predicate<? super Component> withAction(String action) {
-        return component -> component.getPropertyValues().containsKey("action") && Objects.equals(action,
-                String.valueOf(component.getPropertyValues().get("action").getValue()));
-    }
-
-    private Predicate<? super Component> withId(String id) {
-        return component -> Objects.equals(id, component.getId());
     }
 
     @Override
@@ -316,3 +226,4 @@ public class DefaultPageService extends AbstractAssetableArtifactService<PageRep
     }
 
 }
+

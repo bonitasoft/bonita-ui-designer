@@ -1,0 +1,86 @@
+<div class="Toolbar">
+    <div class="Toolbar-action">
+        <button class="btn btn-default" ng-click="ctrl.openWebResourcePopup()" translate>Declare a Bonita resource</button>
+        <button class="btn btn-default btn-data--help" ng-click="ctrl.openHelp()" title="{{'Open help' | translate}}">
+            <i class="fa fa-question-circle fa-lg"></i>
+        </button>
+    </div>
+    <div class="Toolbar-filter">
+        <label class="checkbox-inline" ng-repeat="filter in ctrl.httpVerbs">
+            <input type="checkbox" ng-model="filter.filter">
+            <translate>{{filter.label}}</translate>
+        </label>
+    </div>
+    <div>
+        <search value="searchedData" placeholder="{{ 'Search' | translate }}"></search>
+    </div>
+</div>
+<table class="Table BottomPanel-scrollableView-table">
+    <thead>
+    <tr>
+        <th class="panelTable w10 Table-sort">
+            <a ng-click="ctrl.sort('verb')" translate>Verb</a>
+        </th>
+        <th class="panelTable w30 Table-sort">
+            <a ng-click="ctrl.sort('value')" translate>Value</a>
+        </th>
+        <th class="panelTable w10 Table-sort cell-align-center">
+            <a ng-click="ctrl.sort('detection')" translate>Declaration</a>
+        </th>
+        <th class="panelTable Table-sort">
+            <a ng-click="ctrl.sort('scope')" translate>Scope</a>
+        </th>
+        <th class="panelTable actions pull-right">
+            <span class="badge">{{ctrl.getResources(searchedData).length}} of {{ctrl.displayWebResources.length}}</span>
+        </th>
+    </tr>
+    </thead>
+</table>
+<div class="BottomPanel-scrollableView">
+    <table class="Table VariablesTable">
+        <tbody>
+        <tr ng-repeat="webResource in ctrl.getResources(searchedData) | orderBy:sortCriteria:isReversedSorting as webResources track by webResource.id"
+            class="DataPanel">
+            <td class="panelTable w10">
+                {{webResource.verb.toUpperCase()}}
+            </td>
+            <td class="panelTable w30">
+                <b>{{webResource.value}}</b>
+            </td>
+            <td class="panelTable w10 cell-align-center">
+                <i ng-if="ctrl.isAutomaticDetection(webResource) && !ctrl.isOnWarning(webResource)"
+                   class="fa-cogs fa fa-lg"
+                   title="{{ 'Bonita Resource is declared automatically'| translate}}"
+                   alt="{{ 'Bonita Resource is declared automatically'| translate}}"></i>
+                <i ng-if="!ctrl.isAutomaticDetection(webResource) && !ctrl.isOnWarning(webResource)"
+                   class="fa-user-o fa fa-lg"
+                   title="{{ 'Bonita Resource is declared manually from user'| translate}}"
+                   alt="{{ 'Bonita Resource is declared manually from user'| translate}}"></i>
+                <i ng-if="ctrl.isOnWarning(webResource)" class="fa-exclamation-triangle fa fa-lg warning-icon"
+                   title="{{ 'Already declared from another automatic declaration, could be deleted'| translate}}"
+                   alt="{{ 'Already adding from automatic detection, could be deleted'| translate}}"></i>
+            <td class="panelTable"> {{webResource.scopes.join(', ')}}</td>
+            <td class="panelTable actions">
+                <div class="btn-group link-group btn-group-sm pull-right">
+                    <button class="btn update-data"
+                            ng-if="ctrl.isUpdatable(webResource)"
+                            ng-click="ctrl.openWebResourcePopup(webResource)"
+                            title="{{ 'Edit Bonita resource' | translate }}">
+                        <i class="fa fa-pencil fa-lg"></i>
+                    </button>
+                    <button class="btn delete-data"
+                            ng-if="ctrl.isUpdatable(webResource)"
+                            ng-click="ctrl.openDeletePopup(webResource)"
+                            title="{{ 'Delete Bonita resource' | translate }}">
+                        <i class="fa fa-trash fa-lg"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr ng-if="ctrl.displayWebResources.length===0">
+            <td colspan="5" translate>No web resources</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

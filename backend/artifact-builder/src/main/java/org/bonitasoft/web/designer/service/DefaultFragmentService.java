@@ -26,22 +26,14 @@ import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
-import org.bonitasoft.web.designer.model.page.AbstractPage;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.FragmentElement;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.Previewable;
+import org.bonitasoft.web.designer.model.page.*;
 import org.bonitasoft.web.designer.repository.AbstractRepository;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.visitor.AssetVisitor;
-import org.bonitasoft.web.designer.visitor.FragmentChangeVisitor;
-import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
-import org.bonitasoft.web.designer.visitor.PageHasValidationErrorVisitor;
+import org.bonitasoft.web.designer.visitor.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -72,12 +64,13 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
     private final PageRepository pageRepository;
 
     private final List<Repository<?>> usedByRepositories;
+    private WebResourcesVisitor webResourcesVisitor;
 
     public DefaultFragmentService(FragmentRepository fragmentRepository, PageRepository pageRepository,
                                   FragmentMigrationApplyer fragmentMigrationApplyer,
                                   FragmentIdVisitor fragmentIdVisitor, FragmentChangeVisitor fragmentChangeVisitor, PageHasValidationErrorVisitor pageHasValidationErrorVisitor,
                                   AssetVisitor assetVisitor,
-                                  UiDesignerProperties uiDesignerProperties) {
+                                  UiDesignerProperties uiDesignerProperties, WebResourcesVisitor webResourcesVisitor) {
         super(uiDesignerProperties, fragmentRepository);
         this.pageRepository = pageRepository;
         this.fragmentMigrationApplyer = fragmentMigrationApplyer;
@@ -87,6 +80,7 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
         this.assetVisitor = assetVisitor;
         // fragmentsUsedBy Repositories
         this.usedByRepositories = asList(pageRepository, repository);
+        this.webResourcesVisitor = webResourcesVisitor;
     }
 
 
@@ -277,6 +271,7 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
         repository.delete(fragmentId);
     }
 
+
     private String buildErrorMessage(Fragment fragment) {
         //if an error occurred it's useful for user to know which components use this widget
         var msg = new StringBuilder("The fragment cannot be deleted because it is used in");
@@ -404,6 +399,12 @@ public class DefaultFragmentService extends AbstractArtifactService<FragmentRepo
     @Override
     public Set<Asset> listAsset(Fragment fragment) {
         return assetVisitor.visit(fragment);
+    }
+
+    @Override
+    public List<WebResource> detectAutoWebResources(Fragment fragment) {
+        var resources = this.webResourcesVisitor.visit(fragment);
+        return resources.values().stream().collect(toList());
     }
 
 }

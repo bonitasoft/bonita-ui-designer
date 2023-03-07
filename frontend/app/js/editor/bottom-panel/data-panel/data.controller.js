@@ -21,6 +21,10 @@ angular.module('bonitasoft.designer.editor.bottom-panel.data-panel').controller(
   $scope.getLabel = dataTypeService.getDataLabel;
   $scope.exposableData = mode !== 'page';
 
+  $scope.countOfVariables = function (){
+    return Object.keys($scope.page.variables).length;
+  }
+
   $scope.delete = function(dataName) {
     let modalInstance = $uibModal.open({
       templateUrl: 'js/confirm-delete/confirm-delete-popup.html',

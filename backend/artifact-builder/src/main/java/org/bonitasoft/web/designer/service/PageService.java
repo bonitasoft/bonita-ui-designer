@@ -2,6 +2,7 @@ package org.bonitasoft.web.designer.service;
 
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.WebResource;
 
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,7 @@ public interface PageService extends AssetableArtifactService<Page> {
     void delete(String pageId);
 
     List<String> getResources(Page page);
+    List<WebResource> detectAutoWebResources(Page page);
 
     Set<Asset> listAsset(Page page);
 }

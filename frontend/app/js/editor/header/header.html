@@ -1,7 +1,7 @@
 <div class="EditorHeader" role="navigation">
     <div class="EditorHeader-menu">
         <a class="EditorHeader-navBtn EditorHeader-back" ng-click="vm.back()" uib-tooltip="{{ 'Back' | translate }}" tooltip-placement="right" tooltip-popup-delay="300">
-            <i class="fa fa-chevron-left"></i>
+            <i class="fa fa-chevron-left fa-lg"></i>
         </a>
         <a ui-sref="designer.home" class="EditorHeader-navBtn EditorHeader-homeNav" uib-tooltip="{{ 'Home page' | translate }}" tooltip-placement="right" tooltip-popup-delay="300">
             <i class="ui-icon ui-designer"></i>
@@ -48,7 +48,7 @@
         <open-preview on-open-preview="vm.save(vm.page)" mode="{{vm.mode}}" artifact-id="vm.page.id"
                       is-disabled="!formName.$valid || vm.isPageDirty(vm.page)"></open-preview>
         <div ng-if="vm.page.hasValidationError" uib-tooltip="{{ 'Validation error on the page. Fix is recommended before export' | translate }}" tooltip-placement="bottom" tooltip-popup-delay="300" style="margin-left:10px">
-            <i class="fa fa-times-circle error-icon"></i>
+            <i class="fa fa-times-circle fa-lg error-icon"></i>
             <translate>Validation Errors</translate>
         </div>
         <div class="EditorHeader-status">
@@ -66,8 +66,8 @@
                   uib-tooltip="{{ 'Unable to connect to the Business Data Model. Restarting the Studio may solve this issue' | translate }}"
                   tooltip-placement="bottom"
                   tooltip-popup-delay="300">
-                      <span class="fa fa-database status"></span>
-                      <i class="fa fa-exclamation-circle decorator warning icon"></i>
+                      <span class="fa fa-database status fa-lg"></span>
+                      <i class="fa fa-exclamation-circle fa-lg decorator warning icon"></i>
             </span>
         </div>
         <save-indicator class="EditorHeader-saveIndicator"></save-indicator>
@@ -76,6 +76,6 @@
         <div resolutions-bar id="resolutions" class="btn-group"></div>
     </div>
     <div class="EditorHeader-help">
-        <button class="btn btn-bonita-help" open-help editor-mode="{{vm.mode}}" uib-tooltip="{{ 'Open help' | translate }}" tooltip-placement="bottom" tooltip-popup-delay="300"><i class="fa fa-question-circle"></i></button>
+        <button class="btn btn-bonita-help" open-help editor-mode="{{vm.mode}}" uib-tooltip="{{ 'Open help' | translate }}" tooltip-placement="bottom" tooltip-popup-delay="300"><i class="fa fa-question-circle fa-lg"></i></button>
     </div>
 </div>

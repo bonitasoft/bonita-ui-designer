@@ -90,7 +90,6 @@
             controller: 'EditorCtrl',
             templateUrl: 'js/editor/editor.html'
           },
-          //  sub view named in editor.html
           'data@designer.page': {
             controller: 'DataCtrl',
             templateUrl: 'js/editor/bottom-panel/data-panel/data.html'
@@ -114,6 +113,19 @@
         },
         resolve: {
           assetRepo: (AssetRepository, pageRepo) => new AssetRepository(pageRepo.baseUrl)
+        }
+      });
+
+      $stateProvider.state('designer.page.webResources', {
+        views: {
+          'data@designer.page': {
+            controller: 'WebResourcesCtrl',
+            controllerAs: 'ctrl',
+            templateUrl: 'js/editor/bottom-panel/web-resources-panel/webResources-panel.html'
+          },
+        },
+        resolve: {
+          artifactRepo: pageRepo => pageRepo,
         }
       });
 
@@ -226,6 +238,18 @@
             controllerAs: 'vm',
             templateUrl: 'js/editor/header/header.html'
           }
+        }
+      });
+      $stateProvider.state('designer.fragment.webResources', {
+        views: {
+          'data@designer.fragment': {
+            controller: 'WebResourcesCtrl',
+            controllerAs: 'ctrl',
+            templateUrl: 'js/editor/bottom-panel/web-resources-panel/webResources-panel.html'
+          },
+        },
+        resolve: {
+          artifactRepo: fragmentRepo => fragmentRepo,
         }
       });
     });

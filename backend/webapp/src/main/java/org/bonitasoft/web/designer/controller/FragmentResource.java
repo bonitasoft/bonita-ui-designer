@@ -20,6 +20,7 @@ import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
+import org.bonitasoft.web.designer.model.page.WebResource;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.FragmentService;
@@ -40,6 +41,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
@@ -164,8 +166,13 @@ public class FragmentResource {
     }
 
     @PutMapping(value = "/{fragmentId}/favorite")
-    public void favorite(@PathVariable("fragmentId") String pageId, @RequestBody Boolean favorite) throws
+    public void favorite(@PathVariable("fragmentId") String fragmentId, @RequestBody Boolean favorite) throws
             RepositoryException {
-        fragmentService.markAsFavorite(pageId, favorite);
+        fragmentService.markAsFavorite(fragmentId, favorite);
+    }
+
+    @PostMapping(value = "/autoWebResources")
+    public List<WebResource> getWebResources(@RequestBody Fragment fragment) {
+        return fragmentService.detectAutoWebResources(fragment);
     }
 }

@@ -7,6 +7,7 @@ import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Previewable;
+import org.bonitasoft.web.designer.model.page.WebResource;
 
 import java.util.List;
 import java.util.Set;
@@ -43,6 +44,8 @@ public interface FragmentService extends ArtifactService<Fragment> {
     Fragment create(Fragment fragment);
 
     Fragment save(String fragmentId, Fragment fragment) throws ModelException;
+
+    List<WebResource> detectAutoWebResources(Fragment fragment);
 
     void delete(String fragmentId);
 

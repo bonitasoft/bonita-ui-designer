@@ -31,12 +31,8 @@ import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.FragmentElement;
-import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.*;
 import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.Repository;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.exception.IncompatibleException;
@@ -45,6 +41,7 @@ import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 import java.time.Instant;
 
 import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
+import org.bonitasoft.web.designer.visitor.WebResourcesVisitor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,8 +50,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -65,7 +60,6 @@ import java.util.TreeSet;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.Files.readAllLines;
-import static java.time.format.DateTimeFormatter.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.*;
 import static org.assertj.core.api.Assertions.*;
@@ -114,6 +108,9 @@ public class PageServiceTest {
     @Mock
     private DefaultFragmentService fragmentService;
 
+    @Mock
+    private WebResourcesVisitor webResourcesVisitor;
+
     private MigrationStatusReport defaultStatusReport;
 
     @Before
@@ -123,10 +120,9 @@ public class PageServiceTest {
                 pageMigrationApplyer,
                 componentVisitor,
                 assetVisitor,
-                fragmentIdVisitor,
-                fragmentService,
                 new UiDesignerProperties("1.13.0", CURRENT_MODEL_VERSION),
-                pageAssetService
+                pageAssetService,
+                webResourcesVisitor
         ));
         defaultStatusReport = new MigrationStatusReport(true, false);
         doReturn(defaultStatusReport).when(pageService).getStatus(any());
@@ -660,142 +656,6 @@ public class PageServiceTest {
         return page;
     }
 
-    private Page setUpPageWithFragmentForResourcesTests() {
-        Fragment fragment = aFragment().withId("myFragment").build();
-        HashMap<String, Variable> variables = new HashMap<>();
-        variables.put("fragAPI", anApiVariable("../API/bpm/process/1"));
-        variables.put("fragAPIExt", anApiVariable("../API/extension/user/4"));
-        fragment.setVariables(variables);
-        when(fragmentService.get("myFragment")).thenReturn(fragment);
-
-        FragmentElement fragmentElement = new FragmentElement();
-        fragmentElement.setId("myFragment");
-        fragmentElement.setDimension(Map.of("md", 8));
-
-        Page page = aPage().withId("myPage").with(fragmentElement).build();
-        page.setVariables(singletonMap("foo", anApiVariable("../API/bpm/userTask?filter=mine")));
-        when(componentVisitor.visit(page)).thenReturn(Collections.<Component>emptyList());
-        TreeSet<String> fragmentIds = new TreeSet<String>();
-        fragmentIds.add("myFragment");
-        when(fragmentIdVisitor.visit(page)).thenReturn(fragmentIds);
-        return page;
-    }
-
-    @Test
-    public void should_add_bonita_resources_found_in_pages_widgets() throws Exception {
-        Page page = setUpPageForResourcesTests();
-
-        page.setVariables(singletonMap("foo", anApiVariable("../API/bpm/userTask?filter=mine")));
-
-        final List<String> resources = pageService.getResources(page);
-        String properties = resources.toString();
-
-        assertThat(properties).contains("[GET|bpm/userTask]");
-    }
-
-    @Test
-    public void should_add_bonita_resources_found_in_fragments() throws Exception {
-        Page page = setUpPageWithFragmentForResourcesTests();
-
-        final List<String> resources = pageService.getResources(page);
-        String properties = resources.toString();
-
-        assertThat(properties).contains("[GET|bpm/userTask, GET|bpm/process, GET|extension/user/4]");
-    }
-
-    @Test
-    public void should_add_bonita_api_extensions_resources_found_in_pages_widgets() throws Exception {
-        Page page = setUpPageForResourcesTests();
-        List<String> authRules = new ArrayList<>();
-        authRules.add("POST|bpm/process");
-
-        HashMap<String, Variable> variables = new HashMap<>();
-        variables.put("foo", anApiVariable("../API/extension/CA31/SQLToObject?filter=mine"));
-        // Not supported platform side. Prefer use queryParam like ?id=4
-        variables.put("bar", anApiVariable("../API/extension/user/4"));
-        variables.put("aa", anApiVariable("../API/extension/group/list"));
-        variables.put("session", anApiVariable("../API/extension/user/group/unusedid"));
-        variables.put("ab", anApiVariable("http://localhost:8080/bonita/portal/API/extension/vehicule/voiture/roue?p=0&c=10&f=case_id={{caseId}}"));
-        variables.put("user", anApiVariable("../API/identity/user/{{aaa}}/context"));
-        variables.put("task", anApiVariable("../API/bpm/task/1/context"));
-        variables.put("case", anApiVariable("../API/bpm/case{{dynamicQueries(true,0)}}"));
-        variables.put("custom", anApiVariable("../API/extension/case{{dynamicQueries}}"));
-        page.setVariables(variables);
-
-        String properties = pageService.getResources(page).toString();
-
-        assertThat(properties).contains("[GET|bpm/task, GET|identity/user, GET|bpm/case, GET|extension/group/list, GET|extension/vehicule/voiture/roue, GET|extension/user/4, GET|extension/user/group/unusedid, GET|extension/CA31/SQLToObject, GET|extension/case]");
-    }
-
-    @Test
-    public void should_add_bonita_api_extensions_resources_found_in_page_data_table_properties() throws Exception {
-        Page page = setUpPageForResourcesTests();
-        Component dataTableComponent = aComponent()
-                .withPropertyValue("apiUrl", "constant", "../API/extension/car")
-                .build();
-        when(componentVisitor.visit(page)).thenReturn(singleton(dataTableComponent));
-
-        String properties = pageService.getResources(page).toString();
-
-        assertThat(properties).contains("[GET|extension/car]");
-    }
-
-    @Test
-    public void should_add_bonita_api_extensions_resources_found_in_page_button_with_DELETE_action() throws Exception {
-        Page page = setUpPageForResourcesTests();
-        Component dataTableComponent = aComponent()
-                .withPropertyValue("action", "constant", "DELETE")
-                .withPropertyValue("url", ParameterType.INTERPOLATION.getValue(), "../API/bpm/document/1")
-                .build();
-        when(componentVisitor.visit(page)).thenReturn(singleton(dataTableComponent));
-
-        String properties = pageService.getResources(page).toString();
-
-        assertThat(properties).contains("[DELETE|bpm/document]");
-    }
-
-    @Test
-    public void should_add_bonita_api_extensions_resources_found_in_page_button_with_POST_action() throws Exception {
-        Page page = setUpPageForResourcesTests();
-        Component dataTableComponent = aComponent()
-                .withPropertyValue("action", "constant", "POST")
-                .withPropertyValue("url", ParameterType.INTERPOLATION.getValue(), "../API/extension/user")
-                .build();
-        when(componentVisitor.visit(page)).thenReturn(singleton(dataTableComponent));
-
-        String properties = pageService.getResources(page).toString();
-
-        assertThat(properties).contains("[POST|extension/user]");
-    }
-
-    @Test
-    public void should_add_bonita_api_extensions_resources_found_in_page_fileUpload_widget() throws Exception {
-        Page page = setUpPageForResourcesTests();
-        Component fileUploadComponent = aComponent()
-                .withWidgetId("pbUpload")
-                .withPropertyValue("url", ParameterType.CONSTANT.getValue(), "../API/extension/upload")
-                .build();
-        when(componentVisitor.visit(page)).thenReturn(singleton(fileUploadComponent));
-
-        String properties = pageService.getResources(page).toString();
-
-        assertThat(properties).contains("[POST|extension/upload]");
-    }
-
-    @Test
-    public void should_add_start_process_resource_if_a_start_process_submit_is_contained_in_the_page() throws Exception {
-        Page page = setUpPageForResourcesTests();
-        when(componentVisitor.visit(page)).thenReturn(
-                singleton(aComponent()
-                        .withPropertyValue("action", "constant", "Start process")
-                        .build())
-        );
-
-        String properties = pageService.getResources(page).toString();
-
-        assertThat(properties).contains("[POST|bpm/process]");
-    }
-
     @Test
     public void should_show_the_correct_information_for_variables() throws Exception {
         Path expectedFilePath = Paths.get(getClass().getResource("/page-with-variables/").toURI()).resolve("page-with-variables.json");
@@ -820,36 +680,7 @@ public class PageServiceTest {
         assertThat(myPage.getVariables()).isEqualTo(variables);
     }
 
-    @Test
-    public void should_add_submit_task_resource_if_a_start_submit_task_is_contained_in_the_page() throws Exception {
-        final Page page = setUpPageForResourcesTests();
-        when(componentVisitor.visit(page)).thenReturn(singleton(aComponent()
-                .withPropertyValue("action", "constant", "Submit task")
-                .build())
-        );
 
-        String properties = pageService.getResources(page).toString();
-
-        assertThat(properties).contains("[POST|bpm/userTask]");
-    }
-
-    @Test
-    public void should_combined_start_process_submit_task_and_bonita_resources() throws Exception {
-        final Page page = setUpPageForResourcesTests();
-        when(componentVisitor.visit(page))
-                .thenReturn(asList(
-                        aComponent()
-                                .withPropertyValue("action", "constant", "Start process")
-                                .build(),
-                        aComponent()
-                                .withPropertyValue("action", "constant", "Submit task")
-                                .build()));
-        page.setVariables(singletonMap("foo", anApiVariable("/bonita/API/bpm/userTask")));
-
-        String properties = pageService.getResources(page).toString();
-
-        assertThat(properties).contains("[GET|bpm/userTask, POST|bpm/process, POST|bpm/userTask]");
-    }
 
     @Test
     public void should_upload_newfile_and_save_new_asset() throws Exception {

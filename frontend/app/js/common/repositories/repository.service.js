@@ -85,6 +85,11 @@
           .then((response) => response.data);
       }
 
+      loadAutoWebResources(artifact) {
+        return this.$http.post(`${this.baseUrl}/autoWebResources`,artifact)
+          .then((response)=> response.data);
+      }
+
       /**
        * Return export url of a artifact
        * @param artifact - the artifact to be exported

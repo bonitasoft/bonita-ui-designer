@@ -67,7 +67,11 @@
     });
 
     it('should delete a data', function() {
-      $scope.page.variables = { name: 'colin', displayValue: 4 };
+      spyOn($uibModal, 'open').and.returnValue({
+        result: $q.when({})
+      });
+
+      $scope.page.variables = { colin: {name: 'colin', displayValue: 4 }};
 
       $scope.delete('colin');
       $scope.$apply();

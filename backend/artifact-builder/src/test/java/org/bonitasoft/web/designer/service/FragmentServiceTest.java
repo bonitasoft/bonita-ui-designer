@@ -43,10 +43,8 @@ import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.bonitasoft.web.designer.visitor.AssetVisitor;
-import org.bonitasoft.web.designer.visitor.FragmentChangeVisitor;
-import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
-import org.bonitasoft.web.designer.visitor.PageHasValidationErrorVisitor;
+import org.bonitasoft.web.designer.visitor.*;
+
 import java.time.Instant;
 import org.junit.Assert;
 import org.junit.Before;
@@ -108,7 +106,7 @@ public class FragmentServiceTest {
         pageHasValidationErrorVisitor = new PageHasValidationErrorVisitor();
         fragmentService = new DefaultFragmentService(fragmentRepository, pageRepository, fragmentMigrationApplyer,
                 fragmentIdVisitor, fragmentChangeVisitor, pageHasValidationErrorVisitor, assetVisitor,
-                new UiDesignerProperties("1.13.1", "2.0")
+                new UiDesignerProperties("1.13.1", "2.0"),new WebResourcesVisitor(fragmentRepository)
         );
 
         when(fragmentRepository.getComponentName()).thenReturn("fragment");

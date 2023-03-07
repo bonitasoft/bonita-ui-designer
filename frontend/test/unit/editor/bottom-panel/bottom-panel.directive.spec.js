@@ -6,8 +6,8 @@ describe('Bottom panel', () => {
   beforeEach(inject(($compile, $rootScope, $state) => {
     spyOn($state, 'go');
     $state.current.name = 'designer.page';
-    createBottomPanel = mode => {
-      let element = $compile(`<bottom-panel mode="${mode}"></bottom-panel>`)($rootScope);
+    createBottomPanel = (mode,isForm = 'false') => {
+      let element = $compile(`<bottom-panel mode="${mode}" isForm="${isForm}"></bottom-panel>`)($rootScope);
       $rootScope.$apply();
       return element.find('.BottomPanel');
     };
@@ -18,14 +18,20 @@ describe('Bottom panel', () => {
     };
   }));
 
-  it('should have 2 tabs for a page', () => {
-    expect(bottomPanel.find('.BottomPanel-tab').length).toBe(2);
+  it('should have 3 tabs for a page', () => {
+    expect(bottomPanel.find('.BottomPanel-tab').length).toBe(3);
   });
 
-  it('should have 1 tabs for a fragment', () => {
+  it('should have 2 tabs for a fragment', () => {
     let fragmentBottomPanel = createBottomPanel('fragment');
 
-    expect(fragmentBottomPanel.find('.BottomPanel-tab').length).toBe(1);
+    expect(fragmentBottomPanel.find('.BottomPanel-tab').length).toBe(2);
+  });
+
+  it('should have 2 tabs for a fragment', () => {
+    let fragmentBottomPanel = createBottomPanel('form', 'true');
+
+    expect(fragmentBottomPanel.find('.BottomPanel-tab').length).toBe(2);
   });
 
   it('should close bottom panel', () => {
