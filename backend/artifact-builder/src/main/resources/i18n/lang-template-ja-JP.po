@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-03-08 04:04\n"
+"PO-Revision-Date: 2023-03-09 15:56\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -191,9 +191,6 @@ msgstr "<span class=\"tip\">ヒント：</span> URL パラメータはページU
 
 msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 msgstr "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
-
-msgid "<span translate>Value <i class=\"fa fa-question-circle fa-lg\" title=\"{{'The resources on completion are not exhaustive. You can set any other value.'| translate}}\"> </i> </span>"
-msgstr ""
 
 msgid "<span>Create a new variable</span>"
 msgstr "<span>新しい変数を作成</span>"
@@ -388,7 +385,7 @@ msgstr ""
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "UI デザイナーで設計した生成物は、チームメンバーと共有するためにエクスポート（UI デザイナー内にインポート）するか、あるいは、Bonita ポータルにインポートして ビジネス アプリケーション 内で使用できます。"
 
-msgid "An attribute <code>lang</code> is now available and based on the <code>BOS_locale</code> cookies at page initialization will automatically get filled without developer’s or end-user’s action."
+msgid "An attribute <code>lang</code> is now available. The attribute is based on the <code>BOS_locale</code> cookies at page initialization and will automatically get filled without any user action."
 msgstr ""
 
 msgid "An errors occurs during migration."
@@ -557,13 +554,10 @@ msgstr "Bonita API"
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
-msgid "Bonita Resource is declared automatically"
+msgid "Bonita Resource is automatically declared"
 msgstr ""
 
-msgid "Bonita Resource is declared manually from user"
-msgstr ""
-
-msgid "Bonita Resources"
+msgid "Bonita Resource manually declared by user"
 msgstr ""
 
 msgid "Bonita resource"
@@ -1180,7 +1174,7 @@ msgstr "HTTP リクエストに対しては、次の方法がサポートされ�
 msgid "For Instance to let users save the draft of the current form:"
 msgstr "ユーザーが現在のフォームの下書きを保存できるようにするインスタンス:"
 
-msgid "For UI Designer artifacts, the Bonita REST API resources are exported in the page.properties files. Those resources are used at deployment to grant permission to those REST API to users with access to this page."
+msgid "For UI Designer artifacts, the Bonita REST API resources are exported in the page.properties files. Those resources are used at deployment to grant permission to those REST API to users having access to this page."
 msgstr ""
 
 msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
@@ -1919,7 +1913,7 @@ msgstr "親フレーム (_parent)"
 msgid "Perform an HTTP request"
 msgstr "HTTP リクエストを実行"
 
-msgid "Permissions to access Bonita platform’s REST API resources are handled by a configurable authorizations mechanism, see the online documentation for more details."
+msgid "Permissions to access Bonita platform’s REST API resources are handled by a configurable authorization mechanism, check Bonita documentation for more details."
 msgstr ""
 
 msgid "Pie"
@@ -2203,7 +2197,7 @@ msgstr "サイズ"
 msgid "Small devices (width ≥ 768px)"
 msgstr "タブレット （横幅 ≥ 768 px）"
 
-msgid "Some improvements for <b>Accessibility</b> will help you to design and generate pages, forms or applications easier accessible than before (for example, computer screen readers)."
+msgid "Some improvements for <b>Accessibility</b> will help you design and generate digitally accessible pages, forms or applications (for example: computer screen readers)."
 msgstr ""
 
 msgid "Some option can be disabled because the source value type is not compatible with target property type."
@@ -2435,7 +2429,7 @@ msgstr "UI デザイナーは、<b>AngularJS に基いて標準的な HTMLアプ
 msgid "The UI Designer is displayed in the language of your Bonita Studio."
 msgstr "UI デザイナーは、Bonita Studio の言語で表示されます。"
 
-msgid "The automatic detection is now more explicit, and you can see in your artifact which REST API resources is needed from the newest Bonita Resource panel."
+msgid "The automatic detection allows you to see explicitly which REST API resources is needed in your artifact from the newest Bonita Resource panel."
 msgstr ""
 
 msgid "The caption will be displayed as such below the property label."
@@ -2923,9 +2917,6 @@ msgstr ""
 msgid "Value"
 msgstr "値"
 
-msgid "Value <i class=\"fa fa-question-circle fa-lg\" title=\"{{'The resources on completion are not exhaustive. You can set any other value.'| translate}}\"> </i>"
-msgstr ""
-
 msgid "Value Format"
 msgstr "値の書式"
 
@@ -3068,6 +3059,9 @@ msgstr "次の変数の値型に適用することができます："
 
 msgid "You can change the type to be able to use this artifact as a process form or as an application page."
 msgstr "このアーティファクトをプロセス フォームまたはアプリケーション ページとして使用できるようにタイプを変更できます。"
+
+msgid "You can check the list of all Bonita REST API resources on this dedicated <a href=\"https://api-documentation.bonitasoft.com/latest/\">documentation</a>"
+msgstr ""
 
 msgid "You can delete page assets only, view local assets, and edit external assets of a page."
 msgstr "ページアセットのみを削除やローカルアセットの表示やページの外部アセットを編集したりできます。"
