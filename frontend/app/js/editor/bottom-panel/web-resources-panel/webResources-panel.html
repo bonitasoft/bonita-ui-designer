@@ -50,12 +50,12 @@
             <td class="panelTable w10 cell-align-center">
                 <i ng-if="ctrl.isAutomaticDetection(webResource) && !ctrl.isOnWarning(webResource)"
                    class="fa-cogs fa fa-lg"
-                   title="{{ 'Bonita Resource is declared automatically'| translate}}"
-                   alt="{{ 'Bonita Resource is declared automatically'| translate}}"></i>
+                   title="{{ 'Bonita Resource is automatically declared'| translate}}"
+                   alt="{{ 'Bonita Resource is automatically declared'| translate}}"></i>
                 <i ng-if="!ctrl.isAutomaticDetection(webResource) && !ctrl.isOnWarning(webResource)"
                    class="fa-user-o fa fa-lg"
-                   title="{{ 'Bonita Resource is declared manually from user'| translate}}"
-                   alt="{{ 'Bonita Resource is declared manually from user'| translate}}"></i>
+                   title="{{ 'Bonita Resource manually declared by user'| translate}}"
+                   alt="{{ 'Bonita Resource manually declared by user'| translate}}"></i>
                 <i ng-if="ctrl.isOnWarning(webResource)" class="fa-exclamation-triangle fa fa-lg warning-icon"
                    title="{{ 'Already declared from another automatic declaration, could be deleted'| translate}}"
                    alt="{{ 'Already adding from automatic detection, could be deleted'| translate}}"></i>

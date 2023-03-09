@@ -17,10 +17,10 @@
             </div>
             <div class="form-group form-group--data"
                  ng-class="{'has-error': !ctrl.isWebResourceUnique(ctrl.newResource)}">
-                <label class="control-label control-label--required" for="newWebResourceValue" translate>
-                    <span translate>Value
+                <label class="control-label control-label--required" for="newWebResourceValue">
+                    <span> {{ 'Value' | translate }}
                         <i class="fa fa-question-circle fa-lg"
-                           title="{{'The resources on completion are not exhaustive. You can set any other value.'| translate}}">
+                           title="{{'The resources on completion are not exhaustive. You can set any other value.' | translate}}">
                         </i>
                     </span>
                 </label>
@@ -39,7 +39,10 @@
                         <translate> already exists</translate></b></span>
             </div>
             <div class="alert alert-info" role="alert">
-                <i class="fa fa-book fa-lg"></i> You can check the list of all Bonita REST API resources on this dedicated <a href="https://api-documentation.bonitasoft.com/latest/">documentation</a>
+                <i class="fa fa-book fa-lg"></i>
+                <translate>You can check the list of all Bonita REST API resources on this dedicated <a
+                    href="https://api-documentation.bonitasoft.com/latest/">documentation</a>
+                </translate>
             </div>
         </div>
         <div class="modal-footer">
