@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-03-04 02:28\n"
+"PO-Revision-Date: 2023-03-08 12:31\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -190,8 +190,14 @@ msgstr "<span class=\"tip\"> Astuce :</span> Les paramètres d'URL se situent ap
 msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 msgstr "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 
+msgid "<span translate>Value <i class=\"fa fa-question-circle fa-lg\" title=\"{{'The resources on completion are not exhaustive. You can set any other value.'| translate}}\"> </i> </span>"
+msgstr ""
+
 msgid "<span>Create a new variable</span>"
 msgstr "<span>Créer une nouvelle variable</span>"
+
+msgid "<span>Declare Bonita resource</span>"
+msgstr ""
 
 msgid "<strong>$collection</strong>: the current collection"
 msgstr "<strong>$collection</strong> : la collection courante"
@@ -356,6 +362,12 @@ msgstr "Tous les <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\
 msgid "All process data of a case: Search for a list of case variables"
 msgstr "Toutes les données de processus d'un cas : rechercher une liste des variables d'un cas"
 
+msgid "Already adding from automatic detection, could be deleted"
+msgstr ""
+
+msgid "Already declared from another automatic declaration, could be deleted"
+msgstr ""
+
 msgid "Alternate text"
 msgstr "Texte alternatif"
 
@@ -473,6 +485,9 @@ msgstr "A l'exécution, les assets d'un widget personnalisé sont chargés dans 
 msgid "Attention:"
 msgstr "Attention :"
 
+msgid "Automatic detection"
+msgstr ""
+
 msgid "Automatically assign the Task to the current user before the execution"
 msgstr "Assigner automatiquement la tâche à l'utilisateur actuel avant l'exécution"
 
@@ -536,8 +551,20 @@ msgstr "Bonita API"
 msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
-msgid "Bonita REST API calls"
-msgstr "Appels vers la REST API Bonita"
+msgid "Bonita Resource is declared automatically"
+msgstr ""
+
+msgid "Bonita Resource is declared manually from user"
+msgstr ""
+
+msgid "Bonita Resources"
+msgstr ""
+
+msgid "Bonita resource"
+msgstr ""
+
+msgid "Bonita resources"
+msgstr ""
 
 msgid "Bordered"
 msgstr "Avec bordure"
@@ -863,6 +890,12 @@ msgstr "Objets Date"
 msgid "Decimal separator"
 msgstr "Séparateur décimal"
 
+msgid "Declaration"
+msgstr ""
+
+msgid "Declare a Bonita resource"
+msgstr ""
+
 msgid "Default"
 msgstr "Défaut"
 
@@ -895,6 +928,9 @@ msgstr "Définit l'URL cible dans laquelle le fichier sera chargé"
 
 msgid "Delete"
 msgstr "Supprimer"
+
+msgid "Delete Bonita resource"
+msgstr ""
 
 msgid "Delete asset"
 msgstr "Supprimer l'asset"
@@ -995,6 +1031,9 @@ msgstr "Chaque type de container a des comportements spécifiques"
 
 msgid "Edit"
 msgstr "Modifier"
+
+msgid "Edit Bonita resource"
+msgstr ""
 
 msgid "Edit asset"
 msgstr "Modifier l'asset"
@@ -1130,6 +1169,9 @@ msgstr "Pour les requêtes HTTP, les méthodes suivantes sont supportées :"
 
 msgid "For Instance to let users save the draft of the current form:"
 msgstr "Par exemple pour permettre aux utilisateurs d'enregistrer le formulaire en cours d'édition :"
+
+msgid "For UI Designer artifacts, the Bonita REST API resources are exported in the page.properties files. Those resources are used at deployment to grant permission to those REST API to users with access to this page."
+msgstr ""
 
 msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
 msgstr "Pour une réponse en cas d'erreur, la valeur du message est « erreur » et la propriété <em>dataFromSuccess</em> est remplacée par une propriété <em>dataFromError</em>"
@@ -1303,6 +1345,9 @@ msgid "However, such a redirection of the current window (frame) won't be perfor
 msgstr "Cependant, telle une redirection de la fenêtre active (frame) ne sera pas effectuée dans Bonita Portal ni dans un iframe d'application avec l'id <em>bonitaframe</em> (comme dans le layout d’application par défaut). Cela est dû au fait que Bonita Portal et le layout d'application par défaut gèrent la réponse en cas de succès par eux-mêmes."
 
 msgid "Html template update"
+msgstr ""
+
+msgid "Http verb"
 msgstr ""
 
 msgid "Human task form"
@@ -1614,6 +1659,9 @@ msgstr "Assurez-vous que la valeur pour le format technique de date/heure et ses
 msgid "Malformed json file"
 msgstr "Le fichier json n'a pas le bon format"
 
+msgid "Manual detection"
+msgstr ""
+
 msgid "Mark as favorite"
 msgstr "Ajouter à mes favoris"
 
@@ -1734,6 +1782,9 @@ msgstr "Aucun artefact."
 msgid "No variable"
 msgstr "Aucune variable"
 
+msgid "No web resources"
+msgstr ""
+
 msgid "No {{label}} asset (no scope selected)."
 msgstr "Aucun asset {{label}} (aucun périmètre sélectionné)."
 
@@ -1853,6 +1904,9 @@ msgstr "Cadre parent (_parent)"
 
 msgid "Perform an HTTP request"
 msgstr "Effectue une requête HTTP"
+
+msgid "Permissions to access Bonita platform’s REST API resources are handled by a configurable authorizations mechanism, see the online documentation for more details."
+msgstr ""
 
 msgid "Pie"
 msgstr "Secteurs"
@@ -2366,6 +2420,9 @@ msgstr "Le UI Designer génère <b>du code html standard basé sur AngularJS</b>
 msgid "The UI Designer is displayed in the language of your Bonita Studio."
 msgstr "Le UI Designer s’affiche dans la langue de votre Bonita Studio."
 
+msgid "The automatic detection is now more explicit, and you can see in your artifact which REST API resources is needed from the newest Bonita Resource panel."
+msgstr ""
+
 msgid "The caption will be displayed as such below the property label."
 msgstr "La légende s'affiche comme telle sous le libellé de la propriété."
 
@@ -2445,6 +2502,9 @@ msgstr "La position du symbole monétaire"
 
 msgid "The property <em>Value to add</em> can either be a JavaScript Object or a String depending on the format expected for the collection you are building."
 msgstr "La propriété <em>Valeur à ajouter</em> peut être un objet JavaScript ou un String selon le format prévu pour la collection que vous créez."
+
+msgid "The resources on completion are not exhaustive. You can set any other value."
+msgstr ""
 
 msgid "The scale labels for the x-axis for line and bar charts, ray labels for a radar chart, sector labels for single set charts"
 msgstr "Les libellés de l'axe des abscisses pour les graphiques de type courbes et colonnes, des rayons pour un graphique de type radar et des secteurs pour les graphiques simples"
@@ -2844,6 +2904,9 @@ msgstr "Erreur de validation. Corrigez avant d'exporter"
 msgid "Value"
 msgstr "Valeur"
 
+msgid "Value <i class=\"fa fa-question-circle fa-lg\" title=\"{{'The resources on completion are not exhaustive. You can set any other value.'| translate}}\"> </i>"
+msgstr ""
+
 msgid "Value Format"
 msgstr "Format de la Valeur"
 
@@ -2886,6 +2949,9 @@ msgstr "Variables"
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr "Les variables peuvent être liées aux différents champs pour créer un comportement conditionnel entre les propriétés des widgets."
 
+msgid "Verb"
+msgstr ""
+
 msgid "Vertical display"
 msgstr "Affichage vertical"
 
@@ -2922,6 +2988,9 @@ msgstr "Lorsque le tableau table est affiché, chaque fois que l'utilisateur met
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Lorsque vous supprimez une ligne, les lignes suivantes se déplacent vers le haut"
+
+msgid "When you drag and drop a widget or a fragment, some Bonita resources are automatically found and added in the Bonita resource table. The <code>scopes</code> column of the Bonita resources table helps you identify what artifact declare a given resource."
+msgstr ""
 
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
 msgstr "Lorsque vous générez un formulaire à partir d'un contrat dans le studio, il contient un bouton \"Submit\" et 4 variables par défaut : <code>formInput</code>, <code>formOutput</code>, <code>taskId</code> et <code>context</code>"
@@ -2998,6 +3067,12 @@ msgstr "Le formatage de variables par filtres est possible dans les champs de pr
 msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
 msgstr "Vous pouvez regrouper des widgets dans un container pour gérer leur disposition dans un formulaire ou une page. Un container peut contenir d'autres containers."
 
+msgid "You can manually declare the Bonita REST API resources which you're using in your artifact when the automatic detection fails to found them."
+msgstr ""
+
+msgid "You can manually declare the Bonita REST API resources which you're using in your artifact when the automatic detection fails to found them. You need to select an HTTP Verb, and type/choose the REST API on the value field. This Bonita resource will export in page.properties files."
+msgstr ""
+
 msgid "You can only edit the query filters and pagination."
 msgstr "Vous ne pouvez modifier que les filtres de requête et la pagination."
 
@@ -3055,6 +3130,9 @@ msgstr "Vous avez des modifications non enregistrées. Voulez-vous vraiment quit
 msgid "You need to use this following css selector in your theme.css file:"
 msgstr "Vous devez utiliser le sélecteur css suivant dans votre fichier theme.css :"
 
+msgid "You should always declare the resource on the most atomic artifact (in fragment, if the resource is used in a fragment, in a custom widget, or at page level)"
+msgstr ""
+
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Vous devriez créer le formulaire de processus à partir du Studio : dans le pool ou la tâche humaine adéquate, créez un contrat et lancez le UI Designer. Le formulaire sera automatiquement généré, basé sur le contrat et éditable pour sa finalisation."
 
@@ -3075,6 +3153,9 @@ msgstr "_self"
 
 msgid "added"
 msgstr "ajoutée"
+
+msgid "already exists"
+msgstr ""
 
 msgid "artifact"
 msgstr "artefact"
@@ -3267,6 +3348,9 @@ msgstr "Informations de {{ctrl.page.name}}"
 
 msgid "{{currentLength}} of {{totalNumber}}"
 msgstr "{{currentLength}} de {{totalNumber}}"
+
+msgid "{{filter.label}}"
+msgstr ""
 
 msgid "{{filter.value}}"
 msgstr "{{filter.value}}"
