@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-03-09 15:55\n"
+"PO-Revision-Date: 2023-03-10 04:04\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -59,7 +59,7 @@ msgstr "<b>El botón <em>Hoy</em></b> establece la fecha actual del usuario como
 "             En ese caso, redondea hacia arriba o abajo el valor más cercano en 5 minutos."
 
 msgid "<b>Checklist and Radiobuttons</b> internal HTML have been updated to follow some accessibility recommendation"
-msgstr ""
+msgstr "<b>Lista de control y Radiobuttons</b> HTML interno han sido actualizados para seguir algunas recomendaciones de accesibilidad"
 
 msgid "<b>Note</b>: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
 msgstr "<b>Nota</b>: Los assets de widget personalizado sólo son editables en el editor de widget. No puede modificarlos a nivel de página para evitar efectos secundarios en otras páginas. Así que si desea reordenar los assets de widget personalizado, por favor vaya al editor de widget."
@@ -196,7 +196,7 @@ msgid "<span>Create a new variable</span>"
 msgstr "<span>Crear una nueva variable</span>"
 
 msgid "<span>Declare Bonita resource</span>"
-msgstr ""
+msgstr "<span>Declarar recurso Bonita</span>"
 
 msgid "<strong>$collection</strong>: the current collection"
 msgstr "<strong>$collection</strong>: la colección actual"
@@ -292,7 +292,7 @@ msgid "Access to $form capabilities for form container"
 msgstr "Acceso a capacidades $form desde el contenedor de formularios"
 
 msgid "Accessibility"
-msgstr ""
+msgstr "Accesibilidad"
 
 msgid "Action"
 msgstr "Acción"
@@ -362,10 +362,10 @@ msgid "All process data of a case: Search for a list of case variables"
 msgstr "Datos de proceso de un caso:  Buscar con una lista de variables de caso"
 
 msgid "Already adding from automatic detection, could be deleted"
-msgstr ""
+msgstr "Ya añadiendo desde detección automática, se pudo eliminar"
 
 msgid "Already declared from another automatic declaration, could be deleted"
-msgstr ""
+msgstr "Ya declarado de otra declaración automática, podría ser eliminado"
 
 msgid "Alternate text"
 msgstr "Texto alternativo"
@@ -384,7 +384,7 @@ msgid "An artifact designed with the UI Designer can be exported to be shared wi
 msgstr "Un artefacto diseñado con el UI Designer puede ser exportado para ser compartido con compañeros de equipo (importar desde el UI Designer) o utilizado en aplicaciones de negocio (importar desde Bonita Portal)."
 
 msgid "An attribute <code>lang</code> is now available. The attribute is based on the <code>BOS_locale</code> cookies at page initialization and will automatically get filled without any user action."
-msgstr ""
+msgstr "Un atributo <code>lang</code> ya está disponible. El atributo se basa en las cookies <code>BOS_locale</code> en la inicialización de la página y se rellenará automáticamente sin ninguna acción del usuario."
 
 msgid "An errors occurs during migration."
 msgstr "Ha ocurrido un error durante la validación."
@@ -485,7 +485,7 @@ msgid "Attention:"
 msgstr "Atención:"
 
 msgid "Automatic detection"
-msgstr ""
+msgstr "Detección automática"
 
 msgid "Automatically assign the Task to the current user before the execution"
 msgstr "Asignar automáticamente la tarea al usuario actual antes de la ejecución"
@@ -551,16 +551,16 @@ msgid "Bonita BPM"
 msgstr "Bonita BPM"
 
 msgid "Bonita Resource is automatically declared"
-msgstr ""
+msgstr "El recurso Bonita se declara automáticamente"
 
 msgid "Bonita Resource manually declared by user"
-msgstr ""
+msgstr "Recursos de Bonita declarados manualmente por el usuario"
 
 msgid "Bonita resource"
-msgstr ""
+msgstr "Recursos de Bonita"
 
 msgid "Bonita resources"
-msgstr ""
+msgstr "Recursos de Bonita"
 
 msgid "Bordered"
 msgstr "Bordeado"
@@ -887,10 +887,10 @@ msgid "Decimal separator"
 msgstr "Separador de decimales"
 
 msgid "Declaration"
-msgstr ""
+msgstr "Declaración"
 
 msgid "Declare a Bonita resource"
-msgstr ""
+msgstr "Declarar recurso Bonita"
 
 msgid "Default"
 msgstr "Por defecto"
@@ -926,7 +926,7 @@ msgid "Delete"
 msgstr "Eliminar"
 
 msgid "Delete Bonita resource"
-msgstr ""
+msgstr "Declarar recurso Bonita"
 
 msgid "Delete asset"
 msgstr "Borra el recurso"
@@ -941,7 +941,7 @@ msgid "Describes the property"
 msgstr "Describe la propiedad"
 
 msgid "Describing the content of a data table. To be accessible the description must be relevant (clear and concise)."
-msgstr ""
+msgstr "Describir el contenido de una tabla de datos. Para ser accesible, la descripción debe ser relevante (clara y concisa)."
 
 msgid "Description"
 msgstr "Descripción"
@@ -1029,7 +1029,7 @@ msgid "Edit"
 msgstr "Editar"
 
 msgid "Edit Bonita resource"
-msgstr ""
+msgstr "Editar recurso Bonita"
 
 msgid "Edit asset"
 msgstr "Actualizar recurso"
@@ -1167,7 +1167,7 @@ msgid "For Instance to let users save the draft of the current form:"
 msgstr "Por ejemplo para permitir a los usuarios guardar el borrador del formulario actual:"
 
 msgid "For UI Designer artifacts, the Bonita REST API resources are exported in the page.properties files. Those resources are used at deployment to grant permission to those REST API to users having access to this page."
-msgstr ""
+msgstr "Para los artefactos de UI Designer, los recursos de Bonita REST API se exportan en los archivos page.properties. Esos recursos se utilizan en el despliegue para conceder permiso a esos API REST a los usuarios que tengan acceso a esta página."
 
 msgid "For an error response, the message value is 'error' and the property <em>dataFromSuccess</em> is replaced by a property <em>dataFromError</em>"
 msgstr "Para una respuesta de error, el valor del mensaje es 'error' y la propiedad <em>dataFromSuccess</em> se sustituye por una propiedad <em>dataFromError</em>"
@@ -1341,10 +1341,10 @@ msgid "However, such a redirection of the current window (frame) won't be perfor
 msgstr "Sin embargo, tal redirección de la ventana actual (frame) no se realizará en el portal de Bonita ni en un iframe de una aplicación con id <em>bonitaframe</em> (como en el layout de las aplicaciones por defecto). Esto es debido a que el Bonita Portal y el layout por defecto de las aplicaciones manejan la respuesta exitosa por sí mismos."
 
 msgid "Html template update"
-msgstr ""
+msgstr "Actualización de plantilla Html"
 
 msgid "Http verb"
-msgstr ""
+msgstr "Verbo Http"
 
 msgid "Human task form"
 msgstr "Formulario de tarea humana"
@@ -1656,7 +1656,7 @@ msgid "Malformed json file"
 msgstr "Archivo json con formato incorrecto"
 
 msgid "Manual detection"
-msgstr ""
+msgstr "Detección manual"
 
 msgid "Mark as favorite"
 msgstr "Marcar como favorito"
@@ -1779,7 +1779,7 @@ msgid "No variable"
 msgstr "Sin variables"
 
 msgid "No web resources"
-msgstr ""
+msgstr "No hay recursos web"
 
 msgid "No {{label}} asset (no scope selected)."
 msgstr "No hay {{label}} asset (no se ha seleccionado ningún ámbito)."
@@ -1902,7 +1902,7 @@ msgid "Perform an HTTP request"
 msgstr "Llevar a cabo una petición HTTP"
 
 msgid "Permissions to access Bonita platform’s REST API resources are handled by a configurable authorization mechanism, check Bonita documentation for more details."
-msgstr ""
+msgstr "Los permisos para acceder a los recursos de la API REST de la plataforma Bonita son manejados por un mecanismo de autorización configurable, compruebe la documentación de Bonita para más detalles."
 
 msgid "Pie"
 msgstr "Pie"
@@ -1923,7 +1923,7 @@ msgid "Preview - {{pageName}}"
 msgstr "Vista previa - {{pageName}}"
 
 msgid "Preview of"
-msgstr ""
+msgstr "Vista previa de"
 
 msgid "Process document"
 msgstr "Documento de proceso"
@@ -2185,7 +2185,7 @@ msgid "Small devices (width ≥ 768px)"
 msgstr "Pequeños dispositivos (tamaño ≥ 768px)"
 
 msgid "Some improvements for <b>Accessibility</b> will help you design and generate digitally accessible pages, forms or applications (for example: computer screen readers)."
-msgstr ""
+msgstr "Algunas mejoras para <b>Accesibilidad</b> le ayudarán a diseñar y generar páginas, formularios o aplicaciones de acceso digital (por ejemplo: lectores de pantalla de computadora)."
 
 msgid "Some option can be disabled because the source value type is not compatible with target property type."
 msgstr "Alguna opción puede desactivarse porque el tipo de valor de origen no es compatible con el tipo de propiedad de destino."
@@ -2341,7 +2341,7 @@ msgid "Table"
 msgstr "Tabla"
 
 msgid "Table and Data table widget have a new <code>caption</code> property available for adding a title"
-msgstr ""
+msgstr "El widget de tabla y tabla de datos tienen una nueva propiedad <code>caption</code> disponible para agregar un título"
 
 msgid "Table with pagination and filtering capabilities"
 msgstr "Tabla con capacidad de filtrado y paginación"
@@ -2417,13 +2417,13 @@ msgid "The UI Designer is displayed in the language of your Bonita Studio."
 msgstr "El UI Desginer se muestra en el idioma de tu Bonita Studio."
 
 msgid "The automatic detection allows you to see explicitly which REST API resources is needed in your artifact from the newest Bonita Resource panel."
-msgstr ""
+msgstr "La detección automática le permite ver explícitamente qué recursos de la API REST son necesarios en su artefacto desde el panel de Recursos de Bonita más reciente."
 
 msgid "The caption will be displayed as such below the property label."
 msgstr "El título se mostrará como tal debajo de la etiqueta de propiedad."
 
 msgid "The changes will automatically be available when changing a page in Bonita UI Designer <2023.1> developed with a previous Bonita UI Designer version. Custom styling could be impacted so take this fact into account in your development estimates.</2023.1>"
-msgstr ""
+msgstr "Los cambios estarán disponibles automáticamente al cambiar una página en Bonita UI Designer <2023.1> desarrollado con una versión anterior de Bonita UI Designer. El estilo personalizado puede ser impactado, así que tenga en cuenta este hecho en sus estimaciones de desarrollo.</2023.1>"
 
 msgid "The character separator to the fraction"
 msgstr "El separador de caracteres para la fracción"
@@ -2444,7 +2444,7 @@ msgid "The default application layout will retrieve the <em>Target URL on succes
 msgstr "El layout por defecto de la aplicación recupera la <em>Dirección URL de destino en éxito</em> que fue enviada en el mensaje y establece su ubicación de la ventana con ella."
 
 msgid "The default widgets in the palette that contain a html <code>input</code> tag have now an associated label, which will facilitate the use of computer tools (screen readers for example)"
-msgstr ""
+msgstr "Los widgets por defecto en la paleta que contienen una etiqueta html <code>input</code> tienen ahora una etiqueta asociada, que facilitará el uso de herramientas informáticas (lectores de pantalla por ejemplo)"
 
 msgid "The display of dates and times relies on the user's browser time zone. Therefore, displayed values are different from stored values (except in the GMT time zone)."
 msgstr "La muestra de fechas y horas depende de la zona horaria del navegador del usuario. Por lo tanto, los valores difieren de los valores almacenados (excepto en la zona horaria GMT)."
@@ -2453,7 +2453,7 @@ msgid "The following documentation applies if you need to handle the behavior on
 msgstr "La siguiente documentación se aplica si se necesita manejar el comportamiento en el éxito (por ejemplo, si se construye su propia lista de tareas o cualquier página con un iframe para mostrar formularios)."
 
 msgid "The following improvements have been made so that digitally accessible applications could be developed natively with Bonita UI Designer with less custom code:"
-msgstr ""
+msgstr "Se han realizado las siguientes mejoras para que las aplicaciones digitalmente accesibles puedan desarrollarse nativamente con Bonita UI Designer con un código menos personalizado:"
 
 msgid "The hex codes for the sector colors for single set charts, or for the set colors for multiple set charts. If not specified, default colors are used"
 msgstr "Códigos hexadecimales de los colores del sector para las gráficas simples, o de los colores establecidos para las gráficas múltiples. Si no se especifica, se utilizan los colores por defecto"
@@ -2500,7 +2500,7 @@ msgid "The property <em>Value to add</em> can either be a JavaScript Object or a
 msgstr "La propiedad <em>Valor a agregar</em> puede ser un objeto de JavaScript o un String dependiendo del formato esperado de la colección que está construyendo."
 
 msgid "The resources on completion are not exhaustive. You can set any other value."
-msgstr ""
+msgstr "Los recursos a completar no son exhaustivos. Puede establecer cualquier otro valor."
 
 msgid "The scale labels for the x-axis for line and bar charts, ray labels for a radar chart, sector labels for single set charts"
 msgstr "Etiquetas del eje-x para gráficas de línea y de barras, etiquetas de rayo para un gráfico de radar, etiquetas de sector para gráficas simples"
@@ -2617,7 +2617,7 @@ msgid "To avoid them being overwritten, <i>rename</i> them before you import."
 msgstr "Para evitar que se sobrescriban, <i>renombre</i> ellos antes de importarlos."
 
 msgid "To be more accessible for speech synthesizers, screen readers or some other tools, the internal html template of checklist and radio buttons widget has been updated."
-msgstr ""
+msgstr "Para ser más accesible para sintetizadores de voz, lectores de pantalla u otras herramientas, la plantilla HTML interna de los botones de lista de verificación y radio ha sido actualizada."
 
 msgid "To close a modal window, put a button inside the modal that you wish to close and select the <em>Close\n"
 "            modal</em> action."
@@ -2760,7 +2760,7 @@ msgid "Type"
 msgstr "Tipo"
 
 msgid "UI Designer <span ng-if=\"isExperimentalMode()\">(Experimental)</span>"
-msgstr ""
+msgstr "Diseñador de interfaz de usuario <span ng-if=\"isExperimentalMode()\">(Experimental)</span>"
 
 msgid "URL"
 msgstr "URL"
@@ -2820,7 +2820,7 @@ msgid "Use <b>widgets</b> from the palette on the left to <b>display information
 msgstr "Usa los <b>widgets</b> de la paleta de la izquierda para <b>mostrar información</b> y <b>recopilar información</b> de los usuarios finales."
 
 msgid "Use <code>legend</code> tag instead <code>label</code>"
-msgstr ""
+msgstr "Usa la etiqueta <code>leyenda</code> en su lugar <code>etiqueta</code>"
 
 msgid "Use <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
 msgstr "Utilice <span ng-non-bindable>{{dataVariable}}</span> para acceder a los datos, y <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\"> filtros</a> para formatearlos (ej. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)"
@@ -2943,7 +2943,7 @@ msgid "Variables can be bound to input fields to create conditional behavior bet
 msgstr "Las variables pueden estar enlazadas a los campos de entrada para crear un comportamiento condicional entre las propiedades del widget."
 
 msgid "Verb"
-msgstr ""
+msgstr "Verbo"
 
 msgid "Vertical display"
 msgstr "Display Vertical"
@@ -2983,7 +2983,7 @@ msgid "When you delete a row, the following rows move up"
 msgstr "Cuando se elimina una fila, las siguientes filas suben"
 
 msgid "When you drag and drop a widget or a fragment, some Bonita resources are automatically found and added in the Bonita resource table. The <code>scopes</code> column of the Bonita resources table helps you identify what artifact declare a given resource."
-msgstr ""
+msgstr "Cuando arrastra y suelta un widget o un fragmento, algunos recursos de Bonita se encuentran automáticamente y se agregan en la tabla de recursos de Bonita. La columna de <code>alcances</code> de la tabla de recursos de Bonita te ayuda a identificar qué artefacto declara un recurso determinado."
 
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
 msgstr "Cuando se genera un formulario desde un contrato en el Studio, el formulario contiene un botón Enviar y algunas variables predeterminadas: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code> y <code>context</code>"
@@ -3043,7 +3043,7 @@ msgid "You can change the type to be able to use this artifact as a process form
 msgstr "Puede cambiar el tipo para poder usar este artefacto como un formulario de proceso o como una página de aplicación."
 
 msgid "You can check the list of all Bonita REST API resources on this dedicated <a href=\"https://api-documentation.bonitasoft.com/latest/\">documentation</a>"
-msgstr ""
+msgstr "Puede revisar la lista de todos los recursos de la API de Bonita REST en esta <a href=\"https://api-documentation.bonitasoft.com/latest/\">documentación</a> dedicada"
 
 msgid "You can delete page assets only, view local assets, and edit external assets of a page."
 msgstr "Puede eliminar sólo assets de página, ver assets locales y editar assets externos de una página."
@@ -3064,10 +3064,10 @@ msgid "You can group widgets into a container to define the arrangement of widge
 msgstr "Se pueden agrupar widgets en un contenedor para definir la disposición de los widgets en un formulario o en una página. Un fragmento puede contener otros contenedores."
 
 msgid "You can manually declare the Bonita REST API resources which you're using in your artifact when the automatic detection fails to found them."
-msgstr ""
+msgstr "Puede declarar manualmente los recursos de la API Bonita REST que está utilizando en su artefacto cuando la detección automática no los encuentra."
 
 msgid "You can manually declare the Bonita REST API resources which you're using in your artifact when the automatic detection fails to found them. You need to select an HTTP Verb, and type/choose the REST API on the value field. This Bonita resource will export in page.properties files."
-msgstr ""
+msgstr "Puede declarar manualmente los recursos de la API Bonita REST que está utilizando en su artefacto cuando la detección automática no los encuentra. Necesita seleccionar un verbo HTTP, y escribir/elegir la API REST en el campo de valor. Este recurso Bonita exportará en los archivos page.properties."
 
 msgid "You can only edit the query filters and pagination."
 msgstr "Sólo puede editar los filtros de consulta y la paginación."
@@ -3127,7 +3127,7 @@ msgid "You need to use this following css selector in your theme.css file:"
 msgstr "Necesita utilisar el siguiente selector css en su fichero \"theme.css\":"
 
 msgid "You should always declare the resource on the most atomic artifact (in fragment, if the resource is used in a fragment, in a custom widget, or at page level)"
-msgstr ""
+msgstr "Siempre debes declarar el recurso en el artefacto más atómico (en fragmento, si el recurso se utiliza en un fragmento, en un widget personalizado, o a nivel de página)"
 
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desde la Pool apropiada o tarea humana, crear un contrato y ejecutar el UI Designer. Se auto-generará un formulario concreto para poder editar."
@@ -3151,7 +3151,7 @@ msgid "added"
 msgstr "añadido"
 
 msgid "already exists"
-msgstr ""
+msgstr "ya existe"
 
 msgid "artifact"
 msgstr "artefacto"
@@ -3346,7 +3346,7 @@ msgid "{{currentLength}} of {{totalNumber}}"
 msgstr "{{currentLength}} de {{totalNumber}}"
 
 msgid "{{filter.label}}"
-msgstr ""
+msgstr "{{filter.label}}"
 
 msgid "{{filter.value}}"
 msgstr "{{filter.value}}"
