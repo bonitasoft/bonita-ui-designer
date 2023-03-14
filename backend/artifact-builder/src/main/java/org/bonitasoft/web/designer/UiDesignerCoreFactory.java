@@ -1,7 +1,11 @@
 package org.bonitasoft.web.designer;
 
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import static org.bonitasoft.web.designer.migration.Version.INITIAL_MODEL_VERSION;
+
+import java.util.List;
+
+import javax.validation.Validation;
+
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
@@ -17,7 +21,19 @@ import org.bonitasoft.web.designer.migration.SplitWidgetResourcesMigrationStep;
 import org.bonitasoft.web.designer.migration.StyleAddModalContainerPropertiesMigrationStep;
 import org.bonitasoft.web.designer.migration.StyleAssetMigrationStep;
 import org.bonitasoft.web.designer.migration.StyleUpdateInputRequiredLabelMigrationStep;
-import org.bonitasoft.web.designer.migration.page.*;
+import org.bonitasoft.web.designer.migration.page.AccessibilityCheckListAndRadioButtonsMigrationStep;
+import org.bonitasoft.web.designer.migration.page.AutocompleteWidgetReturnedKeyMigrationStep;
+import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
+import org.bonitasoft.web.designer.migration.page.BusinessVariableMigrationStep;
+import org.bonitasoft.web.designer.migration.page.DataToVariableMigrationStep;
+import org.bonitasoft.web.designer.migration.page.DynamicTabsContainerMigrationStep;
+import org.bonitasoft.web.designer.migration.page.PageUUIDMigrationStep;
+import org.bonitasoft.web.designer.migration.page.SetInterpretHtmlTrueMigrationStep;
+import org.bonitasoft.web.designer.migration.page.TableWidgetInterpretHTMLMigrationStep;
+import org.bonitasoft.web.designer.migration.page.TableWidgetStylesMigrationStep;
+import org.bonitasoft.web.designer.migration.page.TextWidgetInterpretHTMLMigrationStep;
+import org.bonitasoft.web.designer.migration.page.TextWidgetLabelMigrationStep;
+import org.bonitasoft.web.designer.migration.page.UIBootstrapAssetMigrationStep;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
@@ -38,12 +54,17 @@ import org.bonitasoft.web.designer.service.DefaultWidgetService;
 import org.bonitasoft.web.designer.service.FragmentMigrationApplyer;
 import org.bonitasoft.web.designer.service.PageMigrationApplyer;
 import org.bonitasoft.web.designer.service.WidgetMigrationApplyer;
-import org.bonitasoft.web.designer.visitor.*;
+import org.bonitasoft.web.designer.visitor.AssetVisitor;
+import org.bonitasoft.web.designer.visitor.ComponentVisitor;
+import org.bonitasoft.web.designer.visitor.FragmentChangeVisitor;
+import org.bonitasoft.web.designer.visitor.FragmentIdVisitor;
+import org.bonitasoft.web.designer.visitor.PageHasValidationErrorVisitor;
+import org.bonitasoft.web.designer.visitor.VisitorFactory;
+import org.bonitasoft.web.designer.visitor.WebResourcesVisitor;
+import org.bonitasoft.web.designer.visitor.WidgetIdVisitor;
 
-import javax.validation.Validation;
-import java.util.List;
-
-import static org.bonitasoft.web.designer.migration.Version.INITIAL_MODEL_VERSION;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Slf4j
@@ -108,7 +129,7 @@ public class UiDesignerCoreFactory {
         var pageAssetService = new AssetService<>(pageRepository, pageAssetRepository, pageAssetDependencyImporter);
 
         final var componentVisitor = new ComponentVisitor(fragmentRepository);
-        List<Migration<Fragment>> fragmentMigrationStepsList = List.of(
+        List<Migration<Fragment>> fragmentMigrationStepsList = List.<Migration<Fragment>>of(
                 new Migration<>("1.0.3", new BondMigrationStep<>(componentVisitor, widgetRepository, new VisitorFactory())),
                 new Migration<>("1.7.25", new TextWidgetInterpretHTMLMigrationStep<>(componentVisitor)),
                 new Migration<>("1.9.24", new TextWidgetLabelMigrationStep<>(componentVisitor)),
@@ -123,7 +144,7 @@ public class UiDesignerCoreFactory {
                 new Migration<>("2.4", new AccessibilityCheckListAndRadioButtonsMigrationStep(componentVisitor))
         );
 
-        List<Migration<Page>> pageMigrationStepsList = List.of(
+        List<Migration<Page>> pageMigrationStepsList = List.<Migration<Page>>of(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<>()),
                 new Migration<>("1.0.3", new BondMigrationStep<>(componentVisitor, widgetRepository, new VisitorFactory())),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<>()),
@@ -146,7 +167,7 @@ public class UiDesignerCoreFactory {
                 new Migration<>("2.4", new AccessibilityCheckListAndRadioButtonsMigrationStep(componentVisitor))
         );
 
-        List<Migration<Widget>> widgetMigrationStepsList = List.of(
+        List<Migration<Widget>> widgetMigrationStepsList = List.<Migration<Widget>>of(
                 new Migration<>("1.0.2", new AssetIdMigrationStep<>()),
                 new Migration<>("1.2.9", new AssetExternalMigrationStep<>()),
                 new Migration<>("1.10.12", new SplitWidgetResourcesMigrationStep()),

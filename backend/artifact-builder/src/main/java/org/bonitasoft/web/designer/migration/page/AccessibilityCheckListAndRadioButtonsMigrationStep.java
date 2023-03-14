@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Bonitasoft S.A.
+ * Copyright (C) 2023 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,18 +15,15 @@
 
 package org.bonitasoft.web.designer.migration.page;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
+
 import org.bonitasoft.web.designer.migration.AbstractMigrationStep;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.AbstractPage;
 import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.PropertyValue;
-import org.bonitasoft.web.designer.model.widget.BondType;
 import org.bonitasoft.web.designer.visitor.ComponentVisitor;
 
-import java.util.Optional;
-
-import static java.lang.String.format;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class AccessibilityCheckListAndRadioButtonsMigrationStep<T extends AbstractPage> extends AbstractMigrationStep<T> {
@@ -42,7 +39,7 @@ public class AccessibilityCheckListAndRadioButtonsMigrationStep<T extends Abstra
         try {
             for (Component component : page.accept(componentVisitor)) {
                 if (isProvidedCheckListOrRadiobuttonsWidget(component.getId())) {
-                    var msg = format("Internal HTML template for Checklist and Radiobuttons have been update. Please check your css selector if you apply some custom style on theses widgets. You can find more details in Editor > Help > Migration section.");
+                    var msg = "Internal HTML template for Checklist and Radiobuttons have been update. Please check your css selector if you apply some custom style on theses widgets. You can find more details in Editor > Help > Migration section.";
                     log.info("[MIGRATION] [{}] {}", page.getName(),msg);
                     return Optional.of(MigrationStepReport.warningMigrationReport(page.getName(), msg, this.getClass().getName()));
                 }
