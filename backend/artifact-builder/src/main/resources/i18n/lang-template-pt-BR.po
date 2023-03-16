@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61813\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-03-04 02:31\n"
+"PO-Revision-Date: 2023-03-16 02:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -222,7 +222,7 @@ msgid "A TabsContainer is a container that has multiple panes, but shows only on
 msgstr "Um TabsContainer é um container que possui vários painéis, mas mostra apenas um painel de cada vez."
 
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
-msgstr ""
+msgstr "Uma associação é dinâmica, então toda vez que os dados são alterados, todas as variáveis são reavaliadas e a ‘interface’ do usuário é atualizada. Em consequência:"
 
 msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object."
 msgstr "Um assistente de configuração aparece: crie uma variável de dados de negócio fornecendo informações sobre como recuperar elementos deste objeto de negócio."
@@ -258,10 +258,10 @@ msgid "A single entry will be created in the LocalStorage identified by the form
 msgstr "Uma entrada única será criada no LocalStorage identificado pela URL do formulário."
 
 msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
-msgstr ""
+msgstr "Uma variável inicializada com uma expressão JavaScript é executada quando a página é carregada. Então, quando uma de suas dependências muda, seu valor é atualizado. Dependências são criadas usando <code>$data.XXX</code>."
 
 msgid "A variable initialized with an External API is reloaded every time the URL value changes."
-msgstr ""
+msgstr "Uma variável inicializada com uma API Externa é recarregada toda vez que o valor da URL muda."
 
 msgid "A variable that contains a JSON array (single set) or JSON array of arrays (multiple sets) where each array is a set. The data can be obtained by a BDM query, API call (default or extension), or JavaScript that retrieves and formats external data"
 msgstr "Uma variável que contém um array JSON (conjunto único) ou matriz JSON de matrizes (vários conjuntos) onde cada array é um conjunto. Os dados podem ser obtidos por uma consulta BDM, chamada de API (padrão ou extensão), ou JavaScript que recupera e formata dados externos"
@@ -760,7 +760,7 @@ msgid "Create a user interface to handle \"{{ctrl.businessData.name}}\""
 msgstr "Criar uma interface de usuário para lidar com \"{{ctrl.businessData.name}}\""
 
 msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
-msgstr ""
+msgstr "Crie uma variável aqui. Usar a variável em uma propriedade de widget depende do tipo de valor da propriedade, descrito na ajuda geral do editor de páginas, na seção <i>Propriedades</i>."
 
 msgid "Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type, described in the next section."
 msgstr "Crie uma variável no painel inferior. O uso de uma variável em uma propriedade de widget depende do tipo de propriedade descrita na próxima seção."
@@ -876,7 +876,7 @@ msgid "Default value"
 msgstr "Valor padrão"
 
 msgid "Default variables"
-msgstr ""
+msgstr "Variáveis padrão"
 
 msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
 msgstr "Defina uma condição para a visibilidade da widget, <em>userAge &gt; 18</em>"
@@ -1484,7 +1484,7 @@ msgid "It is possible to deactivate the animation when the modal appears. The ma
 msgstr "É possível desativar a animação quando o modal aparece. O uso principal desta opção seria criar um assistente, onde vários containers modais são exibidos em uma sequência."
 
 msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API variable with value"
-msgstr ""
+msgstr "Ele fornece referências a todas as variáveis de negócios e documentos na instância de processo (caso). Para recuperar uma instância de variável de negócio, crie uma variável de API externa com valor"
 
 msgid "Item"
 msgstr "Item"
@@ -2128,7 +2128,7 @@ msgid "Small devices (width ≥ 768px)"
 msgstr "Dispositivos pequenos (largura ≥ 768px)"
 
 msgid "Some option can be disabled because the source value type is not compatible with target property type."
-msgstr ""
+msgstr "Algumas opções podem ser desabilitadas porque o tipo de valor de origem não é compatível com o tipo de propriedade de destino."
 
 msgid "Sort"
 msgstr "Ordenar"
@@ -2610,7 +2610,7 @@ msgid "To pre-fill with a template, bind an HTML formatted variable"
 msgstr "Para pré-preencher com um modelo, vincule uma variável HTML formatada"
 
 msgid "To retrieve a document instance, create an External API variable with value"
-msgstr ""
+msgstr "Para recuperar uma instância de documento, crie uma variável de API externa com valor"
 
 msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, <i>rename</i> it before you import."
 msgstr "Para salvar <strong>{{ ::importReport.overwrittenName }}</strong> com um identificador diferente, <i>renomear</i> antes de importar."
@@ -2862,7 +2862,7 @@ msgid "Variables"
 msgstr "Variáveis"
 
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
-msgstr ""
+msgstr "As variáveis podem ser associadas a campos de entrada para criar um comportamento condicional entre as propriedades do widget."
 
 msgid "Vertical display"
 msgstr "Exibição vertical"
@@ -2903,7 +2903,7 @@ msgid "When you delete a row, the following rows move up"
 msgstr "Quando uma linha é excluída, as linhas seguintes são movidas para cima"
 
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
-msgstr ""
+msgstr "Quando você gera um formulário a partir de um contrato no Studio, o formulário contém um botão Enviar e algumas variáveis padrão: <code>formulario</code>, <code>formOutput</code>, <code>taskId</code>, e <code>contexto</code>"
 
 msgid "Whenever this form is reloaded, either by hitting F5 or browsing away and back again, the entry will be reloaded automatically from LocalStorage."
 msgstr "Sempre que este formulário for recarregado, seja selecionando o F5 ou navegando para longe e retornando novamente, a entrada será recarregada automaticamente do LocalStorage."
