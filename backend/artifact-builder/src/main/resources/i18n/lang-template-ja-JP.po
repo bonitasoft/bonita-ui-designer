@@ -7,11 +7,11 @@ msgstr ""
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Project-ID: 13316\n"
 "X-Crowdin-Language: ja\n"
-"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
-"X-Crowdin-File-ID: 61536\n"
+"X-Crowdin-File: /release-8.0.0/ui-designer/lang-template.pot\n"
+"X-Crowdin-File-ID: 71769\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-03-10 04:04\n"
+"PO-Revision-Date: 2023-03-15 04:07\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -888,6 +888,9 @@ msgstr "Date オブジェクト"
 msgid "Date objects"
 msgstr "Date オブジェクト"
 
+msgid "Debounce"
+msgstr ""
+
 msgid "Decimal separator"
 msgstr ""
 
@@ -1507,6 +1510,9 @@ msgstr "指定したリストでオートコンプリートする入力フィー
 msgid "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String (yyyy-MM-dd), Date object or Long number <br>Output: Date object (see widget help)"
 msgstr "入力: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> で書式化された文字列 (yyyy-MM-dd)で、Date オブジェクトまたは Long の長整数<br> 出力: \n"
 " Date オブジェクト （ウィジェットのヘルプを参照してください）"
+
+msgid "Integer value which contains the debounce model update value in milliseconds. A value of 0 triggers an immediate update. Debounce value cannot be changed once initialized."
+msgstr ""
 
 msgid "Integration with Bonita platform"
 msgstr "Bonita プラットフォームとの連携"
