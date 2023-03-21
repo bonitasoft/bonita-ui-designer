@@ -7,9 +7,9 @@
             </h4>
         </th>
         <th class="col-xs-4 Property-actions" colspan="2">
-            <button class="btn btn-default btn-data--help" ng-click="vm.openHelp('widget')" title="{{'Open help' | translate}}"><i class="fa fa-question-circle"></i></button>
+            <button class="btn btn-default btn-data--help" ng-click="vm.openHelp('widget')" title="{{'Open help' | translate}}"><i class="fa fa-lg fa-question-circle"></i></button>
             <button id="addasset" title="Add a new asset" class="btn btn-bonita-primary" ng-disabled="!widget.custom" ng-click="vm.openAssetPopup()">
-                <i class="fa fa-plus"></i>
+                <i class="fa fa-lg fa-plus"></i>
                 <span translate>Add</span>
             </button>
 
@@ -32,7 +32,7 @@
         <td>{{asset.type | assetType}}</td>
         <td class="col-xs-2 Property-actions">
             <button file-download class="btn btn-bonita-default" href="{{vm.getAssetUrl(asset)}}" title="{{'Download asset' | translate }}"  ng-if="!vm.isExternal(asset)">
-                <i class="fa fa-alias-import"></i>
+                <i class="fa fa-lg fa-alias-import"></i>
             </button>
             <button class="btn btn-bonita-default" title="{{ 'View asset content' | translate }}"
                     ng-if="vm.isViewable(asset)" ng-click="vm.openAssetPreviewPopup(asset)">
@@ -40,10 +40,10 @@
             </button>
             <button id="editAsset" class="btn btn-bonita-default" ng-disabled="!widget.custom" ng-click="vm.openAssetEditPopup(asset)"
                     title="{{ 'Update asset' | translate }}" ng-if="vm.isEditable(asset)">
-                <i class="fa fa-pencil"></i>
+                <i class="fa fa-lg fa-pencil"></i>
             </button>
             <button id="deleteAsset" class="btn btn-bonita-default" ng-disabled="!widget.custom" ng-click="vm.delete(asset)" title="{{ 'Delete asset' | translate }}">
-                <i class="fa fa-trash"></i>
+                <i class="fa fa-lg fa-trash"></i>
             </button>
         </td>
     </tr>

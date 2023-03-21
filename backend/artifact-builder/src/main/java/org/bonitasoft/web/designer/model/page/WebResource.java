@@ -13,31 +13,31 @@ import java.util.Set;
 @EqualsAndHashCode
 public class WebResource {
 
-    private String verb;
+    private String method;
     private String value;
     private Set<String> scopes = new HashSet<>();
     private boolean isAutomaticDetection = false;
 
     @JsonCreator
-    public WebResource(@JsonProperty("verb") String verb, @JsonProperty("value") String value) {
-        this.verb = verb;
+    public WebResource(@JsonProperty("method") String method, @JsonProperty("value") String value) {
+        this.method = method;
         this.value = value;
     }
 
-    public WebResource(String verb, String value, String scope) {
-        this.verb = verb.toLowerCase();
+    public WebResource(String method, String value, String scope) {
+        this.method = method.toLowerCase();
         this.value = value;
         this.scopes.add(scope);
         this.isAutomaticDetection = true;
     }
 
     @JsonView({JsonViewPersistence.class})
-    public String getVerb() {
-        return verb;
+    public String getMethod() {
+        return method;
     }
 
-    public void setVerb(String verb) {
-        this.verb= verb;
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     @JsonView({JsonViewPersistence.class})
@@ -61,7 +61,7 @@ public class WebResource {
     }
 
     public String toDefinition(){
-        return this.verb.toUpperCase().concat("|").concat(this.value);
+        return this.method.toUpperCase().concat("|").concat(this.value);
     }
 
 
@@ -79,7 +79,7 @@ public class WebResource {
     @Override
     public String toString() {
         return new ToStringBuilder(this).
-                append("verb", verb).append("value", value).
+                append("method", method).append("value", value).
                 append("isAutomaticDetection", isAutomaticDetection).append("scope", scopes.toString()).
                 toString();
     }

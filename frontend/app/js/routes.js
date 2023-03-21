@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function() {
+(function () {
 
   'use strict';
 
@@ -27,20 +27,20 @@
         template: '<ui-view></ui-view>',
         resolve: {
           /* @ngInject */
-          language: function($stateParams, gettextCatalog, tmhDynamicLocale) {
+          language: function ($stateParams, gettextCatalog, tmhDynamicLocale) {
             var languages = {
-              'en': { lang: 'en' },
-              'fr': { lang: 'fr', file: 'lang-template-fr-FR.json' },
-              'es': { lang: 'es-ES', file: 'lang-template-es-ES.json' },
-              'es-ES': { lang: 'es-ES', file: 'lang-template-es-ES.json' },
-              'ja': { lang: 'ja', file: 'lang-template-ja-JP.json' },
-              'ja-JP': { lang: 'ja', file: 'lang-template-ja-JP.json' },
-              'pt': { lang: 'pt-BR', file: 'lang-template-pt-BR.json' },
-              'pt-BR': { lang: 'pt-BR', file: 'lang-template-pt-BR.json' },
-              'pt_BR': { lang: 'pt-BR', file: 'lang-template-pt-BR.json' }
+              'en': {lang: 'en'},
+              'fr': {lang: 'fr', file: 'lang-template-fr-FR.json'},
+              'es': {lang: 'es-ES', file: 'lang-template-es-ES.json'},
+              'es-ES': {lang: 'es-ES', file: 'lang-template-es-ES.json'},
+              'ja': {lang: 'ja', file: 'lang-template-ja-JP.json'},
+              'ja-JP': {lang: 'ja', file: 'lang-template-ja-JP.json'},
+              'pt': {lang: 'pt-BR', file: 'lang-template-pt-BR.json'},
+              'pt-BR': {lang: 'pt-BR', file: 'lang-template-pt-BR.json'},
+              'pt_BR': {lang: 'pt-BR', file: 'lang-template-pt-BR.json'}
             };
             // narrow down which language is used or use en
-            var language = languages[Object.keys(languages).reduce(function(previous, current) {
+            var language = languages[Object.keys(languages).reduce(function (previous, current) {
               return $stateParams.lang === current ? current : previous;
             })];
             gettextCatalog.setCurrentLanguage(language.lang);
@@ -65,13 +65,13 @@
       $stateProvider.state('designer.layout', {
         url: '/layouts/:id',
         /* @ngInject */
-        controller: ($state, $stateParams) => $state.go('designer.page', $stateParams, { location: false })
+        controller: ($state, $stateParams) => $state.go('designer.page', $stateParams, {location: false})
       });
 
       $stateProvider.state('designer.form', {
         url: '/forms/:id',
         /* @ngInject */
-        controller: ($state, $stateParams) => $state.go('designer.page', $stateParams, { location: false })
+        controller: ($state, $stateParams) => $state.go('designer.page', $stateParams, {location: false})
       });
 
       $stateProvider.state('designer.page', {
@@ -139,7 +139,7 @@
         },
         resolve: {
           /* @ngInject */
-          iframeParameters: $stateParams => ({ url: `preview/${$stateParams.mode}`, id: $stateParams.id }),
+          iframeParameters: $stateParams => ({url: `preview/${$stateParams.mode}`, id: $stateParams.id}),
           /* @ngInject */
           mode: $stateParams => $stateParams.mode,
           // injects the correct repo
@@ -152,10 +152,10 @@
         url: '/widget/:id',
         resolve: {
           /* @ngInject */
-          artifact: function(widgetRepo, $stateParams, migration, alerts, $q) {
+          artifact: function (widgetRepo, $stateParams, migration, alerts, $q) {
             let id = $stateParams.id;
             if (!id.startsWith('custom')) {
-              return widgetRepo.load(id).then(function(response) {
+              return widgetRepo.load(id).then(function (response) {
                 return response.data;
               });
             } else {
@@ -163,7 +163,7 @@
                 .then((response) => {
                   return migration.handleMigrationStatus(id, response.data).then(() => {
                     if (response.data.migration) {
-                      widgetRepo.migrate(id).then(response =>  migration.handleMigrationNotif(id, response.data));
+                      widgetRepo.migrate(id).then(response => migration.handleMigrationNotif(id, response.data));
                     }
                   });
                 })
@@ -179,13 +179,14 @@
                   }
                   return $q.reject(error);
                 });
-            }},
+            }
+          },
           /* @ngInject */
-          artifactRepo: function(widgetRepo) {
+          artifactRepo: function (widgetRepo) {
             return widgetRepo;
           },
           /* @ngInject */
-          mode: function() {
+          mode: function () {
             return 'widget';
           },
           assetRepo: (AssetRepository, widgetRepo) => new AssetRepository(widgetRepo.baseUrl)
@@ -201,6 +202,11 @@
             controller: 'AssetCtrl',
             controllerAs: 'vm',
             templateUrl: 'js/assets/widget-assets.html'
+          },
+          'data@designer.widget': {
+            controller: 'WebResourcesCtrl',
+            controllerAs: 'ctrl',
+            templateUrl: 'js/editor/bottom-panel/web-resources-panel/webResources-panel.html'
           }
         }
       });
@@ -209,16 +215,16 @@
         url: '/fragments/:id',
         resolve: {
           /* @ngInject */
-          artifact: function(editorService, fragmentRepo, $stateParams) {
+          artifact: function (editorService, fragmentRepo, $stateParams) {
             return editorService.initialize(fragmentRepo, $stateParams.id);
           },
           // injects the correct repo for a page or a fragment
           /* @ngInject */
-          artifactRepo: function(fragmentRepo) {
+          artifactRepo: function (fragmentRepo) {
             return fragmentRepo;
           },
           /* @ngInject */
-          mode: function() {
+          mode: function () {
             return 'fragment';
           }
         },
@@ -252,5 +258,6 @@
           artifactRepo: fragmentRepo => fragmentRepo,
         }
       });
-    });
+    })
+  ;
 })();

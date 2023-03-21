@@ -48,7 +48,7 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
     private Set<String> inactiveAssets = new HashSet<>();
     private Map<String, Variable> variables = new HashMap<>();
     private boolean hasValidationError = false;
-    private Set<WebResource> webResources = new HashSet<>();
+
     private Set<WebResource> automaticWebResources = new HashSet<>();
 
     @JsonView({JsonViewLight.class, JsonViewPersistence.class})
@@ -125,15 +125,6 @@ public abstract class AbstractPage extends DesignerArtifact implements Previewab
 
     public boolean hasAsset(final AssetType type, final String name) {
         return assets.stream().anyMatch(asset -> CSS.equals(type) && asset.getName().equals(name));
-    }
-
-    @JsonView({JsonViewPersistence.class})
-    public Set<WebResource> getWebResources() {
-        return this.webResources;
-    }
-
-    public void setWebResources(Set<WebResource> webResources) {
-        this.webResources = webResources;
     }
 
     public Set<WebResource> getAutomaticWebResources() {

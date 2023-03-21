@@ -14,28 +14,9 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import org.bonitasoft.web.designer.builder.VariableBuilder;
-import org.bonitasoft.web.designer.model.ParameterType;
-import org.bonitasoft.web.designer.model.data.Variable;
-import org.bonitasoft.web.designer.model.fragment.Fragment;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.FragmentElement;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.WebResource;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.*;
-
-import static java.util.Arrays.asList;
-import static java.util.Collections.singleton;
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
 import static org.bonitasoft.web.designer.builder.ComponentBuilder.aComponent;
 import static org.bonitasoft.web.designer.builder.ContainerBuilder.aContainer;
 import static org.bonitasoft.web.designer.builder.FormContainerBuilder.aFormContainer;
@@ -45,14 +26,42 @@ import static org.bonitasoft.web.designer.builder.ModalContainerBuilder.aModalCo
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;
 import static org.bonitasoft.web.designer.builder.TabContainerBuilder.aTabContainer;
 import static org.bonitasoft.web.designer.builder.TabsContainerBuilder.aTabsContainer;
+import static org.bonitasoft.web.designer.model.data.DataType.BUSINESSDATA;
 import static org.bonitasoft.web.designer.model.data.DataType.URL;
 import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
+
+import org.bonitasoft.web.designer.builder.VariableBuilder;
+import org.bonitasoft.web.designer.builder.WidgetBuilder;
+import org.bonitasoft.web.designer.model.ParameterType;
+import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.fragment.Fragment;
+import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
+import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.model.page.WebResource;
+import org.bonitasoft.web.designer.model.widget.Widget;
+import org.bonitasoft.web.designer.repository.FragmentRepository;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WebResourcesVisitorTest {
 
     @Mock
     private FragmentRepository fragmentRepository;
+    @Mock
+    private WidgetRepository widgetRepository;
 
     @InjectMocks
     private WebResourcesVisitor webResourcesVisitor;
@@ -62,6 +71,7 @@ public class WebResourcesVisitorTest {
 
     @Before
     public void setUp() throws Exception {
+        when(widgetRepository.get(Mockito.any(String.class))).thenReturn(WidgetBuilder.aWidget().build());
         buttonGet = aComponent().withWidgetId("buttonGet")
                 .withPropertyValue("action", "constant", "GET")
                 .withPropertyValue("url", "constant", "../API/identity/user")
@@ -76,13 +86,14 @@ public class WebResourcesVisitorTest {
     public void should_collect_webResources_when_visiting_a_component() throws Exception {
         Map<String, WebResource> webResourceMap = webResourcesVisitor.visit(buttonGet);
 
-        assertThat(webResourceMap.size()).isEqualTo(1);
-        assertThat(webResourceMap.get("GET|identity/user")).isEqualTo(new WebResource("GET", "identity/user", buttonGet.getId()));
+        assertThat(webResourceMap)
+                .containsOnly(entry("GET|identity/user", new WebResource("GET", "identity/user", buttonGet.getId())));
 
         webResourceMap = webResourcesVisitor.visit(btnSubmitTask);
 
-        assertThat(webResourceMap.size()).isEqualTo(1);
-        assertThat(webResourceMap.get("POST|bpm/userTask")).isEqualTo(new WebResource("POST", "bpm/userTask", btnSubmitTask.getId()));
+        assertThat(webResourceMap)
+                .containsOnly(
+                        entry("POST|bpm/userTask", new WebResource("POST", "bpm/userTask", btnSubmitTask.getId())));
     }
 
     @Test
@@ -90,7 +101,7 @@ public class WebResourcesVisitorTest {
         Map<String, WebResource> webResourceMap = webResourcesVisitor.visit(aContainer()
                 .with(buttonGet).build());
 
-        assertThat(webResourceMap.size()).isEqualTo(1);
+        assertThat(webResourceMap).hasSize(1);
     }
 
     @Test
@@ -98,21 +109,19 @@ public class WebResourcesVisitorTest {
         Map<String, WebResource> webResourceMap = webResourcesVisitor.visit(aTabsContainer()
                 .with(aTabContainer()
                         .with(aContainer()
-                                .with(buttonGet).with(Arrays.asList(buttonGet, btnSubmitTask))
-                        ))
+                                .with(buttonGet).with(Arrays.asList(buttonGet, btnSubmitTask))))
                 .build());
 
-        assertThat(webResourceMap.size()).isEqualTo(2);
+        assertThat(webResourceMap).hasSize(2);
     }
 
     @Test
     public void should_collect_component_from_a_formcontainer() throws Exception {
         Map<String, WebResource> webResourceMap = webResourcesVisitor.visit(aFormContainer().with(aContainer()
-                        .with(buttonGet).with(Arrays.asList(buttonGet, btnSubmitTask))
-                )
+                .with(buttonGet).with(Arrays.asList(buttonGet, btnSubmitTask)))
                 .build());
 
-        assertThat(webResourceMap.size()).isEqualTo(2);
+        assertThat(webResourceMap).hasSize(2);
     }
 
     @Test
@@ -123,18 +132,16 @@ public class WebResourcesVisitorTest {
                 .withVariable("loadProcess", VariableBuilder.anURLVariable().value("../API/bpm/process"))
                 .build());
 
-        assertThat(webResourceMap.size()).isEqualTo(2);
+        assertThat(webResourceMap).hasSize(2);
     }
 
     @Test
     public void should_collect_component_from_a_modal_container() throws Exception {
         Map<String, WebResource> webResourceMap = webResourcesVisitor.visit(aModalContainer().with(aContainer()
-                        .with(buttonGet).with(Arrays.asList(buttonGet, btnSubmitTask))
-                )
+                .with(buttonGet).with(Arrays.asList(buttonGet, btnSubmitTask)))
                 .build());
 
-        assertThat(webResourceMap.size()).isEqualTo(2);
-
+        assertThat(webResourceMap).hasSize(2);
     }
 
     @Test
@@ -148,8 +155,9 @@ public class WebResourcesVisitorTest {
                 .withFragmentId("fragment-id")
                 .build());
 
-        assertThat(webResourceMap.size()).isEqualTo(2);
-        assertThat(webResourceMap.get("GET|bpm/process")).isEqualTo(new WebResource("GET", "bpm/process", "Variable"));
+        assertThat(webResourceMap)
+                                .containsEntry("GET|bpm/process", new WebResource("GET", "bpm/process", "Variable"))
+                                .hasSize(2);
     }
 
     private Page setUpPageForResourcesTests(String id) {
@@ -170,7 +178,7 @@ public class WebResourcesVisitorTest {
 
         var properties = webResourcesVisitor.visit(fileUploadComponent);
 
-        assertThat(properties.containsKey("POST|extension/upload")).isEqualTo(true);
+        assertThat(properties).containsKey("POST|extension/upload");
     }
 
     @Test
@@ -181,7 +189,19 @@ public class WebResourcesVisitorTest {
 
         var properties = webResourcesVisitor.visit(page);
 
-        assertThat(properties.containsKey("GET|bpm/userTask")).isEqualTo(true);
+        assertThat(properties).containsKey("GET|bpm/userTask");
+    }
+
+    @Test
+    public void should_add_bonita_resources_found_when_a_BusinessData_variable_is_declared() throws Exception {
+        Page page = setUpPageForResourcesTests("myPage");
+
+        page.setVariables(
+                singletonMap("foo", new Variable(BUSINESSDATA, "{\"id\":\"com.company.model.DossierPret\"}")));
+
+        var properties = webResourcesVisitor.visit(page);
+
+        assertThat(properties).containsOnlyKeys("GET|bdm/businessData", "GET|bdm/businessDataQuery");
     }
 
     @Test
@@ -194,7 +214,8 @@ public class WebResourcesVisitorTest {
         variables.put("bar", anApiVariable("../API/extension/user/4"));
         variables.put("aa", anApiVariable("../API/extension/group/list"));
         variables.put("session", anApiVariable("../API/extension/user/group/unusedid"));
-        variables.put("ab", anApiVariable("http://localhost:8080/bonita/portal/API/extension/vehicule/voiture/roue?p=0&c=10&f=case_id={{caseId}}"));
+        variables.put("ab", anApiVariable(
+                "http://localhost:8080/bonita/portal/API/extension/vehicule/voiture/roue?p=0&c=10&f=case_id={{caseId}}"));
         variables.put("user", anApiVariable("../API/identity/user/{{aaa}}/context"));
         variables.put("task", anApiVariable("../API/bpm/task/1/context"));
         variables.put("case", anApiVariable("../API/bpm/case{{dynamicQueries(true,0)}}"));
@@ -203,87 +224,88 @@ public class WebResourcesVisitorTest {
 
         var properties = webResourcesVisitor.visit(page);
 
-        assertThat(properties.containsKey("GET|bpm/task"));
-        assertThat(properties.containsKey("GET|identity/user"));
-        assertThat(properties.containsKey("GET|extension/group/list"));
-        assertThat(properties.containsKey("GET|extension/vehicule/voiture/roue"));
-        assertThat(properties.containsKey("GET|extension/user/4"));
-        assertThat(properties.containsKey("GET|extension/user/group/unusedid"));
-        assertThat(properties.containsKey("GET|extension/CA31/SQLToObject"));
-        assertThat(properties.containsKey("GET|extension/case"));
+        assertThat(properties).containsKey("GET|bpm/task")
+                .containsKey("GET|identity/user")
+                .containsKey("GET|extension/group/list")
+                .containsKey("GET|extension/vehicule/voiture/roue")
+                .containsKey("GET|extension/user/4")
+                .containsKey("GET|extension/user/group/unusedid")
+                .containsKey("GET|extension/CA31/SQLToObject")
+                .containsKey("GET|extension/case");
     }
 
     @Test
     public void should_add_bonita_api_extensions_resources_found_in_page_data_table_properties() throws Exception {
-        Component dataTableComponent = aComponent()
+        Component dataTableComponent = aComponent().withWidgetId("dataTable")
                 .withPropertyValue("apiUrl", "constant", "../API/extension/car")
                 .build();
 
         var properties = webResourcesVisitor.visit(dataTableComponent);
 
-        assertThat(properties.containsKey("GET|extension/car")).isEqualTo(true);
+        assertThat(properties).containsKey("GET|extension/car");
     }
 
     @Test
     public void should_add_bonita_api_extensions_resources_found_in_page_button_with_DELETE_action() throws Exception {
-        Component dataTableComponent = aComponent()
+        Component dataTableComponent = aComponent().withWidgetId("dataTable")
                 .withPropertyValue("action", "constant", "DELETE")
                 .withPropertyValue("url", ParameterType.INTERPOLATION.getValue(), "../API/bpm/document/1")
                 .build();
 
         var properties = webResourcesVisitor.visit(dataTableComponent);
-        assertThat(properties.containsKey("DELETE|bpm/document")).isEqualTo(true);
+        assertThat(properties).containsKey("DELETE|bpm/document");
     }
 
     @Test
     public void should_add_bonita_api_extensions_resources_found_in_page_button_with_POST_action() throws Exception {
-        Component dataTableComponent = aComponent()
+        Component dataTableComponent = aComponent().withWidgetId("dataTable")
                 .withPropertyValue("action", "constant", "POST")
                 .withPropertyValue("url", ParameterType.INTERPOLATION.getValue(), "../API/extension/user")
                 .build();
 
         var properties = webResourcesVisitor.visit(dataTableComponent);
-        assertThat(properties.containsKey("POST|extension/user")).isEqualTo(true);
+        assertThat(properties).containsKey("POST|extension/user");
     }
 
     @Test
-    public void should_add_start_process_resource_if_a_start_process_submit_is_contained_in_the_page() throws Exception {
-        Component component = aComponent()
+    public void should_add_start_process_resource_if_a_start_process_submit_is_contained_in_the_page()
+            throws Exception {
+        Component component = aComponent().withWidgetId("button")
                 .withPropertyValue("action", "constant", "Start process")
                 .build();
 
         var properties = webResourcesVisitor.visit(component);
-        assertThat(properties.containsKey("POST|bpm/process")).isEqualTo(true);
+        assertThat(properties).containsKey("POST|bpm/process");
     }
 
     @Test
     public void should_add_submit_task_resource_if_a_start_submit_task_is_contained_in_the_page() throws Exception {
-
-        Component component = aComponent()
+        Component component = aComponent().withWidgetId("button")
                 .withPropertyValue("action", "constant", "Submit task")
                 .build();
 
         var properties = webResourcesVisitor.visit(component);
-        assertThat(properties.containsKey("POST|bpm/userTask")).isEqualTo(true);
+
+        assertThat(properties).containsKey("POST|bpm/userTask");
     }
 
     @Test
     public void should_combined_start_process_submit_task_and_bonita_resources() throws Exception {
         Page page = aPage().with(aContainer().with(Arrays.asList(
-                                aComponent()
-                                        .withPropertyValue("action", "constant", "Start process").build(),
-                                aComponent()
-                                        .withPropertyValue("action", "constant", "Submit task").build()))
-                        .build())
+                aComponent().withWidgetId("button")
+                        .withPropertyValue("action", "constant", "Start process").build(),
+                aComponent().withWidgetId("button")
+                        .withPropertyValue("action", "constant", "Submit task").build()))
+                .build())
                 .build();
 
         page.setVariables(singletonMap("foo", anApiVariable("/bonita/API/bpm/userTask")));
 
         var properties = webResourcesVisitor.visit(page);
 
-        assertThat(properties.containsKey("POST|bpm/userTask")).isEqualTo(true);
-        assertThat(properties.containsKey("GET|bpm/userTask")).isEqualTo(true);
-        assertThat(properties.containsKey("POST|bpm/process")).isEqualTo(true);
+        assertThat(properties).containsKey("POST|bpm/userTask")
+                .containsKey("GET|bpm/userTask")
+                .containsKey("POST|bpm/process");
     }
 
     private Page setUpPageWithFragmentForResourcesTests() {
@@ -307,16 +329,30 @@ public class WebResourcesVisitorTest {
         return page;
     }
 
-
     @Test
     public void should_add_bonita_resources_found_in_fragments() throws Exception {
         Page page = setUpPageWithFragmentForResourcesTests();
 
         var properties = webResourcesVisitor.visit(page);
 
-        assertThat(properties.containsKey("GET|bpm/userTask")).isEqualTo(true);
-        assertThat(properties.containsKey("GET|bpm/process")).isEqualTo(true);
-        assertThat(properties.containsKey("GET|extension/user/4")).isEqualTo(true);
+        assertThat(properties).containsKey("GET|bpm/userTask")
+                .containsKey("GET|bpm/process")
+                .containsKey("GET|extension/user/4");
+    }
+
+    @Test
+    public void should_add_bonita_resources_found_in_a_custom_widget() throws Exception {
+        Widget widget = WidgetBuilder.aWidget().withId("timeLineWidget").custom()
+                .withWebResources(new WebResource("POST", "customInfo/definition", "timeLineWidget")).build();
+        when(widgetRepository.get("timeLineWidget")).thenReturn(widget);
+        Page page = aPage().with(aContainer().with(Arrays.asList(
+                aComponent().withWidgetId("timeLineWidget")
+                        .build()))
+                .build())
+                .build();
+        var properties = webResourcesVisitor.visit(page);
+
+        assertThat(properties).containsKey("POST|customInfo/definition");
     }
 
 }

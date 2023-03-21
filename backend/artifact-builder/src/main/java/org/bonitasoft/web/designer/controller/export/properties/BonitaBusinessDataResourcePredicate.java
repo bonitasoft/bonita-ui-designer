@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Bonitasoft S.A.
+ * Copyright (C) 2023 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,17 +12,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function () {
+package org.bonitasoft.web.designer.controller.export.properties;
 
-  'use strict';
 
-  angular.module('bonitasoft.designer.custom-widget', [
-    'bonitasoft.designer.editor.header.help',
-    'bonitasoft.designer.common.repositories',
-    'bonitasoft.designer.common.services',
-    'bonitasoft.designer.common.directives',
-    'ui.bootstrap',
-    'gettext',
-    'ui.router']);
+import lombok.RequiredArgsConstructor;
+import org.bonitasoft.web.designer.model.data.Variable;
 
-})();
+import java.util.function.Predicate;
+
+import static org.bonitasoft.web.designer.model.data.DataType.BUSINESSDATA;
+
+@RequiredArgsConstructor
+public class BonitaBusinessDataResourcePredicate implements Predicate<Variable> {
+
+    @Override
+    public boolean test(Variable variable) {
+        return variable != null
+                && BUSINESSDATA.equals(variable.getType())
+                && variable.getValue() != null
+                && !variable.getValue().isEmpty();
+    }
+}

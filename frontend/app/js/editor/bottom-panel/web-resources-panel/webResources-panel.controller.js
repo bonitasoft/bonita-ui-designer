@@ -16,7 +16,7 @@
   'use strict';
 
   class WebResourcesCtrl {
-    constructor($scope, $rootScope, $uibModal, gettextCatalog, bonitaResources, artifact,  artifactRepo) {
+    constructor($scope, $rootScope, $uibModal, gettextCatalog, bonitaResources, artifact, artifactRepo) {
       this.$scope = $scope;
       this.$uibModal = $uibModal;
       this.gettextCatalog = gettextCatalog;
@@ -29,7 +29,12 @@
       $rootScope.$on('artifactUpdate', () => this.loadAutoWebResources());
     }
 
-    loadAutoWebResources(){
+    loadAutoWebResources() {
+      if (this.artifact.type === 'widget') {
+        this.autoWebResources = [];
+        this.refreshTable();
+        return;
+      }
       this.artifactRepo.loadAutoWebResources(this.artifact)
         .then((data) => {
           this.autoWebResources = data;
@@ -37,13 +42,14 @@
         });
     }
 
-    refreshTable(){
-      if(!this.artifact.webResources){
+
+    refreshTable() {
+      if (!this.artifact.webResources) {
         this.artifact.webResources = [];
       }
       this.artifact.webResources.map(r => {
-        if(this.autoWebResources.some(autoR => this.isSameWebResource(r,autoR))){
-          return Object.defineProperty(r, 'warning', { enumerable: false, value: true});
+        if (this.autoWebResources.some(autoR => this.isSameWebResource(r, autoR))) {
+          return Object.defineProperty(r, 'warning', {enumerable: false, value: true});
         }
       });
       this.displayWebResources = this.artifact.webResources.concat(this.autoWebResources);
@@ -65,16 +71,14 @@
       modalInstance.result.then(this.addOrUpdateWebResource.bind(this));
     };
 
-    isSameWebResource(a,b){
-      return a.verb.toLowerCase() === b.verb.toLowerCase() && a.value.toLowerCase() === b.value.toLowerCase();
+    isSameWebResource(a, b) {
+      return a.method.toLowerCase() === b.method.toLowerCase() && a.value.toLowerCase() === b.value.toLowerCase();
     }
 
-
-
-    addOrUpdateWebResource(webResource){
+    addOrUpdateWebResource(webResource) {
       if (webResource.hasOwnProperty('id')) {
         const indexToUpdate = this.artifact.webResources.findIndex(resource => resource.id === webResource.id);
-        this.artifact.webResources[indexToUpdate].verb = webResource.verb;
+        this.artifact.webResources[indexToUpdate].method = webResource.method;
         this.artifact.webResources[indexToUpdate].value = webResource.value;
       } else {
         this.artifact.webResources.push(webResource);
@@ -93,21 +97,22 @@
           return (value || '').toLowerCase().indexOf((search || '').toLowerCase()) !== -1;
         }
 
-        return contains(webResource.verb, serchTerm) ||
+        return contains(webResource.method, serchTerm) ||
           contains(webResource.value, serchTerm) ||
           contains(webResource.scopes ? webResource.scopes.join(',') : '', serchTerm);
       }
+
       return Object.keys(this.displayWebResources)
         .map((resource) => {
           let webResource = this.displayWebResources[resource];
-          return Object.defineProperty(webResource, 'id', { configurable: true ,enumerable: false, value: resource})
+          return Object.defineProperty(webResource, 'id', {configurable: true, enumerable: false, value: resource})
         })
-        .filter((webResource) => this.verbFilter(webResource))
+        .filter((webResource) => this.methodFilter(webResource))
         .filter(toMatchSearchTerm);
     };
 
-    verbFilter(webResource) {
-      const element = this.httpVerbs.find(verb => verb.type.toLowerCase() === webResource.verb.toLowerCase());
+    methodFilter(webResource) {
+      const element = this.httpVerbs.find(method => method.type.toLowerCase() === webResource.method.toLowerCase());
       return element && element.filter;
     }
 
@@ -118,15 +123,15 @@
         controllerAs: 'ctrl',
         size: 'md',
         resolve: {
-          artifact: () => `${webResource.verb.toUpperCase()}|${webResource.value}`,
+          artifact: () => `${webResource.method.toUpperCase()}|${webResource.value}`,
           type: () => this.gettextCatalog.getString('Bonita resource')
         }
       });
       modalInstance.result.then(this.deleteResource.bind(this, webResource));
     };
 
-    deleteResource(webResource){
-      if(webResource.hasOwnProperty('id')){
+    deleteResource(webResource) {
+      if (webResource.hasOwnProperty('id')) {
         this.artifact.webResources = this.artifact.webResources.filter((obj) => obj.id !== webResource.id)
         this.refreshTable();
       }
@@ -139,20 +144,25 @@
       });
     }
 
-    isUpdatable(resource){
+    isUpdatable(resource) {
       return !this.isAutomaticDetection(resource);
     }
-    isAutomaticDetection(resource){
+
+    isAutomaticDetection(resource) {
       return resource.hasOwnProperty('automatic') && resource.automatic;
     }
 
-    isOnWarning(resource){
+    isOnWarning(resource) {
       return resource.hasOwnProperty('warning') && resource.warning;
+    }
+
+    isProvidedWidget(){
+      return this.artifact.type === 'widget' && !this.artifact.custom;
     }
   }
 
   class WebResourcePopupCtrl {
-    constructor($scope, $uibModalInstance, data, webResources, bonitaResources,isSameWebResource) {
+    constructor($scope, $uibModalInstance, data, webResources, bonitaResources, isSameWebResource) {
       this.$scope = $scope;
       this.httpVerbs = bonitaResources.httpVerbs;
       this.$uibModalInstance = $uibModalInstance;
@@ -161,33 +171,32 @@
       this.resources = bonitaResources.resources;
       this.resourceIdToEdit = data ? data.id : undefined;
 
-      if(data) {
+      if (data) {
         this.newResource = Object.assign({}, data);
         this.newResource.id = data.id;
-      }else{
-        this.newResource = {verb: 'get', value: ''}
+      } else {
+        this.newResource = {method: 'get', value: ''}
       }
     }
 
-    getVerbLabel(type) {
+    getMethodLabel(type) {
       return this.httpVerbs
-        .filter(verb => verb.type === type)
+        .filter(method => method.type === type)
         .reduce((acc, item) => item.label, undefined);
     };
 
     isWebResourceUnique(item) {
-      if(!item.value) {
+      if (!item.value) {
         return true;
       }
       const indexToUpdate = this.webResources.find(resource => {
         return resource.hasOwnProperty('id') && resource.id === this.newResource.id;
       });
       let alreadyExist = this.webResources
-        .filter(data => indexToUpdate === undefined || !this.isSameWebResource(indexToUpdate,data)) // except himself
-        .some(webResource => this.isSameWebResource(item,webResource));
+        .filter(data => indexToUpdate === undefined || !this.isSameWebResource(indexToUpdate, data)) // except himself
+        .some(webResource => this.isSameWebResource(item, webResource));
       return !item || !alreadyExist;
     };
-
 
 
     cancel() {

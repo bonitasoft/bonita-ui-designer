@@ -8,10 +8,10 @@ msgstr ""
 "X-Crowdin-Project-ID: 13316\n"
 "X-Crowdin-Language: pt-BR\n"
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
-"X-Crowdin-File-ID: 61536\n"
+"X-Crowdin-File-ID: 71769\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-03-16 03:08\n"
+"PO-Revision-Date: 2023-03-16 02:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -890,6 +890,9 @@ msgstr "Data do objeto"
 msgid "Date objects"
 msgstr "Objetos de data"
 
+msgid "Debounce"
+msgstr "Debate"
+
 msgid "Decimal separator"
 msgstr ""
 
@@ -1503,6 +1506,9 @@ msgstr "Campo de entrada com conclusão de conteúdo a partir de uma determinada
 
 msgid "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String (yyyy-MM-dd), Date object or Long number <br>Output: Date object (see widget help)"
 msgstr "Entrada: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatado String (yyyy-MM-dd), Data objeto ou número Longo <br>Saída: Data objeto (consulte a ajuda do widget)"
+
+msgid "Integer value which contains the debounce model update value in milliseconds. A value of 0 triggers an immediate update. Debounce value cannot be changed once initialized."
+msgstr "Valor inteiro que contém o valor de atualização do modelo de depreciação em milissegundos. Um valor de 0 aciona uma atualização imediata. Valor do retorno não pode ser alterado após inicializado."
 
 msgid "Integration with Bonita platform"
 msgstr "Integração com a plataforma Bonita BPM"

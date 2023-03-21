@@ -8,10 +8,10 @@ msgstr ""
 "X-Crowdin-Project-ID: 13316\n"
 "X-Crowdin-Language: fr\n"
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
-"X-Crowdin-File-ID: 61536\n"
+"X-Crowdin-File-ID: 71769\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-03-16 03:08\n"
+"PO-Revision-Date: 2023-03-16 02:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -881,6 +881,9 @@ msgstr "Objet Date"
 msgid "Date objects"
 msgstr "Objets Date"
 
+msgid "Debounce"
+msgstr "Debounce"
+
 msgid "Decimal separator"
 msgstr "Séparateur décimal"
 
@@ -1493,6 +1496,9 @@ msgstr "Champ de saisie avec suggestion à partir d'une liste donnée"
 
 msgid "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> formatted String (yyyy-MM-dd), Date object or Long number <br>Output: Date object (see widget help)"
 msgstr "Entrée : Chaîne de caractères au format <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'> ISO 8601</a> (yyyy-MM-dd), Objet Date ou nombre <br>Sortie : Objet Date (voir l'aide du widget)"
+
+msgid "Integer value which contains the debounce model update value in milliseconds. A value of 0 triggers an immediate update. Debounce value cannot be changed once initialized."
+msgstr "Valeur entière qui contient la valeur de mise à jour du modèle debounce en millisecondes. Une valeur de 0 déclenche une mise à jour immédiate. La valeur de débit ne peut pas être modifiée une fois initialisée."
 
 msgid "Integration with Bonita platform"
 msgstr "Intégration avec la plateforme Bonita"

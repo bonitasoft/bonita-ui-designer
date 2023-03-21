@@ -385,15 +385,13 @@ angular-mocks@1.3.18:
   resolved "https://registry.npmjs.org/angular-mocks/-/angular-mocks-1.3.18.tgz#062a29a89b7a35cd58e3606ed755731d908eabb9"
   integrity sha1-BiopqJt6Nc1Y42Bu11VzHZCOq7k=
 
-angular-sanitize@1.3.18:
-  version "1.3.18"
-  resolved "https://registry.npmjs.org/angular-sanitize/-/angular-sanitize-1.3.18.tgz#9f06d8eafe686565e003fa4f5c6eeee0d668850b"
-  integrity sha1-nwbY6v5oZWXgA/pPXG7u4NZohQs=
+angular-sanitize@bonitasoft/bower-angular-sanitize#v1.3.21:
+  version "1.3.21"
+  resolved "https://codeload.github.com/bonitasoft/bower-angular-sanitize/tar.gz/955a78ff88d633793d51f80a89692ac9ed8ea9c1"
 
-angular@1.3.18:
-  version "1.3.18"
-  resolved "https://registry.npmjs.org/angular/-/angular-1.3.18.tgz#fb41bc718699241c39e0d360b4d21ec849a83f67"
-  integrity sha1-+0G8cYaZJBw54NNgtNIeyEmoP2c=
+angular@bonitasoft/bower-angular#v1.3.21:
+  version "1.3.21"
+  resolved "https://codeload.github.com/bonitasoft/bower-angular/tar.gz/edacae22fb4173deacde72a3023e112a4f90bba4"
 
 ansi-colors@^1.0.1:
   version "1.1.0"

@@ -40,8 +40,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import static java.lang.String.format;
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
+import static java.nio.file.Files.*;
 import static org.apache.commons.io.FileUtils.deleteDirectory;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -116,8 +115,8 @@ public class WidgetExporterTest {
         exporter.handleFileExport(widget.getId(), artifactStream);
 
         Path unzipped = unzip(artifactStream);
-        var res = "{\"properties\":[],\"id\":\"aWidget\",\"name\":\"aName\",\"template\":\"@aWidget.tpl.html\",\"controller\":\"@aWidget.ctrl.js\",\"custom\":true,\"assets\":[],\"requiredModules\":[],\"type\":\"widget\",\"hasHelp\":false}".getBytes();
-        assertThat(readAllBytes(unzipped.resolve("resources/widget.json"))).isEqualTo(res);
+        var res = "{\"webResources\":[],\"properties\":[],\"id\":\"aWidget\",\"name\":\"aName\",\"template\":\"@aWidget.tpl.html\",\"controller\":\"@aWidget.ctrl.js\",\"custom\":true,\"assets\":[],\"requiredModules\":[],\"type\":\"widget\",\"hasHelp\":false}";
+        assertThat(readString(unzipped.resolve("resources/widget.json"))).isEqualTo(res);
     }
 
     @Test
@@ -127,7 +126,7 @@ public class WidgetExporterTest {
         exporter.handleFileExport(widget.getId(), artifactStream);
 
         Path unzipped = unzip(artifactStream);
-        var res = "{\"properties\":[],\"id\":\"aWidget\",\"name\":\"aName\",\"custom\":true,\"assets\":[],\"requiredModules\":[],\"type\":\"widget\",\"hasHelp\":false}".getBytes();
-        assertThat(readAllBytes(unzipped.resolve("resources/widget.json"))).isEqualTo(res);
+        var res = "{\"webResources\":[],\"properties\":[],\"id\":\"aWidget\",\"name\":\"aName\",\"custom\":true,\"assets\":[],\"requiredModules\":[],\"type\":\"widget\",\"hasHelp\":false}";
+        assertThat(readString(unzipped.resolve("resources/widget.json"))).isEqualTo(res);
     }
 }

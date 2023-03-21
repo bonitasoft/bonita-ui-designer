@@ -1,6 +1,6 @@
 <div class="Toolbar">
     <div class="Toolbar-action">
-        <button class="btn btn-default" ng-click="ctrl.openWebResourcePopup()" translate>Declare a Bonita resource</button>
+        <button class="btn btn-default" ng-click="ctrl.openWebResourcePopup()" translate ng-disabled="ctrl.isProvidedWidget()">Declare a Bonita resource</button>
         <button class="btn btn-default btn-data--help" ng-click="ctrl.openHelp()" title="{{'Open help' | translate}}">
             <i class="fa fa-question-circle fa-lg"></i>
         </button>
@@ -19,9 +19,9 @@
     <thead>
     <tr>
         <th class="panelTable w10 Table-sort">
-            <a ng-click="ctrl.sort('verb')" translate>Verb</a>
+            <a ng-click="ctrl.sort('method')" translate>Method</a>
         </th>
-        <th class="panelTable w30 Table-sort">
+        <th class="panelTable w40 Table-sort">
             <a ng-click="ctrl.sort('value')" translate>Value</a>
         </th>
         <th class="panelTable w10 Table-sort cell-align-center">
@@ -42,9 +42,9 @@
         <tr ng-repeat="webResource in ctrl.getResources(searchedData) | orderBy:sortCriteria:isReversedSorting as webResources track by webResource.id"
             class="DataPanel">
             <td class="panelTable w10">
-                {{webResource.verb.toUpperCase()}}
+                {{webResource.method.toUpperCase()}}
             </td>
-            <td class="panelTable w30">
+            <td class="panelTable w40" title="{{webResource.value}}">
                 <b>{{webResource.value}}</b>
             </td>
             <td class="panelTable w10 cell-align-center">
@@ -63,12 +63,14 @@
             <td class="panelTable actions">
                 <div class="btn-group link-group btn-group-sm pull-right">
                     <button class="btn update-data"
+                            ng-disabled="ctrl.isProvidedWidget()"
                             ng-if="ctrl.isUpdatable(webResource)"
                             ng-click="ctrl.openWebResourcePopup(webResource)"
                             title="{{ 'Edit Bonita resource' | translate }}">
                         <i class="fa fa-pencil fa-lg"></i>
                     </button>
                     <button class="btn delete-data"
+                            ng-disabled="ctrl.isProvidedWidget()"
                             ng-if="ctrl.isUpdatable(webResource)"
                             ng-click="ctrl.openDeletePopup(webResource)"
                             title="{{ 'Delete Bonita resource' | translate }}">

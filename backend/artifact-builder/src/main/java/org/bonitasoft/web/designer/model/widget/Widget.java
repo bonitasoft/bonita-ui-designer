@@ -27,6 +27,7 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.asset.Asset;
+import org.bonitasoft.web.designer.model.page.WebResource;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 
 import javax.validation.Valid;
@@ -73,6 +74,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
     private Set<String> authRules;
     private String type = "widget";
     private boolean hasHelp = false;
+
 
     public static String spinalCase(String widgetId) {
         var firstLetter = Character.toLowerCase(widgetId.charAt(0));
@@ -284,6 +286,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
     public void setHasHelp(boolean hasHelp) {
         this.hasHelp = hasHelp;
     }
+
 
     @Override
     public boolean equals(final Object obj) {

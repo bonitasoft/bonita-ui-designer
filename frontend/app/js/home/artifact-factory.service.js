@@ -108,7 +108,8 @@
               'LightGray'
             ]
           }
-        ]
+        ],
+        webResources: []
       };
     }
 

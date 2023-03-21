@@ -18,6 +18,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
+import org.bonitasoft.web.designer.model.page.WebResource;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -33,6 +37,7 @@ public abstract class DesignerArtifact implements Identifiable {
 
     // This field is only in memory, we don't need to store it
     private MigrationStatusReport status;
+    private Set<WebResource> webResources = new HashSet<>();
 
     @JsonView({JsonViewPersistence.class})
     public String getModelVersion() {
@@ -112,5 +117,14 @@ public abstract class DesignerArtifact implements Identifiable {
     @JsonIgnore
     public void setStatus(MigrationStatusReport status) {
         this.status = status;
+    }
+
+    @JsonView({JsonViewPersistence.class})
+    public Set<WebResource> getWebResources() {
+        return this.webResources;
+    }
+
+    public void setWebResources(Set<WebResource> webResources) {
+        this.webResources = webResources;
     }
 }

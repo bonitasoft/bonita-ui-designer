@@ -47,7 +47,7 @@
       let baseFrameworkAsset = [{
         active: true,
         external: false,
-        name: 'angular-1.3.18.min.js',
+        name: 'bonitasoft/angular-1.3.21.min.js',
         order: 0,
         scope: 'baseFramework',
         url: 'http://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=687&bos_redirect_product=bos&bos_redirect_major_version=7.9&bos_redirect_minor_version=',

@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -24,6 +24,36 @@
     $scope.widget = artifact;
     $scope.bonds = BONDS;
 
+    $scope.sections = [{
+      id:'code',
+      name: gettextCatalog.getString('Code'),
+      icon: 'fa-file-code-o',
+      classes:'selected',
+      click: (event, id) => $scope.openSection(event, id)
+    },{
+      id:'general',
+      name: gettextCatalog.getString('General'),
+      icon: 'fa-tag',
+      click: (event, id) => $scope.openSection(event, id)
+    }];
+
+    $scope.isPropertyPanelClosed = false;
+
+    $scope.openSection = function (evt, section) {
+      let sections = document.getElementsByClassName('widget-section');
+
+      Object.values(sections).forEach(s => {
+        s.style.display = 'none';
+      });
+
+      let navSections = document.getElementsByClassName('nav-section');
+      Object.values(navSections).forEach(tab => {
+        tab.className = tab.className.replace(' selected', '');
+      })
+      document.getElementById(section).style.display = 'flex';
+      evt.currentTarget.className += ' selected';
+    }
+
     if (!$scope.widget.custom) {
       if ($scope.widget.type === 'container') {
         alerts.addInfo(gettextCatalog.getString('Containers cannot be edited.'), 5000);
@@ -34,15 +64,15 @@
 
     var widgetRepo = artifactRepo;
 
-    keyBindingService.bindGlobal(['ctrl+s', 'command+s'], function() {
-      $scope.$apply(function() {
+    keyBindingService.bindGlobal(['ctrl+s', 'command+s'], function () {
+      $scope.$apply(function () {
         $scope.save();
       });
       // prevent default browser action
       return false;
     });
 
-    $scope.isTypeSelectable = function(propertyBond) {
+    $scope.isTypeSelectable = function (propertyBond) {
       return propertyBond !== 'variable' && propertyBond !== 'interpolation';
     };
 
@@ -53,8 +83,8 @@
      * @param paramName the name of the property to update
      * @param param - the property to update
      */
-    $scope.updateParam = function(paramName, param) {
-      widgetRepo.updateProperty($scope.widget.id, paramName, param).then(function(response) {
+    $scope.updateParam = function (paramName, param) {
+      widgetRepo.updateProperty($scope.widget.id, paramName, param).then(function (response) {
         $scope.widget.properties = response.data;
       });
     };
@@ -63,8 +93,8 @@
      * Adds a new property
      * @param param - the param to add
      */
-    $scope.addParam = function(param) {
-      widgetRepo.addProperty($scope.widget.id, param).then(function(response) {
+    $scope.addParam = function (param) {
+      widgetRepo.addProperty($scope.widget.id, param).then(function (response) {
         $scope.widget.properties = response.data;
       });
     };
@@ -73,8 +103,8 @@
      * Deletes an existing property, by dropping it from the collection
      * @param paramIndex - the index of the property to drop
      */
-    $scope.deleteParam = function(param) {
-      widgetRepo.deleteProperty($scope.widget.id, param.name).then(function(response) {
+    $scope.deleteParam = function (param) {
+      widgetRepo.deleteProperty($scope.widget.id, param.name).then(function (response) {
         $scope.widget.properties = response.data;
       });
     };
@@ -82,20 +112,20 @@
     /**
      * Saves a widget and gives it an id based on its name (Awesome Widget -> awesome-widget)
      */
-    $scope.save = function() {
+    $scope.save = function () {
       widgetRepo.save($scope.widget)
         .then(() => $scope.dirty = false)
         .then(() => $scope.$broadcast('saved'));
 
     };
 
-    $scope.saveAndExport = function() {
-      widgetRepo.save($scope.widget).then(function() {
+    $scope.saveAndExport = function () {
+      widgetRepo.save($scope.widget).then(function () {
         $window.location = widgetRepo.exportUrl($scope.widget);
       });
     };
 
-    $scope.saveAs = function(widget) {
+    $scope.saveAs = function (widget) {
       var modalInstance = $uibModal.open({
         templateUrl: 'js/custom-widget/save-as-popup.html',
         controller: 'saveWidgetAsPopUpCtrl',
@@ -123,14 +153,14 @@
 
     $scope.pristine = true;
     $scope.dirty = false;
-    $scope.isPageDirty = function(artifact) {
+    $scope.isPageDirty = function (artifact) {
       let needSave = widgetRepo.needSave(artifact);
       $scope.pristine = $scope.pristine && !needSave;
       $scope.dirty = $scope.dirty || needSave;
       return needSave;
     };
 
-    $scope.createOrUpdate = function(param) {
+    $scope.createOrUpdate = function (param) {
 
       var modalInstance = $uibModal.open({
         templateUrl: 'js/custom-widget/create-property.html',
@@ -141,7 +171,7 @@
       });
 
       modalInstance.result
-        .then(function(result) {
+        .then(function (result) {
           if (result.paramToUpdate) {
             $scope.updateParam(result.paramToUpdate.name, result.param);
           } else {
@@ -155,27 +185,30 @@
         templateUrl: 'js/custom-widget/help-popup.html',
         size: 'lg',
         resolve: {
-          helpSection: function() {
+          helpSection: function () {
             return section;
           }
         },
-        controller: function($scope, $uibModalInstance, helpSection) {
+        controller: function ($scope, $uibModalInstance, helpSection) {
           if (helpSection) {
             $scope.tabContainer = {
               activeTab: helpSection
             };
           }
 
-          $scope.cancel = function() {
+          $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
           };
         }
       });
     };
 
-    $scope.$on('$destroy', function() {
+    $scope.$on('$destroy', function () {
       keyBindingService.unbind(['ctrl+s', 'command+s']);
     });
+    $scope.togglePropertyPanel = function () {
+      $scope.isPropertyPanelClosed = !$scope.isPropertyPanelClosed;
+    }
   }
 
 })();

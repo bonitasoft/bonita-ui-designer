@@ -39,6 +39,7 @@ import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.page.TabsContainer;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
 import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
 import org.bonitasoft.web.designer.repository.exception.InUseException;
 import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
 import org.bonitasoft.web.designer.repository.exception.NotFoundException;
@@ -83,6 +84,9 @@ public class FragmentServiceTest {
     private FragmentRepository fragmentRepository;
 
     @Mock
+    private WidgetRepository widgetRepository;
+
+    @Mock
     private PageRepository pageRepository;
 
     @Mock
@@ -106,7 +110,7 @@ public class FragmentServiceTest {
         pageHasValidationErrorVisitor = new PageHasValidationErrorVisitor();
         fragmentService = new DefaultFragmentService(fragmentRepository, pageRepository, fragmentMigrationApplyer,
                 fragmentIdVisitor, fragmentChangeVisitor, pageHasValidationErrorVisitor, assetVisitor,
-                new UiDesignerProperties("1.13.1", "2.0"),new WebResourcesVisitor(fragmentRepository)
+                new UiDesignerProperties("1.13.1", "2.0"),new WebResourcesVisitor(fragmentRepository, widgetRepository)
         );
 
         when(fragmentRepository.getComponentName()).thenReturn("fragment");

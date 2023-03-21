@@ -14,21 +14,41 @@
  */
 package org.bonitasoft.web.designer.visitor;
 
-import lombok.RequiredArgsConstructor;
+import static java.util.stream.Collectors.toList;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import org.bonitasoft.web.designer.controller.export.properties.BonitaBusinessDataResourcePredicate;
 import org.bonitasoft.web.designer.controller.export.properties.BonitaResourceTransformer;
 import org.bonitasoft.web.designer.controller.export.properties.BonitaVariableResourcePredicate;
 import org.bonitasoft.web.designer.controller.export.properties.ResourceURLFunction;
 import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.data.Variable;
-import org.bonitasoft.web.designer.model.page.*;
+import org.bonitasoft.web.designer.model.page.Component;
+import org.bonitasoft.web.designer.model.page.Container;
+import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.FragmentElement;
+import org.bonitasoft.web.designer.model.page.ModalContainer;
+import org.bonitasoft.web.designer.model.page.Previewable;
+import org.bonitasoft.web.designer.model.page.PropertyValue;
+import org.bonitasoft.web.designer.model.page.TabContainer;
+import org.bonitasoft.web.designer.model.page.TabsContainer;
+import org.bonitasoft.web.designer.model.page.WebResource;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
 
-import java.util.*;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
+import lombok.RequiredArgsConstructor;
 
 /**
  * An element visitor which traverses the tree of elements recursively to collect property values in a page
@@ -36,24 +56,29 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public class WebResourcesVisitor implements ElementVisitor<Map<String, WebResource>> {
 
-    public static final String SUBMIT_TASK = "Submit task";
-    public static final String START_PROCESS = "Start process";
+    static final String SUBMIT_TASK = "Submit task";
+    private static final String START_PROCESS = "Start process";
+    private static final String BUSINESS_DATA_RESOURCE = "GET|bdm/businessData";
+    private static final String BUSINESS_DATA_QUERY_RESOURCE = "GET|bdm/businessDataQuery";
+    
     private final FragmentRepository fragmentRepository;
+
+    private final WidgetRepository widgetRepository;
     public static final String BONITA_RESOURCE_REGEX = ".+/API/(?!extension)([^ /]*)/([^ /(?|{)]*)[\\S+]*";// matches ..... /API/{}/{}?...
 
     public static final String EXTENSION_RESOURCE_REGEX = ".+/API/(?=extension)([^ /]*)/([^ (?|{)]*).*";
+  
 
     @Override
     public Map<String, WebResource> visit(FragmentElement fragmentElement) {
         Map<String, WebResource> mapResources = new HashMap<>();
         var fragment = fragmentRepository.get(fragmentElement.getId());
         addResourceScope(mapResources, getResourcesFromVariables(fragment.getVariables()), "Variable");
-        fragment.getWebResources().stream().forEach(wr -> {
-            overrideScopeToKeepOnlyOneLevel(fragmentElement, mapResources, wr);
-        });
-        fragment.toContainer(fragmentElement).accept(this).values().stream().forEach(wr -> {
-            overrideScopeToKeepOnlyOneLevel(fragmentElement, mapResources, wr);
-        });
+        fragment.getWebResources().stream()
+                .forEach(wr -> overrideScopeToKeepOnlyOneLevel(fragmentElement, mapResources, wr));
+        fragment.toContainer(fragmentElement).accept(this).values().stream()
+                .forEach(wr -> overrideScopeToKeepOnlyOneLevel(fragmentElement, mapResources, wr));
+
         return mapResources;
     }
 
@@ -68,47 +93,54 @@ public class WebResourcesVisitor implements ElementVisitor<Map<String, WebResour
             mapResources.put("POST|bpm/userTask", new WebResource("POST", "bpm/userTask", component.getId()));
         }
 
-        addIfExist(component,"GET","url").ifPresent(wr -> mapResources.put(wr.toDefinition(),wr));
-        addIfExist(component,"POST","url").ifPresent(wr -> mapResources.put(wr.toDefinition(),wr));
-        addIfExist(component,"PUT","url").ifPresent(wr -> mapResources.put(wr.toDefinition(),wr));
-        addIfExist(component,"DELETE","url").ifPresent(wr -> mapResources.put(wr.toDefinition(),wr));
+        addIfExist(component, "GET", "url").ifPresent(wr -> mapResources.put(wr.toDefinition(), wr));
+        addIfExist(component, "POST", "url").ifPresent(wr -> mapResources.put(wr.toDefinition(), wr));
+        addIfExist(component, "PUT", "url").ifPresent(wr -> mapResources.put(wr.toDefinition(), wr));
+        addIfExist(component, "DELETE", "url").ifPresent(wr -> mapResources.put(wr.toDefinition(), wr));
 
         // Api url on DataTable
-        findResourcesIn(component, "apiUrl", "GET").ifPresent(s -> mapResources.put(String.format("GET|%s",s),new WebResource("GET", s, component.getId())));
+        findResourcesIn(component, "apiUrl", "GET").ifPresent(
+                s -> mapResources.put(String.format("GET|%s", s), new WebResource("GET", s, component.getId())));
 
-        if("pbUpload".equals(component.getId())){
-            findResourcesIn(component, "url", "POST").ifPresent(s -> mapResources.put(String.format("POST|%s",s),new WebResource("POST", s, component.getId())));
+        if ("pbUpload".equals(component.getId())) {
+            findResourcesIn(component, "url", "POST").ifPresent(
+                    s -> mapResources.put(String.format("POST|%s", s), new WebResource("POST", s, component.getId())));
         }
+
+        // Load WebResources declare manually on custom-widget
+        Widget widget = widgetRepository.get(component.getId());
+        widget.getWebResources().stream().forEach(wr -> {
+            wr.setScopes(Set.of(component.getId()));
+            wr.setAutomatic(true);
+            mapResources.put(wr.toDefinition(), wr);
+        });
 
         return mapResources;
     }
-    private Optional<WebResource> addIfExist(Component component, String httpVerb, String propertyName){
+
+    private Optional<WebResource> addIfExist(Component component, String httpVerb, String propertyName) {
         if (withAction(component, httpVerb)) {
-            var resources = findResourcesIn(component,propertyName,httpVerb);
-            if(resources.isPresent()){
+            var resources = findResourcesIn(component, propertyName, httpVerb);
+            if (resources.isPresent()) {
                 return Optional.of(new WebResource(httpVerb, resources.get(), component.getId()));
             }
         }
         return Optional.empty();
     }
+
     private Optional<String> findResourcesIn(Component component, String propertyName, String httpVerb) {
-         var res = Arrays.asList(component)
-                 .stream()
+        return Optional.ofNullable(component)
                 .map(propertyValue(propertyName))
                 .filter(Objects::nonNull)
                 .filter(propertyType(ParameterType.CONSTANT).or(propertyType(ParameterType.INTERPOLATION)))
                 .filter(notNullOrEmptyValue())
                 .map(toPageResource(httpVerb))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-
-         return res.size() > 0 ? Optional.of(res.get(0)) : Optional.empty();
+                .filter(Objects::nonNull);
     }
 
     private Predicate<? super PropertyValue> notNullOrEmptyValue() {
         return propertyValue -> propertyValue.getValue() != null && !propertyValue.getValue().toString().isEmpty();
     }
-
 
     private Function<PropertyValue, String> toPageResource(String httpVerb) {
         return propertyValue -> {
@@ -116,7 +148,7 @@ public class WebResourcesVisitor implements ElementVisitor<Map<String, WebResour
             return value.matches(BONITA_RESOURCE_REGEX)
                     ? new ResourceURLFunction(BONITA_RESOURCE_REGEX, httpVerb).applyApi(value)
                     : value.matches(EXTENSION_RESOURCE_REGEX)
-                    ? new ResourceURLFunction(EXTENSION_RESOURCE_REGEX, httpVerb).applyApi(value) : null;
+                            ? new ResourceURLFunction(EXTENSION_RESOURCE_REGEX, httpVerb).applyApi(value) : null;
         };
     }
 
@@ -131,9 +163,7 @@ public class WebResourcesVisitor implements ElementVisitor<Map<String, WebResour
     @Override
     public Map<String, WebResource> visit(Container container) {
         Map<String, WebResource> data = new HashMap<>();
-        container.getRows().forEach(rows -> {
-            rows.forEach(el -> data.putAll(el.accept(this)));
-        });
+        container.getRows().forEach(rows -> rows.forEach(el -> data.putAll(el.accept(this))));
         return data;
     }
 
@@ -167,9 +197,9 @@ public class WebResourcesVisitor implements ElementVisitor<Map<String, WebResour
         addResourceScope(mapResources, getResourcesFromVariables(previewable.getVariables()), "Variable");
 
         // Resource from Child component/fragment
-        previewable.getRows().stream().forEach(row -> {
-            row.stream().forEach(element -> addWebResourceScope(mapResources, element.accept(this).values().stream().collect(Collectors.toList())));
-        });
+        previewable.getRows().stream()
+                .forEach(row -> row.stream().forEach(element -> addWebResourceScope(mapResources,
+                        element.accept(this).values().stream().collect(Collectors.toList()))));
 
         return mapResources;
     }
@@ -180,12 +210,21 @@ public class WebResourcesVisitor implements ElementVisitor<Map<String, WebResour
                 .map(new BonitaResourceTransformer(BONITA_RESOURCE_REGEX))
                 .collect(toList());
 
-        List<String> extension = variables.values().stream()
+        variables.values().stream()
                 .filter(new BonitaVariableResourcePredicate(EXTENSION_RESOURCE_REGEX))
                 .map(new BonitaResourceTransformer(EXTENSION_RESOURCE_REGEX))
-                .collect(Collectors.toList());
-        resources.addAll(extension);
+                .forEach(resources::add);
+
+        if (containsBusinessDataVariable(variables.values())) {
+            resources.add(BUSINESS_DATA_RESOURCE);
+            resources.add(BUSINESS_DATA_QUERY_RESOURCE);
+        }
+
         return resources;
+    }
+
+    private static boolean containsBusinessDataVariable(Collection<Variable> variables) {
+        return variables.stream().anyMatch(new BonitaBusinessDataResourcePredicate());
     }
 
     private boolean withAction(Component component, String action) {
@@ -214,7 +253,8 @@ public class WebResourcesVisitor implements ElementVisitor<Map<String, WebResour
         });
     }
 
-    private void overrideScopeToKeepOnlyOneLevel(FragmentElement fragmentElement, Map<String, WebResource> mapResources, WebResource wr) {
+    private void overrideScopeToKeepOnlyOneLevel(FragmentElement fragmentElement, Map<String, WebResource> mapResources,
+            WebResource wr) {
         wr.setScopes(Arrays.asList(fragmentElement.getId()).stream().collect(Collectors.toSet()));
         wr.setAutomatic(true);
         mapResources.put(wr.toDefinition(), wr);

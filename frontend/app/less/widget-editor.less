@@ -1,20 +1,16 @@
-.ace_editor.ace-editor--widget {
-  height: 300px;
+.WidgetEditor {
+  overflow-x: hidden;
 }
-.ace_editor-readonly .ace_content{
+
+.ace_editor.ace-editor--widget {
+  height: 100%;
+  min-width: 10rem;
+  box-shadow: 1px 2px 5px -2px lighten(@gray-light, 20%);
+}
+
+.ace_editor-readonly .ace_content {
   cursor: not-allowed;
   background-color: @color-custom-editor-disable-background;
-}
-
-
-
-.textarea--widget {
-  resize:vertical;
-}
-
-.textarea--widget,
-.ace-editor--widget {
-  box-shadow: 1px 2px 5px -2px lighten(@gray-light, 20%);
 }
 
 .EditorHeader-name img {
@@ -30,20 +26,133 @@
   color: @color-custom-editor-widget-name;
 }
 
-.CustomEditor {
-  background-color: lighten(@gray-lighter, 5%);
-  padding-bottom: 3em;
+.layout {
+  display: flex;
 }
 
-.EditorIDE {
-  box-shadow: 0 5px 5px @gray-light;
+.CustomEditor-navBar {
+  background-color: @color-editor-header-bg;
+  display: flex;
+  flex-direction: column;
+  --left-nav-bar: 5rem;
+  width: var(--left-nav-bar);
+}
+
+.CustomEditor-general {
+  flex-direction: column;
+  height: 100%;
+}
+
+.selected {
+  background-color: darken(@color-palette-section-bg, 10%);
+}
+
+.widget-section {
+  height: 100%;
+  column-gap: 1rem;
+}
+
+.CustomEditor {
+  flex: 1;
+  background-color: lighten(@gray-lighter, 5%);
+  padding-bottom: 3em;
+  height: calc(100vh - @nav-bar-height);
+  width: calc(100vw - var(--left-btn-panel));
+  display: flex;
+  flex-direction: column;
+
+  &-scrollview {
+    overflow: auto;
+  }
+}
+
+.CustomEditor-code {
+  flex: 3;
+  display: flex;
+  column-gap: 1rem;
+
+  &-left {
+    min-width: 10rem;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.CustomEditor-properties-panel {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
+  flex-grow: 1;
+}
+
+.CustomEditor-properties {
+  display: flex;
+  --properties-section-color: #efecec;
+  background-color: var(--properties-section-color);
+  box-shadow: -3px 0px 5px -2px #0e0e0e6e;
+  border-radius: 3px;
+  margin-left: 1rem;
+  width: 35rem;
+  transition: all .3s linear;
+
+  &-section {
+    display: flex;
+    margin-left: 10px;
+  }
+
+  &-btn-toggle {
+    position: absolute;
+    top: 50vh;
+    transform: translateX(-100%);
+    font-size: 24px;
+    border: none;
+    box-shadow: none;
+    box-shadow: -3px 0px 5px -2px #0e0e0e6e;
+    border-radius: 3px;
+
+    &:before {
+      .fa;
+      content: @fa-var-angle-right;
+      padding: 0 .2em;
+    }
+  }
+
+  &--closed {
+    width: 0;
+
+    .CustomEditor-properties-btn-toggle:before {
+      content: @fa-var-angle-left;
+    }
+  }
+
+
+  &-title {
+    flex: 1;
+  }
+
+  &-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 1rem;
+  }
+}
+
+.Search {
+  margin-left: 1em;
 }
 
 .CustomEditor-section {
   color: @color-custom-editor-section;
   font-size: 1.5em;
   font-weight: normal;
-  position: relative;
   margin: 1em 0 1.5em;
 }
 
@@ -57,6 +166,7 @@
   white-space: nowrap;
   vertical-align: middle;
 }
+
 .CustomEditor-helper {
   font-size: .65em;
   color: @color-custom-editor-helper;
@@ -82,9 +192,10 @@
 }
 
 .EditWidgetPopup-help {
-  resize:vertical;
+  resize: vertical;
 }
 
 .EditWidgetPopup-captionMarginTop {
   margin-top: -5px;
 }
+
