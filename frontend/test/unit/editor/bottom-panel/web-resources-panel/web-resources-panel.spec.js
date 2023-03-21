@@ -39,18 +39,18 @@
 
     it('should be filter webResources when user use the search filter', function () {
       spyOn(pageRepo, 'loadAutoWebResources').and.returnValue($q.when([{
-        verb: 'post',
+        method: 'post',
         value: 'identity/professionalcontactdata',
         scopes: ['custom_startProcessBtn'],
         automatic: true
       },
-      {verb: 'post', value: 'identity/user', scopes: ['pbButton'], automatic: true}
+      {method: 'post', value: 'identity/user', scopes: ['pbButton'], automatic: true}
       ]));
 
       controller = getController({
         webResources: [
-          {verb: 'get', value: 'bpm/userTask'},
-          {verb: 'get', value: 'bpm/userTask1'},
+          {method: 'get', value: 'bpm/userTask'},
+          {method: 'get', value: 'bpm/userTask1'},
         ],
       });
       controller.$scope.$apply();
@@ -63,7 +63,7 @@
     it('should be not updatable when web resource come from automatic detection', function () {
       controller = getController({});
       let resource = {
-        verb: 'post',
+        method: 'post',
         value: 'identity/professionalcontactdata',
         scopes: ['custom_startProcessBtn'],
         automatic: true,
@@ -72,7 +72,7 @@
       expect(controller.isUpdatable(resource)).toBeFalse()
 
       resource = {
-        verb: 'post',
+        method: 'post',
         value: 'identity/professionalcontactdata',
         scopes: ['custom_startProcessBtn']
       };
@@ -83,7 +83,7 @@
     it('should be updatable when web resource come from a manual detection', function () {
       controller = getController({});
       let resource = {
-        verb: 'post',
+        method: 'post',
         value: 'identity/professionalcontactdata',
         scopes: ['custom_startProcessBtn']
       };
@@ -91,7 +91,7 @@
       expect(controller.isUpdatable(resource)).toBeTrue()
 
       resource = {
-        verb: 'post',
+        method: 'post',
         value: 'identity/professionalcontactdata',
         scopes: ['custom_startProcessBtn'],
         detection: 'manual'
@@ -111,7 +111,7 @@
     });
 
     it('should add a new web resource when add popup is opened', function () {
-      let resourceToAdd = {verb: 'post', value: 'identity/user'};
+      let resourceToAdd = {method: 'post', value: 'identity/user'};
       spyOn(pageRepo, 'loadAutoWebResources').and.returnValue($q.when([]));
       controller = getController({webResources: []});
       controller.$scope.$apply();
@@ -124,10 +124,10 @@
     });
 
     it('should edit the web resource when edit popup is opened', function () {
-      let resourceToAdd = {verb: 'get', value: 'identity/user', id: 0};
+      let resourceToAdd = {method: 'get', value: 'identity/user', id: 0};
       spyOn(pageRepo, 'loadAutoWebResources').and.returnValue($q.when([]));
 
-      controller = getController({webResources: [{verb: 'get', value: 'bpm/userTask', id: 0}]});
+      controller = getController({webResources: [{method: 'get', value: 'bpm/userTask', id: 0}]});
       controller.$scope.$apply();
 
       controller.openWebResourcePopup();
@@ -143,13 +143,13 @@
 
       controller = getController({
         webResources: [
-          {verb: 'get', value: 'bpm/userTask', id: 0},
-          {verb: 'post', value: 'bpm/manualTask', id: 1}
+          {method: 'get', value: 'bpm/userTask', id: 0},
+          {method: 'post', value: 'bpm/manualTask', id: 1}
         ]
       });
       controller.$scope.$apply();
 
-      const resourceToDelete = {verb: 'get', value: 'bpm/userTask', id: 0};
+      const resourceToDelete = {method: 'get', value: 'bpm/userTask', id: 0};
 
       controller.openDeletePopup(resourceToDelete);
       controller.deleteResource(resourceToDelete);
@@ -162,11 +162,11 @@
       spyOn(pageRepo, 'loadAutoWebResources').and.returnValue($q.when([]));
       controller = getController({
         webResources: [
-          {verb: 'get', value: 'bpm/userTask', id: 0},
-          {verb: 'post', value: 'bpm/manualTask', id: 1}
+          {method: 'get', value: 'bpm/userTask', id: 0},
+          {method: 'post', value: 'bpm/manualTask', id: 1}
         ]
       });
-      const resourceToDelete = {verb: 'get', value: 'bpm/userTask'};
+      const resourceToDelete = {method: 'get', value: 'bpm/userTask'};
 
       controller.openDeletePopup(resourceToDelete);
       controller.deleteResource(resourceToDelete);

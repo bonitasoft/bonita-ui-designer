@@ -53,10 +53,10 @@
 
     it('should return the label for http verb given on input', () => {
       controller = getController([], {});
-      expect(controller.getVerbLabel('get')).toBe('GET');
-      expect(controller.getVerbLabel('post')).toBe('POST');
-      expect(controller.getVerbLabel('put')).toBe('PUT');
-      expect(controller.getVerbLabel('delete')).toBe('DELETE');
+      expect(controller.getMethodLabel('get')).toBe('GET');
+      expect(controller.getMethodLabel('post')).toBe('POST');
+      expect(controller.getMethodLabel('put')).toBe('PUT');
+      expect(controller.getMethodLabel('delete')).toBe('DELETE');
     });
   });
 })();

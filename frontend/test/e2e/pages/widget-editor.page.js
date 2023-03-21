@@ -34,7 +34,13 @@
     }
 
     assets() {
+      this.openSection('general');
       return new AssetSection();
+    }
+
+    openSection(id){
+      let el = element(by.id(`btn-${id}`));
+      el.click();
     }
   }
 

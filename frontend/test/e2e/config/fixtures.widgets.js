@@ -207,7 +207,8 @@
             'order': 3,
             'active': true
           }
-        ]
+        ],
+        webResources: [],
       },
       {
         id: 'customFavoriteWidget',
@@ -233,7 +234,8 @@
             bond: 'expression'
           }
         ],
-        assets: []
+        assets: [],
+        webResources: [],
       },
       {
         id: 'pbDatePicker',

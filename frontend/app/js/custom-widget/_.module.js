@@ -12,10 +12,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-(function() {
+(function () {
 
   'use strict';
 
-  angular.module('bonitasoft.designer.custom-widget', ['bonitasoft.designer.editor.header.help', 'bonitasoft.designer.common.repositories', 'bonitasoft.designer.common.services', 'ui.bootstrap', 'gettext', 'ui.router']);
+  angular.module('bonitasoft.designer.custom-widget', [
+    'bonitasoft.designer.editor.header.help',
+    'bonitasoft.designer.common.repositories',
+    'bonitasoft.designer.common.services',
+    'bonitasoft.designer.common.directives',
+    'ui.bootstrap',
+    'gettext',
+    'ui.router']);
 
 })();

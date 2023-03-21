@@ -14,7 +14,10 @@
  */
 package org.bonitasoft.web.designer.builder;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.bonitasoft.web.designer.controller.MigrationStatusReport;
+import org.bonitasoft.web.designer.model.JsonViewPersistence;
+import org.bonitasoft.web.designer.model.page.WebResource;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import java.time.Instant;
@@ -44,6 +47,8 @@ public class WidgetBuilder {
     private String type;
     private boolean favorite = false;
     private boolean hasHelp = false;
+
+    private Set<WebResource> webResources= new HashSet<>();
     private MigrationStatusReport migrationStatusReport = new MigrationStatusReport(true, true);
 
     public static WidgetBuilder aWidget() {
@@ -154,6 +159,13 @@ public class WidgetBuilder {
         return this;
     }
 
+
+    public WidgetBuilder withWebResources(WebResource... webResources) {
+        this.webResources = Set.of(webResources);
+        return this;
+    }
+
+
     public Widget build() {
         Widget widget = new Widget();
         widget.setId(id);
@@ -166,6 +178,7 @@ public class WidgetBuilder {
         widget.setFavorite(favorite);
         widget.setHasHelp(hasHelp);
         widget.setType(type);
+        widget.setWebResources(webResources);
         if (previousArtifactVersion != null) {
             widget.setPreviousArtifactVersion(previousArtifactVersion);
         } else {

@@ -12,15 +12,7 @@ import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.controller.importer.dependencies.AssetDependencyImporter;
 import org.bonitasoft.web.designer.livebuild.ObserverFactory;
 import org.bonitasoft.web.designer.livebuild.Watcher;
-import org.bonitasoft.web.designer.migration.AddModelVersionMigrationStep;
-import org.bonitasoft.web.designer.migration.AssetExternalMigrationStep;
-import org.bonitasoft.web.designer.migration.AssetIdMigrationStep;
-import org.bonitasoft.web.designer.migration.DataExposedMigrationStep;
-import org.bonitasoft.web.designer.migration.Migration;
-import org.bonitasoft.web.designer.migration.SplitWidgetResourcesMigrationStep;
-import org.bonitasoft.web.designer.migration.StyleAddModalContainerPropertiesMigrationStep;
-import org.bonitasoft.web.designer.migration.StyleAssetMigrationStep;
-import org.bonitasoft.web.designer.migration.StyleUpdateInputRequiredLabelMigrationStep;
+import org.bonitasoft.web.designer.migration.*;
 import org.bonitasoft.web.designer.migration.page.AccessibilityCheckListAndRadioButtonsMigrationStep;
 import org.bonitasoft.web.designer.migration.page.AutocompleteWidgetReturnedKeyMigrationStep;
 import org.bonitasoft.web.designer.migration.page.BondMigrationStep;
@@ -175,7 +167,7 @@ public class UiDesignerCoreFactory {
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1")),
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2")),
                 new Migration<>("2.3", new AddModelVersionMigrationStep<>("2.3")),
-                new Migration<>("2.4", new AddModelVersionMigrationStep<>("2.4"))
+                new Migration<>("2.4", new AddModelVersionMigrationStep<>("2.4"),new AddWebResourcesForWidget())
         );
 
         var widgetMigrationApplyer = new WidgetMigrationApplyer(widgetMigrationStepsList);
@@ -208,7 +200,7 @@ public class UiDesignerCoreFactory {
                 new PageHasValidationErrorVisitor(),
                 assetVisitor,
                 uiDesignerProperties,
-                new WebResourcesVisitor(fragmentRepository));
+                new WebResourcesVisitor(fragmentRepository,widgetRepository));
 
         var pageMigrationApplyer = new PageMigrationApplyer(pageMigrationStepsList, widgetService, fragmentService);
         var pageService = new DefaultPageService(
@@ -218,7 +210,7 @@ public class UiDesignerCoreFactory {
                 assetVisitor,
                 uiDesignerProperties,
                 pageAssetService,
-                new WebResourcesVisitor(fragmentRepository)
+                new WebResourcesVisitor(fragmentRepository,widgetRepository)
         );
 
         // Return core services

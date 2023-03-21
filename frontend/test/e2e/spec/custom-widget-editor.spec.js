@@ -7,7 +7,8 @@ describe('custom widget editor', function() {
   let widgetEditor;
 
   beforeEach(function() {
-    widgetEditor = WidgetEditor.get('customAwesomeWidget');
+    widgetEditor = WidgetEditor.get('customAwesomeWidget')
+    widgetEditor.openSection('code');
   });
 
   function getPropertyNamesInList() {
@@ -47,6 +48,7 @@ describe('custom widget editor', function() {
   });
 
   it('should open a confirm dialog before going home', function() {
+    widgetEditor.openSection('general');
     element.all(by.model('widget.description')).sendKeys('update');
     $('.EditorHeader-homeNav').click();
 
@@ -57,6 +59,7 @@ describe('custom widget editor', function() {
   });
 
   it('should open a confirm dialog and stay on the same page if dismiss', function() {
+    widgetEditor.openSection('general');
     element.all(by.model('widget.description')).sendKeys('update');
     $('.EditorHeader-homeNav').click();
 

@@ -18,10 +18,13 @@ import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.controller.export.properties.BonitaResourceTransformer;
 import org.bonitasoft.web.designer.controller.export.properties.BonitaVariableResourcePredicate;
 import org.bonitasoft.web.designer.controller.export.properties.ResourceURLFunction;
+import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.*;
+import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.repository.FragmentRepository;
+import org.bonitasoft.web.designer.repository.WidgetRepository;
 
 import java.util.*;
 import java.util.function.Function;
@@ -39,6 +42,8 @@ public class WebResourcesVisitor implements ElementVisitor<Map<String, WebResour
     public static final String SUBMIT_TASK = "Submit task";
     public static final String START_PROCESS = "Start process";
     private final FragmentRepository fragmentRepository;
+
+    private final WidgetRepository widgetRepository;
     public static final String BONITA_RESOURCE_REGEX = ".+/API/(?!extension)([^ /]*)/([^ /(?|{)]*)[\\S+]*";// matches ..... /API/{}/{}?...
 
     public static final String EXTENSION_RESOURCE_REGEX = ".+/API/(?=extension)([^ /]*)/([^ (?|{)]*).*";
@@ -54,6 +59,7 @@ public class WebResourcesVisitor implements ElementVisitor<Map<String, WebResour
         fragment.toContainer(fragmentElement).accept(this).values().stream().forEach(wr -> {
             overrideScopeToKeepOnlyOneLevel(fragmentElement, mapResources, wr);
         });
+
         return mapResources;
     }
 
@@ -79,6 +85,14 @@ public class WebResourcesVisitor implements ElementVisitor<Map<String, WebResour
         if("pbUpload".equals(component.getId())){
             findResourcesIn(component, "url", "POST").ifPresent(s -> mapResources.put(String.format("POST|%s",s),new WebResource("POST", s, component.getId())));
         }
+
+        // Load WebResources declare manually on custom-widget
+        Widget widget = widgetRepository.get(component.getId());
+        widget.getWebResources().stream().forEach(wr -> {
+            wr.setScopes(Set.of(component.getId()));
+            wr.setAutomatic(true);
+            mapResources.put(wr.toDefinition(),wr);
+        });
 
         return mapResources;
     }
