@@ -21,7 +21,7 @@
         <th class="panelTable w10 Table-sort">
             <a ng-click="ctrl.sort('method')" translate>Method</a>
         </th>
-        <th class="panelTable w30 Table-sort">
+        <th class="panelTable w40 Table-sort">
             <a ng-click="ctrl.sort('value')" translate>Value</a>
         </th>
         <th class="panelTable w10 Table-sort cell-align-center">
@@ -44,7 +44,7 @@
             <td class="panelTable w10">
                 {{webResource.method.toUpperCase()}}
             </td>
-            <td class="panelTable w30">
+            <td class="panelTable w40" title="{{webResource.value}}">
                 <b>{{webResource.value}}</b>
             </td>
             <td class="panelTable w10 cell-align-center">
