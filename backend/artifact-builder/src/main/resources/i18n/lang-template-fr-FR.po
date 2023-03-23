@@ -8,10 +8,10 @@ msgstr ""
 "X-Crowdin-Project-ID: 13316\n"
 "X-Crowdin-Language: fr\n"
 "X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
-"X-Crowdin-File-ID: 71769\n"
+"X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-03-16 02:28\n"
+"PO-Revision-Date: 2023-03-23 04:04\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -680,6 +680,9 @@ msgstr "Fermer une fenêtre modale en cas de succès"
 msgid "Close modal when the action is successful"
 msgstr "Fermer une fenêtre modale lorsque l'action a été réalisée avec succès"
 
+msgid "Code"
+msgstr ""
+
 msgid "Collection"
 msgstr "Collections"
 
@@ -892,6 +895,9 @@ msgstr "Déclaration"
 
 msgid "Declare a Bonita resource"
 msgstr "Déclarer une ressource Bonita"
+
+msgid "Declare the Bonita REST API resources used in this widget."
+msgstr ""
 
 msgid "Default"
 msgstr "Défaut"
@@ -1344,8 +1350,8 @@ msgstr "Cependant, telle une redirection de la fenêtre active (frame) ne sera p
 msgid "Html template update"
 msgstr "Mise à jour du modèle Html"
 
-msgid "Http verb"
-msgstr "Verbe Http"
+msgid "Http method"
+msgstr ""
 
 msgid "Human task form"
 msgstr "Formulaire de tâche humaine"
@@ -1676,6 +1682,9 @@ msgstr "Message"
 
 msgid "Metadata"
 msgstr "Méta-données"
+
+msgid "Method"
+msgstr ""
 
 msgid "Migrate"
 msgstr "Migrer"
@@ -2945,9 +2954,6 @@ msgstr "Variables"
 
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr "Les variables peuvent être liées aux différents champs pour créer un comportement conditionnel entre les propriétés des widgets."
-
-msgid "Verb"
-msgstr "Verbe"
 
 msgid "Vertical display"
 msgstr "Affichage vertical"
