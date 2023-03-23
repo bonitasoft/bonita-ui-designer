@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 71769\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-03-16 02:28\n"
+"PO-Revision-Date: 2023-03-22 04:07\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -682,6 +682,9 @@ msgstr "Cierre modal con éxito"
 msgid "Close modal when the action is successful"
 msgstr "Cierre modal cuando la acción es exitosa"
 
+msgid "Code"
+msgstr ""
+
 msgid "Collection"
 msgstr "Colección"
 
@@ -894,6 +897,9 @@ msgstr "Declaración"
 
 msgid "Declare a Bonita resource"
 msgstr "Declarar recurso Bonita"
+
+msgid "Declare the Bonita REST API resources used in this widget."
+msgstr ""
 
 msgid "Default"
 msgstr "Por defecto"
@@ -1346,8 +1352,8 @@ msgstr "Sin embargo, tal redirección de la ventana actual (frame) no se realiza
 msgid "Html template update"
 msgstr "Actualización de plantilla Html"
 
-msgid "Http verb"
-msgstr "Verbo Http"
+msgid "Http method"
+msgstr ""
 
 msgid "Human task form"
 msgstr "Formulario de tarea humana"
@@ -1678,6 +1684,9 @@ msgstr "Mensaje"
 
 msgid "Metadata"
 msgstr "Metadatos"
+
+msgid "Method"
+msgstr ""
 
 msgid "Migrate"
 msgstr "Migrar"
@@ -2947,9 +2956,6 @@ msgstr "Variables"
 
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr "Las variables pueden estar enlazadas a los campos de entrada para crear un comportamiento condicional entre las propiedades del widget."
-
-msgid "Verb"
-msgstr "Verbo"
 
 msgid "Vertical display"
 msgstr "Display Vertical"
