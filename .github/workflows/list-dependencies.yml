@@ -53,7 +53,7 @@ jobs:
           # make file runnable, might not be necessary
           url="https://api.github.com/repos/bonitasoft/bonita-doc/pulls"
           data=$( jq --indent 3 -n \
-          --arg title "doc(uid): Add UID dependencies for ${{ github.event.inputs.bonitaMinorVersion }}" \
+          --arg title "docs(uid): Add UID dependencies for ${{ github.event.inputs.bonitaMinorVersion }}" \
           --arg base "${{ github.event.inputs.bonitaMinorVersion }}" \
           --arg head "doc/add-bonita-ui-designer-repositories-dependencies-${{ github.event.inputs.bonitaMinorVersion }}" \
           '{ head: $head, base: $base, title: $title, draft: true }' )
