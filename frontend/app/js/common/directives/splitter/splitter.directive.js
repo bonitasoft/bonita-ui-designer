@@ -63,8 +63,9 @@
       this.rightSide.style.removeProperty('pointer-events');
 
       // Remove the handlers of `mousemove` and `mouseup`
-      this.document.off('mousemove')
-      this.document.off('mouseup')
+      this.document.off('mousemove');
+      this.document.off('mouseup');
+      window.dispatchEvent(new Event('resize'));
     };
 
 

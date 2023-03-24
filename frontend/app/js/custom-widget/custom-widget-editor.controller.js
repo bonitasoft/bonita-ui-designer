@@ -19,7 +19,7 @@
     .module('bonitasoft.designer.custom-widget')
     .controller('CustomWidgetEditorCtrl', CustomWidgetEditorCtrl);
 
-  function CustomWidgetEditorCtrl($scope, artifact, artifactRepo, alerts, $uibModal, $window, keyBindingService, gettextCatalog, $stateParams, $state, BONDS, browserHistoryService) {
+  function CustomWidgetEditorCtrl($scope, artifact, artifactRepo, alerts, $uibModal, $window, keyBindingService, gettextCatalog, $stateParams, $state, BONDS, browserHistoryService, $timeout) {
 
     $scope.widget = artifact;
     $scope.bonds = BONDS;
@@ -206,8 +206,12 @@
     $scope.$on('$destroy', function () {
       keyBindingService.unbind(['ctrl+s', 'command+s']);
     });
+
     $scope.togglePropertyPanel = function () {
       $scope.isPropertyPanelClosed = !$scope.isPropertyPanelClosed;
+      // Allow to resize the code editor after toogle animation
+      $timeout(() => $window.dispatchEvent(new Event('resize')), 300);
+
     }
   }
 

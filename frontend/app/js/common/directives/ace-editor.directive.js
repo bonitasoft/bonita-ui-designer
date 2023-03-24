@@ -28,7 +28,7 @@ angular.module('bonitasoft.designer.common.directives').directive('aceEditor', f
       mode: '@',
       autoCompletion: '@'
     },
-    template: '<div ui-ace="{ mode: \'{{mode}}\', showGutter: true, onLoad: loaded }"></div>',
+    template: '<div ui-ace="{ mode: \'{{mode}}\', showGutter: true, onLoad: loaded, useWrapMode: true }"></div>',
     controller: function($scope, $parse, $attrs) {
       var ctrl = this;
 
