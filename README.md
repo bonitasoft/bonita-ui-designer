@@ -19,7 +19,7 @@ or
 
 #### Using Maven
 * Build it using maven `mvn clean package`
-* Run it using `java -jar backend/webapp/target/ui-designer-1.16.0-SNAPSHOT-standalone.jar`
+* Run it using `java -jar backend/webapp/target/ui-designer-1.16.11-standalone.jar`
 
 #### Using Docker
 
@@ -66,8 +66,8 @@ You can build entire project using maven.
     mvn clean package
     
 This will build frontend and backend and create two artifacts :
-backend/webapp/target/ui-designer-1.16.0-SNAPSHOT.war
-backend/webapp/target/ui-designer-1.16.0-SNAPSHOT-standalone.jar
+backend/webapp/target/ui-designer-1.16.11.war
+backend/webapp/target/ui-designer-1.16.11-standalone.jar
 
 #### Test
 
@@ -83,7 +83,7 @@ Also frontend e2e test could be launched via
 #### Run
 To run build standalone jar, just launch it as a standard jar :
 
-    java -jar backend/webapp/target/ui-designer-1.16.0-SNAPSHOT-standalone.jar [-Dworkspace=/path/to/workspace] [-Drepository.widgets=/path/widgets/repository] [-Drepository.pages=/path/pages/repository][-Dbonita.data.repository.origin=datarepository.url]
+    java -jar backend/webapp/target/ui-designer-1.16.11-standalone.jar [-Dworkspace=/path/to/workspace] [-Drepository.widgets=/path/widgets/repository] [-Drepository.pages=/path/pages/repository][-Dbonita.data.repository.origin=datarepository.url]
 
 
 Application is now available at http://localhost:8080/designer/
@@ -92,7 +92,7 @@ You can specify workspace location where pages and widgets are stored. Default v
 
 Available options can be listed by running 
 
-    java -jar backend/webapp/target/ui-designer-1.16.0-SNAPSHOT-standalone.jar -h
+    java -jar backend/webapp/target/ui-designer-1.16.11-standalone.jar -h
     
 Other available options are listed here : http://tomcat.apache.org/maven-plugin-2.0/executable-war-jar.html 
     
