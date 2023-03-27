@@ -60,6 +60,7 @@
   width: calc(100vw - var(--left-btn-panel));
   display: flex;
   flex-direction: column;
+  overflow-x: auto;
 
   &-scrollview {
     overflow: auto;
@@ -199,3 +200,16 @@
   margin-top: -5px;
 }
 
+div::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Ascenseur */
+div::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 8px;
+}
+
+.textarea--widget {
+  resize: vertical;
+}
