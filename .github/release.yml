@@ -8,9 +8,15 @@ changelog:
     - title: New Features 🎉
       labels:
         - enhancement
+    - title: Defects 🧐
+      labels:
+        - defect
     - title: Bug fixes 🛠
       labels:
         - bug
+    - title: Technical updates 🔧
+      labels:
+        - dependencies
     - title: Other Changes
       labels:
         - "*"

@@ -1,0 +1,5 @@
+enhancement: 'feat/*'
+defect: 'defect/*'
+bug: 'fix/*'
+github_actions: 'ci/*'
+ignore-for-release-notes: 'feat/dev/update_translations'
