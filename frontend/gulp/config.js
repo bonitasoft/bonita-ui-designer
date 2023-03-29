@@ -14,6 +14,7 @@ const paths = {
     'node_modules/angular-ui-ace/src/ui-ace.js',
     'node_modules/ace-builds/src-min-noconflict/ace.js',
     'node_modules/ace-builds/src-min-noconflict/ext-language_tools.js',
+    'node_modules/ace-builds/src-min-noconflict/ext-searchbox.js',
     'node_modules/angular-cookies/angular-cookies.min.js',
     'node_modules/ngUpload/ng-upload.min.js',
     'node_modules/bonita-js-components/dist/bonita-lib-tpl.min.js',

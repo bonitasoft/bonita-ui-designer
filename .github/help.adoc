@@ -15,6 +15,8 @@ On each push/pull_request on master and dev branch, *build* is trigger
 |Crowdin upload| Upload on crowdin all translation for dev |⚙ each night
 |Commit Message check| Check commit message when a PR is open|⚙
 |Generate Dependencies report| Generate zip with dependencies report|🤚
+|Pull Request Labeler| Add label on PR to improve release note|⚙
+|Merge branches| Merge one branch into another|🤚
 |===
 
 === How to do a complete release ?
@@ -27,5 +29,12 @@ To do a release, run *Release* action. You need to enter all parameters (You can
 |publishBinaries|true|✅|If true, binaries will be pushed on the repository, added as a github release asset.
 |pushToPublic|true|✅|If true, tag will be pushed on github public repository
 |===
+
+=== How to add/update the release note ?
+
+Go on https://github.com/bonitasoft/bonita-ui-designer-internal/releases/tag/YOUR_TAG_NAME and edit the release note:
+* Select the latest tag before the releases actually with `Previous tag field`
+* Click on `Generate release notes` button
+* On the bottom of the page, click on `Update release`
 
 

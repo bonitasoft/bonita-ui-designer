@@ -27,7 +27,7 @@ describe('ace-editor directive', function() {
   }));
 
   it('should give default options and pass the wanted mode to ui-ace directive ', function() {
-    expect(element.attr('ui-ace')).toBe('{ mode: \'javascript\', showGutter: true, onLoad: loaded }');
+    expect(element.attr('ui-ace')).toBe('{ mode: \'javascript\', showGutter: true, onLoad: loaded, useWrapMode: true }');
   });
 
   it('should hide print margin of ace editor when loaded', function() {

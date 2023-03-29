@@ -18,6 +18,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.tagVersion || github.ref }}
+          
       - name: Set up Java 11
         uses: actions/setup-java@v3
         with:
@@ -25,9 +29,6 @@ jobs:
           distribution: temurin
           cache: maven
 
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.inputs.tagVersion || github.ref }}
       - name: Generate reports
         run: ./mvnw package -DskipTests -Pdependencies -DbonitaMinorVersion=${{ github.event.inputs.bonitaMinorVersion }}
       - name: Pushes dependencies file to bonita-doc
@@ -52,7 +53,7 @@ jobs:
           # make file runnable, might not be necessary
           url="https://api.github.com/repos/bonitasoft/bonita-doc/pulls"
           data=$( jq --indent 3 -n \
-          --arg title "doc(uid): Add UID dependencies for ${{ github.event.inputs.bonitaMinorVersion }}" \
+          --arg title "docs(uid): Add UID dependencies for ${{ github.event.inputs.bonitaMinorVersion }}" \
           --arg base "${{ github.event.inputs.bonitaMinorVersion }}" \
           --arg head "doc/add-bonita-ui-designer-repositories-dependencies-${{ github.event.inputs.bonitaMinorVersion }}" \
           '{ head: $head, base: $base, title: $title, draft: true }' )
