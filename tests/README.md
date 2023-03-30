@@ -24,7 +24,7 @@ By default mvn task will check for _ddescribe_ and _iit_ in spec files and fail 
 
 You can easily add a test by running the app as usual from the current directory : 
  
-    java -jar ../backend/webapp/target/ui-designer-1.14.0-SNAPSHOT.jar --server.port=8083 \
+    java -jar ../backend/webapp/target/ui-designer-1.14.18.jar --server.port=8083 \
         -Ddesigner.workspace.pages.dir=src/test/resources/pages/ \
         -Ddesigner.workspace.fragments.dir=src/test/resources/fragments/ \
         -Ddesigner.workspace.widgets.dir=./target/widgets 
