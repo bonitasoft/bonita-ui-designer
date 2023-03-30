@@ -1,4 +1,4 @@
-function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log, gettextCatalog) {
+function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log, $sanitize, gettextCatalog) {
   var ctrl = this;
 
   this.filename = '';
@@ -50,7 +50,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
   $scope.$watch(function(){return $scope.properties.value;}, function(newValue){
     if (newValue && newValue.filename) {
       ctrl.filemodel = true;
-      ctrl.filename = newValue.filename;
+      ctrl.filename = $sanitize(newValue.filename);
     } else if (!angular.isDefined(newValue) || newValue === null) {
       delete ctrl.filemodel;
       delete ctrl.filename;
