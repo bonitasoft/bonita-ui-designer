@@ -83,6 +83,17 @@ describe('FileViewer Widget', function() {
       expect(element.find('a[box-viewer]').text().trim()).toEqual('pdf-test.pdf');
     });
 
+    it('should sanitize filename of document', function() {
+      scope.properties.type = 'Process document';
+      scope.properties.document = {
+        id: '321',
+        fileName: 'file"with>forbidden.txt',
+        url: 'documentDownload?fileName=file"with>forbidden.txt&contentStorageId=321'
+      };
+      scope.$apply();
+      expect(element.find('a.FileViewer-fileName').text().trim()).toEqual('file&#34;with&gt;forbidden.txt');
+    });
+
     it('should download zip process documents initialized by an external system', function() {
       scope.properties.type = 'Process document';
       scope.properties.document = {

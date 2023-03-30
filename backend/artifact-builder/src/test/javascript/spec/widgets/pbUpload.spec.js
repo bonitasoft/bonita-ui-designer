@@ -197,6 +197,22 @@ describe('pbUpload', function() {
       expect(controller.filename).toBeUndefined();
     });
 
+    it('should sanitize the filename', function () {
+      let element = $compile('<pb-upload></pb-upload>')(scope);
+      let controller = element.controller('pbUpload');
+
+      scope.$apply();
+      expect(controller.filename).toBe('');
+
+      scope.properties.value = {filename: 'file"with>forbidden.txt'};
+      scope.$apply();
+      expect(controller.filename).toBe('file&#34;with&gt;forbidden.txt');
+
+      scope.properties.value = undefined;
+      scope.$apply();
+      expect(controller.filename).toBeUndefined();
+    });
+
     it('should update the filename if the value changes to null', function () {
       let element = $compile('<pb-upload></pb-upload>')(scope);
       let controller = element.controller('pbUpload');

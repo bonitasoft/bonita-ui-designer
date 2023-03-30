@@ -1,11 +1,11 @@
-function WidgetController($scope, $log, $window, $sce) {
+function WidgetController($scope, $log, $window, $sce, $sanitize) {
 
   var controller = this;
   var userAgent = $window.navigator.userAgent;
   var vendor = $window.navigator.vendor;
 
   $scope.$watch('[properties.document, properties.url]', function() {
-    controller.fileName = getFileName();
+    controller.fileName = $sanitize(getFileName());
     controller.loadDocument();
   }, true);
 
@@ -49,7 +49,7 @@ function WidgetController($scope, $log, $window, $sce) {
       if (isInitializedByAnExternalSystem(controller.document)) {
         return controller.document.url;
       }
-      return "../API/" + controller.document.url;
+      return '../API/' + controller.document.url;
     } else {
       return $scope.properties.url;
     }
