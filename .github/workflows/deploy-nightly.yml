@@ -8,7 +8,7 @@ on:
     inputs:
       dockerUrl:
         description: Docker url, where the UID will be deployed
-        default: "tcp://docker.rd.lan:2375"
+        default: "tcp://docker5.rd.lan:2375"
         required: true
       dockerName:
         description: Docker prefix name
@@ -34,7 +34,7 @@ jobs:
               echo "port=${github.event.inputs.port}" >> $GITHUB_OUTPUT
           else
               echo "baseBranch=dev" >> $GITHUB_OUTPUT
-              echo "dockerUrl=tcp://docker.rd.lan:2375" >> $GITHUB_OUTPUT
+              echo "dockerUrl=tcp://docker5.rd.lan:2375" >> $GITHUB_OUTPUT
               echo "dockerName=nightly-uid" >> $GITHUB_OUTPUT
               echo "port=50000" >> $GITHUB_OUTPUT
           fi
