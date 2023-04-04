@@ -29,9 +29,9 @@ jobs:
           if [ ${{ github.event_name }} == 'workflow_dispatch' ]
           then
               echo "baseBranch=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
-              echo "dockerUrl=${github.event.inputs.dockerUrl}" >> $GITHUB_OUTPUT
-              echo "dockerName=${github.event.inputs.dockerName}" >> $GITHUB_OUTPUT
-              echo "port=${github.event.inputs.port}" >> $GITHUB_OUTPUT
+              echo "dockerUrl=${{ inputs.dockerUrl }}" >> $GITHUB_OUTPUT
+              echo "dockerName=${{ inputs.dockerName }}" >> $GITHUB_OUTPUT
+              echo "port=${{ inputs.port }}" >> $GITHUB_OUTPUT
           else
               echo "baseBranch=dev" >> $GITHUB_OUTPUT
               echo "dockerUrl=tcp://docker5.rd.lan:2375" >> $GITHUB_OUTPUT
