@@ -67,7 +67,7 @@ jobs:
           echo "modifiedlines=$(git diff --word-diff --unified=0 | grep -Ev "^diff --git|^index|^\+\+\+|^---|^@@|PO-Revision-Date" | wc -l)" >> $GITHUB_ENV
       - name: Create Pull Request
         if: env.modifiedlines > 0
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         id: create-pr
         with:
           branch: feat/${{ matrix.branch }}/update-translations
