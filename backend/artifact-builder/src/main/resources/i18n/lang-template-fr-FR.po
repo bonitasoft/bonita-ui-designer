@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 71769\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-03-23 04:05\n"
+"PO-Revision-Date: 2023-04-06 04:07\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1293,6 +1293,9 @@ msgstr "Groupe de widgets permettant de définir la disposition des éléments d
 msgid "Group of widgets, inside a Tabs container"
 msgstr "Groupe de widgets, dans un container d'onglets"
 
+msgid "HTTP method"
+msgstr ""
+
 msgid "HTTP request"
 msgstr "Requête HTTP"
 
@@ -1349,9 +1352,6 @@ msgstr "Cependant, telle une redirection de la fenêtre active (frame) ne sera p
 
 msgid "Html template update"
 msgstr "Mise à jour du modèle Html"
-
-msgid "Http method"
-msgstr ""
 
 msgid "Human task form"
 msgstr "Formulaire de tâche humaine"

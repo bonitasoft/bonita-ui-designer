@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 71769\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-03-23 04:06\n"
+"PO-Revision-Date: 2023-04-06 04:07\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1305,6 +1305,9 @@ msgstr "ページ エレメントの配置を定義するために使用され�
 msgid "Group of widgets, inside a Tabs container"
 msgstr "タブコンテナ内のウィジェットのグループ"
 
+msgid "HTTP method"
+msgstr ""
+
 msgid "HTTP request"
 msgstr "HTTP リクエスト"
 
@@ -1360,9 +1363,6 @@ msgid "However, such a redirection of the current window (frame) won't be perfor
 msgstr "ただし、このような現在のウィンドウ (フレーム) へのリダイレクトは、Bonita ポータル内や <em>bonitaframe</em> id を使用したアプリケーション  iframe  (デフォルトのアプリケーション レイアウトなどの場合) 内では実行されません。これは、Bonita ポータルやデフォルトのアプリケーション  レイアウトは自身で成功なレスポンスを処理するものだからです。"
 
 msgid "Html template update"
-msgstr ""
-
-msgid "Http method"
 msgstr ""
 
 msgid "Human task form"

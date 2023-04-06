@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 71769\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-03-23 04:06\n"
+"PO-Revision-Date: 2023-04-06 04:07\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1295,6 +1295,9 @@ msgstr "Grupo de widgets utilizados para definir la disposición de los elemento
 msgid "Group of widgets, inside a Tabs container"
 msgstr "Grupo de widgets, dentro de un Tabs container"
 
+msgid "HTTP method"
+msgstr ""
+
 msgid "HTTP request"
 msgstr "Petición HTTP"
 
@@ -1351,9 +1354,6 @@ msgstr "Sin embargo, tal redirección de la ventana actual (frame) no se realiza
 
 msgid "Html template update"
 msgstr "Actualización de plantilla Html"
-
-msgid "Http method"
-msgstr ""
 
 msgid "Human task form"
 msgstr "Formulario de tarea humana"
