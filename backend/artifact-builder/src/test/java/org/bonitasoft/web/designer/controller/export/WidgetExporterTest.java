@@ -115,7 +115,7 @@ public class WidgetExporterTest {
         exporter.handleFileExport(widget.getId(), artifactStream);
 
         Path unzipped = unzip(artifactStream);
-        var res = "{\"webResources\":[],\"properties\":[],\"id\":\"aWidget\",\"name\":\"aName\",\"template\":\"@aWidget.tpl.html\",\"controller\":\"@aWidget.ctrl.js\",\"custom\":true,\"assets\":[],\"requiredModules\":[],\"type\":\"widget\",\"hasHelp\":false}";
+        var res = "{\"id\":\"aWidget\",\"name\":\"aName\",\"type\":\"widget\",\"custom\":true,\"template\":\"@aWidget.tpl.html\",\"controller\":\"@aWidget.ctrl.js\",\"properties\":[],\"assets\":[],\"requiredModules\":[],\"webResources\":[],\"hasHelp\":false}";
         assertThat(readString(unzipped.resolve("resources/widget.json"))).isEqualTo(res);
     }
 
@@ -126,7 +126,7 @@ public class WidgetExporterTest {
         exporter.handleFileExport(widget.getId(), artifactStream);
 
         Path unzipped = unzip(artifactStream);
-        var res = "{\"webResources\":[],\"properties\":[],\"id\":\"aWidget\",\"name\":\"aName\",\"custom\":true,\"assets\":[],\"requiredModules\":[],\"type\":\"widget\",\"hasHelp\":false}";
+        var res = "{\"id\":\"aWidget\",\"name\":\"aName\",\"type\":\"widget\",\"custom\":true,\"properties\":[],\"assets\":[],\"requiredModules\":[],\"webResources\":[],\"hasHelp\":false}";
         assertThat(readString(unzipped.resolve("resources/widget.json"))).isEqualTo(res);
     }
 }

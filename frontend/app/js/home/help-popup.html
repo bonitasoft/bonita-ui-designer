@@ -84,12 +84,19 @@
                         <li translate>To be more accessible for speech synthesizers, screen readers or some other tools, the internal html template of checklist and radio buttons widget has been updated.</li>
                     </ul>
                     <div class="alert alert-warning">
-                        <i class="fa fa-warning">&nbsp;</i>
+                        <i class="fa fa-lg fa-warning">&nbsp;</i>
                         <translate>The changes will automatically be available when changing a page in Bonita UI Designer <2023.1> developed with a previous Bonita UI Designer version. Custom styling could be impacted so take this fact into account in your development estimates.</translate>
                     </div>
                     <dt translate>Bonita resources</dt>
                     <p translate>You can manually declare the Bonita REST API resources which you're using in your artifact when the automatic detection fails to found them.</p>
                     <p translate>The automatic detection allows you to see explicitly which REST API resources is needed in your artifact from the newest Bonita Resource panel.</p>
+
+                    <dt translate>JSON Source model</dt>
+                    <p translate>We have reorganized the order of the fields contained in the json file in order to facilitate the file comparison. </p>
+                    <div class="alert alert-info">
+                        <i class="fa fa-lg fa-info">&nbsp;</i>
+                        <translate>When using a version control system, like git for example, migrating to this last version may cause reorder changes in json models that must be pushed.</translate>
+                    </div>
 
                 </uib-accordion-group>
                 <uib-accordion-group is-open="status.bonita715open">
