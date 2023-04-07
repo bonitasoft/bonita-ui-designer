@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 71769\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-04-06 04:07\n"
+"PO-Revision-Date: 2023-04-07 04:09\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1294,7 +1294,7 @@ msgid "Group of widgets, inside a Tabs container"
 msgstr "Groupe de widgets, dans un container d'onglets"
 
 msgid "HTTP method"
-msgstr ""
+msgstr "Méthode HTTP"
 
 msgid "HTTP request"
 msgstr "Requête HTTP"
@@ -1550,6 +1550,9 @@ msgstr "Élément à supprimer"
 
 msgid "JSON"
 msgstr "JSON"
+
+msgid "JSON Source model"
+msgstr ""
 
 msgid "JSON descriptor to exchange between UI Designers"
 msgstr "Descripteur JSON permettant d'échanger des fichiers entre UI Designers"
@@ -2973,6 +2976,9 @@ msgstr "Voir le code ..."
 msgid "W3C website"
 msgstr "Site web du W3C"
 
+msgid "We have reorganized the order of the fields contained in the json file in order to facilitate the file comparison."
+msgstr ""
+
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
 msgstr "Lorsque « Contenu » est une liste d'objets, spécifie les attributs à afficher dans les colonnes de la table. Ces clés ne doivent pas être un nombre, ou commencer par un nombre"
 
@@ -2988,6 +2994,9 @@ msgstr "Une fois le widget remplacé, il vous restera sans doute des propriété
 msgid "When the table is displayed, each time the user updates the filter, the table display is\n"
 "            updated accordingly. The filter is applied to the table rows that are currently displayed."
 msgstr "Lorsque le tableau table est affiché, chaque fois que l'utilisateur met le filtre à jour, l'affichage du tableau est mis à jour en conséquence. Le filtre s'applique aux lignes du tableau qui sont visibles."
+
+msgid "When using a version control system, like git for example, migrating to this last version may cause reorder changes in json models that must be pushed."
+msgstr ""
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Lorsque vous supprimez une ligne, les lignes suivantes se déplacent vers le haut"

@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 71769\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-04-06 04:07\n"
+"PO-Revision-Date: 2023-04-07 04:09\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -683,7 +683,7 @@ msgid "Close modal when the action is successful"
 msgstr "Cierre modal cuando la acción es exitosa"
 
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 msgid "Collection"
 msgstr "Colección"
@@ -887,7 +887,7 @@ msgid "Date objects"
 msgstr "Objetos Date"
 
 msgid "Debounce"
-msgstr ""
+msgstr "Desmontar"
 
 msgid "Decimal separator"
 msgstr "Separador de decimales"
@@ -899,7 +899,7 @@ msgid "Declare a Bonita resource"
 msgstr "Declarar recurso Bonita"
 
 msgid "Declare the Bonita REST API resources used in this widget."
-msgstr ""
+msgstr "Declara los recursos de la API de Bonita REST utilizados en este widget."
 
 msgid "Default"
 msgstr "Por defecto"
@@ -1296,7 +1296,7 @@ msgid "Group of widgets, inside a Tabs container"
 msgstr "Grupo de widgets, dentro de un Tabs container"
 
 msgid "HTTP method"
-msgstr ""
+msgstr "Método HTTP"
 
 msgid "HTTP request"
 msgstr "Petición HTTP"
@@ -1506,7 +1506,7 @@ msgid "Input: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>I
 msgstr "Entrada: String con formato <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'>ISO 8601</a> (yyyy-MM-dd), objeto Date o número Long <br>salida: objeto Date (consulte la ayuda del widget)"
 
 msgid "Integer value which contains the debounce model update value in milliseconds. A value of 0 triggers an immediate update. Debounce value cannot be changed once initialized."
-msgstr ""
+msgstr "Valor entero que contiene el valor de actualización del modelo en milisegundos. Un valor de 0 activa una actualización inmediata. El valor de desconexión no se puede cambiar una vez inicializado."
 
 msgid "Integration with Bonita platform"
 msgstr "Integración con Bonita Platform"
@@ -1552,6 +1552,9 @@ msgstr "Elemento a eliminar"
 
 msgid "JSON"
 msgstr "JSON"
+
+msgid "JSON Source model"
+msgstr ""
 
 msgid "JSON descriptor to exchange between UI Designers"
 msgstr "Descriptor JSON para el intercambio entre UI Designers"
@@ -1686,7 +1689,7 @@ msgid "Metadata"
 msgstr "Metadatos"
 
 msgid "Method"
-msgstr ""
+msgstr "Método"
 
 msgid "Migrate"
 msgstr "Migrar"
@@ -2975,6 +2978,9 @@ msgstr "Ver..."
 msgid "W3C website"
 msgstr "Sitio web de W3C"
 
+msgid "We have reorganized the order of the fields contained in the json file in order to facilitate the file comparison."
+msgstr ""
+
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
 msgstr "Cuando 'Contenido' es una lista de objetos, especifica los atributos a mostrar en las columnas de la tabla. Estas claves no deben ser un número, o comenzar con un número"
 
@@ -2990,6 +2996,9 @@ msgstr "Cuando el cambio se complete, puede ser que todavía tenga propiedades p
 msgid "When the table is displayed, each time the user updates the filter, the table display is\n"
 "            updated accordingly. The filter is applied to the table rows that are currently displayed."
 msgstr "Cuando la tabla es mostrada, cada vez que el usuario actualiza el filtro, la tabla es actualizada según la selección. El filtro es aplicado a las columnas de la tabla que se encuentran mostradas."
+
+msgid "When using a version control system, like git for example, migrating to this last version may cause reorder changes in json models that must be pushed."
+msgstr ""
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Cuando se elimina una fila, las siguientes filas suben"

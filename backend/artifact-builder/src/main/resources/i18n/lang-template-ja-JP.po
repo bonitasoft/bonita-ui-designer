@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 71769\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-04-06 04:07\n"
+"PO-Revision-Date: 2023-04-07 04:09\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -892,7 +892,7 @@ msgid "Date objects"
 msgstr "Date オブジェクト"
 
 msgid "Debounce"
-msgstr ""
+msgstr "デバンス"
 
 msgid "Decimal separator"
 msgstr ""
@@ -1306,7 +1306,7 @@ msgid "Group of widgets, inside a Tabs container"
 msgstr "タブコンテナ内のウィジェットのグループ"
 
 msgid "HTTP method"
-msgstr ""
+msgstr "HTTPメソッド"
 
 msgid "HTTP request"
 msgstr "HTTP リクエスト"
@@ -1518,7 +1518,7 @@ msgstr "入力: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'
 " Date オブジェクト （ウィジェットのヘルプを参照してください）"
 
 msgid "Integer value which contains the debounce model update value in milliseconds. A value of 0 triggers an immediate update. Debounce value cannot be changed once initialized."
-msgstr ""
+msgstr "デバウンスモデルの更新値をミリ秒単位で含む整数値。 値 0 は即時更新をトリガーします。初期化後、デバウンス値は変更できません。"
 
 msgid "Integration with Bonita platform"
 msgstr "Bonita プラットフォームとの連携"
@@ -1564,6 +1564,9 @@ msgstr "削除する項目"
 
 msgid "JSON"
 msgstr "JSON"
+
+msgid "JSON Source model"
+msgstr ""
 
 msgid "JSON descriptor to exchange between UI Designers"
 msgstr "UI デザイナー間でやりとりする JSON 記述子"
@@ -2992,6 +2995,9 @@ msgstr "表示..."
 msgid "W3C website"
 msgstr "W3C webサイト"
 
+msgid "We have reorganized the order of the fields contained in the json file in order to facilitate the file comparison."
+msgstr ""
+
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
 msgstr ""
 
@@ -3008,6 +3014,9 @@ msgid "When the table is displayed, each time the user updates the filter, the t
 "            updated accordingly. The filter is applied to the table rows that are currently displayed."
 msgstr "テーブルが表示されると、ユーザーがフィルターを更新するたびに、テーブルの表示は次のように\n"
 "             それに応じて更新されます。 フィルタは、現在表示されているテーブル行に適用されます。"
+
+msgid "When using a version control system, like git for example, migrating to this last version may cause reorder changes in json models that must be pushed."
+msgstr ""
 
 msgid "When you delete a row, the following rows move up"
 msgstr "行を削除したら、それに続く行が上に移動します"
