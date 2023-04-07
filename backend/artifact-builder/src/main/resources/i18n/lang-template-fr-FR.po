@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-03-23 04:05\n"
+"PO-Revision-Date: 2023-04-07 04:04\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1351,7 +1351,7 @@ msgid "Html template update"
 msgstr "Mise à jour du modèle Html"
 
 msgid "Http method"
-msgstr ""
+msgstr "Méthode HTTP"
 
 msgid "Human task form"
 msgstr "Formulaire de tâche humaine"

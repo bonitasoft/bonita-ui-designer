@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-03-23 04:06\n"
+"PO-Revision-Date: 2023-04-07 04:04\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -892,7 +892,7 @@ msgid "Date objects"
 msgstr "Date オブジェクト"
 
 msgid "Debounce"
-msgstr ""
+msgstr "デバンス"
 
 msgid "Decimal separator"
 msgstr ""
@@ -1518,7 +1518,7 @@ msgstr "入力: <a href='https://en.wikipedia.org/wiki/ISO_8601' target='_blank'
 " Date オブジェクト （ウィジェットのヘルプを参照してください）"
 
 msgid "Integer value which contains the debounce model update value in milliseconds. A value of 0 triggers an immediate update. Debounce value cannot be changed once initialized."
-msgstr ""
+msgstr "デバウンスモデルの更新値をミリ秒単位で含む整数値。 値 0 は即時更新をトリガーします。初期化後、デバウンス値は変更できません。"
 
 msgid "Integration with Bonita platform"
 msgstr "Bonita プラットフォームとの連携"
