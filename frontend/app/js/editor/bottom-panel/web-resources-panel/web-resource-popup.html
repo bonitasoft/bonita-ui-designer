@@ -46,11 +46,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-bonita-default" ng-if="!ctrl.resourceIdToEdit"
+            <button class="btn btn-bonita-default"
                     ng-disabled="!ctrl.canBeSaved() || !ctrl.isWebResourceUnique(ctrl.newResource)" translate>Save
-            </button>
-            <button class="btn btn-bonita-default" ng-if="ctrl.resourceIdToEdit"
-                    ng-disabled="!ctrl.canBeSaved() || !ctrl.isWebResourceUnique(ctrl.newResource)" translate>Edit
             </button>
             <button class="btn btn-link" type="button" ng-click="ctrl.cancel()" translate>Cancel</button>
         </div>
