@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 71769\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-04-08 01:28\n"
+"PO-Revision-Date: 2023-04-15 01:29\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
