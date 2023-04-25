@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <spring-boot.version>2.7.10</spring-boot.version>
+        <spring-boot.version>2.7.11</spring-boot.version>
         <handlebar.version>4.3.1</handlebar.version>
         <projectInfoReports.version>3.0.0</projectInfoReports.version>
     </properties>
