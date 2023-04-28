@@ -11,7 +11,7 @@
                     uib-tooltip="{{'Open help' | translate}}"
                     tooltip-popup-delay="500"
                     tooltip-placement="left">
-                <i class="fa fa-question-circle"></i></button>
+                <i class="fa fa-lg fa-question-circle"></i></button>
         </div>
     </header>
     <div class="container container--Home">
@@ -23,9 +23,9 @@
             <div class="Home-sortType pull-right" uib-tooltip-html="getSortTooltipMessage($storage.homeSortOrder)" tooltip-popup-delay="500">
                 <switcher ng-model="$storage.homeSortOrder"
                           true-value="'-lastUpdate'"
-                          true-label="<i class='fa fa-long-arrow-down'></i> <i class='fa fa-calendar'></i>"
+                          true-label="<i class='fa fa-lg fa-long-arrow-down'></i> <i class='fa fa-lg fa-calendar'></i>"
                           false-value="'+name'"
-                          false-label="<i class='fa fa-sort-alpha-asc'></i>"></switcher>
+                          false-label="<i class='fa fa-lg  fa-sort-alpha-asc'></i>"></switcher>
             </div>
             <form class="Home-search" role="search">
                 <search value="search" placeholder="{{ 'Search on name' | translate }}"></search>

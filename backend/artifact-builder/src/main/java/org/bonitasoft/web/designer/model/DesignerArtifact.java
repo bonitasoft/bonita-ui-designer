@@ -37,6 +37,7 @@ public abstract class DesignerArtifact implements Identifiable {
 
     // This field is only in memory, we don't need to store it
     private MigrationStatusReport status;
+
     private Set<WebResource> webResources = new HashSet<>();
 
     @JsonView({JsonViewPersistence.class})

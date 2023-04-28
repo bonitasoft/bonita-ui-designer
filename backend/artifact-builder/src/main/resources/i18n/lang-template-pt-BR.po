@@ -1303,6 +1303,9 @@ msgstr "Grupo de widgets usado para definir a disposição dos elementos da pág
 msgid "Group of widgets, inside a Tabs container"
 msgstr "Grupo de widgets, dentro de um contêiner Tabs"
 
+msgid "HTTP method"
+msgstr "Método HTTP"
+
 msgid "HTTP request"
 msgstr "Solicitação HTTP"
 
@@ -1560,6 +1563,9 @@ msgstr "Item a ser removido"
 
 msgid "JSON"
 msgstr "JSON"
+
+msgid "JSON Source model"
+msgstr "Modelo fonte JSON"
 
 msgid "JSON descriptor to exchange between UI Designers"
 msgstr "Descritor JSON para trocar entre Designers de UI"
@@ -2990,6 +2996,9 @@ msgstr "Visualização..."
 msgid "W3C website"
 msgstr "Site do W3C"
 
+msgid "We have reorganized the order of the fields contained in the json file in order to facilitate the file comparison."
+msgstr "Reorganizámos a ordem dos campos contidos no ficheiro json a fim de facilitar a comparação dos ficheiros."
+
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
 msgstr "Quando 'Conteúdo' é uma lista de objetos, especifica os atributos a exibir nas colunas da tabela. Essas chaves não devem ser um número, ou começar com números"
 
@@ -3006,6 +3015,9 @@ msgid "When the table is displayed, each time the user updates the filter, the t
 "            updated accordingly. The filter is applied to the table rows that are currently displayed."
 msgstr "Quando a tabela é exibida, cada vez que o usuário atualiza o filtro, a exibição da tabela é\n"
 "            atualizada em conformidade. O filtro é aplicado às linhas da tabela que estão sendo exibidas atualmente."
+
+msgid "When using a version control system, like git for example, migrating to this last version may cause reorder changes in json models that must be pushed."
+msgstr "Ao usar um sistema de controle de versão, como o git, por exemplo, Migrar para esta última versão pode causar mudanças de reposição em modelos json que devem ser realizadas."
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Quando uma linha é excluída, as linhas seguintes são movidas para cima"

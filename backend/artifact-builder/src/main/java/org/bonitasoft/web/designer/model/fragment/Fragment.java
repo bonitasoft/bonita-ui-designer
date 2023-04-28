@@ -15,6 +15,7 @@
 package org.bonitasoft.web.designer.model.fragment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.JsonViewLight;
@@ -29,8 +30,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.text.WordUtils.capitalize;
-
-
+@JsonPropertyOrder({"id", "name", "type", "modelVersion", "previousArtifactVersion", "lastUpdate", "description",  "rows", "variables", "assets", "inactiveAssets", "webResources"})
 public class Fragment extends AbstractPage {
 
     private Map<String, List<Identifiable>> usedBy; // list of element that use this fragment
