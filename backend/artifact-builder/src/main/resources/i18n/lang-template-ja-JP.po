@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-04-11 01:28\n"
+"PO-Revision-Date: 2023-04-29 04:04\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1308,7 +1308,7 @@ msgid "Group of widgets, inside a Tabs container"
 msgstr "タブコンテナ内のウィジェットのグループ"
 
 msgid "HTTP method"
-msgstr "HTTPメソッド"
+msgstr ""
 
 msgid "HTTP request"
 msgstr "HTTP リクエスト"
@@ -1366,9 +1366,6 @@ msgstr "ただし、このような現在のウィンドウ (フレーム) へ�
 
 msgid "Html template update"
 msgstr "Htmlテンプレートの更新"
-
-msgid "Http method"
-msgstr "Http メソッド"
 
 msgid "Human task form"
 msgstr "ヒューマンタスク フォーム"
@@ -1571,7 +1568,7 @@ msgid "JSON"
 msgstr "JSON"
 
 msgid "JSON Source model"
-msgstr "JSONソースモデル"
+msgstr ""
 
 msgid "JSON descriptor to exchange between UI Designers"
 msgstr "UI デザイナー間でやりとりする JSON 記述子"
@@ -3004,7 +3001,7 @@ msgid "W3C website"
 msgstr "W3C webサイト"
 
 msgid "We have reorganized the order of the fields contained in the json file in order to facilitate the file comparison."
-msgstr "ファイルの比較を容易にするために、json ファイルに含まれるフィールドの順序を再編成しました。"
+msgstr ""
 
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
 msgstr "'Content' がオブジェクトのリストである場合、テーブルの列に表示する属性を指定します。 これらのキーは数字または数字で始まることはできません"
@@ -3024,7 +3021,7 @@ msgstr "テーブルが表示されると、ユーザーがフィルターを更
 "             それに応じて更新されます。 フィルタは、現在表示されているテーブル行に適用されます。"
 
 msgid "When using a version control system, like git for example, migrating to this last version may cause reorder changes in json models that must be pushed."
-msgstr "例えばgitなどのバージョン管理システムを使用する場合 この最後のバージョンに移行すると、jsonモデルの変更がプッシュされる可能性があります。"
+msgstr ""
 
 msgid "When you delete a row, the following rows move up"
 msgstr "行を削除したら、それに続く行が上に移動します"

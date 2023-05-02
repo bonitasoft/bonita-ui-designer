@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-04-08 01:28\n"
+"PO-Revision-Date: 2023-04-29 04:04\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1294,7 +1294,7 @@ msgid "Group of widgets, inside a Tabs container"
 msgstr "Groupe de widgets, dans un container d'onglets"
 
 msgid "HTTP method"
-msgstr "Méthode HTTP"
+msgstr ""
 
 msgid "HTTP request"
 msgstr "Requête HTTP"
@@ -1352,9 +1352,6 @@ msgstr "Cependant, telle une redirection de la fenêtre active (frame) ne sera p
 
 msgid "Html template update"
 msgstr "Mise à jour du modèle Html"
-
-msgid "Http method"
-msgstr "Méthode HTTP"
 
 msgid "Human task form"
 msgstr "Formulaire de tâche humaine"
@@ -1555,7 +1552,7 @@ msgid "JSON"
 msgstr "JSON"
 
 msgid "JSON Source model"
-msgstr "Modèle de source JSON"
+msgstr ""
 
 msgid "JSON descriptor to exchange between UI Designers"
 msgstr "Descripteur JSON permettant d'échanger des fichiers entre UI Designers"
@@ -2980,7 +2977,7 @@ msgid "W3C website"
 msgstr "Site web du W3C"
 
 msgid "We have reorganized the order of the fields contained in the json file in order to facilitate the file comparison."
-msgstr "Nous avons réorganisé l'ordre des champs contenus dans le fichier json afin de faciliter la comparaison de fichiers."
+msgstr ""
 
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
 msgstr "Lorsque « Contenu » est une liste d'objets, spécifie les attributs à afficher dans les colonnes de la table. Ces clés ne doivent pas être un nombre, ou commencer par un nombre"
@@ -2999,7 +2996,7 @@ msgid "When the table is displayed, each time the user updates the filter, the t
 msgstr "Lorsque le tableau table est affiché, chaque fois que l'utilisateur met le filtre à jour, l'affichage du tableau est mis à jour en conséquence. Le filtre s'applique aux lignes du tableau qui sont visibles."
 
 msgid "When using a version control system, like git for example, migrating to this last version may cause reorder changes in json models that must be pushed."
-msgstr "Lorsque vous utilisez un système de contrôle de version, comme git par exemple, migrer vers cette dernière version peut provoquer des changements de l'ordre dans les modèles json qui doivent être poussés."
+msgstr ""
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Lorsque vous supprimez une ligne, les lignes suivantes se déplacent vers le haut"
