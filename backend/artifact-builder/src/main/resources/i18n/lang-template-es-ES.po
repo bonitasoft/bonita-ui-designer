@@ -7,11 +7,11 @@ msgstr ""
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Project-ID: 13316\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /release-8.0.0/ui-designer/lang-template.pot\n"
-"X-Crowdin-File-ID: 71769\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"X-Crowdin-File-ID: 61813\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-04-15 01:29\n"
+"PO-Revision-Date: 2023-05-02 04:05\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -1296,7 +1296,7 @@ msgid "Group of widgets, inside a Tabs container"
 msgstr "Grupo de widgets, dentro de un Tabs container"
 
 msgid "HTTP method"
-msgstr "Método HTTP"
+msgstr ""
 
 msgid "HTTP request"
 msgstr "Petición HTTP"
@@ -1554,7 +1554,7 @@ msgid "JSON"
 msgstr "JSON"
 
 msgid "JSON Source model"
-msgstr "Modelo JSON Source"
+msgstr ""
 
 msgid "JSON descriptor to exchange between UI Designers"
 msgstr "Descriptor JSON para el intercambio entre UI Designers"
@@ -2979,7 +2979,7 @@ msgid "W3C website"
 msgstr "Sitio web de W3C"
 
 msgid "We have reorganized the order of the fields contained in the json file in order to facilitate the file comparison."
-msgstr "Hemos reorganizado el orden de los campos contenidos en el archivo json para facilitar la comparación de archivos."
+msgstr ""
 
 msgid "When 'Content' is a list of objects, specifies the attributes to display in the table columns. These keys must not be a number, or start with a number"
 msgstr "Cuando 'Contenido' es una lista de objetos, especifica los atributos a mostrar en las columnas de la tabla. Estas claves no deben ser un número, o comenzar con un número"
@@ -2998,7 +2998,7 @@ msgid "When the table is displayed, each time the user updates the filter, the t
 msgstr "Cuando la tabla es mostrada, cada vez que el usuario actualiza el filtro, la tabla es actualizada según la selección. El filtro es aplicado a las columnas de la tabla que se encuentran mostradas."
 
 msgid "When using a version control system, like git for example, migrating to this last version may cause reorder changes in json models that must be pushed."
-msgstr "Cuando se utiliza un sistema de control de versiones, como por ejemplo git migrar a esta última versión puede causar cambios en los modelos json que deben ser empujados."
+msgstr ""
 
 msgid "When you delete a row, the following rows move up"
 msgstr "Cuando se elimina una fila, las siguientes filas suben"
