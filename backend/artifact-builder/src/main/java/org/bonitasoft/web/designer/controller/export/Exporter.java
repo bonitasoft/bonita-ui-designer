@@ -14,6 +14,16 @@
  */
 package org.bonitasoft.web.designer.controller.export;
 
+import static java.lang.String.format;
+import static org.apache.commons.io.IOUtils.copy;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.bonitasoft.web.designer.controller.export.steps.ExportStep.RESOURCES;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import org.bonitasoft.web.designer.controller.export.steps.ExportStep;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.JsonHandler;
@@ -21,22 +31,8 @@ import org.bonitasoft.web.designer.model.JsonViewPersistence;
 import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.service.ArtifactService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
-import static java.lang.String.format;
-import static org.apache.commons.io.IOUtils.copy;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.bonitasoft.web.designer.controller.export.steps.ExportStep.RESOURCES;
 
 public abstract class Exporter<T extends DesignerArtifact> {
-
-    private static final Logger logger = LoggerFactory.getLogger(Exporter.class);
 
     protected final ExportStep<T>[] exportSteps;
 
@@ -72,8 +68,7 @@ public abstract class Exporter<T extends DesignerArtifact> {
             }
 
             if (!identifiable.getStatus().isCompatible()) {
-                var errorMessage = String.format("%s export failed. A newer UI Designer version is required.e", identifiable.getName());
-                throw new ModelException(errorMessage);
+                throw new ModelException(String.format("%s build failed. A newer UI Designer version is required.", identifiable.getName()));
             }
 
             if (identifiable instanceof Widget) {
