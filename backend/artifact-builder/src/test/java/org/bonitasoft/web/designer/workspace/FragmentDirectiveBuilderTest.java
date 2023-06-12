@@ -14,7 +14,24 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Files.write;
+import static java.nio.file.Paths.get;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
+import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.File;
+import java.io.IOException;
+
 import org.bonitasoft.web.designer.JsonHandlerFactory;
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.PathListener;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JsonHandler;
@@ -26,23 +43,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.io.File;
-import java.io.IOException;
-
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Files.write;
-import static java.nio.file.Paths.get;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.web.designer.builder.ComponentBuilder.anInput;
-import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FragmentDirectiveBuilderTest {
@@ -60,7 +62,6 @@ public class FragmentDirectiveBuilderTest {
 
     private HtmlSanitizer htmlSanitizer = new HtmlSanitizer();
 
-    @InjectMocks
     private FragmentDirectiveBuilder fragmentDirectiveBuilder;
 
     private File fragmentFile;
@@ -71,9 +72,7 @@ public class FragmentDirectiveBuilderTest {
 
     @Before
     public void setUp() throws Exception {
-        initMocks(this);
-
-        fragmentDirectiveBuilder = new FragmentDirectiveBuilder(watcher, jsonHandler, htmlBuilderVisitor, htmlSanitizer);
+        fragmentDirectiveBuilder = new FragmentDirectiveBuilder(watcher, jsonHandler, htmlBuilderVisitor, htmlSanitizer, new WorkspaceUidProperties());
         fragmentFile = repositoryDirectory.newFile("fragment.json");
         fragment = aFragment()
                 .withName("aUnicornFragment")
@@ -101,6 +100,16 @@ public class FragmentDirectiveBuilderTest {
         fragmentDirectiveBuilder.start(repositoryDirectory.getRoot().toPath());
 
         verify(watcher).watch(eq(repositoryDirectory.getRoot().toPath()), any(PathListener.class));
+    }
+    
+    @Test
+    public void should_not_watch_given_directory_when_live_build_is_disabled() throws Exception {
+        var workspaceUid = new WorkspaceUidProperties();
+        workspaceUid.setLiveBuildEnabled(false);
+        fragmentDirectiveBuilder = new FragmentDirectiveBuilder(watcher, jsonHandler, htmlBuilderVisitor, htmlSanitizer, workspaceUid);
+        fragmentDirectiveBuilder.start(repositoryDirectory.getRoot().toPath());
+
+        verify(watcher, never()).watch(eq(repositoryDirectory.getRoot().toPath()), any(PathListener.class));
     }
 
     @Test

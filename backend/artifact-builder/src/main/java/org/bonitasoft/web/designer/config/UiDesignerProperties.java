@@ -70,4 +70,5 @@ public class UiDesignerProperties {
         private String url;
     }
 
+
 }

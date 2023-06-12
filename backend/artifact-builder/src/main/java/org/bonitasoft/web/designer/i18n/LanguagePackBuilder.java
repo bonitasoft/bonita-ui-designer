@@ -29,7 +29,7 @@ public class LanguagePackBuilder extends AbstractLiveFileBuilder {
     private final WorkspaceUidProperties workspaceUidProperties;
 
     public LanguagePackBuilder(Watcher watcher, LanguagePackFactory languagePackFactory, WorkspaceUidProperties workspaceUidProperties) {
-        super(watcher);
+        super(watcher, workspaceUidProperties.isLiveBuildEnabled());
         this.languagePackFactory = languagePackFactory;
         this.workspaceUidProperties = workspaceUidProperties;
     }

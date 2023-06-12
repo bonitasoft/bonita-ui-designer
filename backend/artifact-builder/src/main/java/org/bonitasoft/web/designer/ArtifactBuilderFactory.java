@@ -190,7 +190,7 @@ public class ArtifactBuilderFactory {
         // Init workspace now
         var htmlSanitizer = new HtmlSanitizer();
         var widgetDirectiveBuilder = new WidgetDirectiveBuilder(uiDesignerProperties, core.getWatcher(), new WidgetFileBasedLoader(jsonHandler), htmlSanitizer);
-        var fragmentDirectiveBuilder = new FragmentDirectiveBuilder(core.getWatcher(), jsonHandler, htmlBuilderVisitor, htmlSanitizer);
+        var fragmentDirectiveBuilder = new FragmentDirectiveBuilder(core.getWatcher(), jsonHandler, htmlBuilderVisitor, htmlSanitizer, uiDesignerProperties.getWorkspaceUid());
 
         var resourcesCopier = new ResourcesCopier();
         var workspace = new Workspace(

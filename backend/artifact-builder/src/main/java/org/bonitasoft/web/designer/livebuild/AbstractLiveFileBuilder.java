@@ -14,8 +14,8 @@
  */
 package org.bonitasoft.web.designer.livebuild;
 
-import lombok.extern.slf4j.Slf4j;
-import org.bonitasoft.web.designer.rendering.GenerationException;
+import static java.nio.file.FileVisitResult.CONTINUE;
+import static java.nio.file.Files.walkFileTree;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -23,16 +23,16 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
-import static java.nio.file.FileVisitResult.CONTINUE;
-import static java.nio.file.Files.walkFileTree;
+import org.bonitasoft.web.designer.rendering.GenerationException;
 
-@Slf4j
 public abstract class AbstractLiveFileBuilder {
 
     private final Watcher watcher;
+    private boolean isLiveBuildEnabled;
 
-    protected AbstractLiveFileBuilder(Watcher watcher) {
+    protected AbstractLiveFileBuilder(Watcher watcher, boolean isLiveBuildEnabled) {
         this.watcher = watcher;
+        this.isLiveBuildEnabled = isLiveBuildEnabled;
     }
 
     public void start(final Path root) throws IOException {
@@ -43,9 +43,10 @@ public abstract class AbstractLiveFileBuilder {
                 return CONTINUE;
             }
         });
-
-        // now on build on change
-        watcher.watch(root, this::buildIfNeeded);
+        if(isLiveBuildEnabled) {
+            // now on build on change
+            watcher.watch(root, this::buildIfNeeded);
+        }
     }
 
     private void buildIfNeeded(Path path) {

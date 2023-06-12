@@ -14,32 +14,28 @@
  */
 package org.bonitasoft.web.designer.workspace;
 
+import static java.lang.String.valueOf;
+import static java.nio.file.Files.write;
+import static java.nio.file.Paths.get;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.livebuild.AbstractLiveFileBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.rendering.TemplateEngine;
 import org.bonitasoft.web.designer.repository.WidgetFileBasedLoader;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static java.lang.String.valueOf;
-import static java.nio.file.Files.write;
-import static java.nio.file.Paths.get;
 
 public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
 
-    private UiDesignerProperties uiDesignerProperties;
     private final WidgetFileBasedLoader widgetLoader;
     private final HtmlSanitizer htmlSanitizer;
     private final TemplateEngine htmlBuilder = new TemplateEngine("widgetDirectiveTemplate.hbs.js");
 
     public WidgetDirectiveBuilder(UiDesignerProperties uiDesignerProperties, Watcher watcher, WidgetFileBasedLoader widgetLoader, HtmlSanitizer htmlSanitizer) {
-        super(watcher);
-        this.uiDesignerProperties = uiDesignerProperties;
+        super(watcher, uiDesignerProperties.getWorkspaceUid().isLiveBuildEnabled());
         this.widgetLoader = widgetLoader;
         this.htmlSanitizer = htmlSanitizer;
     }
@@ -65,4 +61,6 @@ public class WidgetDirectiveBuilder extends AbstractLiveFileBuilder {
     public boolean isBuildable(String path) {
         return path.endsWith(".json") && !path.contains(".metadata");
     }
+    
+
 }

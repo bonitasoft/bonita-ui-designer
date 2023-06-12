@@ -7,6 +7,7 @@ import java.nio.file.Path;
 public class UiDesignerPropertiesBuilder {
 
     private boolean experimental = false;
+    private boolean liveBuildEnabled = true;
 
     private final UiDesignerProperties.BonitaProperties bonita = new UiDesignerProperties.BonitaProperties();
     private final WorkspaceProperties workspace = new WorkspaceProperties();
@@ -18,6 +19,11 @@ public class UiDesignerPropertiesBuilder {
 
     public UiDesignerPropertiesBuilder experimental(boolean experimental) {
         this.experimental = experimental;
+        return this;
+    }
+    
+    public UiDesignerPropertiesBuilder disableLiveBuild() {
+        this.liveBuildEnabled = false;
         return this;
     }
 
@@ -73,6 +79,7 @@ public class UiDesignerPropertiesBuilder {
 
         properties.setExperimental(experimental);
         properties.setBonita(bonita);
+        workspaceUid.setLiveBuildEnabled(liveBuildEnabled);
         properties.setWorkspaceUid(workspaceUid);
         properties.setWorkspace(workspace);
 

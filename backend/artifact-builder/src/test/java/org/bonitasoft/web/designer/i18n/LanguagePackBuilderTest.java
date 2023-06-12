@@ -41,6 +41,7 @@ import static java.nio.file.Files.write;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -57,8 +58,13 @@ public class LanguagePackBuilderTest {
 
     @Before
     public void setUp() throws Exception {
+        newLanguagePackBuilder(true);
+    }
+
+    private void newLanguagePackBuilder(boolean liveBuildEnabled) {
         workspaceUidProperties = new WorkspaceUidProperties();
         workspaceUidProperties.setPath(folder.getRoot().toPath());
+        workspaceUidProperties.setLiveBuildEnabled(liveBuildEnabled);
         builder = new LanguagePackBuilder(watcher, new LanguagePackFactory(
                 new PoParser(), new JacksonJsonHandler(new ObjectMapper())), workspaceUidProperties);
     }
@@ -72,18 +78,28 @@ public class LanguagePackBuilderTest {
         write(enFile.toPath(), aSimplePoFile());
 
         builder.start(folder.getRoot().toPath());
-        assertThat(workspaceUidProperties.getTmpI18nPath().resolve("fr.json"));
-        assertThat(resolveJson(frFile).exists()).isTrue();
-        assertThat(resolveJson(enFile).exists()).isTrue();
+        assertThat(workspaceUidProperties.getTmpI18nPath().resolve("fr.json")).exists();
+        assertThat(resolveJson(frFile)).exists();
+        assertThat(resolveJson(enFile)).exists();
     }
 
     @Test
-    public void should_only_build_directives_files() throws Exception {
+    public void should_watch_directives_files() throws Exception {
         Path path = workspaceUidProperties.getTmpI18nPath();
 
         builder.start(path);
 
         verify(watcher).watch(eq(path), any(PathListener.class));
+    }
+    
+    @Test
+    public void should_not_watch_directives_files() throws Exception {
+        newLanguagePackBuilder(false);
+        Path path = workspaceUidProperties.getTmpI18nPath();
+
+        builder.start(path);
+
+        verify(watcher, never()).watch(eq(path), any(PathListener.class));
     }
 
     @Test
@@ -109,7 +125,7 @@ public class LanguagePackBuilderTest {
     }
 
     private String read(File file) throws IOException {
-        return new String(readAllBytes(file.toPath()));
+        return Files.readString(file.toPath());
     }
 
     public File resolveJson(File poFile) throws IOException {

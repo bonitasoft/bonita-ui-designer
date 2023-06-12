@@ -31,6 +31,8 @@ public class WorkspaceUidProperties {
     public static final String FRAGMENTS = "fragments";
     public static final String TEMPLATES_RESOURCES = "templates";
     private static final String PAGES_DEFAULT_DIRECTORY = "pages";
+    
+    private boolean liveBuildEnabled = true;
 
     private Path path = Path.of(System.getProperty("java.io.tmpdir")).resolve("workspace-uid");
 
@@ -55,4 +57,5 @@ public class WorkspaceUidProperties {
     public Path getTemplateResourcesPath() {
         return getExtractPath().resolve(TEMPLATES_RESOURCES);
     }
+
 }

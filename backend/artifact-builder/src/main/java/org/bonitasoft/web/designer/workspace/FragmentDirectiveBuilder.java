@@ -15,6 +15,7 @@
 
 package org.bonitasoft.web.designer.workspace;
 
+import org.bonitasoft.web.designer.config.WorkspaceUidProperties;
 import org.bonitasoft.web.designer.livebuild.AbstractLiveFileBuilder;
 import org.bonitasoft.web.designer.livebuild.Watcher;
 import org.bonitasoft.web.designer.model.JsonHandler;
@@ -40,8 +41,9 @@ public class FragmentDirectiveBuilder extends AbstractLiveFileBuilder {
     public FragmentDirectiveBuilder(Watcher watcher,
                                     JsonHandler jsonHandler,
                                     HtmlBuilderVisitor htmlBuilderVisitor,
-                                    HtmlSanitizer htmlSanitizer) {
-        super(watcher);
+                                    HtmlSanitizer htmlSanitizer, 
+                                    WorkspaceUidProperties workspaceUidProperties) {
+        super(watcher, workspaceUidProperties.isLiveBuildEnabled());
         this.jsonHandler = jsonHandler;
         this.htmlBuilderVisitor = htmlBuilderVisitor;
         this.htmlSanitizer = htmlSanitizer;

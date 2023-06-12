@@ -45,6 +45,7 @@ import static org.bonitasoft.web.designer.builder.WidgetBuilder.aWidget;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -69,12 +70,13 @@ public class WidgetDirectiveBuilderTest {
 
     TemplateEngine htmlBuilder = new TemplateEngine("widgetDirectiveTemplate.hbs.js");
 
+    UiDesignerProperties uiDesignerProperties = new UiDesignerProperties("1.13.0", "2.0");
+    
+    JsonHandler jsonHandler = new JsonHandlerFactory().create();
+
     @Before
     public void setup() throws Exception {
-        JsonHandler jsonHandler = new JsonHandlerFactory().create();
-        final UiDesignerProperties uiDesignerProperties = new UiDesignerProperties("1.13.0", "2.0");
-
-        uiDesignerProperties.setExperimental(false);
+        uiDesignerProperties.getWorkspaceUid().setLiveBuildEnabled(true);
         widgetDirectiveBuilder = new WidgetDirectiveBuilder(uiDesignerProperties, watcher, new WidgetFileBasedLoader(jsonHandler), htmlSanitizer);
 
         WidgetFileBasedLoader widgetLoader = new WidgetFileBasedLoader(jsonHandler);
@@ -125,6 +127,15 @@ public class WidgetDirectiveBuilderTest {
         widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
 
         verify(watcher).watch(eq(widgetRepositoryDirectory.getRoot().toPath()), any(PathListener.class));
+    }
+    
+    @Test
+    public void should_note_watch_given_directory_when_live_build_is_disabled() throws Exception {
+        uiDesignerProperties.getWorkspaceUid().setLiveBuildEnabled(false);
+        widgetDirectiveBuilder = new WidgetDirectiveBuilder(uiDesignerProperties, watcher, new WidgetFileBasedLoader(jsonHandler), htmlSanitizer);
+        widgetDirectiveBuilder.start(widgetRepositoryDirectory.getRoot().toPath());
+
+        verify(watcher, never()).watch(eq(widgetRepositoryDirectory.getRoot().toPath()), any(PathListener.class));
     }
 
     @Test
