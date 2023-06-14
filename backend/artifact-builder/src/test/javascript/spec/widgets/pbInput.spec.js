@@ -184,6 +184,22 @@ describe('pbInput', function () {
       expect(element.find('input').attr('class')).not.toMatch('ng-invalid-email');
     });
 
+    it('should validate url', function () {
+      scope.properties.type = 'url';
+      var element = $compile('<pb-input></pb-input>')(scope);
+      scope.$apply();
+
+      element.find('input').val('barfoo');
+      element.find('input').triggerHandler('input');
+
+      expect(element.find('input').attr('class')).toMatch('ng-invalid-url');
+
+      scope.properties.value = 'http://bar.com';
+      scope.$apply();
+
+      expect(element.find('input').attr('class')).not.toMatch('ng-invalid-url');
+    });
+
     it('should validate min value', function () {
       scope.properties.type = 'number';
       scope.properties.min = 1;
@@ -218,21 +234,21 @@ describe('pbInput', function () {
 
 //      expect(scope.properties.value).toEqual(1);
     });
-    
+
     it('should set a debounce value on input', function () {
       scope.properties.debounce = 200;
       scope.properties.value = '';
-      
+
       const element = $compile('<pb-input></pb-input>')(scope);
       scope.$apply();
-      
+
       element.find('input').val('barfoo');
       element.find('input').triggerHandler('input');
-      
+
       expect(scope.properties.value).toBe('');
-      
+
       $timeout.flush();
-      
+
 	  expect(scope.properties.value).toBe('barfoo');
     });
 

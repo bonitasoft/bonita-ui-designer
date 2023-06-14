@@ -19,7 +19,7 @@
         <java.version>11</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
-        <uidModelVersion>2.4</uidModelVersion>
+        <uidModelVersion>2.5</uidModelVersion>
 
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>

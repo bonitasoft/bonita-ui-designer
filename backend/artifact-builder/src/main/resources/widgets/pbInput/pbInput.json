@@ -123,7 +123,8 @@
         "text",
         "number",
         "email",
-        "password"
+        "password",
+        "url"
       ],
       "bond": "constant",
       "defaultValue": "text"

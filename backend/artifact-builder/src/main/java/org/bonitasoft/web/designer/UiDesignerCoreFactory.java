@@ -133,7 +133,8 @@ public class UiDesignerCoreFactory {
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1"), new AutocompleteWidgetReturnedKeyMigrationStep<>(componentVisitor)),
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2"), new BusinessVariableMigrationStep<>()),
                 new Migration<>("2.3", new SetInterpretHtmlTrueMigrationStep<>(componentVisitor)),
-                new Migration<>("2.4", new AccessibilityCheckListAndRadioButtonsMigrationStep(componentVisitor))
+                new Migration<>("2.4", new AccessibilityCheckListAndRadioButtonsMigrationStep(componentVisitor)),
+                new Migration<>("2.5", new AddModelVersionMigrationStep<>("2.5"))
         );
 
         List<Migration<Page>> pageMigrationStepsList = List.<Migration<Page>>of(
@@ -156,7 +157,8 @@ public class UiDesignerCoreFactory {
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1")),
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2")),
                 new Migration<>("2.3", new SetInterpretHtmlTrueMigrationStep<>(componentVisitor)),
-                new Migration<>("2.4", new AccessibilityCheckListAndRadioButtonsMigrationStep(componentVisitor))
+                new Migration<>("2.4", new AccessibilityCheckListAndRadioButtonsMigrationStep(componentVisitor)),
+                new Migration<>("2.5", new StyleUpdateInputTypeMigrationStep(pageAssetService))
         );
 
         List<Migration<Widget>> widgetMigrationStepsList = List.<Migration<Widget>>of(
@@ -167,8 +169,9 @@ public class UiDesignerCoreFactory {
                 new Migration<>("2.1", new AddModelVersionMigrationStep<>("2.1")),
                 new Migration<>("2.2", new AddModelVersionMigrationStep<>("2.2")),
                 new Migration<>("2.3", new AddModelVersionMigrationStep<>("2.3")),
-                new Migration<>("2.4", new AddModelVersionMigrationStep<>("2.4"),new AddWebResourcesForWidget())
-        );
+                new Migration<>("2.4", new AddModelVersionMigrationStep<>("2.4"),new AddWebResourcesForWidget()),
+                new Migration<>("2.5", new AddModelVersionMigrationStep<>("2.5"))
+                );
 
         var widgetMigrationApplyer = new WidgetMigrationApplyer(widgetMigrationStepsList);
         var widgetIdVisitor = new WidgetIdVisitor(fragmentRepository);

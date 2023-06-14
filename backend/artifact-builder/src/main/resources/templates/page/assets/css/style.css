@@ -11,7 +11,8 @@
 
 /* Set a red border to invalid input fields in forms */
 input[type='text'].ng-invalid.ng-dirty, input[type='email'].ng-invalid.ng-dirty,
-input[type='number'].ng-invalid.ng-dirty, input[type='password'].ng-invalid.ng-dirty {
+input[type='number'].ng-invalid.ng-dirty, input[type='password'].ng-invalid.ng-dirty,
+input[type='url'].ng-invalid.ng-dirty {
   border-color: #C00;
   border-width: 1px;
 }
