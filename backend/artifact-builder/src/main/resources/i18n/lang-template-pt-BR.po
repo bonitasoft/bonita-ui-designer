@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-05-13 04:04\n"
+"PO-Revision-Date: 2023-06-15 04:04\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -3336,6 +3336,9 @@ msgstr "texto"
 
 msgid "top"
 msgstr "superior"
+
+msgid "url"
+msgstr ""
 
 msgid "view W3C's Json specification"
 msgstr "ver a especificação Json do W3C"
