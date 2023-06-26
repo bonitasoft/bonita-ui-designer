@@ -1,0 +1,82 @@
+name: Report changes in Artifact Builder
+
+on:
+
+  push:
+    branches:
+      - master
+    paths:  
+      - 'backend/artifact-builder/**/*'
+      - 'backend/migrationReport/**/*'
+
+env:
+  VERSION_THRESHOLD: 1.17
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Report changes in Artifact Builder
+    steps:
+      - name: Checkout bonita web
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Set environment variables
+        run: echo "BRANCH=${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_ENV
+
+      - name: Extract Project version
+        id: project
+        run: echo "VERSION=$(grep -Po -m1 '(?<=<version>).*(?=</version>)' pom.xml)" >> $GITHUB_ENV
+
+      - name: Get changed files
+        if: ${{ contains(env.VERSION, env.VERSION_THRESHOLD) }}
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+        with:
+          json: "true"
+
+      - name: List all changed files
+        if: ${{ contains(env.VERSION, env.VERSION_THRESHOLD) }}
+        run: echo '${{ toJSON(steps.changed-files.outputs.all_changed_files) }}'
+
+      - name: Checkout artifact-builder
+        uses: actions/checkout@v3
+        if: ${{ contains(env.VERSION, env.VERSION_THRESHOLD) }}
+        with:
+          repository: bonitasoft/bonita-ui-designer-artifact-builder
+          ref: ${{ env.BRANCH }}
+          token: ${{ secrets.API_TOKEN_GITHUB }}
+          path: ./bonita-ui-designer-artifact-builder
+
+      - name: Create Pull request
+        if: ${{ contains(env.VERSION, env.VERSION_THRESHOLD) }}
+        id: createPr
+        env:
+          GH_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+          prTitle: "WIP: report modifications coming from ${{ github.repository }}#${{ env.BRANCH }}"
+          prBody: "Please manually report the modifications in Bonita runtime module **ui-designer-artifact-builder** using this pull request (update title and body).\n  https://github.com/bonitasoft/bonita-ui-designer-internal/commit/${{  github.sha  }}\n"
+        run: |
+          cd ./bonita-ui-designer-artifact-builder
+          # configure committer information
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git checkout -b merge/merge_commit_${{ github.sha }}
+          # make an empty commit to be able to create a pull request 
+          git commit --allow-empty -m 'Dummy Commit. Not to be merged'
+          git push --set-upstream origin merge/merge_commit_${{ github.sha }}
+          echo "pr-link=$(gh pr create -B "${{ env.BRANCH }}"  -b "${{ env.prBody }}" -t "${{ env.prTitle }}" -l "Do not merge" -l "Changes from bonita-ui-designer-internal")" >> $GITHUB_OUTPUT
+
+      - name: Send message to Slack channel
+        uses: bonitasoft/actions/packages/notify-slack@v2
+        if: ${{ contains(env.VERSION, env.VERSION_THRESHOLD) }}
+        with:
+          CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
+          MESSAGE: |
+            :fire: A merge happened in *${{ env.BRANCH }}* branch in *${{ github.repository }}*.
+            Please manually report the modifications in Artifact Builder module *bonita-ui-designer-artifact-builder*.
+            ${{ steps.createPr.outputs.pr-link}}
+
+            - Add a :fire_extinguisher: if you take the action to report the modifications (only one person is required)
+            - Add a :sweat_drops: when it’s done (and eventually a :party_parrot:)
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

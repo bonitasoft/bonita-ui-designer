@@ -74,6 +74,7 @@ describe('The route config', function() {
   it('should load french translations', function() {
 
     $httpBackend.expectGET('i18n/lang-template-fr-FR.json').respond(200, '');
+    $httpBackend.expectGET('i18n/widgets-lang-template-fr-FR.json').respond(200, '');
 
     $location.url('fr/home');
 
@@ -83,6 +84,7 @@ describe('The route config', function() {
   it('should load spanish translations', function() {
 
     $httpBackend.expectGET('i18n/lang-template-es-ES.json').respond(200, '');
+    $httpBackend.expectGET('i18n/widgets-lang-template-es-ES.json').respond(200, '');
 
     $location.url('es/home');
 

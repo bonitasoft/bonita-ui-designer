@@ -1,0 +1,2624 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: bonita\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: bonita\n"
+"X-Crowdin-Project-ID: 13316\n"
+"X-Crowdin-Language: ja\n"
+"X-Crowdin-File: /extract_artifact_builder_module/ui-designer/lang-template.pot\n"
+"X-Crowdin-File-ID: 71881\n"
+"Language-Team: Japanese\n"
+"Language: ja_JP\n"
+"PO-Revision-Date: 2023-06-19 09:13\n"
+
+#: assets/page-assets.html:1
+msgid "&nbsp;"
+msgstr "&nbsp;"
+
+#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
+msgid "'{{ctrl.newData.$$name}}' already exists"
+msgstr "'{{ctrl.newData.$$name}}' は既に存在します"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "'{{newData.$$name}}' already exists"
+msgstr "'{{newData.$name}}' は既に存在します。"
+
+#: editor/header/header.html:1
+msgid "(Experimental)"
+msgstr "（テスト）"
+
+#: custom-widget/create-property.html:1
+msgid "(displayed in editor's property panel)"
+msgstr "（エディタのプロパティ パネルで表示される）"
+
+#: custom-widget/create-property.html:1
+msgid "(used in your template and controller)"
+msgstr "（テンプレートとコントローラーで使用される）"
+
+#: editor/header/help/help-migration.html:1
+msgid "<b>Checklist and Radiobuttons</b> internal HTML have been updated to follow some accessibility recommendation"
+msgstr "<b>チェックリストとラジオボタン</b> 内部HTMLがいくつかのアクセシビリティ推奨に従うように更新されました"
+
+#: assets/help-popup.html:13
+msgid "<b>Note</b>: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
+msgstr "<b>注</b>: カスタム ウィジェット アセットは、ウィジェット エディタでのみ編集可能です。 他のページへの影響を避けるためにページレベルで変更することはできません。 そのため、カスタムウィジェットのアセットを並べ替えたい場合は、ウィジェットエディタに移動してください。"
+
+#: home/help-popup.html:1
+msgid "<b>To update a form during production</b>, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
+msgstr "<b>運用中にフォームを更新するには</b>UIデザイナーからフォームをエクスポートします ポータル内の関連するプロセスにインポートし、関連するタスクまたはプロセス開始イベントにマッピングします。"
+
+#: home/help-popup.html:1
+msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
+msgstr "<b>プロセスのフォームとして使用するには</b>、Studioで関連するプロセス、またはヒューマン タスクにそれをマップします。それはポータルへのデプロイ時に、 .bar アーカイブ ファイル内に自動的にパッケージ化されます。"
+
+#: home/help-popup.html:1
+msgid "<b>To use a layout in a business application</b>, export it from the UI Designer, import it into the portal as a resource and map it as the layout of the relevant application."
+msgstr "<b>業務アプリケーションのレイアウトとして使用するには</b>、UI デザイナーからそれをエクスポートし、 Bonita BPM ポータルにリソースとしてインポートします。そして関連するアプリケーションのレイアウトとしてマップします。"
+
+#: home/help-popup.html:1
+msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
+msgstr "<b>業務アプリケーションのページとして使用するには</b>、UI デザイナーからそれをエクスポートし Bonita ポータルのリソースにインポートします。そして関連するアプリケーションのページリストとナビゲーションメニューにそれを追加します。"
+
+#: home/help-popup.html:1
+msgid "<b>UI Designer version</b>: {{ctrl.getUidVersion()}} - <b>Model version</b>: {{ctrl.getModelVersion()}}"
+msgstr "<b>UI Designer version</b>: {{ctrl.getUidVersion()}} - <b>Model version</b>: {{ctrl.getModelVersion()}}"
+
+#: editor/header/migrationReport/migration-report-popup.controller.html:1
+msgid "<b>{{ctrl.artifact.name}}</b> successfully migrated."
+msgstr "<b>{{ctrl.artifact.name}}</b> のマイグレートに成功しました。"
+
+#: editor/header/migrationReport/migration-report-popup.controller.html:1
+msgid "<b>{{ctrl.artifact.name}}</b> was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b> with some warning."
+msgstr "<b>{{ctrl.artifact.name}}</b> は <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> から <b>{{ctrl.migrationReport.newArtifactVersion}}</b> へ幾つかの警告付きでマイグレートされました。"
+
+#: confirm-popup/confirm-migrate-popup.html:1
+msgid "<b>{{ctrl.artifact}}</b> {{ctrl.type}} has been created in an older version of the UI Designer. It needs to be migrated to the current version to be used with the latest features. This migration is automatic. <br> Note that once migrated, the page cannot be brought back to its previous state, and cannot be used in a previous version of the UI Designer."
+msgstr "<b> {{ctrl.artifact}} </ b> {{ctrl.type}}は、古いバージョンのUIデザイナーで作成されています。 最新の機能で使用するには、現在のバージョンに移行する必要があります。 この移行は自動的に行われます。 <br>注意：一度移行すると、ページを以前の状態に戻すことはできずに以前のバージョンのUIデザイナーで使用することもできなくなので注意が必要です。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "<code>context</code> is an External API."
+msgstr "<code>context</code> は、External API です。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
+msgstr "<code>\"forminput\"</code> は、JSON オブジェクトです。<br>その構造は入力コントラクトによって定義され、その属性をデフォルト値で初期化します。それを使用して、フォーム フィールドの初期値を設定できます。<br>コンスタント （テストおよびデバッグに便利）、または同じモデルを持つ外部ソース（ BDM のExternal API を使用）にあるオブジェクトの値、のいずれかでデフォルト値を編集することによって、<code>\"forminput\"</code> の値を設定できます。<br> <code>\"forminput\"</code> を使用せずに何らかの他のソースからフォームの初期値を設定することもできます。ただしこの場合は、<code>formOutput</code> を手動で編集する必要があります。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
+msgstr "<code>formOutput</code> は、オブジェクトを返す JavaScript 式です。<br>その構造はコントラクトの要件と一致し、 デフォルトでは <code>\"forminput\"</code> を使ってデータが埋められます。この変数の目的は、フォームのフィールドを集約し、コントラクトのデータを埋めるためタスクまたはプロセスにそれらを送信することです。エンドユーザーによって入力または変更された値は、送信（submit）時に（送信ボタンの「<b>クリックで送られるデータ</b>」プロパティで定義された） <code>formOutput</code> オブジェクトに集約され、プロセスまたはタスクに送信されます。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
+msgstr "<code>submit_errors_list</code> は、送信に失敗したときにレスポンス ペイロードを html にフォーマットする JavaScript 式です。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
+msgstr "<code>taskId</code> は URL パラメータです。<br>現在の BPM タスクの id です。BPM API のパラメータとして使用できます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget. Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations."
+msgstr "<em><b>例</b></em>： [送信] ボタンの <b>ラベル</b> プロパティにキー <em>button.submit.name</em> を使用します。<b>日付書式</b> プロパティにキー <em>date.format</em> を、日付選択ウィジェットの<b>プレース ホルダー</b> プロパティにキー <em>date.placeholder</em> を使用します。そして、<em>localization.json</em> アセットを変更し、<em>Button.submit.name</em>、<em>date.format</em>、<em>date.placeholder</em> の英語と他言語翻訳を追加します。"
+
+#: editor/header/help/help-popup.html:1
+msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
+msgstr "日付選択<em>と</em>日時選択<em>ウィジェット</em>に関する<em>注意事項：</em> <em>プレース ホルダー</em> プロパティの翻訳は、<em>テクニカルな書式</em> プロパティの値（年月日の順序と文字数）と一致させる必要があります。ただし、翻訳の不一致を避けるため、<em>プレース ホルダー</em> のキーは、<em>テクニカルな書式</em> と違うキーを使用します。"
+
+#: assets/l10n-asset-form.html:1
+msgid "<i class=\"fa fa-warning\"></i>&nbsp;By convention, the file has to be named <em>localization.json</em>"
+msgstr "<i class=\"fa fa-warning\"></i>&nbsp;ファイル名は規則で <em>localization.json</em> でなければなりません"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type. </li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax. </li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here. </li> <li translate>You can retrieve the Status Code or Response Headers with a usual variable binding and use it in the artifact. </li> </ul>"
+msgstr "<p><span class=\"tip\">ヒント：</span></p><ul><li translate>へ<i>ビジネスデータモデル</i>からデータを取得するには、ビジネスデータ変数タイプを使用してください。 </li><li translate> URLのデータは、<i><em ng-non-bindable>{{dataName}}</em></i>構文で使用できます。 </li> <li translate> Bonita StudioでRESTAPI拡張機能を作成し、ここで使用することでRESTAPI機能を拡張できます。 </ li> <li translate>通常の変数バインディングを使用してステータスコードまたはレスポンスヘッダーを取得し、アーティファクトで使用できます。 </ li> </ ul>"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
+msgstr "<span class=\"tip\">ヒント：</span> 配列の文法：[\"値1\", \"値2\"]、オブジェクトの文法：{\"キー1\": \"値1\", \"キー2\": \"値2\"}"
+
+#: editor/bottom-panel/data-panel/data-popup.html:10
+msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
+msgstr "<span class=\"tip\">ヒント：</span> 変数を参照するには、<span class=\"key\">$</span> キーを押します。オートコンプリートを使用するには、Ctrl+スペースキーを使用します。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
+msgstr "<span class=\"tip\">ヒント：</span> URL パラメータはページURL内の <em>?</em> の直後に配置されます。"
+
+#: assets/table/asset-section.html:1
+msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
+msgstr "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "<span>Create a new variable</span>"
+msgstr "<span>新しい変数を作成</span>"
+
+#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
+msgid "<span>Declare Bonita resource</span>"
+msgstr "<span>Bonita リソースの宣言</span>"
+
+#: editor/properties-panel/container-repeat-content-tip.html:1
+msgid "<strong>$collection</strong>: the current collection"
+msgstr "<strong>$collection</strong>: 現在のコレクション"
+
+#: editor/properties-panel/container-repeat-content-tip.html:1
+msgid "<strong>$index</strong>: the index of the current iteration of the collection (counting from zero)"
+msgstr "<strong>$index</strong>: コレクションの現在の反復処理のインデックス（0 から数える） "
+
+#: editor/properties-panel/container-repeat-content-tip.html:1
+msgid "<strong>$item</strong>: the element of the current iteration"
+msgstr "<strong>$item</strong>: 現在の反復処理の要素"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "<strong>{{newData.businessObject.name}}</strong> doesn't exist in the Business Data Model currently deployed."
+msgstr "<strong>{{newData.businessObject.name}}</strong> は現在デプロイされているビジネス データ モデルには存在しません。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "A Business data variable is reloaded every time the filter value changes."
+msgstr "フィルタの値が変更されるたびに、ビジネス データ変数が再ロードされます。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
+msgstr "バインディングは動的です。したがって、データが変更されるたびにすべての変数が再評価され、UI が更新されます。その結果："
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object."
+msgstr "構成ウィザードが表示されます：このビジネス オブジェクトの要素を取得する方法に関する情報を提供して、ビジネス データ変数を作成します。"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "A filter area is displayed, depending on your selection, you may have to enter one or several attribute values. You can use a variable to fill its value using interpolation syntax."
+msgstr "フィルタ領域が表示されます。選択範囲に応じて、1つまたは複数の属性値を入力する必要があります。 変数を使用して補間構文を使用して値を埋めることができます。"
+
+#: assets/help-popup.html:1
+msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
+msgstr "ローカルアセット名に特殊文字やスペースを含めることはできません。 外部アセットは標準的なURLでなければなりません。"
+
+#: editor/whiteboard/container.html:1
+msgid "A modal container cannot be located in another container. Recommendation: drop all modal containers at the bottom of the whiteboard."
+msgstr "モーダルコンテナを別のコンテナに配置することはできません。推奨: ホワイトボードの下部にすべてのモーダルコンテナをドロップします。"
+
+#: home/help-popup.html:1
+msgid "A new widget is now available to display our data with currency"
+msgstr "新しいウィジェットが通貨でデータを表示できるようになりました"
+
+#: editor/properties-panel/help/constant-bond-help.html:1
+msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
+msgstr "コンスタント値を要求するプロパティが、ラジオ ボタンのセット、ドロップ ダウン リスト、または （幅プロパティ）の数値セレクターとして [プロパティ] パネルに表示されます。必要な値を選択します。"
+
+#: editor/properties-panel/help/description-bond-help.html:1
+msgid "A property value is constant, dynamic, a bidirectional bond, or an interpolation."
+msgstr "プロパティの値は、コンスタント、動的な値、双方向バインド、または補完です。"
+
+#: home/import/import-error-messages.service.js:13
+msgid "A server error occurred."
+msgstr "サーバーエラーが発生しました。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
+msgstr "JavaScript 式で初期化される変数は、ページが読み込まれたときに実行されます。その後、その依存関係の 1 つが変更されたときは、その値が更新されます。<code>$data.XXX</code> を使用して、依存関係が作成されます。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "A variable initialized with an External API is reloaded every time the URL value changes."
+msgstr "外部 API で初期化される変数は、URL の値が変更されるたびに再度読み込まれます。"
+
+#: home/import/import-report-popup.html:1
+msgid "A {{ ::importReport.overwrittenType }} with the same Id as <strong>{{ ::importReport.name }}</strong> already exists."
+msgstr "既に <strong>{{ ::importReport.name }}</strong> という名前の同じ id  {{ ::importReport.overwrittenType }} が存在します。"
+
+#: home/import/import-report-popup.html:1
+msgid "A {{ ::importReport.overwrittenType }} with the same identifier as <strong>{{ ::importReport.name }}</strong> already exists."
+msgstr "既に <strong>{{ ::importReport.name }}</strong> という名前の同じ id  {{ ::importReport.overwrittenType }} が存在します。"
+
+#: assets/asset-popup.controller.js:113
+msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
+msgstr " {{type}} のアセット名： <em>{{ name }}</em> は既にアセットに追加されています。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "API URL"
+msgstr "API の URL"
+
+#: home/help-popup.html:1
+msgid "API Variables response Metadata usage"
+msgstr "API変数のレスポンスメタデータの使用法"
+
+#: editor/header/help/help-popup.html:1
+msgid "Access to $form capabilities for form container"
+msgstr "フォーム コンテナ： $form の機能にアクセスできます"
+
+#: home/help-popup.html:1
+msgid "Accessibility"
+msgstr "アクセシビリティ"
+
+#: assets/page-assets.html:1
+msgid "Active"
+msgstr "アクティブ"
+
+#: assets/widget-assets.html:1
+msgid "Add"
+msgstr "追加"
+
+#: assets/help-popup.html:1
+msgid "Add CSS assets at page level and use them to edit the CSS classes property of any widget. (UI Designer integrates default Bootstrap style)"
+msgstr "CSS アセットをページレベルで追加し、それらをあらゆるウィジェットの CSS クラス プロパティを編集するために使用します（UI デザイナーはデフォルトの Bootstrap スタイルを取り入れています）。"
+
+#: assets/help-popup.html:1
+msgid "Add JavaScript assets for custom scripts. They will be loaded and made available at page level. You can use them in variables of type JavaScript expression. In the value field of the variable, simply call the function and pass the required parameters."
+msgstr "カスタムスクリプトに JavaScript アセットを追加します。それらはページレベルでロードされ利用可能になります。JavaScript 式タイプの変数でそれらを使用できます。 変数の値フィールドでその関数をコールし必要なパラメータを渡します。"
+
+#: assets/asset-popup.html:1 assets/page-assets.html:1
+msgid "Add a new asset"
+msgstr "新規アセットを追加"
+
+#: editor/whiteboard/tabs-container.html:1
+msgid "Add a new tab"
+msgstr "新規タブを追加"
+
+#: editor/header/help/help-popup.html:1
+msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
+msgstr "下部にある [アセット] パネルで、画像、CSS または JavaScript のリソースをページに追加します。"
+
+#: home/import/import-success-message.html:1
+msgid "Added artifacts"
+msgstr "追加された生成物"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Advanced options"
+msgstr "詳細オプション"
+
+#: editor/header/help/help-popup.html:1
+msgid "All <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\">angularJS filters</a> are available. Usage requires the use of <code>|</code> (\"pipe\"). E.g. <code>myVariable|lowercase</code>."
+msgstr "すべての <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\">angularJS フィルター</a> が利用可能です。たとえば 、<code>myVariable|lowercase</code>のように、<code>|</code> (パイプ)を使用します。"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:40
+msgid "All process data of a case: Search for a list of case variables"
+msgstr "案件の全プロセスデータ: 案件リストの変数を検索します"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Already adding from automatic detection, could be deleted"
+msgstr "自動検出から既に追加されていますが、削除される可能性があります"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Already declared from another automatic declaration, could be deleted"
+msgstr "別の自動宣言から既に宣言されているため、削除される可能性があります"
+
+#: home/help-popup.html:1
+msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
+msgstr "UI デザイナーで設計した生成物は、チームメンバーと共有するためにエクスポート（UI デザイナー内にインポート）するか、あるいは、Bonita ポータルにインポートして ビジネス アプリケーション 内で使用できます。"
+
+#: home/help-popup.html:1
+msgid "An attribute <code>lang</code> is now available. The attribute is based on the <code>BOS_locale</code> cookies at page initialization and will automatically get filled without any user action."
+msgstr "属性 <code>lang</code> が利用可能になりました。 この属性は、ページの初期化時に <code>BOS_locale</code> Cookie に基づいており、ユーザーの操作なしで自動的に入力されます。"
+
+#: editor/header/migrationReport/migration-report-popup.controller.html:1
+msgid "An errors occurs during migration."
+msgstr "マイグレーション中にエラーが発生しました。"
+
+#: assets/asset-popup.controller.js:111
+msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
+msgstr "{{type}} のアセット名： <em>{{ name }}</em> は既にアセットに追加されています。"
+
+#: home/help-popup.html:1
+msgid "AngularJs 1.8"
+msgstr "AngularJs 1.8"
+
+#: editor/common/properties.service.js:32
+msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
+msgstr "デフォルトの UI デザイナーでアクセス可能な CSS クラス。Bootstrap http://getbootstrap.com/css/#helper-classes が付属しています。"
+
+#: home/artifact-factory.service.js:43
+msgid "Application layout"
+msgstr "アプリケーション レイアウト"
+
+#: editor/header/convert-popup.controller.js:13
+#: editor/header/save-as-popup.controller.js:13
+#: home/artifact-factory.service.js:28
+msgid "Application page"
+msgstr "アプリケーション ページ"
+
+#: editor/properties-panel/help/dynamic-bond-help.html:1
+msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
+msgstr "変数の値にフィルターを適用する例: <em>selectedUser | json</em>"
+
+#: confirm-delete/confirm-delete-popup.html:1
+msgid "Are you sure you want to delete <b>{{ctrl.artifact}}</b> {{ctrl.type}} ?"
+msgstr "<b>{{ctrl.artifact}}</b> {{ctrl.type}} を削除してよろしいですか？"
+
+#: home/artifact-list/confirm-deletion-popup.html:1
+msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
+msgstr "{{ artifact.type }} <b>{{ artifact.name }}</b> を削除していいですか？"
+
+#: home/help-popup.html:1
+msgid "Artifact creation:"
+msgstr "生成物の作成："
+
+#: assets/malformed-json-error-message.html:1
+msgid "Asset has not been saved"
+msgstr "アセットが保存されていません"
+
+#: assets/help-popup.html:13
+msgid "Asset list"
+msgstr "アセット リスト"
+
+#: assets/help-popup.html:13
+msgid "Asset reordering"
+msgstr "アセットの並び替え"
+
+#: assets/help-popup.html:1 assets/help-popup.html:13
+msgid "Asset use"
+msgstr "アセットの使用"
+
+#: assets/widget-assets.html:1 editor/bottom-panel/bottom-panel.directive.js:39
+msgid "Assets"
+msgstr "アセット"
+
+#: assets/help-popup.html:1
+msgid "Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL). The Localization asset is always local."
+msgstr "アセットでページおよびフォームに web リソースを追加することができます。使用可能なアセットのタイプは、<strong>JavaScript</strong>、<strong>CSS</strong>、<strong>Image</strong>、および<strong>Localization</strong>。アセットは、<strong>ローカル</strong>（ページ アーチファクトに格納されているファイル） または外部（URL）に置くことができます。ローカリゼーションアセットは常にローカルです。"
+
+#: assets/help-popup.html:13
+msgid "At runtime, CSS and JavaScript assets are loaded in the page header. This loading is done as it's represented in this list, CSS first then Javascript. All assets are loaded in order they are listed, widget assets before page assets (in alphabetical order of the widgets name)."
+msgstr "実行時にCSSおよびJavaScriptアセットがページヘッダーに読み込まれます。 この読み込みは、このリストに示されているとおりに実行されます。最初にCSS、次にJavascriptです。 すべてのアセットは表示されている順序で、ページアセットの前にウィジェットアセットが読み込まれます（ウィジェット名のアルファベット順）。"
+
+#: assets/help-popup.html:13
+msgid "At runtime, assets of a custom widget are loaded in the order defined."
+msgstr "カスタム ウィジェットのアセットは実行時に定義した順番でロードされます。"
+
+#: editor/header/export-popup.html:1
+msgid "Attention:"
+msgstr "注意:"
+
+#: editor/bottom-panel/web-resources-panel/help-popup.html:1
+msgid "Automatic detection"
+msgstr "自動検出"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "Available variables types are string and JSON (static), and External API, Business data, JavaScript expression, and URL parameter (dynamic)."
+msgstr "使用可能な変数の型はstring（文字列）と JSON (静的)、および外部API、ビジネスデータ、JavaScript 式、URL パラメータ (動的) です。"
+
+#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
+msgid "Back"
+msgstr "戻る"
+
+#: common/directives/expand-modal.directive.js:33
+msgid "Back to default size"
+msgstr "デフォルトのサイズに戻す"
+
+#: assets/table/asset-section.html:1
+msgid "Base framework"
+msgstr "ベース フレームワーク"
+
+#: editor/properties-panel/help/property-bond-help.html:1
+msgid "Bidirectional bond"
+msgstr "双方向バインド"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Bind these options to a UI-Designer variable and use them in your artifact."
+msgstr "これらのオプションを UI-Designer 変数にバインドし、アーティファクトで使用します。"
+
+#: editor/properties-panel/fragment/fragment-properties-template.html:1
+msgid "Bindable fragment data"
+msgstr "バインド可能なフラグメントデータ"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Bonita Resource is automatically declared"
+msgstr "Bonita リソースは自動的に宣言されました"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Bonita Resource manually declared by user"
+msgstr "Bonita リソースをユーザーによって手動で宣言しました"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.controller.js:127
+msgid "Bonita resource"
+msgstr "Bonita リソース"
+
+#: custom-widget/custom-widget-editor.html:1
+#: editor/bottom-panel/bottom-panel.directive.js:49
+#: editor/header/metadata-popup.html:2 home/help-popup.html:1
+msgid "Bonita resources"
+msgstr "Bonita リソース"
+
+#: editor/properties-panel/fragment/fragment-data-binding-field.html:1
+msgid "Bound data"
+msgstr "バウンドデータ"
+
+#: editor/bottom-panel/data-panel/data-type.service.js:35
+msgid "Business data"
+msgstr "ビジネス データ"
+
+#: editor/header/help/help-popup.html:1
+msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
+msgstr "<em>localization.json</em> 内で翻訳キーに使用される言語は、慣例では英語です。すなわち、エディタの ホワイト ボード上に表示される任意のウィジェットのデフォルト テキストは現在、英語になっています。ただし、 UI 生成物の表示文字列を日本語で作成し、更新・保守を容易にしたい場合は、キーを日本語にして、<em>localization.json</em> アセット ファイルに対訳の英語（<b>en-US</b>）セクションを追加できます。"
+
+#: assets/help-popup.html:13
+msgid "By default, only page assets are displayed. To display others scopes assets, we should check Widget or Base Framework checkbox."
+msgstr "デフォルトでは、ページアセットのみが表示されます。他のスコープアセットを表示するには、ウィジェットまたはBase Frameworkのチェックボックスをオンにします。"
+
+#: editor/common/properties.service.js:26
+msgid "CSS classes"
+msgstr "CSS クラス"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:75
+msgid "Call a business data (custom) query"
+msgstr "ビジネスデータの（カスタム）クエリをコールする"
+
+#: custom-widget/create-property.html:2
+msgid "Can be used to define the expected input format"
+msgstr "指定したい入力書式の定義に使用できます"
+
+#: assets/asset-popup.html:1 assets/asset-preview-popup.html:1
+#: confirm-delete/confirm-delete-popup.html:1
+#: confirm-popup/confirm-migrate-popup.html:1
+#: custom-widget/create-property.html:2 custom-widget/save-as-popup.html:1
+#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
+#: editor/bottom-panel/data-panel/data-popup.html:12
+#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
+#: editor/header/convert-popup.html:1 editor/header/export-popup.html:1
+#: editor/header/metadata-popup.html:2 editor/header/save-as-popup.html:1
+#: editor/properties-panel/fragment/fragment-save-popup.html:1
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+#: home/artifact-list/artifact-list.directive.js:38
+#: home/artifact-list/confirm-deletion-popup.html:1
+#: home/create/create-popover.html:1 home/import/import-popover.html:1
+#: home/import/import-report-popup.html:1
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: custom-widget/create-property.html:2
+msgid "Caption"
+msgstr "短い説明文"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:29
+msgid "Case identifier could then be retrieved by {{myData.rootCaseId}}"
+msgstr "案件のIDは、{{myVar.rootCaseId}} で取得できます。"
+
+#: preview/open-preview.html:1
+msgid "Changes need to be saved to enable the preview"
+msgstr "プレビューを有効にするには変更を保存する必要があります"
+
+#: home/import/import-error-messages.service.js:33
+msgid "Check that the json file structure matches a standard UI Designer export."
+msgstr "Json ファイル構造が標準 UI デザイナーのエクスポートと一致することを確認します。"
+
+#: home/import/import-error-messages.service.js:22
+msgid "Check that the zip archive contains one of following files {{ infos.modelfiles }}."
+msgstr "この zip アーカイブが次のファイル: {{ infos.modelfiles }} のどれかを含んでいるか確認してください。"
+
+#: home/import/import-error-messages.service.js:18
+msgid "Check that the zip archive contains the file {{ infos.modelfile }}."
+msgstr "Zip アーカイブに、ファイル {{ infos.modelfile }} が含まれていることを確認します。"
+
+#: home/import/import-error-messages.service.js:26
+msgid "Check that the zip file structure matches a standard UI Designer export."
+msgstr "Zip ファイルの構造が標準の UI デザイナー エクスポートと一致することを確認します。"
+
+#: home/import/import-error-messages.service.js:14
+msgid "Check the log files"
+msgstr "ログ ファイルを確認してください"
+
+#: custom-widget/custom-widget-editor.html:1
+msgid "Choices"
+msgstr "選択肢"
+
+#: custom-widget/create-property.html:2
+msgid "Choices (comma separated)"
+msgstr "選択肢 (カンマで区切る)"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Choose a business object"
+msgstr "ビジネス オブジェクトを選択"
+
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+msgid "Clear"
+msgstr "消去"
+
+#: common/directives/search/search.html:1
+msgid "Clear search"
+msgstr "検索をクリア"
+
+#: assets/generic-asset-form.html:1 assets/l10n-asset-form.html:1
+msgid "Click <em>Add</em> to override."
+msgstr "<em>追加</em> をクリックして上書きします。"
+
+#: editor/header/header.html:1
+msgid "Click to see migration report"
+msgstr "クリックしてマイグレーション レポートを表示"
+
+#: assets/asset-edit-popup.html:1 assets/help-popup.html:19
+#: custom-widget/help-popup.html:1
+#: editor/bottom-panel/data-panel/help-popup.html:1
+#: editor/bottom-panel/web-resources-panel/help-popup.html:1
+#: editor/header/help/help-popup.html:23
+#: editor/header/migrationReport/migration-report-popup.controller.html:1
+#: editor/palette/data-model-help-popup.html:1
+#: editor/whiteboard/switchComponent/not-supported-browser-popup.html:1
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
+#: home/help-popup.html:1
+msgid "Close"
+msgstr "閉じる"
+
+#: custom-widget/custom-widget-editor.controller.js:29
+msgid "Code"
+msgstr "コード"
+
+#: home/help-popup.html:1
+msgid "Community edition features"
+msgstr "コミュニティ エディション（Community Edition）の機能"
+
+#: editor/header/help/help-popup.html:1
+msgid "Configure widgets using the <b>properties panel</b> on the right."
+msgstr "右の<b>プロパティ パネル</b>を使用してウィジェットを構成設定します。"
+
+#: confirm-delete/confirm-delete-popup.html:1
+#: home/artifact-list/confirm-deletion-popup.html:1
+msgid "Confirm deletion"
+msgstr "削除の確認"
+
+#: editor/properties-panel/help/property-bond-help.html:1
+msgid "Constant"
+msgstr "コンスタント"
+
+#: editor/header/help/help-popup.html:1
+msgid "Containers"
+msgstr "コンテナ"
+
+#: custom-widget/custom-widget-editor.controller.js:59
+msgid "Containers cannot be edited."
+msgstr "コンテナは編集できません。"
+
+#: editor/header/help/help-popup.html:1
+msgid "Containers cannot be switched."
+msgstr "コンテナは切り替えできません。"
+
+#: custom-widget/custom-widget-editor.html:1 custom-widget/help-popup.html:1
+msgid "Controller"
+msgstr "コントローラー"
+
+#: custom-widget/help-popup.html:1
+msgid "Controller can be left empty if not needed."
+msgstr "コントローラが不要な場合は空のままにしておくことができます。"
+
+#: editor/header/header.html:1
+msgid "Convert to ..."
+msgstr "変換..."
+
+#: editor/header/convert-popup.html:1
+msgid "Convert {{ctrl.page.name}}"
+msgstr "{{ctrl.page.name}} に変換"
+
+#: home/import/import-error-messages.service.js:29
+msgid "Corrupted zip archive."
+msgstr "破損した zip アーカイブです。"
+
+#: custom-widget/custom-widget-editor.html:1 home/create/create-popover.html:1
+#: home/create/home-create.html:1
+msgid "Create"
+msgstr "新規作成"
+
+#: assets/help-popup.html:19
+msgid "Create a JSON variable named <code>updateDate</code> to hold a timestamp as a number"
+msgstr "<code>updateDate</code>と命名した JSON 変数を作成し、数値としてタイムスタンプを保持します。"
+
+#: assets/help-popup.html:13
+msgid "Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.ui.extensions</code> module with the filter:"
+msgstr "<code>date-ago-filter.js</code> と命名した JavaScript を作成し、フィルターを使って <code>bonitasoft.ui.extensions</code> モジュールを更新します："
+
+#: home/help-popup.html:1
+msgid "Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms."
+msgstr "ウィジェットを同一のグループにまとめて部品化し、他のページまたはフォームの再利用するフラグメントを作成します。"
+
+#: home/create/home-create.html:1
+msgid "Create a new UI Designer artifact"
+msgstr "新しい UI デザイナーの生成物を作成します"
+
+#: editor/bottom-panel/data-panel/data.html:1
+msgid "Create a new variable"
+msgstr "新規変数を作成"
+
+#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
+msgid "Create a user interface to handle \"{{ctrl.businessData.name}}\""
+msgstr "\"{{ctrl.businessData.name}} \" を処理するためのユーザーインターフェイスを作成します"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
+msgstr "ここで変数を作成します。ウィジェット プロパティ内での変数の使用は、このページ エディタの全般ヘルプ、<b>プロパティ</b> セクションで説明されているように、プロパティ値のタイプに依存します。"
+
+#: editor/header/help/help-popup.html:1
+msgid "Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type, described in the next section."
+msgstr "下部のパネルで変数を作成します。ウィジェット プロパティ内での変数の使用は、次のセクションで説明されているように、プロパティ値のタイプに依存します。"
+
+#: home/help-popup.html:1
+msgid "Create an <b>application page</b> directly in the UI Designer"
+msgstr "UI デザイナーで直接、<b>アプリケーション ページ</b> を作成します"
+
+#: home/create/create-popover.html:1
+msgid "Create new artifact"
+msgstr "新しい生成物を作成"
+
+#: custom-widget/create-property.html:1
+msgid "Create new property"
+msgstr "新規プロパティを作成"
+
+#: editor/header/help/help-popup.html:1
+msgid "Create variables in the Variables panel at the bottom, and use them to edit the widget properties."
+msgstr "下部の変数パネルで変数を作成し、それらを使用してウィジェットのプロパティを編集します。"
+
+#: home/artifact-list/artifact-list.directive.js:186
+msgid "Created with an older version of UI Designer. Open it for more details."
+msgstr "古いバージョンのUIデザイナーで作成されました。 詳細は開いてください。"
+
+#: home/help-popup.html:1
+msgid "Currency input widget"
+msgstr "通貨入力ウィジェット"
+
+#: assets/help-popup.html:13
+msgid "Custom services"
+msgstr "カスタム サービス"
+
+#: home/artifact-factory.service.js:50
+msgid "Custom widget"
+msgstr "カスタム ウィジェット"
+
+#: home/artifact-factory.service.js:51
+msgid "Custom widgets"
+msgstr "カスタム ウィジェット"
+
+#: custom-widget/help-popup.html:1
+msgid "Custom widgets are not clearly visible on the whiteboard but you can see them with the preview."
+msgstr "カスタム ウィジェットは、ホワイト ボードには明確に表示されませんが、プレビューを使用すれば確認できます。"
+
+#: editor/bottom-panel/data-panel/data-type.service.js:35
+msgid "Data Management"
+msgstr "データ マネジメント"
+
+#: editor/header/help/help-popup.html:1
+msgid "Date filter"
+msgstr "日付フィルタ"
+
+#: editor/header/help/help-popup.html:1
+msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
+msgstr "日付書式は、デフォルトでローカライズされます。ローカライズされた書式は <em>localization.json</em> で編集できます （<a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">ローカリゼーション セクション</a> を参照してください）。"
+
+#: editor/header/help/help-popup.html:1
+msgid "Date object"
+msgstr "Date オブジェクト"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Declaration"
+msgstr "宣言"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Declare a Bonita resource"
+msgstr "Bonitaリソースを宣言する"
+
+#: custom-widget/custom-widget-editor.html:1
+msgid "Declare the Bonita REST API resources used in this widget."
+msgstr "このウィジェットで使用されているBonita REST API リソースを宣言します。"
+
+#: custom-widget/create-property.html:2
+msgid "Default"
+msgstr "デフォルト"
+
+#: custom-widget/custom-widget-editor.html:1
+msgid "Default value"
+msgstr "デフォルト値"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "Default variables"
+msgstr "デフォルト変数"
+
+#: editor/properties-panel/help/dynamic-bond-help.html:1
+msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
+msgstr "ウィジェットを表示する条件を定義する例： <em>userAge &gt; 18</em>"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "Define how to retrieve Business Object"
+msgstr "ビジネス オブジェクトを取得する方法を定義します"
+
+#: editor/properties-panel/help/dynamic-bond-help.html:1
+msgid "Define table headers as the value of a variable: <em>myArrayVariable</em>"
+msgstr "テーブルのヘッダーを変数の値で定義する例： <em>myArrayVariable</em>"
+
+#: confirm-delete/confirm-delete-popup.html:1
+#: home/artifact-list/artifact-list.directive.js:35
+#: home/artifact-list/confirm-deletion-popup.html:1
+msgid "Delete"
+msgstr "削除"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Delete Bonita resource"
+msgstr "Bonita リソースを削除"
+
+#: assets/table/asset-section.html:1 assets/widget-assets.html:1
+msgid "Delete asset"
+msgstr "アセットを削除"
+
+#: editor/bottom-panel/data-panel/data.html:1
+msgid "Delete variable"
+msgstr "変数を削除"
+
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
+msgid "Deletion is not possible"
+msgstr "削除はできません。"
+
+#: custom-widget/create-property.html:1
+msgid "Describes the property"
+msgstr "プロパティについて説明"
+
+#: custom-widget/custom-widget-editor.html:1
+#: editor/header/metadata-popup.html:1
+#: editor/properties-panel/common-properties-template.html:1
+msgid "Description"
+msgstr "説明"
+
+#: home/import/import-report-popup.html:1
+msgid "Details"
+msgstr "詳細情報"
+
+#: assets/asset-edit-popup.html:1
+msgid "Discard changes"
+msgstr "変更を破棄"
+
+#: editor/header/metadata-popup.html:1
+msgid "Display name"
+msgstr "表示名"
+
+#: confirm-popup/confirm-migrate-popup.html:1 editor/header/export-popup.html:1
+msgid "Do not show me this dialog again"
+msgstr "今後、このダイアログは表示しない"
+
+#: home/import/import-report-popup.html:1
+msgid "Do you still want to import this {{ ::importReport.type }} now ?"
+msgstr "この {{ ::importReport.type }} をインポートしてもよろしいですか？"
+
+#: assets/table/asset-section.html:1 assets/widget-assets.html:1
+msgid "Download asset"
+msgstr "アセットをダウンロード"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "Drag and drop a Business Object in the whiteboard or create a new variable of type Business Data."
+msgstr "ホワイトボードにビジネス オブジェクトをドラッグ&ドロップするか、ビジネス データ型の新しい変数を作成します。"
+
+#: editor/header/help/help-popup.html:1
+msgid "Drag and drop widgets or containers in rows"
+msgstr "行内にウィジェットまたはコンテナをドラック＆ドロップします。"
+
+#: editor/bottom-panel/data-panel/data-type.service.js:32
+#: editor/bottom-panel/data-panel/data-type.service.js:33
+#: editor/bottom-panel/data-panel/data-type.service.js:34
+msgid "Dynamic"
+msgstr "ダイナミック"
+
+#: editor/properties-panel/help/property-bond-help.html:1
+msgid "Dynamic value"
+msgstr "動的な値"
+
+#: editor/header/help/help-popup.html:1
+msgid "E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>employee | lazyRef : 'addresses'</code>"
+msgstr "例：タスクコンテキスト<code> ../ {{context.employee_ref.link}}</code>をフェッチする外部APIタイプの変数<em> employee </em> が与えられます。\n\n"
+"BDMで遅延している<em> employee</em>の全てのアドレスを取得するには、<code> employee のようなurlパラメータを使用して外部APIタイプの別の変数<em> employee_addresses </em>を作成します。\n"
+" |  lazyRef： 'アドレス' </ code>"
+
+#: editor/header/help/help-popup.html:1
+msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
+msgstr "各生成物は、<em>localization.json</em> アセットを持ち、このアセットは UI 上に表示されるすべて文字列のキーとサポート言語（デフォルト、日本語、フランス語、スペイン語など）の対訳を持っています。各言語は、言語セクションを持ち、ISO 639 の言語属性（たとえば、ja, fr-FR, es-ES） によって識別されます。新しい言語（キーとその対訳のセット）を追加するには、 <em>localization.json</em> をエクスポートして外部のエディタで編集し、同じファイル名でアップロードします。新しい言語のインストールの詳細については、 Bonita BPM ドキュメント サイトを参照してください。（キーワード："
+
+#: editor/header/help/help-popup.html:1
+msgid "Each type or container has specific behaviors"
+msgstr "各タイプまたはコンテナは固有の挙動を持っています。"
+
+#: editor/header/help/help-popup.html:1
+msgid "Edit"
+msgstr "編集"
+
+#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Edit Bonita resource"
+msgstr "Bonita リソースの編集"
+
+#: assets/asset-popup.html:1 assets/table/asset-section.html:1
+msgid "Edit asset"
+msgstr "アセットを編集"
+
+#: custom-widget/create-property.html:1
+msgid "Edit property"
+msgstr "プロパティを編集"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+#: editor/bottom-panel/data-panel/data.html:1
+msgid "Edit variable"
+msgstr "変数を編集"
+
+#: editor/properties-panel/properties-panel-action-menu-template.html:1
+msgid "Edit..."
+msgstr "編集..."
+
+#: editor/header/help/help-popup.html:1
+msgid "Editor organization"
+msgstr "エディタの構成設定"
+
+#: editor/header/help/help-popup.html:1
+msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
+msgstr "ウィジェットを選択して、 <i class=\"fa fa-exchange\"></i> をクリックします。"
+
+#: editor/header/header.html:1
+msgid "Enter ' + vm.mode + ' name"
+msgstr "vm.mode + ' 名を入力します"
+
+#: assets/malformed-json-error-message.html:1
+msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
+msgstr " <code>{{ infos.location.line }}</code> 行、<code>{{ infos.location.column }}</code> 列でエラー"
+
+#: common/services/migration.service.js:74
+msgid "Error during migration of . Check migration details <i class=\"fa fa-wrench status\"></i> for more details."
+msgstr "移行中にエラーが発生しました。詳細については、移行の詳細 <i class=\"fa fa-wrench status\"></i> を確認してください。"
+
+#: assets/help-popup.html:13
+msgid "Example: relative time filter"
+msgstr "例: 相対時間フィルター"
+
+#: preview/preview.html:1
+msgid "Expand Preview in new window"
+msgstr "新しいウィンドウでプレビューを展開"
+
+#: editor/palette/editor-palette.html:1
+msgid "Explore Data Model in new window"
+msgstr "新しいウィンドウでデータモデルを見る"
+
+#: custom-widget/custom-widget-editor.html:1 editor/header/export-popup.html:1
+#: editor/header/header.html:1 home/artifact-list/artifact-list.directive.js:36
+msgid "Export"
+msgstr "エクスポート"
+
+#: editor/header/export-popup.html:1
+msgid "Export {{ctrl.page.name}}"
+msgstr "{{ctrl.page.name}} をエクスポート"
+
+#: editor/header/export-popup.html:1
+msgid "Exported formats"
+msgstr "エクスポートの形式"
+
+#: editor/bottom-panel/data-panel/exposable-data.html:1
+msgid "Expose fragment data to page?"
+msgstr "フラグメントデータをページに公開しますか？"
+
+#: editor/bottom-panel/data-panel/data.controller.js:67
+msgid "Exposed"
+msgstr "公開"
+
+#: assets/assets.service.js:37
+msgid "External"
+msgstr "外部"
+
+#: editor/bottom-panel/data-panel/data-type.service.js:32
+msgid "External API"
+msgstr "External API"
+
+#: app.config.js:36
+msgid "Extra Small devices (width < 768px)"
+msgstr "超小型デバイス (幅 < 768px)"
+
+#: custom-widget/custom-widget-editor.html:1
+msgid "Extra angular modules needed by this custom widget (comma separated)"
+msgstr "このカスタム ウィジェットで必要な追加 AngularJS モジュール (カンマで区切る)"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Failed response value"
+msgstr "失敗時のレスポンス値"
+
+#: home/home.html:1
+msgid "Favorites"
+msgstr "お気に入り"
+
+#: assets/generic-asset-form.html:1 assets/l10n-asset-form.html:1
+msgid "File"
+msgstr "File"
+
+#: editor/header/help/help-popup.html:1
+msgid "Filters"
+msgstr "フィルター"
+
+#: editor/bottom-panel/web-resources-panel/help-popup.html:1
+msgid "For UI Designer artifacts, the Bonita REST API resources are exported in the page.properties files. Those resources are used at deployment to grant permission to those REST API to users having access to this page."
+msgstr "UI デザイナーのアーティファクトの場合、Bonita REST API リソースは page.properties ファイルにエクスポートされます。 これらのリソースは、このページへのアクセス権を持つユーザーにそれらの REST API へのアクセス権限を付与するためにデプロイ時に使用されます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "For business objects, the UI Designer comes with a <em>lazyRef</em> filter to easily retrieve target url to use in an external API data."
+msgstr "ビジネス オブジェクトの場合、UI デザイナーには外部 API データで使用するターゲット URL を簡単に取得できる <em>lazyRef</em> フィルターが付属しています。"
+
+#: editor/header/help/help-popup.html:1
+msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
+msgstr "特に日付書式に関しては、UI デザイナーは、 BDM または他の REST API から取得した日付を簡単に示する <em>uiDate</em> フィルターを装備しています。"
+
+#: custom-widget/help-l10n.html:1
+msgid "For instance, with a custom link widget :"
+msgstr "例えば、カスタム リンク ウィジェット:"
+
+#: editor/header/export-popup.html:1
+msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
+msgstr "詳細については、<a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">ドキュメント</a> を参照してください。"
+
+#: custom-widget/help-popup.html:1
+msgid "For more information, see the AngularJS guide on <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> and <a href=\"https://docs.angularjs.org/guide/controller\">controllers</a>."
+msgstr "詳細については、<a href=\"https://docs.angularjs.org/guide/templates\"> テンプレート</a> および <a href=\"https://docs.angularjs.org/guide/controller\"> コント ローラー</a> の AngularJS ガイドを参照してください。"
+
+#: editor/header/help/help-migration.html:23
+msgid "For new artifacts, you need to add the asset yourself in the custom widgets or pages that require it."
+msgstr "新しいアーティファクトの場合、必要なカスタム ウィジェットまたはページにアセットを自分で追加する必要があります。"
+
+#: custom-widget/help-popup.html:1
+msgid "For the moment, you cannot implement custom widget containers."
+msgstr "今のところ、カスタム ウィジェットのコンテナは実装できません。"
+
+#: home/artifact-factory.service.js:37
+msgid "Forms"
+msgstr "フォーム"
+
+#: editor/header/help/help-popup.html:23
+msgid "Four device types are available:"
+msgstr "4 つのデバイス タイプが使用できます:"
+
+#: home/artifact-factory.service.js:57
+msgid "Fragment"
+msgstr "フラグメント"
+
+#: editor/properties-panel/fragment/fragment-data-binding-field.html:1
+msgid "Fragment data '' + name + '' will be bound to page data '' + binding + '', and thus not have it default value '' + data.value + ''"
+msgstr "フラグメント データ '' + name + '' は、ページ データ '' + binding + '' にバインドされるので 、デフォルト値で' + data.value + ''を持っていません。"
+
+#: editor/properties-panel/fragment/fragment-data-binding-field.html:1
+msgid "Fragment data '' + name + '' will keep its default value '' + data.value + ''"
+msgstr "フラグメント データ '' + name + '' は、そのデフォルト値 '' + data.value + '' を保持します"
+
+#: editor/properties-panel/fragment/fragment-save-popup.html:1
+msgid "Fragment name"
+msgstr "フラグメント名"
+
+#: home/artifact-factory.service.js:58
+msgid "Fragments"
+msgstr "フラグメント"
+
+#: home/help-popup.html:1
+msgid "Frontend has been migrated to AngularJS 1.8. Note: artefacts are still generated with AngularJS 1.3. Stay tuned for further updates."
+msgstr "フロントエンドは AngularJS 1.8 に移行されています。注意: artefact は AngularJS 1.3 で生成されます。今後の更新をお待ちください。"
+
+#: custom-widget/help-popup.html:1
+msgid "Functions exposed in the controller can be used with ctrl.newFunction()."
+msgstr "コント ローラー内に公開された関数は、ctrl.newFunction() で使用できます。"
+
+#: assets/help-popup.html:1 custom-widget/custom-widget-editor.controller.js:35
+#: custom-widget/help-popup.html:1
+#: editor/bottom-panel/data-panel/help-popup.html:1
+#: editor/bottom-panel/web-resources-panel/help-popup.html:1
+msgid "General"
+msgstr "全般"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:48
+msgid "Get a case by its identifier"
+msgstr "案件IDで案件を取得する"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:27
+msgid "Get a human task by its identifier"
+msgstr "ヒューマン タスクIDでヒューマン タスクを取得する"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:52
+msgid "Get all business variables defined in a case"
+msgstr "案件で定義されているすべてのビジネス変数を取得します"
+
+#: home/help-popup.html:1
+msgid "Get all the advanced features such as fragments and localization in the community edition."
+msgstr "コミュニティ版でフラグメントやローカライズなどの高度な機能をすべて入手できます。"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:20
+msgid "Get current logged user"
+msgstr "現在のログインユーザーを取得する"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:69
+msgid "Get custom information of a user"
+msgstr "ユーザーのカスタム情報を取得する"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:63
+msgid "Get professional details of a user"
+msgstr "ユーザーの仕事上のコンタクト情報を取得する"
+
+#: common/directives/expand-modal.directive.js:33
+msgid "Go full screen"
+msgstr "全画面表示"
+
+#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
+msgid "HTTP method"
+msgstr "HTTPメソッド"
+
+#: assets/help-popup.html:1 custom-widget/help-popup.html:1
+#: editor/bottom-panel/data-panel/help-popup.html:1
+#: editor/bottom-panel/web-resources-panel/help-popup.html:1
+#: editor/header/help/help-popup.html:1
+#: editor/properties-panel/widgetHelpTemplate.html:1 home/help-popup.html:1
+msgid "Help"
+msgstr "ヘルプ"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "Help data model"
+msgstr "ヘルプデータモデル"
+
+#: editor/common/properties.service.js:39
+msgid "Hidden"
+msgstr "非表示"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Holds the response when the request has failed"
+msgstr "リクエストが失敗した時、そのレスポンスを保持します。"
+
+#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
+msgid "Home page"
+msgstr "ホームページ"
+
+#: editor/header/help/help-migration.html:1
+msgid "Html template update"
+msgstr "Htmlテンプレートの更新"
+
+#: home/import/import-report-popup.html:1
+msgid "Id must be unique, so the {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten."
+msgstr "{{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> が上書きされるように、Id は一意でなければなりません。"
+
+#: home/import/import-report-popup.html:1
+msgid "Id must be unique, so those elements will be overwritten."
+msgstr "それらの要素は上書きされるので、Id は一意でなければなりません。"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "If a Business Object has been dropped, a user interface is generated for you. You can either keep it as is, modify it, or remove it if it does not fit your needs."
+msgstr "ビジネス オブジェクトがドロップされた場合は、ユーザー インターフェイスが生成されます。 そのままにしておくか、変更するか、ニーズに合わない場合は削除することができます。"
+
+#: confirm-popup/confirm-migrate-popup.html:1 editor/header/export-popup.html:1
+msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
+msgstr "チェックオンの場合、このポップアップはブラウザのキャッシュがクリーンナップされない限り、二度と表示されません。"
+
+#: custom-widget/help-popup.html:1
+msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
+msgstr "標準ウィジェットがお客様のニーズを満たしていない場合は、お客様の希望に合ったカスタム ウィジェットを作成できます。 これを行うには、別の名前で保存して標準ウィジェットをクローンし変更します。 作成後、カスタム ウィジェットはページ、フォーム、レイアウト、またはフラグメントを設計するためのパレットで使用できます。"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "If you create your own user interface, bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
+msgstr "独自のユーザーインターフェイスを作成する場合は、ビジネス データ変数をウィジェットのプロパティにバインドするか、javascript式で変数を使用します。 デフォルトでは、各ビジネスデータ変数は配列になります(クエリから1つの結果だけが返されたとしても)。"
+
+#: assets/help-popup.html:13
+msgid "Image or Localization assets are not imported in index.html. So we don't need to reorder them."
+msgstr "画像またはローカリゼーションアセットはindex.htmlにインポートされません。 したがって、それらを並べ替える必要はありません。"
+
+#: home/import/home-import.html:1 home/import/import-popover.html:1
+#: home/import/import-report-popup.html:1
+msgid "Import"
+msgstr "インポート"
+
+#: home/import/home-import.html:1
+msgid "Import a UI Designer artifact"
+msgstr "UI デザイナーの生成物をインポート"
+
+#: home/import/import.service.js:43
+msgid "Import error"
+msgstr "インポート エラー"
+
+#: home/import/import.service.js:54
+msgid "Import error: incompatible artifact"
+msgstr "インポートエラー: 互換性のないアーティファクトです"
+
+#: assets/help-popup.html:13
+msgid "Import the moment.js library as an external asset."
+msgstr "外部アセットとして moment.js ライブラリをインポートします。"
+
+#: assets/help-popup.html:19
+msgid "Import this JavaScript file as a local page asset."
+msgstr "ローカルなページアセットとして JavaScript ファイルをインポートします。"
+
+#: home/import/import-report-popup.html:1
+msgid "Import {{ ::importReport.name }}"
+msgstr "{{ ::importReport.name }} をインポート"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Import, define or deploy a Business Data Model in Bonita Studio."
+msgstr "Bonita Studio でビジネス データ モデルをインポート、定義、またはデプロイします。"
+
+#: home/help-popup.html:1
+msgid "Improvements on the widget switch"
+msgstr "ウィジェットスイッチの改善"
+
+#: assets/help-popup.html:13
+msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
+msgstr "JavaScript アセットの中で、AngularJS モジュールの依存関係を指定できます。最初に JavaScript アセットを追加し、その専用セクションでモジュール名を追加します。<a href=\"http://ngmodules.org/\">http://ngmodules.org/</a> で利用可能なモジュールを探すことができます。"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:55
+msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
+msgstr "プロセス内にビジネス変数を定義した場合、プロセス フォーム内では、変数へのリンクを使用しコンテキスト変数を取得します："
+
+#: preview/app-selector/app-selector.html:1
+msgid "In case your application is not available, please log in using a different account"
+msgstr "アプリケーションが利用できない場合は、別のアカウントでログインしてください"
+
+#: home/artifact-list/artifact-list.directive.js:40
+msgid "In folder:"
+msgstr "フォルダ内:"
+
+#: editor/header/help/help-popup.html:1
+msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
+msgstr "運用時にユーザーが Bonita ポータルにログインする場合、ユーザーが選択したポータル言語、またはブラウザのロケールで UI 生成物が表示されます。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
+msgstr "場合によっては、他のタイプの変数が作成されます。<ul> <li>ビジネス変数がフォームで編集されると（契約作成ウィザードで指定）、変数ごとにUIデザイナー変数が作成されます（外部API）。 <br>たとえば、契約入力がプロセスのビジネス変数 'invoice'から作成された場合、変数<code> invoice</code>がフォームに作成され、そのURLは <span ng-non-bindable>../{{context.invoice_ref.link}}</span>に設定されます。 <br>もし <code> invoicee</code>に遅延関係が含まれている場合、解決する遅延関係ごとに追加の変数が生成されます（<em> lazyRef </em>フィルターを使用）。 <br>たとえば、「invoice」に「customer」リレーションがレイジーである場合、外部API変数<code> invoice_customer </code>が追加されます。そのURLは<span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>に設定されています。</li>  <li>集約されたオブジェクトを表示するために、選択ウィジェットが生成されてオブジェクトの<em>使用可能な値</em>が表示されます 。ウィジェットにバインドされた変数（外部API）が作成されます。 BDMにクエリを実行します。 <br>たとえば、オブジェクトInvoice（請求書）に集約オブジェクトCustomerがある場合、変数<code> customer_query </ code>は、次のURLで作成されます：<span ng-non-bindable> ../ API / bdm / businessData / com.company.model.Customer？q = find＆p = 0＆c = 99 </ span >。\n"
+"デフォルトでは、デフォルトのページネーションで<code> find </code> クエリを使用します（最初の100個のオブジェクトのみが返されます）。</li> </ul>"
+
+#: assets/help-popup.html:13
+msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
+msgstr "アセットリストで、CSS と Javascript のページアセットのオーダーを手動で変更できます。 このファイルを並べ替えると、CSS クラスや javascript 関数をオーバーライドするのに役立ちます。"
+
+#: editor/header/convert-popup.html:1
+msgid "In the Studio, a form must be linked to a process or a task, using the contract; a page is linked to an application descriptor."
+msgstr "Studio ではフォームをプロセスまたはタスクにリンクさせ、コントラクトを使用する必要があります。ページはアプリケーション記述子にリンクされます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "In the Switch wizard, select or type the widget to switch to, then click <b>Show properties</b>.<br> Whenever possible, properties in the source widgets are mapped with similar properties in the target widget. You can edit that or map more, then click on <b>Switch</b>."
+msgstr "切り替えウィザードで、切り替えるウィジェットを選択または入力し、[<b>プロパティの表示</b>]をクリックします。<br>可能な場合は常に、ソースウィジェットのプロパティがターゲットウィジェットの同様のプロパティにマップされます。 それを編集するか、さらにマップしてから、<b>切り替え</b>をクリックします。"
+
+#: editor/header/help/help-popup.html:1
+msgid "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or to <i>exposed to the page</i>."
+msgstr "フラグメント エディタで、変数の有効範囲を「このフラグメントに固有」、または 「ページに公開」 に設定できます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "In the preview and at runtime, the displayed text will adapt automatically to the selected language."
+msgstr "プレビューの実行時に、選択した言語が表示されるテキストに自動的に適応されます。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+#: editor/header/help/help-popup.html:1
+msgid "In the scope of a page, form, or layout, a variable can be used to handle business data, or can contain structural information that determines how page elements behave."
+msgstr "変数は、ページ、フォーム、またはレイアウトの有効範囲において、ビジネス データを取り扱うために使用したり、あるいはページ要素の動作方法を決定付ける構造化情報を含めることができます。"
+
+#: assets/help-popup.html:13
+msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
+msgstr "このリストの中で、アセットの並び替え、ローカルアセットの表示、外部アセットの編集および削除ができます。"
+
+#: home/import/import-error-messages.service.js:17
+#: home/import/import-error-messages.service.js:21
+#: home/import/import-error-messages.service.js:25
+msgid "Incorrect zip structure."
+msgstr "不正な zip 構造。"
+
+#: home/help-popup.html:1
+msgid "Integration with Bonita platform"
+msgstr "Bonita プラットフォームとの連携"
+
+#: editor/properties-panel/help/property-bond-help.html:1
+msgid "Interpolation"
+msgstr "補完（Interpolation）"
+
+#: home/help-popup.html:1
+msgid "Interpret HTML default properties"
+msgstr "HTML の既定のプロパティを解釈する"
+
+#: assets/generic-asset-form.html:1
+msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
+msgstr "無効な URL: 英数字または #!:.?+ = &%@-/ のみ許されます"
+
+#: home/import/import-error-messages.service.js:32
+msgid "Invalid {{ infos.modelfile }} json file structure"
+msgstr "{{ infos.modelfile }} は、無効な json ファイル構造です"
+
+#: home/help-popup.html:1
+msgid "It is now possible to define the tab that will be selected by default in the tab group with the new \"Selected\" field on the tabs."
+msgstr "タブの新しい「選択済み」フィールドを使用して、タブグループでデフォルトで選択されるタブを定義できるようになりました。"
+
+#: home/help-popup.html:1
+msgid "It is now possible to easily bind the metadata of an API variable response (header, status code, and response value) to other variables"
+msgstr "API変数レスポンス(ヘッダー、ステータスコード、レスポンス値)のメタデータを他の変数に簡単にバインドできるようになりました。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API variable with value"
+msgstr "プロセス インスタンス（案件のこと）内のすべてのビジネス変数およびドキュメントへの参照を提供します。ビジネス変数インスタンスを取得するには、値を持つ外部 API 変数を作成します。"
+
+#: editor/bottom-panel/data-panel/data-type.service.js:31
+msgid "JSON"
+msgstr "JSON"
+
+#: home/help-popup.html:1
+msgid "JSON Source model"
+msgstr "JSONソースモデル"
+
+#: editor/header/export-popup.html:1
+msgid "JSON descriptor to exchange between UI Designers"
+msgstr "UI デザイナー間でやりとりする JSON 記述子"
+
+#: editor/bottom-panel/data-panel/data-popup.html:10
+msgid "JSON specifications can be found on the"
+msgstr "JSONの仕様が見つかりません："
+
+#: editor/bottom-panel/data-panel/data-type.service.js:33
+msgid "Javascript expression"
+msgstr "JavaScript 式"
+
+#: custom-widget/create-property.html:1
+#: custom-widget/custom-widget-editor.html:1
+msgid "Label"
+msgstr "ラベル"
+
+#: app.config.js:57
+msgid "Large devices (width ≥ 1200px)"
+msgstr "ワイド デバイス（横幅 ≥ 1200px）"
+
+#: home/artifact-list/artifact-list.directive.js:39
+msgid "Last Update:"
+msgstr "最新更新日時："
+
+#: home/artifact-factory.service.js:44
+msgid "Layouts"
+msgstr "レイアウト"
+
+#: editor/header/help/help-popup.html:1
+msgid "Lazy reference filter"
+msgstr "遅延参照フィルター"
+
+#: editor/header/save-as-popup.controller.js:19
+msgid "Linked to a process instantiation or a task, using the contract"
+msgstr "コントラクトを使用して、プロセスのインスタンス化またはタスクにリンクします。"
+
+#: editor/header/save-as-popup.controller.js:14
+msgid "Linked to an application descriptor."
+msgstr "アプリケーション記述子にリンクしました。"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:36
+msgid "List of cases open for a process definition id"
+msgstr "プロセス定義ID（processDefinitionId）でオープンする案件のリスト"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:32
+msgid "List of human task in ready state for current user (pending + assigned)"
+msgstr "ユーザーがアサイン済みで現在待機状態にあるヒューマン タスクのリスト"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "Living data"
+msgstr "リビング データ"
+
+#: editor/editor.html:1
+msgid "Loading {{mode}}..."
+msgstr "{{mode}} を読み込んでいます..."
+
+#: assets/assets.service.js:38
+msgid "Local"
+msgstr "ローカル"
+
+#: custom-widget/help-l10n.html:1 editor/header/help/help-popup.html:1
+msgid "Localization"
+msgstr "ローカライゼーション"
+
+#: editor/whiteboard/switchComponent/not-supported-browser-popup.html:1
+msgid "Look what you're missing"
+msgstr "不足がないか確認"
+
+#: assets/malformed-json-error-message.html:1
+msgid "Malformed json file"
+msgstr "不正な形式の json ファイル"
+
+#: editor/bottom-panel/web-resources-panel/help-popup.html:1
+msgid "Manual detection"
+msgstr "手動検出"
+
+#: home/artifact-list/favorite-button.html:1
+msgid "Mark as favorite"
+msgstr "お気に入りに登録"
+
+#: app.config.js:50
+msgid "Medium devices (width ≥ 992px)"
+msgstr "ミディアム デバイス （横幅 ≥ 992px）"
+
+#: editor/header/metadata-popup.html:1
+msgid "Metadata"
+msgstr "メタデータ"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Method"
+msgstr "メソッド"
+
+#: confirm-popup/confirm-migrate-popup.html:1
+msgid "Migrate"
+msgstr "マイグレート（移行）"
+
+#: custom-widget/help-popup.html:1 editor/header/help/help-popup.html:1
+msgid "Migration"
+msgstr "移行"
+
+#: home/help-popup.html:1
+msgid "Migration enhancements"
+msgstr "マイグレーション（移行）の強化"
+
+#: editor/header/help/help-migration.html:1
+msgid "Migration notes"
+msgstr "マイグレーション ノート"
+
+#: editor/header/migrationReport/migration-report-popup.controller.html:1
+msgid "Migration report"
+msgstr "マイグレーション レポート"
+
+#: editor/header/help/help-popup.html:1
+msgid "Milliseconds since Epoch (number or string variable)"
+msgstr "1970/01/01からのミリ秒単位の経過時間（Long または文字列変数）"
+
+#: editor/header/export-popup.html:1
+msgid "Minified widgets JavaScript for optimized performance"
+msgstr "最適化されたパフォーマンスの minified ウィジェット JavaScript"
+
+#: editor/whiteboard/modal-container.html:1
+msgid "Modal container"
+msgstr "モーダルコンテナ"
+
+#: assets/table/asset-section.html:1 assets/widget-assets.html:1
+msgid "Move asset down"
+msgstr "アセットを下に移動"
+
+#: assets/table/asset-section.html:1 assets/widget-assets.html:1
+msgid "Move asset up"
+msgstr "アセットを上に移動"
+
+#: editor/whiteboard/container.html:1
+msgid "Move the row down"
+msgstr "行を下に移動"
+
+#: editor/whiteboard/container.html:1
+msgid "Move the row up"
+msgstr "行を上に移動"
+
+#: editor/header/help/help-popup.html:1
+msgid "Multiple content for tabs container"
+msgstr "タブ コンテナ： 複数のコンテンツ"
+
+#: editor/header/help/help-popup.html:23
+msgid "Multiple screen size"
+msgstr "複数の画面サイズ"
+
+#: assets/page-assets.html:1 assets/widget-assets.html:1
+#: custom-widget/create-property.html:1
+#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
+#: editor/bottom-panel/data-panel/data-popup.html:1
+#: editor/bottom-panel/data-panel/data.html:1
+#: editor/properties-panel/fragment/fragment-save-popup.html:1
+#: home/create/create-popover.html:1
+msgid "Name"
+msgstr "名前"
+
+#: common/directives/artifact-name-validation.js:11
+msgid "Name must be less than {{maxlength}} characters long"
+msgstr "名前は {{maxlength}} 文字未満にする必要があります"
+
+#: common/directives/artifact-name-validation.js:10
+msgid "Name must contains only alphanumeric characters with no space"
+msgstr "名前は、スペースを含まない英数字のみで命名します "
+
+#: editor/header/metadata-popup.html:2
+msgid "No Bonita REST API calls."
+msgstr "Bonita REST APIコールがありません。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "No Business Data Model currently deployed."
+msgstr "現在デプロイされたビジネス データ モデルはありません。"
+
+#: preview/app-selector/app-selector.service.js:22
+msgid "No application selected"
+msgstr "アプリケーションが選択されていません。"
+
+#: home/artifact-list/artifact-list.html:1
+msgid "No artifact found."
+msgstr "生成物が見つかりません。"
+
+#: editor/bottom-panel/data-panel/data.html:1
+msgid "No variable"
+msgstr "変数はありません"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "No web resources"
+msgstr "ウェブリソースがありません"
+
+#: assets/table/asset-section.controller.js:47
+msgid "No {{label}} asset (no scope selected)."
+msgstr "{{label}} アセット無し（スコープが選択されていません）。"
+
+#: assets/table/asset-section.controller.js:40
+msgid "No {{label}} asset at page level."
+msgstr "ページレベルに{{label}} アセットがありません。"
+
+#: assets/table/asset-section.controller.js:44
+msgid "No {{label}} asset at widget level."
+msgstr "ウィジェット レベルに {{label}} アセットはありません。"
+
+#: assets/table/asset-section.controller.js:36
+msgid "No {{label}} asset."
+msgstr " {{label}} アセットがありません。"
+
+#: editor/bottom-panel/data-panel/exposable-data.html:1
+msgid "No. This data will be specific to this fragment."
+msgstr "いいえ、このデータはこのフラグメント固有のものです。"
+
+#: preview/app-selector/app-selector.html:1
+msgid "None"
+msgstr "＜なし＞"
+
+#: home/artifact-list/artifact-list.directive.js:184
+msgid "Not compatible with current UI Designer version. To open it, use a newer version of UI Designer."
+msgstr "現在のUI デザイナーのバージョンと互換性がありません。開くには、UI デザイナーの新しいバージョンを使用してください。"
+
+#: assets/help-popup.html:13
+msgid "Note that reordering assets is disabled when the list is a search results list. Indeed, reordering is only relevant if the complete list of page assets is displayed."
+msgstr "注意：検索結果リストの場合、アセットの並べ替えは無効になります。 実際、ページアセットの完全なリストが表示されている場合にのみ再並べ替えが関連します。"
+
+#: home/help-popup.html:1
+msgid "Noteworthy changes"
+msgstr "注意すべき変更"
+
+#: editor/header/help/help-popup.html:1
+msgid "Once you select an element, edit its properties in the properties panel on the right."
+msgstr "１つの要素を１回選択し、右のプロパティパネルでそのプロパティを編集します。"
+
+#: assets/table/asset-section.html:1
+msgid "Open documentation"
+msgstr "ドキュメントを開く"
+
+#: assets/page-assets.html:1 assets/widget-assets.html:1
+#: custom-widget/custom-widget-editor.html:1
+#: editor/bottom-panel/data-panel/data.html:1
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+#: editor/header/header.html:1 home/home.html:1
+msgid "Open help"
+msgstr "ヘルプを開く"
+
+#: editor/header/help/help-popup.html:1
+msgid "Or use the <b>Switch</b> menu option close to the widget name in the properties panel."
+msgstr "または、プロパティパネルのウィジェット名の近くにある <b>Switch</b>メニューオプションを使用します。"
+
+#: home/home.controller.js:85
+msgid "Ordered by artifact name.<br/>Click to sort by last update"
+msgstr "生成物名順に並んでいます <br/>。最新更新日時で並べ替えるには、ここをクリックしてください。"
+
+#: home/home.controller.js:84
+msgid "Ordered by last update.<br/>Click to sort by artifact name"
+msgstr "最新更新日時順に並んでいます。<br/>生成物名順で並べ替えるには、ここをクリックしてください。"
+
+#: home/import/import-success-message.html:1
+msgid "Overridden artifacts"
+msgstr "オーバーライドされた生成物"
+
+#: home/help-popup.html:1
+msgid "Overview"
+msgstr "オーバービュー"
+
+#: editor/header/save-as-popup.html:1
+msgid "Page Name"
+msgstr "ページ名"
+
+#: editor/header/metadata-popup.html:1
+msgid "Page description"
+msgstr "ページの説明"
+
+#: editor/header/metadata-popup.html:1
+msgid "Page display name"
+msgstr "ページ表示名"
+
+#: assets/table/asset-section.html:1
+msgid "Page level"
+msgstr "ページ レベル"
+
+#: home/artifact-factory.service.js:29
+msgid "Pages"
+msgstr "ページ"
+
+#: editor/bottom-panel/web-resources-panel/help-popup.html:1
+msgid "Permissions to access Bonita platform’s REST API resources are handled by a configurable authorization mechanism, check Bonita documentation for more details."
+msgstr "Bonita プラットフォームの REST API リソースへのアクセス権限は、設定可能な認可メカニズムによって処理されます。詳細については、Bonita ドキュメントを参照してください。"
+
+#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
+msgid "Please provide the information on how to retrieve elements of \"{{ctrl.businessData.name}}\""
+msgstr "\"{{ctrl.businessData.name}}\" のエレメントを取得する方法に関する情報を入力してください。"
+
+#: preview/open-preview.html:1
+msgid "Preview"
+msgstr "プレビュー"
+
+#: preview/preview.html:1
+msgid "Preview - {{pageName}}"
+msgstr "プレビュー - {{pageName}}"
+
+#: editor/header/convert-popup.controller.js:17
+#: editor/header/save-as-popup.controller.js:18
+#: home/artifact-factory.service.js:35
+msgid "Process form"
+msgstr "プロセス フォーム"
+
+#: custom-widget/custom-widget-editor.html:1
+#: editor/header/help/help-popup.html:1
+msgid "Properties"
+msgstr "プロパティ"
+
+#: custom-widget/create-property.html:1
+msgid "Property names must start with a letter and contain only alphanumeric characters"
+msgstr "プロパティ名は、英文字で始まり英数字のみで命名する必要があります。"
+
+#: editor/properties-panel/common-properties-template.html:1
+msgid "Put usage of this widget. This information is only visible on UI-Designer editor"
+msgstr "このウィジェットを使用します。この情報はUI-Designerエディタでのみ表示されます"
+
+#: assets/help-popup.html:13
+msgid "Relative time filter"
+msgstr "例: 相対時間フィルター"
+
+#: editor/whiteboard/tabs-container.html:1
+msgid "Remove tab"
+msgstr "タブを削除"
+
+#: home/artifact-list/artifact-list.directive.js:37
+msgid "Rename"
+msgstr "名前を変更"
+
+#: editor/header/help/help-popup.html:1
+msgid "Repeat content for the plain container"
+msgstr "プレイン コンテナ： コンテンツを繰り返す配列処理が可能です"
+
+#: editor/whiteboard/container.html:1
+msgid "Repeated container"
+msgstr "繰り返しコンテナ"
+
+#: custom-widget/custom-widget-editor.html:1
+msgid "Required angular modules"
+msgstr "必要な AngularJS モジュール"
+
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+msgid "Reset mapping"
+msgstr "マッピングをリセット"
+
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+msgid "Reset mapping to default"
+msgstr "マッピングをデフォルトにリセット"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Response headers"
+msgstr "レスポンス ヘッダー"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Response status code"
+msgstr "レスポンス ステータスコード："
+
+#: editor/whiteboard/container.html:1
+msgid "Row"
+msgstr "行"
+
+#: editor/header/help/help-popup.html:1
+msgid "Rows"
+msgstr "行"
+
+#: assets/asset-edit-popup.html:1 custom-widget/custom-widget-editor.html:1
+#: custom-widget/save-as-popup.html:1
+#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
+#: editor/bottom-panel/data-panel/data-popup.html:12
+#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
+#: editor/header/convert-popup.html:1 editor/header/header.html:1
+#: editor/header/metadata-popup.html:2 editor/header/save-as-popup.html:1
+#: editor/properties-panel/fragment/fragment-save-popup.html:1
+msgid "Save"
+msgstr "保存"
+
+#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
+msgid "Save as ..."
+msgstr "別名で保存..."
+
+#: editor/properties-panel/fragment/fragment-save-popup.html:1
+#: editor/properties-panel/properties-panel-action-menu-template.html:1
+msgid "Save as fragment..."
+msgstr "フラグメントとして保存..."
+
+#: custom-widget/custom-widget-editor.html:1
+msgid "Save as..."
+msgstr "名前を付けて保存"
+
+#: editor/header/save-as-popup.html:1
+msgid "Save {{ctrl.page.name}} as..."
+msgstr "{{ctrl.page.name}} を別名で保存..."
+
+#: custom-widget/save-as-popup.html:1
+msgid "Save {{ctrl.widget.name}} as..."
+msgstr "{{ctrl.widget.name}} を別名で保存..."
+
+#: common/directives/save-indicator/save-indicator.html:1
+msgid "Saved"
+msgstr "保存しました"
+
+#: assets/page-assets.html:1
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Scope"
+msgstr "スコープ"
+
+#: assets/page-assets.html:1 editor/bottom-panel/data-panel/data.html:1
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+#: editor/palette/editor-palette.html:1
+msgid "Search"
+msgstr "検索"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:44
+msgid "Search a list of cases based on search indexes"
+msgstr "検索キーで案件リストを検索する"
+
+#: home/home.html:1
+msgid "Search on name"
+msgstr "名前で検索"
+
+#: editor/bottom-panel/data-panel/exposable-data.html:1
+msgid "See example"
+msgstr "例を参照"
+
+#: editor/bottom-panel/data-panel/data-popup.html:12
+msgid "See example 'date object initialization'"
+msgstr "「Date オブジェクトの初期化」 の例を参照してください。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:10
+msgid "See example 'functional programming'"
+msgstr "「関数型のプログラミング」の例を参照してください。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "See examples"
+msgstr "例を参照"
+
+#: assets/help-popup.html:13
+msgid "See the default localization asset for an example."
+msgstr "デフォルト ローカライゼーション アセットの例を参照してください。"
+
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+msgid "Select a widget or start typing"
+msgstr "ウィジェットを選択するか、入力を開始します"
+
+#: editor/properties-panel/properties-panel.html:1
+msgid "Select an element on the whiteboard, then set its properties here"
+msgstr "ホワイトボードの要素を選択し、ここでその要素のプロパティを設定します"
+
+#: editor/header/help/help-popup.html:23
+msgid "Select the device type icon in the top bar, then specify the width property for each widget in the page or form. Each configuration is independent. To specify the width property for a widget for all device types, set the value for each device type separately, or leave the default value."
+msgstr "上部バーでデバイス タイプのアイコンを選択し、ページまたはフォームの各ウィジェットの幅 プロパティを指定します。 各構成は独立しています。 すべてのデバイス タイプのウィジェットの幅プロパティを指定するには、デバイス タイプごとに値を個別に設定するか、既定値を残します。"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "Select the query to retrieve Business Object. Queries can be a simple attribute query (ex: findByName) or an additional query such as a custom query."
+msgstr "ビジネス オブジェクトを取得するクエリを選択します。クエリは単純な属性クエリ (例: findByName) またはカスタムクエリなどの追加クエリになります。"
+
+#: home/import/import-popover.html:1
+msgid "Select your .zip file"
+msgstr "あなたの.zip ファイルを選択します"
+
+#: assets/generic-asset-form.html:1
+msgid "Select your file"
+msgstr "あなたのファイルを選択します"
+
+#: assets/l10n-asset-form.html:1
+msgid "Select your localization.json"
+msgstr "localization.json を選択してください"
+
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+msgid "Show properties"
+msgstr "プロパティを表示"
+
+#: i18n/language-picker.html:1
+msgid "Shows the languages for which there are translations in localization.json and Default, which is the source language of your page"
+msgstr "localization.json 内に存在する翻訳対象言語とデフォルト言語（あなたのページのソース言語）を表示します"
+
+#: editor/header/help/help-migration.html:23
+msgid "Since 7.12.0, after an artifact has been migrated, a migration report <i class=\"fa fa-wrench status\"></i> is available from the editor header. It disappears once the page is refreshed, but can be retrieved in the UI Designer log file."
+msgstr "アーティファクトが移行された後の7.12.0 以降は、マイグレーションレポート <i class=\"fa fa-wrench status\"></i> はエディタヘッダーから使用できます。 ページが更新されると消えますが、UI デザイナーのログファイルから取得できます。"
+
+#: editor/header/help/help-migration.html:23
+msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
+msgstr "7.5.0 以降、UI ブートストラップは UI デザイナーのページで提供されなくなりました。"
+
+#: app.config.js:43
+msgid "Small devices (width ≥ 768px)"
+msgstr "タブレット （横幅 ≥ 768 px）"
+
+#: editor/header/help/help-migration.html:1
+msgid "Some improvements for <b>Accessibility</b> will help you design and generate digitally accessible pages, forms or applications (for example: computer screen readers)."
+msgstr "<b>アクセシビリティ</b> のいくつかの改善により、デジタルアクセス可能なページ、フォーム、アプリケーション(例えば、コンピュータスクリーンリーダー)の設計と生成に役立ちます。"
+
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+msgid "Some option can be disabled because the source value type is not compatible with target property type."
+msgstr "ソース値の型がターゲットプロパティの型と互換性がないため、一部のオプションを無効にすることができます。"
+
+#: assets/generic-asset-form.html:1 assets/page-assets.html:1
+msgid "Source"
+msgstr "ソース"
+
+#: editor/common/properties.service.js:27
+msgid "Space-separated list"
+msgstr "スペースで区切られたリスト"
+
+#: editor/properties-panel/component-properties-template.html:1
+msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
+msgstr "要素のカラム数を指定します。すべての要素は 12 カラムまで設定できます。"
+
+#: editor/header/export-popup.html:1
+msgid "Standard widgets JavaScript for edition outside the UI Designer"
+msgstr "UI デザイナーの外部エディション用の標準ウィジェット JavaScript "
+
+#: home/help-popup.html:1
+msgid "Start creating a <b>process form</b> in Bonita Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
+msgstr "Bonita Studio の <b>プロセス フォーム</b> の作成を開始： プール、またはヒューマンタスクでコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"
+
+#: home/help-popup.html:1
+msgid "Start creating an <b>application layout</b> by importing the default layout, available in the Bonita Portal resources, and edit it."
+msgstr "デフォルトのレイアウトをインポートすることによって、<b>アプリケーション レイアウト</b> の作成を開始し、編集します。このレイアウトはBonita ポータルのリソースとして使用可能です。"
+
+#: editor/bottom-panel/data-panel/data-type.service.js:30
+#: editor/bottom-panel/data-panel/data-type.service.js:31
+msgid "Static"
+msgstr "Static（スタティック）"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Store as Number value"
+msgstr "数値として保存"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Store as a Json object { header-name : HeaderValue } and can be accessed using this syntax $data.myRequestHeaders['header-name']"
+msgstr "Json オブジェクト { header-name : HeaderValue } として保存し、この構文 $data.myRequestHeaders['header-name'] を使用してアクセスできます。"
+
+#: editor/bottom-panel/data-panel/data-type.service.js:30
+msgid "String"
+msgstr "文字列"
+
+#: home/import/import.service.js:62
+msgid "Successful import"
+msgstr "インポートが成功しました。"
+
+#: editor/header/metadata-popup.html:2
+msgid "Summary of the Bonita REST API calls made by the page."
+msgstr "Bonita REST API の呼び出しの概要"
+
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+msgid "Switch"
+msgstr "スイッチ（切り替え）"
+
+#: editor/header/help/help-popup.html:1
+msgid "Switch <i class=\"fa fa-exchange\"></i>"
+msgstr "<i class=\"fa fa-exchange\"></i> を切り替える"
+
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+msgid "Switch to"
+msgstr "切り替え："
+
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
+msgstr "{{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}} を切り替える"
+
+#: editor/properties-panel/properties-panel-action-menu-template.html:1
+msgid "Switch..."
+msgstr "スイッチ..."
+
+#: home/help-popup.html:1
+msgid "Tab widget: Possibility to define the selected tab"
+msgstr "タブウィジェット: 選択したタブを定義する可能性"
+
+#: home/help-popup.html:1
+msgid "Table and Data table widget have a new <code>caption</code> property available for adding a title"
+msgstr "テーブルおよびデータテーブルウィジェットには、タイトルを追加するための新しい <code>キャプション</code> プロパティがあります"
+
+#: editor/editor.controller.js:290
+msgid "Target"
+msgstr "ターゲット"
+
+#: custom-widget/custom-widget-editor.html:1 custom-widget/help-popup.html:1
+msgid "Template"
+msgstr "テンプレート"
+
+#: editor/properties-panel/bond/interpolation.html:1
+msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
+msgstr "テキスト、必要に応じて {{variableName}} を使用した補完で簡単な式に中に変数を含めることができます"
+
+#: editor/header/export-popup.html:1
+msgid "The .zip archive of an exported page contains:"
+msgstr "エクスポートされたページの .zip アーカイブは次のとおりです："
+
+#: home/help-popup.html:1
+msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
+msgstr "UI デザイナーは、<b>AngularJS に基いて標準的な HTMLアプリケーションコード</b>を生成します。あなたのお気に入りのWeb開発環境でそれらをカスタマイズしたい場合は、ページをエクスポートします。"
+
+#: editor/header/help/help-popup.html:1
+msgid "The UI Designer is displayed in the language of your Bonita Studio."
+msgstr "UI デザイナーは、Bonita Studio の言語で表示されます。"
+
+#: home/help-popup.html:1
+msgid "The automatic detection allows you to see explicitly which REST API resources is needed in your artifact from the newest Bonita Resource panel."
+msgstr "自動検出により、アーティファクトで必要な REST API リソースを、最新の Bonita リソースパネルから明示的に確認できます。"
+
+#: custom-widget/create-property.html:2
+msgid "The caption will be displayed as such below the property label."
+msgstr "この短い説明文は、プロパティ ラベルの下などに表示されます。"
+
+#: home/help-popup.html:1
+msgid "The changes will automatically be available when changing a page in Bonita UI Designer <2023.1> developed with a previous Bonita UI Designer version. Custom styling could be impacted so take this fact into account in your development estimates.</2023.1>"
+msgstr "Bonita UI デザイナーの以前のバージョンで開発されたBonita UI Designer <2023.1>のページを変更すると、変更は自動的に利用可能になります。 カスタムスタイリングに影響を与える可能性がありますので、開発見積もりでこの事実を考慮してください。</2023.1>"
+
+#: custom-widget/help-popup.html:1
+msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the widget template."
+msgstr "コントローラは、AngularJS スコープを拡張し、ウィジェット テンプレートで使用できる関数を公開する JavaScript 関数です。"
+
+#: home/help-popup.html:1
+msgid "The default widgets in the palette that contain a html <code>input</code> tag have now an associated label, which will facilitate the use of computer tools (screen readers for example)"
+msgstr "HTML <code>入力</code> タグを含むパレット内のデフォルトウィジェットに、関連するラベルが追加されました。 コンピュータツール(例えばスクリーンリーダー)の使用を促進します"
+
+#: home/help-popup.html:1
+msgid "The following improvements have been made so that digitally accessible applications could be developed natively with Bonita UI Designer with less custom code:"
+msgstr "Bonita UI デザイナーを使用すると、より少ないカスタム コードを使用して、デジタルアクセス可能なアプリケーションをネイティブに開発できるように以下の改善が行われました。"
+
+#: home/import/import-report-popup.html:1
+msgid "The imported {{ ::importReport.type }} also contains new elements."
+msgstr "インポートした {{ ::importReport.type }} には、新しい要素も含まれています。"
+
+#: custom-widget/help-l10n.html:3
+msgid "The link text which is static is translated using the <em>ui-translate</em> directive. The link text title held inside the <em>properties.title</em> variable is translated using the <em>uiTranslate</em> filter."
+msgstr "静的なリンク テキストは、<em>ui-translate</em> ディレクティブを使用して翻訳されます。<em>Properties.title</em> 変数の値であるリンク テキストのタイトルは、<em>uiTranslate</em> フィルターを使用して翻訳されます。"
+
+#: assets/help-popup.html:13
+msgid "The list contains page assets, the assets of the widgets used in this page and assets used by base framework."
+msgstr "このリストには、ページアセット、このページで使用されるウィジェットのアセット、およびベースフレームワークで使用されるアセットが含まれています。"
+
+#: home/import/import-error-messages.service.js:55
+msgid "The page has not been imported."
+msgstr "ページはインポートされていません。"
+
+#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
+msgid "The resources on completion are not exhaustive. You can set any other value."
+msgstr "完了時のリソースは網羅的ではありません。他の値を設定することができます。"
+
+#: home/help-popup.html:1
+msgid "The switch widget feature has been improved to guide the user efficiently to avoid incompatible properties mapping that may lead to inconsistent states of widgets."
+msgstr "ウィジェットの切り替え機能が改善され、ウィジェットの状態に一貫性がなくなる可能性のある互換性のないプロパティマッピングを回避するために、ユーザーを効率的に誘導できるようになりました。"
+
+#: custom-widget/create-property.html:1
+msgid "The tooltip will be display as such, close to the property label."
+msgstr "このツールヒントは、プロパティ ラベルの近くに表示されます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
+msgstr "このホワイトボードは<b>行が複数</b>あるので、それらの行を上下に移動したり、削除できます。"
+
+#: custom-widget/help-popup.html:1
+msgid "The widget HTML template is defined here."
+msgstr "ウィジェットのHTMLテンプレートはここで定義されます。"
+
+#: home/import/import-error-messages.service.js:59
+msgid "The widget has not been imported."
+msgstr "ウィジェットはインポートされていません。"
+
+#: home/import/import-report-popup.html:1
+msgid "The {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten."
+msgstr "{{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> が上書きされます。"
+
+#: home/import/import-report-popup.html:1
+msgid "The {{ ::importReport.type }} to import contains elements with the same Id as some existing elements."
+msgstr "インポートする{{:: importReport.type}}には、既存の要素と同じIDを持つ要素が含まれています。"
+
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
+msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
+msgstr "この {{ artifact.type }} は、次の中で使用されているので削除できません："
+
+#: home/import/import-error-messages.service.js:62
+msgid "The {{ artifactType }} has not been imported."
+msgstr "{{ artifactType }} はインポートされていません。"
+
+#: home/help-popup.html:1
+msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
+msgstr "エンドユーザーから情報を収集したり、彼らに情報を表示する一連の<b>標準ウィジェット</b>があります。さらに<b>カスタム ウィジェット</b>も作成できます。"
+
+#: common/repositories/data-management.service.js:74
+msgid "This Business Object contains more than {{number}} levels of relations. {{numberAsText}} level and beyond will not appear."
+msgstr "このビジネス オブジェクトは、 {{number}} 以上のリレーションのレベルを含んでいます。 {{numberAsText}} 以上のレベルは表示されません。"
+
+#: custom-widget/custom-widget-editor.html:1
+msgid "This description will be displayed as a tooltip in the palette"
+msgstr "この説明はパレット内のツールチップとして表示されます。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:10
+msgid "This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code>"
+msgstr "JSON タイプを選択した場合の JSON 使用例を示します。<br>次の例は、 <code>supportTicket</code> JSON オブジェクトの <code>environment</code> 配列内にある文字列 'Linux' を探すサンプルです。"
+
+#: editor/whiteboard/switchComponent/not-supported-browser-popup.html:1
+msgid "This feature is not available on Internet Explorer 11 nor Microsoft Edge for the moment."
+msgstr "この機能は、現在Internet Explorer 11またはMicrosoft Edgeで利用できません。"
+
+#: assets/help-popup.html:13
+msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
+msgstr "このフィルターは、<a href=\"http://momentjs.com/\">moment.js</a> ライブラリを使用して。相対時間の表示に変換します。たとえば、'01/01/2011' は、'4年前' に変換されます。"
+
+#: common/directives/artifact-name-validation.js:12
+msgid "This name already exists"
+msgstr "この名前は既に存在します"
+
+#: custom-widget/help-popup.html:1
+msgid "This page allows you to view a standard widget, or edit a custom widget."
+msgstr "このページでは、標準ウィジェットを表示したり、カスタム ウィジェットを編集したりできます。"
+
+#: editor/editor.html:1
+msgid "This page is empty."
+msgstr "このページは空白です。"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "This panel displays the list of Business Objects that has been defined and deployed using Bonita Studio."
+msgstr "このパネルには、Bonita Studio を使用して定義およびデプロイされたビジネス オブジェクトのリストが表示されます。"
+
+#: assets/asset-edit-popup.html:1
+msgid "This will also update the content of the preview window"
+msgstr "プレビュー ウィンドウの内容も更新されます"
+
+#: editor/editor.html:1
+msgid "To add content, drag and drop components from the palette to the whiteboard above."
+msgstr "コンテンツを追加するには、コンポーネントをパレットからホワイトボードの上にドラッグ＆ドロップします。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "To allow your user to download a document add a link widget with its url property bound to"
+msgstr "ユーザーがドキュメントをダウンロードできるようにするには、リンク ウィジェットを追加してそのドキュメントにバインドする URL プロパティを設定します。"
+
+#: home/help-popup.html:1
+msgid "To avoid some HTML injection in your page/form, we put for <b>Interpret HTML</b> property the default value to false for all widgets. If you already put this property to true, nothing change for you."
+msgstr "ページ/フォームでの HTML インジェクションを回避するために、<b>Interpret HTML</b> プロパティのデフォルト値をすべてのウィジェットで false に設定しています。 このプロパティをすでに true に設定している場合は、何も変わりません。"
+
+#: home/import/import-report-popup.html:1
+msgid "To avoid them being overwritten, <i>rename</i> them before you import."
+msgstr "それらが上書きされないようにするには、インポートする前に<i>rename</i> してください。"
+
+#: home/help-popup.html:1
+msgid "To be more accessible for speech synthesizers, screen readers or some other tools, the internal html template of checklist and radio buttons widget has been updated."
+msgstr "音声シンセサイザー、スクリーンリーダー、その他のツールにアクセスしやすいようにする チェックリストとラジオボタンウィジェットの内部 html テンプレートが更新されました。"
+
+#: assets/help-popup.html:19
+msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
+msgstr "式として評価されたウィジェット プロパティで日付を表示するには、たとえば、<code>updateDate</code>変数に <code>dateAgo</code> フィルターを使用し、<code>updateDate | dateAgo</code>のようにします。"
+
+#: editor/header/help/help-popup.html:1
+msgid "To edit a custom widget, use the <b>Edit</b> menu option close to the widget name in the properties panel."
+msgstr "カスタム ウィジェットを編集するには、プロパティ パネルでウィジェット名の近くにある <b>Edit</b> メニュー オプションを使用します。"
+
+#: custom-widget/custom-widget-editor.controller.js:61
+msgid "To edit this standard widget, save it first as a new custom widget"
+msgstr "この標準ウィジェットを編集するには、最初に新しいカスタム ウィジェットとして保存してください"
+
+#: assets/help-popup.html:13
+msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
+msgstr "カスタム AngularJS サービス（フィルター、コンスタント、ファクトリーなど）を使用してページやフォームを拡張するには、<code>bonitasoft.ui.extensions</code> モジュールを使用します。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "To get data from the <i>Business Data Model</i>, please use the Business data variable type."
+msgstr "<i>ビジネス データ モデル</i>からデータを取得するには、ビジネス データ タイプを使用してください。"
+
+#: editor/header/help/help-migration.html:23
+msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
+msgstr "動作を維持するために、7.5.0 より古いバージョンで設計され、カスタム ウィジェットを含むページを移行すると、<em>ui-bootstrap-tpls-0.13.0.min.js</em> がアセットとしてあなたのページの自動的に追加されます不要な場合は削除できます。"
+
+#: assets/help-popup.html:13
+msgid "To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable>&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
+msgstr "カスタムウィジェットにローカルの画像アセットを読み込むには <code>&lt;img&gt;</code> タグ内のテンプレートを以下のように相対パスで参照する必要があります: <br><code ng-non-bindable>&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
+
+#: assets/help-popup.html:1
+msgid "To load an image for any custom widget, add image assets at page level. Access it with <code>asset/img/[image name]</code>."
+msgstr "カスタム ウィジェットにイメージをロードするには、ページレベルでイメージのアセットを追加します。<code>asset/img/[イメージ名]</code>でそれにアクセスします。"
+
+#: assets/help-popup.html:1
+msgid "To manage multiple version of dependencies, make sure only one version of an asset is active inside a page."
+msgstr "複数バージョンの依存関係を管理するには、1 つの アセット バージョン だけがページの内部でアクティブであるようにします。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "To retrieve a document instance, create an External API variable with value"
+msgstr "ドキュメント インスタンスを取得するには、値を持つExternal API 変数を作成します。"
+
+#: home/import/import-report-popup.html:1
+msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, <i>rename</i> it before you import."
+msgstr "<strong>{{ ::importReport.overwrittenName }}</strong> を別の識別子で保存するには、インポートする前に <i>rename</i> します。"
+
+#: home/import/import-report-popup.html:1
+msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, open it and use <i>Save as</i> before you import."
+msgstr " <strong>{{ ::importReport.overwrittenName }}</strong> を別の識別子で保存するには、インポートする前にそれを開いて <i>Save as</i> を使用します。"
+
+#: editor/header/help/help-popup.html:1
+msgid "To support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
+msgstr "エンドユーザー向けに多言語をサポートするための、作成された UI アーティファクト(ページ、フォーム、レイアウト)を翻訳するメカニズムが含まれています。"
+
+#: editor/whiteboard/switchComponent/not-supported-browser-popup.html:1
+msgid "To switch widget, use another browser: Google Chrome or Mozilla Firefox."
+msgstr "ウィジェットを切り替えるには、別のブラウザ(Google ChromeまたはMozilla Firefox)を使用してください。"
+
+#: custom-widget/help-popup.html:1
+msgid "To use AngularJS standard services, you must declare them in the main function arguments."
+msgstr "AngularJS の標準的なサービスを使用するには、メイン関数の引数の中でそれらを宣言する必要があります。"
+
+#: assets/help-popup.html:1
+msgid "To use a localization asset, replace the default localization.json file with a file of the same format containing all the keys in the page and the translations into the target languages. The localization asset is at page level. The format of the file must be:"
+msgstr "ローカライゼーション アセットを使用するには、ページ内のすべてのキーとそのキーのターゲット言語への翻訳に含むデフォルトの localization.json ファイルと同じ形式のファイルで localization.json ファイルを置き換えます。ローカライゼーション アセットは、ページ レベルです。ファイルの形式は次のようにする必要があります。"
+
+#: assets/help-popup.html:1
+msgid "To use an image asset in the image widget, set the <code>Source type</code> property to <i>Asset</i>, and then enter the image name in the <code>Asset name</code> input field."
+msgstr "イメージ  ウィジェットでイメージのアセットを使用するには、<code>アセット</code>に<code>ソースのタイプ</code> プロパティを設定し、<code>アセット名</code> の入力フィールドにそのイメージ名を入力します。"
+
+#: editor/properties-panel/container-repeat-content-tip.html:1
+msgid "To use the collection data in the widgets of this container, there are contextual variables that you can bind to the widget properties:"
+msgstr "このコンテナのウィジェット内でコレクション データを使用する場合、ウィジェットのプロパティにバインドできるコンテキスト変数があります："
+
+#: assets/help-popup.html:1
+msgid "To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page."
+msgstr "いくつかのページで同じアセットを使用するには、そのアセットをカスタム ウィジェットに追加することで、アプリケーションページまたはフォームでそのカスタム ウィジェットを使用できます。あるページにアセットを持つ追加する場合は、それらのアセットはそのページに自動でリンクされます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "To view the code of a standard widget, use the <b>View</b> menu option close to the widget name in the properties panel. From there, to use the standard widget as a basis for a custom widget, click on <b>Save as</b>, find a name for the custom widget, and make it your own."
+msgstr "標準ウィジェットのコードを表示するには、プロパティパネルのウィジェット名の近くにある<b>View</b>メニューオプションを使用します。 そこから、標準ウィジェットをカスタムウィジェットのベースとして使用するには、 <b>Save as</b>をクリックし、カスタムウィジェットの名前を見つけて独自のウィジェットにします。"
+
+#: custom-widget/custom-widget-editor.html:1 editor/editor.html:1
+msgid "Toggle properties panel"
+msgstr "プロパティ パネルの表示"
+
+#: custom-widget/create-property.html:1
+msgid "Tooltip"
+msgstr "ツールヒント"
+
+#: common/services/ace-data-completer.service.js:45
+msgid "Translate the given text"
+msgstr "指定されたテキストを翻訳"
+
+#: custom-widget/custom-widget-editor.html:1
+msgid "Treat as"
+msgstr "値の取り扱い: "
+
+#: custom-widget/create-property.html:2
+msgid "Treat value as"
+msgstr "値の取り扱い:"
+
+#: editor/header/help/help-popup.html:1
+msgid "Two use cases : <ul> <li><code>dateVariable|uiDate</code> applies a default <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">format</a>. For an ISO 8601 string with a time, the default format is <em>'medium'</em>. Otherwise, it is <em>'mediumDate'</em>.</li> <li><code>dateVariable|uiDate:format</code> if you need to be more specific in which format, it can be specified exactly the same way as with <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">angularJS date filter</a>.<br> E.g. <code>dateVariable|uiDate:'short'</code> or <code> dateVariable|uiDate:'dd/MM/yyyy'</code></li> </ul>"
+msgstr "２つの使用例： <ul> <li><code>dateVariable | uiDate</code>はデフォルトの <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">書式</a> が適用されます。時刻に使用する ISO 8601 文字列では、デフォルトの書式は、<em>'medium'</em> です。それ以外の場合は、 <em>'mediumDate'</4<li>> です。</li><1>いずれかの書式でより詳細に指定したい場合は、 <code>dateVariable | uiDate:書式</code> を使用します。それは、<a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">angularJS 日付フィルター</a> とまったく同じ方法で指定できます。<br> たとえば、<code>dateVariable|uiDate:'short'</code> または <code>dateVariable|uiDate:'dd/MM/yyyy'</code>です。</li> </ul>"
+
+#: assets/asset-popup.html:1 assets/widget-assets.html:1
+#: custom-widget/create-property.html:2
+#: custom-widget/custom-widget-editor.html:1
+#: editor/bottom-panel/data-panel/data-popup.html:1
+#: editor/bottom-panel/data-panel/data.html:1
+msgid "Type"
+msgstr "タイプ"
+
+#: home/home.html:1
+msgid "UI Designer <span ng-if=\"isExperimentalMode()\">(Experimental)</span>"
+msgstr "UI デザイナー <span ng-if=\"isExperimentalMode()\">(Experimental)</span>"
+
+#: assets/generic-asset-form.html:1
+msgid "URL"
+msgstr "URL"
+
+#: editor/bottom-panel/data-panel/data-type.service.js:34
+msgid "URL parameter"
+msgstr "URL パラメータ"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "URL parameter name"
+msgstr "URL パラメータ名"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Unable to access Business Data Model. Restart Bonita Studio and try again."
+msgstr "ビジネス データ モデルにアクセスできません。Bonita Studio を再起動して、もう一度やり直してください。"
+
+#: editor/header/header.html:1
+msgid "Unable to connect to the Business Data Model. Restarting the Studio may solve this issue"
+msgstr "ビジネス データ モデルに接続できません。Studio を再起動すると、この問題が解決する可能性があります。"
+
+#: home/artifact-list/favorite-button.html:1
+msgid "Unmark as favorite"
+msgstr "お気に入りのマークを解除"
+
+#: assets/widget-assets.html:1
+msgid "Update asset"
+msgstr "アセットを更新"
+
+#: home/help-popup.html:1
+msgid "Upgrade between maintenance versions without migration. When a migration is required, get help from the UI Designer (warning icon, confirmation dialog, migration report)"
+msgstr "移行せずにメンテナンスバージョンをアップグレードします。移行が必要な場合は、UI デザイナーのヘルプを参照してください (警告アイコン、確認ダイアログ、移行レポート)"
+
+#: home/import/import.service.js:55
+msgid "Upgrade to a newer UI Designer version to import this {{type}}"
+msgstr "この {{type}} をインポートするには、新しい UI デザイナーのバージョンにアップグレードしてください"
+
+#: editor/header/help/help-popup.html:1
+msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users."
+msgstr "エンドユーザーへの<b>情報表示</b> や彼らからの<b>情報収集</b>には、左側のパレットの<b>ウィジェット</b>を使用します。"
+
+#: editor/header/help/help-migration.html:1
+msgid "Use <code>legend</code> tag instead <code>label</code>"
+msgstr " <code>legend</code> タグの代わりに <code>label</code>を使用する\n"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "Use a Business Object"
+msgstr "ビジネス オブジェクトを使用"
+
+#: editor/properties-panel/help/bidirectional-bond-help.html:1
+msgid "Use a bidirectional field to specify a read-write binding between the property value and a variable."
+msgstr "双方向フィールドを使用し、プロパティの値と変数間の双方向で読み書きできるバインドを指定します。"
+
+#: editor/properties-panel/help/dynamic-bond-help.html:1
+msgid "Use a dynamic value field to specify a constant (the default) or an expression. Click the expression icon fx to switch from constant to expression. Click the constant icon X to switch from expression to constant. An expression can include a variable to make the property value dynamic, or can simply be the name of a variable. You can apply a filter to a variable value using a pipe. The binding to the variable is a read. If you want to write to the variable, use a bidirectional bond. Examples:"
+msgstr "動的な値フィールドを使用し、コンスタント（デフォルト）または式を指定します。式のアイコン fx をクリックしてコンスタントから式に切り替えます。式からコンスタントに切り替えるには、コンスタントのアイコン X をクリックします。式はプロパティの値を動的にする変数を含めるか、または単に変数名だけにすることができます。パイプを使用して変数の値にフィルターを適用することができます。変数へのバインディングは、読み取り専用です。変数に書き込みをしたい場合は、双方向バインドを使用します。例:"
+
+#: editor/properties-panel/help/interpolation-bond-help.html:1
+msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable>{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
+msgstr "テキストをウィジェットに表示するには、補間フィールドを使用します。このテキストには、AngularJS の補間を使用して解釈される変数を含めることができます。 ページが表示されると、変数は補間された値に置き換えられます。 動的な値フィールドと同じ書式を使用して、単純な式を二重括弧で囲むように変数を指定します。 例: 申し訳ありませんが、 <em ng-non-bindable>{{ user.name | uppercase }}</em>. それはできません。"
+
+#: custom-widget/help-l10n.html:1
+msgid "Use the <em>ui-translate</em> directive in custom widgets for static content to be translated"
+msgstr "スタティック（静的）コンテンツを翻訳するには、カスタム ウィジェットで <em>ui-translate</em> ディレクティブを使用してください"
+
+#: custom-widget/help-l10n.html:1
+msgid "Use the <em>uiTranslate</em> filter in custom widgets for dynamic content to be translated"
+msgstr "ダイナミック（動的）コンテンツを翻訳するには、カスタム ウィジェットで <em>uiTranslate</em> フィルタを使用します"
+
+#: home/help-popup.html:1
+msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
+msgstr "UI デザイナーを使用してweb 生成物を作成または編集：  ビジネス アプリケーションを構成する<b>アプリケーション ページ</b> 、プロセスの起案または、ヒューマンタスクの実行にリンクされた <b>プロセス フォーム</b> 、およびビジネス アプリケーションのすべてのページに適用される<b>アプリケーション レイアウト</b>。"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "Use the generated user interface"
+msgstr "生成されたユーザーインターフェースを使用する"
+
+#: editor/header/help/help-popup.html:1
+msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
+msgstr "左のパレットを使用して、コンテナとウィジェットをホワイトボードにドラッグ＆ドロップします。"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "Use your Business data"
+msgstr "ビジネス データを使用"
+
+#: editor/header/metadata-popup.html:1
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
+msgstr "リソースのポータル リストで使用します。エクスポートされたページ アーカイブ内の page.properties 記述子の一部です。"
+
+#: editor/header/metadata-popup.html:1
+msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive. If empty, page technical name is used as fallback."
+msgstr "リソースのポータルリストで使用されます。 エクスポートされたページアーカイブのpage.properties記述子の一部。 空の場合、ページの技術名がフォールバックとして使用されます。"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:22
+msgid "User id could then be obtained by using {{myData.user_id}}"
+msgstr "User id は、 {{myData.user_id}} を使用することによって取得できます"
+
+#: editor/header/header.html:1
+msgid "Validation Errors"
+msgstr "検証エラー"
+
+#: editor/header/header.html:1
+msgid "Validation error on the page. Fix is recommended before export"
+msgstr "ページの検証エラー。エクスポートする前に修正を推奨します"
+
+#: home/artifact-list/artifact-list.directive.js:188
+#: home/artifact-list/artifact-list.directive.js:41
+msgid "Validation error. Fix is recommended before export"
+msgstr "検証エラー。エクスポートする前に修正を推奨します。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+#: editor/bottom-panel/data-panel/data-popup.html:10
+#: editor/bottom-panel/data-panel/data.html:1
+#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "Value"
+msgstr "値"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+#: editor/properties-panel/bond/variable.html:1
+msgid "Variable in read-write binding with the property value"
+msgstr "プロパティ値と read-write 双方向でバインディングする変数"
+
+#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
+msgid "Variable name"
+msgstr "変数名"
+
+#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "Variable names must start with a letter and contain only alphanumeric characters"
+msgstr "変数名は、英文字で始まり英数字のみで命名する必要があります。"
+
+#: editor/bottom-panel/bottom-panel.directive.js:28
+#: editor/header/help/help-popup.html:1
+msgid "Variables"
+msgstr "変数"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
+msgstr "変数は入力項目にバインドして、ウィジェット プロパティ間での条件付きの挙動を設定することができます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "View"
+msgstr "ビュー（表示）"
+
+#: assets/table/asset-section.html:1 assets/widget-assets.html:1
+msgid "View asset content"
+msgstr "アセットのコンテンツを表示"
+
+#: preview/app-selector/app-selector.html:1
+msgid "View in application <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i>"
+msgstr "アプリケーション <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i> で表示"
+
+#: editor/properties-panel/properties-panel-action-menu-template.html:1
+msgid "View..."
+msgstr "表示..."
+
+#: editor/bottom-panel/data-panel/data-popup.html:10
+msgid "W3C website"
+msgstr "W3C webサイト"
+
+#: home/help-popup.html:1
+msgid "We have reorganized the order of the fields contained in the json file in order to facilitate the file comparison."
+msgstr "ファイルの比較を容易にするために、json ファイルに含まれるフィールドの順序を再編成しました。"
+
+#: editor/whiteboard/switchComponent/switch-component-popup.html:1
+msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
+msgstr "可能な場合、ターゲット ウィジェットのプロパティはソース ウィジェットの類似のプロパティでマップされます。それを編集し、さらにマップできます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "When the switch is completed, chances are you will still have properties to fill out, in the properties panel."
+msgstr "スイッチが完了すると、プロパティ パネルに記入するプロパティがまだある可能性があります。"
+
+#: home/help-popup.html:1
+msgid "When using a version control system, like git for example, migrating to this last version may cause reorder changes in json models that must be pushed."
+msgstr "例えばgitなどのバージョン管理システムを使用する場合 この最後のバージョンに移行すると、jsonモデルの変更がプッシュされる可能性があります。"
+
+#: editor/header/help/help-popup.html:1
+msgid "When you delete a row, the following rows move up"
+msgstr "行を削除したら、それに続く行が上に移動します"
+
+#: editor/bottom-panel/web-resources-panel/help-popup.html:1
+msgid "When you drag and drop a widget or a fragment, some Bonita resources are automatically found and added in the Bonita resource table. The <code>scopes</code> column of the Bonita resources table helps you identify what artifact declare a given resource."
+msgstr "ウィジェットまたはフラグメントをドラッグ&ドロップすると、Bonita リソースが自動的に検出され、Bonita リソーステーブルに追加されます。 Bonita リソース テーブルの <code>scope</code> 列は、特定のリソースを宣言するアーティファクトを特定するのに役立ちます。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
+msgstr "Studio内のコントラクトをベースにフォームを生成した場合は、そのフォームには送信ボタンといくつかのデフォルト変数： <code>formInput</code>、 <code>formOutput</code>、 <code>taskId</code>、 および <code>context</code> が含まれます。"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:79
+msgid "Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = \"myParam=myValue\""
+msgstr "ここの businessDataType は com.company.model.MyData、 queryName は BDM クエリ名、 filter は \"myParam=myValue\" です。"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:57
+msgid "Where businessVariableName is the name of the business variable defined at pool level."
+msgstr "ここの businessVariableName は、プール レベルで定義されているビジネス変数の名前です。"
+
+#: custom-widget/custom-widget-editor.html:1
+msgid "Widget description"
+msgstr "ウィジェットの説明"
+
+#: custom-widget/help-popup.html:1
+msgid "Widget implementation is based on the AngularJS framework."
+msgstr "ウィジェットの実装は AngularJS フレームワークに基づいています。"
+
+#: custom-widget/help-popup.html:1
+msgid "Widget properties defined on the right can be used as variables in a controller with $scope.properties."
+msgstr "右側で定義されたウィジェットプロパティは、$scope.propertiesを使用してコントローラーの変数として使用できます。"
+
+#: custom-widget/help-popup.html:1
+msgid "Widget properties defined on the right can be used as variables in a template with properties.newProperty."
+msgstr "右側に定義されているカスタム ウィジェットのプロパティは、コント ローラー内では .properties の変数として使用できます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "Widgets"
+msgstr "ウィジェット"
+
+#: custom-widget/help-l10n.html:1
+msgid "Widgets use the l10n mechanism that loads the translated string during page start up."
+msgstr "ウィジェットはページ起動時に翻訳された文字列を読み込むためl10n メカニズムを使用します。"
+
+#: editor/properties-panel/component-properties-template.html:1
+msgid "Width"
+msgstr "幅"
+
+#: editor/header/help/help-popup.html:1
+msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
+msgstr "行の内部のウィジェットまたはコンテナを削除すると、次に続く要素は左に移動します。"
+
+#: editor/bottom-panel/data-panel/exposable-data.html:1
+msgid "Yes. You must bind this variable to a variable in the page, form, layout or fragment using this fragment."
+msgstr "はい、この変数をページ、フォーム、レイアウトまたはこのフラグメントを使用してるフラグメント内の変数にバインドする必要があります。"
+
+#: editor/header/help/help-popup.html:1
+msgid "You can also create custom widgets, from existing widgets by \"saving as\" or from scratch in the home page."
+msgstr "また、既存のウィジェットから「名前を付けて保存」するか、ホームページで最初からカスタムウィジェットを作成することもできます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "You can apply it to the following variable value types:"
+msgstr "次の変数の値型に適用することができます："
+
+#: editor/header/save-as-popup.html:1
+msgid "You can change the type to be able to use this artifact as a process form or as an application page."
+msgstr "このアーティファクトをプロセス フォームまたはアプリケーション ページとして使用できるようにタイプを変更できます。"
+
+#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
+msgid "You can check the list of all Bonita REST API resources on this dedicated <a href=\"https://api-documentation.bonitasoft.com/latest/\">documentation</a>"
+msgstr "この専用の <a href=\"https://api-documentation.bonitasoft.com/latest/\">ドキュメント</a> で、すべての Bonita REST API リソースのリストを確認できます。"
+
+#: assets/help-popup.html:13
+msgid "You can delete page assets only, view local assets, and edit external assets of a page."
+msgstr "ページアセットのみを削除やローカルアセットの表示やページの外部アセットを編集したりできます。"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "You can explore the data model (with a graphical view) using the graph icon in the header of this panel. It shows the relationships between business objects, and their attributes."
+msgstr "このパネルのヘッダーにあるグラフアイコンを使用して、データ モデル(グラフィカル ビュー)を調べることができます。 ビジネス オブジェクトとその属性の関係を示します。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here."
+msgstr "Studio で REST API 拡張を作成することで、REST API 機能を拡張できます。"
+
+#: editor/bottom-panel/data-panel/help-popup.html:1
+msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
+msgstr "Studio の<i>開発</i> メニューで <em>REST API 拡張</em> を作成することによって REST API の能力を拡大できます。そして、UI デザイナーでそれらを外部 API 変数として使用します。"
+
+#: editor/header/help/help-popup.html:1
+msgid "You can format data with filters when data is used in widget property fields that allow interpolation <i class=\"fa fa-paragraph\"></i> or that are bound to a variable <i class=\"fa fa-link\"></i> ."
+msgstr "データが補完が許されているウィジェットのプロパティ フィールド内に使用されている場合、<i class=\"fa fa-paragraph\"></i>あるいは、そのデータがある変数にバインドされている場合は、フィルターを使用してデータを書式設定できます<i class=\"fa fa-link\"></i>。"
+
+#: editor/header/help/help-popup.html:1
+msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
+msgstr "フォームまたはページのコンテナ内にウィジェットをきれいに配置して、それらのウィジェットをグループ化できます。コンテナは、別のコンテナを含めることができます。"
+
+#: home/help-popup.html:1
+msgid "You can manually declare the Bonita REST API resources which you're using in your artifact when the automatic detection fails to found them."
+msgstr "自動検出が失敗した場合、アーティファクトで使用しているBonita REST API リソースを手動で宣言できます。"
+
+#: editor/bottom-panel/web-resources-panel/help-popup.html:1
+msgid "You can manually declare the Bonita REST API resources which you're using in your artifact when the automatic detection fails to found them. You need to select an HTTP Verb, and type/choose the REST API on the value field. This Bonita resource will export in page.properties files."
+msgstr "自動検出が失敗した場合、アーティファクトで使用しているBonita REST API リソースを手動で宣言できます。 HTTP動詞を選択し、値フィールドにRESTAPIを入力/選択する必要があります。このBonitaリソースはpage.propertiesファイルにエクスポートされます。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "You can only edit the query filters and pagination."
+msgstr "編集できるのは、クエリフィルターとページ付けのみです。"
+
+#: editor/header/help/help-popup.html:23
+msgid "You can optimize the UI designer responsiveness behavior for various screen sizes by configuring a different value for the <em>width</em> property for each device type. This uses the Bootstrap CSS grid mechanism."
+msgstr "各デバイスタイプの <em>width</em> プロパティに異なる値を設定することで、さまざまな画面サイズの UI デザイナーのレスポンス動作を最適化できます。 これは Bootstrap CSS のグリッド メカニズムを使用します。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "You can retrieve the Status Code or Response Headers with a usual variable binding and use it in the artifact."
+msgstr "通常の変数バインディングでステータスコードまたはレスポンスヘッダーを取得し、アーティファクトで使用できます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "You can save the content of a plain container as a reusable fragment."
+msgstr "プレイン コンテナを再利用可能なフラグメントとして保存できます。"
+
+#: editor/header/help/help-popup.html:1
+msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
+msgstr "UI の生成物に表示されるすべてのテキスト（ラベル、プレース ホルダー、使用可能な値のリストなど）を翻訳することができます。日付選択ウィジェットの日付書式もローカライズできます。"
+
+#: editor/bottom-panel/data-panel/api-examples.service.js:77
+msgid "You can use Business data type to get a business data object."
+msgstr "ビジネス データ タイプを使用してビジネス データ オブジェクトを取得できます。"
+
+#: editor/palette/data-model-help-popup.html:1
+msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0). For example, you can bind a variable to get dynamic pagination: {{paginationVariable.pageNumber}}."
+msgstr "ページネーション セクションを使用して、ページごとに必要な要素の数 (既定では 10 要素) とページ番号 (既定では最初のページ - インデックス 0) を定義できます。 たとえば、変数をバインドして動的なページネーションを取得できます: {{paginationVariable.pageNumber}}。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax."
+msgstr "URLのデータは、 <i><em ng-non-bindable>{{dataName}}</em></i> 構文で使用できます。"
+
+#: custom-widget/help-popup.html:1
+msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
+msgstr "標準の HTML タグと AngularJS 組み込みディレクティブ、スコープおよび補完機能を使用できます。"
+
+#: custom-widget/help-popup.html:1
+msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
+msgstr "実データが利用可能でない場合は、ホワイトボード エディタの内部に投入された <i>環境</i> プロパティを使用し、ホワイトボードにモックアップ表示を作成できます。"
+
+#: assets/help-popup.html:13
+msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
+msgstr "1 つ以上のローカライゼーションのアセットを持つことはできません。新しいアセット ファイルをアップロードすると、既存のものが上書きされます。"
+
+#: editor/header/migrationReport/migration-report-popup.controller.html:1
+msgid "You cannot import or use this artifact in older version anymore."
+msgstr "古いバージョンではこのアーティファクトをインポートまたは使用できません。"
+
+#: assets/help-popup.html:13
+msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
+msgstr "<b>Base framework</b> のアセットを移動、削除、または無効にすることはできません。 これらはアーティファクトの設定に使用されるライブラリを表示するためにのみここにあります"
+
+#: common/directives/confirm-on-exit.js:20
+msgid "You have unsaved changes. Do you really want to leave ?"
+msgstr "変更が保存されていません。本当に終了しても良いですか？"
+
+#: editor/bottom-panel/web-resources-panel/help-popup.html:1
+msgid "You should always declare the resource on the most atomic artifact (in fragment, if the resource is used in a fragment, in a custom widget, or at page level)"
+msgstr "常にリソースを最もアトミックなアーティファクトに宣言する必要があります（フラグメントで） リソースがフラグメント内、カスタムウィジェット内、またはページレベルで使用される場合)"
+
+#: home/artifact-factory.service.js:36
+msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
+msgstr "Studio でプロセス フォームの設計を開始する必要があります： 当該のプールまたはヒューマンタスクにコントラクトを作成し、UI デザイナーを起動すると、編集のための専用フォームが自動生成されます。"
+
+#: editor/header/export-popup.html:1
+msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
+msgstr "CSS や JavaScript ファイルの圧縮(minify) を管理したり、キャッシュの無効化をトリガーするリソースの URL を更新する必要があります。"
+
+#: editor/header/migrationReport/migration-report-popup.controller.html:1
+msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to model version <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
+msgstr "アーティファクトは <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> からモデル バージョン <b>{{ctrl.migrationReport.newArtifactVersion}}</b> に移行されました。"
+
+#: editor/header/migrationReport/migration-report-popup.controller.html:1
+msgid "Your artifact was migrated to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
+msgstr "アーティファクトは <b>{{ctrl.migrationReport.newArtifactVersion}}</b> にマイグレートされました。"
+
+#: home/import/import-success-message.controller.js:39
+msgid "added"
+msgstr "追加済み"
+
+#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
+msgid "already exists"
+msgstr "既に存在します"
+
+#: home/import/import-error-messages.service.js:53
+msgid "artifact"
+msgstr "生成物"
+
+#: editor/properties-panel/component-properties-template.html:1
+msgid "column"
+msgid_plural "columns"
+msgstr[0] "カラム"
+
+#: editor/editor.service.js:88
+msgid "custom widgets"
+msgstr "カスタム ウィジェット"
+
+#: editor/editor.service.js:94
+msgid "data model"
+msgstr "データモデル"
+
+#: editor/header/help/help-popup.html:23
+msgid "desktop screens (1200px ≤ screenSize)"
+msgstr "デスクトップ画面 (1200px ≤ 横幅)"
+
+#: common/services/alerts.service.js:31
+msgid "error"
+msgstr "エラー"
+
+#: editor/properties-panel/bond/expression.html:1
+msgid "expression or variable"
+msgstr "式または変数"
+
+#: home/import/import-success-message.controller.js:45
+msgid "form"
+msgstr "フォーム"
+
+#: editor/header/help/help-popup.html:1
+msgid "formatted String variables"
+msgstr "書式化された文字列変数"
+
+#: home/import/import-success-message.controller.js:48
+msgid "fragment"
+msgstr "フラグメント"
+
+#: editor/whiteboard/fragment.service.js:33
+msgid "fragments"
+msgstr "フラグメント"
+
+#: common/services/migration.service.js:66
+msgid "has been migrated successfully. Check migration details <i class=\"fa fa-wrench status\"></i> for more details."
+msgstr "マイグレーションが正常に完了しました。詳細については移行の詳細 <i class=\"fa fa-wrench status\"></i> を確認してください。"
+
+#: editor/common/properties.service.js:40
+msgid "hidden"
+msgstr "非表示"
+
+#: editor/header/export-popup.html:1
+msgid "if you edit the page, form or layout outside the UI Designer, you will not be able to reimport it."
+msgstr "ページ、フォームや UI デザイナーの外側のレイアウトを編集する場合、それを再インポートすることはできません。"
+
+#: common/services/alerts.service.js:34
+msgid "info"
+msgstr "info"
+
+#: common/services/migration.service.js:37
+msgid "is not compatible with this UI Designer version. A newer version is required."
+msgstr "この UI デザイナーのバージョンと互換性がありません。新しいバージョンが必要です。"
+
+#: editor/header/help/help-popup.html:23
+msgid "laptop screens (992px ≤ screenSize < 1200px)"
+msgstr "ラップトップ スクリーン （992px ≤ 横幅 < 1200px）"
+
+#: home/import/import-success-message.controller.js:47
+msgid "layout"
+msgstr "レイアウト"
+
+#: editor/header/help/help-popup.html:23
+msgid "mobile screens (screenSize < 768px)"
+msgstr "モバイル画面 （横幅 < 768px）"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "name"
+msgstr "名前"
+
+#: editor/properties-panel/field/boolean.html:1
+msgid "no"
+msgstr "いいえ"
+
+#: home/import/import-success-message.controller.js:37
+msgid "overwritten"
+msgstr "overwritten（上書き）"
+
+#: home/import/import-success-message.controller.js:44
+msgid "page"
+msgstr "ページ"
+
+#: common/services/alerts.service.js:32
+msgid "success"
+msgstr "success"
+
+#: home/import/import-success-message.html:1
+msgid "successfully imported."
+msgstr "インポートに成功しました。"
+
+#: editor/bottom-panel/data-panel/data-popup.html:1
+msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
+msgstr "supportTicket は、<em>subject</em>、 <em>severity</em> レベル、ユーザーの<em>environment</em>、報告者の<em>contact</em>、そのコンタクト先の詳細情報を提供している <em>name</em>、<em>job title</em> および <em>URL</em> などの合成オブジェクトです。"
+
+#: editor/header/help/help-popup.html:23
+msgid "tablet screens (768px ≤ screenSize < 992px)"
+msgstr "タブレット画面 （768px ≤ 横幅 < 992px）"
+
+#: editor/bottom-panel/data-panel/data-popup.html:10
+msgid "view W3C's Json specification"
+msgstr "W3C の JSON 仕様を表示"
+
+#: common/services/alerts.service.js:33
+msgid "warning"
+msgstr "warning"
+
+#: home/import/import-success-message.controller.js:46
+msgid "widget"
+msgstr "ウィジェット"
+
+#: custom-widget/custom-widget-editor.html:1
+msgid "widget editor"
+msgstr "ウィジェットエディタ"
+
+#: editor/editor.service.js:179 editor/editor.service.js:85
+msgid "widgets"
+msgstr "ウィジェット"
+
+#: editor/properties-panel/field/boolean.html:1
+msgid "yes"
+msgstr "はい"
+
+#: home/import/import-report-item-list.html:1
+msgid "{{ artifactType }}"
+msgid_plural "{{ artifactType }}s"
+msgstr[0] "{{ artifactType }}"
+
+#: home/artifact-list/alert-deletion-notpossible-popup.html:1
+msgid "{{ type }}"
+msgid_plural "{{ type }}s"
+msgstr[0] "{{ type }}"
+
+#: editor/header/header.html:1
+msgid "{{ vm.page.type }} editor"
+msgstr "{{ vm.page.type }} エディタ"
+
+#: assets/asset-preview-popup.html:1
+msgid "{{asset.name}} content<expand-modal></expand-modal>"
+msgstr "{{asset.name}} のコンテンツ <expand-modal> </expand-modal>"
+
+#: confirm-popup/confirm-migrate-popup.html:1
+msgid "{{ctrl.artifact}} requires a migration"
+msgstr "{{ctrl.artifact}} にはマイグレーション必要です"
+
+#: editor/header/metadata-popup.html:1
+msgid "{{ctrl.page.name}} information"
+msgstr "{{ctrl.page.name}} 情報"
+
+#: assets/table/asset-section.controller.js:58
+msgid "{{currentLength}} of {{totalNumber}}"
+msgstr "{{totalNumber}} の {{currentLength}}"
+
+#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
+msgid "{{filter.label}}"
+msgstr "{{filter.label}}"
+
+#: assets/page-assets.html:1
+msgid "{{filter.value}}"
+msgstr "{{filter.value}}"
+
+#: assets/table/asset-section.html:1
+msgid "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
+msgstr "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
+
+#: assets/table/asset-section.html:1
+msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
+msgstr "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
+

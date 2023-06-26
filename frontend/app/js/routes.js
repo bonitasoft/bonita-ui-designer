@@ -30,14 +30,14 @@
           language: function ($stateParams, gettextCatalog, tmhDynamicLocale) {
             var languages = {
               'en': {lang: 'en'},
-              'fr': {lang: 'fr', file: 'lang-template-fr-FR.json'},
-              'es': {lang: 'es-ES', file: 'lang-template-es-ES.json'},
-              'es-ES': {lang: 'es-ES', file: 'lang-template-es-ES.json'},
-              'ja': {lang: 'ja', file: 'lang-template-ja-JP.json'},
-              'ja-JP': {lang: 'ja', file: 'lang-template-ja-JP.json'},
-              'pt': {lang: 'pt-BR', file: 'lang-template-pt-BR.json'},
-              'pt-BR': {lang: 'pt-BR', file: 'lang-template-pt-BR.json'},
-              'pt_BR': {lang: 'pt-BR', file: 'lang-template-pt-BR.json'}
+              'fr': {lang: 'fr', files: ['lang-template-fr-FR.json', 'widgets-lang-template-fr-FR.json']},
+              'es': {lang: 'es-ES', files: ['lang-template-es-ES.json', 'widgets-lang-template-es-ES.json']},
+              'es-ES': {lang: 'es-ES', files: ['lang-template-es-ES.json', 'widgets-lang-template-es-ES.json']},
+              'ja': {lang: 'ja', files: ['lang-template-ja-JP.json', 'widgets-lang-template-ja-JP.json']},
+              'ja-JP': {lang: 'ja', files: ['lang-template-ja-JP.json', 'widgets-lang-template-ja-JP.json']},
+              'pt': {lang: 'pt-BR', files: ['lang-template-pt-BR.json', 'widgets-lang-template-pt-BR.json']},
+              'pt-BR': {lang: 'pt-BR', files: ['lang-template-pt-BR.json', 'widgets-lang-template-pt-BR.json']},
+              'pt_BR': {lang: 'pt-BR', files: ['lang-template-pt-BR.json', 'widgets-lang-template-pt-BR.json']}
             };
             // narrow down which language is used or use en
             var language = languages[Object.keys(languages).reduce(function (previous, current) {
@@ -46,7 +46,7 @@
             gettextCatalog.setCurrentLanguage(language.lang);
             if (language !== languages.en) {
               tmhDynamicLocale.set(language.lang);
-              return gettextCatalog.loadRemote('i18n/' + language.file);
+              language.files.forEach(file => gettextCatalog.loadRemote('i18n/' + file));
             }
           }
         }

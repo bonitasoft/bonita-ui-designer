@@ -15,111 +15,34 @@
     <properties>
         <spring-boot.version>2.7.12</spring-boot.version>
         <handlebar.version>4.3.1</handlebar.version>
-        <projectInfoReports.version>3.0.0</projectInfoReports.version>
+        <ui-designer-artifact-builder.version>1.0.0-alpha-04</ui-designer-artifact-builder.version>
     </properties>
 
     <modules>
-        <module>artifact-builder</module>
         <module>contract</module>
         <module>webapp</module>
-        <module>migrationReport</module>
     </modules>
 
     <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.12.0</version>
+		<dependencies>    
+			<dependency>
+                <groupId>org.bonitasoft.web</groupId>
+                <artifactId>ui-designer-artifact-builder</artifactId>
+                <version>${ui-designer-artifact-builder.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>2.13.0</version>
-            </dependency>
+				<groupId>org.bonitasoft.web</groupId>
+            	<artifactId>ui-designer-artifact-builder</artifactId>
+            	<version>${ui-designer-artifact-builder.version}</version>
+            	<type>test-jar</type>
+			</dependency>
             <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>1.15</version>
-            </dependency>
-            <dependency>
-                <groupId>org.zeroturnaround</groupId>
-                <artifactId>zt-zip</artifactId>
-                <version>1.15</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.jknack</groupId>
-                <artifactId>handlebars</artifactId>
-                <version>${handlebar.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.jknack</groupId>
-                <artifactId>handlebars-jackson2</artifactId>
-                <version>${handlebar.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.fasterxml.jackson.core</groupId>
-                        <artifactId>jackson-databind</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.fedorahosted.tennera</groupId>
-                <artifactId>jgettext</artifactId>
-                <version>0.15.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jsoup</groupId>
-                <artifactId>jsoup</artifactId>
-                <version>1.16.1</version>
-            </dependency>
-            <!-- Spring -->
-            <dependency>
-                <groupId>javax.inject</groupId>
-                <artifactId>javax.inject</artifactId>
-                <version>1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-artifact</artifactId>
-                <version>3.9.2</version>
-            </dependency>
-
-            <!-- Tests dependencies -->
-            <dependency>
-                <groupId>com.jayway.jsonpath</groupId>
-                <artifactId>json-path-assert</artifactId>
-                <version>2.8.0</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.github.dreamhead</groupId>
-                <artifactId>moco-junit</artifactId>
-                <version>1.4.0</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>commons-logging</artifactId>
-                        <groupId>commons-logging</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>pl.pragmatists</groupId>
-                <artifactId>JUnitParams</artifactId>
-                <version>1.1.1</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
+                <groupId>org.bonitasoft.web</groupId>
+                <artifactId>ui-designer-artifact-builder-dependencies</artifactId>
+                <version>${ui-designer-artifact-builder.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 

@@ -20,16 +20,10 @@
         <dependency>
             <groupId>org.bonitasoft.web</groupId>
             <artifactId>ui-designer-artifact-builder</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.bonitasoft.web</groupId>
             <artifactId>ui-designer-backend-contract</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bonitasoft.web</groupId>
-            <artifactId>ui-designer-backend-migrationReport</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -148,7 +142,6 @@
         <dependency>
             <groupId>org.bonitasoft.web</groupId>
             <artifactId>ui-designer-artifact-builder</artifactId>
-            <version>${project.version}</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
@@ -312,6 +305,34 @@
                         </executions>
                     </plugin>
                     <plugin>
+			         <groupId>org.apache.maven.plugins</groupId>
+			         <artifactId>maven-dependency-plugin</artifactId>
+			         <executions>
+			           <execution>
+			             <id>unpack-node-dependencies</id>
+			             <phase>package</phase>
+			             <goals>
+			               <goal>unpack</goal>
+			             </goals>
+			             <configuration>
+			               <artifactItems>
+			                 <artifactItem>
+			                   <groupId>org.bonitasoft.web</groupId>
+			                   <artifactId>ui-designer-artifact-builder</artifactId>
+			                   <version>${ui-designer-artifact-builde.version}</version>
+			                   <type>jar</type>
+			                   <overWrite>true</overWrite>
+			                   <outputDirectory>${project.build.directory}/artifact-builder</outputDirectory>
+			                   <includes>META-INF/NODE_DEPENDENCIES.json</includes>     
+			                </artifactItem>
+			               </artifactItems>
+			               <overWriteReleases>false</overWriteReleases>
+			               <overWriteSnapshots>true</overWriteSnapshots>
+			             </configuration>
+			           </execution>
+			         </executions>
+			       </plugin>
+                    <plugin>
                         <groupId>org.codehaus.gmaven</groupId>
                         <artifactId>groovy-maven-plugin</artifactId>
                         <version>2.1.1</version>
@@ -328,7 +349,7 @@
                                         <templateDir>${project.basedir}/src/main/groovy/templates</templateDir>
                                         <outputFileName>${project.build.directory}/bonita-ui-designer-dependencies.adoc</outputFileName>
                                         <mavenLicensesFile>${project.build.directory}/generated-resources/licenses.xml</mavenLicensesFile>
-                                        <pageNodeJsDepFile>${project.basedir}/../artifact-builder/target/ui-designer-artifact-builder.json</pageNodeJsDepFile>
+                                        <pageNodeJsDepFile>${project.build.directory}/artifact-builder/META-INF/NODE_DEPENDENCIES.json</pageNodeJsDepFile>
                                         <editorNodeJsDepFile>${project.basedir}/../../frontend/ui-designer-frontend-dependencies.json</editorNodeJsDepFile>
                                     </properties>
                                     <source>${project.basedir}/src/main/groovy/dependencies-adoc.groovy</source>
@@ -345,7 +366,8 @@
                                 <groupId>org.codehaus.groovy</groupId>
                                 <artifactId>groovy-xml</artifactId>
                                 <version>${groovy.version}</version>
-                            </dependency><dependency>
+                            </dependency>
+                            <dependency>
                                 <groupId>org.codehaus.groovy</groupId>
                                 <artifactId>groovy-jaxb</artifactId>
                                 <version>${groovy.version}</version>

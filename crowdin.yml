@@ -29,7 +29,7 @@ files: [
   #
   # Where translations will be placed
   #
-  "translation" : "backend/artifact-builder/src/main/resources/i18n/%file_name%-%two_letters_code%.po",
+  "translation" : "backend/webapp/src/main/resources/i18n/%file_name%-%two_letters_code%.po",
 
   "languages_mapping" : {
      "two_letters_code" : {

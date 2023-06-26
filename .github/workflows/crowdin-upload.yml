@@ -44,9 +44,6 @@ jobs:
           cd frontend
           yarn install && npm run pot
           cd ..
-          cd backend/artifact-builder
-          yarn install && npm run pot
-          cd ../..
       - name: Concatenate pot files
         run: |
           mkdir -p infrastructure/crowdin/build
@@ -70,7 +67,7 @@ jobs:
         if: ${{ failure() }}
         uses: slackapi/slack-github-action@v1.24.0
         with:
-          channel-id: 'CFD1SMX7V'
+          channel-id: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           payload: |
             {
               "blocks": [
