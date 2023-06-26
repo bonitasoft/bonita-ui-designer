@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <spring-boot.version>2.7.12</spring-boot.version>
+        <spring-boot.version>2.7.13</spring-boot.version>
         <handlebar.version>4.3.1</handlebar.version>
         <ui-designer-artifact-builder.version>1.0.0-alpha-04</ui-designer-artifact-builder.version>
     </properties>
