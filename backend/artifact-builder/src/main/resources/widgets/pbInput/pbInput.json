@@ -96,6 +96,17 @@
       "bond": "variable"
     },
     {
+      "label": "Debounce",
+      "name": "debounce",
+      "help": "Integer value which contains the debounce model update value in milliseconds. A value of 0 triggers an immediate update. Debounce value cannot be changed once initialized.",
+      "type": "integer",
+      "defaultValue": 0,
+      "constraints": {
+        "min": "0",
+        "step": 100
+      }
+    },
+    {
       "label": "Type",
       "name": "type",
       "help": "In the context of a form container, use $form.$invalid as a Boolean to check form validity in a widget property",
