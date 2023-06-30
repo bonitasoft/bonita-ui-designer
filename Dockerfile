@@ -5,5 +5,5 @@
 FROM openjdk:11-jre-slim
 EXPOSE 8080
 WORKDIR /data
-ADD ./backend/webapp/target/ui-designer-1.15.0-SNAPSHOT.jar /data/ui-designer.jar
+ADD ./backend/webapp/target/ui-designer-1.15.14.jar /data/ui-designer.jar
 CMD java -jar ui-designer.jar -Ddesigner.experimental=true
