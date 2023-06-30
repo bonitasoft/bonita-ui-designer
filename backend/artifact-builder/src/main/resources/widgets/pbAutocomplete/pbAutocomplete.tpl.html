@@ -21,7 +21,7 @@
                 typeahead-on-select="ctrl.onSelectedCallback($item, $model, $label)"
                 typeahead-input-formatter="ctrl.formatLabel($model)"
                 ng-model="properties.value"
-                ng-model-options="ctrl.ngModelOptions || {}"
+                ng-model-options="{ allowInvalid: true }"
                 name="{{ctrl.name}}"
                 ng-required="properties.required"
                 ng-readonly="properties.readOnly">

@@ -1,14 +1,13 @@
 describe('pbInput', function () {
 
-  var $compile, scope, $timeout;
+  var $compile, scope;
 
  beforeEach(module('bonitasoft.ui.services'));
   beforeEach(module('bonitasoft.ui.widgets'));
 
-  beforeEach(inject(function (_$compile_, $rootScope, $injector) {
+  beforeEach(inject(function (_$compile_, $rootScope) {
     $compile = _$compile_;
     scope = $rootScope.$new();
-    $timeout = $injector.get('$timeout');
     scope.properties = {
       isBound: function() {
         return false;
@@ -176,9 +175,9 @@ describe('pbInput', function () {
       scope.properties.type = 'number';
       scope.properties.step = 0.5;
       var element = $compile('<pb-input></pb-input>')(scope);
-
+      
       /*
-       * This part of the test would simulate the step feature
+       * This part of the test would simulate the step feature 
        * of the input using keyup but the triggerHandler do not
        * send the correct event and the value is not updated
        *
@@ -191,23 +190,6 @@ describe('pbInput', function () {
       expect(element.find('input').attr('step')).toEqual('0.5');
 
 //      expect(scope.properties.value).toEqual(1);
-    });
-
-    it('should set a debounce value on input', function () {
-      scope.properties.debounce = 200;
-      scope.properties.value = '';
-
-      const element = $compile('<pb-input></pb-input>')(scope);
-      scope.$apply();
-
-      element.find('input').val('barfoo');
-      element.find('input').triggerHandler('input');
-
-      expect(scope.properties.value).toBe('');
-
-      $timeout.flush();
-
-      expect(scope.properties.value).toBe('barfoo');
     });
 
   });

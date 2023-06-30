@@ -94,17 +94,6 @@
       "caption": "Any variable: <i>myData</i> or <i>myData.attribute</i>",
       "type": "text",
       "bond": "variable"
-    },
-    {
-      "label": "Debounce",
-      "name": "debounce",
-      "help": "Integer value which contains the debounce model update value in milliseconds. A value of 0 triggers an immediate update. Debounce value cannot be changed once initialized.",
-      "type": "integer",
-      "defaultValue": 0,
-      "constraints": {
-        "min": "0",
-        "step": 100
-      }
     }
   ],
   "assets": [

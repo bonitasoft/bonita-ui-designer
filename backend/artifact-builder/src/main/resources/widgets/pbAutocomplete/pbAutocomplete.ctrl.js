@@ -6,8 +6,6 @@ function PbAutocompleteCtrl($scope, $parse, $log, widgetNameFactory) {
     return accessor && $parse(accessor);
   }
 
-  this.ngModelOptions = { allowInvalid: true, debounce: $scope.properties.debounce }
-
   this.getLabel = createGetter($scope.properties.displayedKey) || function (item) {
     return typeof item === 'string' ? item : JSON.stringify(item);
   };
