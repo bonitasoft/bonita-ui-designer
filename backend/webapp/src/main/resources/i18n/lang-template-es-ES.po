@@ -7,2618 +7,1902 @@ msgstr ""
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Project-ID: 13316\n"
 "X-Crowdin-Language: es-ES\n"
-"X-Crowdin-File: /extract_artifact_builder_module/ui-designer/lang-template.pot\n"
-"X-Crowdin-File-ID: 71881\n"
+"X-Crowdin-File: /dev/ui-designer/lang-template.pot\n"
+"X-Crowdin-File-ID: 61536\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
-"PO-Revision-Date: 2023-06-19 09:14\n"
+"PO-Revision-Date: 2023-06-27 04:05\n"
 
-#: assets/page-assets.html:1
 msgid "&nbsp;"
 msgstr "&nbsp;"
 
-#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
 msgid "'{{ctrl.newData.$$name}}' already exists"
 msgstr "'{{ctrl.newData.$$name}}' ya existe"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "'{{newData.$$name}}' already exists"
 msgstr "Ya se utiliza '{{newData.$$name}}'"
 
-#: editor/header/header.html:1
 msgid "(Experimental)"
 msgstr "(Experimental)"
 
-#: custom-widget/create-property.html:1
 msgid "(displayed in editor's property panel)"
 msgstr "(se muestra en el panel Propiedades del editor)"
 
-#: custom-widget/create-property.html:1
 msgid "(used in your template and controller)"
 msgstr "(utilizado en su plantilla y controller)"
 
-#: editor/header/help/help-migration.html:1
 msgid "<b>Checklist and Radiobuttons</b> internal HTML have been updated to follow some accessibility recommendation"
 msgstr "<b>Lista de control y Radiobuttons</b> HTML interno han sido actualizados para seguir algunas recomendaciones de accesibilidad"
 
-#: assets/help-popup.html:13
 msgid "<b>Note</b>: Custom-widget assets are only editable in widget editor. You can't modify them at page level to avoid side effects on other pages. So if you want to reorder custom-widget assets, please go to widget editor."
 msgstr "<b>Nota</b>: Los assets de widget personalizado sólo son editables en el editor de widget. No puede modificarlos a nivel de página para evitar efectos secundarios en otras páginas. Así que si desea reordenar los assets de widget personalizado, por favor vaya al editor de widget."
 
-#: home/help-popup.html:1
 msgid "<b>To update a form during production</b>, export the form from the UI Designer, import it into the relevant process in the portal, and then map it to the relevant task or process start event."
 msgstr "<b>Para actualizar un formulario en producción</b>, exporte el formulario desde el UI Designer, impórtelo en el proceso correspondiente en el portal y luego asígnelo a la tarea o evento de inicio de proceso."
 
-#: home/help-popup.html:1
 msgid "<b>To use a form in a process</b>, map it in the studio to the relevant process or human task. It will be automatically packaged in the .bar archive ready to deploy in the portal."
 msgstr "<b>Para utilizar un formulario en un proceso</b>, mapéalo en el Studio con el proceso o tarea humana correspondientes. Será automáticamente empaquetado en el archivo .bar y estará listo para desplegarse en el portal."
 
-#: home/help-popup.html:1
 msgid "<b>To use a layout in a business application</b>, export it from the UI Designer, import it into the portal as a resource and map it as the layout of the relevant application."
 msgstr "<b>Para utilizar un layout en una aplicación de negocio</b>, expórtalo desde el UI Designer, impórtalo en el Bonita BPM Portal como recurso y mapéalo en el layout de la aplicación correspondiente."
 
-#: home/help-popup.html:1
 msgid "<b>To use a page in a business application</b>, export it from the UI Designer, import it into Bonita Portal resources, and from the relevant application, add it to the list of pages and to a navigation menu."
 msgstr "<b>Para utilizar una página en una aplicación de negocio</b>, expórtala desde el UI Designer, impórtala en el Bonita Portal como recurso y añádela a la lista de páginas y de menús de la aplicación correspondiente."
 
-#: home/help-popup.html:1
 msgid "<b>UI Designer version</b>: {{ctrl.getUidVersion()}} - <b>Model version</b>: {{ctrl.getModelVersion()}}"
 msgstr "<b>UI Designer versión</b>: {{ctrl.getUidVersion()}} - <b>Model versión</b>: {{ctrl.getModelVersion()}}"
 
-#: editor/header/migrationReport/migration-report-popup.controller.html:1
 msgid "<b>{{ctrl.artifact.name}}</b> successfully migrated."
 msgstr "<b>{{ctrl.artifact.name}}</b> migrado correctamente."
 
-#: editor/header/migrationReport/migration-report-popup.controller.html:1
 msgid "<b>{{ctrl.artifact.name}}</b> was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to <b>{{ctrl.migrationReport.newArtifactVersion}}</b> with some warning."
 msgstr "<b>{{ctrl.artifact.name}}</b> fue migrado de <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> a <b>{{ctrl.migrationReport.newArtifactVersion}}</b> con alguna advertencia."
 
-#: confirm-popup/confirm-migrate-popup.html:1
 msgid "<b>{{ctrl.artifact}}</b> {{ctrl.type}} has been created in an older version of the UI Designer. It needs to be migrated to the current version to be used with the latest features. This migration is automatic. <br> Note that once migrated, the page cannot be brought back to its previous state, and cannot be used in a previous version of the UI Designer."
 msgstr "<b>{{ctrl.artifact}}</b> {{ctrl.type}} ha sido creado en una versión anterior del UI Designer. Necesita ser migrado a la versión actual para ser utilizado con las últimas características. Esta migración es automática. <br> Tenga en cuenta que una vez migrada, la página no puede ser traída de vuelta a su estado anterior, y no puede ser utilizada en una versión anterior del UI Designer."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "<code>context</code> is an External API."
 msgstr "<code>context</code> es una External API."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "<code>formInput</code> is a JSON object. <br>Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. <br>You can set the values in <code>formInput</code> either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). <br>You can also set the initial values of a form from some other source without using <code>formInput</code>. However, you will then have to edit <code>formOutput</code> manually."
 msgstr "<code>formInput</code> es un objeto JSON. <br>Su estructura está definida por las entradas de contrato y los atributos se inicializan con los valores predeterminados. Podría ser utilizado para establecer los valores iniciales de los campos del formulario. <br>Se pueden establecer los valores en <code>formInput</code> ya sea editando los valores predeterminado con valores constantes (útiles para prueba y depuración) o con valores de un objeto en una fuente externa que tenga el mismo modelo (como con una API externa BDM). <br>También se pueden establecer los valores iniciales de un formulario desde alguna otra fuente sin utilizar <code>formInput</code>. Sin embargo, entonces tendrás que editar <code>formOutput</code> manualmente."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "<code>formOutput</code> is a JavaScript expression returning an object. <br>Its structure matches the contract requirements and is filled with <code>formInput</code> by default. Its goal is to aggregate the fields from the form and to submit them to the task or process to fulfil the contract. On Submit, values entered or modified by the end-user and aggregated in the <code>formOutput</code> object (as defined by the <i>Data sent on click</i> property of the Submit button) are submitted to the process or task"
 msgstr "<code>formOutput</code> es una expresión de JavaScript que devuelve un objeto. <br>Su estructura coincide con los requisitos del contrato y está rellenada con el <code>formInput</code> por defecto. Su objetivo es agregar los campos del formulario y enviarlos a la tarea o proceso para cumplir con el contrato. Al Enviar, los valores añadidos o modificados por el usuario final y agregados en el objeto <code>formOutput</code> (como se define en <i>Datos enviados al hacer clic</i>, propiedad del botón de Enviar) se envían al proceso o a la tarea"
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "<code>submit_errors_list</code> is a JavaScript expression formatting the response payload to html when a submit fails."
 msgstr "<code>submit_errors_list</code> es una expresión JavaScript formateando el payload de la respuesta a html cuando un envío falla."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "<code>taskId</code> is a URL Parameter. <br>It is the id of the current BPM task. You can use it as a BPM API parameter."
 msgstr "<code>taskId</code> es un parámetro de URL. <br>Es el id de la tarea actual de BPM. Se puede utilizar como un parámetro de la API de BPM."
 
-#: editor/header/help/help-popup.html:1
 msgid "<em><b>Example</b></em>: use the key <em>button.submit.name</em> on the <b>Label</b> property of a submit button. Use the key <em>date.format</em> on the <b>Date format</b> property and <em>date.placeholder</em> on the <b>Placeholder</b> property on a Date Picker widget. Then, change the <em>localization.json</em> asset to add the <em>button.submit.name</em>, <em>date.format</em> in English, <em>date.placeholder</em> translations."
 msgstr "<em><b>Ejemplo</b></em>: Utilice la clave <em>button.submit.name</em> en la propiedad <b>Etiqueta</b> del botón Enviar. Use la clave <em>date.format</em> en la propiedad <b>formato de fecha</b> y <em>date.placeholder</em> en la propiedad de <b>placeholder</b> en un widget selector de fecha (datepicker). Luego, cambie el recurso <em>localization.json</em> para agregar las traducciones en inglés de <em>button.submit.name</em>, <em>date.format</em>, <em>date.placeholder</em>."
 
-#: editor/header/help/help-popup.html:1
 msgid "<em>Note about the</em> Date Picker <em>and</em> Date Time Picker <em>widgets:</em> the <em>Placeholder</em> property translations must match the <em>Technical format</em> property values (order and number of letters). However, the <em>Placeholder</em> key should be different from the <em>Technical format</em> key to avoid translations mismatches."
 msgstr "<em>Nota sobre los widgets</em> Selector de fecha <em>y</em> Selector de fecha y hora <em>:</em> las traducciones de la propiedad de <em>Placeholder</em> deben coincidir con el valor de las propiedades <em>Formato de fecha</em> (orden y número de letras). Sin embargo, la clave <em>Placeholder</em> debe ser diferente de la clave <em>Formato técnico de fecha</em> para evitar desajustes de las traducciones."
 
-#: assets/l10n-asset-form.html:1
 msgid "<i class=\"fa fa-warning\"></i>&nbsp;By convention, the file has to be named <em>localization.json</em>"
 msgstr "<i class=\"fa fa-warning\"></i>&nbsp;Por Convención, el archivo tiene que llamarse <em>localization.json</em>"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "<p><span class=\"tip\">Tips:</span></p> <ul> <li translate>To get data from the <i>Business Data Model</i>, please use the Business data variable type. </li> <li translate>You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax. </li> <li translate>You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here. </li> <li translate>You can retrieve the Status Code or Response Headers with a usual variable binding and use it in the artifact. </li> </ul>"
 msgstr "<p><span class=\"tip\">Consejos:</span></p> <ul> <li translate>Para obtener datos del <i>Modelo de Datos de Negocio</i>, por favor utilice el tipo de variable de datos de negocio. </li> <li translate>Puede utilizar datos en la URL con la sintaxis <i><em ng-non-bindable>{{dataName}}</em></i> . </li> <li translate>Puedes ampliar nuestras capacidades de la API REST creando extensiones de la API REST en el Studio y usarlas aquí. </li> <li translate>Puede recuperar el código de estado o las cabeceras de la respuesta con una variable normal y usarlo en el artefacto. </li> </ul>"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "<span class=\"tip\">Tip:</span> Array syntax: [\"val1\", \"val2\"], Object syntax: {\"key\": \"value\"}"
 msgstr "<span class=\"tip\"> Consejo:</span> Sintaxis Array : [\"val1\", \"val2\"], Sintaxis Object:  {\"clave\": \"valor\"}"
 
-#: editor/bottom-panel/data-panel/data-popup.html:10
 msgid "<span class=\"tip\">Tip:</span> Hit <span class=\"key\">$</span> key to access data, use ctrl-space to trigger autocomplete."
 msgstr "<span class=\"tip\"> Consejo:</span> Teclea<span class=\"key\"> $</span> para acceder a los datos, utilizar ctrl-espacio para desencadenar el auto-completado."
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "<span class=\"tip\">Tip:</span> URL parameters are located after a <em>?</em> in the page URL."
 msgstr "<span class=\"tip\"> Consejo:</span> El parámetro de URL se encuentran después de un <em>?</em> en la Url de la página."
 
-#: assets/table/asset-section.html:1
 msgid "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 msgstr "<span ng-class=\"vm.type.value ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'\"></span> <translate>{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})</translate>"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "<span>Create a new variable</span>"
 msgstr "<span>Crear una nueva variable</span>"
 
-#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
 msgid "<span>Declare Bonita resource</span>"
 msgstr "<span>Declarar recurso Bonita</span>"
 
-#: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "<strong>$collection</strong>: the current collection"
 msgstr "<strong>$collection</strong>: la colección actual"
 
-#: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "<strong>$index</strong>: the index of the current iteration of the collection (counting from zero)"
 msgstr "<strong>$index</strong>: el índice de la iteración actual de la colección (contando desde cero)"
 
-#: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "<strong>$item</strong>: the element of the current iteration"
 msgstr "<strong>$item</strong>: el elemento de la iteración actual"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "<strong>{{newData.businessObject.name}}</strong> doesn't exist in the Business Data Model currently deployed."
 msgstr ". <strong>{{newData.businessObject.name}}</strong> no existe en el Modelo de Datos de Negocio actualmente desplegado."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "A Business data variable is reloaded every time the filter value changes."
 msgstr "Una variable de datos de negocio se recarga cada vez que el valor del filtro cambia."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "A binding is dynamic, so every time data changes, all variables are re-evaluated and the UI is updated. In consequence:"
 msgstr "Un enlace es dinámico, por lo que cada vez que cambian los datos, todas las variables son reevaluadas y el UI se actualiza. En consecuencia:"
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "A configuration wizard appears: create a Business Data variable by providing information on how to retrieve elements of this Business Object."
 msgstr "Aparecerá un asistente de configuración: cree una variable Business Data proporcionando información sobre cómo recuperar elementos de este Business Object."
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "A filter area is displayed, depending on your selection, you may have to enter one or several attribute values. You can use a variable to fill its value using interpolation syntax."
 msgstr "Se muestra un área de filtro, dependiendo de su selección, puede que tenga que introducir valores en uno o varios atributos. Puede utilizar una variable como valor usando la sintaxis de interpolación."
 
-#: assets/help-popup.html:1
 msgid "A local asset name must not contain special characters or spaces. An external asset name must be a standard URL."
 msgstr "El nombre de un recurso local no debe contener espacios o caracteres especiales. Un nombre de recurso externo debe ser una URL estándar."
 
-#: editor/whiteboard/container.html:1
 msgid "A modal container cannot be located in another container. Recommendation: drop all modal containers at the bottom of the whiteboard."
 msgstr "Un contenedor modal no se puede ubicar en otro contenedor. Recomendación: coloca todos los contenedores modales en la parte inferior de la pizarra."
 
-#: home/help-popup.html:1
 msgid "A new widget is now available to display our data with currency"
 msgstr "Un nuevo widget está ahora disponible para mostrar nuestros datos con moneda"
 
-#: editor/properties-panel/help/constant-bond-help.html:1
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "Una propiedad que requiere un valor constante se presenta en el panel de propiedades como un grupo de radio buttons, lista desplegable o selector de números (para la propiedad Width). Selecciona el valor deseado."
 
-#: editor/properties-panel/help/description-bond-help.html:1
 msgid "A property value is constant, dynamic, a bidirectional bond, or an interpolation."
 msgstr "Un valor de propiedad es constante, dinámico, de un vínculo bidireccional o una interpolación."
 
-#: home/import/import-error-messages.service.js:13
 msgid "A server error occurred."
 msgstr "Se produjo un error de servidor."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "A variable initialized with a JavaScript expression is executed when the page is loaded. Then, when one of its dependencies changes, its value is updated. Dependencies are created using <code>$data.XXX</code>."
 msgstr "Una variable que se inicializa con una expresión de JavaScript se ejecuta cuando se carga la página. Entonces, cuando una de sus dependencias cambia, se actualiza su valor. Las dependencias se crean utilizando <code>$data.XXX</code>."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "A variable initialized with an External API is reloaded every time the URL value changes."
 msgstr "Una variable inicializada con una API externa se vuelve a cargar cada vez que cambia el valor de URL."
 
-#: home/import/import-report-popup.html:1
 msgid "A {{ ::importReport.overwrittenType }} with the same Id as <strong>{{ ::importReport.name }}</strong> already exists."
 msgstr "Un {{ ::importReport.overwrittenType }} con el mismo Id que <strong>{{ ::importReport.name }}</strong> ya existe."
 
-#: home/import/import-report-popup.html:1
 msgid "A {{ ::importReport.overwrittenType }} with the same identifier as <strong>{{ ::importReport.name }}</strong> already exists."
 msgstr "Un {{ ::importReport.overwrittenType }} con el mismo identificador que <strong>{{ ::importReport.name }}</strong> ya existe."
 
-#: assets/asset-popup.controller.js:113
 msgid "A {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "Un recurso externo {{type}} con nombre <em>{{ name }}</em> ya ha sido agregado."
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "API URL"
 msgstr "API URL"
 
-#: home/help-popup.html:1
 msgid "API Variables response Metadata usage"
 msgstr "Uso de los metadatos de la respuesta de las variables API"
 
-#: editor/header/help/help-popup.html:1
 msgid "Access to $form capabilities for form container"
 msgstr "Acceso a capacidades $form desde el contenedor de formularios"
 
-#: home/help-popup.html:1
 msgid "Accessibility"
 msgstr "Accesibilidad"
 
-#: assets/page-assets.html:1
 msgid "Active"
 msgstr "Activo"
 
-#: assets/widget-assets.html:1
 msgid "Add"
 msgstr "Añadir"
 
-#: assets/help-popup.html:1
 msgid "Add CSS assets at page level and use them to edit the CSS classes property of any widget. (UI Designer integrates default Bootstrap style)"
 msgstr "Añadir recursos CSS a nivel de página y utilizar para modificar la propiedad de las clases CSS de cualquier widget. ( El UI Designer integra el estilo por defecto de Bootstrap)"
 
-#: assets/help-popup.html:1
 msgid "Add JavaScript assets for custom scripts. They will be loaded and made available at page level. You can use them in variables of type JavaScript expression. In the value field of the variable, simply call the function and pass the required parameters."
 msgstr "Añada recursos JavaScript para scripts personalizados. Serán cargados y estarán disponibles a nivel de página. Se pueden utilizar en las variables de tipo Expresión JavaScript. En el campo de valor de la variable, simplemente llame a la función y pase los parámetros requeridos."
 
-#: assets/asset-popup.html:1 assets/page-assets.html:1
 msgid "Add a new asset"
 msgstr "Añadir un nuevo asset"
 
-#: editor/whiteboard/tabs-container.html:1
 msgid "Add a new tab"
 msgstr "Añadir una pestaña nueva"
 
-#: editor/header/help/help-popup.html:1
 msgid "Add images, CSS or JavaScript resources to your pages in the Assets panel at the bottom."
 msgstr "Añade recursos de imágenes, CSS o JavaScript a tus páginas en la parte inferior del panel de Recursos."
 
-#: home/import/import-success-message.html:1
 msgid "Added artifacts"
 msgstr "Artefactos agregados"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Advanced options"
 msgstr "Opciones Avanzadas"
 
-#: editor/header/help/help-popup.html:1
 msgid "All <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\">angularJS filters</a> are available. Usage requires the use of <code>|</code> (\"pipe\"). E.g. <code>myVariable|lowercase</code>."
 msgstr "Todos los <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter\" target=\"_blank\"> filtros angularJS</a> están disponibles. Para su utilización, use <code>|</code> (\"pipe\"). Por ejemplo, <code>myVariable | lowercase</code>."
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:40
 msgid "All process data of a case: Search for a list of case variables"
 msgstr "Datos de proceso de un caso:  Buscar con una lista de variables de caso"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Already adding from automatic detection, could be deleted"
 msgstr "Ya añadiendo desde detección automática, se pudo eliminar"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Already declared from another automatic declaration, could be deleted"
 msgstr "Ya declarado de otra declaración automática, podría ser eliminado"
 
-#: home/help-popup.html:1
 msgid "An artifact designed with the UI Designer can be exported to be shared with teammates (import in the UI Designer) or used in business applications (import in Bonita Portal)."
 msgstr "Un artefacto diseñado con el UI Designer puede ser exportado para ser compartido con compañeros de equipo (importar desde el UI Designer) o utilizado en aplicaciones de negocio (importar desde Bonita Portal)."
 
-#: home/help-popup.html:1
 msgid "An attribute <code>lang</code> is now available. The attribute is based on the <code>BOS_locale</code> cookies at page initialization and will automatically get filled without any user action."
 msgstr "Un atributo <code>lang</code> ya está disponible. El atributo se basa en las cookies <code>BOS_locale</code> en la inicialización de la página y se rellenará automáticamente sin ninguna acción del usuario."
 
-#: editor/header/migrationReport/migration-report-popup.controller.html:1
 msgid "An errors occurs during migration."
 msgstr "Ha ocurrido un error durante la validación."
 
-#: assets/asset-popup.controller.js:111
 msgid "An {{type}} asset named <em>{{ name }}</em> is already added to assets."
 msgstr "Un recurso externo {{type}} con nombre <em>{{ name }}</em> ya ha sido agregado."
 
-#: home/help-popup.html:1
 msgid "AngularJs 1.8"
 msgstr "AngularJs 1.8"
 
-#: editor/common/properties.service.js:32
 msgid "Any accessible CSS classes. By default UI Designer comes with Bootstrap http://getbootstrap.com/css/#helper-classes"
 msgstr "Cualquier clase CSS accesible. Por defecto, el UI Designer viene con Bootstrap http://getbootstrap.com/css/#helper-classes"
 
-#: home/artifact-factory.service.js:43
 msgid "Application layout"
 msgstr "Layout de la aplicación"
 
-#: editor/header/convert-popup.controller.js:13
-#: editor/header/save-as-popup.controller.js:13
-#: home/artifact-factory.service.js:28
 msgid "Application page"
 msgstr "Página de la aplicación"
 
-#: editor/properties-panel/help/dynamic-bond-help.html:1
 msgid "Apply a filter to the value of a variable: <em>selectedUser | json</em>"
 msgstr "Aplica un filtro en el valor de una variable: <em>selectedUser | json</em>"
 
-#: confirm-delete/confirm-delete-popup.html:1
 msgid "Are you sure you want to delete <b>{{ctrl.artifact}}</b> {{ctrl.type}} ?"
 msgstr "¿Estás seguro de eliminar el <b>{{ctrl.artifact}}</b> {{ctrl.type}}?"
 
-#: home/artifact-list/confirm-deletion-popup.html:1
 msgid "Are you sure you want to delete the {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 msgstr "¿Estás seguro de eliminar el {{ artifact.type }} <b>{{ artifact.name }}</b>?"
 
-#: home/help-popup.html:1
 msgid "Artifact creation:"
 msgstr "Creación de artefactos:"
 
-#: assets/malformed-json-error-message.html:1
 msgid "Asset has not been saved"
 msgstr "No se ha guardado el asset"
 
-#: assets/help-popup.html:13
 msgid "Asset list"
 msgstr "Lista de recursos"
 
-#: assets/help-popup.html:13
 msgid "Asset reordering"
 msgstr "Reordenación de assets"
 
-#: assets/help-popup.html:1 assets/help-popup.html:13
 msgid "Asset use"
 msgstr "Uso de recursos"
 
-#: assets/widget-assets.html:1 editor/bottom-panel/bottom-panel.directive.js:39
 msgid "Assets"
 msgstr "Recursos"
 
-#: assets/help-popup.html:1
 msgid "Assets enable you to add web resources to pages and forms. Available asset types are <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>Image</strong> and <strong>Localization</strong>. Assets can be <strong>Local</strong> (file stored into the page artifact) or External (URL). The Localization asset is always local."
 msgstr "Los recursos externos te permiten añadir recursos web a páginas y formularios. Los tipos disponibles son <strong>JavaScript</strong>, <strong>CSS</strong>, <strong>imagen</strong> y <strong>Localization </strong>. Los recursos externos pueden ser <strong>Locales</strong> (archivos almacenados en el artefacto de la página) o Externos (URL). El recurso Localization siempre es local."
 
-#: assets/help-popup.html:13
 msgid "At runtime, CSS and JavaScript assets are loaded in the page header. This loading is done as it's represented in this list, CSS first then Javascript. All assets are loaded in order they are listed, widget assets before page assets (in alphabetical order of the widgets name)."
 msgstr "En tiempo de ejecución, los assets CSS y JavaScript se cargan en la cabecera de la página. Esta carga se hace como está representada en esta lista, CSS primero después Javascript. Todos los assets se cargan para que se listen, los assets de widget antes de los assets de la página (en orden alfabético del nombre de los widgets)."
 
-#: assets/help-popup.html:13
 msgid "At runtime, assets of a custom widget are loaded in the order defined."
 msgstr "En tiempo de ejecución, los recursos de un widget personalizado se cargan en el orden definido."
 
-#: editor/header/export-popup.html:1
 msgid "Attention:"
 msgstr "Atención:"
 
-#: editor/bottom-panel/web-resources-panel/help-popup.html:1
 msgid "Automatic detection"
 msgstr "Detección automática"
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "Available variables types are string and JSON (static), and External API, Business data, JavaScript expression, and URL parameter (dynamic)."
 msgstr "Los tipos de variables disponibles son string y JSON (estático), y API externa, Business data, expresión JavaScript y parámetro URL (dinámico)."
 
-#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
 msgid "Back"
 msgstr "Atrás"
 
-#: common/directives/expand-modal.directive.js:33
 msgid "Back to default size"
 msgstr "Regresar al tamaño predeterminado"
 
-#: assets/table/asset-section.html:1
 msgid "Base framework"
 msgstr "Framework Base"
 
-#: editor/properties-panel/help/property-bond-help.html:1
 msgid "Bidirectional bond"
 msgstr "Enlace bidireccional"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Bind these options to a UI-Designer variable and use them in your artifact."
 msgstr "Vincula estas opciones a una variable UI Designer y úsalas en tu artefacto."
 
-#: editor/properties-panel/fragment/fragment-properties-template.html:1
 msgid "Bindable fragment data"
 msgstr "Datos de fragmento enlazable"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Bonita Resource is automatically declared"
 msgstr "El recurso Bonita se declara automáticamente"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Bonita Resource manually declared by user"
 msgstr "Recursos de Bonita declarados manualmente por el usuario"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.controller.js:127
 msgid "Bonita resource"
 msgstr "Recursos de Bonita"
 
-#: custom-widget/custom-widget-editor.html:1
-#: editor/bottom-panel/bottom-panel.directive.js:49
-#: editor/header/metadata-popup.html:2 home/help-popup.html:1
 msgid "Bonita resources"
 msgstr "Recursos de Bonita"
 
-#: editor/properties-panel/fragment/fragment-data-binding-field.html:1
 msgid "Bound data"
 msgstr "Variables enlazadas"
 
-#: editor/bottom-panel/data-panel/data-type.service.js:35
 msgid "Business data"
 msgstr "Datos de negocio"
 
-#: editor/header/help/help-popup.html:1
 msgid "By convention, in <em>localization.json</em>, the language used for translation keys is English. This means that in the editor whiteboard, any widget default text is currently in English. However, to ease maintenance and update of the UI artifacts in English, you can change the keys into code names and add an <b>en-US</b> section in the <em>localization.json</em> asset file."
 msgstr "Por convenio, en <em>localization.json</em>, el lenguaje utilizado para las claves de traducción es el inglés. Esto significa que en la pizarra del editor, el texto predeterminado de cualquier widget está actualmente en inglés. Sin embargo, para facilitar el mantenimiento y actualización de los artefactos del UI Designer en inglés, puede cambiar las claves con código de nombres y añadir una sección de <b>en-US</b> en el recurso <em>localization.json</em>."
 
-#: assets/help-popup.html:13
 msgid "By default, only page assets are displayed. To display others scopes assets, we should check Widget or Base Framework checkbox."
 msgstr "Por defecto, sólo se muestran los assets de páginas. Para mostrar otros scopes activos, debemos marcar la casilla Widget o Base Framework."
 
-#: editor/common/properties.service.js:26
 msgid "CSS classes"
 msgstr "Clases CSS"
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:75
 msgid "Call a business data (custom) query"
 msgstr "Llama a una query (personalizada) de variables de negocio"
 
-#: custom-widget/create-property.html:2
 msgid "Can be used to define the expected input format"
 msgstr "Puede utilizarse para definir el formato de entrada previsto"
 
-#: assets/asset-popup.html:1 assets/asset-preview-popup.html:1
-#: confirm-delete/confirm-delete-popup.html:1
-#: confirm-popup/confirm-migrate-popup.html:1
-#: custom-widget/create-property.html:2 custom-widget/save-as-popup.html:1
-#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
-#: editor/bottom-panel/data-panel/data-popup.html:12
-#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
-#: editor/header/convert-popup.html:1 editor/header/export-popup.html:1
-#: editor/header/metadata-popup.html:2 editor/header/save-as-popup.html:1
-#: editor/properties-panel/fragment/fragment-save-popup.html:1
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
-#: home/artifact-list/artifact-list.directive.js:38
-#: home/artifact-list/confirm-deletion-popup.html:1
-#: home/create/create-popover.html:1 home/import/import-popover.html:1
-#: home/import/import-report-popup.html:1
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: custom-widget/create-property.html:2
 msgid "Caption"
 msgstr "Nombre"
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:29
 msgid "Case identifier could then be retrieved by {{myData.rootCaseId}}"
 msgstr "El identificador del Caso podría recuperarse con {{myVar.rootCaseId}}"
 
-#: preview/open-preview.html:1
 msgid "Changes need to be saved to enable the preview"
 msgstr "Se requiere guardar los cambios para habilitar la vista previa"
 
-#: home/import/import-error-messages.service.js:33
 msgid "Check that the json file structure matches a standard UI Designer export."
 msgstr "Compruebe que la estructura del archivo json coincide con el archivo estándar del UI Designer exportado."
 
-#: home/import/import-error-messages.service.js:22
 msgid "Check that the zip archive contains one of following files {{ infos.modelfiles }}."
 msgstr "Compruebe que el archivo zip contiene uno de los siguientes archivos {{ infos.modelfiles }}."
 
-#: home/import/import-error-messages.service.js:18
 msgid "Check that the zip archive contains the file {{ infos.modelfile }}."
 msgstr "Compruebe que el archivo zip contiene el archivo {{ infos.modelfile }}."
 
-#: home/import/import-error-messages.service.js:26
 msgid "Check that the zip file structure matches a standard UI Designer export."
 msgstr "Compruebe que la estructura del archivo zip coincide con el archivo estándar del UI Designer exportado."
 
-#: home/import/import-error-messages.service.js:14
 msgid "Check the log files"
 msgstr "Compruebe los archivos de log"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Choices"
 msgstr "opciones"
 
-#: custom-widget/create-property.html:2
 msgid "Choices (comma separated)"
 msgstr "Opciones (separadas por comas)"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Choose a business object"
 msgstr "Elija un objeto de negocio"
 
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
 msgid "Clear"
 msgstr "Limpiar"
 
-#: common/directives/search/search.html:1
 msgid "Clear search"
 msgstr "Limpiar búsqueda"
 
-#: assets/generic-asset-form.html:1 assets/l10n-asset-form.html:1
 msgid "Click <em>Add</em> to override."
 msgstr "Haga clic en <em>Añadir</em> para sobreescribir."
 
-#: editor/header/header.html:1
 msgid "Click to see migration report"
 msgstr "Haga clic para ver el informe de migración"
 
-#: assets/asset-edit-popup.html:1 assets/help-popup.html:19
-#: custom-widget/help-popup.html:1
-#: editor/bottom-panel/data-panel/help-popup.html:1
-#: editor/bottom-panel/web-resources-panel/help-popup.html:1
-#: editor/header/help/help-popup.html:23
-#: editor/header/migrationReport/migration-report-popup.controller.html:1
-#: editor/palette/data-model-help-popup.html:1
-#: editor/whiteboard/switchComponent/not-supported-browser-popup.html:1
-#: home/artifact-list/alert-deletion-notpossible-popup.html:1
-#: home/help-popup.html:1
 msgid "Close"
 msgstr "Cerrar"
 
-#: custom-widget/custom-widget-editor.controller.js:29
 msgid "Code"
 msgstr "Código"
 
-#: home/help-popup.html:1
 msgid "Community edition features"
 msgstr "Características de edición comunitaria"
 
-#: editor/header/help/help-popup.html:1
 msgid "Configure widgets using the <b>properties panel</b> on the right."
 msgstr "Configura los widgets mediante el <b>panel de propiedades</b> de la derecha."
 
-#: confirm-delete/confirm-delete-popup.html:1
-#: home/artifact-list/confirm-deletion-popup.html:1
 msgid "Confirm deletion"
 msgstr "Confirmar eliminación"
 
-#: editor/properties-panel/help/property-bond-help.html:1
 msgid "Constant"
 msgstr "Constante"
 
-#: editor/header/help/help-popup.html:1
 msgid "Containers"
 msgstr "Contenedores"
 
-#: custom-widget/custom-widget-editor.controller.js:59
 msgid "Containers cannot be edited."
 msgstr "No se pueden editar los contenedores."
 
-#: editor/header/help/help-popup.html:1
 msgid "Containers cannot be switched."
 msgstr "No se pueden cambiar los contenedores."
 
-#: custom-widget/custom-widget-editor.html:1 custom-widget/help-popup.html:1
 msgid "Controller"
 msgstr "Controller"
 
-#: custom-widget/help-popup.html:1
 msgid "Controller can be left empty if not needed."
 msgstr "El controlador puede dejarse vacío si no es necesario."
 
-#: editor/header/header.html:1
 msgid "Convert to ..."
 msgstr "Convertir a..."
 
-#: editor/header/convert-popup.html:1
 msgid "Convert {{ctrl.page.name}}"
 msgstr "Convertir {{ctrl.page.name}}"
 
-#: home/import/import-error-messages.service.js:29
 msgid "Corrupted zip archive."
 msgstr "El archivo zip está corrupto."
 
-#: custom-widget/custom-widget-editor.html:1 home/create/create-popover.html:1
-#: home/create/home-create.html:1
 msgid "Create"
 msgstr "Crear"
 
-#: assets/help-popup.html:19
 msgid "Create a JSON variable named <code>updateDate</code> to hold a timestamp as a number"
 msgstr "Crea una variable JSON llamada <code>updateDate</code> para mantener un timestamp como un número"
 
-#: assets/help-popup.html:13
 msgid "Create a JavaScript file named <code>date-ago-filter.js</code> that updates the <code>bonitasoft.ui.extensions</code> module with the filter:"
 msgstr "Crear un archivo JavaScript denominado <code>date-ago-filter.js</code> que actualiza el módulo <code>bonitasoft.ui.extensions</code> con el filtro:"
 
-#: home/help-popup.html:1
 msgid "Create a fragment to reuse the same group of widgets with the same behavior in several pages or forms."
 msgstr "Crea un fragmento para reutilizar el mismo grupo de widgets con el mismo comportamiento en varias páginas o formularios."
 
-#: home/create/home-create.html:1
 msgid "Create a new UI Designer artifact"
 msgstr "Crear un nuevo artefacto de UI Designer"
 
-#: editor/bottom-panel/data-panel/data.html:1
 msgid "Create a new variable"
 msgstr "Crear una nueva variable"
 
-#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
 msgid "Create a user interface to handle \"{{ctrl.businessData.name}}\""
 msgstr "Crear una interfaz de usuario para manejar \"{{ctrl.businessData.name}}\""
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "Create a variable here. Using the variable in a widget property depends on the property value type, described in the page editor general help, in the <i>Properties</i> section."
 msgstr "Cree una variable aquí. Usar la variable en una propiedad de widget depende del tipo de valor de la propiedad, que se describe en la ayuda general del editor de la página, en la sección <i>Propiedades</i>."
 
-#: editor/header/help/help-popup.html:1
 msgid "Create a variable in the bottom panel. Using a variable in a widget property depends on the property value type, described in the next section."
 msgstr "Cree una variable en el panel inferior. Utilizar una variable en una propiedad de widget depende del tipo de valor de propiedad, descrito en la sección siguiente."
 
-#: home/help-popup.html:1
 msgid "Create an <b>application page</b> directly in the UI Designer"
 msgstr "Crear una <b>Página de aplicación</b> directamente en el UI Designer"
 
-#: home/create/create-popover.html:1
 msgid "Create new artifact"
 msgstr "Crear un nuevo artefacto"
 
-#: custom-widget/create-property.html:1
 msgid "Create new property"
 msgstr "Crear nueva propiedad"
 
-#: editor/header/help/help-popup.html:1
 msgid "Create variables in the Variables panel at the bottom, and use them to edit the widget properties."
 msgstr "Crea variables en el panel de Variables en la parte inferior y úsalas para editar las propiedades del widget."
 
-#: home/artifact-list/artifact-list.directive.js:186
 msgid "Created with an older version of UI Designer. Open it for more details."
 msgstr "Creado con una versión anterior de UI Designer. Ábrela para más detalles."
 
-#: home/help-popup.html:1
 msgid "Currency input widget"
 msgstr "Widget de entrada de moneda"
 
-#: assets/help-popup.html:13
 msgid "Custom services"
 msgstr "Servicios personalizados"
 
-#: home/artifact-factory.service.js:50
 msgid "Custom widget"
 msgstr "Widget personalizado"
 
-#: home/artifact-factory.service.js:51
 msgid "Custom widgets"
 msgstr "Widgets personalizados"
 
-#: custom-widget/help-popup.html:1
 msgid "Custom widgets are not clearly visible on the whiteboard but you can see them with the preview."
 msgstr "Los widgets personalizados no son claramente visibles en la pizarra pero puedes verlos con la vista previa."
 
-#: editor/bottom-panel/data-panel/data-type.service.js:35
 msgid "Data Management"
 msgstr "Data Management"
 
-#: editor/header/help/help-popup.html:1
 msgid "Date filter"
 msgstr "Filtro de fecha"
 
-#: editor/header/help/help-popup.html:1
 msgid "Date formats are localized by default. Localized formats can be edited in <em>localization.json</em> (refer to the <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\">localization section</a>)."
 msgstr "Por defecto, los formatos de fecha están localizados. Los formatos localizados se pueden editar en <em>localization.json</em> (consulte la <a href=\"javascript:void(0);\" ng-click=\"tabContainer.activeTab = 'localization'\"> sección de localización</a> <translate>).</translate>."
 
-#: editor/header/help/help-popup.html:1
 msgid "Date object"
 msgstr "Objetos Date"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Declaration"
 msgstr "Declaración"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Declare a Bonita resource"
 msgstr "Declarar recurso Bonita"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Declare the Bonita REST API resources used in this widget."
 msgstr "Declara los recursos de la API de Bonita REST utilizados en este widget."
 
-#: custom-widget/create-property.html:2
 msgid "Default"
 msgstr "Por defecto"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Default value"
 msgstr "Valor predeterminado"
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "Default variables"
 msgstr "Variables por defecto"
 
-#: editor/properties-panel/help/dynamic-bond-help.html:1
 msgid "Define a condition for widget visibility, <em>userAge &gt; 18</em>"
 msgstr "Define una condición para la visibilidad del widget, <em>userAge > 18</em>"
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "Define how to retrieve Business Object"
 msgstr "Definir cómo recuperar el Business Object"
 
-#: editor/properties-panel/help/dynamic-bond-help.html:1
 msgid "Define table headers as the value of a variable: <em>myArrayVariable</em>"
 msgstr "Define las cabeceras de la tabla como el valor de una variable: <em>myArrayVariable</em>"
 
-#: confirm-delete/confirm-delete-popup.html:1
-#: home/artifact-list/artifact-list.directive.js:35
-#: home/artifact-list/confirm-deletion-popup.html:1
 msgid "Delete"
 msgstr "Eliminar"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Delete Bonita resource"
 msgstr "Declarar recurso Bonita"
 
-#: assets/table/asset-section.html:1 assets/widget-assets.html:1
 msgid "Delete asset"
 msgstr "Borra el recurso"
 
-#: editor/bottom-panel/data-panel/data.html:1
 msgid "Delete variable"
 msgstr "Eliminar variable"
 
-#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "Deletion is not possible"
 msgstr "La eliminación no es posible"
 
-#: custom-widget/create-property.html:1
 msgid "Describes the property"
 msgstr "Describe la propiedad"
 
-#: custom-widget/custom-widget-editor.html:1
-#: editor/header/metadata-popup.html:1
-#: editor/properties-panel/common-properties-template.html:1
 msgid "Description"
 msgstr "Descripción"
 
-#: home/import/import-report-popup.html:1
 msgid "Details"
 msgstr "Detalles"
 
-#: assets/asset-edit-popup.html:1
 msgid "Discard changes"
 msgstr "Descartar los cambios"
 
-#: editor/header/metadata-popup.html:1
 msgid "Display name"
 msgstr "Mostrar nombre"
 
-#: confirm-popup/confirm-migrate-popup.html:1 editor/header/export-popup.html:1
 msgid "Do not show me this dialog again"
 msgstr "No mostrar este cuadro de diálogo nuevo"
 
-#: home/import/import-report-popup.html:1
 msgid "Do you still want to import this {{ ::importReport.type }} now ?"
 msgstr "¿Todavía desea importar esta {{ ::importReport.type }} ?"
 
-#: assets/table/asset-section.html:1 assets/widget-assets.html:1
 msgid "Download asset"
 msgstr "Descargar recursos externos"
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "Drag and drop a Business Object in the whiteboard or create a new variable of type Business Data."
 msgstr "Arrastra y suelta un Business Object en el whiteboard o crea una nueva variable de tipo de Business Data."
 
-#: editor/header/help/help-popup.html:1
 msgid "Drag and drop widgets or containers in rows"
 msgstr "Arrastra y suelta widgets o contenedores en las filas"
 
-#: editor/bottom-panel/data-panel/data-type.service.js:32
-#: editor/bottom-panel/data-panel/data-type.service.js:33
-#: editor/bottom-panel/data-panel/data-type.service.js:34
 msgid "Dynamic"
 msgstr "Dinámico"
 
-#: editor/properties-panel/help/property-bond-help.html:1
 msgid "Dynamic value"
 msgstr "Valor dinámico"
 
-#: editor/header/help/help-popup.html:1
 msgid "E.g. Given a variable <em>employee</em> of type External API that fetch the task context <code>../{{context.employee_ref.link}}</code>. To retrive all the addresses of <em>employee</em> that are lazy in the BDM, you can create another variable <em>employee_addresses</em> of type External API with an url parameter like <code>employee | lazyRef : 'addresses'</code>"
 msgstr "Por ejemplo, dada una variable <em>employee</em> de tipo API externa que se obtiene del contexto de la tarea <code>../{{context.employee_ref.link}}</code>. Para recuperar todas las direcciones de <em>employee</em> que son lazy en el BDM, puede crear otra variable <em>employee_addresses</em> de tipo API externa con un parámetro en la url como <code>employee | lazyRef : 'addresses'</code>"
 
-#: editor/header/help/help-popup.html:1
 msgid "Each artifact contains a <em>localization.json</em> asset, with keys and translations for all strings and all supported languages (by default french and spanish). Each language has its section and is identified by the ISO 639 language attribute (for example, fr-FR, es-ES). To add new languages, keys and/or translations, export the default <em>localization.json</em>, edit it, and upload it with the same file name. For more information on installing new languages, go to the documentation web site (keywords:"
 msgstr "Cada artefacto contiene un recurso de <em>localization.json</em>, con claves y traducciones de todos los strings y los idiomas soportados (por defecto francés y español). Cada idioma tiene su sección y es identificado por el atributo de idioma ISO 639 (por ejemplo, fr-FR, es-ES). Para agregar nuevos idiomas, claves o traducciones, exporte el <em>localization.json</em> predeterminado, edítelo y súbalo con el mismo nombre del archivo. Para obtener más información sobre la instalación de nuevos idiomas, compruebe el <a href=\"http://http://documentation.bonitasoft.com\" target=\"_blank\"> sitio de documentación de Bonita BPM</a>:"
 
-#: editor/header/help/help-popup.html:1
 msgid "Each type or container has specific behaviors"
 msgstr "Cada tipo de contenedor tiene comportamientos específicos"
 
-#: editor/header/help/help-popup.html:1
 msgid "Edit"
 msgstr "Editar"
 
-#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Edit Bonita resource"
 msgstr "Editar recurso Bonita"
 
-#: assets/asset-popup.html:1 assets/table/asset-section.html:1
 msgid "Edit asset"
 msgstr "Actualizar recurso"
 
-#: custom-widget/create-property.html:1
 msgid "Edit property"
 msgstr "Editar propiedad"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
-#: editor/bottom-panel/data-panel/data.html:1
 msgid "Edit variable"
 msgstr "Editar la variable"
 
-#: editor/properties-panel/properties-panel-action-menu-template.html:1
 msgid "Edit..."
 msgstr "Editar..."
 
-#: editor/header/help/help-popup.html:1
 msgid "Editor organization"
 msgstr "Editor de Organización"
 
-#: editor/header/help/help-popup.html:1
 msgid "Either select the widget to switch and click on <i class=\"fa fa-exchange\"></i>."
 msgstr "Seleccione el widget para cambiar y haga clic en <i class=\"fa fa-exchange\"></i>."
 
-#: editor/header/header.html:1
 msgid "Enter ' + vm.mode + ' name"
 msgstr "Introduzca ' + vm.mode + ' nombre"
 
-#: assets/malformed-json-error-message.html:1
 msgid "Error at line <code>{{ infos.location.line }}</code>, column <code>{{ infos.location.column }}</code>"
 msgstr "Error en línea <code>{{ infos.location.line }}</code>, columna <code>{{ infos.location.column }}</code>"
 
-#: common/services/migration.service.js:74
 msgid "Error during migration of . Check migration details <i class=\"fa fa-wrench status\"></i> for more details."
 msgstr "Error durante la migración de . Compruebe los detalles de migración <i class=\"fa fa-wrench status\"></i> para más detalles."
 
-#: assets/help-popup.html:13
 msgid "Example: relative time filter"
 msgstr "Ejemplo: filtro de tiempo relativo"
 
-#: preview/preview.html:1
 msgid "Expand Preview in new window"
 msgstr "Abrir vista previa en la nueva ventana"
 
-#: editor/palette/editor-palette.html:1
 msgid "Explore Data Model in new window"
 msgstr "Explorar Modelo de Datos en una nueva ventana"
 
-#: custom-widget/custom-widget-editor.html:1 editor/header/export-popup.html:1
-#: editor/header/header.html:1 home/artifact-list/artifact-list.directive.js:36
 msgid "Export"
 msgstr "Exportar"
 
-#: editor/header/export-popup.html:1
 msgid "Export {{ctrl.page.name}}"
 msgstr "Exportar {{ctrl.page.name}}"
 
-#: editor/header/export-popup.html:1
 msgid "Exported formats"
 msgstr "Formatos exportados"
 
-#: editor/bottom-panel/data-panel/exposable-data.html:1
 msgid "Expose fragment data to page?"
 msgstr "¿Exponer datos del fragmento en la página?"
 
-#: editor/bottom-panel/data-panel/data.controller.js:67
 msgid "Exposed"
 msgstr "Exponer"
 
-#: assets/assets.service.js:37
 msgid "External"
 msgstr "Externo"
 
-#: editor/bottom-panel/data-panel/data-type.service.js:32
 msgid "External API"
 msgstr "API externa"
 
-#: app.config.js:36
 msgid "Extra Small devices (width < 768px)"
 msgstr "Dispositivos extra pequeños (tamaño < 768px)"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Extra angular modules needed by this custom widget (comma separated)"
 msgstr "Este widget personalizado necesita módulos de angular adicionales (separados por comas)"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Failed response value"
 msgstr "Valor de la respuesta fallida"
 
-#: home/home.html:1
 msgid "Favorites"
 msgstr "Favoritos"
 
-#: assets/generic-asset-form.html:1 assets/l10n-asset-form.html:1
 msgid "File"
 msgstr "Archivo"
 
-#: editor/header/help/help-popup.html:1
 msgid "Filters"
 msgstr "Filtros"
 
-#: editor/bottom-panel/web-resources-panel/help-popup.html:1
 msgid "For UI Designer artifacts, the Bonita REST API resources are exported in the page.properties files. Those resources are used at deployment to grant permission to those REST API to users having access to this page."
 msgstr "Para los artefactos de UI Designer, los recursos de Bonita REST API se exportan en los archivos page.properties. Esos recursos se utilizan en el despliegue para conceder permiso a esos API REST a los usuarios que tengan acceso a esta página."
 
-#: editor/header/help/help-popup.html:1
 msgid "For business objects, the UI Designer comes with a <em>lazyRef</em> filter to easily retrieve target url to use in an external API data."
 msgstr "Para objetos de negocio, el UI Designer viene con un filtro <em>lazyRef</em> para recuperar fácilmente la url objetivo que se utilizará en datos de API externos."
 
-#: editor/header/help/help-popup.html:1
 msgid "For date format specifically, the UI Designer comes with a <em>uiDate</em> filter to easily display dates retrieved from the BDM or any other REST API."
 msgstr "Para el formato de fecha en concreto, el UI Designer provee un filtro <em>uiDate</em> para mostrar fácilmente las fechas obtenidas de la BDM o cualquier otra API REST."
 
-#: custom-widget/help-l10n.html:1
 msgid "For instance, with a custom link widget :"
 msgstr "Por ejemplo, con un widget de enlace personalizado:"
 
-#: editor/header/export-popup.html:1
 msgid "For more information, consult the <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\">documentation</a>."
 msgstr "Para obtener más información, consulte la <a href=\"https://documentation.bonitasoft.com/?page=live-update#cache_busting\"> documentación</a>."
 
-#: custom-widget/help-popup.html:1
 msgid "For more information, see the AngularJS guide on <a href=\"https://docs.angularjs.org/guide/templates\">templates</a> and <a href=\"https://docs.angularjs.org/guide/controller\">controllers</a>."
 msgstr "Para obtener más información, consulte a la guía de AngularJS de <a href=\"https://docs.angularjs.org/guide/templates\"> plantillas</a> y <a href=\"https://docs.angularjs.org/guide/controller\"> Controladores</a>."
 
-#: editor/header/help/help-migration.html:23
 msgid "For new artifacts, you need to add the asset yourself in the custom widgets or pages that require it."
 msgstr "Para los nuevos artefactos, necesitará agregar el fichero en los widgets personalizados o páginas que lo requieran."
 
-#: custom-widget/help-popup.html:1
 msgid "For the moment, you cannot implement custom widget containers."
 msgstr "Por el momento, no se puede implementar un widget contenedor personalizado."
 
-#: home/artifact-factory.service.js:37
 msgid "Forms"
 msgstr "Formularios"
 
-#: editor/header/help/help-popup.html:23
 msgid "Four device types are available:"
 msgstr "Existen cuatro tipos de dispositivo:"
 
-#: home/artifact-factory.service.js:57
 msgid "Fragment"
 msgstr "Fragmento"
 
-#: editor/properties-panel/fragment/fragment-data-binding-field.html:1
 msgid "Fragment data '' + name + '' will be bound to page data '' + binding + '', and thus not have it default value '' + data.value + ''"
 msgstr "La variable de fragmento '' + name+ '' será linkada a la variable de la página '' + binding+ '', por lo tanto, no mantendrá su valor predeterminado  '' + data.value + ''"
 
-#: editor/properties-panel/fragment/fragment-data-binding-field.html:1
 msgid "Fragment data '' + name + '' will keep its default value '' + data.value + ''"
 msgstr "La variable de fragmento '' + name+ '' mantendrá su valor predeterminado  '' + data.value + ''"
 
-#: editor/properties-panel/fragment/fragment-save-popup.html:1
 msgid "Fragment name"
 msgstr "Nombre del fragmento"
 
-#: home/artifact-factory.service.js:58
 msgid "Fragments"
 msgstr "Fragmentos"
 
-#: home/help-popup.html:1
 msgid "Frontend has been migrated to AngularJS 1.8. Note: artefacts are still generated with AngularJS 1.3. Stay tuned for further updates."
 msgstr "Frontend ha sido migrado a AngularJS 1.8. Nota: los artefactos todavía son generados con AngularJS 1.3. Mantente atento para más actualizaciones."
 
-#: custom-widget/help-popup.html:1
 msgid "Functions exposed in the controller can be used with ctrl.newFunction()."
 msgstr "Las funciones expuestas en el controlador pueden utilizarse con ctrl.newFunction()."
 
-#: assets/help-popup.html:1 custom-widget/custom-widget-editor.controller.js:35
-#: custom-widget/help-popup.html:1
-#: editor/bottom-panel/data-panel/help-popup.html:1
-#: editor/bottom-panel/web-resources-panel/help-popup.html:1
 msgid "General"
 msgstr "General"
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:48
 msgid "Get a case by its identifier"
 msgstr "Obten un caso por su identificador"
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:27
 msgid "Get a human task by its identifier"
 msgstr "Obtén una tarea humana por su identificador"
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:52
 msgid "Get all business variables defined in a case"
 msgstr "Obtener todas las variables del negocio definidas en un caso"
 
-#: home/help-popup.html:1
 msgid "Get all the advanced features such as fragments and localization in the community edition."
 msgstr "Obtén todas las características avanzadas como fragmentos y localización en la edición comunitaria."
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:20
 msgid "Get current logged user"
 msgstr "Obtén el actual usuario logueado"
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:69
 msgid "Get custom information of a user"
 msgstr "Obtener información personalizada de un usuario"
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:63
 msgid "Get professional details of a user"
 msgstr "Obtén los detalles profesionales de un usuario"
 
-#: common/directives/expand-modal.directive.js:33
 msgid "Go full screen"
 msgstr "Ir a pantalla completa"
 
-#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
 msgid "HTTP method"
 msgstr "Método HTTP"
 
-#: assets/help-popup.html:1 custom-widget/help-popup.html:1
-#: editor/bottom-panel/data-panel/help-popup.html:1
-#: editor/bottom-panel/web-resources-panel/help-popup.html:1
-#: editor/header/help/help-popup.html:1
-#: editor/properties-panel/widgetHelpTemplate.html:1 home/help-popup.html:1
 msgid "Help"
 msgstr "Ayuda"
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "Help data model"
 msgstr "Ayuda Data Model"
 
-#: editor/common/properties.service.js:39
 msgid "Hidden"
 msgstr "Oculto"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Holds the response when the request has failed"
 msgstr "Es la respuesta cuando la llamada falla"
 
-#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
 msgid "Home page"
 msgstr "Página de inicio"
 
-#: editor/header/help/help-migration.html:1
 msgid "Html template update"
 msgstr "Actualización de plantilla Html"
 
-#: home/import/import-report-popup.html:1
 msgid "Id must be unique, so the {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten."
 msgstr "El Id debe ser único, por lo que se sobrescribirá <strong>{{ ::importReport.overwrittenName }}</strong> de tipo {{ ::importReport.overwrittenType }}."
 
-#: home/import/import-report-popup.html:1
 msgid "Id must be unique, so those elements will be overwritten."
 msgstr "El Id debe ser único, por lo que se sobrescribirán esos elementos."
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "If a Business Object has been dropped, a user interface is generated for you. You can either keep it as is, modify it, or remove it if it does not fit your needs."
 msgstr "Si un Business Object ha sido arrastrado, se generará una interfaz de usuario para usted. Puede dejarla como está, modificarla o eliminarla si no se ajusta a sus necesidades."
 
-#: confirm-popup/confirm-migrate-popup.html:1 editor/header/export-popup.html:1
 msgid "If checked, this popup will not be displayed again unless you clean up your browser cache"
 msgstr "Si está marcado, este popup no se mostrará nuevamente a menos que se limpie la caché del navegador"
 
-#: custom-widget/help-popup.html:1
 msgid "If the standard widget does not meet your needs, you can create a custom widget to match exactly what you want to. To do this, clone the standard widget by saving it with a different name, and modify it. After creation, the custom widget is available in the palette for designing pages, forms, layouts or fragments."
 msgstr "Si el widget estándar no satisface sus necesidades, puede crear un widget personalizado para coincidir exactamente con lo que desea. Para ello, clonar el widget estándar guardandolo con un nombre diferente, y modificarlo. Después de la creación, el widget personalizado está disponible en la paleta para diseñar páginas, formularios, layouts o fragmentos."
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "If you create your own user interface, bind your Business data variable on widget properties or use your variable in javascript expressions. Be careful, by default each business data variable is an array (even if only one result from query is returned)."
 msgstr "Si crea su propia interfaz de usuario, vincule su variable Business Data con las propiedades del widget o utilice su variable en expresiones javascript. Tenga cuidado, por defecto, cada variable de Business Data es una colección (incluso si sólo se devuelve un unico resultado en la consulta)."
 
-#: assets/help-popup.html:13
 msgid "Image or Localization assets are not imported in index.html. So we don't need to reorder them."
 msgstr "Los assets de imagen o localización no se importan en index.html. Por lo tanto no necesitamos reordenarlos."
 
-#: home/import/home-import.html:1 home/import/import-popover.html:1
-#: home/import/import-report-popup.html:1
 msgid "Import"
 msgstr "Importar"
 
-#: home/import/home-import.html:1
 msgid "Import a UI Designer artifact"
 msgstr "Importar un artefacto del UI Designer"
 
-#: home/import/import.service.js:43
 msgid "Import error"
 msgstr "Error de importación"
 
-#: home/import/import.service.js:54
 msgid "Import error: incompatible artifact"
 msgstr "Error de importación: artefacto incompatible"
 
-#: assets/help-popup.html:13
 msgid "Import the moment.js library as an external asset."
 msgstr "Importa la librería moment.js como un activo externo."
 
-#: assets/help-popup.html:19
 msgid "Import this JavaScript file as a local page asset."
 msgstr "Importa este archivo JavaScript como un recurso de página local."
 
-#: home/import/import-report-popup.html:1
 msgid "Import {{ ::importReport.name }}"
 msgstr "Importar {{ ::importReport.name }}"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Import, define or deploy a Business Data Model in Bonita Studio."
 msgstr "Importar, definir o desplegar un Modelo de Datos de Negocio (BDM) en Bonita Studio."
 
-#: home/help-popup.html:1
 msgid "Improvements on the widget switch"
 msgstr "Mejoras en el cambio de widgets"
 
-#: assets/help-popup.html:13
 msgid "In a JavaScript asset, you can specify a dependency on an Angular module. First add the JavaScript asset, and then add the module name in the dedicated section. You can find the the available modules on <a href=\"http://ngmodules.org/\">http://ngmodules.org/</a>."
 msgstr "En un recurso JavaScript, puede especificar una dependencia de un módulo Angular. Primero agrega el recurso JavaScript y luego añada el nombre del módulo en la sección dedicada. Puede encontrar los módulos disponibles en <a href=\"http://ngmodules.org/\"> http://ngmodules.org/</a>."
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:55
 msgid "In a process form, if you have defined business variables in your process, use the link to the variable to retrieve using the context variable:"
 msgstr "En un formulario de proceso, si se han definido variables de negocio en el proceso, utilice el enlace a la variable que se quiere recuperar usando la variable de contexto:"
 
-#: preview/app-selector/app-selector.html:1
 msgid "In case your application is not available, please log in using a different account"
 msgstr "En caso de que tu aplicación no esté disponible, por favor inicia sesión usando una cuenta diferente"
 
-#: home/artifact-list/artifact-list.directive.js:40
 msgid "In folder:"
 msgstr "En la carpeta:"
 
-#: editor/header/help/help-popup.html:1
 msgid "In production, if the user is logged into Bonita Portal, UI artifacts are displayed in the Portal language selected by the user or in the browser locale."
 msgstr "En producción, si el usuario está logueado en el Bonita Portal, los artefactos del UI Designer se muestran en el idioma del Portal seleccionado por el usuario o en la configuración regional del navegador (locale)."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "In some cases, other types of variables are created: <ul> <li> When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API). <br>For example, if the contract input has been created from a business variable 'invoice' in the process, a variable <code>invoice</code> is created in the form and its URL is set to <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br>If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter). <br>For example, if 'invoice' has a 'customer' relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object. The variable (External API) bound to the widget is created. It queries the BDM. <br>For example, when the object Invoice has an aggregated object Customer, a variable <code>customer_query</code> is created with URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li> </ul>"
 msgstr "En algunos casos, otros tipos de variables son creadas: <ul><li>Cuando una variable de negocio es editada en el formulario (ya que es especificada en el wizard de creación del contrato), una variable UI Designer se crea por cada variable (External API).<br>Por ejemplo, si la entrada de contrato ha sido creada desde una variable de negocio 'invoice' en el proceso, una variable <code>invoice</code> se creara en el formulario y su URL se configurará como <span ng-non-bindable>../{{context.invoice_ref.link}}</span>. <br> si <code>invoice</code> contiene relaciones lazy, otras variables se generaran por cada relación lazy a resolver (usando el filtro <em>lazyRef</em>). <br> Por ejemplo, si 'invoice' tiene un 'customer' en relación lazy, una variable de tipo External API <code>invoice_customer</code> se creará. Su URL estará configurada como <span ng-non-bindable>{{invoice|lazyRef:'customer'}}</span>.</li> <li>Para mostrar un objeto agregado, un widget Select será generado para mostrar los <em> valores disponibles</em> del objeto. La variable (External API) ligada al widget se creará. Llamara al BDM. Por ejemplo, cuando el objeto Invoice tieen un objeto agregado de tipo Customer, una variable <code>customer_query</code> se crea con la URL: <span ng-non-bindable>../API/bdm/businessData/com.company.model.Customer?q=find&p=0&c=99</span>. Por defecto usa la consulta <code>find</code> con la paginación por defecto (solo los 100 primeros objetos serán devueltos).</li></ul>"
 
-#: assets/help-popup.html:13
 msgid "In the Asset list, you can manually change the order of CSS and Javascript page assets. Reorder this files can be useful to override some css classes or javascript functions."
 msgstr "En la lista de Assets, puede cambiar manualmente el orden de los assets de CSS y Javascript. Reordenar estos archivos pueden ser útil para reemplazar algunas clases css o funciones javascript."
 
-#: editor/header/convert-popup.html:1
 msgid "In the Studio, a form must be linked to a process or a task, using the contract; a page is linked to an application descriptor."
 msgstr "En el Studio, un formulario debe estar vinculado a un proceso o una tarea, utilizando el contrato; una página está vinculada a un descriptor de la aplicación."
 
-#: editor/header/help/help-popup.html:1
 msgid "In the Switch wizard, select or type the widget to switch to, then click <b>Show properties</b>.<br> Whenever possible, properties in the source widgets are mapped with similar properties in the target widget. You can edit that or map more, then click on <b>Switch</b>."
 msgstr "En el asistente, seleccione o busque el widget a cambiar, luego haga clic en <b>Mostrar propiedades</b>.<br> Siempre que sea posible, las propiedades en los widgets de origen se mapean con propiedades iguales en el widget de destino. Puede editar o mapear más, luego haga clic en <b>Cambiar</b>."
 
-#: editor/header/help/help-popup.html:1
 msgid "In the fragment editor, you can set the scope of a variable to <i>specific to this fragment</i> or to <i>exposed to the page</i>."
 msgstr "En el editor de fragmentos, puedes establecer el ámbito de una variable como <i>específico de este fragmento</i> o <i>expuestos a la página</i>."
 
-#: editor/header/help/help-popup.html:1
 msgid "In the preview and at runtime, the displayed text will adapt automatically to the selected language."
 msgstr "En la vista previa y en tiempo de ejecución, el texto se adaptará automáticamente al idioma seleccionado."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
-#: editor/header/help/help-popup.html:1
 msgid "In the scope of a page, form, or layout, a variable can be used to handle business data, or can contain structural information that determines how page elements behave."
 msgstr "En el ámbito de una página, formulario o layout, una variable se puede utilizar para manejar datos de negocios, o puede contener información estructural que determina el comportamiento de los elementos de la página."
 
-#: assets/help-popup.html:13
 msgid "In this list, you can use the arrows to reorder assets, view local assets, edit external assets, and delete any."
 msgstr "En esta lista, puede utilizar las flechas para reordenar los recursos, ver los recursos locales, editar recursos externos y eliminar cualquiera de ellos."
 
-#: home/import/import-error-messages.service.js:17
-#: home/import/import-error-messages.service.js:21
-#: home/import/import-error-messages.service.js:25
 msgid "Incorrect zip structure."
 msgstr "Estructura zip incorrecta."
 
-#: home/help-popup.html:1
 msgid "Integration with Bonita platform"
 msgstr "Integración con Bonita Platform"
 
-#: editor/properties-panel/help/property-bond-help.html:1
 msgid "Interpolation"
 msgstr "Interpolación"
 
-#: home/help-popup.html:1
 msgid "Interpret HTML default properties"
 msgstr "Interpretar propiedades predeterminadas de HTML"
 
-#: assets/generic-asset-form.html:1
 msgid "Invalid URL: it must only contain alphanumeric character or #!:.?+=&%@-/"
 msgstr "URL no válida: sólo debe contener caracteres alfanuméricos o #!:.? += y%@-/"
 
-#: home/import/import-error-messages.service.js:32
 msgid "Invalid {{ infos.modelfile }} json file structure"
 msgstr "Estructura de archivos json no válida {{ infos.modelfile }}"
 
-#: home/help-popup.html:1
 msgid "It is now possible to define the tab that will be selected by default in the tab group with the new \"Selected\" field on the tabs."
 msgstr "Ahora es posible definir la pestaña que se seleccionará por defecto en el grupo de pestañas con el nuevo campo \"Seleccionado\" en las pestañas."
 
-#: home/help-popup.html:1
 msgid "It is now possible to easily bind the metadata of an API variable response (header, status code, and response value) to other variables"
 msgstr "Ahora es posible enlazar fácilmente los metadatos de una respuesta de variable API (header, status code y valor de respuesta) a otras variables"
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "It provides references to all business variables and documents in the process instance (case). To retrieve a business variable instance, create an External API variable with value"
 msgstr "Otorga las referencias a todas las variables de negocio y documentos de la instancia de proceso (caso). Para recuperar la instancia de una variable de negocio, crea una variable de tipo API externo con valor"
 
-#: editor/bottom-panel/data-panel/data-type.service.js:31
 msgid "JSON"
 msgstr "JSON"
 
-#: home/help-popup.html:1
 msgid "JSON Source model"
 msgstr "Modelo JSON Source"
 
-#: editor/header/export-popup.html:1
 msgid "JSON descriptor to exchange between UI Designers"
 msgstr "Descriptor JSON para el intercambio entre UI Designers"
 
-#: editor/bottom-panel/data-panel/data-popup.html:10
 msgid "JSON specifications can be found on the"
 msgstr "Las especificaciones de JSON se pueden encontrar en"
 
-#: editor/bottom-panel/data-panel/data-type.service.js:33
 msgid "Javascript expression"
 msgstr "Expresión JavaScript"
 
-#: custom-widget/create-property.html:1
-#: custom-widget/custom-widget-editor.html:1
 msgid "Label"
 msgstr "Etiqueta"
 
-#: app.config.js:57
 msgid "Large devices (width ≥ 1200px)"
 msgstr "Dispositivos grandes (tamaño ≥ 1200px)"
 
-#: home/artifact-list/artifact-list.directive.js:39
 msgid "Last Update:"
 msgstr "Última actualización:"
 
-#: home/artifact-factory.service.js:44
 msgid "Layouts"
 msgstr "Layouts"
 
-#: editor/header/help/help-popup.html:1
 msgid "Lazy reference filter"
 msgstr "Filtro de referencia Lazy"
 
-#: editor/header/save-as-popup.controller.js:19
 msgid "Linked to a process instantiation or a task, using the contract"
 msgstr "Vinculado a una instanciación de proceso o una tarea, utilizando el contrato"
 
-#: editor/header/save-as-popup.controller.js:14
 msgid "Linked to an application descriptor."
 msgstr "Vinculado a un descriptor de aplicación."
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:36
 msgid "List of cases open for a process definition id"
 msgstr "Lista de casos abiertos por un identificador de definición de proceso"
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:32
 msgid "List of human task in ready state for current user (pending + assigned)"
 msgstr "Lista de tareas humana en estado ready para el usuario actual (pendiente + asignado)"
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "Living data"
 msgstr "Datos variables"
 
-#: editor/editor.html:1
 msgid "Loading {{mode}}..."
 msgstr "Cargando {{mode}}..."
 
-#: assets/assets.service.js:38
 msgid "Local"
 msgstr "Local"
 
-#: custom-widget/help-l10n.html:1 editor/header/help/help-popup.html:1
 msgid "Localization"
 msgstr "Localización"
 
-#: editor/whiteboard/switchComponent/not-supported-browser-popup.html:1
 msgid "Look what you're missing"
 msgstr "Mira lo que te estás perdiendo"
 
-#: assets/malformed-json-error-message.html:1
 msgid "Malformed json file"
 msgstr "Archivo json con formato incorrecto"
 
-#: editor/bottom-panel/web-resources-panel/help-popup.html:1
 msgid "Manual detection"
 msgstr "Detección manual"
 
-#: home/artifact-list/favorite-button.html:1
 msgid "Mark as favorite"
 msgstr "Marcar como favorito"
 
-#: app.config.js:50
 msgid "Medium devices (width ≥ 992px)"
 msgstr "Dispositivos medianos (tamaño ≥ 992px)"
 
-#: editor/header/metadata-popup.html:1
 msgid "Metadata"
 msgstr "Metadatos"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Method"
 msgstr "Método"
 
-#: confirm-popup/confirm-migrate-popup.html:1
 msgid "Migrate"
 msgstr "Migrar"
 
-#: custom-widget/help-popup.html:1 editor/header/help/help-popup.html:1
 msgid "Migration"
 msgstr "Migración"
 
-#: home/help-popup.html:1
 msgid "Migration enhancements"
 msgstr "Mejoras de Migración"
 
-#: editor/header/help/help-migration.html:1
 msgid "Migration notes"
 msgstr "Notas Migración"
 
-#: editor/header/migrationReport/migration-report-popup.controller.html:1
 msgid "Migration report"
 msgstr "Informe de Migración"
 
-#: editor/header/help/help-popup.html:1
 msgid "Milliseconds since Epoch (number or string variable)"
 msgstr "Milisegundos desde Epoch (variable numérica o string)"
 
-#: editor/header/export-popup.html:1
 msgid "Minified widgets JavaScript for optimized performance"
 msgstr "Widgets JavaScript miniaturizados para un rendimiento optimizado"
 
-#: editor/whiteboard/modal-container.html:1
 msgid "Modal container"
 msgstr "Contenedor modal"
 
-#: assets/table/asset-section.html:1 assets/widget-assets.html:1
 msgid "Move asset down"
 msgstr "Mover asset hacia abajo"
 
-#: assets/table/asset-section.html:1 assets/widget-assets.html:1
 msgid "Move asset up"
 msgstr "Mover asset hacia arriba"
 
-#: editor/whiteboard/container.html:1
 msgid "Move the row down"
 msgstr "Bajar la fila"
 
-#: editor/whiteboard/container.html:1
 msgid "Move the row up"
 msgstr "Subir la fila"
 
-#: editor/header/help/help-popup.html:1
 msgid "Multiple content for tabs container"
 msgstr "Contenido múltiple para el contenedor de pestañas"
 
-#: editor/header/help/help-popup.html:23
 msgid "Multiple screen size"
 msgstr "Múltiples tamaños de pantalla"
 
-#: assets/page-assets.html:1 assets/widget-assets.html:1
-#: custom-widget/create-property.html:1
-#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
-#: editor/bottom-panel/data-panel/data-popup.html:1
-#: editor/bottom-panel/data-panel/data.html:1
-#: editor/properties-panel/fragment/fragment-save-popup.html:1
-#: home/create/create-popover.html:1
 msgid "Name"
 msgstr "Nombre"
 
-#: common/directives/artifact-name-validation.js:11
 msgid "Name must be less than {{maxlength}} characters long"
 msgstr "El nombre debe ser menor que {{maxlength}} caracteres"
 
-#: common/directives/artifact-name-validation.js:10
 msgid "Name must contains only alphanumeric characters with no space"
 msgstr "El nombre debe contener sólo caracteres alfanuméricos sin espacio"
 
-#: editor/header/metadata-popup.html:2
 msgid "No Bonita REST API calls."
 msgstr "No hay llamadas de la API REST de Bonita."
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "No Business Data Model currently deployed."
 msgstr "No hay ningún modelo de datos de negocio (BDM) actualmente desplegado."
 
-#: preview/app-selector/app-selector.service.js:22
 msgid "No application selected"
 msgstr "Ninguna aplicación seleccionada"
 
-#: home/artifact-list/artifact-list.html:1
 msgid "No artifact found."
 msgstr "Ningún artefacto encontrado."
 
-#: editor/bottom-panel/data-panel/data.html:1
 msgid "No variable"
 msgstr "Sin variables"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "No web resources"
 msgstr "No hay recursos web"
 
-#: assets/table/asset-section.controller.js:47
 msgid "No {{label}} asset (no scope selected)."
 msgstr "No hay {{label}} asset (no se ha seleccionado ningún ámbito)."
 
-#: assets/table/asset-section.controller.js:40
 msgid "No {{label}} asset at page level."
 msgstr "No hay {{label}} asset a nivel de página."
 
-#: assets/table/asset-section.controller.js:44
 msgid "No {{label}} asset at widget level."
 msgstr "No hay {{label}} asset en el nivel del widget."
 
-#: assets/table/asset-section.controller.js:36
 msgid "No {{label}} asset."
 msgstr "No hay {{label}} asset."
 
-#: editor/bottom-panel/data-panel/exposable-data.html:1
 msgid "No. This data will be specific to this fragment."
 msgstr "No. Estos datos serán específicos a este fragmento."
 
-#: preview/app-selector/app-selector.html:1
 msgid "None"
 msgstr "Ninguno"
 
-#: home/artifact-list/artifact-list.directive.js:184
 msgid "Not compatible with current UI Designer version. To open it, use a newer version of UI Designer."
 msgstr "No es compatible con la versión actual de UI Designer. Para abrirla, utilice una versión más reciente de UI Designer."
 
-#: assets/help-popup.html:13
 msgid "Note that reordering assets is disabled when the list is a search results list. Indeed, reordering is only relevant if the complete list of page assets is displayed."
 msgstr "Tenga en cuenta que reordenar los assets está desactivado cuando la lista es una lista de resultados de búsqueda. De hecho, reordenar sólo es relevante si se muestra la lista completa de los assets de la página."
 
-#: home/help-popup.html:1
 msgid "Noteworthy changes"
 msgstr "Cambios notables"
 
-#: editor/header/help/help-popup.html:1
 msgid "Once you select an element, edit its properties in the properties panel on the right."
 msgstr "Una vez seleccionado un elemento, edita sus propiedades en el panel de propiedades de la derecha."
 
-#: assets/table/asset-section.html:1
 msgid "Open documentation"
 msgstr "Abrir documentación"
 
-#: assets/page-assets.html:1 assets/widget-assets.html:1
-#: custom-widget/custom-widget-editor.html:1
-#: editor/bottom-panel/data-panel/data.html:1
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
-#: editor/header/header.html:1 home/home.html:1
 msgid "Open help"
 msgstr "Abrir ayuda"
 
-#: editor/header/help/help-popup.html:1
 msgid "Or use the <b>Switch</b> menu option close to the widget name in the properties panel."
 msgstr "O utilice la opción de menú <b>Cambiar</b> cerca del nombre del widget en el panel de propiedades."
 
-#: home/home.controller.js:85
 msgid "Ordered by artifact name.<br/>Click to sort by last update"
 msgstr "Ordenado por nombre de artefacto. <br/> Haz clic en ordenar por última actualización"
 
-#: home/home.controller.js:84
 msgid "Ordered by last update.<br/>Click to sort by artifact name"
 msgstr "Ordenado por última actualización. <br/> Haz clic para ordenar por nombre del artefacto"
 
-#: home/import/import-success-message.html:1
 msgid "Overridden artifacts"
 msgstr "Artefactos reemplazados"
 
-#: home/help-popup.html:1
 msgid "Overview"
 msgstr "Vista global"
 
-#: editor/header/save-as-popup.html:1
 msgid "Page Name"
 msgstr "Nombre de la página"
 
-#: editor/header/metadata-popup.html:1
 msgid "Page description"
 msgstr "Descripción de la página"
 
-#: editor/header/metadata-popup.html:1
 msgid "Page display name"
 msgstr "Nombre para mostrar de la página"
 
-#: assets/table/asset-section.html:1
 msgid "Page level"
 msgstr "Nivel de página"
 
-#: home/artifact-factory.service.js:29
 msgid "Pages"
 msgstr "Páginas"
 
-#: editor/bottom-panel/web-resources-panel/help-popup.html:1
 msgid "Permissions to access Bonita platform’s REST API resources are handled by a configurable authorization mechanism, check Bonita documentation for more details."
 msgstr "Los permisos para acceder a los recursos de la API REST de la plataforma Bonita son manejados por un mecanismo de autorización configurable, compruebe la documentación de Bonita para más detalles."
 
-#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
 msgid "Please provide the information on how to retrieve elements of \"{{ctrl.businessData.name}}\""
 msgstr "Por favor, proporcione la información sobre cómo recuperar elementos de \"{{ctrl.businessData.name}}\""
 
-#: preview/open-preview.html:1
 msgid "Preview"
 msgstr "Vista Previa"
 
-#: preview/preview.html:1
 msgid "Preview - {{pageName}}"
 msgstr "Vista previa - {{pageName}}"
 
-#: editor/header/convert-popup.controller.js:17
-#: editor/header/save-as-popup.controller.js:18
-#: home/artifact-factory.service.js:35
 msgid "Process form"
 msgstr "Formulario de proceso"
 
-#: custom-widget/custom-widget-editor.html:1
-#: editor/header/help/help-popup.html:1
 msgid "Properties"
 msgstr "Propiedades"
 
-#: custom-widget/create-property.html:1
 msgid "Property names must start with a letter and contain only alphanumeric characters"
 msgstr "Los nombres de página deben empezar con una letra y contener sólo caracteres alfanuméricos"
 
-#: editor/properties-panel/common-properties-template.html:1
 msgid "Put usage of this widget. This information is only visible on UI-Designer editor"
 msgstr "Esta información sólo es visible en el editor de UI-Designer"
 
-#: assets/help-popup.html:13
 msgid "Relative time filter"
 msgstr "Filtro de tiempo relativo"
 
-#: editor/whiteboard/tabs-container.html:1
 msgid "Remove tab"
 msgstr "Eliminar Pestaña"
 
-#: home/artifact-list/artifact-list.directive.js:37
 msgid "Rename"
 msgstr "Renombrar"
 
-#: editor/header/help/help-popup.html:1
 msgid "Repeat content for the plain container"
 msgstr "Repetir el contenido en el contenedor"
 
-#: editor/whiteboard/container.html:1
 msgid "Repeated container"
 msgstr "Contenedor repetido"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Required angular modules"
 msgstr "Módulos angular requeridos"
 
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
 msgid "Reset mapping"
 msgstr "Restablecer mapeo"
 
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
 msgid "Reset mapping to default"
 msgstr "Restablecer mapeo por defecto"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Response headers"
 msgstr "Cabeceras de la respuesta"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Response status code"
 msgstr "Código de estado de respuesta"
 
-#: editor/whiteboard/container.html:1
 msgid "Row"
 msgstr "Fila"
 
-#: editor/header/help/help-popup.html:1
 msgid "Rows"
 msgstr "Filas"
 
-#: assets/asset-edit-popup.html:1 custom-widget/custom-widget-editor.html:1
-#: custom-widget/save-as-popup.html:1
-#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
-#: editor/bottom-panel/data-panel/data-popup.html:12
-#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
-#: editor/header/convert-popup.html:1 editor/header/header.html:1
-#: editor/header/metadata-popup.html:2 editor/header/save-as-popup.html:1
-#: editor/properties-panel/fragment/fragment-save-popup.html:1
 msgid "Save"
 msgstr "Guardar"
 
-#: custom-widget/custom-widget-editor.html:1 editor/header/header.html:1
 msgid "Save as ..."
 msgstr "Guardar como ..."
 
-#: editor/properties-panel/fragment/fragment-save-popup.html:1
-#: editor/properties-panel/properties-panel-action-menu-template.html:1
 msgid "Save as fragment..."
 msgstr "Guardar como fragmento..."
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Save as..."
 msgstr "Guardar como..."
 
-#: editor/header/save-as-popup.html:1
 msgid "Save {{ctrl.page.name}} as..."
 msgstr "Guardar {{ctrl.page.name}} como..."
 
-#: custom-widget/save-as-popup.html:1
 msgid "Save {{ctrl.widget.name}} as..."
 msgstr "Guardar {{ctrl.widget.name}} como..."
 
-#: common/directives/save-indicator/save-indicator.html:1
 msgid "Saved"
 msgstr "Guardado"
 
-#: assets/page-assets.html:1
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Scope"
 msgstr "Scope"
 
-#: assets/page-assets.html:1 editor/bottom-panel/data-panel/data.html:1
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
-#: editor/palette/editor-palette.html:1
 msgid "Search"
 msgstr "Búsqueda"
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:44
 msgid "Search a list of cases based on search indexes"
 msgstr "Busca una lista de casos basándose en índices de búsqueda"
 
-#: home/home.html:1
 msgid "Search on name"
 msgstr "Buscar por nombre"
 
-#: editor/bottom-panel/data-panel/exposable-data.html:1
 msgid "See example"
 msgstr "Ver ejemplo"
 
-#: editor/bottom-panel/data-panel/data-popup.html:12
 msgid "See example 'date object initialization'"
 msgstr "Ver ejemplo de 'inicialización objeto fecha'"
 
-#: editor/bottom-panel/data-panel/data-popup.html:10
 msgid "See example 'functional programming'"
 msgstr "Ver ejemplo de 'programación funcional'"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "See examples"
 msgstr "Ver ejemplos"
 
-#: assets/help-popup.html:13
 msgid "See the default localization asset for an example."
 msgstr "Ver el recurso localización por defecto para obtener un ejemplo."
 
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
 msgid "Select a widget or start typing"
 msgstr "Seleccione un widget o comience a escribir"
 
-#: editor/properties-panel/properties-panel.html:1
 msgid "Select an element on the whiteboard, then set its properties here"
 msgstr "Selecciona un elemento en la pizarra, a continuación, establece allí sus propiedades"
 
-#: editor/header/help/help-popup.html:23
 msgid "Select the device type icon in the top bar, then specify the width property for each widget in the page or form. Each configuration is independent. To specify the width property for a widget for all device types, set the value for each device type separately, or leave the default value."
 msgstr "Seleccione el icono de tipo de dispositivo en la barra superior, luego especifique la propiedad width para cada widget de la página o formulario. Cada configuración es independiente. Para especificar la propiedad width de un widget para todo tipo de dispositivo, establezca el valor para cada tipo de dispositivo por separado, o deje el valor por defecto."
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "Select the query to retrieve Business Object. Queries can be a simple attribute query (ex: findByName) or an additional query such as a custom query."
 msgstr "Seleccione la consulta para recuperar el Objeto de Negocio. Las consultas pueden ser una consulta de atributos simple (ej: findByName) o una consulta adicional como una consulta personalizada."
 
-#: home/import/import-popover.html:1
 msgid "Select your .zip file"
 msgstr "Seleccione su archivo .zip"
 
-#: assets/generic-asset-form.html:1
 msgid "Select your file"
 msgstr "Selecciona tu archivo"
 
-#: assets/l10n-asset-form.html:1
 msgid "Select your localization.json"
 msgstr "Selecciona el localization.json"
 
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
 msgid "Show properties"
 msgstr "Mostrar propiedades"
 
-#: i18n/language-picker.html:1
 msgid "Shows the languages for which there are translations in localization.json and Default, which is the source language of your page"
 msgstr "Muestra los idiomas para los cuales existen traducciones en localization.json y Default, que es la lengua de la fuente de su página"
 
-#: editor/header/help/help-migration.html:23
 msgid "Since 7.12.0, after an artifact has been migrated, a migration report <i class=\"fa fa-wrench status\"></i> is available from the editor header. It disappears once the page is refreshed, but can be retrieved in the UI Designer log file."
 msgstr "Desde la 7.12.0, después de la migración de un artefacto, un informe de migración <i class=\"fa fa-wrench status\"></i> está disponible en el encabezado del editor. Desaparece una vez que la página se actualiza, pero se puede recuperar en el archivo de log de UI Designer."
 
-#: editor/header/help/help-migration.html:23
 msgid "Since 7.5.0, UI Bootstrap is no longer provided in the UI Designer pages."
 msgstr "Desde 7.5.0, UI Bootstrap ya no es proporcionado en el UI Designer."
 
-#: app.config.js:43
 msgid "Small devices (width ≥ 768px)"
 msgstr "Pequeños dispositivos (tamaño ≥ 768px)"
 
-#: editor/header/help/help-migration.html:1
 msgid "Some improvements for <b>Accessibility</b> will help you design and generate digitally accessible pages, forms or applications (for example: computer screen readers)."
 msgstr "Algunas mejoras para <b>Accesibilidad</b> le ayudarán a diseñar y generar páginas, formularios o aplicaciones de acceso digital (por ejemplo: lectores de pantalla de computadora)."
 
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
 msgid "Some option can be disabled because the source value type is not compatible with target property type."
 msgstr "Alguna opción puede desactivarse porque el tipo de valor de origen no es compatible con el tipo de propiedad de destino."
 
-#: assets/generic-asset-form.html:1 assets/page-assets.html:1
 msgid "Source"
 msgstr "Origen"
 
-#: editor/common/properties.service.js:27
 msgid "Space-separated list"
 msgstr "Lista separada por espacios"
 
-#: editor/properties-panel/component-properties-template.html:1
 msgid "Specify the number of columns of the element. All elements can take up to 12 columns."
 msgstr "Especifique el número de columnas del elemento. Todos los elementos no podrán sobrepasar 12 columnas."
 
-#: editor/header/export-popup.html:1
 msgid "Standard widgets JavaScript for edition outside the UI Designer"
 msgstr "Widgets estándar JavaScript para edición fuera del UI Designer"
 
-#: home/help-popup.html:1
 msgid "Start creating a <b>process form</b> in Bonita Studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Comienza creando un <b>formulario de proceso</b> en Bonita Studio: desde la Pool apropiada o desde una tarea humana, crea un contrato y ejecuta el UI Designer. Auto-generará un formulario correspondiente que se podrá editar."
 
-#: home/help-popup.html:1
 msgid "Start creating an <b>application layout</b> by importing the default layout, available in the Bonita Portal resources, and edit it."
 msgstr "Comience creando un <b>layout de la aplicación</b> mediante la importación del layout por defecto, en los recursos de Bonita Portal y edítelo."
 
-#: editor/bottom-panel/data-panel/data-type.service.js:30
-#: editor/bottom-panel/data-panel/data-type.service.js:31
 msgid "Static"
 msgstr "Estático"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Store as Number value"
 msgstr "Guardar como valor numérico"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Store as a Json object { header-name : HeaderValue } and can be accessed using this syntax $data.myRequestHeaders['header-name']"
 msgstr "Almacenar como un objeto Json { header-name : HeaderValue } y se puede acceder usando esta sintaxis $data.myRequestHeaders['header-name']"
 
-#: editor/bottom-panel/data-panel/data-type.service.js:30
 msgid "String"
 msgstr "Cadena (String)"
 
-#: home/import/import.service.js:62
 msgid "Successful import"
 msgstr "Importación exitosa"
 
-#: editor/header/metadata-popup.html:2
 msgid "Summary of the Bonita REST API calls made by the page."
 msgstr "Resumen de las llamadas a la API REST de Bonita realizadas por la página."
 
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
 msgid "Switch"
 msgstr "Cambiar"
 
-#: editor/header/help/help-popup.html:1
 msgid "Switch <i class=\"fa fa-exchange\"></i>"
 msgstr "Cambiar <i class=\"fa fa-exchange\"></i>"
 
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
 msgid "Switch to"
 msgstr "Cambiar a"
 
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
 msgid "Switch {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 msgstr "Cambiar {{ctrl.propertiesFrom.name}} {{ctrl.widgetFrom.$$widget.type}}"
 
-#: editor/properties-panel/properties-panel-action-menu-template.html:1
 msgid "Switch..."
 msgstr "Cambiar..."
 
-#: home/help-popup.html:1
 msgid "Tab widget: Possibility to define the selected tab"
 msgstr "Widget de pestañas: Posibilidad de definir la pestaña seleccionada"
 
-#: home/help-popup.html:1
 msgid "Table and Data table widget have a new <code>caption</code> property available for adding a title"
 msgstr "El widget de tabla y tabla de datos tienen una nueva propiedad <code>caption</code> disponible para agregar un título"
 
-#: editor/editor.controller.js:290
 msgid "Target"
 msgstr "Destino"
 
-#: custom-widget/custom-widget-editor.html:1 custom-widget/help-popup.html:1
 msgid "Template"
 msgstr "Plantilla"
 
-#: editor/properties-panel/bond/interpolation.html:1
 msgid "Text, optionally including variables in simple expressions for interpolation using [[ variableName ]]"
 msgstr "Texto, incluyendo opcionalmente variables en expresiones simples para la interpolación usando [[ variableName ]]"
 
-#: editor/header/export-popup.html:1
 msgid "The .zip archive of an exported page contains:"
 msgstr "El archivo .zip de una página exportada contiene:"
 
-#: home/help-popup.html:1
 msgid "The UI Designer generates <b>standard html application code, based on AngularJS</b>. Export pages if you want to further customize them in a different favorite web development environment."
 msgstr "El UI Designer genera <b>el código de la aplicación del estándar html, basado en AngularJS</b>. Exporta páginas si quieres personalizarlas aún más en tu entorno de desarrollo web favorito."
 
-#: editor/header/help/help-popup.html:1
 msgid "The UI Designer is displayed in the language of your Bonita Studio."
 msgstr "El UI Desginer se muestra en el idioma de tu Bonita Studio."
 
-#: home/help-popup.html:1
 msgid "The automatic detection allows you to see explicitly which REST API resources is needed in your artifact from the newest Bonita Resource panel."
 msgstr "La detección automática le permite ver explícitamente qué recursos de la API REST son necesarios en su artefacto desde el panel de Recursos de Bonita más reciente."
 
-#: custom-widget/create-property.html:2
 msgid "The caption will be displayed as such below the property label."
 msgstr "El título se mostrará como tal debajo de la etiqueta de propiedad."
 
-#: home/help-popup.html:1
 msgid "The changes will automatically be available when changing a page in Bonita UI Designer <2023.1> developed with a previous Bonita UI Designer version. Custom styling could be impacted so take this fact into account in your development estimates.</2023.1>"
 msgstr "Los cambios estarán disponibles automáticamente al cambiar una página en Bonita UI Designer <2023.1> desarrollado con una versión anterior de Bonita UI Designer. El estilo personalizado puede ser impactado, así que tenga en cuenta este hecho en sus estimaciones de desarrollo.</2023.1>"
 
-#: custom-widget/help-popup.html:1
 msgid "The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the widget template."
 msgstr "El controlador es una función JavaScript que aumenta el alcance AngularJS y expone funciones que pueden ser usadas en la plantilla de widget."
 
-#: home/help-popup.html:1
 msgid "The default widgets in the palette that contain a html <code>input</code> tag have now an associated label, which will facilitate the use of computer tools (screen readers for example)"
 msgstr "Los widgets por defecto en la paleta que contienen una etiqueta html <code>input</code> tienen ahora una etiqueta asociada, que facilitará el uso de herramientas informáticas (lectores de pantalla por ejemplo)"
 
-#: home/help-popup.html:1
 msgid "The following improvements have been made so that digitally accessible applications could be developed natively with Bonita UI Designer with less custom code:"
 msgstr "Se han realizado las siguientes mejoras para que las aplicaciones digitalmente accesibles puedan desarrollarse nativamente con Bonita UI Designer con un código menos personalizado:"
 
-#: home/import/import-report-popup.html:1
 msgid "The imported {{ ::importReport.type }} also contains new elements."
 msgstr "El {{ ::importReport.type }} importado también contiene nuevos elementos."
 
-#: custom-widget/help-l10n.html:3
 msgid "The link text which is static is translated using the <em>ui-translate</em> directive. The link text title held inside the <em>properties.title</em> variable is translated using the <em>uiTranslate</em> filter."
 msgstr "El texto del enlace que es estático es traducido usando la directiva <em>ui-translate</em>. El título del texto del enlace contenidos dentro de la variable <em>properties.title</em> se traduce utilizando el filtro <em>uiTranslate</em>."
 
-#: assets/help-popup.html:13
 msgid "The list contains page assets, the assets of the widgets used in this page and assets used by base framework."
 msgstr "La lista contiene assets de páginas, los assets de los widgets utilizados en esta página y assets utilizados por el framework base."
 
-#: home/import/import-error-messages.service.js:55
 msgid "The page has not been imported."
 msgstr "La página no ha sido importada."
 
-#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
 msgid "The resources on completion are not exhaustive. You can set any other value."
 msgstr "Los recursos a completar no son exhaustivos. Puede establecer cualquier otro valor."
 
-#: home/help-popup.html:1
 msgid "The switch widget feature has been improved to guide the user efficiently to avoid incompatible properties mapping that may lead to inconsistent states of widgets."
 msgstr "Se ha mejorado la función de cambio de widgets para guiar al usuario de forma eficiente a fin de evitar el mapeo de propiedades incompatibles que pueden llevar a estados inconsistentes de los widgets."
 
-#: custom-widget/create-property.html:1
 msgid "The tooltip will be display as such, close to the property label."
 msgstr "La ayuda se mostrará como tal, cerca de la etiqueta de propiedad."
 
-#: editor/header/help/help-popup.html:1
 msgid "The whiteboard is organized in <b>rows</b> that you can move up and down, or delete."
 msgstr "El whiteboard está organizado en <b>filas</b> que se pueden mover arriba y abajo, o eliminar."
 
-#: custom-widget/help-popup.html:1
 msgid "The widget HTML template is defined here."
 msgstr "La plantilla HTML del widget se define aquí."
 
-#: home/import/import-error-messages.service.js:59
 msgid "The widget has not been imported."
 msgstr "El widget no se ha importado."
 
-#: home/import/import-report-popup.html:1
 msgid "The {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong> will be overwritten."
 msgstr "Se sobrescribirá la {{ ::importReport.overwrittenType }} <strong>{{ ::importReport.overwrittenName }}</strong>."
 
-#: home/import/import-report-popup.html:1
 msgid "The {{ ::importReport.type }} to import contains elements with the same Id as some existing elements."
 msgstr "El {{ ::importReport.type }} a importar contiene elementos con el mismo id que otros elementos existentes."
 
-#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "The {{ artifact.type }} cannot be deleted because it is used in:"
 msgstr "El {{ artifact.type }} no se puede eliminar porque es utilizado en:"
 
-#: home/import/import-error-messages.service.js:62
 msgid "The {{ artifactType }} has not been imported."
 msgstr "El {{ artifactType }} no ha sido importado."
 
-#: home/help-popup.html:1
 msgid "There is a set of <b>default widgets</b> for displaying information to and for gathering information from the end users. You can also create <b>custom widgets</b>."
 msgstr "Hay un conjunto de <b>widgets por defecto</b> para mostrar información y para recogida de información de los usuarios finales. También se pueden crear <b>widgets personalizados</b>."
 
-#: common/repositories/data-management.service.js:74
 msgid "This Business Object contains more than {{number}} levels of relations. {{numberAsText}} level and beyond will not appear."
 msgstr "Este Business Object contiene más de {{number}} niveles de relaciones. El nivel {{numberAsText}} y más profundo no aparecerán."
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "This description will be displayed as a tooltip in the palette"
 msgstr "Esta descripción se mostrará como un tooltip en la paleta"
 
-#: editor/bottom-panel/data-panel/data-popup.html:10
 msgid "This example uses the JSON example provided if you select the type JSON.<br> It looks for the string ‘Linux’ in the array <code>environment</code> of JSON object <code>supportTicket</code>"
 msgstr "Este ejemplo utiliza el ejemplo JSON proporcionado si seleccionas el tipo JSON. <br>Busca la cadena 'Linux' en el array <code>environment</code> del objeto JSON <code>supportTicket</code>"
 
-#: editor/whiteboard/switchComponent/not-supported-browser-popup.html:1
 msgid "This feature is not available on Internet Explorer 11 nor Microsoft Edge for the moment."
 msgstr "Esta característica no está disponible en Internet Explorer 11 ni Microsoft Edge por el momento."
 
-#: assets/help-popup.html:13
 msgid "This filter uses the <a href=\"http://momentjs.com/\">moment.js</a> library to transform the display of a relative time. For example, it transforms '01/01/2011' to '4 years ago'."
 msgstr "Este filtro utiliza la librería <a href=\"http://momentjs.com/\"> moment.js</a> para transformar la visualización de un tiempo relativo. Por ejemplo, transforma el '01/01/2011 ' en 'hace 5 años'."
 
-#: common/directives/artifact-name-validation.js:12
 msgid "This name already exists"
 msgstr "El nombre ya existe"
 
-#: custom-widget/help-popup.html:1
 msgid "This page allows you to view a standard widget, or edit a custom widget."
 msgstr "Esta página le permite ver un widget estándar, o editar un widget personalizado."
 
-#: editor/editor.html:1
 msgid "This page is empty."
 msgstr "Esta página está vacía."
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "This panel displays the list of Business Objects that has been defined and deployed using Bonita Studio."
 msgstr "Este panel muestra la lista de Business Objects que se ha definido y desplegado usando Bonita Studio."
 
-#: assets/asset-edit-popup.html:1
 msgid "This will also update the content of the preview window"
 msgstr "También se actualizará el contenido de la ventana de previsualización"
 
-#: editor/editor.html:1
 msgid "To add content, drag and drop components from the palette to the whiteboard above."
 msgstr "Para agregar contenido, arrastra y suelta los componentes de la paleta en la zona de trabajo."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "To allow your user to download a document add a link widget with its url property bound to"
 msgstr "Para permitir a los usuarios descargar un documento, añade un widget Link con la propiedad url configurada con"
 
-#: home/help-popup.html:1
 msgid "To avoid some HTML injection in your page/form, we put for <b>Interpret HTML</b> property the default value to false for all widgets. If you already put this property to true, nothing change for you."
 msgstr "Para evitar alguna inyección HTML en su página/formulario, pusimos para la propiedad <b>Interpretar HTML</b> el valor predeterminado a falso para todos los widgets. Si usted ya pone esta propiedad a verdadero, nada cambia para usted."
 
-#: home/import/import-report-popup.html:1
 msgid "To avoid them being overwritten, <i>rename</i> them before you import."
 msgstr "Para evitar que se sobrescriban, <i>renombre</i> ellos antes de importarlos."
 
-#: home/help-popup.html:1
 msgid "To be more accessible for speech synthesizers, screen readers or some other tools, the internal html template of checklist and radio buttons widget has been updated."
 msgstr "Para ser más accesible para sintetizadores de voz, lectores de pantalla u otras herramientas, la plantilla HTML interna de los botones de lista de verificación y radio ha sido actualizada."
 
-#: assets/help-popup.html:19
 msgid "To display the date in a widget property evaluated as an expression, use the <code>dateAgo</code> filter on the <code>updateDate</code> variable as follows: <code>updateDate | dateAgo</code>"
 msgstr "Para mostrar la fecha en una propiedad de widget evaluada como una expresión, utilice el filtro de <code>dateAgo</code> en la variable <code>updateDate</code> como sigue: <code>updateDate | dateAgo</code>"
 
-#: editor/header/help/help-popup.html:1
 msgid "To edit a custom widget, use the <b>Edit</b> menu option close to the widget name in the properties panel."
 msgstr "Para editar un widget personalizado, utilice la opción del menu <b>Edición</b> cerca del nombre del widget en el panel de propiedades."
 
-#: custom-widget/custom-widget-editor.controller.js:61
 msgid "To edit this standard widget, save it first as a new custom widget"
 msgstr "Para editar este widget estándar, guárdalo primero como un nuevo widget personalizado"
 
-#: assets/help-popup.html:13
 msgid "To extend a page or form with custom AngularJS services (such as filters, constants, or factories), use the <code>bonitasoft.ui.extensions</code> module."
 msgstr "Para ampliar una página o formulario con servicios personalizados de AngularJS (como filtros, constantes o factorías), utiliza el módulo <code>bonitasoft.ui.extensions</code>."
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "To get data from the <i>Business Data Model</i>, please use the Business data variable type."
 msgstr "Para obtener datos del <i>Modelo de Datos de Negocio</i>, utilice el tipo de variable de Datos de Negocio."
 
-#: editor/header/help/help-migration.html:23
 msgid "To keep things working, if you migrate a page designed in a version older than 7.5.0 and containing custom widgets, <em>ui-bootstrap-tpls-0.13.0.min.js</em> will be added as an asset of your page automatically. You can remove it if you don't need it."
 msgstr "Para mantener las paginas funcionando, si migras una página diseñada en una versión anterior a 7.5.0 que contiene custom widgets, se añadirá el fichero <em>ui-bootstrap-tpls-0.13.0.min.js</em> automáticamente a la página. Puede eliminarlo si no lo necesita."
 
-#: assets/help-popup.html:13
 msgid "To load a local image asset in a custom widget, you need to reference it in the template inside a <code>&lt;img&gt;</code> tag with a relative path as follows: <br><code ng-non-bindable>&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
-msgstr "Para cargar un recurso de imagen local en un widget personalizado, necesitas hacer referencia a ella en la plantilla dentro de una etiqueta <code>&lt; img &gt;</code> con una ruta relativa como sigue: <br><code ng-non-bindable>&lt;img src=\"widgets/[id del widget personalizado]/assets/img /[nombre imagen]\"&gt;</code>"
+msgstr "Para cargar un asset local de imagen en un widget personalizado, necesita hacer referencia en la plantilla dentro de una etiqueta <code>&lt;img&gt;</code> con una ruta relativa como sigue: <br><code ng-non-bindable>&lt;img src=\"widgets/[custom widget id]/assets/img/[image name]\"&gt;</code>"
 
-#: assets/help-popup.html:1
 msgid "To load an image for any custom widget, add image assets at page level. Access it with <code>asset/img/[image name]</code>."
 msgstr "Para cargar una imagen para cualquier widget personalizado, añade un recurso de imagen a nivel de página. Accede a él con <code>asset/img/[nombre imagen]</code>."
 
-#: assets/help-popup.html:1
 msgid "To manage multiple version of dependencies, make sure only one version of an asset is active inside a page."
 msgstr "Para administrar múltiples versiones de dependencias, asegúrese de que sólo una versión de un recurso está activa dentro de una página."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "To retrieve a document instance, create an External API variable with value"
 msgstr "Para devolver una instancia de documento, crea una variable External API con valor"
 
-#: home/import/import-report-popup.html:1
 msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, <i>rename</i> it before you import."
 msgstr "Para guardar <strong>{{ ::importReport.overwrittenName }}</strong> con un identificador diferente, <i>cámbiele</i> el nombre antes de importarlo."
 
-#: home/import/import-report-popup.html:1
 msgid "To save <strong>{{ ::importReport.overwrittenName }}</strong> with a different identifier, open it and use <i>Save as</i> before you import."
 msgstr "Para guardar <strong>{{ ::importReport.overwrittenName }}</strong> con un identificador diferente, ábralo e use <i>Guardar como</i> antes de importarlo."
 
-#: editor/header/help/help-popup.html:1
 msgid "To support multi-languages for end-users, it includes a mechanism to translate the UI artifacts (pages, forms, layouts) created."
 msgstr "Para dar soporte con múltiples idiomas para los usuarios finales, se incluye un mecanismo para traducir los artefactos del UI Designer creados (páginas, formularios, layouts)."
 
-#: editor/whiteboard/switchComponent/not-supported-browser-popup.html:1
 msgid "To switch widget, use another browser: Google Chrome or Mozilla Firefox."
 msgstr "Para cambiar el widget, utilice otro navegador: Google Chrome o Mozilla Firefox."
 
-#: custom-widget/help-popup.html:1
 msgid "To use AngularJS standard services, you must declare them in the main function arguments."
 msgstr "Para utilizar los servicios estándar de AngularJS, debe declararlos en los argumentos de la función principal."
 
-#: assets/help-popup.html:1
 msgid "To use a localization asset, replace the default localization.json file with a file of the same format containing all the keys in the page and the translations into the target languages. The localization asset is at page level. The format of the file must be:"
 msgstr "Para utilizar un recurso de localización, reemplace el archivo de localization.json predeterminado con un archivo con el mismo formato que contenga todas las claves de la página y las traducciones en los idiomas de destino. La localización es a nivel de página. El formato del archivo debe ser:"
 
-#: assets/help-popup.html:1
 msgid "To use an image asset in the image widget, set the <code>Source type</code> property to <i>Asset</i>, and then enter the image name in the <code>Asset name</code> input field."
 msgstr "Para usar un recurso de imagen en el widget de imagen, establece la propiedad <code>Tipo Fuente</code> como <i>Recurso</i> y luego introduce el nombre de la imagen en el campo de entrada <code>nombre del recurso</code>."
 
-#: editor/properties-panel/container-repeat-content-tip.html:1
 msgid "To use the collection data in the widgets of this container, there are contextual variables that you can bind to the widget properties:"
 msgstr "Para utilizar una colección de datos en los widgets de este contenedor, hay variables contextuales que se pueden enlazar a las propiedades del widget:"
 
-#: assets/help-popup.html:1
 msgid "To use the same asset in several pages, you can add it to a custom widget and use this custom widget in your application pages or forms. When you add a custom widget with assets to a page, those assets are automatically linked to the page."
 msgstr "Para utilizar el mismo recurso en varias páginas, puede agregar un widget personalizado y utilizar este widget personalizado en sus páginas o formularios de la aplicación. Cuando se agrega un widget personalizado con los recursos a una página, esos recursos se vinculan automáticamente a la página."
 
-#: editor/header/help/help-popup.html:1
 msgid "To view the code of a standard widget, use the <b>View</b> menu option close to the widget name in the properties panel. From there, to use the standard widget as a basis for a custom widget, click on <b>Save as</b>, find a name for the custom widget, and make it your own."
 msgstr "Para ver el código de un widget estándar, utilice la opción del menú <b>Ver</b> cerca del nombre del widget en el panel de propiedades. Desde ahí, para usar el widget estándar como base para un widget personalizado, haga clic en <b>Guardar como</b>, defina un nombre para el widget personalizado, y ya dispondrá de su widget custom."
 
-#: custom-widget/custom-widget-editor.html:1 editor/editor.html:1
 msgid "Toggle properties panel"
 msgstr "Toggle Panel de propiedades\n"
 
-#: custom-widget/create-property.html:1
 msgid "Tooltip"
 msgstr "Tooltip"
 
-#: common/services/ace-data-completer.service.js:45
 msgid "Translate the given text"
 msgstr "Traducir este texto"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Treat as"
 msgstr "Tratar como"
 
-#: custom-widget/create-property.html:2
 msgid "Treat value as"
 msgstr "Tratar el valor como"
 
-#: editor/header/help/help-popup.html:1
 msgid "Two use cases : <ul> <li><code>dateVariable|uiDate</code> applies a default <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">format</a>. For an ISO 8601 string with a time, the default format is <em>'medium'</em>. Otherwise, it is <em>'mediumDate'</em>.</li> <li><code>dateVariable|uiDate:format</code> if you need to be more specific in which format, it can be specified exactly the same way as with <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">angularJS date filter</a>.<br> E.g. <code>dateVariable|uiDate:'short'</code> or <code> dateVariable|uiDate:'dd/MM/yyyy'</code></li> </ul>"
 msgstr "Dos casos de uso: <ul><li><code>dateVariable | uiDate</code> se aplica un <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\"> formato</a> por defecto. Para una cadena ISO 8601 con una hora, el formato por defecto es <em>'medium'</em>. De lo contrario, es <em>'mediumDate'</em>.</li> <li><code>dateVariable | uiDate:format</code> si necesita ser más específico en el formato, puede especificarlo exactamente de la misma manera que con <a href=\"https://code.angularjs.org/1.3.18/docs/api/ng/filter/date\" target=\"_blank\">filtro de fecha de angularJS</a>. <br>Ej <code>dateVariable | uiDate: 'short'</code> o <code>dateVariable | uiDate: ' dd/MM/AAAA'</code></li></ul>"
 
-#: assets/asset-popup.html:1 assets/widget-assets.html:1
-#: custom-widget/create-property.html:2
-#: custom-widget/custom-widget-editor.html:1
-#: editor/bottom-panel/data-panel/data-popup.html:1
-#: editor/bottom-panel/data-panel/data.html:1
 msgid "Type"
 msgstr "Tipo"
 
-#: home/home.html:1
 msgid "UI Designer <span ng-if=\"isExperimentalMode()\">(Experimental)</span>"
 msgstr "Diseñador de interfaz de usuario <span ng-if=\"isExperimentalMode()\">(Experimental)</span>"
 
-#: assets/generic-asset-form.html:1
 msgid "URL"
 msgstr "URL"
 
-#: editor/bottom-panel/data-panel/data-type.service.js:34
 msgid "URL parameter"
 msgstr "Parámetro de URL"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "URL parameter name"
 msgstr "Nombre del parámetro de URL"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Unable to access Business Data Model. Restart Bonita Studio and try again."
 msgstr "Incapaz de acceder al Business Data Model. Reinicie Bonita Studio e intentelo de nuevo."
 
-#: editor/header/header.html:1
 msgid "Unable to connect to the Business Data Model. Restarting the Studio may solve this issue"
 msgstr "Imposible de conectarse al Modelo de Datos de Negocio. Intente reiniciar el Studio para resolver el error"
 
-#: home/artifact-list/favorite-button.html:1
 msgid "Unmark as favorite"
 msgstr "Desmarcar como Favorito"
 
-#: assets/widget-assets.html:1
 msgid "Update asset"
 msgstr "Editar recurso"
 
-#: home/help-popup.html:1
 msgid "Upgrade between maintenance versions without migration. When a migration is required, get help from the UI Designer (warning icon, confirmation dialog, migration report)"
 msgstr "Actualizar entre versiones de mantenimiento sin migración. Cuando se requiera una migración, obtener ayuda del UI Designer (icono de advertencia, diálogo de confirmación, informe de migración)"
 
-#: home/import/import.service.js:55
 msgid "Upgrade to a newer UI Designer version to import this {{type}}"
 msgstr "Actualizar a una nueva versión del UI Designer para importar este {{type}}"
 
-#: editor/header/help/help-popup.html:1
 msgid "Use <b>widgets</b> from the palette on the left to <b>display information to</b> and <b>gather information from</b> the end users."
 msgstr "Usa los <b>widgets</b> de la paleta de la izquierda para <b>mostrar información</b> y <b>recopilar información</b> de los usuarios finales."
 
-#: editor/header/help/help-migration.html:1
 msgid "Use <code>legend</code> tag instead <code>label</code>"
 msgstr "Usa la etiqueta <code>leyenda</code> en su lugar <code>etiqueta</code>"
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "Use a Business Object"
 msgstr "Usar un objeto de negocio"
 
-#: editor/properties-panel/help/bidirectional-bond-help.html:1
 msgid "Use a bidirectional field to specify a read-write binding between the property value and a variable."
 msgstr "Utilice un campo bidireccional para especificar un enlace de lectura y escritura entre el valor de la propiedad y una variable."
 
-#: editor/properties-panel/help/dynamic-bond-help.html:1
 msgid "Use a dynamic value field to specify a constant (the default) or an expression. Click the expression icon fx to switch from constant to expression. Click the constant icon X to switch from expression to constant. An expression can include a variable to make the property value dynamic, or can simply be the name of a variable. You can apply a filter to a variable value using a pipe. The binding to the variable is a read. If you want to write to the variable, use a bidirectional bond. Examples:"
 msgstr "Utilice un campo de valor dinámico para especificar una constante (valor predeterminado) o una expresión. Haga clic en el icono de la expresión fx para cambiar de constante a expresión. Haga clic en el icono de constante X para cambiar de expresión a constante. Una expresión puede incluir una variable para hacer dinámico el valor de la propiedad, o puede ser simplemente el nombre de una variable. Puede aplicar un filtro a un valor de la variable usando pipe '|'. El enlace a la variable es de lectura. Si desea escribir en la variable, utilice un vínculo bidireccional. Ejemplos:"
 
-#: editor/properties-panel/help/interpolation-bond-help.html:1
 msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable>{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
-msgstr "Usa un campo de interpolación para introducir texto a mostrar en el widget. El texto puede incluir variables que se interpretan usando la interpolación AngularJS. Cuando se muestra la página, las variables son reemplazadas por los valores interpolados. Especifique una variable como una expresión simple encerrada en dos llaves, usando el mismo formato que para un campo de valor dinámico. Ejemplo: Lo siento, <em ng-non-bindable>{{ user.name | uppercase }}</em>. Temo que no pueda hacerlo."
+msgstr "Usa un campo de interpolación para introducir texto para mostrar en el widget. El texto puede incluir variables que se interpretan usando interpolación AngularJS. Cuando se muestra la página, las variables son reemplazadas por los valores interpolados. Especifique una variable como una expresión simple encerrada en dos llaves, usando el mismo formato que para un campo de valor dinámico. Ejemplo: Lo siento, <em ng-non-bindable>{{ user.name | uppercase }}</em>. Temo que no pueda hacerlo."
 
-#: custom-widget/help-l10n.html:1
 msgid "Use the <em>ui-translate</em> directive in custom widgets for static content to be translated"
 msgstr "Use la directiva <em>ui-translate</em> en los widgets personalizados para traducir contenido estático"
 
-#: custom-widget/help-l10n.html:1
 msgid "Use the <em>uiTranslate</em> filter in custom widgets for dynamic content to be translated"
 msgstr "Use el filtro <em>uiTranslate</em> en los widgets personalizados para traducir contenido dinámico"
 
-#: home/help-popup.html:1
 msgid "Use the UI Designer to create or edit web artifacts: <b>application pages</b> composing business applications, <b>process forms</b> linked to process instantiation or human tasks execution, as well as <b>application layouts</b>, applied to all pages of a business application."
 msgstr "Utiliza el UI Designer para crear o editar artefactos web: <b>páginas de una aplicación</b> que conforman las aplicaciones de negocio, <b>formularios de proceso</b> vinculados con la creación de instancias de proceso o ejecución de tareas humanas, así como <b>layouts de una aplicación</b>, aplicados a todas las páginas de una aplicación de negocios."
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "Use the generated user interface"
 msgstr "Utilice la interfaz de usuario generada"
 
-#: editor/header/help/help-popup.html:1
 msgid "Use the palette on the left to drag and drop containers and widgets in the whiteboard."
 msgstr "Utiliza la paleta de la izquierda para arrastrar y soltar contenedores y widgets en el whiteboard."
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "Use your Business data"
 msgstr "Utiliza tus datos de negocio"
 
-#: editor/header/metadata-popup.html:1
 msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive."
 msgstr "Utilizado en la lista de Recursos del portal. Parte del descriptor page.properties en el archivo de páginas exportadas."
 
-#: editor/header/metadata-popup.html:1
 msgid "Used in the portal list of Resources. Part of the page.properties descriptor in the exported page archive. If empty, page technical name is used as fallback."
 msgstr "Utilizado en la lista de recursos del portal. Parte del descriptor de page.properties en el archivo de página exportada. Si está vacío, el nombre técnico de la página se utiliza por defecto."
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:22
 msgid "User id could then be obtained by using {{myData.user_id}}"
 msgstr "La Id de usuario se obtendría mediante el uso de {{myData.user_id}}"
 
-#: editor/header/header.html:1
 msgid "Validation Errors"
 msgstr "Errores de validación"
 
-#: editor/header/header.html:1
 msgid "Validation error on the page. Fix is recommended before export"
 msgstr "Error de validación en la página. Se recomienda corregirlo antes de la exportación"
 
-#: home/artifact-list/artifact-list.directive.js:188
-#: home/artifact-list/artifact-list.directive.js:41
 msgid "Validation error. Fix is recommended before export"
 msgstr "Error de validación. Se recomienda corregirlo antes de la exportación"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
-#: editor/bottom-panel/data-panel/data-popup.html:10
-#: editor/bottom-panel/data-panel/data.html:1
-#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "Value"
 msgstr "Valor"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
-#: editor/properties-panel/bond/variable.html:1
 msgid "Variable in read-write binding with the property value"
 msgstr "Variable en enlace de lectura y escritura con valor de la propiedad"
 
-#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
 msgid "Variable name"
 msgstr "Nombre de Variable"
 
-#: editor/bottom-panel/data-panel/data-management-filter-popup.html:1
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "Variable names must start with a letter and contain only alphanumeric characters"
 msgstr "Los nombres de las variables deben empezar con una letra y contener sólo caracteres alfanuméricos"
 
-#: editor/bottom-panel/bottom-panel.directive.js:28
-#: editor/header/help/help-popup.html:1
 msgid "Variables"
 msgstr "Variables"
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "Variables can be bound to input fields to create conditional behavior between widget properties."
 msgstr "Las variables pueden estar enlazadas a los campos de entrada para crear un comportamiento condicional entre las propiedades del widget."
 
-#: editor/header/help/help-popup.html:1
 msgid "View"
 msgstr "Ver"
 
-#: assets/table/asset-section.html:1 assets/widget-assets.html:1
 msgid "View asset content"
 msgstr "Ver recurso"
 
-#: preview/app-selector/app-selector.html:1
 msgid "View in application <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i>"
 msgstr "Ver en la aplicación <i class=\"fa fa-info-circle ng-scope\" uib-tooltip=\"{{'In case your application is not available, please log in using a different account' | translate}}\" tooltip-placement=\"bottom\" tooltip-append-to-body=\"true\"></i>"
 
-#: editor/properties-panel/properties-panel-action-menu-template.html:1
 msgid "View..."
 msgstr "Ver..."
 
-#: editor/bottom-panel/data-panel/data-popup.html:10
 msgid "W3C website"
 msgstr "Sitio web de W3C"
 
-#: home/help-popup.html:1
 msgid "We have reorganized the order of the fields contained in the json file in order to facilitate the file comparison."
 msgstr "Hemos reorganizado el orden de los campos contenidos en el archivo json para facilitar la comparación de archivos."
 
-#: editor/whiteboard/switchComponent/switch-component-popup.html:1
 msgid "When possible, properties of the target widget are mapped with similar properties of the source widget. You can edit that and map more."
 msgstr "Cuando sea posible, las propiedades del widget objetivo se mapean con propiedades similares del widget de origen. Puede editar eso y mapear más."
 
-#: editor/header/help/help-popup.html:1
 msgid "When the switch is completed, chances are you will still have properties to fill out, in the properties panel."
 msgstr "Cuando el cambio se complete, puede ser que todavía tenga propiedades para completar en el panel de propiedades."
 
-#: home/help-popup.html:1
 msgid "When using a version control system, like git for example, migrating to this last version may cause reorder changes in json models that must be pushed."
 msgstr "Cuando se utiliza un sistema de control de versiones, como por ejemplo git migrar a esta última versión puede causar cambios en los modelos json que deben ser empujados."
 
-#: editor/header/help/help-popup.html:1
 msgid "When you delete a row, the following rows move up"
 msgstr "Cuando se elimina una fila, las siguientes filas suben"
 
-#: editor/bottom-panel/web-resources-panel/help-popup.html:1
 msgid "When you drag and drop a widget or a fragment, some Bonita resources are automatically found and added in the Bonita resource table. The <code>scopes</code> column of the Bonita resources table helps you identify what artifact declare a given resource."
 msgstr "Cuando arrastra y suelta un widget o un fragmento, algunos recursos de Bonita se encuentran automáticamente y se agregan en la tabla de recursos de Bonita. La columna de <code>alcances</code> de la tabla de recursos de Bonita te ayuda a identificar qué artefacto declara un recurso determinado."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "When you generate a form from a contract in the Studio, the form contains a Submit button and some default variables: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code>, and <code>context</code>"
 msgstr "Cuando se genera un formulario desde un contrato en el Studio, el formulario contiene un botón Enviar y algunas variables predeterminadas: <code>formInput</code>, <code>formOutput</code>, <code>taskId</code> y <code>context</code>"
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:79
 msgid "Where businessDataType = com.company.model.MyData, queryName = name of the BDM query, filter = \"myParam=myValue\""
 msgstr "Donde businessDataType = com.company.model.MyData, queryName = nombre de la consulta BDM, filter = \"myParam = myValue\""
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:57
 msgid "Where businessVariableName is the name of the business variable defined at pool level."
 msgstr "Donde businessVariableName es el nombre de la variable de negocio a nivel de Pool."
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "Widget description"
 msgstr "Descripción del widget"
 
-#: custom-widget/help-popup.html:1
 msgid "Widget implementation is based on the AngularJS framework."
 msgstr "La implementación del widget se basa en el framework AngularJS."
 
-#: custom-widget/help-popup.html:1
 msgid "Widget properties defined on the right can be used as variables in a controller with $scope.properties."
 msgstr "Las propiedades del widget definidas en la derecha pueden ser utilizadas como variables en un controlador con $scope.properties."
 
-#: custom-widget/help-popup.html:1
 msgid "Widget properties defined on the right can be used as variables in a template with properties.newProperty."
 msgstr "Las propiedades del widget definidas en la derecha pueden ser utilizadas como variables en una plantilla con properties.newProperty."
 
-#: editor/header/help/help-popup.html:1
 msgid "Widgets"
 msgstr "Widgets"
 
-#: custom-widget/help-l10n.html:1
 msgid "Widgets use the l10n mechanism that loads the translated string during page start up."
 msgstr "Los widgets utilizan el mecanismo de l10n que carga la cadena traducida durante el comienzo de carga de la página."
 
-#: editor/properties-panel/component-properties-template.html:1
 msgid "Width"
 msgstr "Ancho"
 
-#: editor/header/help/help-popup.html:1
 msgid "Within a row, when you delete a widget or a container, the following elements move to the left"
 msgstr "Dentro de una fila, al eliminar un widget o un contenedor, los siguientes elementos se desplazan hacia la izquierda"
 
-#: editor/bottom-panel/data-panel/exposable-data.html:1
 msgid "Yes. You must bind this variable to a variable in the page, form, layout or fragment using this fragment."
 msgstr "Sí. Se debe enlazar esta variable a una variable en la página, formulario, layout o fragmento utilizando este fragmento."
 
-#: editor/header/help/help-popup.html:1
 msgid "You can also create custom widgets, from existing widgets by \"saving as\" or from scratch in the home page."
 msgstr "También puede crear widgets personalizados, desde widgets existentes \"guardando como\" o desde cero en la página de inicio."
 
-#: editor/header/help/help-popup.html:1
 msgid "You can apply it to the following variable value types:"
 msgstr "Se puede aplicar a los siguientes tipos de valor de la variable:"
 
-#: editor/header/save-as-popup.html:1
 msgid "You can change the type to be able to use this artifact as a process form or as an application page."
 msgstr "Puede cambiar el tipo para poder usar este artefacto como un formulario de proceso o como una página de aplicación."
 
-#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
 msgid "You can check the list of all Bonita REST API resources on this dedicated <a href=\"https://api-documentation.bonitasoft.com/latest/\">documentation</a>"
 msgstr "Puede revisar la lista de todos los recursos de la API de Bonita REST en esta <a href=\"https://api-documentation.bonitasoft.com/latest/\">documentación</a> dedicada"
 
-#: assets/help-popup.html:13
 msgid "You can delete page assets only, view local assets, and edit external assets of a page."
 msgstr "Puede eliminar sólo assets de página, ver assets locales y editar assets externos de una página."
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "You can explore the data model (with a graphical view) using the graph icon in the header of this panel. It shows the relationships between business objects, and their attributes."
 msgstr "Puede explorar el modelo de datos (con una vista gráfica) usando el icono del gráfico en la cabecera de este panel. Muestra las relaciones entre los objetos de negocio, y sus atributos."
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "You can extend our REST API capabilities by creating REST API extensions in the Studio and use them here."
 msgstr "Puedes ampliar nuestras capacidades de API REST creando extensiones de API REST en el Studio y usarlas aquí."
 
-#: editor/bottom-panel/data-panel/help-popup.html:1
 msgid "You can extend our REST API capacities by creating <em>REST API extensions</em> in the Studio <i>Development</i> menu and use them as External API variables in the UI Designer."
 msgstr "Puede ampliar nuestras capacidades de la API REST creando <em>extensiones de API REST</em> en el menú <i>Desarrollo</i> del Studio y utilizarlas como variables de API externa en el UI Designer."
 
-#: editor/header/help/help-popup.html:1
 msgid "You can format data with filters when data is used in widget property fields that allow interpolation <i class=\"fa fa-paragraph\"></i> or that are bound to a variable <i class=\"fa fa-link\"></i> ."
 msgstr "Puede dar formato a los datos con los filtros cuando los datos se utilizan en campos de propiedades de widget que permiten interpolación <i class=\"fa fa-paragraph\"></i> o que están vinculados a una variable <i class=\"fa fa-link\"></i>."
 
-#: editor/header/help/help-popup.html:1
 msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
 msgstr "Se pueden agrupar widgets en un contenedor para definir la disposición de los widgets en un formulario o en una página. Un fragmento puede contener otros contenedores."
 
-#: home/help-popup.html:1
 msgid "You can manually declare the Bonita REST API resources which you're using in your artifact when the automatic detection fails to found them."
 msgstr "Puede declarar manualmente los recursos de la API Bonita REST que está utilizando en su artefacto cuando la detección automática no los encuentra."
 
-#: editor/bottom-panel/web-resources-panel/help-popup.html:1
 msgid "You can manually declare the Bonita REST API resources which you're using in your artifact when the automatic detection fails to found them. You need to select an HTTP Verb, and type/choose the REST API on the value field. This Bonita resource will export in page.properties files."
 msgstr "Puede declarar manualmente los recursos de la API Bonita REST que está utilizando en su artefacto cuando la detección automática no los encuentra. Necesita seleccionar un verbo HTTP, y escribir/elegir la API REST en el campo de valor. Este recurso Bonita exportará en los archivos page.properties."
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "You can only edit the query filters and pagination."
 msgstr "Sólo puede editar los filtros de consulta y la paginación."
 
-#: editor/header/help/help-popup.html:23
 msgid "You can optimize the UI designer responsiveness behavior for various screen sizes by configuring a different value for the <em>width</em> property for each device type. This uses the Bootstrap CSS grid mechanism."
 msgstr "Puede optimizar el comportamiento <i>responsive</i> del UI Designer para varios tamaños de pantalla, configurando un valor diferente en la propiedad <em>width</em> para cada tipo de dispositivo. Esto utiliza el mecanismo CSS de Bootstrap."
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "You can retrieve the Status Code or Response Headers with a usual variable binding and use it in the artifact."
 msgstr "Puede recuperar el Código de Estado o las Cabeceras de Respuesta con una variable enlazada habitual y usarlo en el artefacto."
 
-#: editor/header/help/help-popup.html:1
 msgid "You can save the content of a plain container as a reusable fragment."
 msgstr "Puede guardar el contenido de un contenedor como un fragmento reusable."
 
-#: editor/header/help/help-popup.html:1
 msgid "You can translate all the text displayed on a UI artifact: labels, placeholders, available values of a list. Even the Date format of the Date Picker widget can be localized."
 msgstr "Puedes traducir todo el texto mostrado en un artefacto del UI Designer: etiquetas, placeholders, los valores disponibles de una lista. Puede ser \"localizado\" (locale) incluso el formato de fecha del widget Date Picker."
 
-#: editor/bottom-panel/data-panel/api-examples.service.js:77
 msgid "You can use Business data type to get a business data object."
 msgstr "Puede utilizar el tipo Business data para obtener un objeto de negocio."
 
-#: editor/palette/data-model-help-popup.html:1
 msgid "You can use Pagination section to define the number of elements you want by page (by default 10 elements) and the page number (by default first page - index 0). For example, you can bind a variable to get dynamic pagination: {{paginationVariable.pageNumber}}."
 msgstr "Puede utilizar la sección Paginación para definir el número de elementos que desea por página (por defecto 10 elementos) y el número de página (por defecto primera página - índice 0). Por ejemplo, puede enlazar una variable para obtener una paginación dinámica: {{paginationVariable.pageNumber}}."
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "You can use data in the URL with the <i><em ng-non-bindable>{{dataName}}</em></i> syntax."
 msgstr "Puede usar variables en la URL con la sintaxis <i><em ng-non-bindable>{{dataName}}</em></i>"
 
-#: custom-widget/help-popup.html:1
 msgid "You can use standard HTML tags and AngularJS built-in directives, scope and interpolation system."
 msgstr "Puede usar etiquetas HTML estándar y las directivas, scope, interpolación de AngularJS."
 
-#: custom-widget/help-popup.html:1
 msgid "You can use the <i>environment</i> property injected in the scope when inside the whiteboard editor. It allows to create a mockup display for the whiteboard as the real use data will not be available."
 msgstr "Puede utilizar la propiedad <i>environment</i> inyectada en el scope dentro del editor de la pizarra. Esto permite crear una visualización de la maqueta de la pizarra porque los datos de uso real no están disponibles."
 
-#: assets/help-popup.html:13
 msgid "You cannot have more than one localization asset. When you upload a new asset file, it overwrites the existing one."
 msgstr "No puede haber más de un recurso de localización. Cuando subes un archivo de recurso, se sobrescribe el existente."
 
-#: editor/header/migrationReport/migration-report-popup.controller.html:1
 msgid "You cannot import or use this artifact in older version anymore."
 msgstr "Ya no puedes importar o usar este artefacto en la versión anterior."
 
-#: assets/help-popup.html:13
 msgid "You cannot move, delete or disable <b>Base framework</b> assets. They are here only to show you which library is used to build your artifact"
 msgstr "No puedes mover, eliminar o desactivar assets del <b>framework base </b>. Están aquí sólo para mostrarte qué biblioteca se utiliza para construir tu artefacto"
 
-#: common/directives/confirm-on-exit.js:20
 msgid "You have unsaved changes. Do you really want to leave ?"
 msgstr "Con cambios sin guardar. ¿Realmente desea salir ?"
 
-#: editor/bottom-panel/web-resources-panel/help-popup.html:1
 msgid "You should always declare the resource on the most atomic artifact (in fragment, if the resource is used in a fragment, in a custom widget, or at page level)"
 msgstr "Siempre debes declarar el recurso en el artefacto más atómico (en fragmento, si el recurso se utiliza en un fragmento, en un widget personalizado, o a nivel de página)"
 
-#: home/artifact-factory.service.js:36
 msgid "You should start process form design in the studio: from the appropriate pool or human task, create a contract and launch the UI Designer. It will auto-generate a dedicated form to edit."
 msgstr "Debería iniciar el diseño del formulario de proceso en el Studio: desde la Pool apropiada o tarea humana, crear un contrato y ejecutar el UI Designer. Se auto-generará un formulario concreto para poder editar."
 
-#: editor/header/export-popup.html:1
 msgid "You will have to manage the minification and update the resources URL to trigger the cache busting."
 msgstr "Se debe administrar el miniaturizado y actualizar la URL del recurso para activar el cache-busting."
 
-#: editor/header/migrationReport/migration-report-popup.controller.html:1
 msgid "Your artifact was migrated from <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> to model version <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
 msgstr "Tu artefacto fue migrado de <b>{{ctrl.migrationReport.previousArtifactVersion}}</b> a la versión del modelo <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
 
-#: editor/header/migrationReport/migration-report-popup.controller.html:1
 msgid "Your artifact was migrated to <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
 msgstr "Tu artefacto fue migrado a <b>{{ctrl.migrationReport.newArtifactVersion}}</b>."
 
-#: home/import/import-success-message.controller.js:39
 msgid "added"
 msgstr "añadido"
 
-#: editor/bottom-panel/web-resources-panel/web-resource-popup.html:1
 msgid "already exists"
 msgstr "ya existe"
 
-#: home/import/import-error-messages.service.js:53
 msgid "artifact"
 msgstr "artefacto"
 
-#: editor/properties-panel/component-properties-template.html:1
 msgid "column"
 msgid_plural "columns"
 msgstr[0] "columnas"
 msgstr[1] "columnas"
 
-#: editor/editor.service.js:88
 msgid "custom widgets"
 msgstr "Widgets personalizados"
 
-#: editor/editor.service.js:94
 msgid "data model"
 msgstr "modelo de datos"
 
-#: editor/header/help/help-popup.html:23
 msgid "desktop screens (1200px ≤ screenSize)"
 msgstr "pantalla escritorio (1200px ≤ tamaño)"
 
-#: common/services/alerts.service.js:31
 msgid "error"
 msgstr "error"
 
-#: editor/properties-panel/bond/expression.html:1
 msgid "expression or variable"
 msgstr "expresión o variable"
 
-#: home/import/import-success-message.controller.js:45
 msgid "form"
 msgstr "formulario"
 
-#: editor/header/help/help-popup.html:1
 msgid "formatted String variables"
 msgstr "variables con formato tipo String"
 
-#: home/import/import-success-message.controller.js:48
 msgid "fragment"
 msgstr "fragmento"
 
-#: editor/whiteboard/fragment.service.js:33
 msgid "fragments"
 msgstr "fragmentos"
 
-#: common/services/migration.service.js:66
 msgid "has been migrated successfully. Check migration details <i class=\"fa fa-wrench status\"></i> for more details."
 msgstr "ha sido migrado con éxito. Compruebe los detalles de migración <i class=\"fa fa-wrench status\"></i> para más detalles."
 
-#: editor/common/properties.service.js:40
 msgid "hidden"
 msgstr "oculto"
 
-#: editor/header/export-popup.html:1
 msgid "if you edit the page, form or layout outside the UI Designer, you will not be able to reimport it."
 msgstr "si se edita la página, el formulario o el layout fuera del UI Designer, no se podrá reimportarlo."
 
-#: common/services/alerts.service.js:34
 msgid "info"
 msgstr "info"
 
-#: common/services/migration.service.js:37
 msgid "is not compatible with this UI Designer version. A newer version is required."
 msgstr "no es compatible con esta versión de UI Designer. Se requiere una nueva versión."
 
-#: editor/header/help/help-popup.html:23
 msgid "laptop screens (992px ≤ screenSize < 1200px)"
 msgstr "pantalla laptop (992px ≤ tamaño< 1200px)"
 
-#: home/import/import-success-message.controller.js:47
 msgid "layout"
 msgstr "layout"
 
-#: editor/header/help/help-popup.html:23
 msgid "mobile screens (screenSize < 768px)"
 msgstr "pantallas móviles (tamaño < 768px)"
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "name"
 msgstr "nombre"
 
-#: editor/properties-panel/field/boolean.html:1
 msgid "no"
 msgstr "no"
 
-#: home/import/import-success-message.controller.js:37
 msgid "overwritten"
 msgstr "sobrescrito"
 
-#: home/import/import-success-message.controller.js:44
 msgid "page"
 msgstr "página"
 
-#: common/services/alerts.service.js:32
 msgid "success"
 msgstr "success"
 
-#: home/import/import-success-message.html:1
 msgid "successfully imported."
 msgstr "importado con éxito."
 
-#: editor/bottom-panel/data-panel/data-popup.html:1
 msgid "supportTicket is an object composed of a <em>subject</em>, <em>severity</em> level, user <em>environment</em>, reporter’s <em>contact</em> (<em>name</em> and <em>job title</em>), and an <em>URL</em> providing more details on the contact."
 msgstr "supportTicket es un objeto compuesto por un <em>subject</em>, nivel de <em>severity</em>, <em>entorno</em> de usuario, <em>información de contacto</em> del reportero (<em>nombre</em> y <em>puesto</em>), y una <em>URL</em> que proporciona detalles adicionales sobre el contacto."
 
-#: editor/header/help/help-popup.html:23
 msgid "tablet screens (768px ≤ screenSize < 992px)"
 msgstr "pantallas tablet (768px ≤ tamaño < 992px)"
 
-#: editor/bottom-panel/data-panel/data-popup.html:10
 msgid "view W3C's Json specification"
 msgstr "ver la especificación Json de W3C"
 
-#: common/services/alerts.service.js:33
 msgid "warning"
 msgstr "warning"
 
-#: home/import/import-success-message.controller.js:46
 msgid "widget"
 msgstr "widget"
 
-#: custom-widget/custom-widget-editor.html:1
 msgid "widget editor"
 msgstr "editor de widget"
 
-#: editor/editor.service.js:179 editor/editor.service.js:85
 msgid "widgets"
 msgstr "widgets"
 
-#: editor/properties-panel/field/boolean.html:1
 msgid "yes"
 msgstr "sí"
 
-#: home/import/import-report-item-list.html:1
 msgid "{{ artifactType }}"
 msgid_plural "{{ artifactType }}s"
 msgstr[0] "{{ artifactType }}"
 msgstr[1] "{{ artifactType }}s"
 
-#: home/artifact-list/alert-deletion-notpossible-popup.html:1
 msgid "{{ type }}"
 msgid_plural "{{ type }}s"
 msgstr[0] "{{ type }}"
 msgstr[1] "{{ type }}s"
 
-#: editor/header/header.html:1
 msgid "{{ vm.page.type }} editor"
 msgstr "Editor de {{ vm.page.type }}"
 
-#: assets/asset-preview-popup.html:1
 msgid "{{asset.name}} content<expand-modal></expand-modal>"
 msgstr "contenido de {{asset.name}} <expand-modal></expand-modal>"
 
-#: confirm-popup/confirm-migrate-popup.html:1
 msgid "{{ctrl.artifact}} requires a migration"
 msgstr "{{ctrl.artifact}} requiere una migración"
 
-#: editor/header/metadata-popup.html:1
 msgid "{{ctrl.page.name}} information"
 msgstr "{{ctrl.page.name}} información"
 
-#: assets/table/asset-section.controller.js:58
 msgid "{{currentLength}} of {{totalNumber}}"
 msgstr "{{currentLength}} de {{totalNumber}}"
 
-#: editor/bottom-panel/web-resources-panel/webResources-panel.html:1
 msgid "{{filter.label}}"
 msgstr "{{filter.label}}"
 
-#: assets/page-assets.html:1
 msgid "{{filter.value}}"
 msgstr "{{filter.value}}"
 
-#: assets/table/asset-section.html:1
 msgid "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 msgstr "{{vm.getEmptyAssetMessage(vm.key,vm.type)}}"
 
-#: assets/table/asset-section.html:1
 msgid "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
 msgstr "{{vm.type.label}} ({{vm.getAssetsCounterByTypeForCurrentScope()}})"
 
