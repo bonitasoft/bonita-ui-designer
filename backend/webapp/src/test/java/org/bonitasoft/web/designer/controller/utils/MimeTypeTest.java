@@ -14,16 +14,15 @@
  */
 package org.bonitasoft.web.designer.controller.utils;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static junitparams.JUnitParamsRunner.$;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(JUnitParamsRunner.class)
-public class MimeTypeTest {
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+class MimeTypeTest {
 
     /**
      * Values injected in the test.
@@ -33,17 +32,17 @@ public class MimeTypeTest {
      * <li>Last value is the expected result</li>
      * </ul>
      */
-    protected Object[] typeMimeValues() {
-        return $(
-                $(MimeType.APPLICATION_ZIP, "application/zip", true),
-                $(MimeType.APPLICATION_ZIP, "application/x-zip", true),
-                $(MimeType.APPLICATION_ZIP, "application/not-a-zip", false)
+    private static Stream<Arguments> typeMimeValues() {
+        return Stream.of(
+                Arguments.of(MimeType.APPLICATION_ZIP, "application/zip", true),
+                Arguments.of(MimeType.APPLICATION_ZIP, "application/x-zip", true),
+                Arguments.of(MimeType.APPLICATION_ZIP, "application/not-a-zip", false)
         );
     }
 
-    @Parameters(method = "typeMimeValues")
-    @Test
-    public void should_verify_main_mimeType(MimeType mimeType, String mimeTypeText, boolean resultExpected) throws Exception {
+    @ParameterizedTest
+    @MethodSource("typeMimeValues")
+    void should_verify_main_mimeType(MimeType mimeType, String mimeTypeText, boolean resultExpected) throws Exception {
         boolean matches = mimeType.matches(mimeTypeText);
         assertThat(matches).isEqualTo(resultExpected);
     }

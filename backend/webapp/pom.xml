@@ -13,6 +13,7 @@
 
     <properties>        
         <smiley-http-proxy-servlet.version>1.12.1</smiley-http-proxy-servlet.version>
+        <moco-junit.version>1.4.0</moco-junit.version>
         <resource.delimiter>@</resource.delimiter>
     </properties>
 
@@ -151,13 +152,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>pl.pragmatists</groupId>
-            <artifactId>JUnitParams</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.github.dreamhead</groupId>
             <artifactId>moco-junit</artifactId>
+            <version>${moco-junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
