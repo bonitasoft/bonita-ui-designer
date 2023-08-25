@@ -23,31 +23,43 @@ jobs:
     name: Build, publish and upload binaries
     runs-on: [self-hosted, uid-runner]
     outputs:
-      tagVersion: ${{ steps.release.outputs.test }}
-      branchToRelease: ${{ steps.release.outputs.test }}
-      createPR: ${{ steps.release.outputs.createPR }}
+      tagVersion: ${{ steps.version.outputs.test }}
+      branchToRelease: ${{ steps.branch.outputs.test }}
+      createPR: ${{ steps.pr.outputs.test }}
     steps:
-      - name: Extract parameter
-        id: init
+      - name: Extract version parameter
+        id: version
         run: |
-          if [ ${{ github.event.action }} == 'github-publish' ]
+          if [ '${{ github.event.action }}' = 'github-publish' ]
             then
-                echo "##[set-output name=tagVersion;]$(echo ${{ github.event.client_payload.releaseVersion }})"
-                echo "##[set-output name=branchToRelease;]$(echo ${{ github.event.client_payload.ref }})"
-                echo "##[set-output name=createPR;]$(echo ${{ github.event.client_payload.createPR }})"
-                createPR
+                echo "test=${{ github.event.client_payload.releaseVersion }}" >> $GITHUB_OUTPUT
             else
-                echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.releaseVersion }})"
-                echo "##[set-output name=branchToRelease;]$(echo ${{ github.ref }})"
-                echo "##[set-output name=pushToJfrog;]$(echo ${{ github.event.inputs.pushToJfrog == 'true' }})"
-                echo "##[set-output name=createPR;]$(echo ${{ github.event.inputs.createPR == 'true' }})"
+                echo "test=${{ github.event.inputs.releaseVersion }}" >> $GITHUB_OUTPUT
+            fi
+      - name: Extract branch parameter
+        id: branch
+        run: |
+          if [ '${{ github.event.action }}' = 'github-publish' ]
+            then
+                echo "test=${{ github.event.client_payload.ref }}" >> $GITHUB_OUTPUT
+            else
+                echo "test=${{ github.ref }}" >> $GITHUB_OUTPUT
+            fi
+      - name: Extract createPr parameter
+        id: pr
+        run: |
+          if [ '${{ github.event.action }}' = 'github-publish' ]
+            then
+                echo "test=${{ github.event.client_payload.createPR }}" >> $GITHUB_OUTPUT
+            else
+                echo "test=${{ github.event.inputs.createPR }}" >> $GITHUB_OUTPUT
             fi
       - uses: actions/checkout@v3
         with:
-          ref: ${{ steps.init.outputs.tagVersion }}
+          ref: ${{ steps.version.outputs.tagVersion }}
 
       - name: Set up Java 11
-        if: ${{ steps.init.outputs.branchToRelease != 'refs/heads/1.12.x' }}
+        if: ${{ steps.branch.outputs.branchToRelease != 'refs/heads/1.12.x' }}
         uses: actions/setup-java@v3
         with:
           java-version: 11
@@ -56,7 +68,7 @@ jobs:
 
       # When repository-dispatch is called, default branch is always trigger, that's why we configure java 8 here for 1.12.x branch
       - name: Set up Java 8
-        if: ${{ steps.init.outputs.branchToRelease  == 'refs/heads/1.12.x' &&  github.event.action == 'github-publish' }}
+        if: ${{ steps.branch.outputs.branchToRelease  == 'refs/heads/1.12.x' &&  github.event.action == 'github-publish' }}
         uses: actions/setup-java@v3
         with:
           java-version: 8
@@ -64,31 +76,25 @@ jobs:
           cache: maven
 
       - name: Create maven settings
-        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushToJfrog == 'true')}}
+        if: ${{ success() && ( github.event.action == 'github-publish' ||  github.event.inputs.pushToJfrog == 'true')}}
         uses: whelk-io/maven-settings-xml-action@v21
         with:
           servers: '[{ "id": "releases", "username": "bonita-ci", "password": "${{ secrets.JFROG_AUTH }}" }]'
 
       - name: Publish artefact
-        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushToJfrog == 'true')}}
+        if: ${{ success() && ( github.event.action == 'github-publish' || github.event.inputs.pushToJfrog == 'true')}}
         run: ./mvnw deploy -DskipTests -DaltDeploymentRepository=releases::default::https://bonitasoft.jfrog.io/artifactory/libs-release-local/
 
       - name: Build binaries
-        if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushToJfrog != 'true')}}
+        if: ${{ success() && ( github.event.action != 'github-publish' &&  github.event.inputs.pushToJfrog != 'true')}}
         run: ./mvnw -B package --file pom.xml -DskipTests
 
-      - name: Set Output
-        id: release
-        run: |
-           echo "branchToRelease=${{ steps.init.outputs.branchToRelease }}" >> "$GITHUB_OUTPUT"
-           echo "tagVersion=${{ steps.init.outputs.tagVersion }}" >> "$GITHUB_OUTPUT"
-           echo "createPR=${{ steps.init.outputs.createPR }}" >> "$GITHUB_OUTPUT"
       - name: Send message to Slack channel
-        if: ${{ success() && ( github.event.action == 'github-publish' ||  steps.init.outputs.pushToJfrog == 'true')}}
+        if: ${{ success() && ( github.event.action == 'github-publish' ||  github.event.inputs.pushToJfrog == 'true')}}
         uses: bonitasoft/actions/packages/notify-slack@v2.2.0
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
-          MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.init.outputs.tagVersion }} successfully. PRs to integrate are open on dedicated repositories :mini-gg:"
+          MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.version.outputs.tagVersion }} successfully. PRs to integrate are open on dedicated repositories :mini-gg:"
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
   openPrOnDedicatedRepositories:
@@ -105,4 +111,4 @@ jobs:
           token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
           repository: ${{ matrix.repo }}
           event-type: new-uid-release
-          client-payload: '{"release": "${{ needs.publishBinaries.outputs.tagVersion}}, "branch":"${{ needs.publishBinaries.outputs.branchToRelease}}", "release_notes_url" :"${{github.server_url}}/${{github.repository}}/releases/tag/${{ needs.publishBinaries.outputs.tagVersion}}"}'
+          client-payload: '{"release": "${{ needs.publishBinaries.outputs.tagVersion}}", "branch":"${{ needs.publishBinaries.outputs.branchToRelease}}", "release_notes_url" :"${{github.server_url}}/${{github.repository}}/releases/tag/${{ needs.publishBinaries.outputs.tagVersion}}"}'
