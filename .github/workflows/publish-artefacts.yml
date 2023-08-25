@@ -32,15 +32,14 @@ jobs:
         run: |
           if [ ${{ github.event.action }} == 'github-publish' ]
             then
-                echo "##[set-output name=tagVersion;]$(echo ${{ github.event.client_payload.releaseVersion }})"
-                echo "##[set-output name=branchToRelease;]$(echo ${{ github.event.client_payload.ref }})"
-                echo "##[set-output name=createPR;]$(echo ${{ github.event.client_payload.createPR }})"
-                createPR
+                echo "tagVersion=${{ github.event.client_payload.releaseVersion }}" >> $GITHUB_OUTPUT
+                echo "branchToRelease=${{ github.event.client_payload.ref }}" >> $GITHUB_OUTPUT
+                echo "createPR=${{ github.event.client_payload.createPR }}" >> $GITHUB_OUTPUT
             else
-                echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.releaseVersion }})"
-                echo "##[set-output name=branchToRelease;]$(echo ${{ github.ref }})"
-                echo "##[set-output name=pushToJfrog;]$(echo ${{ github.event.inputs.pushToJfrog == 'true' }})"
-                echo "##[set-output name=createPR;]$(echo ${{ github.event.inputs.createPR == 'true' }})"
+                echo "tagVersion=${{ github.event.inputs.releaseVersion }}" >> $GITHUB_OUTPUT
+                echo "branchToRelease=${{ github.ref }}" >> $GITHUB_OUTPUT
+                echo "pushToJfrog=${{ github.event.inputs.pushToJfrog }}" >>  $GITHUB_OUTPUT
+                echo "createPR=${{ github.event.inputs.createPR }}" >> $GITHUB_OUTPUT
             fi
       - uses: actions/checkout@v3
         with:
@@ -105,4 +104,4 @@ jobs:
           token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
           repository: ${{ matrix.repo }}
           event-type: new-uid-release
-          client-payload: '{"release": "${{ needs.publishBinaries.outputs.tagVersion}}, "branch":"${{ needs.publishBinaries.outputs.branchToRelease}}", "release_notes_url" :"${{github.server_url}}/${{github.repository}}/releases/tag/${{ needs.publishBinaries.outputs.tagVersion}}"}'
+          client-payload: '{"release": "${{ needs.publishBinaries.outputs.tagVersion}}", "branch":"${{ needs.publishBinaries.outputs.branchToRelease}}", "release_notes_url" :"${{github.server_url}}/${{github.repository}}/releases/tag/${{ needs.publishBinaries.outputs.tagVersion}}"}'
