@@ -7,10 +7,14 @@ on:
         description: base tag version to publish
         default: 1.12.X
         required: true
-      pushMavenCentral:
+      pushToJfrog:
         description: true to push on artifactory
         default: false
         required: true
+      createPR:
+        description: Create PR on dependencies
+        type: boolean
+        default: 'true'
   repository_dispatch:
     types: [ github-publish ]
 
@@ -18,6 +22,10 @@ jobs:
   publishBinaries:
     name: Build, publish and upload binaries
     runs-on: [self-hosted, uid-runner]
+    outputs:
+      tagVersion: ${{ steps.release.outputs.test }}
+      branchToRelease: ${{ steps.release.outputs.test }}
+      createPR: ${{ steps.release.outputs.createPR }}
     steps:
       - name: Extract parameter
         id: init
@@ -26,10 +34,13 @@ jobs:
             then
                 echo "##[set-output name=tagVersion;]$(echo ${{ github.event.client_payload.releaseVersion }})"
                 echo "##[set-output name=branchToRelease;]$(echo ${{ github.event.client_payload.ref }})"
+                echo "##[set-output name=createPR;]$(echo ${{ github.event.client_payload.createPR }})"
+                createPR
             else
                 echo "##[set-output name=tagVersion;]$(echo ${{ github.event.inputs.releaseVersion }})"
                 echo "##[set-output name=branchToRelease;]$(echo ${{ github.ref }})"
-                echo "##[set-output name=pushMavenCentral;]$(echo ${{ github.event.inputs.pushMavenCentral == 'true' }})"
+                echo "##[set-output name=pushToJfrog;]$(echo ${{ github.event.inputs.pushToJfrog == 'true' }})"
+                echo "##[set-output name=createPR;]$(echo ${{ github.event.inputs.createPR == 'true' }})"
             fi
       - uses: actions/checkout@v3
         with:
@@ -53,23 +64,45 @@ jobs:
           cache: maven
 
       - name: Create maven settings
-        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
+        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushToJfrog == 'true')}}
         uses: whelk-io/maven-settings-xml-action@v21
         with:
           servers: '[{ "id": "releases", "username": "bonita-ci", "password": "${{ secrets.JFROG_AUTH }}" }]'
 
       - name: Publish artefact
-        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushMavenCentral == 'true')}}
+        if: ${{ success() && ( github.event.action == 'github-publish' || steps.init.outputs.pushToJfrog == 'true')}}
         run: ./mvnw deploy -DskipTests -DaltDeploymentRepository=releases::default::https://bonitasoft.jfrog.io/artifactory/libs-release-local/
 
       - name: Build binaries
-        if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushMavenCentral != 'true')}}
+        if: ${{ success() && ( github.event.action != 'github-publish' &&  steps.init.outputs.pushToJfrog != 'true')}}
         run: ./mvnw -B package --file pom.xml -DskipTests
 
+      - name: Set Output
+        id: release
+        run: |
+           echo "branchToRelease=${{ steps.init.outputs.branchToRelease }}" >> "$GITHUB_OUTPUT"
+           echo "tagVersion=${{ steps.init.outputs.tagVersion }}" >> "$GITHUB_OUTPUT"
+           echo "createPR=${{ steps.init.outputs.createPR }}" >> "$GITHUB_OUTPUT"
       - name: Send message to Slack channel
-        if: ${{ success() && ( github.event.action == 'github-publish' ||  steps.init.outputs.pushMavenCentral == 'true')}}
+        if: ${{ success() && ( github.event.action == 'github-publish' ||  steps.init.outputs.pushToJfrog == 'true')}}
         uses: bonitasoft/actions/packages/notify-slack@v2.2.0
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
-          MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.init.outputs.tagVersion }} successfully. You can open a PR on studio repository if needed :mini-gg:"
+          MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.init.outputs.tagVersion }} successfully. PRs to integrate are open on dedicated repositories :mini-gg:"
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+    openPrOnDedicatedRepositories:
+      needs: publishBinaries
+      strategy:
+        matrix:
+          repo: [ 'bonitasoft/bonita-studio-sp', 'bonitasoft/bonita-web-pages-sp']
+      runs-on: ubuntu-22.04
+      steps:
+        - name: Repository Dispatch
+          uses: peter-evans/repository-dispatch@v2
+          if: ${{ needs.publishBinaries.outputs.createPR = 'true'}}
+          with:
+            token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+            repository: ${{ matrix.repo }}
+            event-type: new-uid-release
+            client-payload: '{"release": "${{ needs.publishBinaries.outputs.tagVersion}}, "branch":"${{ needs.publishBinaries.outputs.branchToRelease}}", "release_notes_url" :"${{GITHUB_SERVER_URL}}/${{GITHUB_REPOSITORY}}/releases/tag/${{ needs.publishBinaries.outputs.tagVersion}}"}'

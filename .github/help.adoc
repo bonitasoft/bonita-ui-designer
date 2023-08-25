@@ -28,6 +28,7 @@ To do a release, run *Release* action. You need to enter all parameters (You can
 |version|--next-patch|✅|Keep default value to bump minor version or replace with specific version
 |publishBinaries|true|✅|If true, binaries will be pushed on the repository, added as a github release asset.
 |pushToPublic|true|✅|If true, tag will be pushed on github public repository
+|createPR|true|✅|If true, we will open a PR on repositories which depends on ui-designer (studio and web-pages)
 |===
 
 === How to add/update the release note ?
