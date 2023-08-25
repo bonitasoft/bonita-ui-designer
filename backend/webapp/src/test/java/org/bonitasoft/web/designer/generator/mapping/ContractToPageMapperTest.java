@@ -16,23 +16,15 @@ package org.bonitasoft.web.designer.generator.mapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessQueryDataFactory;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.Alignment;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonAction;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.ParameterConstants;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.TextWidget;
-import org.bonitasoft.web.designer.generator.parametrizedWidget.TitleWidget;
+import org.bonitasoft.web.designer.generator.parametrizedWidget.*;
 import org.bonitasoft.web.designer.model.JacksonJsonHandler;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.EditMode;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.FormContainer;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.PropertyValue;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.bonitasoft.web.designer.model.page.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 
@@ -42,7 +34,7 @@ import static org.bonitasoft.web.designer.builder.PropertyValueBuilder.*;
 import static org.bonitasoft.web.designer.builder.VariableBuilder.*;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ContractToPageMapperTest {
 
     JsonHandler jsonHandler = new JacksonJsonHandler(new ObjectMapper());

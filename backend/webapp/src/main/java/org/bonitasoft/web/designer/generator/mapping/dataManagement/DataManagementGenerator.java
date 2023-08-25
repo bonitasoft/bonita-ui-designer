@@ -17,16 +17,15 @@ package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.WidgetContainer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-@Named
+@Component
 public class DataManagementGenerator {
 
     private final DimensionFactory dimensionFactory;
 
-    @Inject
+    @Autowired
     public DataManagementGenerator(DimensionFactory dimensionFactory) {
         this.dimensionFactory = dimensionFactory;
     }

@@ -14,16 +14,16 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
+import java.net.URI;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
-
-import javax.inject.Inject;
-import java.net.URI;
 
 @ConditionalOnProperty("designer.workspace.apiUrl")
 @Component
@@ -33,7 +33,7 @@ public class StudioHealthCheck {
 
     private final RestClient restClient;
 
-    @Inject
+    @Autowired
     public StudioHealthCheck(RestClient restClient) {
         this.restClient = restClient;
     }

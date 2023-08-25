@@ -11,13 +11,21 @@
     <artifactId>ui-designer-backend-webapp</artifactId>
     <packaging>jar</packaging>
 
-    <properties>        
+    <properties>
         <smiley-http-proxy-servlet.version>1.12.1</smiley-http-proxy-servlet.version>
         <moco-junit.version>1.4.0</moco-junit.version>
         <resource.delimiter>@</resource.delimiter>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.bonitasoft.web</groupId>
+            <artifactId>ui-designer-artifact-builder-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.bonitasoft.web</groupId>
+            <artifactId>ui-designer-artifact-builder-model</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.bonitasoft.web</groupId>
             <artifactId>ui-designer-artifact-builder</artifactId>
@@ -97,29 +105,18 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.mitre.dsmiley.httpproxy</groupId>
             <artifactId>smiley-http-proxy-servlet</artifactId>
             <version>${smiley-http-proxy-servlet.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-artifact</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Tests -->
@@ -140,9 +137,18 @@
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.bonitasoft.web</groupId>
             <artifactId>ui-designer-artifact-builder</artifactId>
+            <version>${ui-designer-artifact-builder.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bonitasoft.web</groupId>
+            <artifactId>ui-designer-artifact-builder-model</artifactId>
+            <version>${ui-designer-artifact-builder.version}</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
@@ -316,11 +322,11 @@
 			                 <artifactItem>
 			                   <groupId>org.bonitasoft.web</groupId>
 			                   <artifactId>ui-designer-artifact-builder</artifactId>
-			                   <version>${ui-designer-artifact-builde.version}</version>
+			                   <version>${ui-designer-artifact-builder.version}</version>
 			                   <type>jar</type>
 			                   <overWrite>true</overWrite>
 			                   <outputDirectory>${project.build.directory}/artifact-builder</outputDirectory>
-			                   <includes>META-INF/NODE_DEPENDENCIES.json</includes>     
+			                   <includes>META-INF/NODE_DEPENDENCIES.json</includes>
 			                </artifactItem>
 			               </artifactItems>
 			               <overWriteReleases>false</overWriteReleases>
@@ -372,7 +378,7 @@
                             <dependency>
                                 <groupId>com.github.jknack</groupId>
                                 <artifactId>handlebars</artifactId>
-                                <version>4.3.1</version>
+                                <version>${handlebars.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>

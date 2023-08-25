@@ -14,16 +14,26 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import static org.springframework.util.StringUtils.hasText;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.bonitasoft.web.designer.common.repository.exception.NotAllowedException;
+import org.bonitasoft.web.designer.common.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.common.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.controller.utils.HttpFile;
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.JsonViewLight;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.WidgetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,21 +48,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.List;
-
-import static org.springframework.util.StringUtils.hasText;
-
 @RestController
 @RequestMapping("/rest/widgets")
 public class WidgetResource extends AssetResource<Widget, WidgetService> {
     private Path widgetPath;
 
-    @Inject
+    @Autowired
     public WidgetResource(JsonHandler jsonHandler, WidgetService widgetService, SimpMessagingTemplate messagingTemplate, WorkspaceProperties workspaceProperties) {
         super(jsonHandler, widgetService, messagingTemplate);
         this.widgetPath = workspaceProperties.getWidgets().getDir();

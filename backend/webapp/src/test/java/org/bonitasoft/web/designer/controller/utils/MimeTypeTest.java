@@ -14,15 +14,20 @@
  */
 package org.bonitasoft.web.designer.controller.utils;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.stream.Stream;
-
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-class MimeTypeTest {
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@ExtendWith(MockitoExtension.class)
+public class MimeTypeTest {
 
     /**
      * Values injected in the test.
@@ -32,17 +37,17 @@ class MimeTypeTest {
      * <li>Last value is the expected result</li>
      * </ul>
      */
-    private static Stream<Arguments> typeMimeValues() {
+    static Stream<Arguments> typeMimeValues() throws Exception {
+        Path tempPath = Files.createTempDirectory("test");
         return Stream.of(
                 Arguments.of(MimeType.APPLICATION_ZIP, "application/zip", true),
                 Arguments.of(MimeType.APPLICATION_ZIP, "application/x-zip", true),
-                Arguments.of(MimeType.APPLICATION_ZIP, "application/not-a-zip", false)
-        );
+                Arguments.of(MimeType.APPLICATION_ZIP, "application/not-a-zip", false));
     }
 
     @ParameterizedTest
     @MethodSource("typeMimeValues")
-    void should_verify_main_mimeType(MimeType mimeType, String mimeTypeText, boolean resultExpected) throws Exception {
+    public void should_verify_main_mimeType(MimeType mimeType, String mimeTypeText, boolean resultExpected) throws Exception {
         boolean matches = mimeType.matches(mimeTypeText);
         assertThat(matches).isEqualTo(resultExpected);
     }

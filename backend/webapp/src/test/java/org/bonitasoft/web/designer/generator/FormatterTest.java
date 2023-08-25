@@ -1,6 +1,6 @@
 package org.bonitasoft.web.designer.generator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.generator.Formatter.toDisplayName;

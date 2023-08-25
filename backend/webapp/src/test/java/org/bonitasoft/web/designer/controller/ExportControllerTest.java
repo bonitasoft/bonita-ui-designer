@@ -15,22 +15,22 @@
 package org.bonitasoft.web.designer.controller;
 
 import org.bonitasoft.web.designer.ArtifactBuilder;
+import org.bonitasoft.web.designer.common.repository.PageRepository;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.repository.PageRepository;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
-import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 import static java.lang.String.format;
 import static java.nio.file.Files.write;
@@ -42,11 +42,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ExportControllerTest {
 
-    @Rule
-    public TemporaryFolder repositoryFolder = new TemporaryFolder();
 
     private MockMvc mockMvc;
 
@@ -65,7 +63,10 @@ public class ExportControllerTest {
 
     private ExportController exportController;
 
-    @Before
+    @TempDir
+    Path repositoryFolder;
+
+    @BeforeEach
     public void setUp() {
         exportController = spy(new ExportController(
                 pageService,
@@ -104,7 +105,7 @@ public class ExportControllerTest {
             page.setId("default-id");
         }
         lenient().when(pageService.get(page.getId())).thenReturn(page);
-        write(repositoryFolder.toPath().resolve(format("%s.json", page.getId())), "foobar".getBytes());
+        write(repositoryFolder.resolve(format("%s.json", page.getId())), "foobar".getBytes());
         return page;
     }
 

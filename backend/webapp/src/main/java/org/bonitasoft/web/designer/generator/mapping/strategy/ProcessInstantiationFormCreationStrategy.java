@@ -14,6 +14,10 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.strategy;
 
+import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.page.Form;
+import org.bonitasoft.web.designer.model.page.FormContainer;
+import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.generator.mapping.ContractInputToWidgetMapper;
 import org.bonitasoft.web.designer.generator.mapping.ContractToContainerMapper;
 import org.bonitasoft.web.designer.generator.mapping.FormScope;
@@ -22,11 +26,7 @@ import org.bonitasoft.web.designer.generator.mapping.data.FormInputData;
 import org.bonitasoft.web.designer.generator.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.generator.mapping.data.SubmitErrorsListData;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonAction;
-import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.Contract;
-import org.bonitasoft.web.designer.model.page.Form;
-import org.bonitasoft.web.designer.model.page.FormContainer;
-import org.bonitasoft.web.designer.model.page.Page;
 
 public class ProcessInstantiationFormCreationStrategy implements PageCreationStrategy {
 

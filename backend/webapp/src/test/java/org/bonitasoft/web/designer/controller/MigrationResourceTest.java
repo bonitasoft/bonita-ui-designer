@@ -14,29 +14,29 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.PageBuilder;
 import org.bonitasoft.web.designer.builder.WidgetBuilder;
+import org.bonitasoft.web.designer.common.repository.PageRepository;
+import org.bonitasoft.web.designer.common.repository.WidgetRepository;
+import org.bonitasoft.web.designer.common.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.JsonHandlerFactory;
+import org.bonitasoft.web.designer.model.ArtifactStatusReport;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.service.DefaultWidgetService;
 import org.bonitasoft.web.designer.service.PageService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -51,11 +51,12 @@ import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockSer
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(MockitoJUnitRunner.class)
-public class MigrationResourceTest {
+@ExtendWith(MockitoExtension.class)
+class MigrationResourceTest {
 
-    private JsonHandler jsonHandler = new JsonHandlerFactory().create();
+    private final JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
     private MockMvc mockMvc;
 
@@ -77,106 +78,105 @@ public class MigrationResourceTest {
     @InjectMocks
     private MigrationResource MigrationResource;
 
-    @Before
+    @BeforeEach
     public void setUp() throws URISyntaxException {
-        when(uiDesignerProperties.getModelVersion()).thenReturn("2.0");
+        lenient().when(uiDesignerProperties.getModelVersion()).thenReturn("2.0");
         mockMvc = mockServer(MigrationResource).build();
     }
 
     @Test
-    public void should_return_artifact_status_when_migration_required() throws Exception {
+    void should_return_artifact_status_when_migration_required() throws Exception {
         Page page = PageBuilder.aPage().withId("myPage").withDesignerVersion("1.10.0").withPreviousDesignerVersion("1.9.0").build();
         Widget widget = WidgetBuilder.aWidget().withId("myWidget").designerVersion("1.10.0").previousDesignerVersion("1.9.0").build();
 
         // with json
         ResultActions result = postStatusRequest(page);
         String resultType = result.andReturn().getResponse().getContentType();
-        Assert.assertNotEquals(resultType, null);
-        Assert.assertTrue(resultType.startsWith(MediaType.APPLICATION_JSON.toString()));
-        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+        assertThat(resultType.startsWith(MediaType.APPLICATION_JSON.toString())).isTrue();
+        assertThat(getStatusReport(true, true)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         result = postStatusRequest(widget);
-        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, true)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         // by id
         when(pageRepository.get("myPage"))
                 .thenReturn(aPage().withId("myPage").withName("myPage").withDesignerVersion("1.10.0").build());
-        when(pageService.getStatus(page)).thenReturn(new MigrationStatusReport(true, true));
+        when(pageService.getStatus(page)).thenReturn(new ArtifactStatusReport(true, true));
 
         result = getStatusRequestById("page", "myPage");
-        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, true)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         Widget widget2 = aWidget().withId("myWidget").withName("myWidget").designerVersion("1.10.0").build();
         when(widgetRepository.get("myWidget"))
                 .thenReturn(widget2);
-        when(widgetService.getStatus(widget2)).thenReturn(new MigrationStatusReport(true, true));
+        when(widgetService.getStatus(widget2)).thenReturn(new ArtifactStatusReport(true, true));
         result = getStatusRequestById("widget", "myWidget");
-        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, true)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_artifact_status_when_no_migration_required() throws Exception {
+    void should_return_artifact_status_when_no_migration_required() throws Exception {
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
         Widget widget = WidgetBuilder.aWidget().withId("myWidget").modelVersion("2.0").build();
 
         // with json
         ResultActions result = postStatusRequest(page);
-        Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         result = postStatusRequest(widget);
-        Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         // by id
         Page page2 = aPage().withId("myPage").withName("myPage").isMigration(false).withModelVersion("2.0").build();
         when(pageRepository.get("myPage"))
                 .thenReturn(page2);
-        when(pageService.getStatus(page2)).thenReturn(new MigrationStatusReport(true, false));
+        when(pageService.getStatus(page2)).thenReturn(new ArtifactStatusReport(true, false));
         result = getStatusRequestById("page", "myPage");
-        Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         Widget widget2 = aWidget().withId("myWidget").withName("myWidget").isMigration(false).designerVersion("2.0").build();
         when(widgetRepository.get("myWidget")).thenReturn(widget2);
-        when(widgetService.getStatus(widget2)).thenReturn(new MigrationStatusReport(true, false));
+        when(widgetService.getStatus(widget2)).thenReturn(new ArtifactStatusReport(true, false));
         result = getStatusRequestById("widget", "myWidget");
-        Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_artifact_status_when_not_compatible_required() throws Exception {
+    void should_return_artifact_status_when_not_compatible_required() throws Exception {
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.1").build();
         Widget widget = WidgetBuilder.aWidget().withId("myWidget").modelVersion("2.1").build();
 
         // with json
         ResultActions result = postStatusRequest(page);
-        Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(false, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         result = postStatusRequest(widget);
-        Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(false, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         // by id
         when(pageRepository.get("myPage"))
                 .thenReturn(aPage().withId("myPage").withName("myPage").isCompatible(false).isMigration(false).withModelVersion("2.1").build());
         when(pageRepository.get("myPage"))
                 .thenReturn(page);
-        when(pageService.getStatus(page)).thenReturn(new MigrationStatusReport(false, false));
+        when(pageService.getStatus(page)).thenReturn(new ArtifactStatusReport(false, false));
         result = getStatusRequestById("page", "myPage");
-        Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(false, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         when(widgetRepository.get("myWidget"))
                 .thenReturn(aWidget().withId("myWidget").withName("myWidget").isCompatible(false).isMigration(false).designerVersion("2.1").build());
         when(widgetRepository.get("myWidget")).thenReturn(widget);
-        when(widgetService.getStatus(widget)).thenReturn(new MigrationStatusReport(false, false));
+        when(widgetService.getStatus(widget)).thenReturn(new ArtifactStatusReport(false, false));
         result = getStatusRequestById("widget", "myWidget");
-        Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(false, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_bad_request_when_invalid_artifact_json() throws Exception {
+    void should_return_bad_request_when_invalid_artifact_json() throws Exception {
         postStatusBadRequest();
     }
 
     @Test
-    public void should_return_not_found_when_invalid_artifact_id() throws Exception {
+    void should_return_not_found_when_invalid_artifact_id() throws Exception {
         when(pageRepository.get("invalidPageId"))
                 .thenThrow(new NotFoundException());
         getStatusRequestByIdInvalid("page", "invalidPageId");
@@ -187,36 +187,36 @@ public class MigrationResourceTest {
     }
 
     @Test
-    public void should_return_correct_migration_status_when_embedded_artifact_to_migrate() throws Exception {
+    void should_return_correct_migration_status_when_embedded_artifact_to_migrate() throws Exception {
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
         when(pageRepository.get("myPage")).thenReturn(page);
         // Get dependencies status
-        when(pageService.getStatus(page)).thenReturn(new MigrationStatusReport(true, true));
+        when(pageService.getStatus(page)).thenReturn(new ArtifactStatusReport(true, true));
 
         ResultActions result = getStatusRequestByIdRecursive("page", "myPage");
-        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, true)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_correct_migration_status_when_embedded_artifact_not_compatible() throws Exception {
+    void should_return_correct_migration_status_when_embedded_artifact_not_compatible() throws Exception {
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
         when(pageRepository.get("myPage")).thenReturn(page);
         // Get dependencies status
-        when(pageService.getStatus(page)).thenReturn(new MigrationStatusReport(false, false));
+        when(pageService.getStatus(page)).thenReturn(new ArtifactStatusReport(false, false));
 
         ResultActions result = getStatusRequestByIdRecursive("page", "myPage");
-        Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(false, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_correct_migration_status_when_embedded_artifact_not_to_migrate() throws Exception {
+    void should_return_correct_migration_status_when_embedded_artifact_not_to_migrate() throws Exception {
         Page page = PageBuilder.aPage().withId("myPage").withModelVersion("2.0").build();
         when(pageRepository.get("myPage")).thenReturn(page);
         // Get dependencies status
-        when(pageService.getStatus(page)).thenReturn(new MigrationStatusReport(true, false));
+        when(pageService.getStatus(page)).thenReturn(new ArtifactStatusReport(true, false));
 
         ResultActions result = getStatusRequestByIdRecursive("page", "myPage");
-        Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     private ResultActions postStatusRequest(DesignerArtifact artifact) throws Exception {
@@ -257,11 +257,11 @@ public class MigrationResourceTest {
     }
 
     private String getStatusReport(boolean compatible, boolean migration) {
-        return new MigrationStatusReport(compatible, migration).toString();
+        return new ArtifactStatusReport(compatible, migration).toString();
     }
 
     @Test
-    public void should_return_200_when_page_migration_is_done_on_success() throws Exception {
+    void should_return_200_when_page_migration_is_done_on_success() throws Exception {
         Page pageToMigrate = aPage().withId("my-page-to-migrate").withName("page-name").build();
         when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
         when(pageService.migrateWithReport(pageToMigrate)).thenReturn(new MigrationResult<>(pageToMigrate, Collections.singletonList(new MigrationStepReport(MigrationStatus.SUCCESS, "my-page-to-migrate"))));
@@ -275,7 +275,7 @@ public class MigrationResourceTest {
     }
 
     @Test
-    public void should_return_200_when_migration_is_finished_with_warning() throws Exception {
+    void should_return_200_when_migration_is_finished_with_warning() throws Exception {
         Page pageToMigrate = aPage().withId("my-page-to-migrate").withName("page-name").build();
         when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
         when(pageService.migrateWithReport(pageToMigrate)).thenReturn(new MigrationResult<>(pageToMigrate, Collections.singletonList(new MigrationStepReport(MigrationStatus.WARNING, "my-page-to-migrate"))));
@@ -289,11 +289,11 @@ public class MigrationResourceTest {
     }
 
     @Test
-    public void should_return_500_when_an_error_occurs_during_page_migration() throws Exception {
+    void should_return_500_when_an_error_occurs_during_page_migration() throws Exception {
         Page pageToMigrate = aPage().withId("my-page-to-migrate").withDesignerVersion("1.1.9").withName("page-name").build();
         when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
         when(pageService.migrateWithReport(pageToMigrate)).thenReturn(new MigrationResult<>(pageToMigrate, Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-page-to-migrate"))));
-        when(pageService.getStatus(pageToMigrate)).thenReturn(new MigrationStatusReport(true, true));
+        when(pageService.getStatus(pageToMigrate)).thenReturn(new ArtifactStatusReport(true, true));
 
         mockMvc
                 .perform(
@@ -305,7 +305,7 @@ public class MigrationResourceTest {
 
 
     @Test
-    public void should_return_200_when_widget_migration_is_done_on_success() throws Exception {
+    void should_return_200_when_widget_migration_is_done_on_success() throws Exception {
         Widget widget = aWidget().withId("my-widget").custom().build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
         when(widgetService.migrateWithReport(widget)).thenReturn(new MigrationResult<>(widget,
@@ -320,7 +320,7 @@ public class MigrationResourceTest {
     }
 
     @Test
-    public void should_return_200_when_widget_migration_is_finish_with_warning() throws Exception {
+    void should_return_200_when_widget_migration_is_finish_with_warning() throws Exception {
         Widget widget = aWidget().withId("my-widget").custom().build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
         when(widgetService.migrateWithReport(widget)).thenReturn(new MigrationResult<>(widget,
@@ -335,7 +335,7 @@ public class MigrationResourceTest {
     }
 
     @Test
-    public void should_return_500_when_an_error_occurs_during_widget_migration() throws Exception {
+    void should_return_500_when_an_error_occurs_during_widget_migration() throws Exception {
         Widget widget = aWidget().withId("my-widget").custom().build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
         when(widgetService.migrateWithReport(widget)).thenReturn(new MigrationResult<>(widget,
@@ -350,7 +350,7 @@ public class MigrationResourceTest {
     }
 
     @Test
-    public void should_return_404_when_migration_is_trigger_but_page_id_doesnt_exist() throws Exception {
+    void should_return_404_when_migration_is_trigger_but_page_id_doesnt_exist() throws Exception {
         when(pageRepository.get("unknownPage")).thenThrow(new NotFoundException());
 
         mockMvc
@@ -360,7 +360,7 @@ public class MigrationResourceTest {
     }
 
     @Test
-    public void should_return_404_when_migration_is_trigger_but_widget_id_doesnt_exist() throws Exception {
+    void should_return_404_when_migration_is_trigger_but_widget_id_doesnt_exist() throws Exception {
         when(widgetRepository.get("unknownWidget")).thenThrow(new NotFoundException());
 
         mockMvc
@@ -370,63 +370,63 @@ public class MigrationResourceTest {
     }
 
     @Test
-    public void should_not_process_migration_and_return_none_status_when_page_is_incompatible() throws Exception {
+    void should_not_process_migration_and_return_none_status_when_page_is_incompatible() throws Exception {
         Page pageToMigrate = aPage().withId("my-page-to-migrate").withModelVersion("3.0").withName("page-name").isCompatible(false).build();
         when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
-        when(pageService.getStatus(pageToMigrate)).thenReturn(new MigrationStatusReport(false, false));
+        when(pageService.getStatus(pageToMigrate)).thenReturn(new ArtifactStatusReport(false, false));
 
         MvcResult result = mockMvc
                 .perform(
                         put("/rest/migration/page/my-page-to-migrate").contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
 
-        Assert.assertEquals(result.getResponse().getContentAsString(), "{\"comments\":\"Artifact is incompatible with actual version\",\"status\":\"incompatible\",\"elementId\":\"my-page-to-migrate\",\"migrationStepReport\":[]}");
+        assertThat(result.getResponse().getContentAsString()).isEqualTo("{\"comments\":\"Artifact is incompatible with actual version\",\"status\":\"incompatible\",\"elementId\":\"my-page-to-migrate\",\"migrationStepReport\":[]}");
 
         verify(pageService, never()).migrateWithReport(pageToMigrate);
     }
 
     @Test
-    public void should_not_process_migration_and_return_none_status_when_page_not_needed_migration() throws Exception {
+    void should_not_process_migration_and_return_none_status_when_page_not_needed_migration() throws Exception {
         Page pageToMigrate = aPage().withId("my-page-to-migrate").withModelVersion("2.0.").withName("page-name").build();
         when(pageRepository.get("my-page-to-migrate")).thenReturn(pageToMigrate);
-        when(pageService.getStatus(pageToMigrate)).thenReturn(new MigrationStatusReport(true, false));
+        when(pageService.getStatus(pageToMigrate)).thenReturn(new ArtifactStatusReport(true, false));
 
         MvcResult result = mockMvc
                 .perform(
                         put("/rest/migration/page/my-page-to-migrate").contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
 
-        Assert.assertEquals(result.getResponse().getContentAsString(), "{\"comments\":\"No migration is needed\",\"status\":\"none\",\"elementId\":\"my-page-to-migrate\",\"migrationStepReport\":[]}");
+        assertThat(result.getResponse().getContentAsString()).isEqualTo("{\"comments\":\"No migration is needed\",\"status\":\"none\",\"elementId\":\"my-page-to-migrate\",\"migrationStepReport\":[]}");
         verify(pageService, never()).migrateWithReport(pageToMigrate);
     }
 
     @Test
-    public void should_not_process_migration_and_return_none_status_when_widget_version_is_incompatible() throws Exception {
+    void should_not_process_migration_and_return_none_status_when_widget_version_is_incompatible() throws Exception {
         Widget widget = aWidget().withId("my-widget").modelVersion("3.0").custom().isCompatible(false).build();
         when(widgetRepository.get("my-widget")).thenReturn(widget);
-        when(widgetService.getStatus(widget)).thenReturn(new MigrationStatusReport(false, true));
+        when(widgetService.getStatus(widget)).thenReturn(new ArtifactStatusReport(false, true));
 
         MvcResult result = mockMvc
                 .perform(
                         put("/rest/migration/widget/my-widget").contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
 
-        Assert.assertEquals(result.getResponse().getContentAsString(), "{\"comments\":\"Artifact is incompatible with actual version\",\"status\":\"incompatible\",\"elementId\":\"my-widget\",\"migrationStepReport\":[]}");
+        assertThat(result.getResponse().getContentAsString()).isEqualTo("{\"comments\":\"Artifact is incompatible with actual version\",\"status\":\"incompatible\",\"elementId\":\"my-widget\",\"migrationStepReport\":[]}");
         verify(widgetService, never()).migrateWithReport(widget);
     }
 
     @Test
-        public void should_not_process_migration_and_return_none_status_when_widget_not_needed_migration() throws Exception {
-            Widget widget = aWidget().withId("my-widget").modelVersion("2.0").custom().isMigration(false).build();
-            when(widgetRepository.get("my-widget")).thenReturn(widget);
-            when(widgetService.getStatus(widget)).thenReturn(new MigrationStatusReport(true, false));
+    void should_not_process_migration_and_return_none_status_when_widget_not_needed_migration() throws Exception {
+        Widget widget = aWidget().withId("my-widget").modelVersion("2.0").custom().isMigration(false).build();
+        when(widgetRepository.get("my-widget")).thenReturn(widget);
+        when(widgetService.getStatus(widget)).thenReturn(new ArtifactStatusReport(true, false));
 
-            MvcResult result = mockMvc
-                    .perform(
-                            put("/rest/migration/widget/my-widget").contentType(MediaType.APPLICATION_JSON_VALUE))
-                    .andExpect(status().isOk()).andReturn();
+        MvcResult result = mockMvc
+                .perform(
+                        put("/rest/migration/widget/my-widget").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
 
-            Assert.assertEquals(result.getResponse().getContentAsString(), "{\"comments\":\"No migration is needed\",\"status\":\"none\",\"elementId\":\"my-widget\",\"migrationStepReport\":[]}");
-            verify(widgetService, never()).migrateWithReport(widget);
-    }
+        assertThat(result.getResponse().getContentAsString()).isEqualTo("{\"comments\":\"No migration is needed\",\"status\":\"none\",\"elementId\":\"my-widget\",\"migrationStepReport\":[]}");
+        verify(widgetService, never()).migrateWithReport(widget);
+}
 }

@@ -15,12 +15,17 @@
 package org.bonitasoft.web.designer.config;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Setter;
-import lombok.SneakyThrows;
+import static org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet.P_PORTAL_PASSWORD;
+import static org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet.P_PORTAL_USER;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Optional;
+
 import org.apache.commons.lang3.StringUtils;
 import org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet;
 import org.mitre.dsmiley.httpproxy.ProxyServlet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,13 +37,10 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.inject.Inject;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Optional;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import static org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet.P_PORTAL_PASSWORD;
-import static org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet.P_PORTAL_USER;
+import lombok.Setter;
+import lombok.SneakyThrows;
 
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
@@ -54,15 +56,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     /**
      * Jackson object mapper used to serialize or deserialize Json objects
      */
-    @Inject
+    @Autowired
     //Settable for testing purpose
     @Setter
     private ObjectMapper objectMapper;
 
-    @Inject
+    @Autowired
     private WorkspaceUidProperties workspaceUidProperties;
 
-    @Inject
+    @Autowired
     private UiDesignerProperties uiDesignerProperties;
 
     public static List<MediaType> supportedMediaTypes() {

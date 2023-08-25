@@ -14,11 +14,6 @@
  */
 package org.bonitasoft.web.designer.controller.utils;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.zeroturnaround.zip.ZipUtil;
-
-import javax.inject.Named;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -26,7 +21,12 @@ import java.nio.file.Path;
 import java.util.Date;
 import java.util.zip.ZipException;
 
-@Named
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.springframework.stereotype.Component;
+import org.zeroturnaround.zip.ZipUtil;
+
+@Component
 public class UnZipper {
 
     private final Path temporaryZipPath;

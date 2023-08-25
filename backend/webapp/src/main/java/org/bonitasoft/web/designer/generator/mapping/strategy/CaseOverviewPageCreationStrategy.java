@@ -14,11 +14,11 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.strategy;
 
-import org.bonitasoft.web.designer.generator.mapping.ContractToContainerMapper;
-import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Form;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.bonitasoft.web.designer.generator.mapping.ContractToContainerMapper;
+import org.bonitasoft.web.designer.model.contract.Contract;
 
 import java.util.ArrayList;
 

@@ -17,7 +17,7 @@ package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
 import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 

@@ -15,11 +15,11 @@
 package org.bonitasoft.web.designer.studio.workspace;
 
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 /**
  * @author Romain Bioteau
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class RestClientTest {
 
     @Mock
@@ -42,7 +42,7 @@ public class RestClientTest {
     /**
      * @throws java.lang.Exception
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         when(workspaceProperties.getApiUrl()).thenReturn("http://localhost:6666/workspace/");
         restClient = new RestClient(template, workspaceProperties);

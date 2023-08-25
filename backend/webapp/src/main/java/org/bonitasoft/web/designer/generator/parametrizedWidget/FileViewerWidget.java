@@ -14,10 +14,11 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
-import org.bonitasoft.web.designer.model.ParameterType;
+
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
+import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
+import org.bonitasoft.web.designer.model.ParameterType;
 
 import java.util.Map;
 

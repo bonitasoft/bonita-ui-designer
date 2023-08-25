@@ -13,9 +13,9 @@
     <packaging>pom</packaging>
 
     <properties>
-        <spring-boot.version>2.7.14</spring-boot.version>
+        <spring-boot.version>2.7.15</spring-boot.version>
         <handlebar.version>4.3.1</handlebar.version>
-        <ui-designer-artifact-builder.version>1.0.0-alpha-04</ui-designer-artifact-builder.version>
+        <ui-designer-artifact-builder.version>1.0.0-alpha-05</ui-designer-artifact-builder.version>
     </properties>
 
     <modules>
@@ -24,18 +24,7 @@
     </modules>
 
     <dependencyManagement>
-		<dependencies>    
-			<dependency>
-                <groupId>org.bonitasoft.web</groupId>
-                <artifactId>ui-designer-artifact-builder</artifactId>
-                <version>${ui-designer-artifact-builder.version}</version>
-            </dependency>
-            <dependency>
-				<groupId>org.bonitasoft.web</groupId>
-            	<artifactId>ui-designer-artifact-builder</artifactId>
-            	<version>${ui-designer-artifact-builder.version}</version>
-            	<type>test-jar</type>
-			</dependency>
+		<dependencies>
             <dependency>
                 <groupId>org.bonitasoft.web</groupId>
                 <artifactId>ui-designer-artifact-builder-dependencies</artifactId>

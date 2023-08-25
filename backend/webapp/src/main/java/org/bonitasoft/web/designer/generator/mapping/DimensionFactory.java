@@ -14,11 +14,12 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
-import javax.inject.Named;
 import java.util.HashMap;
 import java.util.Map;
 
-@Named
+import org.springframework.stereotype.Component;
+
+@Component
 public class DimensionFactory {
 
     public Map<String, Integer> create(int dimension) {

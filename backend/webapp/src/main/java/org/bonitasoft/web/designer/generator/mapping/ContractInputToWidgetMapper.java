@@ -14,6 +14,11 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.bonitasoft.web.designer.generator.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.generator.mapping.data.FormOutputData;
 import org.bonitasoft.web.designer.generator.mapping.data.SubmitErrorsListData;
@@ -38,24 +43,18 @@ import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-@Named
+@org.springframework.stereotype.Component
 public class ContractInputToWidgetMapper {
 
     private static final Logger logger = LoggerFactory.getLogger(ContractInputToWidgetMapper.class);
 
     protected ParametrizedWidgetFactory parametrizedWidgetFactory;
     protected DimensionFactory dimensionFactory;
-    private JsonHandler jsonHandler;
+    private final JsonHandler jsonHandler;
 
-    @Inject
+    @Autowired
     public ContractInputToWidgetMapper(DimensionFactory dimensionFactory, JsonHandler jsonHandler) {
         this.dimensionFactory = dimensionFactory;
         this.jsonHandler = jsonHandler;

@@ -15,10 +15,10 @@
 package org.bonitasoft.web.designer.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.config.WebMvcConfiguration;
 import org.bonitasoft.web.designer.controller.ResourceControllerAdvice;
 import org.bonitasoft.web.designer.model.JacksonJsonHandler;
+import org.bonitasoft.web.designer.model.JsonHandlerFactory;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;

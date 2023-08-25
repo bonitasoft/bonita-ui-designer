@@ -14,21 +14,16 @@
  */
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
-import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
-import org.bonitasoft.web.designer.model.ParameterType;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
+import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
+import org.bonitasoft.web.designer.model.ParameterType;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Widget

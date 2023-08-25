@@ -14,20 +14,20 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.data;
 
+import static org.springframework.util.StringUtils.hasText;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.PageData;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Named;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static org.springframework.util.StringUtils.hasText;
-
-@Named
+@Component
 public class BusinessQueryDataFactory {
 
     public Set<PageData> create(Contract contract) {

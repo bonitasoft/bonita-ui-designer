@@ -15,7 +15,7 @@
 package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.ParameterType.INTERPOLATION;

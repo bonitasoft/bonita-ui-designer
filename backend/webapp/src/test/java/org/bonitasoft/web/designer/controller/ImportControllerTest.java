@@ -14,19 +14,19 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import org.bonitasoft.web.designer.AngularJsArtifactBuilder;
+
 import org.bonitasoft.web.designer.ArtifactBuilder;
+import org.bonitasoft.web.designer.DefaultArtifactBuilder;
 import org.bonitasoft.web.designer.controller.importer.ImportException;
 import org.bonitasoft.web.designer.controller.importer.ImportException.Type;
 import org.bonitasoft.web.designer.controller.importer.report.ImportReport;
 import org.bonitasoft.web.designer.controller.utils.UnZipper;
-import org.bonitasoft.web.designer.utils.rule.TemporaryFolder;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
@@ -45,17 +45,16 @@ import static org.bonitasoft.web.designer.controller.importer.ImportException.Ty
 import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ImportControllerTest {
 
-    @Rule
-    public TemporaryFolder tempDir = new TemporaryFolder();
+    @TempDir
+    public Path tempDir;
 
     private MockMvc mockMvc;
 
@@ -65,15 +64,13 @@ public class ImportControllerTest {
     @Mock
     private UnZipper unzipper;
 
-    private ImportController importController;
-
     private Path unzipedPath;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
-        importController = new ImportController(artifactBuilder, unzipper);
-        unzipedPath = tempDir.newFolderPath("unzipedPath");
-        when(unzipper.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(unzipedPath);
+        ImportController importController = new ImportController(artifactBuilder, unzipper);
+        unzipedPath = Files.createDirectory(tempDir.resolve("unzipedPath"));
+        lenient().when(unzipper.unzipInTempDir(any(InputStream.class), anyString())).thenReturn(unzipedPath);
         mockMvc = mockServer(importController).build();
     }
 
@@ -191,7 +188,7 @@ public class ImportControllerTest {
         when(artifactBuilder.importPage(unzipedPath, false)).thenThrow(new ImportException(Type.SERVER_ERROR, "an error messge"));
 
         mockMvc.perform(multipart("/import/page").file(file))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("type").value("SERVER_ERROR"))
                 .andExpect(jsonPath("message").value("an error messge"));
@@ -252,7 +249,7 @@ public class ImportControllerTest {
         when(artifactBuilder.importWidget(unzipedPath, false)).thenThrow(new ImportException(Type.SERVER_ERROR, "an error messge"));
 
         mockMvc.perform(multipart("/import/widget").file(file))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("type").value("SERVER_ERROR"))
                 .andExpect(jsonPath("message").value("an error messge"));
@@ -264,13 +261,13 @@ public class ImportControllerTest {
         when(unzipper.unzipInTempDir(any(InputStream.class), anyString())).thenThrow(ZipException.class);
 
         mockMvc.perform(multipart("/import/widget").file(file))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("type").value("CANNOT_OPEN_ZIP"))
                 .andExpect(jsonPath("message").value("Cannot open zip file"));
 
         mockMvc.perform(multipart("/import/page").file(file))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("type").value("CANNOT_OPEN_ZIP"))
                 .andExpect(jsonPath("message").value("Cannot open zip file"));
@@ -282,13 +279,13 @@ public class ImportControllerTest {
         when(unzipper.unzipInTempDir(any(InputStream.class), anyString())).thenThrow(IOException.class);
 
         mockMvc.perform(multipart("/import/widget").file(file))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("type").value("SERVER_ERROR"))
                 .andExpect(jsonPath("message").value("Error while unzipping zip file"));
 
         mockMvc.perform(multipart("/import/page").file(file))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("type").value("SERVER_ERROR"))
                 .andExpect(jsonPath("message").value("Error while unzipping zip file"));
@@ -311,7 +308,7 @@ public class ImportControllerTest {
     @Test
     public void should_respond_an_error_with_ok_code_when_model_file_is_not_found_while_importing_an_artifact() throws Exception {
         final ImportException exception = new ImportException(MODEL_NOT_FOUND, "Could not load component, artifact model file not found");
-        exception.addInfo("modelfiles", AngularJsArtifactBuilder.supportedArtifactTypes.stream().map(type -> type + ".json").collect(toList()));
+        exception.addInfo("modelfiles", DefaultArtifactBuilder.supportedArtifactTypes.stream().map(type -> type + ".json").collect(toList()));
         when(artifactBuilder.importArtifact(any(), eq(false))).thenThrow(exception);
 
         MockMultipartFile file = new MockMultipartFile("file", "myfile.zip", "application/zip", "foo".getBytes());
@@ -377,7 +374,7 @@ public class ImportControllerTest {
                 new ImportException(ImportException.Type.SERVER_ERROR, "an error message"));
 
         mockMvc.perform(multipart("/import/fragment").file(file))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("type").value("SERVER_ERROR"))
                 .andExpect(jsonPath("message").value("an error message"));

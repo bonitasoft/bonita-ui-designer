@@ -14,12 +14,12 @@
  */
 package org.bonitasoft.web.designer.generator.mapping;
 
+
 import org.bonitasoft.web.designer.model.ElementContainer;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
-import org.bonitasoft.web.designer.model.page.Element;
 
 import java.util.Collections;
 import java.util.List;
@@ -48,9 +48,9 @@ public class ContractInputVisitorImpl implements ContractInputVisitor {
             }
             if (contractInput.isMultiple() && !contractInput.isReadOnly()) {
                 newContainer.getRows()
-                        .add(Collections.<Element>singletonList(contractInputToWidgetMapper.createRemoveButton()));
+                        .add(Collections.singletonList(contractInputToWidgetMapper.createRemoveButton()));
             }
-            container.getRows().add(Collections.<Element>singletonList(newContainer));
+            container.getRows().add(Collections.singletonList(newContainer));
             addButtonBar(contractInput, container);
         } else {
             for (ContractInput childInput : contractInput.getInput()) {

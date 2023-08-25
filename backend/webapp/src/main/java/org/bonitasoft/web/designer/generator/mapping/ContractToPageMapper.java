@@ -21,11 +21,10 @@ import org.bonitasoft.web.designer.generator.mapping.strategy.TaskFormCreationSt
 import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-@Named
+@Component
 public class ContractToPageMapper {
 
     private final ContractInputToWidgetMapper contractToWidgetMapper;
@@ -34,7 +33,7 @@ public class ContractToPageMapper {
     private final DimensionFactory dimensionFactory;
     private final BusinessQueryDataFactory businessQueryDataFactory;
 
-    @Inject
+    @Autowired
     public ContractToPageMapper(ContractInputToWidgetMapper contractToWidgetMapper, ContractToContainerMapper contractToContainerMapper,
                                 JsonHandler jsonHandler, DimensionFactory dimensionFactory, BusinessQueryDataFactory businessQueryDataFactory) {
         this.contractToWidgetMapper = contractToWidgetMapper;

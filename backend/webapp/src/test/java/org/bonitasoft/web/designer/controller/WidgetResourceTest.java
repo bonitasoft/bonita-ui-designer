@@ -14,27 +14,27 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import org.bonitasoft.web.designer.JsonHandlerFactory;
+import org.bonitasoft.web.designer.common.repository.exception.InUseException;
+import org.bonitasoft.web.designer.common.repository.exception.NotAllowedException;
+import org.bonitasoft.web.designer.common.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.common.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
 import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.JsonHandlerFactory;
+import org.bonitasoft.web.designer.model.ArtifactStatusReport;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetType;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Property;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.exception.InUseException;
-import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.DefaultWidgetService;
 import org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
@@ -45,6 +45,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
@@ -60,8 +61,7 @@ import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderTyp
 import static org.bonitasoft.web.designer.controller.asset.AssetService.OrderType.INCREMENT;
 import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -70,10 +70,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.WidgetResource}
  */
-@RunWith(MockitoJUnitRunner.class)
-public class WidgetResourceTest {
+@ExtendWith(MockitoExtension.class)
+class WidgetResourceTest {
 
-    private JsonHandler jsonHandler = new JsonHandlerFactory().create();
+    private final JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
     @Mock
 	DefaultWidgetService widgetService;
@@ -82,7 +82,7 @@ public class WidgetResourceTest {
 
     private WorkspaceProperties workspaceProperties;
 
-    @Before
+    @BeforeEach
     public void setUp() throws URISyntaxException {
         workspaceProperties = new WorkspaceProperties();
         workspaceProperties.getWidgets().setDir(Paths.get(getClass().getResource("/workspace/widgets").toURI()));
@@ -96,7 +96,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_serve_all_widgets_in_repository() throws Exception {
+    void should_serve_all_widgets_in_repository() throws Exception {
         Widget input = aWidget().withId("input").build();
         Widget label = aWidget().withId("label").build();
         when(widgetService.getAll()).thenReturn(asList(input, label));
@@ -109,7 +109,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_serve_empty_list_if_widget_repository_is_empty() throws Exception {
+    void should_serve_empty_list_if_widget_repository_is_empty() throws Exception {
         when(widgetService.getAll()).thenReturn(new ArrayList<Widget>());
 
         mockMvc.perform(get("/rest/widgets"))
@@ -118,14 +118,14 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_500_internal_server_error_if_an_error_occurs_while_getting_widgets() throws Exception {
+    void should_respond_500_internal_server_error_if_an_error_occurs_while_getting_widgets() throws Exception {
         when(widgetService.getAll()).thenThrow(new RepositoryException("error occurs", new Exception()));
 
         mockMvc.perform(get("/rest/widgets")).andExpect(status().is(500));
     }
 
     @Test
-    public void should_get_a_widget_by_its_id() throws Exception {
+    void should_get_a_widget_by_its_id() throws Exception {
         Widget input = aWidget().withId("input").build();
         when(widgetService.getWithAsset("input")).thenReturn(input);
 
@@ -136,7 +136,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_get_a_widget_with_asset_by_its_id() throws Exception {
+    void should_get_a_widget_with_asset_by_its_id() throws Exception {
         Widget input = aWidget().withId("input").assets(anAsset().withName("myScopeWidgetAsset").withScope("widget").withType(AssetType.CSS))
                 .build();
         when(widgetService.getWithAsset("input")).thenReturn(input);
@@ -151,7 +151,7 @@ public class WidgetResourceTest {
 
 
     @Test
-    public void should_respond_404_when_getting_an_unexisting_widget() throws Exception {
+    void should_respond_404_when_getting_an_unexisting_widget() throws Exception {
         when(widgetService.getWithAsset("notExistingWidget")).thenThrow(new NotFoundException("not found"));
 
         mockMvc.perform(get("/rest/widgets/notExistingWidget"))
@@ -159,7 +159,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_save_a_widget() throws Exception {
+    void should_save_a_widget() throws Exception {
         Widget customLabel = aWidget().withId("customLabel").custom().build();
 
         mockMvc.perform(put("/rest/widgets/customLabel")
@@ -171,7 +171,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_allow_to_save_a_pb_widget() throws Exception {
+    void should_not_allow_to_save_a_pb_widget() throws Exception {
         Widget pbWidget = aWidget().custom().build();
 
         when(widgetService.save("pbLabel", pbWidget)).thenThrow(new NotAllowedException("Not allowed to modify a non custom widgets"));
@@ -183,7 +183,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_allow_to_save_a_not_custom_widget() throws Exception {
+    void should_not_allow_to_save_a_not_custom_widget() throws Exception {
         Widget pbWidget = aWidget().withId("input").build();
 
         when(widgetService.save("customLabel", pbWidget)).thenThrow(new NotAllowedException("Not allowed to modify a non custom widgets"));
@@ -195,7 +195,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_500_internal_server_error_if_an_error_occurs_while_saving_a_widget() throws Exception {
+    void should_respond_500_internal_server_error_if_an_error_occurs_while_saving_a_widget() throws Exception {
         Widget customLabel = aWidget().withId("customLabel").custom().build();
         doThrow(new RepositoryException("error occurs", new Exception())).when(widgetService).save("customLabel", customLabel);
 
@@ -206,7 +206,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_create_a_new_widget() throws Exception {
+    void should_create_a_new_widget() throws Exception {
         Widget customLabel = aWidget().withName("label").custom().build();
         when(widgetService.create(customLabel)).thenReturn(customLabel);
 
@@ -220,7 +220,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_duplicate_a_widget_from_a_widget() throws Exception {
+    void should_duplicate_a_widget_from_a_widget() throws Exception {
         Widget customLabel = aWidget().withName("label").assets(anAsset().withName("myfile.js")).custom().build();
         String sourceWidgetId = "my-widget-source";
 
@@ -235,7 +235,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_allow_to_create_a_widget_with_an_empty_name() throws Exception {
+    void should_not_allow_to_create_a_widget_with_an_empty_name() throws Exception {
         Widget customLabel = aWidget().withName("").custom().build();
         when(widgetService.create(customLabel)).thenThrow(new IllegalArgumentException());
 
@@ -247,7 +247,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_allow_to_create_a_widget_with_an_existing_name() throws Exception {
+    void should_not_allow_to_create_a_widget_with_an_existing_name() throws Exception {
         Widget customLabel = aWidget().withName("alreadyExistingName").build();
         when(widgetService.create(customLabel)).thenThrow(new NotAllowedException("already existing name"));
 
@@ -260,25 +260,25 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_delete_a_widget() throws Exception {
+    void should_delete_a_widget() throws Exception {
         mockMvc.perform(delete("/rest/widgets/customLabel")).andExpect(status().isOk());
         verify(widgetService).delete("customLabel");
     }
 
     @Test
-    public void should_not_allow_to_delete_a_pb_widget() throws Exception {
+    void should_not_allow_to_delete_a_pb_widget() throws Exception {
         doThrow(new NotAllowedException("We can only delete a custom widget")).when(widgetService).delete("pbWidget");
         mockMvc.perform(delete("/rest/widgets/pbWidget")).andExpect(status().isForbidden());
     }
 
     @Test
-    public void should_respond_404_if_trying_to_delete_an_unknown_widget() throws Exception {
+    void should_respond_404_if_trying_to_delete_an_unknown_widget() throws Exception {
         doThrow(new NotFoundException("not found")).when(widgetService).delete("customLabel");
         mockMvc.perform(delete("/rest/widgets/customLabel")).andExpect(status().isNotFound());
     }
 
     @Test
-    public void should_not_allow_to_delete_a_custom_widget_used_in_a_page() throws Exception {
+    void should_not_allow_to_delete_a_custom_widget_used_in_a_page() throws Exception {
         doThrow(new InUseException("The widget cannot be deleted because it is used in 1 page, <person>")).when(widgetService).delete("customLabel");
 
         mockMvc.perform(delete("/rest/widgets/customLabel"))
@@ -287,16 +287,16 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_404_not_found_if_custom_widget_is_not_existing_when_renaming() throws Exception {
+    void should_respond_404_not_found_if_custom_widget_is_not_existing_when_renaming() throws Exception {
         mockMvc
                 .perform(put("/rest/widgets/my-widget/name").contentType(MediaType.APPLICATION_JSON_VALUE).content("hello"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void should_add_a_property_to_a_widget_and_return_the_list_of_properties() throws Exception {
+    void should_add_a_property_to_a_widget_and_return_the_list_of_properties() throws Exception {
         Property property = aProperty().build();
-        List<Property> expectedProperties = asList(property);
+        List<Property> expectedProperties = Collections.singletonList(property);
         when(widgetService.addProperty("customLabel", property)).thenReturn(expectedProperties);
 
         mockMvc.perform(post("/rest/widgets/customLabel/properties")
@@ -310,7 +310,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_allow_to_add_a_property_to_a_pb_widget() throws Exception {
+    void should_not_allow_to_add_a_property_to_a_pb_widget() throws Exception {
         Property property = aProperty().build();
         when(widgetService.addProperty("pbLabel", property))
                 .thenThrow(new NotAllowedException("Not allowed to modify a non custom widgets"));
@@ -323,7 +323,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_404_when_adding_a_property_to_an_unexisting_widget() throws Exception {
+    void should_respond_404_when_adding_a_property_to_an_unexisting_widget() throws Exception {
         when(widgetService.addProperty(eq("unknownWidget"), any(Property.class))).thenThrow(new NotFoundException("not found"));
 
         mockMvc.perform(post("/rest/widgets/unknownWidget/properties")
@@ -334,7 +334,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_500_when_error_appear_while_saving_property() throws Exception {
+    void should_respond_500_when_error_appear_while_saving_property() throws Exception {
         when(widgetService.addProperty(eq("label"), any(Property.class))).thenThrow(RepositoryException.class);
 
         mockMvc.perform(post("/rest/widgets/label/properties")
@@ -345,9 +345,9 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_update_a_property_of_a_widget_and_return_the_list_of_properties() throws Exception {
+    void should_update_a_property_of_a_widget_and_return_the_list_of_properties() throws Exception {
         Property property = aProperty().build();
-        List<Property> expectedProperties = asList(property);
+        List<Property> expectedProperties = Collections.singletonList(property);
         when(widgetService.updateProperty("customLabel", "toBeUpdated", property)).thenReturn(expectedProperties);
 
         mockMvc.perform(put("/rest/widgets/customLabel/properties/toBeUpdated")
@@ -361,7 +361,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_allow_to_update_a_property_of_a_pb_widget() throws Exception {
+    void should_not_allow_to_update_a_property_of_a_pb_widget() throws Exception {
         Property property = aProperty().build();
         when(widgetService.updateProperty("pbLabel", "toBeUpdated", property))
                 .thenThrow(new NotAllowedException("Not allowed to modify a non custom widgets"));
@@ -374,7 +374,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_404_when_widget_or_property_not_found_while_updating_property() throws Exception {
+    void should_respond_404_when_widget_or_property_not_found_while_updating_property() throws Exception {
         when(widgetService.updateProperty(eq("label"), eq("toBeUpdated"), any(Property.class))).thenThrow(NotFoundException.class);
 
         mockMvc.perform(put("/rest/widgets/label/properties/toBeUpdated")
@@ -385,7 +385,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_500_when_error_appear_while_updating_property() throws Exception {
+    void should_respond_500_when_error_appear_while_updating_property() throws Exception {
         when(widgetService.updateProperty(eq("label"), eq("toBeUpdated"), any(Property.class))).thenThrow(RepositoryException.class);
 
         mockMvc.perform(put("/rest/widgets/label/properties/toBeUpdated")
@@ -396,9 +396,9 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_delete_a_property_of_a_widget_and_return_the_list_of_properties() throws Exception {
+    void should_delete_a_property_of_a_widget_and_return_the_list_of_properties() throws Exception {
         Property property = aProperty().build();
-        List<Property> expectedProperties = asList(property);
+        List<Property> expectedProperties = Collections.singletonList(property);
         when(widgetService.deleteProperty("customLabel", "toBeDeleted")).thenReturn(expectedProperties);
 
         mockMvc.perform(delete("/rest/widgets/customLabel/properties/toBeDeleted")
@@ -412,7 +412,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_allow_to_delete_a_property_of_a_pb_widget() throws Exception {
+    void should_not_allow_to_delete_a_property_of_a_pb_widget() throws Exception {
         when(widgetService.deleteProperty("pbLabel", "toBeDeleted"))
                 .thenThrow(new NotAllowedException("Not allowed to modify a non custom widgets"));
 
@@ -425,7 +425,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_404_when_widget_or_property_not_found_while_deleting_property() throws Exception {
+    void should_respond_404_when_widget_or_property_not_found_while_deleting_property() throws Exception {
         when(widgetService.deleteProperty("label", "toBeDeleted")).thenThrow(new NotFoundException("Widget [ toBeDeleted ] not found"));
 
         mockMvc.perform(delete("/rest/widgets/label/properties/toBeDeleted")
@@ -438,7 +438,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_500_when_error_appear_while_deleting_property() throws Exception {
+    void should_respond_500_when_error_appear_while_deleting_property() throws Exception {
         when(widgetService.deleteProperty("label", "toBeDeleted")).thenThrow(RepositoryException.class);
 
         mockMvc.perform(delete("/rest/widgets/label/properties/toBeDeleted")
@@ -449,7 +449,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_upload_a_local_asset() throws Exception {
+    void should_upload_a_local_asset() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
         Asset expectedAsset = anAsset().withId("assetId").active().withName("myfile.js").withOrder(2).withType(AssetType.JAVASCRIPT).build();
@@ -465,7 +465,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_upload_an_empty_asset() throws Exception {
+    void should_not_upload_an_empty_asset() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "".getBytes());
 
@@ -475,7 +475,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_upload_an_asset_with_unknown_type() throws Exception {
+    void should_not_upload_an_asset_with_unknown_type() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "hello".getBytes());
 
@@ -485,7 +485,7 @@ public class WidgetResourceTest {
 
 
     @Test
-    public void should_not_upload_an_asset_for_internal_widget() throws Exception {
+    void should_not_upload_an_asset_for_internal_widget() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
 
@@ -497,7 +497,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_save_an_external_asset() throws Exception {
+    void should_save_an_external_asset() throws Exception {
         Asset expectedAsset = anAsset().withId("assetId").active().withName("myfile.js").withOrder(2).withType(AssetType.JAVASCRIPT).build();
         when(widgetService.saveAsset("my-widget", expectedAsset)).thenReturn(expectedAsset);
 
@@ -515,7 +515,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_save_an_external_asset_for_internal_widget() throws Exception {
+    void should_not_save_an_external_asset_for_internal_widget() throws Exception {
         Asset asset = anAsset().build();
         when(widgetService.saveAsset("pb-widget", asset))
                 .thenThrow(new NotAllowedException("Not allowed to modify a non custom widgets"));
@@ -528,8 +528,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_save_an_external_asset_when_upload_send_an_error() throws Exception {
-        Widget widget = aWidget().withId("my-widget").custom().build();
+    void should_not_save_an_external_asset_when_upload_send_an_error() throws Exception {
         Asset asset = anAsset().build();
         when(widgetService.saveAsset("my-widget", asset)).thenThrow(IllegalArgumentException.class);
 
@@ -541,8 +540,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_delete_an_asset() throws Exception {
-        Widget widget = aWidget().withId("my-widget").custom().build();
+    void should_delete_an_asset() throws Exception {
 
         mockMvc.perform(
                 delete("/rest/widgets/my-widget/assets/UIID")
@@ -553,7 +551,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_increment_an_asset() throws Exception {
+    void should_increment_an_asset() throws Exception {
         Asset asset = anAsset().withComponentId("my-widget").withOrder(3).build();
 
         mockMvc.perform(
@@ -568,7 +566,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_decrement_an_asset() throws Exception {
+    void should_decrement_an_asset() throws Exception {
         Asset asset = anAsset().withComponentId("my-widget").withOrder(3).build();
 
         mockMvc.perform(
@@ -583,7 +581,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_mark_a_widget_as_favorite() throws Exception {
+    void should_mark_a_widget_as_favorite() throws Exception {
         mockMvc
                 .perform(
                         put("/rest/widgets/my-widget/favorite").contentType(MediaType.APPLICATION_JSON_VALUE).content("true"))
@@ -593,7 +591,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_unmark_a_widget_as_favorite() throws Exception {
+    void should_unmark_a_widget_as_favorite() throws Exception {
         mockMvc
                 .perform(
                         put("/rest/widgets/my-widget/favorite").contentType(MediaType.APPLICATION_JSON_VALUE).content("false"))
@@ -603,7 +601,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_load_widget_asset_on_disk_with_content_type_text() throws Exception {
+    void should_load_widget_asset_on_disk_with_content_type_text() throws Exception {
         Path expectedFile = workspaceProperties.getWidgets().getDir().resolve("pbLabel/pbLabel.js");
         when(widgetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
 
@@ -618,7 +616,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_download_widget_asset() throws Exception {
+    void should_download_widget_asset() throws Exception {
         Path expectedFile = workspaceProperties.getWidgets().getDir().resolve("pbLabel/pbLabel.js");
         when(widgetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
 
@@ -633,7 +631,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_404_when_widget_asset_included_in_page_is_not_found() throws Exception {
+    void should_respond_404_when_widget_asset_included_in_page_is_not_found() throws Exception {
         when(widgetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix()))
                 .thenReturn(null);
 
@@ -642,7 +640,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_respond_500_when_widget_asset_included_in_page_produce_IOException() throws Exception {
+    void should_respond_500_when_widget_asset_included_in_page_produce_IOException() throws Exception {
         when(widgetService.findAssetPath("widget-id", "asset.js", AssetType.JAVASCRIPT.getPrefix()))
                 .thenThrow(new IOException("can't read file"));
 
@@ -651,45 +649,30 @@ public class WidgetResourceTest {
     }
 
     @Test
-    @Ignore("Test ignored because failed on CI")
-    public void should_download_help() throws Exception {
-        Path expectedFile = workspaceProperties.getWidgets().getDir().resolve("pbButtont/help.html");
-
-        mockMvc
-                .perform(get("/rest/widgets/pbButton/help"))
-                .andExpect(status().isOk())
-                .andExpect(content().bytes(readAllBytes(expectedFile)))
-                .andExpect(content().contentType(MediaType.TEXT_HTML))
-                .andExpect(header().string("Content-Length", String.valueOf(expectedFile.toFile().length())))
-                .andExpect(header().string("Content-Disposition", "inline; filename=\"help.html\""))
-                .andExpect(content().encoding("UTF-8"));
-    }
-
-    @Test
-    public void should_respond_404_when_widget_help_is_not_found() throws Exception {
+    void should_respond_404_when_widget_help_is_not_found() throws Exception {
         mockMvc.perform(get("/rest/widgets/pbLabel/help")).andExpect(status().isNotFound());
     }
 
     @Test
-    public void should_respond_422_when_custom_widget_is_incompatible() throws Exception {
+    void should_respond_422_when_custom_widget_is_incompatible() throws Exception {
         Widget widget = aWidget().withId("my-widget").custom().build();
-        widget.setStatus(new MigrationStatusReport(false, true));
+        widget.setStatus(new ArtifactStatusReport(false, true));
         when(widgetService.getWithAsset("my-widget")).thenReturn(widget);
 
         mockMvc.perform(get("/rest/widgets/my-widget")).andExpect(status().is(422));
     }
 
     @Test
-    public void should_serve_all_light_widgets_in_repository() throws Exception {
+    void should_serve_all_light_widgets_in_repository() throws Exception {
         Page page = aPage().withName("hello").build();
         Fragment fragment = aFragment().withName("helloFragment").build();
 
         Instant lastUpdateDate = parse("2015-02-02T00:00:00.000Z");
         Widget input = aWidget().withId("input").lastUpdate(lastUpdateDate).build();
-        input.addUsedBy("page", asList(page));
+        input.addUsedBy("page", Collections.singletonList(page));
 
         Widget label = aWidget().withId("label").lastUpdate(lastUpdateDate).build();
-        label.addUsedBy("fragment", asList(fragment));
+        label.addUsedBy("fragment", Collections.singletonList(fragment));
 
         List<Widget> returnedWidgets = asList(input,label);
 
@@ -705,7 +688,7 @@ public class WidgetResourceTest {
     }
 
     @Test
-    public void should_not_allow_to_delete_a_custom_widget_used_in_a_fragment() throws Exception {
+    void should_not_allow_to_delete_a_custom_widget_used_in_a_fragment() throws Exception {
         doThrow(new InUseException("The widget cannot be deleted because it is used in 1 fragment, <person>"))
                 .when(widgetService).delete("customLabel");
 

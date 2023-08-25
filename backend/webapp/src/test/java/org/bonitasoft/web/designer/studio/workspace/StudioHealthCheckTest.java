@@ -14,11 +14,11 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -27,7 +27,7 @@ import java.net.URI;
 
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class StudioHealthCheckTest {
 
     @Mock
@@ -42,14 +42,14 @@ public class StudioHealthCheckTest {
     private String statusURI = "http://localhost/api/workspace/status/";
     private StudioHealthCheck healthCheck;
 
-    @Before
+    @BeforeEach
     public void prepareMocks() throws Exception {
-        when(restClient.createURI("status/")).thenReturn(statusURI);
-        when(restClient.getRestTemplate()).thenReturn(restTemplate);
-        when(successResponse.getStatusCode()).thenReturn(HttpStatus.OK);
-        when(errorResponse.getStatusCode()).thenReturn(HttpStatus.NOT_FOUND);
+        lenient().when(restClient.createURI("status/")).thenReturn(statusURI);
+        lenient().when(restClient.getRestTemplate()).thenReturn(restTemplate);
+        lenient().when(successResponse.getStatusCode()).thenReturn(HttpStatus.OK);
+        lenient().when(errorResponse.getStatusCode()).thenReturn(HttpStatus.NOT_FOUND);
         healthCheck = spy(new StudioHealthCheck(restClient));
-        doNothing().when(healthCheck).exit();
+        lenient().doNothing().when(healthCheck).exit();
     }
 
     @Test

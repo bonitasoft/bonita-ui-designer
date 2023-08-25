@@ -20,16 +20,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.NodeBusinessObjectInput;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BusinessObjectDeserializerTest {
 
     private ObjectMapper mapper;
     private BusinessObjectDeserializer deserializer;
 
-    @Before
+    @BeforeEach
     public void setup() {
         mapper = new ObjectMapper();
         deserializer = new BusinessObjectDeserializer();
@@ -41,17 +43,17 @@ public class BusinessObjectDeserializerTest {
 
         BusinessObject bo = deserializer.deserialize(new JsonFactory(new ObjectMapper()).createParser(jsonValue), null);
         NodeBusinessObjectInput rootNode = (NodeBusinessObjectInput) bo.getInput().get(0);
-        Assert.assertEquals("order", rootNode.getPageDataName());
-        Assert.assertEquals(11, rootNode.getInput().size());
+        assertEquals("order", rootNode.getPageDataName());
+        assertEquals(11, rootNode.getInput().size());
 
-        Assert.assertEquals(true, rootNode.getInput().get(10) instanceof NodeBusinessObjectInput);
+        assertTrue(rootNode.getInput().get(10) instanceof NodeBusinessObjectInput);
         NodeBusinessObjectInput nestedBusinessObject = (NodeBusinessObjectInput) rootNode.getInput().get(10);
 
-        Assert.assertEquals("order_comments", nestedBusinessObject.getPageDataName());
-        Assert.assertEquals("comments", nestedBusinessObject.getBusinessObjectAttributeName());
-        Assert.assertEquals("comments", nestedBusinessObject.getDataReference().getName());
-        Assert.assertEquals(BusinessDataReference.RelationType.AGGREGATION, nestedBusinessObject.getDataReference().getRelationType());
-        Assert.assertEquals(BusinessDataReference.LoadingType.LAZY, nestedBusinessObject.getDataReference().getLoadingType());
-        Assert.assertEquals(rootNode,nestedBusinessObject.getParent());
+        assertEquals("order_comments", nestedBusinessObject.getPageDataName());
+        assertEquals("comments", nestedBusinessObject.getBusinessObjectAttributeName());
+        assertEquals("comments", nestedBusinessObject.getDataReference().getName());
+        assertEquals(BusinessDataReference.RelationType.AGGREGATION, nestedBusinessObject.getDataReference().getRelationType());
+        assertEquals(BusinessDataReference.LoadingType.LAZY, nestedBusinessObject.getDataReference().getLoadingType());
+        assertEquals(rootNode,nestedBusinessObject.getParent());
     }
 }

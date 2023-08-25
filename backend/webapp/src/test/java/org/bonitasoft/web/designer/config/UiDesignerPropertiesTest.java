@@ -14,33 +14,32 @@
  */
 package org.bonitasoft.web.designer.config;
 
-import org.bonitasoft.web.designer.Main;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-
-import javax.inject.Inject;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
+import org.bonitasoft.web.designer.Main;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Main.class)
 @WebAppConfiguration("classpath:/")
-public class UiDesignerPropertiesTest {
+class UiDesignerPropertiesTest {
 
-    @Inject
+    @Autowired
     UiDesignerProperties uiDesignerProperties;
 
-    @Inject
+    @Autowired
     WorkspaceProperties workspaceProperties;
 
-    @Inject
+    @Autowired
     WorkspaceUidProperties workspaceUidProperties;
 
     @Test
-    public void should_uid_properties_correct() throws Exception {
+    void should_uid_properties_correct() throws Exception {
         assertThat(uiDesignerProperties.getEdition()).isNotNull();
         assertThat(uiDesignerProperties.getVersion()).isNotNull();
         assertThat(uiDesignerProperties.getModelVersion()).isNotNull();
@@ -48,14 +47,14 @@ public class UiDesignerPropertiesTest {
     }
 
     @Test
-    public void should_portal_properties_correct() throws Exception {
+    void should_portal_properties_correct() throws Exception {
         assertThat(uiDesignerProperties.getBonita().getPortal().getUrl()).isNotNull();
         assertThat(uiDesignerProperties.getBonita().getPortal().getUser()).isNotNull();
         assertThat(uiDesignerProperties.getBonita().getPortal().getPassword()).isNotNull();
     }
 
     @Test
-    public void should_workspace_properties_correct() throws Exception {
+    void should_workspace_properties_correct() throws Exception {
         assertThat(workspaceProperties.getWidgets()).isNotNull();
         assertThat(workspaceProperties.getFragments()).isNotNull();
         assertThat(workspaceProperties.getPages()).isNotNull();
@@ -63,7 +62,7 @@ public class UiDesignerPropertiesTest {
     }
 
     @Test
-    public void should_workspaceUid_properties_correct() throws Exception {
+    void should_workspaceUid_properties_correct() throws Exception {
         assertThat(workspaceUidProperties.getPath()).isNotNull();
         assertThat(workspaceUidProperties.getExtractPath()).isNotNull();
     }

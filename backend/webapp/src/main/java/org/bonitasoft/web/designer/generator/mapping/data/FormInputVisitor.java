@@ -16,11 +16,7 @@
 package org.bonitasoft.web.designer.generator.mapping.data;
 
 import org.bonitasoft.web.designer.model.JsonHandler;
-import org.bonitasoft.web.designer.model.contract.ContractInput;
-import org.bonitasoft.web.designer.model.contract.ContractInputVisitor;
-import org.bonitasoft.web.designer.model.contract.EditMode;
-import org.bonitasoft.web.designer.model.contract.LeafContractInput;
-import org.bonitasoft.web.designer.model.contract.NodeContractInput;
+import org.bonitasoft.web.designer.model.contract.*;
 
 import java.io.File;
 import java.io.IOException;

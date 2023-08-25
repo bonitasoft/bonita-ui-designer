@@ -16,16 +16,15 @@ package org.bonitasoft.web.designer.generator.mapping;
 
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.page.Container;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-@Named
+@Component
 public class ContractToContainerMapper {
 
     private final ContractInputToWidgetMapper contractToWidgetMapper;
 
-    @Inject
+    @Autowired
     public ContractToContainerMapper(ContractInputToWidgetMapper contractToWidgetMapper) {
         this.contractToWidgetMapper = contractToWidgetMapper;
     }

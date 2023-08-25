@@ -14,18 +14,18 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import org.bonitasoft.web.designer.common.repository.exception.InUseException;
+import org.bonitasoft.web.designer.common.repository.exception.NotAllowedException;
+import org.bonitasoft.web.designer.common.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.common.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.controller.importer.ImportException;
-import org.bonitasoft.web.designer.repository.exception.ConstraintValidationException;
-import org.bonitasoft.web.designer.repository.exception.InUseException;
-import org.bonitasoft.web.designer.repository.exception.NotAllowedException;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.bonitasoft.web.designer.model.exception.ConstraintValidationException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.validation.ConstraintViolation;
@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.ResourceControllerAdvice}
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ResourceControllerAdviceTest {
 
     private MockMvc mockMvc;
@@ -53,7 +53,7 @@ public class ResourceControllerAdviceTest {
     @InjectMocks
     private FakeResource fakeResource;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mockMvc = mockServer(fakeResource).build();
     }

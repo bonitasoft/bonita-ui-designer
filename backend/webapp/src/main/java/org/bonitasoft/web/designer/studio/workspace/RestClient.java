@@ -14,16 +14,16 @@
  */
 package org.bonitasoft.web.designer.studio.workspace;
 
-import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import javax.inject.Named;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Romain Bioteau
  */
-@Named
+@Component
 @RequiredArgsConstructor
 public class RestClient {
 

@@ -16,8 +16,8 @@ package org.bonitasoft.web.designer.generator.parametrizedWidget;
 
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -32,7 +32,7 @@ public class AttributeInputTypeResolverTest {
 
     private InputTypeResolver inputTypeResolver;
 
-    @Before
+    @BeforeEach
     public void init() {
         inputTypeResolver = new InputTypeResolver();
     }

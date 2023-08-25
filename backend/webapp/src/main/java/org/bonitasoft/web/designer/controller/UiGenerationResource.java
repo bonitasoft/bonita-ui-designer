@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObjectContainer;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.DataManagementGenerator;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
+import org.bonitasoft.web.designer.common.repository.exception.RepositoryException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

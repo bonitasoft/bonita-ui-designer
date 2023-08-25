@@ -15,8 +15,8 @@
 package org.bonitasoft.web.designer.controller.utils;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,24 +24,25 @@ import java.nio.file.Path;
 import java.util.zip.ZipException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UnZipperTest {
 
     private UnZipper unzipper;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         unzipper = new UnZipper();
     }
 
-    @Test(expected = ZipException.class)
+    @Test
     public void should_throw_zip_exception_when_inpustream_cannot_be_unzipped() throws Exception {
         InputStream stream = UnZipperTest.class.getResourceAsStream("notAzipFile.txt");
 
-        Path unzipInTempDir = unzipper.unzipInTempDir(stream, "aPrefix");
+        assertThrows(ZipException.class, () ->  unzipper.unzipInTempDir(stream, "aPrefix"));
 
         // clean
-        FileUtils.deleteDirectory(unzipInTempDir.toFile());
+        //FileUtils.deleteDirectory(unzipInTempDir.toFile());
     }
 
     @Test

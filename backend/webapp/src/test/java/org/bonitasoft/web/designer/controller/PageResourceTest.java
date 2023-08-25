@@ -14,10 +14,13 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import org.bonitasoft.web.designer.JsonHandlerFactory;
+import org.bonitasoft.web.designer.common.repository.exception.NotFoundException;
+import org.bonitasoft.web.designer.common.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.generator.mapping.ContractToPageMapper;
 import org.bonitasoft.web.designer.generator.mapping.FormScope;
+import org.bonitasoft.web.designer.model.ArtifactStatusReport;
 import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.JsonHandlerFactory;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
@@ -26,16 +29,14 @@ import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.data.Variable;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.DefaultPageService;
 import org.bonitasoft.web.designer.service.exception.IncompatibleException;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -48,14 +49,12 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
-import java.time.temporal.ChronoField;
 import java.util.*;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Files.readAllLines;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.singletonList;
+import static java.util.Collections.*;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.aFilledAsset;
 import static org.bonitasoft.web.designer.builder.AssetBuilder.anAsset;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aFilledPage;
@@ -67,7 +66,6 @@ import static org.bonitasoft.web.designer.controller.utils.HttpFile.getOriginalF
 import static org.bonitasoft.web.designer.model.asset.AssetScope.PAGE;
 import static org.bonitasoft.web.designer.model.asset.AssetType.JAVASCRIPT;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractBuilder.aSimpleContract;
-import static org.bonitasoft.web.designer.model.data.DataType.URL;
 import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.ArgumentMatchers.*;
@@ -81,8 +79,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test de {@link org.bonitasoft.web.designer.controller.PageResource}
  */
-@RunWith(MockitoJUnitRunner.class)
-public class PageResourceTest {
+@ExtendWith(MockitoExtension.class)
+class PageResourceTest {
 
 
     private final JsonHandler jsonHandler = new JsonHandlerFactory().create();
@@ -108,7 +106,7 @@ public class PageResourceTest {
 
     private Page page;
 
-    @Before
+    @BeforeEach
     public void setUp() throws URISyntaxException {
         pageResource = spy(new PageResource(jsonHandler, pageService, contractToPageMapper, messagingTemplate));
         mockMvc = mockServer(pageResource).build();
@@ -117,8 +115,8 @@ public class PageResourceTest {
 
     private Page mockPageOfId(String id) {
         Page page = aPage().withId(id).build();
-        when(pageService.get(id)).thenReturn(page);
-        when(pageService.getWithAsset(id)).thenReturn(page);
+        lenient().when(pageService.get(id)).thenReturn(page);
+        lenient().when(pageService.getWithAsset(id)).thenReturn(page);
         return page;
     }
 
@@ -127,7 +125,7 @@ public class PageResourceTest {
     //1422835200.000 000 000
 
     @Test
-    public void should_list_pages() throws Exception {
+    void should_list_pages() throws Exception {
         Page page = new Page();
         page.setId("id");
         page.setName("name");
@@ -144,7 +142,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_create_a_page() throws Exception {
+    void should_create_a_page() throws Exception {
         Page pageToBeSaved = aPage().withId("my-page").withName("test").build();
         pageToBeSaved.setRows(singletonList(emptyList()));
 
@@ -159,7 +157,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_duplicate_a_page_from_a_Page() throws Exception {
+    void should_duplicate_a_page_from_a_Page() throws Exception {
         Asset pageAsset = aPageAsset();
         Asset widgetAsset = aWidgetAsset();
         Page pageToBeSaved = aPage().withId("my-page").withName("test").withAsset(pageAsset, widgetAsset).build();
@@ -176,7 +174,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_create_a_page_from_a_Contract_at_task_scope() throws Exception {
+    void should_create_a_page_from_a_Contract_at_task_scope() throws Exception {
         Contract contract = aSimpleContract();
         Page newPage = aPage().withName("myPage").build();
         when(contractToPageMapper.createFormPage(eq("myPage"), notNull(), eq(FormScope.TASK))).thenReturn(newPage);
@@ -194,7 +192,7 @@ public class PageResourceTest {
 
 
     @Test
-    public void should_create_a_page_from_a_Contract_at_process_scope() throws Exception {
+    void should_create_a_page_from_a_Contract_at_process_scope() throws Exception {
         Contract contract = aSimpleContract();
         Page newPage = aPage().withName("myPage").build();
         when(contractToPageMapper.createFormPage(eq("myPage"), notNull(), eq(FormScope.PROCESS))).thenReturn(newPage);
@@ -211,7 +209,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_create_a_page_from_a_Contract_at_overview_scope() throws Exception {
+    void should_create_a_page_from_a_Contract_at_overview_scope() throws Exception {
         Contract contract = aSimpleContract();
         Page newPage = aPage().withName("myPage").build();
         when(contractToPageMapper.createFormPage(eq("myPage"), notNull(), eq(FormScope.OVERVIEW))).thenReturn(newPage);
@@ -229,7 +227,7 @@ public class PageResourceTest {
 
 
     @Test
-    public void should_save_a_page() throws Exception {
+    void should_save_a_page() throws Exception {
         Page pageToBeSaved = mockPageOfId("my-page");
         when(pageService.save(pageToBeSaved.getId(), pageToBeSaved)).thenReturn(pageToBeSaved);
 
@@ -244,7 +242,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_save_a_page_with_fragment() throws Exception {
+    void should_save_a_page_with_fragment() throws Exception {
         Page pageToBeSaved = aPageWithFragmentElement();
         pageToBeSaved.setId(pageToBeSaved.getName());
         when(pageService.save(pageToBeSaved.getId(), pageToBeSaved)).thenReturn(pageToBeSaved);
@@ -261,7 +259,7 @@ public class PageResourceTest {
 
 
     @Test
-    public void should_save_a_page_renaming_it() throws Exception {
+    void should_save_a_page_renaming_it() throws Exception {
         final String pageId = "my-page";
 
         Page pageToBeUpdated = mockPageOfId(pageId);
@@ -298,7 +296,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_respond_415_unsupported_media_type_when_trying_to_save_non_json_content() throws Exception {
+    void should_respond_415_unsupported_media_type_when_trying_to_save_non_json_content() throws Exception {
 
         mockMvc
                 .perform(put("/rest/pages/my-page").content("this is not json"))
@@ -306,7 +304,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_respond_500_internal_error_if_error_occurs_while_saving_a_page() throws Exception {
+    void should_respond_500_internal_error_if_error_occurs_while_saving_a_page() throws Exception {
         Page page = aPage().withId("my-page").build();
         doThrow(new RepositoryException("exception occurs", new Exception())).when(pageService).save(page.getId(), page);
 
@@ -318,10 +316,10 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_retrieve_a_page_representation_by_its_id() throws Exception {
+    void should_retrieve_a_page_representation_by_its_id() throws Exception {
         final String pageId = "my-page";
         Page expectedPage = aFilledPage(pageId);
-        expectedPage.setStatus(new MigrationStatusReport(true, true));
+        expectedPage.setStatus(new ArtifactStatusReport(true, true));
         when(pageService.getWithAsset(pageId)).thenReturn(expectedPage);
 
         mockMvc
@@ -332,7 +330,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_respond_404_not_found_if_page_is_not_existing() throws Exception {
+    void should_respond_404_not_found_if_page_is_not_existing() throws Exception {
         when(pageService.getWithAsset("my-page")).thenThrow(new NotFoundException("page not found"));
 
         mockMvc.perform(get("/rest/pages/my-page")).andExpect(status().isNotFound());
@@ -340,16 +338,16 @@ public class PageResourceTest {
 
 
     @Test
-    public void should_respond_422_on_load_when_page_is_incompatible() throws Exception {
+    void should_respond_422_on_load_when_page_is_incompatible() throws Exception {
         Page expectedPage = aFilledPage("my-page");
-        expectedPage.setStatus(new MigrationStatusReport(false, true));
+        expectedPage.setStatus(new ArtifactStatusReport(false, true));
         when(pageService.getWithAsset("my-page")).thenReturn(expectedPage);
 
         mockMvc.perform(get("/rest/pages/my-page")).andExpect(status().is(422));
     }
 
     @Test
-    public void should_respond_422_on_save_when_page_is_incompatible() throws Exception {
+    void should_respond_422_on_save_when_page_is_incompatible() throws Exception {
         Page pageToBeSaved = mockPageOfId("my-page");
         when(pageService.save(pageToBeSaved.getId(), pageToBeSaved)).thenThrow(IncompatibleException.class);
 
@@ -363,28 +361,28 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_respond_404_not_found_when_delete_inexisting_page() throws Exception {
+    void should_respond_404_not_found_when_delete_inexisting_page() throws Exception {
         doThrow(new NotFoundException("page not found")).when(pageService).delete("my-page");
 
         mockMvc.perform(delete("/rest/pages/my-page")).andExpect(status().isNotFound());
     }
 
     @Test
-    public void should_respond_500_internal_error_when_error_on_deletion_page() throws Exception {
+    void should_respond_500_internal_error_when_error_on_deletion_page() throws Exception {
         doThrow(new RepositoryException("error occurs", new RuntimeException())).when(pageService).delete("my-page");
 
         mockMvc.perform(delete("/rest/pages/my-page")).andExpect(status().isInternalServerError());
     }
 
     @Test
-    public void should_delete_a_page() throws Exception {
+    void should_delete_a_page() throws Exception {
         mockMvc
                 .perform(delete("/rest/pages/my-page"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void should_rename_a_page() throws Exception {
+    void should_rename_a_page() throws Exception {
         String newName = "my-page-new-name";
         final String pageId = "my-page";
         Page pageToBeUpdated = aPage().withId(pageId).withName("page-name").build();
@@ -409,7 +407,7 @@ public class PageResourceTest {
 
 
     @Test
-    public void should_not_rename_a_page_if_name_is_same() throws Exception {
+    void should_not_rename_a_page_if_name_is_same() throws Exception {
         String name = "page-name";
         Page pageToBeUpdated = aPage().withId("my-page").withName(name).build();
         when(pageService.get("my-page")).thenReturn(pageToBeUpdated);
@@ -423,7 +421,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_respond_404_not_found_if_page_is_not_existing_when_renaming() throws Exception {
+    void should_respond_404_not_found_if_page_is_not_existing_when_renaming() throws Exception {
         when(pageService.get("my-page")).thenThrow(new NotFoundException("page not found"));
 
         mockMvc
@@ -432,7 +430,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_respond_500_internal_error_if_error_occurs_while_renaming_a_page() throws Exception {
+    void should_respond_500_internal_error_if_error_occurs_while_renaming_a_page() throws Exception {
         mockPageOfId("my-page");
         doThrow(new RepositoryException("exception occurs", new Exception())).when(pageService).rename(anyString(), any());
 
@@ -442,7 +440,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_upload_a_local_asset() throws Exception {
+    void should_upload_a_local_asset() throws Exception {
         //We construct a mock file (the first arg is the name of the property expected in the controller)
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
         final String pageId = "my-page";
@@ -456,13 +454,13 @@ public class PageResourceTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value("assetId"))
                 .andExpect(jsonPath("$.name").value("myfile.js"))
-                .andExpect(jsonPath("$.scope").value(PAGE.toString()))
+                .andExpect(jsonPath("$.scope").value(PAGE))
                 .andExpect(jsonPath("$.type").value("js"))
                 .andExpect(jsonPath("$.order").value(1));
     }
 
     @Test
-    public void should_respond_202_with_error_when_uploading_a_json_asset_with_malformed_json_file() throws Exception {
+    void should_respond_202_with_error_when_uploading_a_json_asset_with_malformed_json_file() throws Exception {
         byte[] content = "notvalidjson".getBytes();
         MockMultipartFile file = aJsonFileWithContent(content);
         int expectedLine = 1, expectedColumn = 13;
@@ -479,7 +477,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_not_upload_an_asset_when_upload_send_an_error() throws Exception {
+    void should_not_upload_an_asset_when_upload_send_an_error() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/javascript", "foo".getBytes());
         doThrow(IllegalArgumentException.class).when(pageResource).saveOrUpdate(any(), anyString(), anyString());
@@ -490,8 +488,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_save_an_external_asset() throws Exception {
-        Page page = mockPageOfId("my-page");
+    void should_save_an_external_asset() throws Exception {
         Asset expectedAsset = anAsset().withId("assetId").active().withName("myfile.js").withOrder(2).withScope(PAGE).withType(JAVASCRIPT).build();
         when(pageService.saveAsset(anyString(), any())).thenReturn(expectedAsset);
 
@@ -502,14 +499,14 @@ public class PageResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("assetId"))
                 .andExpect(jsonPath("$.name").value("myfile.js"))
-                .andExpect(jsonPath("$.scope").value(PAGE.toString()))
+                .andExpect(jsonPath("$.scope").value(PAGE))
                 .andExpect(jsonPath("$.type").value("js"))
                 .andExpect(jsonPath("$.order").value(2));
 
     }
 
     @Test
-    public void should_not_save_an_external_asset_when_upload_send_an_error() throws Exception {
+    void should_not_save_an_external_asset_when_upload_send_an_error() throws Exception {
         Page page = mockPageOfId("my-page");
         Asset asset = anAsset().build();
         doThrow(IllegalArgumentException.class).when(pageService).saveAsset(page.getId(), asset);
@@ -522,12 +519,12 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_list_page_assets() throws Exception {
+    void should_list_page_assets() throws Exception {
         Page page = mockPageOfId("my-page");
         when(pageService.listAsset(page)).thenReturn(Set.of(
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
-                anAsset().withName("myJs.js").withType(JAVASCRIPT).withScope(AssetScope.PAGE).build(),
-                anAsset().withName("https://mycdn.com/myExternalJs.js").withScope(AssetScope.PAGE).withType(JAVASCRIPT).build()
+                anAsset().withName("myJs.js").withType(JAVASCRIPT).withScope(PAGE).build(),
+                anAsset().withName("https://mycdn.com/myExternalJs.js").withScope(PAGE).withType(JAVASCRIPT).build()
         ));
 
         mockMvc.perform(get("/rest/pages/my-page/assets"))
@@ -541,12 +538,12 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_list_page_assets_while_getting_a_page() throws Exception {
+    void should_list_page_assets_while_getting_a_page() throws Exception {
         Page page = mockPageOfId("my-page");
         page.setAssets(Set.of(
                 anAsset().withName("myCss.css").withType(AssetType.CSS).withScope(AssetScope.WIDGET).withComponentId("widget-id").build(),
-                anAsset().withName("myJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build(),
-                anAsset().withName("https://mycdn.com/myExternalJs.js").withType(AssetType.JAVASCRIPT).withScope(AssetScope.PAGE).build()
+                anAsset().withName("myJs.js").withType(JAVASCRIPT).withScope(PAGE).build(),
+                anAsset().withName("https://mycdn.com/myExternalJs.js").withType(JAVASCRIPT).withScope(PAGE).build()
         ));
         when(pageService.getWithAsset(page.getId())).thenReturn(page);
 
@@ -560,7 +557,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_increment_an_asset() throws Exception {
+    void should_increment_an_asset() throws Exception {
         Page page = mockPageOfId("my-page");
         Asset asset = anAsset().withComponentId("my-page").withOrder(3).build();
 
@@ -574,7 +571,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_decrement_an_asset() throws Exception {
+    void should_decrement_an_asset() throws Exception {
         Page page = mockPageOfId("my-page");
         Asset asset = anAsset().withComponentId("my-page").withOrder(3).build();
 
@@ -588,7 +585,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_delete_an_asset() throws Exception {
+    void should_delete_an_asset() throws Exception {
         Page page = mockPageOfId("my-page");
 
         mockMvc.perform(
@@ -600,7 +597,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_inactive_an_asset() throws Exception {
+    void should_inactive_an_asset() throws Exception {
         Page page = mockPageOfId("my-page");
         Asset asset = anAsset().withComponentId(page.getId()).withOrder(3).build();
 
@@ -614,7 +611,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_mark_a_page_as_favorite() throws Exception {
+    void should_mark_a_page_as_favorite() throws Exception {
 
         mockMvc
                 .perform(
@@ -625,7 +622,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_unmark_a_page_as_favorite() throws Exception {
+    void should_unmark_a_page_as_favorite() throws Exception {
 
         mockMvc
                 .perform(
@@ -636,9 +633,9 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_load_page_asset_on_disk_with_content_type_text() throws Exception {
+    void should_load_page_asset_on_disk_with_content_type_text() throws Exception {
         Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
-        when(pageService.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
+        when(pageService.findAssetPath("page-id", "asset.js", JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
 
         mockMvc
                 .perform(get("/rest/pages/page-id/assets/js/asset.js?format=text"))
@@ -651,9 +648,9 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_download_page_asset() throws Exception {
+    void should_download_page_asset() throws Exception {
         Path expectedFile = widgetRepositoryPath.resolve("pbLabel/pbLabel.js");
-        when(pageService.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
+        when(pageService.findAssetPath("page-id", "asset.js", JAVASCRIPT.getPrefix())).thenReturn(expectedFile);
 
         mockMvc
                 .perform(get("/rest/pages/page-id/assets/js/asset.js"))
@@ -666,28 +663,22 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_respond_404_when_widget_asset_included_in_page_is_not_found() throws Exception {
-        when(pageService.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenReturn(null);
+    void should_respond_404_when_widget_asset_included_in_page_is_not_found() throws Exception {
+        when(pageService.findAssetPath("page-id", "asset.js", JAVASCRIPT.getPrefix())).thenReturn(null);
 
         mockMvc.perform(get("/rest/pages/page-id/assets/js/asset.js?format=text")).andExpect(status().isNotFound());
         mockMvc.perform(get("/rest/pages/page-id/assets/js/asset.js")).andExpect(status().isNotFound());
     }
 
     @Test
-    public void should_respond_500_when_widget_asset_included_in_page_produce_IOException() throws Exception {
-        when(pageService.findAssetPath("page-id", "asset.js", AssetType.JAVASCRIPT.getPrefix())).thenThrow(new IOException("can't read file"));
+    void should_respond_500_when_widget_asset_included_in_page_produce_IOException() throws Exception {
+        when(pageService.findAssetPath("page-id", "asset.js", JAVASCRIPT.getPrefix())).thenThrow(new IOException("can't read file"));
 
         mockMvc.perform(get("/rest/pages/page-id/assets/js/asset.js?format=text")).andExpect(status().isInternalServerError());
         mockMvc.perform(get("/rest/pages/page-id/assets/js/asset.js")).andExpect(status().isInternalServerError());
     }
-
-    private Variable anApiVariable(String value) {
-        return new Variable(URL, value);
-    }
-
-
     @Test
-    public void should_add_bonita_resources_found_in_pages_widgets() throws Exception {
+    void should_add_bonita_resources_found_in_pages_widgets() throws Exception {
         final String pageId = "myPage";
         Page page = mockPageOfId(pageId);
         when(pageService.getResources(page)).thenReturn(List.of(
@@ -704,7 +695,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_show_the_correct_information_for_variables() throws Exception {
+    void should_show_the_correct_information_for_variables() throws Exception {
         Path expectedFilePath = Paths.get(getClass().getResource("/page-with-variables/").toURI()).resolve("page-with-variables.json");
         String expectedFileString = String.join("", readAllLines(expectedFilePath));
 
@@ -719,8 +710,8 @@ public class PageResourceTest {
         page.setName("page");
         page.setLastUpdate(Instant.ofEpochMilli(1514989634397L));
         page.setRows(new ArrayList<>());
-        page.setWebResources(Collections.EMPTY_SET);
-        page.setStatus(new MigrationStatusReport());
+        page.setWebResources(EMPTY_SET);
+        page.setStatus(new ArtifactStatusReport());
 
         when(pageService.getWithAsset("id")).thenReturn(page);
 
@@ -730,7 +721,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_return_error_when_uploading_file_empty() throws Exception {
+    void should_return_error_when_uploading_file_empty() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/js", "".getBytes());
 
@@ -742,7 +733,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_return_error_when_uploadind_type_invalid() throws Exception {
+    void should_return_error_when_uploadind_type_invalid() throws Exception {
         //We construct a mockfile (the first arg is the name of the property expected in the controller
         MockMultipartFile file = new MockMultipartFile("file", "myfile.js", "application/js", "".getBytes());
 
@@ -753,7 +744,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_upload_newfile_and_save_new_asset() throws Exception {
+    void should_upload_newfile_and_save_new_asset() throws Exception {
         final String pageId = "my-page";
         Page page = mockPageOfId(pageId);
 
@@ -761,12 +752,12 @@ public class PageResourceTest {
         MockMultipartFile file = new MockMultipartFile("file", "originalFileName.js", "application/javascript", fileContent);
 
         final String assetId = UUID.randomUUID().toString();
-        when(pageService.saveOrUpdateAsset(page.getId(), AssetType.JAVASCRIPT, file.getOriginalFilename(), fileContent))
+        when(pageService.saveOrUpdateAsset(page.getId(), JAVASCRIPT, file.getOriginalFilename(), fileContent))
                 .thenReturn(
                         anAsset()
                                 .withId(assetId)
                                 .withName("originalFileName.js")
-                                .withType(AssetType.JAVASCRIPT)
+                                .withType(JAVASCRIPT)
                                 .withOrder(1).build()
                 );
 
@@ -778,11 +769,11 @@ public class PageResourceTest {
                 .andExpect(jsonPath("$.order").value(1))
                 .andExpect(jsonPath("$.active").value(true))
         ;
-        verify(pageService).saveOrUpdateAsset(page.getId(), AssetType.JAVASCRIPT, "originalFileName.js", fileContent);
+        verify(pageService).saveOrUpdateAsset(page.getId(), JAVASCRIPT, "originalFileName.js", fileContent);
     }
 
     @Test
-    public void should_upload_a_json_asset() throws Exception {
+    void should_upload_a_json_asset() throws Exception {
         final String pageId = "page-id";
         Page page = mockPageOfId(pageId);
 
@@ -811,7 +802,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_return_error_when_uploading_with_error_onsave() throws Exception {
+    void should_return_error_when_uploading_with_error_onsave() throws Exception {
         final String pageId = "page-id";
         Page page = mockPageOfId(pageId);
         final byte[] content = "function(){}".getBytes();
@@ -829,7 +820,7 @@ public class PageResourceTest {
     }
 
     @Test
-    public void should_check_that_json_is_well_formed_while_uploading_a_json_asset() throws Exception {
+    void should_check_that_json_is_well_formed_while_uploading_a_json_asset() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "asset.json", "application/javascript", "{ not json }".getBytes());
 
         mockMvc.perform(multipart("/rest/pages/page-id/assets/json").file(file))

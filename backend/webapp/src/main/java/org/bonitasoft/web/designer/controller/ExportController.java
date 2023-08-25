@@ -14,26 +14,26 @@
  */
 package org.bonitasoft.web.designer.controller;
 
+import static java.lang.String.format;
+import static org.springframework.http.ContentDisposition.inline;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+
+import java.io.IOException;
+import java.util.Optional;
+
 import org.bonitasoft.web.designer.ArtifactBuilder;
 import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.ModelException;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.inject.Inject;
-import java.io.IOException;
-import java.util.Optional;
-
-import static java.lang.String.format;
-import static org.springframework.http.ContentDisposition.inline;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Controller
 public class ExportController {
@@ -46,7 +46,7 @@ public class ExportController {
 
     private final ArtifactBuilder artifactBuilder;
 
-    @Inject
+    @Autowired
     public ExportController(PageService pageService, FragmentService fragmentService, WidgetService widgetService, ArtifactBuilder artifactBuilder) {
         this.pageService = pageService;
         this.fragmentService = fragmentService;

@@ -14,25 +14,25 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import org.bonitasoft.web.designer.JsonHandlerFactory;
 import org.bonitasoft.web.designer.builder.FragmentBuilder;
+import org.bonitasoft.web.designer.common.repository.FragmentRepository;
+import org.bonitasoft.web.designer.common.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.JsonHandlerFactory;
+import org.bonitasoft.web.designer.model.ArtifactStatusReport;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStepReport;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.service.FragmentService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -45,11 +45,12 @@ import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockSer
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(MockitoJUnitRunner.class)
-public class MigrationResourceFragmentTest {
+@ExtendWith(MockitoExtension.class)
+class MigrationResourceFragmentTest {
 
-    private JsonHandler jsonHandler = new JsonHandlerFactory().create();
+    private final JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
     private MockMvc mockMvc;
 
@@ -65,14 +66,14 @@ public class MigrationResourceFragmentTest {
     @Mock
     private UiDesignerProperties uiDesignerProperties;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mockMvc = mockServer(migrationResource).build();
-        when(uiDesignerProperties.getModelVersion()).thenReturn("2.0");
+        lenient().when(uiDesignerProperties.getModelVersion()).thenReturn("2.0");
     }
 
     @Test
-    public void should_return_200_when_fragment_migration_is_done_on_success() throws Exception {
+    void should_return_200_when_fragment_migration_is_done_on_success() throws Exception {
         Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withName("my-fragment").build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
         when(fragmentService.migrateWithReport(fragment)).thenReturn(new MigrationResult<>(fragment, Collections.singletonList(new MigrationStepReport(MigrationStatus.SUCCESS, "my-fragment"))));
@@ -86,7 +87,7 @@ public class MigrationResourceFragmentTest {
     }
 
     @Test
-    public void should_return_200_when_fragment_migration_is_finished_with_warning() throws Exception {
+    void should_return_200_when_fragment_migration_is_finished_with_warning() throws Exception {
         Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withName("my-fragment").build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
         when(fragmentService.migrateWithReport(fragment)).thenReturn(new MigrationResult<>(fragment, Collections.singletonList(new MigrationStepReport(MigrationStatus.WARNING, "my-fragment"))));
@@ -100,7 +101,7 @@ public class MigrationResourceFragmentTest {
     }
 
     @Test
-    public void should_return_500_when_an_error_occurs_during_fragment_migration() throws Exception {
+    void should_return_500_when_an_error_occurs_during_fragment_migration() throws Exception {
         Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withName("my-fragment").build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
         when(fragmentService.migrateWithReport(fragment)).thenReturn(new MigrationResult<>(fragment, Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-fragment"))));
@@ -114,7 +115,7 @@ public class MigrationResourceFragmentTest {
     }
 
     @Test
-    public void should_return_404_when_migration_is_trigger_but_fragment_id_doesnt_exist() throws Exception {
+    void should_return_404_when_migration_is_trigger_but_fragment_id_doesnt_exist() throws Exception {
         when(fragmentRepository.get("unknownFragment")).thenThrow(new NotFoundException());
 
         mockMvc
@@ -124,127 +125,127 @@ public class MigrationResourceFragmentTest {
     }
 
     @Test
-    public void should_not_process_migration_and_return_none_status_when_fragment_version_is_incompatible() throws Exception {
-        Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withModelVersion("3.0").withName("my-fragment").withMigrationStatusReport(new MigrationStatusReport(false, true)).build();
+    void should_not_process_migration_and_return_none_status_when_fragment_version_is_incompatible() throws Exception {
+        Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withModelVersion("3.0").withName("my-fragment").withArtifactStatusReport(new ArtifactStatusReport(false, true)).build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
-        when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(false, false));
+        when(fragmentService.getStatus(fragment)).thenReturn(new ArtifactStatusReport(false, false));
 
         MvcResult result = mockMvc
                 .perform(
                         put("/rest/migration/fragment/my-fragment").contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
-        Assert.assertEquals(result.getResponse().getContentAsString(), "{\"comments\":\"Artifact is incompatible with actual version\",\"status\":\"incompatible\",\"elementId\":\"my-fragment\",\"migrationStepReport\":[]}");
+        assertThat(result.getResponse().getContentAsString()).isEqualTo("{\"comments\":\"Artifact is incompatible with actual version\",\"status\":\"incompatible\",\"elementId\":\"my-fragment\",\"migrationStepReport\":[]}");
         verify(fragmentService, never()).migrateWithReport(fragment);
     }
 
     @Test
-    public void should_not_process_migration_and_return_none_status_when_fragment_not_needed_migration() throws Exception {
+    void should_not_process_migration_and_return_none_status_when_fragment_not_needed_migration() throws Exception {
         Fragment fragment = FragmentBuilder.aFragment().withId("my-fragment").withModelVersion("2.0").withName("my-fragment").isMigration(false).build();
         when(fragmentRepository.get("my-fragment")).thenReturn(fragment);
         lenient().when(fragmentService.migrateWithReport(fragment)).thenReturn(new MigrationResult<>(fragment, Collections.singletonList(new MigrationStepReport(MigrationStatus.ERROR, "my-fragment"))));
-        when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(true, false));
+        when(fragmentService.getStatus(fragment)).thenReturn(new ArtifactStatusReport(true, false));
 
         MvcResult result = mockMvc
                 .perform(
                         put("/rest/migration/fragment/my-fragment").contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
-        Assert.assertEquals(result.getResponse().getContentAsString(), "{\"comments\":\"No migration is needed\",\"status\":\"none\",\"elementId\":\"my-fragment\",\"migrationStepReport\":[]}");
+        assertThat(result.getResponse().getContentAsString()).isEqualTo("{\"comments\":\"No migration is needed\",\"status\":\"none\",\"elementId\":\"my-fragment\",\"migrationStepReport\":[]}");
         verify(fragmentService, never()).migrateWithReport(fragment);
     }
 
 
     @Test
-    public void should_return_artifact_status_when_migration_required() throws Exception {
-        Fragment fragment = aFragment().withId("myFragment").withDesignerVersion("1.10.0").withPreviousDesignerVersion("1.9.0").withMigrationStatusReport(new MigrationStatusReport(true, true)).build();
+    void should_return_artifact_status_when_migration_required() throws Exception {
+        Fragment fragment = aFragment().withId("myFragment").withDesignerVersion("1.10.0").withPreviousDesignerVersion("1.9.0").withArtifactStatusReport(new ArtifactStatusReport(true, true)).build();
 
         // with json
         mockMvc = mockServer(migrationResource).build();
         ResultActions result = postStatusRequest(fragment);
-        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, true)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         // by id
         mockMvc = mockServer(migrationResource).build();
         Fragment fragment2 = aFragment().withId("myFragment").withName("myFragment").withDesignerVersion("1.10.0").build();
         when(fragmentRepository.get("myFragment"))
                 .thenReturn(fragment2);
-        when(fragmentService.getStatus(fragment2)).thenReturn(new MigrationStatusReport(true, true));
+        when(fragmentService.getStatus(fragment2)).thenReturn(new ArtifactStatusReport(true, true));
         result = getStatusRequestById("fragment", "myFragment");
-        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, true)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_artifact_status_when_no_migration_required() throws Exception {
-        Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.0").withMigrationStatusReport(new MigrationStatusReport(true, false)).build();
+    void should_return_artifact_status_when_no_migration_required() throws Exception {
+        Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.0").withArtifactStatusReport(new ArtifactStatusReport(true, false)).build();
 
         // with json
         mockMvc = mockServer(migrationResource).build();
         ResultActions result = postStatusRequest(fragment);
-        Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         // by id
         mockMvc = mockServer(migrationResource).build();
-        Fragment fragment2 = aFragment().withId("myFragment").withName("myFragment").withDesignerVersion("2.0").withMigrationStatusReport(new MigrationStatusReport(true, false)).build();
+        Fragment fragment2 = aFragment().withId("myFragment").withName("myFragment").withDesignerVersion("2.0").withArtifactStatusReport(new ArtifactStatusReport(true, false)).build();
         when(fragmentRepository.get("myFragment"))
                 .thenReturn(fragment2);
-        when(fragmentService.getStatus(fragment2)).thenReturn(new MigrationStatusReport(true, false));
+        when(fragmentService.getStatus(fragment2)).thenReturn(new ArtifactStatusReport(true, false));
         result = getStatusRequestById("fragment", "myFragment");
-        Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_artifact_status_when_not_compatible_required() throws Exception {
+    void should_return_artifact_status_when_not_compatible_required() throws Exception {
         Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.1").isMigration(false).isCompatible(false).build();
 
         // with json
         mockMvc = mockServer(migrationResource).build();
         ResultActions result = postStatusRequest(fragment);
-        Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(false, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
 
         // by id
         mockMvc = mockServer(migrationResource).build();
         Fragment fragment2 = aFragment().withId("myFragment").withName("myFragment").withDesignerVersion("2.1").isMigration(false).isCompatible(false).build();
         when(fragmentRepository.get("myFragment"))
                 .thenReturn(fragment2);
-        when(fragmentService.getStatus(fragment2)).thenReturn(new MigrationStatusReport(false, false));
+        when(fragmentService.getStatus(fragment2)).thenReturn(new ArtifactStatusReport(false, false));
         result = getStatusRequestById("fragment", "myFragment");
-        Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(false, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_correct_migration_status_when_embedded_artifact_to_migrate() throws Exception {
+    void should_return_correct_migration_status_when_embedded_artifact_to_migrate() throws Exception {
         Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.0").build();
         when(fragmentRepository.get("myFragment")).thenReturn(fragment);
         // Get dependencies status
-        when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(true, true));
+        when(fragmentService.getStatus(fragment)).thenReturn(new ArtifactStatusReport(true, true));
 
         ResultActions result = getStatusRequestByIdRecursive("fragment", "myFragment");
-        Assert.assertEquals(getStatusReport(true, true), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, true)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_correct_migration_status_when_embedded_artifact_not_compatible() throws Exception {
+    void should_return_correct_migration_status_when_embedded_artifact_not_compatible() throws Exception {
         Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.0").build();
         when(fragmentRepository.get("myFragment")).thenReturn(fragment);
         // Get dependencies status
-        when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(false, false));
+        when(fragmentService.getStatus(fragment)).thenReturn(new ArtifactStatusReport(false, false));
 
         ResultActions result = getStatusRequestByIdRecursive("fragment", "myFragment");
-        Assert.assertEquals(getStatusReport(false, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(false, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_correct_migration_status_when_embedded_artifact_not_to_migrate() throws Exception {
+    void should_return_correct_migration_status_when_embedded_artifact_not_to_migrate() throws Exception {
         Fragment fragment = aFragment().withId("myFragment").withModelVersion("2.0").build();
         when(fragmentRepository.get("myFragment")).thenReturn(fragment);
         // Get dependencies status
-        when(fragmentService.getStatus(fragment)).thenReturn(new MigrationStatusReport(true, false));
+        when(fragmentService.getStatus(fragment)).thenReturn(new ArtifactStatusReport(true, false));
 
         ResultActions result = getStatusRequestByIdRecursive("fragment", "myFragment");
-        Assert.assertEquals(getStatusReport(true, false), result.andReturn().getResponse().getContentAsString());
+        assertThat(getStatusReport(true, false)).isEqualTo(result.andReturn().getResponse().getContentAsString());
     }
 
     @Test
-    public void should_return_not_found_when_invalid_artifact_id() throws Exception {
+    void should_return_not_found_when_invalid_artifact_id() throws Exception {
         mockMvc = mockServer(migrationResource).build();
         when(fragmentRepository.get("invalidFragmentId"))
                 .thenThrow(new NotFoundException());
@@ -267,7 +268,7 @@ public class MigrationResourceFragmentTest {
     }
 
     private String getStatusReport(boolean compatible, boolean migration) {
-        return new MigrationStatusReport(compatible, migration).toString();
+        return new ArtifactStatusReport(compatible, migration).toString();
     }
 
     private void getStatusRequestByIdInvalid(String artifactType, String artifactId) throws Exception {

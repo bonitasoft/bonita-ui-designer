@@ -14,23 +14,25 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+
+import org.bonitasoft.web.designer.common.migration.Version;
+import org.bonitasoft.web.designer.common.repository.FragmentRepository;
+import org.bonitasoft.web.designer.common.repository.PageRepository;
+import org.bonitasoft.web.designer.common.repository.WidgetRepository;
+import org.bonitasoft.web.designer.common.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
-import org.bonitasoft.web.designer.migration.Version;
+import org.bonitasoft.web.designer.model.ArtifactStatusReport;
 import org.bonitasoft.web.designer.model.DesignerArtifact;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationReport;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationResult;
 import org.bonitasoft.web.designer.model.migrationReport.MigrationStatus;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
-import org.bonitasoft.web.designer.repository.exception.RepositoryException;
 import org.bonitasoft.web.designer.service.ArtifactService;
 import org.bonitasoft.web.designer.service.FragmentService;
 import org.bonitasoft.web.designer.service.PageService;
 import org.bonitasoft.web.designer.service.WidgetService;
 import org.bonitasoft.web.designer.workspace.Workspace;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -43,8 +45,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import java.io.IOException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/rest/migration")
@@ -60,7 +62,7 @@ public class MigrationResource {
     private final WidgetService widgetService;
     private final UiDesignerProperties uiDesignerProperties;
 
-    @Inject
+    @Autowired
     public MigrationResource(
             Workspace workspace, PageRepository pageRepository, WidgetRepository widgetRepository,
             FragmentRepository fragmentRepository, PageService pageService, WidgetService widgetService, FragmentService fragmentService, UiDesignerProperties uiDesignerProperties) {
@@ -137,17 +139,17 @@ public class MigrationResource {
     }
 
     @GetMapping(value = "/status/page/{pageId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public MigrationStatusReport statusByPageId(@PathVariable("pageId") String pageId) {
+    public ArtifactStatusReport statusByPageId(@PathVariable("pageId") String pageId) {
         return pageService.getStatus(pageRepository.get(pageId));
     }
 
     @GetMapping(value = "/status/widget/{widgetId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public MigrationStatusReport statusByWidgetId(@PathVariable("widgetId") String widgetId) {
+    public ArtifactStatusReport statusByWidgetId(@PathVariable("widgetId") String widgetId) {
         return widgetService.getStatus(widgetRepository.get(widgetId));
     }
 
     @PostMapping(value = "/status", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MigrationStatusReport> statusByArtifactJson(
+    public ResponseEntity<ArtifactStatusReport> statusByArtifactJson(
             @RequestBody String artifact) {
 
         var mapper = new ObjectMapper();
@@ -163,12 +165,12 @@ public class MigrationResource {
         }
         var currentVersion = new Version(this.uiDesignerProperties.getModelVersion());
         var artifactVersion = (artifactVersionNode != null) ? new Version(artifactVersionNode.asText()) : null;
-        var migrationStatusReport = compareVersions(artifactVersion, currentVersion);
-        return ResponseEntity.ok(migrationStatusReport);
+        var artifactStatusReport = compareVersions(artifactVersion, currentVersion);
+        return ResponseEntity.ok(artifactStatusReport);
     }
 
     @GetMapping(value = "/status/fragment/{fragmentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public MigrationStatusReport statusByFragmentId(@PathVariable("fragmentId") String fragmentId) {
+    public ArtifactStatusReport statusByFragmentId(@PathVariable("fragmentId") String fragmentId) {
         var fragment = fragmentRepository.get(fragmentId);
         return fragmentService.getStatus(fragment);
     }
@@ -180,7 +182,7 @@ public class MigrationResource {
 
     }
 
-    private MigrationStatusReport compareVersions(Version artifactVersion, Version currentVersion) {
+    private ArtifactStatusReport compareVersions(Version artifactVersion, Version currentVersion) {
         // Check status of this artifact
         var migration = false;
         var compatible = true;
@@ -191,7 +193,7 @@ public class MigrationResource {
             compatible = false;
         }
 
-        return new MigrationStatusReport(compatible, migration);
+        return new ArtifactStatusReport(compatible, migration);
     }
 
 }

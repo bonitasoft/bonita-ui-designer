@@ -23,8 +23,8 @@ import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.page.Component;
 import org.bonitasoft.web.designer.model.page.Container;
 import org.bonitasoft.web.designer.model.page.Element;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +37,7 @@ public class BusinessObjectVisitorImplTest {
 
     private BusinessDataToWidgetMapper businessDataToWidgetMapper;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         businessDataToWidgetMapper = new BusinessDataToWidgetMapper(new DimensionFactory(), new BusinessObjectContainer(new Container()));
     }

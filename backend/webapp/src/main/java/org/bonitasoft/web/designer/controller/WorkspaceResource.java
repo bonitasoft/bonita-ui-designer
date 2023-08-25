@@ -14,13 +14,12 @@
  */
 package org.bonitasoft.web.designer.controller;
 
-import org.bonitasoft.web.designer.repository.PageRepository;
+import org.bonitasoft.web.designer.common.repository.PageRepository;
 import org.bonitasoft.web.designer.workspace.Workspace;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.inject.Inject;
 
 @RestController
 @RequestMapping("/rest/indexing")
@@ -29,7 +28,7 @@ public class WorkspaceResource {
     private final Workspace workspace;
     private final PageRepository pageRepository;
 
-    @Inject
+    @Autowired
     public WorkspaceResource(PageRepository pageRepository, Workspace workspace) {
         this.pageRepository = pageRepository;
         this.workspace = workspace;

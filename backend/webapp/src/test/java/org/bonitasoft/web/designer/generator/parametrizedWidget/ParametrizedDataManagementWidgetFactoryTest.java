@@ -19,10 +19,8 @@ import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.NodeBusinessObjectInput;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.page.Container;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -31,14 +29,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
 
 public class ParametrizedDataManagementWidgetFactoryTest implements ParameterConstants {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     private ParametrizedDataManagementWidgetFactory elementFactory;
     private NodeBusinessObjectInput nodeInput;
     private DimensionFactory dimensionFactory;
 
-    @Before
+    @BeforeEach
     public void init() {
         this.elementFactory = new ParametrizedDataManagementWidgetFactory();
         this.dimensionFactory = new DimensionFactory();

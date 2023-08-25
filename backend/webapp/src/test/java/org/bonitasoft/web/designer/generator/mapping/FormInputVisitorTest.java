@@ -16,16 +16,16 @@
 package org.bonitasoft.web.designer.generator.mapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.generator.mapping.data.FormInputVisitor;
 import org.bonitasoft.web.designer.model.JacksonJsonHandler;
-import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.LoadingType;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference.RelationType;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -41,7 +41,7 @@ public class FormInputVisitorTest {
 
     FormInputVisitor visitor;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         visitor = new FormInputVisitor(jsonHandler);
     }

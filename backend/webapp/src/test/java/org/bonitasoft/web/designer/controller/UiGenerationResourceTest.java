@@ -15,22 +15,6 @@
 
 package org.bonitasoft.web.designer.controller;
 
-import org.bonitasoft.web.designer.JsonHandlerFactory;
-import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
-import org.bonitasoft.web.designer.generator.mapping.dataManagement.DataManagementGenerator;
-import org.bonitasoft.web.designer.generator.mapping.dataManagement.NodeBusinessObjectInput;
-import org.bonitasoft.web.designer.model.JsonHandler;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.net.URISyntaxException;
-
 import static org.bonitasoft.web.designer.builder.BusinessObjectBuilder.aBusinessObject;
 import static org.bonitasoft.web.designer.utils.UIDesignerMockMvcBuilder.mockServer;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,10 +22,25 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(MockitoJUnitRunner.class)
-public class UiGenerationResourceTest {
+import java.net.URISyntaxException;
 
-    private JsonHandler jsonHandler = new JsonHandlerFactory().create();
+import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
+import org.bonitasoft.web.designer.generator.mapping.dataManagement.DataManagementGenerator;
+import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.JsonHandlerFactory;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+@ExtendWith(MockitoExtension.class)
+class UiGenerationResourceTest {
+
+    private final JsonHandler jsonHandler = new JsonHandlerFactory().create();
 
     private MockMvc mockMvc;
 
@@ -51,14 +50,14 @@ public class UiGenerationResourceTest {
     @Mock
     private DataManagementGenerator dataManagementGenerator;
 
-    @Before
+    @BeforeEach
     public void setUp() throws URISyntaxException {
         mockMvc = mockServer(UiGenerationResource).build();
     }
 
     @Test
-    public void should_generate_business_object_ui() throws Exception {
-        BusinessObject bo = aBusinessObject().withNodeBusinessObjectInput(new NodeBusinessObjectInput("com_company_model_address", "address")).build();
+    void should_generate_business_object_ui() throws Exception {
+        BusinessObject bo = aBusinessObject().build();
 
         mockMvc
                 .perform(post("/rest/generation/businessobject")

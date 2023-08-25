@@ -14,15 +14,16 @@
  */
 package org.bonitasoft.web.designer.controller.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class HttpFileTest {
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void should_throw_NullPointerException_when_filename_is_null(){
-        HttpFile.getOriginalFilename(null);
+        assertThrows(NullPointerException.class, () -> HttpFile.getOriginalFilename(null));
     }
 
     @Test

@@ -14,6 +14,10 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.dataManagement;
 
+import org.bonitasoft.web.designer.model.data.DataType;
+import org.bonitasoft.web.designer.model.data.Variable;
+import org.bonitasoft.web.designer.model.page.Container;
+import org.bonitasoft.web.designer.model.page.Element;
 import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
 import org.bonitasoft.web.designer.generator.mapping.data.BusinessDataLazyRef;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ParametrizedDataManagementWidgetFactory;
@@ -22,10 +26,6 @@ import org.bonitasoft.web.designer.generator.parametrizedWidget.WidgetContainer;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
-import org.bonitasoft.web.designer.model.data.DataType;
-import org.bonitasoft.web.designer.model.data.Variable;
-import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
 
 import java.util.ArrayList;
 import java.util.Collections;

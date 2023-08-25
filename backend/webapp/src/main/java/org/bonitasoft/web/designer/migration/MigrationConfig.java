@@ -14,13 +14,13 @@
  */
 package org.bonitasoft.web.designer.migration;
 
-import org.bonitasoft.web.designer.UiDesignerCore;
 import org.bonitasoft.web.designer.model.fragment.Fragment;
 import org.bonitasoft.web.designer.model.page.Page;
 import org.bonitasoft.web.designer.model.widget.Widget;
-import org.bonitasoft.web.designer.repository.FragmentRepository;
-import org.bonitasoft.web.designer.repository.PageRepository;
-import org.bonitasoft.web.designer.repository.WidgetRepository;
+import org.bonitasoft.web.designer.common.repository.FragmentRepository;
+import org.bonitasoft.web.designer.common.repository.PageRepository;
+import org.bonitasoft.web.designer.common.repository.WidgetRepository;
+import org.bonitasoft.web.designer.UiDesignerCore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

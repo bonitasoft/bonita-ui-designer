@@ -15,13 +15,13 @@
 package org.bonitasoft.web.designer.generator.mapping.data;
 
 import org.bonitasoft.web.designer.model.JsonHandler;
-import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.data.Data;
+import org.bonitasoft.web.designer.model.data.DataType;
 import org.bonitasoft.web.designer.model.page.PageData;
+import org.bonitasoft.web.designer.model.contract.Contract;
 
 import java.io.IOException;
 
-import static org.bonitasoft.web.designer.model.data.DataType.JSON;
 
 public class FormInputData implements PageData {
 
@@ -45,9 +45,9 @@ public class FormInputData implements PageData {
         var formInputVisitor = new FormInputVisitor(jsonHandler);
         contract.accept(formInputVisitor);
         try {
-            return new Data(JSON, formInputVisitor.toJson());
+            return new Data(DataType.JSON, formInputVisitor.toJson());
         } catch (IOException e) {
-            return new Data(JSON, "{}");
+            return new Data(DataType.JSON, "{}");
         }
     }
 }

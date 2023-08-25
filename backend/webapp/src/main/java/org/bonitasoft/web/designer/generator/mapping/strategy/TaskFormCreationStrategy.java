@@ -14,35 +14,18 @@
  */
 package org.bonitasoft.web.designer.generator.mapping.strategy;
 
-import org.bonitasoft.web.designer.generator.mapping.ContractInputDataHandler;
-import org.bonitasoft.web.designer.generator.mapping.ContractInputToWidgetMapper;
-import org.bonitasoft.web.designer.generator.mapping.ContractToContainerMapper;
-import org.bonitasoft.web.designer.generator.mapping.DimensionFactory;
-import org.bonitasoft.web.designer.generator.mapping.FormScope;
-import org.bonitasoft.web.designer.generator.mapping.data.BusinessData;
-import org.bonitasoft.web.designer.generator.mapping.data.BusinessDataLazyRef;
-import org.bonitasoft.web.designer.generator.mapping.data.BusinessQueryDataFactory;
-import org.bonitasoft.web.designer.generator.mapping.data.ContextData;
-import org.bonitasoft.web.designer.generator.mapping.data.FormInputData;
-import org.bonitasoft.web.designer.generator.mapping.data.FormInputVisitor;
-import org.bonitasoft.web.designer.generator.mapping.data.FormOutputData;
-import org.bonitasoft.web.designer.generator.mapping.data.SubmitErrorsListData;
-import org.bonitasoft.web.designer.generator.mapping.data.TaskData;
-import org.bonitasoft.web.designer.generator.mapping.data.TaskIdData;
+import org.bonitasoft.web.designer.model.JsonHandler;
+import org.bonitasoft.web.designer.model.page.*;
+import org.bonitasoft.web.designer.generator.mapping.*;
+import org.bonitasoft.web.designer.generator.mapping.data.*;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.Alignment;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.ButtonAction;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.TextWidget;
 import org.bonitasoft.web.designer.generator.parametrizedWidget.TitleWidget;
-import org.bonitasoft.web.designer.model.JsonHandler;
 import org.bonitasoft.web.designer.model.contract.BusinessDataReference;
 import org.bonitasoft.web.designer.model.contract.Contract;
 import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
-import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.Form;
-import org.bonitasoft.web.designer.model.page.FormContainer;
-import org.bonitasoft.web.designer.model.page.Page;
 
 import java.util.ArrayList;
 import java.util.Collections;

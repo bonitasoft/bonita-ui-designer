@@ -14,18 +14,23 @@
  */
 package org.bonitasoft.web.designer.builder;
 
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aBooleanContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLocalDateTimeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aLongContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aOffsetDateTimeContractInput;
+import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.aStringContractInput;
+
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.BusinessObject;
 import org.bonitasoft.web.designer.generator.mapping.dataManagement.NodeBusinessObjectInput;
 import org.bonitasoft.web.designer.model.contract.ContractInput;
 import org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder;
 
-import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
-
 public class BusinessObjectBuilder {
 
-    private NodeBusinessObjectInput rootNodeInput;
-    private BusinessObject businessObject;
-
+    private final BusinessObject businessObject;
 
     private BusinessObjectBuilder(BusinessObject businessObject) {
         this.businessObject = businessObject;
@@ -42,21 +47,12 @@ public class BusinessObjectBuilder {
         return this;
     }
 
-    public BusinessObjectBuilder withNodeBusinessObjectInput(NodeBusinessObjectInput rootNodeInput) {
-        this.rootNodeInput = rootNodeInput;
-        return this;
-    }
-
-    public BusinessObjectBuilder withANodeBusinessObjectInput() {
-        this.rootNodeInput = new NodeBusinessObjectInput("com.company.model.person", "person");
-        return this;
-    }
-
     public static ContractInputBuilder aBusinessObjectNodeInput(String name, String pageDataName) {
         return new ContractInputBuilder(new NodeBusinessObjectInput(name, pageDataName));
     }
 
 
+    @SuppressWarnings("deprecation")
     public static BusinessObject aSimpleBusinessObject() {
         ContractInput a = aBusinessObjectNodeInput("com.company.model.ticket", "ticket").withInput(
                 aStringContractInput("title"),

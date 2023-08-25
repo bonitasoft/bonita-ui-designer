@@ -30,24 +30,21 @@ import org.bonitasoft.web.designer.model.contract.EditMode;
 import org.bonitasoft.web.designer.model.contract.LeafContractInput;
 import org.bonitasoft.web.designer.model.contract.NodeContractInput;
 import org.bonitasoft.web.designer.model.page.PropertyValue;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.web.designer.model.contract.builders.ContractInputBuilder.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class ParametrizedWidgetFactoryTest implements ParameterConstants {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void create_an_input_widget_for_string_contract_input() throws Exception {
+    public void create_an_input_widget_for_string_contract_input() {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aStringContractInput("name"));
@@ -115,7 +112,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void create_a_datepicker_for_local_date_contract_input() throws Exception {
+    public void create_a_datepicker_for_local_date_contract_input() {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         AbstractParametrizedWidget component = elementFactory
@@ -125,7 +122,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void create_a_datetimepicker_for_local_date_time_contract_input() throws Exception {
+    public void create_a_datetimepicker_for_local_date_time_contract_input() {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         AbstractParametrizedWidget component = elementFactory
@@ -135,7 +132,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void create_a_checkbox_for_boolean_contract_input() throws Exception {
+    public void create_a_checkbox_for_boolean_contract_input() {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         AbstractParametrizedWidget component = elementFactory
@@ -146,7 +143,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void create_a_file_upload_for_file_contract_input_with_a_default_url() throws Exception {
+    public void create_a_file_upload_for_file_contract_input_with_a_default_url()  {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         AbstractParametrizedWidget component = elementFactory.createParametrizedWidget(aFileContractInput("document"));
@@ -160,7 +157,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
      * @Deprecated
      */
     @Test
-    public void should_create_a_datepicker_for_date_contract_input_with_date_format() throws Exception {
+    public void should_create_a_datepicker_for_date_contract_input_with_date_format() {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         DatePickerWidget component = (DatePickerWidget) elementFactory
@@ -171,7 +168,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void should_create_a_datepicker_for_date_contract_input_with_local_date_format() throws Exception {
+    public void should_create_a_datepicker_for_date_contract_input_with_local_date_format() {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         DatePickerWidget component = (DatePickerWidget) elementFactory
@@ -182,7 +179,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void should_create_a_datetimepicker_for_date_contract_input_with_local_date_time_format() throws Exception {
+    public void should_create_a_datetimepicker_for_date_contract_input_with_local_date_time_format() {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         DateTimePickerWidget component = (DateTimePickerWidget) elementFactory
@@ -196,7 +193,7 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void should_create_a_datetimepicker_for_date_contract_input_with_off_date_time_format() throws Exception {
+    public void should_create_a_datetimepicker_for_date_contract_input_with_off_date_time_format() {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
         DateTimePickerWidget component = (DateTimePickerWidget) elementFactory
@@ -209,12 +206,10 @@ public class ParametrizedWidgetFactoryTest implements ParameterConstants {
     }
 
     @Test
-    public void throw_a_IllegalArgumentException_for_unsupported_input_type() throws Exception {
+    public void throw_a_IllegalArgumentException_for_unsupported_input_type() {
         ParametrizedWidgetFactory elementFactory = createFactory();
 
-        thrown.expect(IllegalArgumentException.class);
-
-        elementFactory.createParametrizedWidget(new LeafContractInput("unsupported", IllegalArgumentException.class));
+        assertThrows(IllegalArgumentException.class, () -> elementFactory.createParametrizedWidget(new LeafContractInput("unsupported", IllegalArgumentException.class)));
     }
 
     @Test
