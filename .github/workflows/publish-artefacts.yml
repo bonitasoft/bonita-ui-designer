@@ -30,7 +30,7 @@ jobs:
       - name: Extract version parameter
         id: version
         run: |
-          if [ ${{ github.event.action }} == 'github-publish' ]
+          if [ ${{ github.event.action }} = 'github-publish' ]
             then
                 echo "test=${{ github.event.client_payload.releaseVersion }}" >> $GITHUB_OUTPUT
             else
@@ -39,7 +39,7 @@ jobs:
       - name: Extract branch parameter
         id: branch
         run: |
-          if [ ${{ github.event.action }} == 'github-publish' ]
+          if [ ${{ github.event.action }} = 'github-publish' ]
             then
                 echo "test=${{ github.event.client_payload.ref }}" >> $GITHUB_OUTPUT
             else
@@ -48,7 +48,7 @@ jobs:
       - name: Extract createPr parameter
         id: pr
         run: |
-          if [ ${{ github.event.action }} == 'github-publish' ]
+          if [ ${{ github.event.action }} = 'github-publish' ]
             then
                 echo "test=${{ github.event.client_payload.createPR }}" >> $GITHUB_OUTPUT
             else
