@@ -91,18 +91,18 @@ jobs:
           MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.init.outputs.tagVersion }} successfully. PRs to integrate are open on dedicated repositories :mini-gg:"
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-    openPrOnDedicatedRepositories:
-      needs: publishBinaries
-      strategy:
-        matrix:
-          repo: [ 'bonitasoft/bonita-studio-sp', 'bonitasoft/bonita-web-pages-sp']
-      runs-on: ubuntu-22.04
-      steps:
-        - name: Repository Dispatch
-          uses: peter-evans/repository-dispatch@v2
-          if: ${{ needs.publishBinaries.outputs.createPR = 'true'}}
-          with:
-            token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
-            repository: ${{ matrix.repo }}
-            event-type: new-uid-release
-            client-payload: '{"release": "${{ needs.publishBinaries.outputs.tagVersion}}, "branch":"${{ needs.publishBinaries.outputs.branchToRelease}}", "release_notes_url" :"${{GITHUB_SERVER_URL}}/${{GITHUB_REPOSITORY}}/releases/tag/${{ needs.publishBinaries.outputs.tagVersion}}"}'
+  openPrOnDedicatedRepositories:
+    needs: publishBinaries
+    strategy:
+      matrix:
+        repo: [ 'bonitasoft/bonita-studio-sp', 'bonitasoft/bonita-web-pages-sp']
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
+        if: ${{ needs.publishBinaries.outputs.createPR == 'true'}}
+        with:
+          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+          repository: ${{ matrix.repo }}
+          event-type: new-uid-release
+          client-payload: '{"release": "${{ needs.publishBinaries.outputs.tagVersion}}, "branch":"${{ needs.publishBinaries.outputs.branchToRelease}}", "release_notes_url" :"${{github.server_url}}/${{github.repository}}/releases/tag/${{ needs.publishBinaries.outputs.tagVersion}}"}'
