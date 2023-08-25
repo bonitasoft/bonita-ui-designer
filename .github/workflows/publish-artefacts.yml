@@ -105,4 +105,4 @@ jobs:
           token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
           repository: ${{ matrix.repo }}
           event-type: new-uid-release
-          client-payload: '{"release": "${{ needs.publishBinaries.outputs.tagVersion}}, "branch":"${{ needs.publishBinaries.outputs.branchToRelease}}", "release_notes_url" :"${{GITHUB_SERVER_URL}}/${{GITHUB_REPOSITORY}}/releases/tag/${{ needs.publishBinaries.outputs.tagVersion}}"}'
+          client-payload: '{"release": "${{ needs.publishBinaries.outputs.tagVersion}}, "branch":"${{ needs.publishBinaries.outputs.branchToRelease}}", "release_notes_url" :"${{github.server_url}}/${{github.repository}}/releases/tag/${{ needs.publishBinaries.outputs.tagVersion}}"}'
