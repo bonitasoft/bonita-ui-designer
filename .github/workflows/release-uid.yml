@@ -9,19 +9,23 @@ on:
         required: true
       publishBinaries:
         description: true to Publish binaries
-        required: true
-        default: true
+        type: boolean
+        default: 'true'
       pushToPublic:
         description: true to push on public repository
-        required: true
-        default: true
+        type: boolean
+        default: 'true'
+      createPR:
+        description: Create PR on dependencies repositories
+        type: boolean
+        default: 'true'
 jobs:
   createGithubRelease:
     name: Create release
-    runs-on: [self-hosted, uid-runner]
+    runs-on: ubuntu-22.04
     steps:
       - name: Setup checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
           fetch-depth: 0
@@ -50,7 +54,7 @@ jobs:
           echo "releaseDate=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
 
       - name: Push public dev tag
-        if: ${{ github.ref == 'refs/heads/dev' && github.event.inputs.pushToPublic == 'true'}}
+        if: ${{ github.ref != 'refs/heads/master' && github.event.inputs.pushToPublic == 'true'}}
         shell: bash
         run: |
           git config remote.public.url >&- || git remote add public https://github.com/bonitasoft/bonita-ui-designer.git
@@ -69,15 +73,15 @@ jobs:
       # repository-dispatch event will call always on default branch ('dev' in our case)
       - name: Publish artefact
         if: ${{ success() && github.event.inputs.publishBinaries == 'true'}}
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
           event-type: github-publish
-          client-payload: '{"ref":"${{ github.ref }}", "releaseVersion": "${{ steps.newTagVersion.outputs.value }}"}'
+          client-payload: '{"ref":"${{ github.ref }}", "releaseVersion": "${{ steps.newTagVersion.outputs.value }}", "openPR":"${{ github.event.inputs.createPR }}"}'
 
       - name: Send message to Slack channel
         if: ${{ failure() }}
-        uses: ./.github/actions/notify-slack
+        uses: bonitasoft/actions/packages/notify-slack@v2.2.0
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           MESSAGE: ":x: :scream: UI-Designer release ${{ steps.newTagVersion.outputs.value }} failed."
