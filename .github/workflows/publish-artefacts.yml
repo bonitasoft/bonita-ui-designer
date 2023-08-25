@@ -100,7 +100,7 @@ jobs:
     steps:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v2
-        if: ${{ needs.publishBinaries.outputs.createPR = 'true'}}
+        if: ${{ needs.publishBinaries.outputs.createPR == 'true'}}
         with:
           token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
           repository: ${{ matrix.repo }}
