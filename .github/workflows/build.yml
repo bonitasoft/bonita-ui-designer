@@ -35,7 +35,7 @@ jobs:
 
       - name: Send message to Slack channel
         if: ${{ failure() && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/master') }}
-        uses: ./.github/actions/notify-slack
+        uses: bonitasoft/actions/packages/notify-slack@v2.2
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           MESSAGE: ":x: Build on branch ${{github.ref}} failed in UI-Designer."
