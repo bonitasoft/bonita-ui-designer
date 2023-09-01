@@ -59,7 +59,7 @@ jobs:
           ref: ${{ steps.version.outputs.test }}
 
       - name: Set up Java 11
-        if: ${{ steps.branch.outputs.branchToRelease != 'refs/heads/1.12.x' }}
+        if: ${{ steps.branch.outputs.test != 'refs/heads/1.12.x' }}
         uses: actions/setup-java@v3
         with:
           java-version: 11
@@ -68,7 +68,7 @@ jobs:
 
       # When repository-dispatch is called, default branch is always trigger, that's why we configure java 8 here for 1.12.x branch
       - name: Set up Java 8
-        if: ${{ steps.branch.outputs.branchToRelease  == 'refs/heads/1.12.x' &&  github.event.action == 'github-publish' }}
+        if: ${{ steps.branch.outputs.test  == 'refs/heads/1.12.x' &&  github.event.action == 'github-publish' }}
         uses: actions/setup-java@v3
         with:
           java-version: 8
@@ -94,7 +94,7 @@ jobs:
         uses: bonitasoft/actions/packages/notify-slack@v2.2.0
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
-          MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.version.outputs.tagVersion }} successfully. PRs to integrate are open on dedicated repositories :mini-gg:"
+          MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.version.outputs.test }} successfully. PRs to integrate are open on dedicated repositories :mini-gg:"
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
   openPrOnDedicatedRepositories:
