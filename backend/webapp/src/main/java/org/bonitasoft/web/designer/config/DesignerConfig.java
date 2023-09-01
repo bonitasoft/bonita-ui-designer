@@ -14,15 +14,22 @@
  */
 package org.bonitasoft.web.designer.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.io.monitor.FileAlterationMonitor;
+import org.bonitasoft.web.angularjs.GeneratorProperties;
 import org.bonitasoft.web.designer.ArtifactBuilder;
 import org.bonitasoft.web.designer.ArtifactBuilderFactory;
 import org.bonitasoft.web.designer.UiDesignerCore;
 import org.bonitasoft.web.designer.UiDesignerCoreFactory;
 import org.bonitasoft.web.designer.common.livebuild.Watcher;
-import org.bonitasoft.web.designer.common.repository.*;
+import org.bonitasoft.web.designer.common.repository.AssetRepository;
+import org.bonitasoft.web.designer.common.repository.FragmentRepository;
+import org.bonitasoft.web.designer.common.repository.PageRepository;
+import org.bonitasoft.web.designer.common.repository.Repository;
+import org.bonitasoft.web.designer.common.repository.WidgetRepository;
 import org.bonitasoft.web.designer.controller.asset.AssetService;
 import org.bonitasoft.web.designer.model.JacksonJsonHandler;
 import org.bonitasoft.web.designer.model.JsonHandler;
@@ -43,8 +50,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Guillaume EHRET
@@ -61,10 +69,13 @@ public class DesignerConfig {
 
     private UiDesignerCoreFactory coreFactory;
 
+    private GeneratorProperties generatorProperties;
+
     @PostConstruct
     public void initialize() {
         jsonHandler = new JsonHandlerFactory().create();
-        coreFactory = new UiDesignerCoreFactory(designerProperties, jsonHandler);
+        generatorProperties = new GeneratorProperties(designerProperties.getWorkspaceUid().getPath());
+        coreFactory = new UiDesignerCoreFactory(designerProperties, generatorProperties, jsonHandler);
     }
 
     @Bean
@@ -150,7 +161,7 @@ public class DesignerConfig {
 
     @Bean
     public ArtifactBuilder artifactBuilder(UiDesignerCore uidCore) {
-        return new ArtifactBuilderFactory(designerProperties, jsonHandler, uidCore).create();
+        return new ArtifactBuilderFactory(designerProperties, generatorProperties, jsonHandler, uidCore).create();
     }
 
     @Bean

@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
+import org.bonitasoft.web.angularjs.GeneratorProperties;
 import org.bonitasoft.web.designer.controller.preview.PreservingCookiePathProxyServlet;
 import org.mitre.dsmiley.httpproxy.ProxyServlet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +90,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         if (!registry.hasMappingForPattern("/i18n/*")) {
             registry.addResourceHandler("/i18n/*")
-                    .addResourceLocations(workspaceUidProperties.getTmpI18nPath().toUri().toString());
+                    .addResourceLocations(new GeneratorProperties(workspaceUidProperties.getPath()).getTmpI18nPath().toUri().toString());
         }
 
         if (!registry.hasMappingForPattern("/widgets/**")) {
