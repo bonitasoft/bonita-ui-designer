@@ -31,7 +31,7 @@ jobs:
           cache: maven
 
       - name: Build and tests
-        run: ./mvnw -B -U clean verify -Pe2e,integration-test
+        run: ./mvnw -B clean verify -Pe2e,integration-test
 
       - name: Send message to Slack channel
         if: ${{ failure() && (github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/master') }}
