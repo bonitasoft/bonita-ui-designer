@@ -56,7 +56,7 @@ jobs:
             fi
       - uses: actions/checkout@v3
         with:
-          ref: ${{ steps.version.outputs.tagVersion }}
+          ref: ${{ steps.version.outputs.test }}
 
       - name: Set up Java 11
         if: ${{ steps.branch.outputs.branchToRelease != 'refs/heads/1.12.x' }}
