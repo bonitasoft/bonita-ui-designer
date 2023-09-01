@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -77,11 +78,11 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
                     continue;
                 }
 
-                var content = new String(readAllBytes(componentFile));
+                var content = new String(readAllBytes(componentFile), StandardCharsets.UTF_8);
                 String contentWithoutSpaces = removeSpaces(content);
                 T object;
                 try {
-                    object = jsonHandler.fromJson(content.getBytes(), type);
+                    object = jsonHandler.fromJson(content.getBytes(StandardCharsets.UTF_8), type);
                 } catch (IOException ex) {
                     throw new IOException("Json mapping error for " + componentFile, ex);
                 }
@@ -133,7 +134,7 @@ public class JsonFileBasedLoader<T extends Identifiable> extends AbstractLoader<
                 //We consider only another objects
                 if (objectPath == null || !objectPath.equals(componentFile)) {
                     var content = readAllBytes(componentFile);
-                    if (indexOf(content, objectId.getBytes()) >= 0) {
+                    if (indexOf(content, objectId.getBytes(StandardCharsets.UTF_8)) >= 0) {
                         return true;
                     }
                 }
