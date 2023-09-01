@@ -33,6 +33,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
@@ -365,7 +366,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
             if (!Files.exists(controllerFile)) {
                 throw new NotFoundException(format("Controller not found for [%s]", controllerFile.getFileName()));
             }
-            this.setController(new String(readAllBytes(controllerFile)));
+            this.setController(new String(readAllBytes(controllerFile), StandardCharsets.UTF_8));
         }
     }
 
@@ -381,7 +382,7 @@ public class Widget extends DesignerArtifact implements Identifiable, Assetable 
             if (!Files.exists(templateFile)) {
                 throw new NotFoundException(format("Template not found for [%s]", templateFile.getFileName()));
             }
-            this.setTemplate(new String(readAllBytes(templateFile)));
+            this.setTemplate(new String(readAllBytes(templateFile), StandardCharsets.UTF_8));
         }
     }
 

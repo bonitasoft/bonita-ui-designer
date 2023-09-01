@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -65,6 +66,6 @@ public class StyleUpdateInputRequiredLabelMigrationStep extends AbstractMigratio
 
         }
         m.appendTail(buffer);
-        return buffer.toString().getBytes();
+        return buffer.toString().getBytes(StandardCharsets.UTF_8);
     }
 }
