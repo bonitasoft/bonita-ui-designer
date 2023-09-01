@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.SequenceInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 public class StyleAddModalContainerPropertiesMigrationStep extends AbstractMigrationStep<Page> {
@@ -57,7 +58,7 @@ public class StyleAddModalContainerPropertiesMigrationStep extends AbstractMigra
     private byte[] getMigratedAssetContent(String styleCssContent) throws IOException {
         try (var is = getClass().getResourceAsStream("/templates/migration/assets/css/styleAddModalContainerProperties.css");
              var sis = new SequenceInputStream(
-                     new ByteArrayInputStream(styleCssContent.getBytes()),
+                     new ByteArrayInputStream(styleCssContent.getBytes(StandardCharsets.UTF_8)),
                      new ByteArrayInputStream(IOUtils.toByteArray(is))
              )) {
             return IOUtils.toByteArray(sis);
