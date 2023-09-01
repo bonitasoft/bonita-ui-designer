@@ -39,17 +39,15 @@ public class Main {
     @PostConstruct
     public void initialize() throws IOException {
         log.info("PagesRepositoryPath: {}", workspaceProperties.getPages().getDir());
-        log.info("TmpPagesRepositoryPath: {}", workspaceUidProperties.getTmpPagesRepositoryPath());
+        log.debug("TmpPagesRepositoryPath: {}", workspaceUidProperties.getTmpPagesRepositoryPath());
 
         log.info("FragmentsRepositoryPath: {}", workspaceProperties.getFragments().getDir());
-        log.info("TmpFragmentsRepositoryPath: {}", workspaceUidProperties.getTmpFragmentsRepositoryPath());
+        log.debug("TmpFragmentsRepositoryPath: {}", workspaceUidProperties.getTmpFragmentsRepositoryPath());
 
         log.info("WidgetsRepositoryPath: {}", workspaceProperties.getWidgets().getDir());
 
         log.info("WorkspacePath: {}", workspaceProperties.getPath());
-        log.info("TemporaryWorkspacePath: {}", workspaceUidProperties.getPath());
-
-        log.info("TmpI18nRepositoryPath: {}", workspaceUidProperties.getTmpI18nPath());
+        log.debug("TemporaryWorkspacePath: {}", workspaceUidProperties.getPath());
 
         if (!hasText(uiDesignerProperties.getBonita().getBdm().getUrl())) {
             log.warn("BDM API url not set or empty ! No synchronization will be performed between Studio and UID on BDM objects");
