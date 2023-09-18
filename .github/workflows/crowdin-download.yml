@@ -39,7 +39,7 @@ jobs:
           echo "crowdinBranch=$(echo ${{ matrix.branch }} | tr / -)" >> $GITHUB_ENV
       # Crowdin download
       - name: Run Crowdin download
-        uses: crowdin/github-action@v1.12.0
+        uses: crowdin/github-action@v1.13.1
         with:
           upload_translations: false
           upload_sources: false
