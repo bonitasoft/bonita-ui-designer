@@ -14,7 +14,7 @@ on:
       createPR:
         description: Create PR on dependencies
         type: boolean
-        default: 'true'
+        default: true
   repository_dispatch:
     types: [ github-publish ]
 
@@ -94,7 +94,7 @@ jobs:
         uses: bonitasoft/actions/packages/notify-slack@v2.2.0
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
-          MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.version.outputs.test }} successfully. PRs to integrate are open on dedicated repositories :mini-gg:"
+          MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.version.outputs.test }} successfully. PRs to integrate will be opened on dedicated repositories :mini-gg:"
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
   openPrOnDedicatedRepositories:
