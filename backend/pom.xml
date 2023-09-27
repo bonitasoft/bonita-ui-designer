@@ -52,7 +52,7 @@
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
-                <version>4.2</version>
+                <version>4.3</version>
                 <inherited>false</inherited>
                 <configuration>
                     <header>./copyright/copyright.txt</header>
