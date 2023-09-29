@@ -101,7 +101,7 @@ jobs:
     needs: publishBinaries
     strategy:
       matrix:
-        repo: [ 'bonitasoft/bonita-studio-sp', 'bonitasoft/bonita-web-pages-sp']
+        repo: [ 'bonitasoft/bonita-studio-sp', 'bonitasoft/bonita-web-pages-sp', 'bonitasoft/bonita-code-deposit']
     runs-on: ubuntu-22.04
     steps:
       - name: Repository Dispatch
