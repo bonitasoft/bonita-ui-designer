@@ -48,24 +48,48 @@
         active: true,
         external: false,
         name: 'bonitasoft/angular-1.3.21.min.js',
-        order: 0,
+        order: -1,
         scope: 'baseFramework',
         url: 'http://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=687&bos_redirect_product=bos&bos_redirect_major_version=7.9&bos_redirect_minor_version=',
         type: 'js'
       },{
         active: true,
         external: false,
+        name: 'ndDialog-0.4.0.min.js',
+        order: 0,
+        scope: 'baseFramework',
+        url: 'http://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=737&bos_redirect_product=bos&bos_redirect_major_version=9.0&bos_redirect_minor_version=',
+        type: 'js'
+      },{
+        active: true,
+        external: false,
         name: 'bootstrap-3.4.1.css',
-        order: -2,
+        order: -5,
         scope: 'baseFramework',
         url: 'http://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=736&bos_redirect_product=bos&bos_redirect_major_version=&bos_redirect_minor_version=',
+        type: 'css'
+      },{
+        active: true,
+        external: false,
+        name: 'ndDialog-0.4.0.css',
+        order: -4,
+        scope: 'baseFramework',
+        url: 'http://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=737&bos_redirect_product=bos&bos_redirect_major_version=9.0&bos_redirect_minor_version=',
+        type: 'css'
+      },{
+        active: true,
+        external: false,
+        name: 'ndDialog-theme-default-0.4.0.css',
+        order: -3,
+        scope: 'baseFramework',
+        url: 'http://www.bonitasoft.com/bos_redirect.php?bos_redirect_id=737&bos_redirect_product=bos&bos_redirect_major_version=9.0&bos_redirect_minor_version=',
         type: 'css'
       },
       {
         active: true,
         external: true,
         name: '../theme/theme.css',
-        order: -1,
+        order: -2,
         scope: 'baseFramework',
         type: 'css'
       }];
