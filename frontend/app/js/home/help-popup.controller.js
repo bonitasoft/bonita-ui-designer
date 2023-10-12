@@ -22,6 +22,7 @@
       this.configuration = configuration;
       this.uidVersion = null;
       this.modelVersion = null;
+      $scope.status = {'bonita717open': true};
     }
 
     getUidVersion() {

@@ -70,6 +70,16 @@
         </uib-tab>
         <uib-tab heading="{{ 'Noteworthy changes' | translate }}" class="shaker">
             <uib-accordion>
+                <uib-accordion-group is-open="status.bonita717open">
+                    <uib-accordion-heading>
+                        Bonita 2023.2 <i class="pull-right glyphicon"
+                                         ng-class="{'glyphicon-chevron-down': status.bonita717open, 'glyphicon-chevron-right': !status.bonita717open}"></i>
+                    </uib-accordion-heading>
+                    <dt translate>Handle 401 and 503 errors on Bonita REST API requests</dt>
+                    <p translate>A pop-up will be displayed to inform users in case of session timeout or running maintenance for all Bonita REST API requests made from UI-Designer pages</p>
+
+
+                </uib-accordion-group>
                 <uib-accordion-group is-open="status.bonita716open">
                     <uib-accordion-heading>
                         Bonita 2023.1 <i class="pull-right glyphicon"
