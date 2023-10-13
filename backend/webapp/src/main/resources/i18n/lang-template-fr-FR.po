@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-06-27 04:04\n"
+"PO-Revision-Date: 2023-10-13 04:05\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -138,6 +138,9 @@ msgstr "Un container modal ne peut pas être placé dans un autre container. Rec
 
 msgid "A new widget is now available to display our data with currency"
 msgstr "Un nouveau widget est maintenant disponible pour afficher nos données avec la devise"
+
+msgid "A pop-up will be displayed to inform users in case of session timeout or running maintenance for all Bonita REST API requests made from UI-Designer pages"
+msgstr ""
 
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "Une propriété qui requiert une valeur constante est présentée dans le panneau de Propriétés comme un ensemble de boutons radio, une liste déroulante ou un sélecteur de chiffres (pour la propriété Largeur). Sélectionnez la valeur souhaitée."
@@ -741,6 +744,9 @@ msgstr "Affichez en plein écran"
 
 msgid "HTTP method"
 msgstr "Méthode HTTP"
+
+msgid "Handle 401 and 503 errors on Bonita REST API requests"
+msgstr ""
 
 msgid "Help"
 msgstr "Aide"
