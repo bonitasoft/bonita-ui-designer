@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 61536\n"
 "Language-Team: Portuguese, Brazilian\n"
 "Language: pt_BR\n"
-"PO-Revision-Date: 2023-10-13 04:05\n"
+"PO-Revision-Date: 2023-10-24 01:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -140,7 +140,7 @@ msgid "A new widget is now available to display our data with currency"
 msgstr "Agora um novo widget está disponível para exibir nossos dados com moeda"
 
 msgid "A pop-up will be displayed to inform users in case of session timeout or running maintenance for all Bonita REST API requests made from UI-Designer pages"
-msgstr ""
+msgstr "Um pop-up será exibido para informar os usuários em caso de tempo limite de sessão ou manutenção em execução para todas as solicitações de API Bonita REST feitas a partir de UI-Designer páginas"
 
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "Uma propriedade que requer um valor constante é apresentada no painel de propriedades como um conjunto de botões de rádio, lista suspensa ou seletor de número (para a propriedade de largura). Selecione o valor requerido."
@@ -746,7 +746,7 @@ msgid "HTTP method"
 msgstr "Método HTTP"
 
 msgid "Handle 401 and 503 errors on Bonita REST API requests"
-msgstr ""
+msgstr "Solucionar erros 401 e 503 em solicitações de API Bonita REST"
 
 msgid "Help"
 msgstr "Ajuda"
