@@ -11,7 +11,7 @@ msgstr ""
 "X-Crowdin-File-ID: 72228\n"
 "Language-Team: Japanese\n"
 "Language: ja_JP\n"
-"PO-Revision-Date: 2023-10-17 03:09\n"
+"PO-Revision-Date: 2023-10-28 01:30\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -140,7 +140,7 @@ msgid "A new widget is now available to display our data with currency"
 msgstr "新しいウィジェットが通貨でデータを表示できるようになりました"
 
 msgid "A pop-up will be displayed to inform users in case of session timeout or running maintenance for all Bonita REST API requests made from UI-Designer pages"
-msgstr ""
+msgstr "UI デザイナーページから行われたすべての Bonita REST API リクエストのセッションタイムアウトまたはメンテナンスの実行が発生した場合に、ユーザーに通知するためのポップアップが表示されます"
 
 msgid "A property that requires a constant value is presented in the Properties panel as a radio button set, drop-down list, or number selector (for the Width property). Select the required value."
 msgstr "コンスタント値を要求するプロパティが、ラジオ ボタンのセット、ドロップ ダウン リスト、または （幅プロパティ）の数値セレクターとして [プロパティ] パネルに表示されます。必要な値を選択します。"
@@ -748,7 +748,7 @@ msgid "HTTP method"
 msgstr "HTTPメソッド"
 
 msgid "Handle 401 and 503 errors on Bonita REST API requests"
-msgstr ""
+msgstr "Bonita REST API リクエストで発生した 401 および 503 エラーを処理する"
 
 msgid "Help"
 msgstr "ヘルプ"
