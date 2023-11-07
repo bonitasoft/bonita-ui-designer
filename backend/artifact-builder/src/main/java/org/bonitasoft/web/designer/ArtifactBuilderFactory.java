@@ -114,7 +114,8 @@ public class ArtifactBuilderFactory {
                 ),
                 core.getPageAssetRepository(),
                 core.getWidgetAssetRepository(),
-                core.getFragmentRepository()
+                core.getFragmentRepository(),
+                uiDesignerProperties.getModelVersion()
         );
 
         //Page
