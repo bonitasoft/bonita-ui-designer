@@ -13,9 +13,9 @@
     <packaging>pom</packaging>
 
     <properties>
-        <spring-boot.version>2.7.15</spring-boot.version>
+        <spring-boot.version>2.7.17</spring-boot.version>
         <handlebar.version>4.3.1</handlebar.version>
-        <ui-designer-artifact-builder.version>1.0.3</ui-designer-artifact-builder.version>
+        <ui-designer-artifact-builder.version>1.0.5</ui-designer-artifact-builder.version>
     </properties>
 
     <modules>
