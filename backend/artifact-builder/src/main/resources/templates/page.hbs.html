@@ -17,8 +17,8 @@
             <link rel="stylesheet" href="{{ this }}">
     {{/each}}
 
-    <script src="{{resourceContext}}js/vendor.min.js"></script>
-    <script src="{{resourceContext}}js/runtime.min.js"></script>
+    <script src="{{resourceContext}}js/vendor.min.js?modelVersion={{uidModelVersion}}"></script>
+    <script src="{{resourceContext}}js/runtime.min.js?modelVersion={{uidModelVersion}}"></script>
     <!-- assets attached to the page -->
     {{#each jsAsset}}
             <script src="{{ this }}"></script>

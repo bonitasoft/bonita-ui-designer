@@ -115,6 +115,8 @@ public class HtmlBuilderVisitorTest {
     @Mock
     private DirectivesCollector directivesCollector;
 
+    private String modelVersion = "2.2";
+
     @Before
     public void setUp() throws Exception {
         visitor = new HtmlBuilderVisitor(
@@ -124,7 +126,8 @@ public class HtmlBuilderVisitorTest {
                 directivesCollector,
                 pageAssetRepository,
                 widgetAssetRepository,
-                fragmentRepository
+                fragmentRepository,
+                modelVersion
         );
         when(requiredModulesVisitor.visit(any(Page.class))).thenReturn(Collections.emptySet());
         when(pageAssetRepository.readAllBytes(anyString(), any(Asset.class))).thenReturn(assetsContent);
@@ -253,6 +256,21 @@ public class HtmlBuilderVisitorTest {
         when(pageFactory.generate(page)).thenReturn("var foo = \"bar\";");
 
         assertThatHtmlBody(visitor.build(page, "mycontext/")).hasElement("div.container-fluid");
+    }
+
+    @Test
+    public void should_generate_an_html_with_the_model_version_in_the_js_resources_URLs() throws Exception {
+        Page page = aPage().withId("page-id").build();
+        when(pageFactory.generate(page)).thenReturn("var foo = \"bar\";");
+
+        // when we generate the html
+        String generatedHtml = visitor.build(page, "mycontext/");
+
+        // then we should have the directive scripts included
+        assertThat(generatedHtml)
+                .contains("<script src=\"mycontext/js/vendor.min.js?modelVersion=" + modelVersion + "\"></script>")
+                .contains("<script src=\"mycontext/js/runtime.min.js?modelVersion=" + modelVersion + "\"></script>")
+                .contains("pb-model='page-id'"); // and an empty object as constant
     }
 
     @Test

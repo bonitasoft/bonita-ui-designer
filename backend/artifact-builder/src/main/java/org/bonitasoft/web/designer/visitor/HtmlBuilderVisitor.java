@@ -69,6 +69,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
     private final AssetRepository<Page> pageAssetRepository;
     private final AssetRepository<Widget> widgetAssetRepository;
     private final FragmentRepository fragmentRepository;
+    private final String modelVersion;
 
     @Override
     public String visit(FragmentElement fragmentElement) {
@@ -154,6 +155,7 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
         var sortedAssets = getSortedAssets(previewable);
         var template = new TemplateEngine("page.hbs.html")
                 .with("resourceContext", resourceContext == null ? "" : resourceContext)
+                .with("uidModelVersion", modelVersion)
                 .with("directives", directivesCollector.buildUniqueDirectivesFiles(previewable, previewable.getId()))
                 .with("rowsHtml", build(previewable.getRows()))
                 .with("jsAsset", getAssetHtmlSrcList(previewable.getId(), AssetType.JAVASCRIPT, sortedAssets))
