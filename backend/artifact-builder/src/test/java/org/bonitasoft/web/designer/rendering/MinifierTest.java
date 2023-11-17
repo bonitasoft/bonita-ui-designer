@@ -25,19 +25,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Benjamin Parisel
  */
-@RunWith(MockitoJUnitRunner.class)
 public class MinifierTest {
 
     @Test
     public void should_minify_input() throws IOException {
         String content = "function PbInputCtrl($scope, $log, widgetNameFactory) {\n" +"\n'use strict';\n" +
                 "\n  this.name = widgetNameFactory.getName('pbInput');\n" +
+                "\n  var myString = `http://some-url.com ${name} other`;\n" +
                 "\n  if (!$scope.properties.isBound('value')) {\n" +
                 "    $log.error('the pbInput property named \"value\" need to be bound to a variable');\n" +
                 "  }\n}\n";
         String expected = "\n" +
                 "function PbInputCtrl($scope,$log,widgetNameFactory){'use strict';this.name=widgetNameFactory.getName" +
-                "('pbInput');if(!$scope.properties.isBound('value')){$log.error('the pbInput property named \"value\"" +
+                "('pbInput');var myString=`http://some-url.com ${name} other`;if(!$scope.properties.isBound('value')){$log.error('the pbInput property named \"value\"" +
                 " need to be bound to a variable');}}";
 
         byte[] min = Minifier.minify(content.getBytes());
