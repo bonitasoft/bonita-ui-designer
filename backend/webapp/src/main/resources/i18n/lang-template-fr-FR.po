@@ -7,11 +7,11 @@ msgstr ""
 "X-Crowdin-Project: bonita\n"
 "X-Crowdin-Project-ID: 13316\n"
 "X-Crowdin-Language: fr\n"
-"X-Crowdin-File: /release-9.0.0/ui-designer/lang-template.pot\n"
-"X-Crowdin-File-ID: 72228\n"
+"X-Crowdin-File: /master/ui-designer/lang-template.pot\n"
+"X-Crowdin-File-ID: 61813\n"
 "Language-Team: French\n"
 "Language: fr_FR\n"
-"PO-Revision-Date: 2023-10-28 01:29\n"
+"PO-Revision-Date: 2023-11-19 02:28\n"
 
 msgid "&nbsp;"
 msgstr "&nbsp;"
@@ -296,7 +296,7 @@ msgid "Base framework"
 msgstr "Framework Bonita"
 
 msgid "Bidirectional bond"
-msgstr "Binding bidirectionnel"
+msgstr "Liaison bidirectionnelle"
 
 msgid "Bind these options to a UI-Designer variable and use them in your artifact."
 msgstr "Liez ces options à une variable UI Designer et utilisez-les dans votre artefact."
@@ -698,7 +698,7 @@ msgid "Fragment"
 msgstr "Fragment"
 
 msgid "Fragment data '' + name + '' will be bound to page data '' + binding + '', and thus not have it default value '' + data.value + ''"
-msgstr "Les données de fragments '' + name + '' seront liées aux données de la page '' + binding + '', et donc ne pas avoir de valeur par défaut '' + données. alu + ''"
+msgstr "Les données du fragment '' + name + '' seront liées aux données de la page '' + binding + '', et n'auront donc pas leur valeur par défaut '' + data.value + ''"
 
 msgid "Fragment data '' + name + '' will keep its default value '' + data.value + ''"
 msgstr "La donnée de fragment '' + name + '' conservera sa valeur par défaut '' + data.value + ''"
@@ -1412,7 +1412,7 @@ msgid "To add content, drag and drop components from the palette to the whiteboa
 msgstr "Pour ajouter du contenu, faites un glisser-déposer des composants de la palette sur le whiteboard."
 
 msgid "To allow your user to download a document add a link widget with its url property bound to"
-msgstr "Pour permettre à vos utilisateurs de télécharger un document, ajoutez un Link widget dont la propriété url est bindée à"
+msgstr "Pour permettre à vos utilisateurs de télécharger un document, ajoutez un widget Link dont la propriété \"url\" est liée à"
 
 msgid "To avoid some HTML injection in your page/form, we put for <b>Interpret HTML</b> property the default value to false for all widgets. If you already put this property to true, nothing change for you."
 msgstr "Pour éviter quelques injections HTML dans votre page/formulaire, nous mettons pour la propriété <b>Interpret HTML</b> la valeur par défaut à false pour tous les widgets. Si vous avez déjà mis cette propriété à true, rien ne change pour vous."
@@ -1548,7 +1548,7 @@ msgid "Use a bidirectional field to specify a read-write binding between the pro
 msgstr "Utilisez un une liaison bidirectionnelle pour spécifier une liaison de lecture / écriture entre la valeur de la propriété et une variable."
 
 msgid "Use a dynamic value field to specify a constant (the default) or an expression. Click the expression icon fx to switch from constant to expression. Click the constant icon X to switch from expression to constant. An expression can include a variable to make the property value dynamic, or can simply be the name of a variable. You can apply a filter to a variable value using a pipe. The binding to the variable is a read. If you want to write to the variable, use a bidirectional bond. Examples:"
-msgstr "Utilisez une valeur dynamique pour spécifier une constante (par défaut) ou une expression. Cliquez sur l'icône expression fx pour passer de constante à expression. Cliquez sur l'icône constante X pour repasser d'expression à constante. Une expression peut inclure une variable pour rendre la valeur de la propriété dynamique, ou peut être simplement le nom d'une variable. Vous pouvez appliquer un filtre à une valeur de variable à l'aide d'un \"pipe\". Le lien avec la variable est de type lecture. Si vous souhaitez écrire dans la variable, utilisez un binding bidirectionnel. Exemples :"
+msgstr "Utilisez une valeur dynamique pour spécifier une constante (par défaut) ou une expression. Cliquez sur l'icône expression fx pour passer de constante à expression. Cliquez sur l'icône constante X pour repasser d'expression à constante. Une expression peut inclure une variable pour rendre la valeur de la propriété dynamique, ou peut être simplement le nom d'une variable. Vous pouvez appliquer un filtre à une valeur de variable à l'aide d'un \"pipe\". Le lien avec la variable est de type lecture. Si vous souhaitez écrire dans la variable, utilisez une liaison bidirectionnelle. Exemples :"
 
 msgid "Use an interpolation field to enter text to display in the widget. The text can include variables that are interpreted using AngularJS interpolation. When the page is displayed, the variables are replaced by the interpolated values. Specify a variable as a simple expression enclosed in double braces, using the same format as for a dynamic value field. Example: I'm sorry, <em ng-non-bindable>{{ user.name | uppercase }}</em>. I'm afraid I can't do that."
 msgstr "Utilisez un champ de type interpolation pour saisir le texte à afficher dans le widget. Le texte peut inclure des variables qui sont interprétées à l'aide de l'interpolation AngularJS. Lorsque la page est affichée, les variables sont remplacées par les valeurs interpolées. Spécifiez la variable comme une simple expression entre doubles accolades, en utilisant le même format que pour une valeur dynamique. Exemple : Je suis désolé.e, <em ng-non-bindable> {{ user.name | uppercase }}</em>. J'ai bien peur de ne pas pouvoir faire cela."
@@ -1593,7 +1593,7 @@ msgid "Value"
 msgstr "Valeur"
 
 msgid "Variable in read-write binding with the property value"
-msgstr "Variable en lien bidirectionnel avec la valeur de la propriété"
+msgstr "Variable en liaison bidirectionnelle avec la valeur de la propriété"
 
 msgid "Variable name"
 msgstr "Nom de la variable"
@@ -1701,7 +1701,7 @@ msgid "You can extend our REST API capacities by creating <em>REST API extension
 msgstr "Vous pouvez étendre les capacités de notre API REST en créant des <em>extensions de l'API REST</em> dans le menu <i>Développement</i> du Studio et en les utilsant en tant que variables de type External API dans le UI Designer."
 
 msgid "You can format data with filters when data is used in widget property fields that allow interpolation <i class=\"fa fa-paragraph\"></i> or that are bound to a variable <i class=\"fa fa-link\"></i> ."
-msgstr "Le formatage de variables par filtres est possible dans les champs de propriété de widgets qui permettent l’interpolation <i class=\"fa fa-paragraph\"></i> ou ceux qui sont liés à une variable <i class=\"fa fa-link\"></i>."
+msgstr "Le formatage de variables avec des filtres est possible dans les champs de propriétés des widgets qui permettent l’interpolation <i class=\"fa fa-paragraph\"></i> ou ceux qui sont liés à une variable <i class=\"fa fa-link\"></i>."
 
 msgid "You can group widgets into a container to define the arrangement of widgets in a form or a page. A container can contain other containers."
 msgstr "Vous pouvez regrouper des widgets dans un container pour gérer leur disposition dans un formulaire ou une page. Un container peut contenir d'autres containers."
