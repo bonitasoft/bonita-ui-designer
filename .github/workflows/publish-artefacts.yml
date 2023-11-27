@@ -21,7 +21,7 @@ on:
 jobs:
   publishBinaries:
     name: Build, publish and upload binaries
-    runs-on: [self-hosted, uid-runner]
+    runs-on: ubuntu-22.04
     outputs:
       tagVersion: ${{ steps.version.outputs.test }}
       branchToRelease: ${{ steps.branch.outputs.test }}
