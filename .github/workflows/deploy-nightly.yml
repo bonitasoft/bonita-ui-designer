@@ -21,7 +21,7 @@ on:
 jobs:
   deployNightly:
     name: Deploy Nightly docker image
-    runs-on: [self-hosted, uid-runner]
+    runs-on: ubuntu-22.04
     steps:
       - name: Extract parameter
         id: init
