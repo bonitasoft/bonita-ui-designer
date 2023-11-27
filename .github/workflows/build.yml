@@ -19,7 +19,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, uid-runner]
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v3
