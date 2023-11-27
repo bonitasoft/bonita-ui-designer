@@ -10,7 +10,7 @@ on:
 jobs:
   check-commit-message:
     name: Check Commit Message
-    runs-on: [self-hosted, uid-runner]
+    runs-on: ubuntu-22.04
     steps:
       - name: Check Commit Type
         uses: gsactions/commit-message-checker@v1

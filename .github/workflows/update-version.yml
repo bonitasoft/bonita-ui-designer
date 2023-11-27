@@ -13,7 +13,7 @@ on:
 jobs:
   updateVersion:
     name: Update UID version
-    runs-on: [self-hosted, uid-runner]
+    runs-on: ubuntu-22.04
     steps:
       - name: Setup checkout
         uses: actions/checkout@v2
