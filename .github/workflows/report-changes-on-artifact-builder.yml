@@ -18,7 +18,7 @@ jobs:
     name: Report changes in Artifact Builder
     steps:
       - name: Checkout bonita web
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
@@ -41,7 +41,7 @@ jobs:
         run: echo '${{ toJSON(steps.changed-files.outputs.all_changed_files) }}'
 
       - name: Checkout artifact-builder
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         if: ${{ contains(env.VERSION, env.VERSION_THRESHOLD) }}
         with:
           repository: bonitasoft/bonita-ui-designer-artifact-builder

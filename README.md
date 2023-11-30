@@ -10,15 +10,14 @@ Create your own pages for your Bonita application or your own project.
 
 ### Pre-requisite
 
-* [Maven][maven]
-* [Java 11][java] for compilation
+* [Java 17][java] for compilation
 or
 * [Docker][docker]
 
 ### Build
 
 #### Using Maven
-* Build it using maven `mvn clean package`
+* Build it using maven `./mvnw clean package`
 * Run it using `java -jar backend/webapp/target/ui-designer-1.18.0-SNAPSHOT-standalone.jar`
 
 #### Using Docker
@@ -63,21 +62,21 @@ Before contributing, read the [guidelines][contributing.md]
 
 You can build entire project using maven.
     
-    mvn clean package
+    ./mvnw clean package
     
 This will build frontend and backend and create this artifact:
 backend/webapp/target/ui-designer-1.18.0-SNAPSHOT-standalone.jar
 
 #### Test
 
-while running `mvn clean package` only unit tests are run. 
+while running `./mvnw clean package` only unit tests are run. 
 If you want to run the integration tests, run the following command
 
-    mvn clean install -Pintegration-test
+    ./mvnw clean install -Pintegration-test
     
 Also frontend e2e test could be launched via
 
-    mvn clean install -Pe2e
+    ./mvnw clean install -Pe2e
 
 #### Run
 To run build standalone jar, just launch it as a standard jar :
@@ -120,7 +119,7 @@ Run `Start Frontend` target configuration to get liveReload on html/javascript f
 In backend run debug mode:
  
 ```shell
-    mvn spring-boot:run -Dagentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
+    ./mvnw spring-boot:run -Dagentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
 ````
 
 Go in your IDE, edit run configuration: Select `Remote`. Only change port value (5000 by default) to value display in your shell.

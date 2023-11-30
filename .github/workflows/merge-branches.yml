@@ -14,7 +14,7 @@ jobs:
   merge-branches:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Merge ${{ github.event.inputs.from }} ->  ${{ github.event.inputs.target }}
         uses: devmasx/merge-branch@1.4.0
         with:
