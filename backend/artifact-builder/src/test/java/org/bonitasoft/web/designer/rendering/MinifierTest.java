@@ -14,11 +14,13 @@
  */
 package org.bonitasoft.web.designer.rendering;
 
+import org.bonitasoft.web.designer.rendering.Minifier;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,36 +31,38 @@ public class MinifierTest {
 
     @Test
     public void should_minify_input() throws IOException {
-        String content = "function PbInputCtrl($scope, $log, widgetNameFactory) {\n" +"\n'use strict';\n" +
+        String content = "function PbInputCtrl($scope, $log, widgetNameFactory) {\n" + "\n'use strict';\n" +
                 "\n  this.name = widgetNameFactory.getName('pbInput');\n" +
                 "\n  var myString = `http://some-url.com ${name} other`;\n" +
+                "\n  var myMultiLineString = `Hello \n other`;\n" +
                 "\n  if (!$scope.properties.isBound('value')) {\n" +
                 "    $log.error('the pbInput property named \"value\" need to be bound to a variable');\n" +
                 "  }\n}\n";
         String expected = "\n" +
                 "function PbInputCtrl($scope,$log,widgetNameFactory){'use strict';this.name=widgetNameFactory.getName" +
-                "('pbInput');var myString=`http://some-url.com ${name} other`;if(!$scope.properties.isBound('value')){$log.error('the pbInput property named \"value\"" +
+                "('pbInput');var myString=`http://some-url.com ${name} other`;var myMultiLineString=`Hello \n other`;if(!$scope.properties.isBound('value')){$log.error('the pbInput property named \"value\""
+                +
                 " need to be bound to a variable');}}";
 
         byte[] min = Minifier.minify(content.getBytes());
 
-        assertThat(new String(min,"UTF-8")).isEqualTo(expected);
+        assertThat(new String(min, StandardCharsets.UTF_8)).isEqualTo(expected);
     }
 
 
-    @Test(expected = GenerationException.class)
-    public void should_throw_exeption_when_content_have_bad_unterminated_comment() throws IOException {
-        String badCommentTemplate ="/** dffsf /";
-        String content = badCommentTemplate + "content";
+    @Test
+    public void should_return_same_content_when_content_have_bad_unterminated_comment() throws IOException {
+        String badCommentTemplate = "/** dffsf /";
+        var content = (badCommentTemplate + "content").getBytes();
 
-        Minifier.minify(content.getBytes());
+        assertThat(Minifier.minify(content)).isEqualTo(content);
     }
 
-    @Test(expected = GenerationException.class)
-    public void should_throw_exeption_when_content_have_bad_unterminated_string() throws IOException {
+    @Test
+    public void hould_return_same_content_when_content_have_bad_unterminated_string() throws IOException {
         String unterminatedString = "'use strict\n";
-        String content = "function PbInputCtrl($scope, $log, widgetNameFactory) { \n" + unterminatedString;
+        var content = ("function PbInputCtrl($scope, $log, widgetNameFactory) { \n" + unterminatedString).getBytes();
 
-        Minifier.minify(content.getBytes());
+        assertThat(Minifier.minify(content)).isEqualTo(content);
     }
 }
