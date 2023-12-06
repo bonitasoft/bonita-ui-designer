@@ -1,15 +1,19 @@
 name: Commit Message format check
 
 on:
-  pull_request_target:
-    # trigger when the PR title changes
-    types: [ opened, edited, reopened ]
-
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
 jobs:
-  pr-title:
+  check-commit-message:
+    name: Check Commit Message
     runs-on: ubuntu-22.04
-    permissions:
-      pull-requests: write # post comments when the PR title doesn't match the "Conventional Commits" rules
     steps:
-      - name: Check Pull Request title
-        uses: bonitasoft/actions/packages/pr-title-conventional-commits@v2
+      - name: Check Commit Type
+        uses: gsactions/commit-message-checker@v1
+        with:
+          pattern: '^\S+\((.+)\):\s(.+)$'
+          error: 'Your first line has to matches the following pattern: type(category): description [flags], where flags is an optional coma separated list. Check the contributing guidlines for more details.'

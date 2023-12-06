@@ -1,4 +1,4 @@
-name: Crowdin download files
+name: Crowdin upload files for master
 
 # Triggers the workflow every night
 on:
@@ -9,12 +9,11 @@ on:
     inputs:
 
 jobs:
-  devDownload:
-    name: Crowdin download on dev
+  devUpload:
+    name: Crowdin upload
     strategy:
       max-parallel: 1
     runs-on: ubuntu-22.04
-
     steps:
       - name: Extract parameter
         id: init
@@ -23,19 +22,22 @@ jobs:
           then
               echo ::set-output name=baseBranch::${GITHUB_REF#refs/*/}
           else
-              echo "##[set-output name=baseBranch;]$(echo dev)"
+              echo "##[set-output name=baseBranch;]$(echo master)"
           fi
       - uses: actions/checkout@v2
         with:
           ref: ${{ steps.init.outputs.baseBranch }}
-      - name: Config git
-        run: |
-          git config --local user.email "ui-designer-bot@users.noreply.github.com"
-          git config --local user.name "ui-designer-bot"
-          git config pull.rebase true
-      # Runs Crowdin download
-      - name: Run Crowdin download
-        run: ./infrastructure/crowdin/download.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --github-api-key=${{ secrets.GITHUB_TOKEN }} --branch=${{ steps.init.outputs.baseBranch }}
+      - uses: actions/setup-node@v2
+        with:
+          # Mandatory to use a old node version with our actual dependencies
+          node-version: '14'
+      - name: Install Yarn
+        run: npm install -g yarn
+      - name: Install gettext
+        run: sudo apt-get install gettext
+      - name: Run Crowdin upload
+        shell: bash
+        run: ./infrastructure/crowdin/upload.sh --crowdin-api-key=${{ secrets.CROWDIN_API_KEY }} --branch=${{ steps.init.outputs.baseBranch }} --crowdin-project=bonita
       - name: Send message to Slack channel
         if: ${{ failure() }}
         uses: slackapi/slack-github-action@v1.17.0
@@ -48,7 +50,7 @@ jobs:
                       "type": "section",
                       "text": {
                           "type": "mrkdwn",
-                          "text": ":x: Download crowdin translation failed on  ${{github.ref}} in UI-Designer."
+                          "text": ":x: Upload master crowdin key failed in UI-Designer."
                       }
                   },
                   {
