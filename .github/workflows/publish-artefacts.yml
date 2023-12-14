@@ -77,7 +77,7 @@ jobs:
                            || steps.branch.outputs.test == 'refs/heads/1.14.x'
                            || steps.branch.outputs.test == 'refs/heads/1.15.x'
                            || steps.branch.outputs.test == 'refs/heads/1.16.x'
-                           || steps.branch.outputs.test == 'refs/heads/master' }}
+                           || steps.branch.outputs.test == 'refs/heads/master' ) }}
         uses: actions/setup-java@v4
         with:
           java-version: 11
