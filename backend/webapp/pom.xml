@@ -290,7 +290,7 @@
             <id>dependencies</id>
             <properties>
                 <bonitaMinorVersion></bonitaMinorVersion>
-                <groovy.version>3.0.19</groovy.version>
+                <groovy.version>3.0.20</groovy.version>
                 <!--Version use for dependency report templating, might be different from the one packaged in the binary -->
                 <handlebars.version>4.3.1</handlebars.version>
             </properties>
