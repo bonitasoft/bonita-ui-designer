@@ -13,6 +13,6 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-22.04
     steps:
-      - uses: TimonVS/pr-labeler-action@v4
+      - uses: TimonVS/pr-labeler-action@v5
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
