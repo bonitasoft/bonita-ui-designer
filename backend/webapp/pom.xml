@@ -13,7 +13,7 @@
 
     <properties>
         <smiley-http-proxy-servlet.version>1.12.1</smiley-http-proxy-servlet.version>
-        <moco-junit.version>1.4.0</moco-junit.version>
+        <moco-junit.version>1.5.0</moco-junit.version>
         <resource.delimiter>@</resource.delimiter>
     </properties>
 
