@@ -93,13 +93,13 @@ jobs:
           distribution: temurin
           cache: maven
 
-      - name: Create maven settings
+      - name: Setup Maven settings
         if: ${{ success() && ( github.event.action == 'github-publish' ||  github.event.inputs.pushToJfrog == 'true')}}
-        uses: whelk-io/maven-settings-xml-action@v21
+        uses: bonitasoft/maven-settings-action@v1
         with:
-          servers: '[{ "id": "releases", "username": "bonita-ci", "password": "${{ secrets.JFROG_AUTH }}" }]'
+          keeper-secret-config:  ${{ secrets.KSM_CONFIG }}
 
-      - name: Publish artefact
+      - name: Publish artifact
         if: ${{ success() && ( github.event.action == 'github-publish' || github.event.inputs.pushToJfrog == 'true')}}
         run: ./mvnw deploy -DskipTests -DaltDeploymentRepository=releases::default::https://bonitasoft.jfrog.io/artifactory/libs-release-local/
 
