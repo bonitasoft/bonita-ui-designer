@@ -19,28 +19,32 @@ jobs:
 
     steps:
       - name: Set up Java 11
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
           java-version: 11
+          distribution: temurin
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.tagVersion || github.ref }}
+      - uses: bonitasoft/git-setup-action@v1
+        id: git-setup
+        with:
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
       - name: Generate reports
         run: ./mvnw package -DskipTests -Pdependencies -DbonitaMinorVersion=${{ github.event.inputs.bonitaMinorVersion }}
       - name: Pushes dependencies file to bonita-doc
-        uses: dmnemec/copy_file_to_another_repo_action@main
+        uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          github_server: 'github.com'
           source_file: 'backend/webapp/target/bonita-ui-designer-dependencies.adoc'
           destination_repo: 'bonitasoft/bonita-doc'
           destination_branch: ${{ github.event.inputs.bonitaMinorVersion }}
           destination_branch_create: 'doc/add-bonita-ui-designer-repositories-dependencies-${{ github.event.inputs.bonitaMinorVersion }}'
           destination_folder: 'modules/ROOT/pages'
-          user_name: 'bonita-ci'
-          user_email: 'bonita-ci@bonitasoft.com'
+          user_name: ${{ steps.git-setup.outputs.name}}
+          user_email: ${{ steps.git-setup.outputs.email}}
           commit_message: 'chore(dependencies): Adding Bonita UI-Designer dependencies ${{ github.event.inputs.bonitaMinorVersion }}'
       - name: Create new PR on bonita-doc
         shell: bash
