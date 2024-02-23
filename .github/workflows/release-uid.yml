@@ -10,15 +10,15 @@ on:
       publishBinaries:
         description: true to Publish binaries
         type: boolean
-        default: 'true'
+        default: true
       pushToPublic:
         description: true to push on public repository
         type: boolean
-        default: 'true'
+        default: true
       createPR:
         description: Create PR on dependencies repositories
         type: boolean
-        default: 'true'
+        default: true
 jobs:
   createGithubRelease:
     name: Create release
@@ -39,10 +39,12 @@ jobs:
           else
               echo "##[set-output name=value;]$(echo ${{ github.event.inputs.version }})"
           fi
+      - uses: bonitasoft/git-setup-action@v1
+        id: git-setup
+        with:
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
       - name: Config git
         run: |
-          git config --local user.email "ui-designer-bot@users.noreply.github.com"
-          git config --local user.name "ui-designer-bot"
           git config pull.rebase true
 
       - name: Update Version
