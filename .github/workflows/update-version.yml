@@ -13,7 +13,7 @@ on:
 jobs:
   updateVersion:
     name: Update UID version
-    runs-on: [self-hosted, uid-runner]
+    runs-on: ubuntu-22.04
     steps:
       - name: Setup checkout
         uses: actions/checkout@v2
@@ -39,8 +39,8 @@ jobs:
 
       - name: Send message to Slack channel
         if: ${{ failure() }}
-        uses: ./.github/actions/notify-slack
+        uses: bonitasoft/notify-slack-action@v1
         with:
-          CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
-          MESSAGE: ":x: :scream: UI-Designer update-version ${{ steps.newTagVersion.outputs.value }} failed."
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
+          channel-id: ${{ vars.UID_SLACK_CHANNEL_ID }}
+          message: ":x: :scream: UI-Designer update-version ${{ steps.newTagVersion.outputs.value }} failed."
