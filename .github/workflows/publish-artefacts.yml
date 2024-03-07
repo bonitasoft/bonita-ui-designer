@@ -14,9 +14,9 @@ on:
       createPR:
         description: Create PR on dependencies
         type: boolean
-        default: true
+        default: "true"
   repository_dispatch:
-    types: [ github-publish ]
+    types: [github-publish]
 
 jobs:
   publishBinaries:
@@ -109,17 +109,17 @@ jobs:
 
       - name: Send message to Slack channel
         if: ${{ success() && ( github.event.action == 'github-publish' ||  github.event.inputs.pushToJfrog == 'true')}}
-        uses: bonitasoft/actions/packages/notify-slack@v2.2.0
+        uses: bonitasoft/notify-slack-action@v1
         with:
-          CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
-          MESSAGE: ":white_check_mark: UI-Designer release ${{ steps.version.outputs.test }} successfully. PRs to integrate will be opened on dedicated repositories :mini-gg:"
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
+          channel-id: ${{ vars.UID_SLACK_CHANNEL_ID }}
+          message: ":white_check_mark: UI-Designer release ${{ steps.version.outputs.test }} successfully. PRs to integrate will be opened on dedicated repositories :mini-gg:"
 
   openPrOnDedicatedRepositories:
     needs: publishBinaries
     strategy:
       matrix:
-        repo: [ 'bonitasoft/bonita-studio-sp', 'bonitasoft/bonita-web-pages-sp', 'bonitasoft/bonita-code-deposit']
+        repo: ["bonitasoft/bonita-studio-sp", "bonitasoft/bonita-web-pages-sp"]
     runs-on: ubuntu-22.04
     steps:
       - name: Repository Dispatch
