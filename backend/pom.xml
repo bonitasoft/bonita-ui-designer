@@ -15,7 +15,7 @@
     <properties>
         <spring-boot.version>2.7.18</spring-boot.version>
         <handlebar.version>4.3.1</handlebar.version>
-        <ui-designer-artifact-builder.version>1.0.8</ui-designer-artifact-builder.version>
+        <ui-designer-artifact-builder.version>1.0.9</ui-designer-artifact-builder.version>
     </properties>
 
     <modules>
@@ -91,7 +91,7 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.11</version>
+                        <version>0.8.12</version>
                         <executions>
                             <execution>
                                 <id>pre-unit-test</id>
