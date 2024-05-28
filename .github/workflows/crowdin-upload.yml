@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
       - name: List branches
         id: extract_branches
-        uses: bonitasoft/actions/packages/list-branches@v2.2.0
+        uses: bonitasoft/actions/packages/list-branches@v3
         with:
           branches_list: "master dev release-.*"
   devUpload:
@@ -65,7 +65,7 @@ jobs:
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_API_KEY_V2 }}
       - name: Send message to Slack channel
         if: ${{ failure() }}
-        uses: slackapi/slack-github-action@v1.25.0
+        uses: slackapi/slack-github-action@v1.26.0
         with:
           channel-id: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           payload: |
