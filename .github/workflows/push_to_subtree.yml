@@ -19,6 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
           ref: ${{ github.event.inputs.ref || github.ref }}
           fetch-depth: 0
           
