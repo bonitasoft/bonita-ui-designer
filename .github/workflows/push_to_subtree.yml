@@ -26,7 +26,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.BONITA_CI_PAT }}
         with:
-          prefix: ''
+          prefix: './'
           remote: https://github.com/bonitasoft/bonita-ui-designer.git
           reference: ${{ github.event.inputs.ref_name || github.ref_name }}
           as_tag: ${{ startsWith( github.event.inputs.ref || github.ref, 'refs/tags/') }}
