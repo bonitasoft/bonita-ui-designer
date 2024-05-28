@@ -20,4 +20,5 @@ jobs:
       ref: ${{ github.event.inputs.ref || github.ref }}
       ref_name: ${{ github.event.inputs.ref_name || github.ref_name }}
       remote: https://github.com/bonitasoft/bonita-ui-designer.git
+      prefix: ''
     secrets: inherit
