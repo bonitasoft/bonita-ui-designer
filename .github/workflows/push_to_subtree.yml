@@ -15,10 +15,18 @@ on:
 
 jobs:
   push-subtree:
-    uses: "bonitasoft/github-workflows/.github/workflows/_reusable_push_to_subtree.yml@main"
-    with:
-      ref: ${{ github.event.inputs.ref || github.ref }}
-      ref_name: ${{ github.event.inputs.ref_name || github.ref_name }}
-      remote: https://github.com/bonitasoft/bonita-ui-designer.git
-      prefix: ''
-    secrets: inherit
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+          fetch-depth: 0
+      - name: Split community subtree
+        uses: claudiodekker/splitsh-action@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.BONITA_CI_PAT }}
+        with:
+          prefix: ''
+          remote: https://github.com/bonitasoft/bonita-ui-designer.git
+          reference: ${{ github.event.inputs.ref_name || github.ref_name }}
+          as_tag: ${{ startsWith( github.event.inputs.ref || github.ref, 'refs/tags/') }}
