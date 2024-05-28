@@ -1,0 +1,23 @@
+name: Push to community subtree
+
+on:
+  workflow_dispatch: 
+    inputs:
+      ref:
+        type: string
+        description: The git ref to push to subtree, can be a branch refs/heads/dev or a tag refs/tags/10.0.0
+      ref_name:
+        description: The git ref name to push to subtree, can be a branch dev or a tag 10.0.0
+        type: string
+  push:
+    branches: 
+      - 'dev'
+
+jobs:
+  push-subtree:
+    uses: "bonitasoft/github-workflows/.github/workflows/_reusable_push_to_subtree.yml@main"
+    with:
+      ref: ${{ github.event.inputs.ref || github.ref }}
+      ref_name: ${{ github.event.inputs.ref_name || github.ref_name }}
+      remote: https://github.com/bonitasoft/bonita-ui-designer.git
+    secrets: inherit
