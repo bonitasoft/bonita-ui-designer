@@ -52,7 +52,7 @@
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
-                <version>4.3</version>
+                <version>4.5</version>
                 <inherited>false</inherited>
                 <configuration>
                     <header>./copyright/copyright.txt</header>
@@ -91,7 +91,7 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.11</version>
+                        <version>0.8.12</version>
                         <executions>
                             <execution>
                                 <id>pre-unit-test</id>
