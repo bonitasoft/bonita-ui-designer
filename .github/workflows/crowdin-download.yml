@@ -3,7 +3,7 @@ name: Crowdin download files
 # Triggers the workflow every night
 on:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '0 4 * * 0'
 
   workflow_dispatch:
 
@@ -30,6 +30,13 @@ jobs:
       matrix:
         branch: ${{ fromJSON(needs.list-branches.outputs.branches) }}
     steps:
+      - name: Retrieve secrets from Keeper
+        uses: Keeper-Security/ksm-action@v1
+        with:
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
+          secrets: |
+            ${{ vars.KEEPER_CROWDIN_RECORD_ID }}/field/login > env:CROWDIN_PROJECT_ID
+            ${{ vars.KEEPER_CROWDIN_RECORD_ID }}/field/password > env:CROWDIN_PERSONAL_TOKEN
       - uses: actions/checkout@v4
         with:
           ref: ${{ matrix.branch }}
@@ -39,7 +46,7 @@ jobs:
           echo "crowdinBranch=$(echo ${{ matrix.branch }} | tr / -)" >> $GITHUB_ENV
       # Crowdin download
       - name: Run Crowdin download
-        uses: crowdin/github-action@v1
+        uses: crowdin/github-action@v2
         with:
           upload_translations: false
           upload_sources: false
@@ -52,8 +59,6 @@ jobs:
         #       (see https://github.com/crowdin/crowdin-cli/issues/427)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_API_KEY_V2 }}
 
       - name: Clean-up unwanted languages
         # Remove all po files with only 2 letters, such as lang-template-ar.po
