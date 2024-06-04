@@ -32,6 +32,13 @@ jobs:
       matrix:
         branch: ${{ fromJSON(needs.list-branches.outputs.branches) }}
     steps:
+      - name: Retrieve secrets from Keeper
+        uses: Keeper-Security/ksm-action@v1
+        with:
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
+          secrets: |
+            ${{ vars.KEEPER_CROWDIN_RECORD_ID }}/field/login > env:CROWDIN_PROJECT_ID
+            ${{ vars.KEEPER_CROWDIN_RECORD_ID }}/field/password > env:CROWDIN_PERSONAL_TOKEN
       - uses: actions/checkout@v4
         with:
           ref: ${{ matrix.branch }}
@@ -52,7 +59,7 @@ jobs:
         run: |
           echo "crowdinBranch=$(echo ${{ matrix.branch }} | tr / -)" >> $GITHUB_ENV
       - name: crowdin action
-        uses: crowdin/github-action@v1
+        uses: crowdin/github-action@v2
         with:
           upload_sources: true
           crowdin_branch_name: ${{ env.crowdinBranch }}
@@ -61,8 +68,6 @@ jobs:
           dryrun_action: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_API_KEY_V2 }}
       - name: Send message to Slack channel
         if: ${{ failure() }}
         uses: slackapi/slack-github-action@v1.25.0
