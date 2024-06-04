@@ -27,7 +27,7 @@ jobs:
       - name: Setup checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+          
           fetch-depth: 0
       - name: Get tag version
         id: newTagVersion
@@ -77,7 +77,7 @@ jobs:
         if: ${{ success() && github.event.inputs.publishBinaries == 'true'}}
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+          token: ${{ secrets.BONITA_CI_PAT }}
           event-type: github-publish
           client-payload: '{"ref":"${{ github.ref }}", "releaseVersion": "${{ steps.newTagVersion.outputs.value }}", "createPR":"${{ github.event.inputs.createPR }}"}'
 

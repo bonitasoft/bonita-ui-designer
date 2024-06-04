@@ -46,14 +46,14 @@ jobs:
         with:
           repository: bonitasoft/bonita-ui-designer-artifact-builder
           ref: ${{ env.BRANCH }}
-          token: ${{ secrets.API_TOKEN_GITHUB }}
+          token: ${{ secrets.BONITA_CI_PAT }}
           path: ./bonita-ui-designer-artifact-builder
 
       - name: Create Pull request
         if: ${{ contains(env.VERSION, env.VERSION_THRESHOLD) }}
         id: createPr
         env:
-          GH_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
+          GH_TOKEN: ${{ secrets.BONITA_CI_PAT }}
           prTitle: "WIP: report modifications coming from ${{ github.repository }}#${{ env.BRANCH }}"
           prBody: "Please manually report the modifications in Bonita runtime module **ui-designer-artifact-builder** using this pull request (update title and body).\n  https://github.com/bonitasoft/bonita-ui-designer-internal/commit/${{  github.sha  }}\n"
         run: |

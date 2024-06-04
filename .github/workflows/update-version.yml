@@ -18,7 +18,7 @@ jobs:
       - name: Setup checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+          token: ${{ secrets.BONITA_CI_PAT }}
       - uses: bonitasoft/git-setup-action@v1
         with:
           keeper-secret-config: ${{ secrets.KSM_CONFIG }}
