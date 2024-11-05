@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
       - name: List branches
         id: extract_branches
-        uses: bonitasoft/actions/packages/list-branches@v2.2.0
+        uses: bonitasoft/actions/packages/list-branches@v3
         with:
           branches_list: "master dev release-.*"
   download-l10n-from-crowdin:
@@ -72,7 +72,7 @@ jobs:
           echo "modifiedlines=$(git diff --word-diff --unified=0 | grep -Ev "^diff --git|^index|^\+\+\+|^---|^@@|PO-Revision-Date" | wc -l)" >> $GITHUB_ENV
       - name: Create Pull Request
         if: env.modifiedlines > 0
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         id: create-pr
         with:
           branch: feat/${{ matrix.branch }}/update-translations
@@ -84,7 +84,7 @@ jobs:
 
       - name: Send message to Slack channel
         if: ${{ failure() }}
-        uses: bonitasoft/actions/packages/notify-slack@v2.2.0
+        uses: bonitasoft/actions/packages/notify-slack@v3
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           MESSAGE: ":x: Download ${{ matrix.branch }} crowdin translation failed in UI-Designer."

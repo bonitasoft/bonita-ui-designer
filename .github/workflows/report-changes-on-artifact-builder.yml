@@ -32,7 +32,7 @@ jobs:
       - name: Get changed files
         if: ${{ contains(env.VERSION, env.VERSION_THRESHOLD) }}
         id: changed-files
-        uses: tj-actions/changed-files@v42
+        uses: tj-actions/changed-files@v45
         with:
           json: "true"
 
@@ -68,7 +68,7 @@ jobs:
           echo "pr-link=$(gh pr create -B "${{ env.BRANCH }}"  -b "${{ env.prBody }}" -t "${{ env.prTitle }}" -l "Do not merge" -l "Changes from bonita-ui-designer-internal")" >> $GITHUB_OUTPUT
 
       - name: Send message to Slack channel
-        uses: bonitasoft/actions/packages/notify-slack@v2
+        uses: bonitasoft/actions/packages/notify-slack@v3
         if: ${{ contains(env.VERSION, env.VERSION_THRESHOLD) }}
         with:
           CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
