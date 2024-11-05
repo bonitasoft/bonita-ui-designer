@@ -14,14 +14,14 @@ jobs:
   merge-branches:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Merge ${{ github.event.inputs.from }} ->  ${{ github.event.inputs.target }}
         uses: devmasx/merge-branch@1.4.0
         with:
           type: now
           from_branch: ${{ github.event.inputs.from }}
           target_branch: ${{ github.event.inputs.target }}
-          github_token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+          github_token: ${{ secrets.BONITA_CI_PAT }}
       - name: Send message to Slack channel
         if: ${{ failure()}}
         uses: bonitasoft/notify-slack-action@v1

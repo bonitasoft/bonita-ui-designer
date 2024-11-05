@@ -2,9 +2,6 @@ name: Crowdin download files
 
 # Triggers the workflow every night
 on:
-  schedule:
-    - cron: '0 4 * * *'
-
   workflow_dispatch:
 
 jobs:
@@ -14,14 +11,14 @@ jobs:
       branches: ${{ steps.extract_branches.outputs.branches }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: List branches
         id: extract_branches
         uses: bonitasoft/actions/packages/list-branches@v2.2.0
         with:
-          branches_list: "master dev release-.*"
+          branches_list: "1.16.x"
   download-l10n-from-crowdin:
     runs-on: ubuntu-22.04
     needs: list-branches
@@ -30,7 +27,14 @@ jobs:
       matrix:
         branch: ${{ fromJSON(needs.list-branches.outputs.branches) }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Retrieve secrets from Keeper
+        uses: Keeper-Security/ksm-action@v1
+        with:
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
+          secrets: |
+            ${{ vars.KEEPER_CROWDIN_RECORD_ID }}/field/login > env:CROWDIN_PROJECT_ID
+            ${{ vars.KEEPER_CROWDIN_RECORD_ID }}/field/password > env:CROWDIN_PERSONAL_TOKEN
+      - uses: actions/checkout@v4
         with:
           ref: ${{ matrix.branch }}
           fetch-depth: '1'
@@ -39,7 +43,7 @@ jobs:
           echo "crowdinBranch=$(echo ${{ matrix.branch }} | tr / -)" >> $GITHUB_ENV
       # Crowdin download
       - name: Run Crowdin download
-        uses: crowdin/github-action@v1.7.0
+        uses: crowdin/github-action@v2
         with:
           upload_translations: false
           upload_sources: false
@@ -52,8 +56,6 @@ jobs:
         #       (see https://github.com/crowdin/crowdin-cli/issues/427)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_API_KEY_V2 }}
 
       - name: Clean-up unwanted languages
         # Remove all po files with only 2 letters, such as lang-template-ar.po
@@ -67,7 +69,7 @@ jobs:
           echo "modifiedlines=$(git diff --word-diff --unified=0 | grep -Ev "^diff --git|^index|^\+\+\+|^---|^@@|PO-Revision-Date" | wc -l)" >> $GITHUB_ENV
       - name: Create Pull Request
         if: env.modifiedlines > 0
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v6
         id: create-pr
         with:
           branch: feat/${{ matrix.branch }}/update-translations

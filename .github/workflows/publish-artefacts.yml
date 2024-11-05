@@ -54,7 +54,7 @@ jobs:
             else
                 echo "test=${{ github.event.inputs.createPR }}" >> $GITHUB_OUTPUT
             fi
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ steps.version.outputs.test }}
 
@@ -108,7 +108,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         if: ${{ needs.publishBinaries.outputs.createPR == 'true'}}
         with:
-          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+          token: ${{ secrets.BONITA_CI_PAT }}
           repository: ${{ matrix.repo }}
           event-type: new-uid-release
           client-payload: '{"release": "${{ needs.publishBinaries.outputs.tagVersion}}", "branch":"${{ needs.publishBinaries.outputs.branchToRelease}}", "release_notes_url" :"${{github.server_url}}/${{github.repository}}/releases/tag/${{ needs.publishBinaries.outputs.tagVersion}}"}'
