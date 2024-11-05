@@ -2,13 +2,16 @@
      disable="properties.disabled"
      active="properties.active">
     <tab-heading ng-class="properties.cssClasses" ui-translate>
-        <span>
-            <span ng-if="!properties.allowHTML" ng-bind="properties.title | uiTranslate"></span>
-            <ng-bind-html ng-if="properties.allowHTML" ng-bind-html="properties.title | uiTranslate"/>
-        </span>
+    <span>
+        <span ng-if="!properties.allowHTML" ng-bind="properties.title | uiTranslate"></span>
+        <ng-bind-html ng-if="properties.allowHTML" ng-bind-html="properties.title | uiTranslate"/>
+    </span>
     </tab-heading>
+    {{#if isLazyLoad}}
     <div ng-hide="properties.hidden" ng-if="properties.active">
-    {{{ content }}}
+    {{else}}
+    <div ng-hide="properties.hidden">
+    {{/if}}
+        {{{ content }}}
     </div>
 </tab>
-

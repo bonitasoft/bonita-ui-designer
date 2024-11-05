@@ -35,6 +35,15 @@
       "type": "text",
       "bond": "variable",
       "help" : "To define the tab selected by default"
+    },
+    {
+      "label": "Lazy loading",
+      "name": "isLazyLoad",
+      "type": "boolean",
+      "bond": "constant",
+      "caption": "Must be set to 'no' to enable input validation within the tab.",
+      "help" : "Set to 'yes' to load the content only when tab is active",
+      "defaultValue": true
     }
   ],
   "assets": [

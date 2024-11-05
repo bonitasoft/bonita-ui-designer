@@ -237,6 +237,29 @@ public class HtmlBuilderVisitorTest {
     }
 
     @Test
+    public void should_build_a_tab_container_with_lazy_load_property() throws Exception {
+        assertThatHtmlBody(visitor.visit(aTabContainer()
+                .withId("1")
+                .with(aContainer()
+                        .with(aRow().with(aParagraph().withReference("paragraph-reference")))
+                        .withReference("container-reference"))
+                .withPropertyValue("isLazyLoad", false)
+                .withReference("tab-reference")
+                .build())).isEqualToBody(testResource.load("simpleTabContainerLazyLoad.html"));
+    }
+
+    @Test
+    public void should_build_a_tab_container_without_lazy_load_property() throws Exception {
+        assertThatHtmlBody(visitor.visit(aTabContainer()
+                .withId("1")
+                .with(aContainer()
+                        .with(aRow().with(aParagraph().withReference("paragraph-reference")))
+                        .withReference("container-reference"))
+                .withReference("tab-reference")
+                .build())).isEqualToBody(testResource.load("simpleTabContainerWithoutLazyLoad.html"));
+    }
+
+    @Test
     public void should_add_elements_to_the_tab_container_tabs() throws Exception {
         TabContainer tab = aTabContainer()
                 .withId("1")

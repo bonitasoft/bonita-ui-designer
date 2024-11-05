@@ -100,6 +100,11 @@ Other available options are listed here : http://tomcat.apache.org/maven-plugin-
 Backend and frontend side could be launched in dev mode by using _server.sh_ script. 
 It launch _gulp serve_ backend task, waits for backend webabb to be running then launches _gulp serve_ frontend task.
 
+> [!NOTE]
+> To avoid errors, make sure you use the local node and yarn binaries installed in the `node` directory.
+Typically, using the command line, make sure you have the local yarn binary in your path.
+Using IntelliJ, check that the `Package manager` of the target configuration points on the local yarn binary.
+
 ```shell
 $ ./server.sh
 ```

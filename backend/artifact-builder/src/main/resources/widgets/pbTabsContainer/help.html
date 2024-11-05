@@ -42,4 +42,9 @@
             <li transalte>Click on preview to show the result</li>
         </ol>
     </uib-tab>
+    <uib-tab heading="{{ 'Form validation' | translate }}" index="'form-validation'">
+        <p translate>To enable form validation across multiple tabs, set the <b>Lazy loading</b> property to <code>no</code> for each tab.</p>
+        <br/>
+        <p class="alert alert-warning" translate>Setting this property to <code>no</code> will load the content of each tab during the initial page load, which may result in slower loading times.</p>
+    </uib-tab>
 </uib-tabset>

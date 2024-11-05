@@ -21,16 +21,7 @@ import org.bonitasoft.web.designer.model.Identifiable;
 import org.bonitasoft.web.designer.model.asset.Asset;
 import org.bonitasoft.web.designer.model.asset.AssetScope;
 import org.bonitasoft.web.designer.model.asset.AssetType;
-import org.bonitasoft.web.designer.model.page.Component;
-import org.bonitasoft.web.designer.model.page.Container;
-import org.bonitasoft.web.designer.model.page.Element;
-import org.bonitasoft.web.designer.model.page.FormContainer;
-import org.bonitasoft.web.designer.model.page.FragmentElement;
-import org.bonitasoft.web.designer.model.page.ModalContainer;
-import org.bonitasoft.web.designer.model.page.Page;
-import org.bonitasoft.web.designer.model.page.Previewable;
-import org.bonitasoft.web.designer.model.page.TabContainer;
-import org.bonitasoft.web.designer.model.page.TabsContainer;
+import org.bonitasoft.web.designer.model.page.*;
 import org.bonitasoft.web.designer.model.widget.Widget;
 import org.bonitasoft.web.designer.rendering.DirectivesCollector;
 import org.bonitasoft.web.designer.rendering.GenerationException;
@@ -117,7 +108,12 @@ public class HtmlBuilderVisitor implements ElementVisitor<String> {
 
     @Override
     public String visit(TabContainer tabContainer) {
+        // If the isLazyLoad property is not exist, activate the lazy loading behavior
+        var defaultLazyLoadValue = new PropertyValue();
+        defaultLazyLoadValue.setValue(true);
+        boolean isLazyLoad = (boolean) tabContainer.getPropertyValues().getOrDefault("isLazyLoad",defaultLazyLoadValue).getValue();
         return new TemplateEngine("tabContainer.hbs.html")
+                .with("isLazyLoad", isLazyLoad )
                 .with("content", tabContainer.getContainer().accept(this))
                 .build(tabContainer);
     }
