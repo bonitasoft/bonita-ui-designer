@@ -5,7 +5,7 @@ on:
     inputs:
       releaseVersion:
         description: base tag version to publish
-        default: 1.12.X
+        default: 1.17.X
         required: true
       pushToJfrog:
         description: true to push on artifactory
