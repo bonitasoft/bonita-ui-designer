@@ -19,15 +19,16 @@ on:
         description: Create PR on dependencies repositories
         type: boolean
         default: true
+
 jobs:
   createGithubRelease:
     name: Create release
     runs-on: ubuntu-22.04
     steps:
       - name: Setup checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+          token: ${{ secrets.BONITA_CI_PAT}}
           fetch-depth: 0
       - name: Get tag version
         id: newTagVersion
@@ -75,9 +76,9 @@ jobs:
       # repository-dispatch event will call always on default branch ('dev' in our case)
       - name: Publish artefact
         if: ${{ success() && github.event.inputs.publishBinaries == 'true'}}
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.GH_PERSONNAL_ACCES_TOKEN }}
+          token: ${{ secrets.BONITA_CI_PAT }}
           event-type: github-publish
           client-payload: '{"ref":"${{ github.ref }}", "releaseVersion": "${{ steps.newTagVersion.outputs.value }}", "createPR":"${{ github.event.inputs.createPR }}"}'
 

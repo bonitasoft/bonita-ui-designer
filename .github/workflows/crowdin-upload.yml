@@ -2,9 +2,6 @@ name: Crowdin upload files
 
 # Triggers the workflow every night
 on:
-  schedule:
-    - cron: '0 3 * * *'
-
   workflow_dispatch:
     inputs:
 
@@ -15,14 +12,14 @@ jobs:
       branches: ${{ steps.extract_branches.outputs.branches }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: List branches
         id: extract_branches
         uses: bonitasoft/actions/packages/list-branches@v2.2.0
         with:
-          branches_list: "master dev release-.*"
+          branches_list: "1.17.x"
   devUpload:
     name: Crowdin upload
     runs-on: ubuntu-20.04
@@ -32,7 +29,14 @@ jobs:
       matrix:
         branch: ${{ fromJSON(needs.list-branches.outputs.branches) }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Retrieve secrets from Keeper
+        uses: Keeper-Security/ksm-action@v1
+        with:
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
+          secrets: |
+            ${{ vars.KEEPER_CROWDIN_RECORD_ID }}/field/login > env:CROWDIN_PROJECT_ID
+            ${{ vars.KEEPER_CROWDIN_RECORD_ID }}/field/password > env:CROWDIN_PERSONAL_TOKEN
+      - uses: actions/checkout@v4
         with:
           ref: ${{ matrix.branch }}
       - name: Install Yarn
@@ -52,7 +56,7 @@ jobs:
         run: |
           echo "crowdinBranch=$(echo ${{ matrix.branch }} | tr / -)" >> $GITHUB_ENV
       - name: crowdin action
-        uses: crowdin/github-action@v1.13.1
+        uses: crowdin/github-action@v2
         with:
           upload_sources: true
           crowdin_branch_name: ${{ env.crowdinBranch }}
@@ -61,11 +65,9 @@ jobs:
           dryrun_action: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_API_KEY_V2 }}
       - name: Send message to Slack channel
         if: ${{ failure() }}
-        uses: slackapi/slack-github-action@v1.24.0
+        uses: slackapi/slack-github-action@v1.25.0
         with:
           channel-id: ${{ secrets.SLACK_UID_CHANNEL_ID }}
           payload: |
