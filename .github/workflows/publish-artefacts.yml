@@ -122,7 +122,7 @@ jobs:
     steps:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
-        if: ${{ needs.publishBinaries.outputs.createPR }}
+        if: ${{ needs.publishBinaries.outputs.createPR  == 'true'}}
         with:
           token: ${{ secrets.BONITA_CI_PAT }}
           repository: ${{ matrix.repo }}
