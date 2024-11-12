@@ -15,7 +15,7 @@
     <properties>
         <spring-boot.version>2.7.18</spring-boot.version>
         <handlebar.version>4.3.1</handlebar.version>
-        <ui-designer-artifact-builder.version>1.0.9</ui-designer-artifact-builder.version>
+        <ui-designer-artifact-builder.version>1.0.10</ui-designer-artifact-builder.version>
     </properties>
 
     <modules>
