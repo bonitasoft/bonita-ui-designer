@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - master
-    paths:  
+    paths:
       - 'backend/artifact-builder/**/*'
       - 'backend/migrationReport/**/*'
 
@@ -62,21 +62,21 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
           git checkout -b merge/merge_commit_${{ github.sha }}
-          # make an empty commit to be able to create a pull request 
+          # make an empty commit to be able to create a pull request
           git commit --allow-empty -m 'Dummy Commit. Not to be merged'
           git push --set-upstream origin merge/merge_commit_${{ github.sha }}
           echo "pr-link=$(gh pr create -B "${{ env.BRANCH }}"  -b "${{ env.prBody }}" -t "${{ env.prTitle }}" -l "Do not merge" -l "Changes from bonita-ui-designer-internal")" >> $GITHUB_OUTPUT
 
       - name: Send message to Slack channel
-        uses: bonitasoft/actions/packages/notify-slack@v3
+        uses: bonitasoft/notify-slack-action@v1
         if: ${{ contains(env.VERSION, env.VERSION_THRESHOLD) }}
         with:
-          CHANNEL_ID: ${{ secrets.SLACK_UID_CHANNEL_ID }}
-          MESSAGE: |
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
+          channel-id: ${{ secrets.SLACK_UID_CHANNEL_ID }}
+          message: |
             :fire: A merge happened in *${{ env.BRANCH }}* branch in *${{ github.repository }}*.
             Please manually report the modifications in Artifact Builder module *bonita-ui-designer-artifact-builder*.
             ${{ steps.createPr.outputs.pr-link}}
 
             - Add a :fire_extinguisher: if you take the action to report the modifications (only one person is required)
             - Add a :sweat_drops: when it’s done (and eventually a :party_parrot:)
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
