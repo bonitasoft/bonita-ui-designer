@@ -11,6 +11,11 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+      development-dependencies:
+        dependency-type: "development"
 
   # Maintain dependencies for maven
   - package-ecosystem: "maven" 
@@ -18,3 +23,8 @@ updates:
     target-branch: dev
     schedule:
       interval: "daily"
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+      development-dependencies:
+        dependency-type: "development"
