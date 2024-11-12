@@ -5,7 +5,7 @@ on:
     inputs:
       releaseVersion:
         description: base tag version to publish
-        default: 1.12.X
+        default: 1.17.X
         required: true
       pushToJfrog:
         description: true to push on artifactory
@@ -57,27 +57,25 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ steps.version.outputs.test }}
-      
+
       - name: Set up Java 17
-        if: ${{ steps.branch.outputs.test != 'refs/heads/1.12.x' 
+        if: ${{ steps.branch.outputs.test != 'refs/heads/1.12.x'
                     && steps.branch.outputs.test != 'refs/heads/1.13.x'
                     && steps.branch.outputs.test != 'refs/heads/1.14.x'
                     && steps.branch.outputs.test != 'refs/heads/1.15.x'
-                    && steps.branch.outputs.test != 'refs/heads/1.16.x'
-                    && steps.branch.outputs.test != 'refs/heads/master' }}
+                    && steps.branch.outputs.test != 'refs/heads/1.16.x' }}
         uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: temurin
           cache: maven
-          
+
       - name: Set up Java 11
-        if: ${{ steps.branch.outputs.test != 'refs/heads/1.12.x' 
+        if: ${{ steps.branch.outputs.test != 'refs/heads/1.12.x'
                     && ( steps.branch.outputs.test == 'refs/heads/1.13.x'
                            || steps.branch.outputs.test == 'refs/heads/1.14.x'
                            || steps.branch.outputs.test == 'refs/heads/1.15.x'
-                           || steps.branch.outputs.test == 'refs/heads/1.16.x'
-                           || steps.branch.outputs.test == 'refs/heads/master' ) }}
+                           || steps.branch.outputs.test == 'refs/heads/1.16.x') }}
         uses: actions/setup-java@v4
         with:
           java-version: 11

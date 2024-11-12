@@ -2,9 +2,6 @@ name: Crowdin upload files
 
 # Triggers the workflow every night
 on:
-  schedule:
-    - cron: '0 3 * * *'
-
   workflow_dispatch:
     inputs:
 
@@ -22,7 +19,7 @@ jobs:
         id: extract_branches
         uses: bonitasoft/actions/packages/list-branches@v3
         with:
-          branches_list: "master dev release-.*"
+          branches_list: "master"
   devUpload:
     name: Crowdin upload
     runs-on: ubuntu-20.04
