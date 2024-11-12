@@ -28,6 +28,7 @@ jobs:
       - name: Setup checkout
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.BONITA_CI_PAT}}
           fetch-depth: 0
       - name: Get tag version
         id: newTagVersion
