@@ -21,7 +21,7 @@ on:
 jobs:
   publishBinaries:
     name: Build, publish and upload binaries
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       tagVersion: ${{ steps.version.outputs.test }}
       branchToRelease: ${{ steps.branch.outputs.test }}
@@ -118,7 +118,7 @@ jobs:
     strategy:
       matrix:
         repo: ["bonitasoft/bonita-studio-sp", "bonitasoft/bonita-web-pages-sp"]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v3
