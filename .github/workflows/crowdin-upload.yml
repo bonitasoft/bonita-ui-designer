@@ -1,33 +1,18 @@
 name: Crowdin upload files
 
-# Triggers the workflow every night
 on:
+  # Workflow called by https://github.com/bonitasoft/platform-pipelines
+  workflow_call:
+    secrets:
+      KSM_CONFIG:
+        required: true
+      BONITA_CI_PAT:
+        required: true
   workflow_dispatch:
-    inputs:
 
 jobs:
-  list-branches:
+  upload-source-to-crowdin:
     runs-on: ubuntu-24.04
-    outputs:
-      branches: ${{ steps.extract_branches.outputs.branches }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: List branches
-        id: extract_branches
-        uses: bonitasoft/actions/packages/list-branches@v3
-        with:
-          branches_list: "master"
-  devUpload:
-    name: Crowdin upload
-    runs-on: ubuntu-20.04
-    needs: list-branches
-    strategy:
-      max-parallel: 1
-      matrix:
-        branch: ${{ fromJSON(needs.list-branches.outputs.branches) }}
     steps:
       - name: Retrieve secrets from Keeper
         uses: Keeper-Security/ksm-action@v1
@@ -36,60 +21,46 @@ jobs:
           secrets: |
             ${{ vars.KEEPER_CROWDIN_RECORD_ID }}/field/login > env:CROWDIN_PROJECT_ID
             ${{ vars.KEEPER_CROWDIN_RECORD_ID }}/field/password > env:CROWDIN_PERSONAL_TOKEN
-      - uses: actions/checkout@v4
+
+      - name: Checkout
+        uses: actions/checkout@v5
         with:
-          ref: ${{ matrix.branch }}
+          repository: bonitasoft/bonita-ui-designer-internal
+          token: ${{ secrets.BONITA_CI_PAT }}
+
       - name: Install Yarn
         run: npm install -g yarn
+
       - name: Install gettext
-        run: sudo apt-get install gettext
+        run: sudo apt-get install -y gettext
+
       - name: Build pot files
-        run: |
-          cd frontend
-          yarn install && npm run pot
-          cd ..
+        working-directory: frontend
+        run: yarn install && npm run pot
+
       - name: Concatenate pot files
         run: |
           mkdir -p infrastructure/crowdin/build
           cat `find . -name '*.pot' -print` | msguniq -s > infrastructure/crowdin/build/lang-template.pot
-      - name: Set Crowdin branch name
-        run: |
-          echo "crowdinBranch=$(echo ${{ matrix.branch }} | tr / -)" >> $GITHUB_ENV
-      - name: crowdin action
+
+      - name: Upload to crowdin
         uses: crowdin/github-action@v2
         with:
           upload_sources: true
-          crowdin_branch_name: ${{ env.crowdinBranch }}
-          upload_translations: false
+          push_translations: false
           download_translations: false
-          dryrun_action: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          crowdin_branch_name: ${{ github.ref_name }}
+
       - name: Send message to Slack channel
-        if: ${{ failure() }}
-        uses: slackapi/slack-github-action@v1.27.0
+        if: failure()
+        uses: bonitasoft/notify-slack-action@v1
         with:
-          channel-id: ${{ secrets.SLACK_UID_CHANNEL_ID }}
-          payload: |
-            {
-              "blocks": [
-                  {
-                      "type": "section",
-                      "text": {
-                          "type": "mrkdwn",
-                          "text": ":x: Upload ${{ matrix.branch }} crowdin key failed in UI-Designer."
-                      }
-                  },
-                  {
-                      "type": "section",
-                      "text": {
-                          "type": "mrkdwn",
-                          "text": "More details about the error <https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}?check_suite_focus=true| here>"
-                      }
-                  }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
+          channel-id: ${{ vars.UID_SLACK_CHANNEL_ID }}
+          message: |
+            :fire: Upload *UID* translations to Crowdin for ${{ github.ref_name }} failed.
 
+            @channel *We need someone* !
 
+            - Add a :fire_extinguisher: if you take the action to resolve the conflicts (only one person is required)
+            - Add a :sweat_drops: when it's done (and eventually a :party_parrot:)"
