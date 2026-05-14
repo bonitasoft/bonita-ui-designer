@@ -173,8 +173,8 @@ You can also run the image on a fixed port, 8000 for example, with :
 [java]: https://www.java.com/fr/download/
 [docker]: https://www.docker.com/
 [studio-repo]: https://github.com/bonitasoft/bonita-studio
-[download]: https://www.bonitasoft.com/downloads
-[documentation]: https://documentation.bonitasoft.com
+[download]: https://www.ofelia.com/downloads
+[documentation]: https://documentation.ofelia.com
 [contributing.md]: https://github.com/bonitasoft/bonita-developer-resources/blob/master/CONTRIBUTING.MD
 
     
