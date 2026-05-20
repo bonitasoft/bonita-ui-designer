@@ -10,7 +10,7 @@
 
     <name>Bonita UI-Designer</name>
     <description>Wysiwyg editor for Bonita</description>
-    <url>https://www.bonitasoft.com</url>
+    <url>https://www.ofelia.com</url>
 
     <properties>
         <!-- Properties encoding used by the maven compiler -->

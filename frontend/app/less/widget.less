@@ -1,7 +1,7 @@
 @import "theme-colour";
 
-@widget-active-color: #1E90FF;
-@widget-hover-color: #87CEFA;
+@widget-active-color: @brand-plum;
+@widget-hover-color: #FCD6DB;
 @widget-active-background: #ecf7ff;
 @row-border-color: #aaa;
 @row-border-active-color: #888;
@@ -66,8 +66,9 @@
  * Caption for component
  */
 
-.component-element--selected:hover > .widget-wrapper > .component-caption {
-  background-color: @widget-active-color;
+.component-element--selected > .widget-wrapper > .component-caption {
+  background-color: @brand-plum;
+  color: @brand-white;
   opacity: 1;
   visibility: visible;
   transition: opacity .3s ease;

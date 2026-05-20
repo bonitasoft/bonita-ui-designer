@@ -33,9 +33,10 @@
     font-size: 1em;
     text-transform: uppercase;
     margin-right: .3em;
-    padding: 4px 10px;
+    padding: 4px 14px;
     background-color: lighten(@color-data-bg, 5%);
     border: none;
+    border-radius: 999px 999px 0 0;
     box-shadow: none;
 
     &:after {
@@ -67,10 +68,6 @@
   &-scrollableView {
     flex: 1;
     overflow: auto;
-  }
-
-  .Search {
-    margin-left: 1em;
   }
 
   .Search-input {
@@ -106,8 +103,8 @@
   table-layout: fixed;
 
   thead {
-    background-color: #404853;
-    color: #fff;
+    background-color: @color-table-header-bg;
+    color: @color-table-header-text;
 
     .Table-sort {
 
@@ -132,10 +129,11 @@
     overflow-y: auto;
 
     tr {
-      background: #e5eaf0;
+      background: @color-table-tr-even;
+      color: @color-table-tr-text;
 
       &:nth-child(odd) {
-        background: #eff2f6;
+        background: @color-table-tr-odd;
       }
     }
   }

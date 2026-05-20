@@ -139,6 +139,10 @@
 
 .PaletteItem {
   color: @color-palette-item-text;
+  background-color: @color-palette-item-card-bg;
+  border: 2px solid @color-palette-item-bg;
+  border-radius: 6px;
+  box-sizing: border-box;
   cursor: move;
   font-size: 14px;
   width: 50%;
@@ -148,7 +152,7 @@
   position: relative;
   vertical-align: top;
   opacity: 1;
-  transition: opacity @transition-duration @sidebar-transition;
+  transition: opacity @transition-duration @sidebar-transition, background-color .2s ease;
   div {
     min-height: inherit;
   }
@@ -157,7 +161,7 @@
   }
 
   &:hover {
-    background: @color-palette-bg;
+    background-color: @color-palette-item-card-bg-hover;
   }
 }
 
@@ -248,6 +252,11 @@
 .tree-view-icon {
   margin-left: auto;
   margin-right: auto;
+}
+
+.Palette-widgets > .PanelHeader-header {
+  background: lighten(@color-palette-item-bg, 5%);
+  border-bottom-color: @color-palette-bg;
 }
 
 .Palette-widgets > .PanelHeader-header >.PanelHeader-title{

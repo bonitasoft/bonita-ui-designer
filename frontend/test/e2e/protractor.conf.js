@@ -31,7 +31,7 @@ if (process.env.HEADLESS) {
 
 exports.config = {
   directConnect: true,
-  chromeDriver: `../../node_modules/webdriver-manager/selenium/chromedriver_2.38${process.platform.indexOf('win') === 0 ? '.exe' : ''}`,
+  chromeDriver: require('../../scripts/install-chromedriver').BIN_PATH,
   specs: [
     './spec/*.spec.js'
   ],
