@@ -25,7 +25,7 @@ import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.bonitasoft.web.designer.common.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.common.repository.exception.RepositoryException;

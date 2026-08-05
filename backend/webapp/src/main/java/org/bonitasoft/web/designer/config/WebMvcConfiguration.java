@@ -73,7 +73,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     /**
-     * To use multipart (based on Servlet 3.0) we need to mark the DispatcherServlet with a {@link javax.servlet.MultipartConfigElement} in programmatic Servlet
+     * To use multipart (based on Servlet 3.0) we need to mark the DispatcherServlet with a {@link jakarta.servlet.MultipartConfigElement} in programmatic Servlet
      * registration. Configuration settings such as maximum sizes or storage locations need to be applied at that Servlet registration level as Servlet 3.0 does
      * not allow for those settings to be done from the MultipartResolver.
      */
