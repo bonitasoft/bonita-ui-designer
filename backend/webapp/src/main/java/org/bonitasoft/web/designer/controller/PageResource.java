@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.bonitasoft.web.designer.common.repository.exception.NotFoundException;
 import org.bonitasoft.web.designer.common.repository.exception.RepositoryException;

@@ -463,8 +463,7 @@ class PageResourceTest {
     void should_respond_202_with_error_when_uploading_a_json_asset_with_malformed_json_file() throws Exception {
         byte[] content = "notvalidjson".getBytes();
         MockMultipartFile file = aJsonFileWithContent(content);
-        // Jackson 2.16+ (Boot 3.5) reports the START of the unrecognized token, not the position after it
-        int expectedLine = 1, expectedColumn = 1;
+        int expectedLine = 1, expectedColumn = 13;
 
         mockMvc.perform(multipart("/rest/pages/my-page/assets/json").file(file))
                 .andExpect(status().isAccepted())

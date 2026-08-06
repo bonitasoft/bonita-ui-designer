@@ -4,7 +4,7 @@ import static org.springframework.util.StringUtils.hasText;
 
 import java.io.IOException;
 
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 
 import org.bonitasoft.web.designer.config.UiDesignerProperties;
 import org.bonitasoft.web.designer.config.WorkspaceProperties;

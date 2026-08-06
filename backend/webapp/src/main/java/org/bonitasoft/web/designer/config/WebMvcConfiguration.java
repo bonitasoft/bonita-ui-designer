@@ -34,7 +34,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.filter.UrlHandlerFilter;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -74,25 +73,13 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     /**
-     * To use multipart (based on Servlet 3.0) we need to mark the DispatcherServlet with a {@link jakarta.servlet.MultipartConfigElement} in programmatic Servlet
+     * To use multipart (based on Servlet 3.0) we need to mark the DispatcherServlet with a {@link javax.servlet.MultipartConfigElement} in programmatic Servlet
      * registration. Configuration settings such as maximum sizes or storage locations need to be applied at that Servlet registration level as Servlet 3.0 does
      * not allow for those settings to be done from the MultipartResolver.
      */
     @Bean
     public StandardServletMultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
-    }
-
-    /**
-     * Spring 6 removed the implicit trailing-slash matching Spring Boot 2.7 relied on, and the preview URLs are
-     * called WITH a trailing slash on purpose: the served page resolves its relative ../API/ calls against it
-     * (e.g. /preview/page/no-app-selected/{pageId}/). Requests must therefore be HANDLED at the slash URL, not
-     * redirected to the slash-less one - wrapRequest() lets the slash-less mappings match while the browser URL
-     * keeps the trailing slash.
-     */
-    @Bean
-    public UrlHandlerFilter urlHandlerFilter() {
-        return UrlHandlerFilter.trailingSlashHandler("/**").wrapRequest().build();
     }
 
     /**

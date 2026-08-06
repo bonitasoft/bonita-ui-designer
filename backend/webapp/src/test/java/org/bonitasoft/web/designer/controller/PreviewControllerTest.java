@@ -34,7 +34,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static java.nio.file.Files.readAllBytes;
-import static jakarta.servlet.http.HttpServletResponse.SC_TEMPORARY_REDIRECT;
+import static javax.servlet.http.HttpServletResponse.SC_TEMPORARY_REDIRECT;
 import static junit.framework.Assert.assertEquals;
 import static org.bonitasoft.web.designer.builder.FragmentBuilder.aFragment;
 import static org.bonitasoft.web.designer.builder.PageBuilder.aPage;

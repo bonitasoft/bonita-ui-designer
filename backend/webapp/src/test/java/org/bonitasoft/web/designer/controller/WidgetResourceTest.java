@@ -456,7 +456,7 @@ class WidgetResourceTest {
 
         when(widgetService.saveOrUpdateAsset(eq("my-widget"), eq(expectedAsset.getType()), eq(expectedAsset.getName()), any())).thenReturn(expectedAsset);
 
-        mockMvc.perform(multipart("/rest/widgets/my-widget/assets/js").file(file))
+        mockMvc.perform(fileUpload("/rest/widgets/my-widget/assets/js").file(file))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value("assetId"))
                 .andExpect(jsonPath("$.name").value("myfile.js"))
