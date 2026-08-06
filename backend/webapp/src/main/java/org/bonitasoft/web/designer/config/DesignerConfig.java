@@ -16,7 +16,7 @@ package org.bonitasoft.web.designer.config;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.bonitasoft.web.angularjs.GeneratorProperties;
