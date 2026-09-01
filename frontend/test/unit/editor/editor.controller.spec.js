@@ -1,4 +1,4 @@
-import aWidget from  '../utils/builders/WidgetElementBuilder';
+import aWidget from '../utils/builders/WidgetElementBuilder';
 
 describe('EditorCtrl', function() {
   var $scope, pageRepo, $q, $state, $window, componentUtils, whiteboardService, $timeout, widgetRepo;
@@ -333,6 +333,36 @@ describe('EditorCtrl', function() {
     expect(container.rows.length).toBe(1);
     expect(container.rows[0]).toBe(row1);
     expect(whiteboardService.triggerRowRemoved).not.toHaveBeenCalled();
+  });
+
+  it('should be able to duplicate the current component', function() {
+
+    var container = {
+      rows: [
+        []
+      ]
+    };
+
+    $scope.currentContainerRow = {
+      container: container,
+      row: container.rows[0]
+    };
+
+    var component = aWidget().withParentContainerRow($scope.currentContainerRow);
+
+    var dragData = {
+      create: function() {
+        return component;
+      }
+    };
+
+    $scope.addComponent(dragData, 0);
+    expect(container.rows[0].length).toBe(1);
+
+    $scope.duplicateCurrentComponent();
+
+    expect(container.rows[0].length).toBe(2);
+    expect($scope.currentComponent).not.toBe(component);
   });
 
   it('should remove the current component and trigger "removed" while removing it', function() {

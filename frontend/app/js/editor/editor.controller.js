@@ -57,6 +57,18 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     });
   });
 
+  keyBindingService.bind(['d', 'ctrl+d'], function(e) {
+    e.preventDefault();
+
+    if (!$scope.currentComponent) {
+      return;
+    }
+
+    $scope.$apply(function() {
+      $scope.duplicateCurrentComponent();
+    });
+  });
+
   keyBindingService.bind('right', function() {
     moveSelection(+1);
   });
@@ -77,7 +89,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
   }
 
   $scope.$on('$destroy', function() {
-    keyBindingService.unbind(['del', 'right', 'left']);
+    keyBindingService.unbind(['del', 'right', 'd', 'ctrl+d', 'left']);
   });
 
   $scope.componentClasses = componentUtils.getResolutionClasses;
@@ -267,6 +279,24 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
   };
 
   /**
+   * Duplicates the currently selected component, inserts it after the currently
+   * selected one and selects it.
+   */
+  $scope.duplicateCurrentComponent = function() {
+    var component = $scope.currentComponent;
+    var currentRow = component.$$parentContainerRow.row;
+    var componentIndex = currentRow.indexOf(component);
+    var newComponent = whiteboardComponentWrapper.wrapWidget(
+      component.$$widget,
+      angular.copy(component),
+      component.$$parentContainerRow
+    );
+    delete newComponent.reference;
+    arrays.insertAtPosition(newComponent, componentIndex, currentRow);
+    $scope.selectComponent(newComponent);
+  };
+
+  /**
    *
    * @returns {boolean}
    */
@@ -437,6 +467,7 @@ angular.module('bonitasoft.designer.editor').controller('EditorCtrl', function($
     componentClasses: $scope.componentClasses,
     removeCurrentRow: $scope.removeCurrentRow,
     removeCurrentComponent: $scope.removeCurrentComponent,
+    duplicateCurrentComponent: $scope.duplicateCurrentComponent,
     switchCurrentComponent: $scope.switchCurrentComponent,
     rowSize: $scope.rowSize,
     isCurrentRow: $scope.isCurrentRow,
